@@ -9,14 +9,15 @@
             </div>
             <div class="content-container">
               <div class="blue-text-container">
-                <BlueText text="time.for.a.change" offset="62" />
+                <BlueText text="time.for.a.change" offset="45" />
               </div>
-              <h1 class="headline font-bold font-lg color-light-gray">a better experience.</h1>
-              <div class="blurb-container">
-                <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
-              </div>
-              <div class="button-container">
-                <ion-button color="primary" @click="signup" expand="block">Sign up</ion-button>
+              <h1 class="headline font-lg color-light-gray font-bold">Sign up for<br /> alpha victor.</h1>
+              <div>
+                <ion-input class="custom" type="text" placeholder="Full name" name="full-name" />
+                <ion-input class="custom" type="email" placeholder="Email" name="email" />
+                <ion-input class="custom" type="password" placeholder="Password" name="password" />
+                <ion-input class="custom" type="password" placeholder="Confirm Password" name="confirm-password" />
+                <ion-button type="submit" expand="block">Sign up</ion-button>
               </div>
               <div class="link-container text-center">
                 <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link></p>
@@ -30,24 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage, IonButton } from '@ionic/vue';
-import { StatusBar, Style } from '@capacitor/status-bar';
-import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
+import { IonContent, IonPage, IonButton, IonInput } from '@ionic/vue';
 import BlueText from '@/components/BlueText.vue';
-
-const router = useRouter();
-const signup = () => {
-  router.push({ name: "Signup" });
-}
-
-const setStatusBarStyleLight = async () => {
-    await StatusBar.setStyle({ style: Style.Dark });
-};
-
-onMounted(() => {
-  setStatusBarStyleLight();
-});
 </script>
 
 <style scoped>
@@ -80,7 +65,7 @@ onMounted(() => {
 }
 
 .logo-container {
-  flex: 1 1 41%;
+  flex: 1 1 25%;
   position: relative;
 }
 
@@ -91,45 +76,41 @@ onMounted(() => {
 }
 
 .content-container {
-  flex: 1 0 59%;
+  flex: 1 1 72%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .blue-text-container {
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   text-align: center;
-}
-
-.blurb-container {
-  position: relative;
-  flex: 1;
-}
-
-.blurb {
-  position: absolute;
-  top: 24px;
-  left: -8px;
 }
 
 .headline {
   letter-spacing: 0.015em;
-  margin-left: 24px;
-  text-indent: -17px;
+  margin-left: 29px;
+  text-indent: -19px;
+  margin-bottom: 12px;
 }
 
-.button-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 40px;
-}
 .link-container {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+ion-input.custom {
+  --padding-top: 18px;
+  --padding-bottom: 18px;
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --background: #181818;
+  --color: #F4F7FF;
+  --placeholder-color: #9CA0A6;
+  --placeholder-opacity: 0.8;
+  border-radius: 6px;
+  border: 1px solid #313131;
+  margin-bottom: 15px;
 }
 </style>
