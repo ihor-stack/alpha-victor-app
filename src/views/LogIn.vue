@@ -6,7 +6,7 @@
           <div class="inner-container">
             <div class="content-container">
               <div class="blue-text-container">
-                <BlueText text="time.for.a.change" offset="45" />
+                <BlueText text="time.for.a.change" offset="-45" />
               </div>
               <div class="headline-container">
                 <h1 class="headline font-size-lg color-light-gray font-bold">Sign in to your<br />account.</h1>
@@ -39,6 +39,7 @@
 <script setup lang="ts">
 import { IonContent, IonPage, IonButton, IonInput } from '@ionic/vue';
 import BlueText from '@/components/BlueText.vue';
+
 const signIn = () => {
   // Sign in logic here
   return null;
@@ -76,12 +77,18 @@ const signInViaEmail = () => {
   color: #fff;
 }
 
+.login-form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
 .login-form-fields {
   margin-bottom: 15px;
 }
 
 .link-container {
-  flex: 1;
+  flex: 0 0 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;

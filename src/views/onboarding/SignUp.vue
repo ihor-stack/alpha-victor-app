@@ -7,12 +7,12 @@
             
             <div class="content-container">
               <div class="blue-text-container">
-                <BlueText text="time.for.a.change" offset="45" />
+                <BlueText text="time.for.a.change" offset="-45" />
               </div>
               <div class="headline-container">
                 <h1 class="headline font-size-lg color-light-gray font-bold">Sign up for<br /> alpha victor.</h1>
               </div>
-              <div>
+              <div class="form-container">
                 <ion-input class="custom" type="text" placeholder="Full name" name="full-name" />
                 <ion-input class="custom" type="email" placeholder="Email" name="email" />
                 <ion-input class="custom" type="password" placeholder="Password" name="password" />
@@ -54,24 +54,14 @@ import BlueText from '@/components/BlueText.vue';
   margin-bottom: 12px;
 }
 
-.link-container {
+.form-container {
   flex: 1;
+}
+
+.link-container {
+  flex: 0 0 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-ion-input.custom {
-  --padding-top: 18px;
-  --padding-bottom: 18px;
-  --padding-start: 24px;
-  --padding-end: 24px;
-  --background: #181818;
-  --color: #F4F7FF;
-  --placeholder-color: #9CA0A6;
-  --placeholder-opacity: 0.8;
-  border-radius: 6px;
-  border: 1px solid #313131;
-  margin-bottom: 15px;
 }
 </style>

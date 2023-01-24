@@ -34,7 +34,7 @@
                   </div>
                 </div>
               </div>
-              <div>
+              <div class="button-container">
                 <ion-button expand="block">Got it</ion-button>
               </div>
               <div class="link-container text-center">
@@ -77,13 +77,14 @@ import BlueText from '@/components/BlueText.vue';
 }
 
 .link-container {
-  flex: 1;
+  flex: 0 0 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .allow-access-container {
+  flex: 1;
   padding-left: 10px;
   margin-bottom: 32px;
 }
@@ -113,8 +114,10 @@ import BlueText from '@/components/BlueText.vue';
   margin-bottom: 5px;
 }
 
-ion-button {
-  letter-spacing: 0.015em;
+.button-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-
 </style>

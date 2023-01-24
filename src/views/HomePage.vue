@@ -6,19 +6,21 @@
           <div class="inner-container">
             <div class="content-container">
               <div class="blue-text-container">
-                <BlueText text="time.for.a.change" offset="62" />
+                <BlueText text="time.for.a.change" offset="-50" />
               </div>
               <div class="headline-container">
                 <h1 class="headline font-bold font-size-lg color-light-gray">a better experience.</h1>
               </div>
-              <div class="blurb-container">
-                <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
-              </div>
-              <div class="button-container">
-                <ion-button expand="block" @click="signup">Sign up</ion-button>
+              <div class="cta-container">
+                <div class="blurb-container">
+                  <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
+                </div>
+                <div class="button-container">
+                  <ion-button expand="block" @click="signup">Sign up</ion-button>
+                </div>
               </div>
               <div class="link-container text-center">
-                <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link></p>
+                <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'AllowAccessBluetooth' }" class="color-light-gray link">Login</router-link></p>
               </div>
             </div>
           </div>
@@ -51,21 +53,14 @@ const signup = () => {
   text-align: center;
 }
 
-.blurb-container {
-  position: relative;
+.cta-container {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.blurb {
-  position: absolute;
-  top: 24px;
-  left: -8px;
-}
-
-.headline {
-  letter-spacing: 0.015em;
-  margin-left: 24px;
-  text-indent: -17px;
+.blurb-container {
+  flex: 1;
 }
 
 .button-container {
@@ -73,10 +68,19 @@ const signup = () => {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 40px;
+  /* padding-top: 40px; */
 }
+
+.headline {
+  letter-spacing: 0.015em;
+  margin-left: 28px;
+  text-indent: -17px;
+  margin-bottom: 28px;
+}
+
+
 .link-container {
-  flex: 1;
+  flex: 0 0 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;

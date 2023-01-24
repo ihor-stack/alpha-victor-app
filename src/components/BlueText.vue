@@ -1,5 +1,5 @@
 <template>
-  <div class="blue-text-container" :style="{ marginLeft: '-' + props.offset + 'px' }">
+  <div class="blue-text-container" :style="{ marginLeft: props.offset + 'px' }">
     <p class="blue-text">>> {{ props.text }}</p>
   </div>
 </template>

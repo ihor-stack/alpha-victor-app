@@ -25,7 +25,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  body {
     --ion-color-primary: var(--av-primary);
   }
 }
@@ -106,6 +106,7 @@ ion-input.custom {
   --placeholder-opacity: 0.8;
   border-radius: 8px;
   border: 1px solid #313131;
+  height: auto;
   margin-bottom: 15px;
 }
 

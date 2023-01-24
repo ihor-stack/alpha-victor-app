@@ -24,6 +24,9 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 import './theme/alpha-victor.css';
 
+/* ServiceWorker */
+import './registerServiceWorker';
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router);
