@@ -4,19 +4,18 @@
       <div class="outer-container">
         <div class="gradient-container">
           <div class="inner-container">
-            <div class="logo-container">
-              <img src="@/theme/img/logo/logo-with-name.svg" alt="Alpha Victor" class="av-logo" />
-            </div>
             <div class="content-container">
               <div class="blue-text-container">
                 <BlueText text="time.for.a.change" offset="62" />
               </div>
-              <h1 class="headline font-bold font-lg color-light-gray">a better experience.</h1>
+              <div class="headline-container">
+                <h1 class="headline font-bold font-size-lg color-light-gray">a better experience.</h1>
+              </div>
               <div class="blurb-container">
                 <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
               </div>
               <div class="button-container">
-                <ion-button color="primary" @click="signup" expand="block">Sign up</ion-button>
+                <ion-button expand="block" @click="signup">Sign up</ion-button>
               </div>
               <div class="link-container text-center">
                 <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link></p>
@@ -31,70 +30,20 @@
 
 <script setup lang="ts">
 import { IonContent, IonPage, IonButton } from '@ionic/vue';
-import { StatusBar, Style } from '@capacitor/status-bar';
 import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
 import BlueText from '@/components/BlueText.vue';
 
 const router = useRouter();
 const signup = () => {
   router.push({ name: "Signup" });
 }
-
-const setStatusBarStyleLight = async () => {
-    await StatusBar.setStyle({ style: Style.Dark });
-};
-
-onMounted(() => {
-  setStatusBarStyleLight();
-});
 </script>
 
 <style scoped>
-.outer-container {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  background-image: url('@/theme/backgrounds/background-lines.svg');
-  background-size: cover;
-  background-position: center;
-}
-
-.gradient-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(0deg, #000000 10.34%, rgba(0, 0, 0, 0) 86.69%);
-}
-
-.inner-container {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  flex: 1;
-  padding: 32px;
-}
-
-.logo-container {
-  flex: 1 1 41%;
-  position: relative;
-}
-
-.av-logo {
-  position: absolute;
-  top: 32px;
-  left: 12px;
-}
-
 .content-container {
-  flex: 1 0 59%;
+  flex: 0 0 58%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .blue-text-container {

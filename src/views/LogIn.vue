@@ -1,28 +1,44 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <div id="container">
-        <div>
-          <p>>> time.for.a.change</p>
-          <h1>Sign in to your account.</h1>
+      <div class="outer-container">
+        <div class="gradient-container">
+          <div class="inner-container">
+            <div class="content-container">
+              <div class="blue-text-container">
+                <BlueText text="time.for.a.change" offset="45" />
+              </div>
+              <div class="headline-container">
+                <h1 class="headline font-size-lg color-light-gray font-bold">Sign in to your<br />account.</h1>
+              </div>
+              <div class="login-form">
+                <div class="login-form-fields">
+                  <ion-input type="email" class="custom" placeholder="Email" name="email" />
+                  <ion-input type="password" class="custom" placeholder="Password" name="password" />
+                  <div class="text-right">
+                    <router-link class="forgot-password" :to="{ name: 'ForgotPassword' }">Forgot password?</router-link>
+                  </div>
+                </div>
+                <div class="login-form-controls">
+                  <ion-button expand="block" @click="signIn">Sign in</ion-button>
+                  <ion-button fill="outline" color="light" expand="block" @click="signInViaEmail">Sign in via email</ion-button>
+                </div>
+              </div>
+              <div class="link-container text-center">
+                <p class="color-dark-gray font-md">Don't have an account? <router-link :to="{ name: 'Signup' }" class="color-light-gray link">Sign Up</router-link></p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <form>
-            <input type="email" placeholder="Email" name="email" />
-            <input type="password" placeholder="Password" name="password" />
-            <router-link :to="{ name: 'ForgotPassword' }">Forgot password?</router-link>
-            <ion-button expand="block" @click="signIn">Sign in</ion-button>
-            <ion-button fill="outline" expand="block" @click="signInViaEmail">Sign in via email</ion-button>
-          </form>
-        </div>
-        <p>Don't have an account? <router-link :to="{ name: 'Signup' }">Sign Up</router-link></p>
+        
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage, IonButton } from '@ionic/vue';
+import { IonContent, IonPage, IonButton, IonInput } from '@ionic/vue';
+import BlueText from '@/components/BlueText.vue';
 const signIn = () => {
   // Sign in logic here
   return null;
@@ -36,15 +52,43 @@ const signInViaEmail = () => {
 </script>
 
 <style scoped>
-#container {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  padding: 2rem;
-  background-image: url('@/theme/backgrounds/background-lines.svg');
-  background-size: cover;
-  background-position: center;
+.content-container {
+  flex: 0 0 72%;
+  display: flex;
+  flex-direction: column;
 }
+
+.blue-text-container {
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.headline {
+  letter-spacing: 0.015em;
+  margin-left: 29px;
+  text-indent: -19px;
+  margin-bottom: 12px;
+}
+
+.forgot-password {
+  text-decoration: none;
+  font-size: 13px;
+  color: #fff;
+}
+
+.login-form-fields {
+  margin-bottom: 15px;
+}
+
+.link-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+ion-button:first-of-type {
+  margin-bottom: 15px;
+}
+
 </style>

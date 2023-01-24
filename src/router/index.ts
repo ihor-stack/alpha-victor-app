@@ -21,6 +21,26 @@ const routes: Array<RouteRecordRaw> = [
     path: '/forgot-password',
     name: 'ForgotPassword',
     component: () => import('@/views/ForgotPassword.vue')
+  },
+  {
+    path: '/allow-access',
+    name: 'AllowAccess',
+    component: () => import('@/views/onboarding/AllowAccess.vue')
+  },
+  {
+    path: '/allow-access/location',
+    name: 'AllowAccessLocation',
+    component: () => import('@/views/onboarding/AllowAccessLocation.vue')
+  },
+  {
+    path: '/allow-access/bluetooth',
+    name: 'AllowAccessBluetooth',
+    component: () => import('@/views/onboarding/AllowAccessBluetooth.vue')
+  },
+  {
+    path: '/allow-access/notifications',
+    name: 'AllowAccessNotifications',
+    component: () => import('@/views/onboarding/AllowAccessNotifications.vue')
   }
 ]
 

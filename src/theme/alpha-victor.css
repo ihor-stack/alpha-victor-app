@@ -24,6 +24,12 @@
   --ion-font-family: "Akkurat-Regular";
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-color-primary: var(--av-primary);
+  }
+}
+
 /* Fonts */
 @font-face {
   font-family: 'Akkurat-Regular';
@@ -83,10 +89,25 @@ h1, h2, h3, h4, h5, h6, p {
 
 /* Overrides */
 ion-button {
-  --padding-top: 28px;
-  --padding-bottom: 28px;
+  height: auto;
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  letter-spacing: 0.015em;
 }
 
+ion-input.custom {
+  --padding-top: 18px;
+  --padding-bottom: 18px;
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --background: #181818;
+  --color: #F4F7FF;
+  --placeholder-color: #9CA0A6;
+  --placeholder-opacity: 0.8;
+  border-radius: 8px;
+  border: 1px solid #313131;
+  margin-bottom: 15px;
+}
 
 
 /* Colors */
@@ -106,6 +127,10 @@ ion-button {
 /* Utilities */
 .text-center {
   text-align: center;
+}
+
+.text-right {
+  text-align: right;
 }
 
 .link {
@@ -156,32 +181,65 @@ ion-button {
   font-family: var(--av-font-light-italic);
 }
 
-.font-xs {
+.font-size-xs {
   /* 12px */
   font-size: var(--av-font-xs);
 }
 
-.font-sm {
+.font-size-sm {
   /* 14px */
   font-size: var(--av-font-sm);
   line-height: var(--av-font-sm);
 }
 
-.font-md {
+.font-size-md {
   /* 15px */
   font-size: var(--av-font-md);
   line-height: var(--av-font-md);
 }
 
-.font-normal {
+.font-size-normal {
   /* 16px */
   font-size: var(--av-font-reg);
   line-height: var(--av-font-reg);
 }
 
-.font-lg {
+.font-size-lg {
   /* 38px */
   font-size: var(--av-font-lg);
   line-height: var(--av-font-lg);
 }
 
+
+/* Layouts */
+
+/* Onboarding/Landing */
+
+.outer-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-image: url('@/theme/backgrounds/onboarding.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.gradient-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(0deg, #000000 10.34%, rgba(0, 0, 0, 0) 86.69%);
+}
+
+.inner-container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  padding: 32px;
+}
