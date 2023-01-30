@@ -93,6 +93,7 @@ ion-button {
   --padding-top: 20px;
   --padding-bottom: 20px;
   letter-spacing: 0.015em;
+  --text-transform: none;
 }
 
 ion-input.custom {
@@ -222,9 +223,13 @@ ion-input.custom {
   right: 0;
   bottom: 0;
   top: 0;
-  background-image: url('@/theme/backgrounds/onboarding.svg');
-  background-size: cover;
+  background-image: url('@/theme/backgrounds/lines-no-logo.svg');
+  background-size: 100%;
   background-position: center;
+}
+
+.outer-container.onboarding {
+  background-image: url('@/theme/backgrounds/onboarding.svg');
 }
 
 .gradient-container {
@@ -243,4 +248,16 @@ ion-input.custom {
   justify-content: flex-end;
   flex: 1;
   padding: 32px;
+}
+
+/* Swiper Global Overrides */
+
+.swiper-pagination-bullet {
+  background: var(--av-light-gray) !important;
+  opacity: 0.3 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--av-light-gray) !important;
+  opacity: 1 !important;
 }

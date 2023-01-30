@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <div class="outer-container">
+      <div class="outer-container onboarding">
         <div class="gradient-container">
           <div class="inner-container">
             <div class="content-container">

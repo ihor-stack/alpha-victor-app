@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-content>
-      <div class="outer-container">
+      <div class="outer-container onboarding">
         <div class="gradient-container">
           <div class="inner-container">
             <div class="content-container">
@@ -20,7 +20,7 @@
                 </div>
               </div>
               <div class="link-container text-center">
-                <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'AllowAccessBluetooth' }" class="color-light-gray link">Login</router-link></p>
+                <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Dashboard' }" class="color-light-gray link">Login</router-link></p>
               </div>
             </div>
           </div>

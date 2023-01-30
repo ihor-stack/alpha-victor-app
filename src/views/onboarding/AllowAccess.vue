@@ -1,12 +1,12 @@
 <template>
   <ion-page>
     <ion-content>
-      <div class="outer-container">
+      <div class="outer-container onboarding">
         <div class="gradient-container">
           <div class="inner-container">
             <div class="content-container">
               <div class="blue-text-container">
-                <BlueText text="allow.access" offset="85" />
+                <BlueText text="allow.access" offset="-83" />
               </div>
               <div class="headline-container">
                 <h1 class="headline font-size-lg color-light-gray font-bold">We need some<br /> access.</h1>
@@ -35,7 +35,7 @@
                 </div>
               </div>
               <div class="button-container">
-                <ion-button expand="block">Got it</ion-button>
+                <ion-button @click="setOpen" expand="block">Got it</ion-button>
               </div>
               <div class="link-container text-center">
                 <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link></p>
@@ -44,13 +44,40 @@
           </div>
         </div>
       </div>
+      <ion-modal :is-open="state.modalOpen" @willDismiss="dismissing">
+        <!-- Modal content to be conditionally shown here based on which permissions are still to be provided; this is just an example -->
+        <OnboardingAccessPanel 
+          blueText="location.access"
+          :ctaFunc="setOpen"
+        >
+          <template v-slot:image>
+            <img src="@/theme/img/onboarding-access-location.svg" />
+          </template>
+          <template v-slot:heading>
+            Enable<br /> location.
+          </template>
+          <template v-slot:info-text>
+            Please allow location access to allow us to see which room you’re in.
+          </template>
+        </OnboardingAccessPanel>
+      </ion-modal>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage, IonButton } from '@ionic/vue';
+import { IonContent, IonPage, IonButton, IonModal } from '@ionic/vue';
+import { reactive } from 'vue';
 import BlueText from '@/components/BlueText.vue';
+import OnboardingAccessPanel from '@/components/onboarding/OnboardingAccessPanel.vue';
+
+const state = reactive({ modalOpen: false });
+const setOpen = () => {
+  state.modalOpen = !state.modalOpen;
+}
+const dismissing = () => {
+  console.log('dismissing modal');
+}
 </script>
 
 <style scoped>
@@ -119,5 +146,11 @@ import BlueText from '@/components/BlueText.vue';
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+ion-modal {
+  --background: none;
+  --backdrop-opacity: 0.75;
+  bottom: 0;
 }
 </style>

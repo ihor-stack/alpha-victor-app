@@ -28,19 +28,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/onboarding/AllowAccess.vue')
   },
   {
-    path: '/allow-access/location',
-    name: 'AllowAccessLocation',
-    component: () => import('@/views/onboarding/AllowAccessLocation.vue')
-  },
-  {
-    path: '/allow-access/bluetooth',
-    name: 'AllowAccessBluetooth',
-    component: () => import('@/views/onboarding/AllowAccessBluetooth.vue')
-  },
-  {
-    path: '/allow-access/notifications',
-    name: 'AllowAccessNotifications',
-    component: () => import('@/views/onboarding/AllowAccessNotifications.vue')
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('@/views/DashboardView.vue')
   }
 ]
 

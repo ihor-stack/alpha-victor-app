@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-content>
-      <div class="outer-container">
+      <div class="outer-container onboarding">
         <div class="gradient-container">
           <div class="inner-container">
             
@@ -17,10 +17,10 @@
                 <ion-input class="custom" type="email" placeholder="Email" name="email" />
                 <ion-input class="custom" type="password" placeholder="Password" name="password" />
                 <ion-input class="custom" type="password" placeholder="Confirm Password" name="confirm-password" />
-                <ion-button type="submit" expand="block">Sign up</ion-button>
+                <ion-button expand="block">Sign up</ion-button>
               </div>
               <div class="link-container text-center">
-                <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link></p>
+                <p class="color-dark-gray font-md">Already signed up? <router-link :to="{ name: 'AllowAccess' }" class="color-light-gray link">Allow Access</router-link></p>
               </div>
             </div>
           </div>
