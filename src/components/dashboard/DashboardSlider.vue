@@ -155,6 +155,8 @@
 
 .swiper-slide__info .name {
   margin-left: 10px;
+  padding-right: 30px;
+  word-break: break-all;
 }
 
 .swiper-slide__info .category {

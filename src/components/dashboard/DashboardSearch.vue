@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <input type="search" placeholder="Enter shortcode" class="search-input" />
+    <input type="search" placeholder="Enter shortcode" class="search-input font-bold font-size-sm" />
     <ion-button fill="clear" expand="block" size="small" class="search-icon">
       <img src="@/theme/icons/qr-code.svg" class="qr-code-icon" />
     </ion-button>
@@ -25,12 +25,15 @@
     padding: 18px;
     border: 0;
     color: #000;
-    font-weight: 700;
-    font-size: 14px;
+    background: #fff;
   }
 
   .search-input::placeholder {
     color: #000;
+  }
+
+  .search-input:focus-visible {
+    outline: 0;
   }
   
   .search-icon {

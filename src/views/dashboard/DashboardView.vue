@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="cta-container">
-          <ion-button expand="block">Explore Spaces</ion-button>
+          <ion-button expand="block" @click="exploreSpaces">Explore Spaces</ion-button>
         </div>
       </div>
     </ion-content>
@@ -35,6 +35,8 @@
   import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
   import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
   import { Space } from "@/types";
+  import { useRouter } from "vue-router";
+  const router = useRouter();
 
   const spaces: Space[] = [
     {
@@ -43,7 +45,9 @@
       spaceName: 'The Johnson',
       occupied: true,
       capacity: 10,
-      imageUrl: 'space-the-johnson.jpg'
+      imageUrl: 'space-the-johnson.jpg',
+      spaceFeatures: [],
+      issues: []
     },
     {
       shortCode: 2,
@@ -51,7 +55,9 @@
       spaceName: 'The Henderson',
       occupied: false,
       capacity: 10,
-      imageUrl: 'space-the-henderson.jpg'
+      imageUrl: 'space-the-henderson.jpg',
+      spaceFeatures: [],
+      issues: []
     },
     {
       shortCode: 3,
@@ -59,9 +65,15 @@
       spaceName: 'The Red Room',
       occupied: true,
       capacity: 8,
-      imageUrl: 'space-the-red-room.jpg'
+      imageUrl: 'space-the-red-room.jpg',
+      spaceFeatures: [],
+      issues: []
     }
   ]
+
+  const exploreSpaces = () => {
+    router.push({ name: 'Space' });
+  }
 </script>
 
 <style scoped>
@@ -75,7 +87,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex: 0 0 12vh;
+  flex: 0 0 15vh;
+  padding-top: 30px;
 }
 
 .dashboard-search-container {

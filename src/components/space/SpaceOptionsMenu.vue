@@ -3,28 +3,32 @@
     <ul class="space-options-menu">
       <li class=space-options-menu-item>
         <router-link :to="{}">
-          <p class="label">Room Equipment</p>
+          <p class="label font-bold font-size-sm color-light-gray">Room Equipment</p>
           <span class="arrow-right"></span>
         </router-link>
       </li>
       <li class=space-options-menu-item>
         <router-link :to="{}">
-          <p class="label">Get Help</p>
+          <p class="label font-bold font-size-sm color-light-gray">Get Help</p>
           <span class="arrow-right"></span>
         </router-link>
       </li>
       <li class=space-options-menu-item>
         <router-link :to="{}">
           <div class="with-counter">
-            <p class="label">Known Issues</p>
-            <span v-if="issues && issues.length > 0" class="counter">{{ issues.length }}</span>
+            <p class="label font-bold font-size-sm color-light-gray">Known Issues</p>
+            <div v-if="issues && issues.length > 0" class="counter">
+              <div>
+                <span>{{ issues.length }}</span>
+              </div>
+            </div>
           </div>
           <span class="arrow-right"></span>
         </router-link>
       </li>
       <li class=space-options-menu-item>
         <router-link :to="{}">
-          <p class="label">Documents</p>
+          <p class="label font-bold font-size-sm color-light-gray">Documents</p>
           <span class="arrow-right"></span>
         </router-link>
       </li>
@@ -61,13 +65,6 @@ defineProps<Props>();
   border-top: 0.75px solid #313131;
 }
 
-.space-options-menu-item .label {
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 21px;
-  color: #FFFFFF;
-}
-
 .space-options-menu-item .arrow-right {
   display: inline-block;
   width: 24px;
@@ -92,6 +89,9 @@ defineProps<Props>();
   background-color: #37B14C;
   border-radius: 50%;
   margin-left: 10px;
+}
+
+.space-options-menu-item .counter span {
   font-weight: 700;
   font-size: 11px;
   line-height: 11px;

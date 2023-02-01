@@ -53,13 +53,23 @@
         </div>
         <!-- Space CTAs -->
         <div class="space-cta-container">
-          <ion-button color="danger" fill="outline" expand="block">
-            <img src="@/theme/icons/danger.svg" />
-            Call SOS
-          </ion-button>
-          <div>
-            <ion-button>Give Feedback</ion-button>
-            <ion-button>Report Issue</ion-button>
+          <!-- <ion-button color="danger" fill="outline" expand="block" class="sos-button">
+            <span class="sos-button-inner">
+              <img src="@/theme/icons/danger.svg" class="icon" />
+              <span class="text">Call SOS</span>
+            </span>
+          </ion-button> -->
+          
+          <button type="button" class="sos-button">
+            <div class="icon"></div>
+            <div>
+              <span class="text">Call SOS</span>
+            </div>
+          </button>
+          
+          <div class="ctas">
+            <ion-button expand="block">Give Feedback</ion-button>
+            <ion-button color="light" expand="block">Report Issue</ion-button>
           </div>
         </div>
       </div>
@@ -154,7 +164,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0 30px 24px;
+  padding: 30px 30px 24px;
   position: absolute;
   top: 0;
   left: 0;
@@ -238,5 +248,58 @@ header .favourite {
 .space-cta-container {
   flex: 0 0 20vh;
   padding: 0 30px;
+}
+
+.sos-button {
+  background: rgba(255, 55, 55, 0.075);
+  border: 0.75px solid #FF3737;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 28px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: #FF3737;
+  padding: 10px 18px;
+}
+
+.sos-button:active {
+  background: #FF3737;
+}
+
+.sos-button span {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 14px;
+  vertical-align: sub;
+}
+
+.sos-button .icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: no-repeat center/cover url('@/theme/icons/danger.svg');
+  margin-right: 9px;
+}
+
+.sos-button:active span {
+  color: #000000;
+}
+
+.sos-button:active .icon {
+  background: no-repeat center/cover url('@/theme/icons/danger-black.svg');
+}
+
+.ctas {
+  display: flex;
+}
+
+.ctas ion-button {
+  flex: 1;
+  font-size: 15px;
+}
+
+.ctas ion-button:not(:last-of-type) {
+  margin-right: 12px;
 }
 </style>

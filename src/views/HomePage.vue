@@ -20,7 +20,7 @@
                 </div>
               </div>
               <div class="link-container text-center">
-                <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link></p>
+                <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Dashboard' }" class="color-light-gray link">Login</router-link></p>
               </div>
             </div>
           </div>
