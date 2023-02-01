@@ -4,10 +4,9 @@
       <div class="outer-container onboarding">
         <div class="gradient-container">
           <div class="inner-container">
-            
             <div class="content-container">
               <div class="blue-text-container">
-                <BlueText text="time.for.a.change" offset="-45" />
+                <blue-text text="time.for.a.change" offset="-45" />
               </div>
               <div class="headline-container">
                 <h1 class="headline font-size-lg color-light-gray font-bold">Sign up for<br /> alpha victor.</h1>

@@ -6,7 +6,7 @@
           <div class="inner-container">
             <div class="content-container">
               <div class="blue-text-container">
-                <BlueText text="allow.access" offset="-83" />
+                <blue-text text="allow.access" offset="-83" />
               </div>
               <div class="headline-container">
                 <h1 class="headline font-size-lg color-light-gray font-bold">We need some<br /> access.</h1>
@@ -46,7 +46,7 @@
       </div>
       <ion-modal :is-open="state.modalOpen" @willDismiss="dismissing">
         <!-- Modal content to be conditionally shown here based on which permissions are still to be provided; this is just an example -->
-        <OnboardingAccessPanel 
+        <onboarding-access-panel 
           blueText="location.access"
           :ctaFunc="setOpen"
         >
@@ -59,7 +59,7 @@
           <template v-slot:info-text>
             Please allow location access to allow us to see which room you’re in.
           </template>
-        </OnboardingAccessPanel>
+        </onboarding-access-panel>
       </ion-modal>
     </ion-content>
   </ion-page>

@@ -6,7 +6,7 @@
           <div class="inner-container">
             <div class="content-container">
               <div class="blue-text-container">
-                <BlueText text="time.for.a.change" offset="-45" />
+                <blue-text text="time.for.a.change" offset="-45" />
               </div>
               <div class="headline-container">
                 <h1 class="headline font-size-lg color-light-gray font-bold">Sign in to your<br />account.</h1>

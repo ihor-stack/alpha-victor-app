@@ -2,6 +2,8 @@
   --av-primary: #0000FF;
   --av-light-gray: #F4F7FF;
   --av-dark-gray: #9CA0A6;
+  --av-red: #FF3737;
+  --av-green: #37B14C;
 
   --av-font-light: 'Akkurat-Light';
   --av-font-light-italic: 'Akkurat-Light-Italic';
@@ -10,6 +12,7 @@
   --av-font-bold: 'Akkurat-Bold';
   --av-font-bold-italic: 'Akkurat-Bold-Italic';
   --av-font-mono: 'Akkurat-Mono';
+  --av-font-xxs: 0.625rem;
   --av-font-xs: 0.75rem;
   --av-font-sm: 0.875rem;
   --av-font-md: 0.9375rem;
@@ -19,6 +22,7 @@
   --ion-color-primary: var(--av-primary);
   --ion-color-light: var(--av-light-gray);
   --ion-color-dark: var(--av-dark-gray);
+  --ion-color-danger: var(--av-red);
   --ion-background-color: #000000;
 
   --ion-font-family: "Akkurat-Regular";
@@ -86,6 +90,10 @@ h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 
 /* Overrides */
 ion-button {
@@ -125,6 +133,13 @@ ion-input.custom {
   color: var(--av-dark-gray);
 }
 
+.color-red {
+  color: var(--av-red);
+}
+
+.color-green {
+  color: var(--av-green);
+}
 
 /* Utilities */
 .text-center {
@@ -155,6 +170,10 @@ ion-input.custom {
   background-color: var(--av-dark-gray);
 }
 
+.text-spaced {
+  letter-spacing: 0.015em;
+}
+
 .font-mono {
   font-family: var(--av-font-mono);
 }
@@ -181,6 +200,11 @@ ion-input.custom {
 
 .font-light-italic {
   font-family: var(--av-font-light-italic);
+}
+
+.font-size-xxs {
+  /* 10px */
+  font-size: var(--av-font-xxs);
 }
 
 .font-size-xs {

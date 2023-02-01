@@ -11,6 +11,9 @@
             <img src="@/theme/icons/nav-menu.svg" class="nav-menu" alt="Nav Menu Button" />
           </ion-button>
         </header>
+        <div class="dashboard-search-container">
+          <dashboard-search />
+        </div>
         <div class="dashboard-sliders">
           <div class="dashboard-slider-container">
             <dashboard-slider title="Recently Viewed" cta-url="/" :slides="spaces" />
@@ -29,33 +32,34 @@
 
 <script setup lang="ts">
   import { IonPage, IonContent, IonButton } from "@ionic/vue";
-  import DashboardSlider from "@/components/DashboardSlider.vue";
+  import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
+  import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
   import { Space } from "@/types";
 
   const spaces: Space[] = [
     {
-      id: 1,
-      category: 'conference',
-      name: 'The Johnson',
+      shortCode: 1,
+      spaceType: 'Conference Room',
+      spaceName: 'The Johnson',
       occupied: true,
       capacity: 10,
-      imageUrl: ''
+      imageUrl: 'space-the-johnson.jpg'
     },
     {
-      id: 2,
-      category: 'conference',
-      name: 'The Henderson',
+      shortCode: 2,
+      spaceType: 'Conference Room',
+      spaceName: 'The Henderson',
       occupied: false,
       capacity: 10,
-      imageUrl: ''
+      imageUrl: 'space-the-henderson.jpg'
     },
     {
-      id: 3,
-      category: 'meeting',
-      name: 'The Red Room',
+      shortCode: 3,
+      spaceType: 'Meeting Room',
+      spaceName: 'The Red Room',
       occupied: true,
       capacity: 8,
-      imageUrl: ''
+      imageUrl: 'space-the-red-room.jpg'
     }
   ]
 </script>
@@ -71,20 +75,24 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex: 0 0 10vh;
+  flex: 0 0 12vh;
+}
+
+.dashboard-search-container {
+  padding: 0 32px 32px;
 }
 
 .dashboard-sliders {
   flex: 1;
 }
 
-.dashboard-slider-container {
-  margin-bottom: 72px;
+.dashboard-slider-container:not(:last-of-type) {
+  margin-bottom: 32px;
 }
 
 .cta-container {
   padding: 0 32px;
-  flex: 0 0 20vh;
+  flex: 0 0 15vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

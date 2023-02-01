@@ -6,7 +6,7 @@
           <div class="inner-container">
             <div class="content-container">
               <div class="blue-text-container">
-                <BlueText text="time.for.a.change" offset="-50" />
+                <blue-text text="time.for.a.change" offset="-50" />
               </div>
               <div class="headline-container">
                 <h1 class="headline font-bold font-size-lg color-light-gray">a better experience.</h1>
@@ -20,7 +20,7 @@
                 </div>
               </div>
               <div class="link-container text-center">
-                <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Dashboard' }" class="color-light-gray link">Login</router-link></p>
+                <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link></p>
               </div>
             </div>
           </div>
