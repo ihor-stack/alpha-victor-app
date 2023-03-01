@@ -1,15 +1,11 @@
 <template>
   <div>
-    <swiper
-      :slidesPerView="'auto'"
-      :spaceBetween="20"
-      class="mySwiper"
-    >
+    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper">
       <swiper-slide v-for="feature in features" :key="feature.name">
-        <router-link :to="{ }">
+        <router-link :to="{}">
           <div class="feature">
             <div class="feature-icon">
-              <img :src="featureIcon(feature.category)" />
+              <img :src="useEquipmentIcon(feature.category)" />
             </div>
             <p class="font-size-xxs font-bold color-light-gray">{{ feature.name }}</p>
           </div>
@@ -24,27 +20,13 @@ import { defineProps } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import { SpaceFeature } from "@/types";
+import { useEquipmentIcon } from "@/composables/equipmentIcon";
 
 interface Props {
   features: SpaceFeature[]
 }
 
 defineProps<Props>();
-
-function featureIcon(feature: string) {
-  switch(feature) {
-    case 'screen':
-      return require('@/theme/icons/smart-tv.svg');
-    case 'wifi':
-      return require('@/theme/icons/wifi.svg');
-    case 'phone':
-      return require('@/theme/icons/phone.svg');
-    case 'presenting':
-      return require('@/theme/icons/whiteboard.svg');
-    default:
-      return undefined;
-  }
-}
 </script>
 
 <style scoped>
@@ -75,7 +57,7 @@ function featureIcon(feature: string) {
 .feature-icon {
   width: 34px;
   height: 25px;
-  background-image: url('@/theme/backgrounds/space-feature-background.svg');
+  background-image: url('@/theme/backgrounds/triangle-background.svg');
   background-size: contain;
   background-position: center;
   display: flex;

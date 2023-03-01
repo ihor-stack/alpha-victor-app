@@ -6,10 +6,13 @@
           <div class="inner-container">
             <div class="content-container">
               <div class="blue-text-container">
-                <blue-text text="time.for.a.change" offset="-45" />
+                <dot-text text="time.for.a.change" offset="-45" />
               </div>
               <div class="headline-container">
-                <h1 class="headline font-size-lg color-light-gray font-bold">Sign up for<br /> alpha victor.</h1>
+                <h1 class="headline font-size-lg color-light-gray font-bold">
+                  Sign up for<br />
+                  alpha victor.
+                </h1>
               </div>
               <div class="form-container">
                 <ion-input class="custom" type="text" placeholder="Full name" name="full-name" />
@@ -19,7 +22,10 @@
                 <ion-button expand="block">Sign up</ion-button>
               </div>
               <div class="link-container text-center">
-                <p class="color-dark-gray font-md">Already signed up? <router-link :to="{ name: 'AllowAccess' }" class="color-light-gray link">Allow Access</router-link></p>
+                <p class="color-mid-gray font-md">
+                  Already signed up?
+                  <router-link :to="{ name: 'AllowAccess' }" class="color-light-gray link">Allow Access</router-link>
+                </p>
               </div>
             </div>
           </div>
@@ -30,8 +36,8 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage, IonButton, IonInput } from '@ionic/vue';
-import BlueText from '@/components/BlueText.vue';
+import { IonContent, IonPage, IonButton, IonInput } from "@ionic/vue";
+import DotText from "@/components/shared/DotText.vue";
 </script>
 
 <style scoped>

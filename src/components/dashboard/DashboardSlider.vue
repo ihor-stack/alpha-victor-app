@@ -2,8 +2,14 @@
   <div class="dashboard-slider-container">
     <div class="dashboard-slider">
       <div class="dashboard-slider-header">
-        <h2 class="title font-bold color-light-gray font-size-sm">{{ title }}</h2>
-        <ion-button fill="clear" size="small" @click="handleCta"><span class="color-primary font-mono font-size-xs text-spaced">>> view.all</span></ion-button>
+        <h2 class="title font-bold color-light-gray font-size-sm">
+          {{ title }}
+        </h2>
+        <ion-button fill="clear" size="small" @click="handleCta"
+          ><span class="color-primary font-mono font-size-xs text-spaced"
+            >>> view.all</span
+          ></ion-button
+        >
       </div>
       <div class="slider">
         <div class="swiper-container">
@@ -14,15 +20,12 @@
               :pagination="{
                 clickable: true,
                 el: 'div.swiper-bullets',
-                type: 'bullets'
+                type: 'bullets',
               }"
               :modules="[Pagination]"
               class="mySwiper"
             >
-              <swiper-slide 
-                v-for="slide in slides" 
-                :key="slide.shortCode"
-              >
+              <swiper-slide v-for="slide in slides" :key="slide.shortCode">
                 <div class="swiper-slide__image">
                   <div class="swiper-slide__image__gradient"></div>
                   <img src="@/theme/img/space-the-johnson.jpg" />
@@ -30,14 +33,24 @@
                 <div class="swiper-slide__info">
                   <div>
                     <div class="swiper-slide__info__top">
-                      <h6 class="category color-light-gray">{{ slide.spaceType }}</h6>
+                      <h6 class="category color-light-gray">
+                        {{ slide.spaceType }}
+                      </h6>
                       <occupied-status :occupied="slide.occupied" />
                     </div>
                     <div class="swiper-slide__info__bottom">
-                      <h5 class="name font-bold color-light-gray">{{  slide.spaceName  }}</h5>
+                      <h5 class="name font-bold color-light-gray">
+                        {{ slide.spaceName }}
+                      </h5>
                       <div class="capacity">
-                        <img src="@/theme/icons/capacity.svg" class="capacity-icon" />
-                        <span class="capacity-number color-light-gray font-size-xxs font-mono">>>10</span>
+                        <img
+                          src="@/theme/icons/capacity.svg"
+                          class="capacity-icon"
+                        />
+                        <span
+                          class="capacity-number color-light-gray font-size-xxs font-mono"
+                          >>>10</span
+                        >
                       </div>
                     </div>
                   </div>
@@ -53,29 +66,29 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps } from "vue";
-  import { useRouter } from "vue-router";
-  import { IonButton } from "@ionic/vue";
-  import { Swiper, SwiperSlide } from "swiper/vue";
-  import "swiper/css";
-  import "swiper/css/pagination";
-  import { Pagination } from "swiper";
-  import { Space } from "@/types";
-  import OccupiedStatus from "../OccupiedStatus.vue";
+import { defineProps } from "vue";
+import { useRouter } from "vue-router";
+import { IonButton } from "@ionic/vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper";
+import { Space } from "@/types";
+import OccupiedStatus from "../shared/OccupiedStatus.vue";
 
-  const router = useRouter();
+const router = useRouter();
 
-  interface Props {
-    title: string,
-    ctaUrl: string,
-    slides: Space[]
-  }
+interface Props {
+  title: string;
+  ctaUrl: string;
+  slides: Space[];
+}
 
-  const props = defineProps<Props>();
+const props = defineProps<Props>();
 
-  const handleCta = () => {
-    router.push({ path: props.ctaUrl });
-  }
+const handleCta = () => {
+  router.push({ path: props.ctaUrl });
+};
 </script>
 
 <style scoped>
@@ -125,7 +138,11 @@
   right: 0;
   bottom: 0;
   z-index: 1;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 .swiper-slide__image img {
   display: block;

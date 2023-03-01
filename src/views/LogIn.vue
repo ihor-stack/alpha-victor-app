@@ -6,10 +6,12 @@
           <div class="inner-container">
             <div class="content-container">
               <div class="blue-text-container">
-                <blue-text text="time.for.a.change" offset="-45" />
+                <dot-text text="time.for.a.change" offset="-45" />
               </div>
               <div class="headline-container">
-                <h1 class="headline font-size-lg color-light-gray font-bold">Sign in to your<br />account.</h1>
+                <h1 class="headline font-size-lg color-light-gray font-bold">
+                  Sign in to your<br />account.
+                </h1>
               </div>
               <div class="login-form">
                 <div class="login-form-fields">
@@ -21,35 +23,37 @@
                 </div>
                 <div class="login-form-controls">
                   <ion-button expand="block" @click="signIn">Sign in</ion-button>
-                  <ion-button fill="outline" color="light" expand="block" @click="signInViaEmail">Sign in via email</ion-button>
+                  <ion-button fill="outline" color="light" expand="block" @click="signInViaEmail">Sign in via
+                    email</ion-button>
                 </div>
               </div>
               <div class="link-container text-center">
-                <p class="color-dark-gray font-md">Don't have an account? <router-link :to="{ name: 'Signup' }" class="color-light-gray link">Sign Up</router-link></p>
+                <p class="color-mid-gray font-md">
+                  Don't have an account?
+                  <router-link :to="{ name: 'Signup' }" class="color-light-gray link">Sign Up</router-link>
+                </p>
               </div>
             </div>
           </div>
         </div>
-        
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage, IonButton, IonInput } from '@ionic/vue';
-import BlueText from '@/components/BlueText.vue';
+import { IonContent, IonPage, IonButton, IonInput } from "@ionic/vue";
+import DotText from "@/components/shared/DotText.vue";
 
 const signIn = () => {
   // Sign in logic here
   return null;
-}
+};
 
 const signInViaEmail = () => {
   // Sign in via email logic here
   return null;
-}
-
+};
 </script>
 
 <style scoped>
@@ -97,5 +101,4 @@ const signInViaEmail = () => {
 ion-button:first-of-type {
   margin-bottom: 15px;
 }
-
 </style>

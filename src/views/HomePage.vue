@@ -6,10 +6,12 @@
           <div class="inner-container">
             <div class="content-container">
               <div class="blue-text-container">
-                <blue-text text="time.for.a.change" offset="-50" />
+                <dot-text text="time.for.a.change" offset="-50" />
               </div>
               <div class="headline-container">
-                <h1 class="headline font-bold font-size-lg color-light-gray">a better experience.</h1>
+                <h1 class="headline font-bold font-size-lg color-light-gray">
+                  a better experience.
+                </h1>
               </div>
               <div class="cta-container">
                 <div class="blurb-container">
@@ -20,7 +22,10 @@
                 </div>
               </div>
               <div class="link-container text-center">
-                <p class="color-dark-gray font-md">Already have an account? <router-link :to="{ name: 'Dashboard' }" class="color-light-gray link">Login</router-link></p>
+                <p class="color-mid-gray font-md">
+                  Already have an account?
+                  <router-link :to="{ name: 'Space' }" class="color-light-gray link">Login</router-link>
+                </p>
               </div>
             </div>
           </div>
@@ -31,14 +36,14 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage, IonButton } from '@ionic/vue';
-import { useRouter } from 'vue-router';
-import BlueText from '@/components/BlueText.vue';
+import { IonContent, IonPage, IonButton } from "@ionic/vue";
+import { useRouter } from "vue-router";
+import DotText from "@/components/shared/DotText.vue";
 
 const router = useRouter();
 const signup = () => {
   router.push({ name: "Signup" });
-}
+};
 </script>
 
 <style scoped>
@@ -77,7 +82,6 @@ const signup = () => {
   text-indent: -17px;
   margin-bottom: 28px;
 }
-
 
 .link-container {
   flex: 0 0 10%;

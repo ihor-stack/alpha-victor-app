@@ -23,10 +23,14 @@
                   <img src="@/theme/icons/capacity.svg" class="capacity-icon" />
                   <span class="capacity-number color-light-gray font-size-xxs font-mono">>>10</span>
                 </div>
-                <h1 class="name font-bold color-light-gray">{{  space.spaceName  }}</h1>
+                <h1 class="name font-bold color-light-gray">
+                  {{ space.spaceName }}
+                </h1>
                 <div class="location">
                   <img src="@/theme/icons/location.svg" class="icon" />
-                  <span class="font-mono font-size-xxs color-light-gray">{{ space.location }}</span>
+                  <span class="font-mono font-size-xxs color-light-gray">{{
+                    space.location
+                  }}</span>
                 </div>
               </div>
               <div class="space-header__info__right">
@@ -49,24 +53,17 @@
         </div>
         <!-- Space options menu -->
         <div class="space-options-menu-container">
-          <space-options-list :issues="space.issues" />
+          <space-options-menu :issues="space.issues" />
         </div>
         <!-- Space CTAs -->
         <div class="space-cta-container">
-          <!-- <ion-button color="danger" fill="outline" expand="block" class="sos-button">
-            <span class="sos-button-inner">
-              <img src="@/theme/icons/danger.svg" class="icon" />
-              <span class="text">Call SOS</span>
-            </span>
-          </ion-button> -->
-          
           <button type="button" class="sos-button">
             <div class="icon"></div>
             <div>
               <span class="text">Call SOS</span>
             </div>
           </button>
-          
+
           <div class="ctas">
             <ion-button expand="block">Give Feedback</ion-button>
             <ion-button color="light" expand="block">Report Issue</ion-button>
@@ -78,50 +75,48 @@
 </template>
 
 <script setup lang="ts">
-  import { IonPage, IonContent, IonButton } from "@ionic/vue";
-  import OccupiedStatus from "@/components/OccupiedStatus.vue";
-  import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
-  import SpaceWiFiInfo from "@/components/space/SpaceWiFiInfo.vue";
-  import SpaceOptionsList from "@/components/space/SpaceOptionsMenu.vue";
-  import { Space } from "@/types";
+import { IonPage, IonContent, IonButton } from "@ionic/vue";
+import OccupiedStatus from "@/components/shared/OccupiedStatus.vue";
+import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
+import SpaceWiFiInfo from "@/components/space/SpaceWiFiInfo.vue";
+import SpaceOptionsMenu from "@/components/space/SpaceOptionsMenu.vue";
+import { Space } from "@/types";
 
-  const space: Space = {
-    shortCode: 1,
-    spaceType: 'Conference Room',
-    spaceName: 'The Johnson',
-    occupied: true,
-    capacity: 10,
-    imageUrl: 'space-the-johnson.jpg',
-    location: '2b.ground.floor',
-    spaceFeatures: [
-      {
-        name: "Smart TV",
-        category: "screen"
-      },
-      {
-        name: "WiFi",
-        category: "wifi"
-      },
-      {
-        name: "Phone",
-        category: "phone"
-      },
-      {
-        name: "Presenting",
-        category: "presenting"
-      }
-    ],
-    issues: [
-      {
-        title: 'WiFi signal poor',
-        status: 1,
-        comment: 'Router needs upgraded',
-        log: [
-          'Constant drop-outs on video calls'
-        ]
-      }
-    ]
-  }
+const space: Space = {
+  shortCode: 1,
+  spaceType: "Conference Room",
+  spaceName: "The Johnson",
+  occupied: true,
+  capacity: 10,
+  imageUrl: "space-the-johnson.jpg",
+  location: "2b.ground.floor",
+  spaceFeatures: [
+    {
+      name: "Smart TV",
+      category: "screen",
+    },
+    {
+      name: "WiFi",
+      category: "wifi",
+    },
+    {
+      name: "Phone",
+      category: "phone",
+    },
+    {
+      name: "Presenting",
+      category: "presenting",
+    },
+  ],
+  issues: [
+    {
+      title: "WiFi signal poor",
+      status: 1,
+      comment: "Router needs upgraded",
+      log: ["Constant drop-outs on video calls"],
+    },
+  ],
+};
 </script>
 
 <style scoped>
@@ -130,10 +125,12 @@
   flex-direction: column;
   background: none;
 }
+
 .space-header {
   flex: 0 0 28vh;
   position: relative;
 }
+
 .space-header__background,
 .space-header__foreground {
   position: absolute;
@@ -164,7 +161,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 30px 30px 24px;
+  padding: 50px 30px 24px;
   position: absolute;
   top: 0;
   left: 0;
@@ -181,10 +178,14 @@ header {
 
 header .back {
   --padding-start: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
 }
 
 header .favourite {
   --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
 }
 
 .space-header__info {
@@ -242,6 +243,7 @@ header .favourite {
 }
 
 .space-options-menu-container {
+  flex: 1;
   padding: 10px 30px 0;
 }
 
@@ -252,19 +254,19 @@ header .favourite {
 
 .sos-button {
   background: rgba(255, 55, 55, 0.075);
-  border: 0.75px solid #FF3737;
+  border: 0.75px solid #ff3737;
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 28px;
   width: 100%;
   display: flex;
   align-items: center;
-  color: #FF3737;
+  color: #ff3737;
   padding: 10px 18px;
 }
 
 .sos-button:active {
-  background: #FF3737;
+  background: #ff3737;
 }
 
 .sos-button span {
@@ -278,7 +280,7 @@ header .favourite {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: no-repeat center/cover url('@/theme/icons/danger.svg');
+  background: no-repeat center/cover url("@/theme/icons/danger.svg");
   margin-right: 9px;
 }
 
@@ -287,7 +289,7 @@ header .favourite {
 }
 
 .sos-button:active .icon {
-  background: no-repeat center/cover url('@/theme/icons/danger-black.svg');
+  background: no-repeat center/cover url("@/theme/icons/danger-black.svg");
 }
 
 .ctas {

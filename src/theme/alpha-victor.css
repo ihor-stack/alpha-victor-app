@@ -1,23 +1,25 @@
 :root {
-  --av-primary: #0000FF;
-  --av-light-gray: #F4F7FF;
-  --av-dark-gray: #9CA0A6;
-  --av-red: #FF3737;
-  --av-green: #37B14C;
+  --av-primary: #0000ff;
+  --av-light-gray: #f4f7ff;
+  --av-mid-gray: #9ca0a6;
+  --av-dark-gray: #767676;
+  --av-red: #ff3737;
+  --av-green: #37b14c;
 
-  --av-font-light: 'Akkurat-Light';
-  --av-font-light-italic: 'Akkurat-Light-Italic';
-  --av-font-regular: 'Akkurat-Regular';
-  --av-font-italic: 'Akkurat-Italic';
-  --av-font-bold: 'Akkurat-Bold';
-  --av-font-bold-italic: 'Akkurat-Bold-Italic';
-  --av-font-mono: 'Akkurat-Mono';
+  --av-font-light: "Akkurat-Light";
+  --av-font-light-italic: "Akkurat-Light-Italic";
+  --av-font-regular: "Akkurat-Regular";
+  --av-font-italic: "Akkurat-Italic";
+  --av-font-bold: "Akkurat-Bold";
+  --av-font-bold-italic: "Akkurat-Bold-Italic";
+  --av-font-mono: "Akkurat-Mono";
   --av-font-xxs: 0.625rem;
   --av-font-xs: 0.75rem;
   --av-font-sm: 0.875rem;
   --av-font-md: 0.9375rem;
   --av-font-reg: 1rem;
-  --av-font-lg: 2.375rem;
+  --av-font-lg: 1.75rem;
+  --av-font-xl: 2.375rem;
 
   --ion-color-primary: var(--av-primary);
   --ion-color-light: var(--av-light-gray);
@@ -36,64 +38,68 @@
 
 /* Fonts */
 @font-face {
-  font-family: 'Akkurat-Regular';
-  src: url('@/theme/fonts/Akkurat/Akkurat-Regular.ttf');
+  font-family: "Akkurat-Regular";
+  src: url("@/theme/fonts/Akkurat/Akkurat-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Akkurat-Light';
-  src: url('@/theme/fonts/Akkurat/Akkurat-Light.ttf');
+  font-family: "Akkurat-Light";
+  src: url("@/theme/fonts/Akkurat/Akkurat-Light.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Akkurat-Italic';
-  src: url('@/theme/fonts/Akkurat/Akkurat-Italic.ttf');
+  font-family: "Akkurat-Italic";
+  src: url("@/theme/fonts/Akkurat/Akkurat-Italic.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Akkurat-Light-Italic';
-  src: url('@/theme/fonts/Akkurat/Akkurat-LightItalic.ttf');
+  font-family: "Akkurat-Light-Italic";
+  src: url("@/theme/fonts/Akkurat/Akkurat-LightItalic.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Akkurat-Mono';
-  src: url('@/theme/fonts/Akkurat Mono/AkkuratMono-Regular.ttf');
+  font-family: "Akkurat-Mono";
+  src: url("@/theme/fonts/Akkurat Mono/AkkuratMono-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Akkurat-Bold';
-  src: url('@/theme/fonts/Akkurat/Akkurat-Bold.ttf');
+  font-family: "Akkurat-Bold";
+  src: url("@/theme/fonts/Akkurat/Akkurat-Bold.ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Akkurat-Bold-Italic';
-  src: url('@/theme/fonts/Akkurat/Akkurat-BoldItalic.ttf');
+  font-family: "Akkurat-Bold-Italic";
+  src: url("@/theme/fonts/Akkurat/Akkurat-BoldItalic.ttf");
   font-weight: normal;
   font-style: normal;
 }
-
 
 /* Resets */
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   margin: 0;
 }
 
 a {
   text-decoration: none;
 }
-
 
 /* Overrides */
 ion-button {
@@ -110,8 +116,8 @@ ion-input.custom {
   --padding-start: 24px;
   --padding-end: 24px;
   --background: #181818;
-  --color: #F4F7FF;
-  --placeholder-color: #9CA0A6;
+  --color: #f4f7ff;
+  --placeholder-color: #9ca0a6;
   --placeholder-opacity: 0.8;
   border-radius: 8px;
   border: 1px solid #313131;
@@ -119,6 +125,15 @@ ion-input.custom {
   margin-bottom: 15px;
 }
 
+ion-modal {
+  --background: none;
+  --backdrop-opacity: 0.85;
+}
+
+ion-modal::part(handle) {
+  top: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
 
 /* Colors */
 .color-primary {
@@ -127,6 +142,10 @@ ion-input.custom {
 
 .color-light-gray {
   color: var(--av-light-gray);
+}
+
+.color-mid-gray {
+  color: var(--av-mid-gray);
 }
 
 .color-dark-gray {
@@ -159,7 +178,7 @@ ion-input.custom {
 }
 
 .underline::after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   top: 100%;
@@ -172,6 +191,10 @@ ion-input.custom {
 
 .text-spaced {
   letter-spacing: 0.015em;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
 }
 
 .font-mono {
@@ -236,7 +259,6 @@ ion-input.custom {
   line-height: var(--av-font-lg);
 }
 
-
 /* Layouts */
 
 /* Onboarding/Landing */
@@ -247,13 +269,13 @@ ion-input.custom {
   right: 0;
   bottom: 0;
   top: 0;
-  background-image: url('@/theme/backgrounds/lines-no-logo.svg');
+  background-image: url("@/theme/backgrounds/lines-no-logo.svg");
   background-size: 100%;
   background-position: center;
 }
 
 .outer-container.onboarding {
-  background-image: url('@/theme/backgrounds/onboarding.svg');
+  background-image: url("@/theme/backgrounds/onboarding.svg");
 }
 
 .gradient-container {

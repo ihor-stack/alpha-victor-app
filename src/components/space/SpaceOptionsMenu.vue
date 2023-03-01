@@ -1,47 +1,58 @@
 <template>
-  <div class="container">
-    <ul class="space-options-menu">
-      <li class=space-options-menu-item>
-        <router-link :to="{}">
-          <p class="label font-bold font-size-sm color-light-gray">Room Equipment</p>
-          <span class="arrow-right"></span>
-        </router-link>
-      </li>
-      <li class=space-options-menu-item>
-        <router-link :to="{}">
-          <p class="label font-bold font-size-sm color-light-gray">Get Help</p>
-          <span class="arrow-right"></span>
-        </router-link>
-      </li>
-      <li class=space-options-menu-item>
-        <router-link :to="{}">
-          <div class="with-counter">
-            <p class="label font-bold font-size-sm color-light-gray">Known Issues</p>
-            <div v-if="issues && issues.length > 0" class="counter">
-              <div>
-                <span>{{ issues.length }}</span>
+  <ion-content>
+    <div class="container">
+      <ul class="space-options-menu">
+        <li class="space-options-menu-item">
+          <router-link :to="{ name: 'Equipment' }">
+            <p class="label font-bold font-size-sm color-light-gray">
+              Room Equipment
+            </p>
+            <span class="arrow-right"></span>
+          </router-link>
+        </li>
+        <li class="space-options-menu-item">
+          <router-link :to="{}">
+            <p class="label font-bold font-size-sm color-light-gray">
+              Get Help
+            </p>
+            <span class="arrow-right"></span>
+          </router-link>
+        </li>
+        <li class="space-options-menu-item">
+          <router-link :to="{}">
+            <div class="with-counter">
+              <p class="label font-bold font-size-sm color-light-gray">
+                Known Issues
+              </p>
+              <div v-if="issues && issues.length > 0" class="counter">
+                <div>
+                  <span>{{ issues.length }}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <span class="arrow-right"></span>
-        </router-link>
-      </li>
-      <li class=space-options-menu-item>
-        <router-link :to="{}">
-          <p class="label font-bold font-size-sm color-light-gray">Documents</p>
-          <span class="arrow-right"></span>
-        </router-link>
-      </li>
-    </ul>
-  </div>
+            <span class="arrow-right"></span>
+          </router-link>
+        </li>
+        <li class="space-options-menu-item">
+          <router-link :to="{ name: 'Documents' }">
+            <p class="label font-bold font-size-sm color-light-gray">
+              Documents
+            </p>
+            <span class="arrow-right"></span>
+          </router-link>
+        </li>
+      </ul>
+    </div>
+  </ion-content>
 </template>
 
 <script setup lang="ts">
 import { defineProps } from "vue";
+import { IonContent } from "@ionic/vue";
 import { Issue } from "@/types";
 
 interface Props {
-  issues: Issue[]
+  issues: Issue[];
 }
 
 defineProps<Props>();
@@ -69,7 +80,7 @@ defineProps<Props>();
   display: inline-block;
   width: 24px;
   height: 24px;
-  background-image: url('@/theme/icons/arrow-right.svg');
+  background-image: url("@/theme/icons/arrow-right.svg");
   background-repeat: no-repeat;
   background-size: 8px 12px;
   background-position: center;
@@ -86,7 +97,7 @@ defineProps<Props>();
   align-items: center;
   width: 20px;
   height: 20px;
-  background-color: #37B14C;
+  background-color: #37b14c;
   border-radius: 50%;
   margin-left: 10px;
 }
@@ -95,6 +106,10 @@ defineProps<Props>();
   font-weight: 700;
   font-size: 11px;
   line-height: 11px;
-  color: #FFFFFF;
+  color: #ffffff;
+}
+
+ion-content.transparent::part(scroll)::-webkit-scrollbar {
+  display: none;
 }
 </style>
