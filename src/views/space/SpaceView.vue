@@ -21,7 +21,7 @@
               <div class="space-header__info__left">
                 <div class="capacity">
                   <img src="@/theme/icons/capacity.svg" class="capacity-icon" />
-                  <span class="capacity-number color-light-gray font-size-xxs font-mono">>>10</span>
+                  <span class="capacity-number color-light-gray font-size-xxs font-mono">&gt;&gt;10</span>
                 </div>
                 <h1 class="name font-bold color-light-gray">
                   {{ space.spaceName }}

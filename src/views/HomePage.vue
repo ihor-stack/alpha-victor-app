@@ -9,7 +9,7 @@
                 <dot-text text="time.for.a.change" offset="-50" />
               </div>
               <div class="headline-container">
-                <h1 class="headline font-bold font-size-lg color-light-gray">
+                <h1 class="headline font-bold font-size-xl color-light-gray">
                   a better experience.
                 </h1>
               </div>

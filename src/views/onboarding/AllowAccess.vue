@@ -9,7 +9,7 @@
                 <dot-text text="allow.access" offset="-83" />
               </div>
               <div class="headline-container">
-                <h1 class="headline font-size-lg color-light-gray font-bold">
+                <h1 class="headline font-size-xl color-light-gray font-bold">
                   We need some<br />
                   access.
                 </h1>

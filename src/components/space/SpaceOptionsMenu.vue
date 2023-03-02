@@ -19,7 +19,7 @@
           </router-link>
         </li>
         <li class="space-options-menu-item">
-          <router-link :to="{}">
+          <router-link :to="{ name: 'KnownIssues' }">
             <div class="with-counter">
               <p class="label font-bold font-size-sm color-light-gray">
                 Known Issues

@@ -14,7 +14,7 @@
           <ul class="equipment-panel__info-section__list">
             <li v-for="(value, key) in props.selectedEquipment.technical" :key="key"
               class="equipment-panel__info-section__list__item">
-              <span class="key">{{ dotify(key.toString()) }}</span><span class="value">{{ value }}</span>
+              <span class="key">{{ useDotify(key.toString()) }}</span><span class="value">{{ value }}</span>
             </li>
           </ul>
         </div>
@@ -23,7 +23,7 @@
           <ul class="equipment-panel__info-section__list">
             <li v-for="(value, key) in props.selectedEquipment.installation" :key="key"
               class="equipment-panel__info-section__list__item">
-              <span class="key">{{ dotify(key.toString()) }}</span><span class="value">{{ value }}</span>
+              <span class="key">{{ useDotify(key.toString()) }}</span><span class="value">{{ value }}</span>
             </li>
           </ul>
         </div>
@@ -39,15 +39,10 @@
 <script setup lang="ts">
 import { IonButton, IonContent } from "@ionic/vue";
 import { useEquipmentIcon } from '@/composables/equipmentIcon';
+import { useDotify } from "@/composables/dotify";
 const props = defineProps(
   ['selectedEquipment'],
 );
-
-const dotify = (input: string) => {
-  const split = input.replace("_", "").split(/(?=[A-Z\s])/);
-  const join = split.join('.').toLowerCase();
-  return join;
-}
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
-  <div class="equipment-panel">
-    <div class="equipment-panel-container">
+  <div class="document-panel">
+    <div class="document-panel-container">
       <h1 class="color-light-gray font-bold font-size-lg">{{ props.document.title }}</h1>
     </div>
   </div>
@@ -13,7 +13,7 @@ const props = defineProps(
 </script>
 
 <style scoped>
-.equipment-panel {
+.document-panel {
   height: 100%;
   border-radius: 40px 40px 0px 0px;
   overflow: hidden;
@@ -23,7 +23,7 @@ const props = defineProps(
   background-color: #181818;
 }
 
-.equipment-panel-container {
+.document-panel-container {
   position: relative;
   height: 100%;
   background-color: #181818;

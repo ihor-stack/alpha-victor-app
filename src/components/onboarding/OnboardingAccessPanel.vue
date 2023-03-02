@@ -9,7 +9,7 @@
           <DotText :text="dotText" offset="50" />
         </div>
         <div class="heading-container">
-          <h1 class="headline font-size-lg color-light-gray font-bold">
+          <h1 class="headline font-size-xl color-light-gray font-bold">
             <slot name="heading"></slot>
           </h1>
         </div>
