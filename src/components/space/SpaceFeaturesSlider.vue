@@ -20,7 +20,7 @@ import { defineProps } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import { SpaceFeature } from "@/types";
-import { useEquipmentIcon } from "@/composables/equipmentIcon";
+import { useEquipmentIcon } from "@/composables/utilities";
 
 interface Props {
   features: SpaceFeature[]

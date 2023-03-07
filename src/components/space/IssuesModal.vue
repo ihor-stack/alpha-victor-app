@@ -1,53 +1,76 @@
 <template>
-  <div class="issues-panel">
-    <div class="issues-panel-container">
-      <div class="issues-panel__header">
-        <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">{{ props.issue.title }}</h1>
-        <p class="issues-panel__comment color-light-gray font-size-xs">{{ props.issue.comments[0] }}</p>
-      </div>
-      <div class="issues-panel__section issues-panel__add-comment">
-        <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Add Comment</h2>
-        <ion-textarea class="issues-panel__add-comment__textarea" placeholder="Enter a comment here"></ion-textarea>
-      </div>
-      <div class="issues-panel__section issues-panel__select-equipment">
-        <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Select Equipment</h2>
-        <ion-select class="issues-panel__select-equipment__select">
-          <option value="Select equipment" disabled></option>
-        </ion-select>
-      </div>
-      <div class="issues-panel__section issues-panel__set-status">
-        <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Select Status</h2>
-        <div class="issues-panel__status">
-          <div class="issues-panel__status__radio">
-            <input type="radio" name="status" id="low-impact" :value="0" v-model="state.issue.status" />
-            <label for="low-impact" class="issues-panel__status__radio__label">
-              <span class="dot dot--low-impact"></span>
-              low.impact
-            </label>
+  <ion-page>
+    <div class="issues-panel">
+      <div class="issues-panel-container">
+        <ion-content>
+          <div class="issues-panel__header">
+            <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">{{ props.issue.title }}</h1>
+            <p class="issues-panel__comment color-light-gray font-size-xs">{{ props.issue.comments[0] }}</p>
           </div>
-          <div class="issues-panel__status__radio">
-            <input type="radio" name="status" id="high-impact" :value="1" v-model="state.issue.status" />
-            <label for="high-impact" class="issues-panel__status__radio__label">
-              <span class="dot dot--high-impact"></span>
-              high.impact
-            </label>
+
+          <div class="issues-panel__section issues-panel__add-comment">
+            <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Add Comment</h2>
+            <ion-textarea class="issues-panel__add-comment__textarea" placeholder="Enter a comment here"></ion-textarea>
           </div>
-          <div class="issues-panel__status__radio">
-            <input type="radio" name="status" id="resolved" :value="2" v-model="state.issue.status" />
-            <label for="resolved" class="issues-panel__status__radio__label">
-              <span class="dot dot--resolved"></span>
-              resolved
-            </label>
+
+          <div class="issues-panel__section issues-panel__select-equipment">
+            <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Select Equipment</h2>
+            <ion-select interface="action-sheet" class="issues-panel__select-equipment__select" placeholder="Select equipment">
+              <ion-select-option value="wifi">WiFi</ion-select-option>
+              <ion-select-option value="computer">Computer</ion-select-option>
+            </ion-select>
           </div>
-        </div>
+
+          <div class="issues-panel__section issues-panel__set-status">
+            <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Select Status</h2>
+            <div class="issues-panel__status">
+              <div class="issues-panel__status__radio">
+                <input type="radio" name="status" id="low-impact" :value="0" v-model="state.issue.status" />
+                <label for="low-impact" class="issues-panel__status__radio__label">
+                  <span class="dot dot--low-impact"></span>
+                  low.impact
+                </label>
+              </div>
+              <div class="issues-panel__status__radio">
+                <input type="radio" name="status" id="high-impact" :value="1" v-model="state.issue.status" />
+                <label for="high-impact" class="issues-panel__status__radio__label">
+                  <span class="dot dot--high-impact"></span>
+                  high.impact
+                </label>
+              </div>
+              <div class="issues-panel__status__radio">
+                <input type="radio" name="status" id="resolved" :value="2" v-model="state.issue.status" />
+                <label for="resolved" class="issues-panel__status__radio__label">
+                  <span class="dot dot--resolved"></span>
+                  resolved
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="issues-panel__log">
+            <h3 class="issues-panel__log__heading font-mono color-light-gray font-size-xxs">status</h3>
+
+            <ul class="issues-panel__log__list">
+              <li class="issues-panel__log__list__item">
+                <p class="issues-panel__log__list__item__text color-light-gray font-size-xs font-regular">Status changed from low to high impact</p>
+                <p class="issues-panel__log__list__item__logged color-dark-gray font-mono font-size-xxs">14.minutes.ago</p>
+              </li>
+              <li class="issues-panel__log__list__item">
+                <p class="color-light-gray font-size-xs font-regular">Issue created by jp@uncoded.com</p>
+                <p class="color-dark-gray font-mono font-size-xxs">2.days.ago</p>
+              </li>
+            </ul>
+          </div>
+        </ion-content>
       </div>
     </div>
-  </div>
+  </ion-page>
 </template>
 
 <script setup lang="ts">
 import { reactive, defineProps, defineComponent } from "vue";
-import { IonSelect, IonTextarea } from "@ionic/vue";
+import { IonPage, IonContent, IonSelect, IonSelectOption, IonTextarea } from "@ionic/vue";
 const props = defineProps(
   ['issue'],
 );
@@ -61,6 +84,10 @@ defineComponent({
 </script>
 
 <style scoped>
+ion-content::part(background) {
+  background: #181818;
+}
+
 .issues-panel {
   height: 100%;
   border-radius: 40px 40px 0px 0px;
@@ -155,5 +182,25 @@ defineComponent({
 .issues-panel__status__radio input:checked ~ label {
   border: 0.75px solid #FFFFFF;
   color: #FFFFFF;
+}
+
+.issues-panel__log__heading {
+  padding-bottom: 8px;
+  border-bottom: 0.75px solid #313131;
+  margin-bottom: 18px;
+}
+
+.issues-panel__log__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.issues-panel__log__list__item {
+  margin-bottom: 20px;
+}
+
+.issues-panel__log__list__item p:last-of-type {
+  margin-left: 6px;
 }
 </style>

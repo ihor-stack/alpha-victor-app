@@ -48,6 +48,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/DocumentsView.vue"),
   },
   {
+    path: "/document-viewer",
+    name: "DocumentViewer",
+    component: () => import("@/views/space/DocumentViewer.vue"),
+  },
+  {
     path: "/known-issues",
     name: "KnownIssues",
     component: () => import("@/views/space/KnownIssuesView.vue"),

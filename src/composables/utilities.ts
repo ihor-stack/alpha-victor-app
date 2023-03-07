@@ -1,3 +1,13 @@
+export const useDotify = (input: string): string => {
+  const split = input
+    .replace("_", "")
+    .replace(" ", "")
+    .split(/(?=[A-Z\s])/);
+  const join = split.join(".").toLowerCase();
+  return join;
+};
+
+
 export const useEquipmentIcon = (feature: string) => {
   switch (feature) {
     case "screen":

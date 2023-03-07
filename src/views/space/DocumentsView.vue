@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-content>
-      <app-header>
+      <app-header :showLower="true">
         <template #app-header-left>
           <ion-button fill="clear" color="light" @click="goBack">
             <span class="font-mono font-size-xs">&lt;&lt; back</span>
@@ -16,59 +16,63 @@
               <h4 class="font-mono color-light-gray font-size-xxs">installation.guides</h4>
             </div>
             <ul class="grouped-list__list">
-              <li v-for="document in roomDocuments" :key="document.id" class="grouped-list__item"
-                @click="handleClick(document)">
-                <div class="grouped-list__item__info">
-                  <div class="grouped-list__item__icon">
-                    <!-- PDF preview will go here -->
-                    <img src="@/theme/img/example-pdf.svg" />
+              <li v-for="document in roomDocuments" :key="document.id">
+                <router-link :to="{ name: 'DocumentViewer' }" class="grouped-list__item">
+                  <div class="grouped-list__item__info">
+                    <div class="grouped-list__item__icon">
+                      <!-- PDF preview will go here -->
+                      <img src="@/theme/img/example-pdf.svg" />
+                    </div>
+                    <div>
+                      <p class="color-light-gray font-bold font-size-xs">{{ document.title }}</p>
+                      <span class="color-dark-gray font-mono font-size-xxs">uploaded.{{ document.dateUploaded }}</span>
+                    </div>
                   </div>
-                  <div>
-                    <p class="color-light-gray font-bold font-size-xs">{{ document.title }}</p>
-                    <span class="color-dark-gray font-mono font-size-xxs">uploaded.{{ document.dateUploaded }}</span>
+                  <div class="grouped-list__item__link">
+                    <span class="color-light-gray font-mono font-size-xxs">&gt;&gt; view</span>
                   </div>
-                </div>
-                <div class="grouped-list__item__link">
-                  <span class="color-light-gray font-mono font-size-xxs">>> view</span>
-                </div>
+                </router-link>
               </li>
             </ul>
           </div>
         </div>
       </ion-content>
-      <ion-modal :is-open="state.modalOpen" :initial-breakpoint="1" :breakpoints="[0, 1]" @willDismiss="handleDismiss">
-        <document-modal :document="state.selectedDocument" />
-      </ion-modal>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage, IonButton, IonModal } from "@ionic/vue";
+import { IonContent, IonPage, IonButton } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";
-import DocumentModal from "@/components/space/DocumentModal.vue";
-import { reactive } from "vue";
+// import { reactive } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-interface State {
-  modalOpen: boolean
-  selectedDocument: { [key: string]: any } | null
-}
+// interface Document {
+//   id: number
+//   title: string
+//   dateUploaded: string
+//   url: string
+// }
 
-const state: State = reactive({
-  modalOpen: false,
-  selectedDocument: null,
-});
+// interface State {
+//   modalOpen: boolean
+//   selectedDocument: Document | null
+// }
 
-const handleDismiss = () => {
-  state.modalOpen = false;
-};
+// const state: State = reactive({
+//   modalOpen: false,
+//   selectedDocument: null,
+// });
 
-const handleClick = (item: any) => {
-  state.selectedDocument = item;
-  state.modalOpen = !state.modalOpen;
-};
+// const handleDismiss = () => {
+//   state.modalOpen = false;
+// };
+
+// const handleClick = (item: any) => {
+//   state.selectedDocument = item;
+//   state.modalOpen = !state.modalOpen;
+// };
 
 const goBack = () => {
   router.back();
@@ -79,16 +83,19 @@ const roomDocuments = [
     id: 1,
     title: "Crestron RMC3 Reference",
     dateUploaded: "2020-03-10",
+    url: '@/theme/sample.pdf'
   },
   {
     id: 2,
     title: "QM98N Setup",
     dateUploaded: "2020-03-10",
+    url: '@/theme/sample.pdf'
   },
   {
     id: 3,
     title: "Clickshare C10 Installation",
     dateUploaded: "2020-03-10",
+    url: '@/theme/sample.pdf'
   }
 ];
 </script>

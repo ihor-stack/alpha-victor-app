@@ -38,8 +38,7 @@
 
 <script setup lang="ts">
 import { IonButton, IonContent } from "@ionic/vue";
-import { useEquipmentIcon } from '@/composables/equipmentIcon';
-import { useDotify } from "@/composables/dotify";
+import { useDotify, useEquipmentIcon } from "@/composables/utilities";
 const props = defineProps(
   ['selectedEquipment'],
 );

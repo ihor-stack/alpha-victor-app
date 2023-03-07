@@ -1,6 +1,6 @@
 <template>
   <div class="dot-text-container" :style="{ marginLeft: props.offset + 'px' }">
-    <p class="dot-text">>> {{ props.text }}</p>
+    <p class="dot-text">&gt;&gt; {{ props.text }}</p>
   </div>
 </template>
 

@@ -7,7 +7,7 @@
         </h2>
         <ion-button fill="clear" size="small" @click="handleCta"
           ><span class="color-primary font-mono font-size-xs text-spaced"
-            >>> view.all</span
+            >&gt;&gt; view.all</span
           ></ion-button
         >
       </div>
@@ -49,7 +49,7 @@
                         />
                         <span
                           class="capacity-number color-light-gray font-size-xxs font-mono"
-                          >>>10</span
+                          >&gt;&gt;10</span
                         >
                       </div>
                     </div>

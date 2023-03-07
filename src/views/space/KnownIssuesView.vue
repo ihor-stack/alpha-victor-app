@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-content>
+    <ion-content :scroll-y="false">
       <app-header>
         <template #app-header-left>
           <ion-button fill="clear" color="light" @click="goBack">
@@ -23,17 +23,17 @@
                   <status-dot :status="issue.status" />
                 </div>
                 <div class="issues-list__item__link">
-                  <span class="color-light-gray font-mono font-size-xxs">>> view</span>
+                  <span class="color-light-gray font-mono font-size-xxs">&gt;&gt; view</span>
                 </div>
               </li>
             </ul>
           </div>
         </div>
       </ion-content>
-      <ion-modal :is-open="state.modalOpen" :initial-breakpoint="1" :breakpoints="[0, 1]" @willDismiss="handleDismiss">
-        <issues-modal :issue="state.selectedIssue" />
-      </ion-modal>
     </ion-content>
+    <ion-modal :is-open="state.modalOpen" :initial-breakpoint="1" :breakpoints="[0, 1]" @willDismiss="handleDismiss">
+      <issues-modal :issue="state.selectedIssue" />
+    </ion-modal>
   </ion-page>
 </template>
 
@@ -44,7 +44,7 @@ import IssuesModal from "@/components/space/IssuesModal.vue";
 import StatusDot from "@/components/shared/StatusDot.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { useDotify } from "@/composables/dotify";
+import { useDotify } from "@/composables/utilities";
 const router = useRouter();
 
 interface State {
@@ -94,9 +94,9 @@ const issues = [
     title: 'Closed Issues',
     issues: [
       {
-        title: "WIFI network password doesn't work",
+        title: "WiFi network password doesn't work",
         comments: [
-          "The WIFI password we were given isn't working"
+          "The WiFi password we were given isn't working"
         ],
         status: 2
       }

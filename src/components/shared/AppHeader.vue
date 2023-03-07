@@ -11,15 +11,24 @@
         <slot name="app-header-right"></slot>
       </div>
     </div>
-    <div class="app-header__lower">
+    <div class="app-header__lower" v-if="props.title">
       <h1 class="font-bold font-size-lg color-light-gray">
-        <slot name="app-header-title"></slot>
+        {{ props.title }}
       </h1>
     </div>
   </header>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineProps } from "vue";
+
+const props = defineProps({
+  title: {
+    type: String,
+    required: false,
+  }
+});
+</script>
 
 <style scoped>
 .app-header__upper {
