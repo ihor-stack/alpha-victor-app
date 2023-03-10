@@ -4,7 +4,7 @@
       <div class="outer-container">
         <header>
           <ion-button fill="clear" color="light">
-            <span class="font-mono font-size-xs">&lt;&lt; back</span>
+            <img src="@/theme/icons/switch-location.svg" alt="Switch Location">
           </ion-button>
           <img src="@/theme/img/logo/logo-without-name.svg" class="logo" alt="AlphaVictor logo" />
           <ion-button fill="clear">

@@ -6,7 +6,7 @@
           {{ title }}
         </h2>
         <ion-button fill="clear" size="small" @click="handleCta"
-          ><span class="color-primary font-mono font-size-xs text-spaced"
+          ><span class="color-light-gray font-mono font-size-xs text-spaced"
             >&gt;&gt; view.all</span
           ></ion-button
         >

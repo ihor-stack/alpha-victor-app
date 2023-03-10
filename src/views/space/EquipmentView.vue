@@ -43,7 +43,7 @@
 <script setup lang="ts">
 import { IonContent, IonPage, IonButton, IonModal } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";
-import RoomEquipmentModal from "@/components/space/RoomEquipmentModal.vue";
+import RoomEquipmentModal from "@/components/modals/RoomEquipmentModal.vue";
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useEquipmentIcon } from "@/composables/utilities";

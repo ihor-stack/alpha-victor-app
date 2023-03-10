@@ -50,12 +50,19 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/document-viewer",
     name: "DocumentViewer",
-    component: () => import("@/views/space/DocumentViewer.vue"),
+    component: () => import("@/views/space/DocumentView.vue"),
   },
   {
     path: "/known-issues",
     name: "KnownIssues",
     component: () => import("@/views/space/KnownIssuesView.vue"),
+    props: { reportIssueModalOpen: false }
+  },
+  {
+    path: "/report-issue",
+    name: "ReportIssue",
+    component: () => import("@/views/space/KnownIssuesView.vue"),
+    props: { reportIssueModalOpen: true },
   },
 ];
 

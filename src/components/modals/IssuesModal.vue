@@ -5,7 +5,7 @@
         <ion-content>
           <div class="issues-panel__header">
             <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">{{ props.issue.title }}</h1>
-            <p class="issues-panel__comment color-light-gray font-size-xs">{{ props.issue.comments[0] }}</p>
+            <p class="issues-panel__comment color-light-gray font-size-xs">{{ props.issue.comment }}</p>
           </div>
 
           <div class="issues-panel__section issues-panel__add-comment">
@@ -52,17 +52,14 @@
             <h3 class="issues-panel__log__heading font-mono color-light-gray font-size-xxs">status</h3>
 
             <ul class="issues-panel__log__list">
-              <li class="issues-panel__log__list__item">
-                <p class="issues-panel__log__list__item__text color-light-gray font-size-xs font-regular">Status changed from low to high impact</p>
+              <li class="issues-panel__log__list__item" v-for="(log, index) in state.issue.log" :key="index">
+                <p class="issues-panel__log__list__item__text color-light-gray font-size-xs font-regular">{{ log }}</p>
                 <p class="issues-panel__log__list__item__logged color-dark-gray font-mono font-size-xxs">14.minutes.ago</p>
-              </li>
-              <li class="issues-panel__log__list__item">
-                <p class="color-light-gray font-size-xs font-regular">Issue created by jp@uncoded.com</p>
-                <p class="color-dark-gray font-mono font-size-xxs">2.days.ago</p>
               </li>
             </ul>
           </div>
         </ion-content>
+        <ion-button>Submit Issue</ion-button>
       </div>
     </div>
   </ion-page>
@@ -70,7 +67,7 @@
 
 <script setup lang="ts">
 import { reactive, defineProps, defineComponent } from "vue";
-import { IonPage, IonContent, IonSelect, IonSelectOption, IonTextarea } from "@ionic/vue";
+import { IonPage, IonContent, IonSelect, IonSelectOption, IonTextarea, IonButton } from "@ionic/vue";
 const props = defineProps(
   ['issue'],
 );

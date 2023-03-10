@@ -9,7 +9,7 @@
           </div>
           <div class="space-header__foreground">
             <header>
-              <ion-button fill="clear" color="light" size="small" class="back">
+              <ion-button fill="clear" color="light" size="small" class="back" @click="router.back()">
                 <span class="font-mono font-size-xs">&lt;&lt; back</span>
               </ion-button>
               <img src="@/theme/img/logo/logo-without-name.svg" class="logo" alt="AlphaVictor logo" />
@@ -66,7 +66,13 @@
 
           <div class="ctas">
             <ion-button expand="block">Give Feedback</ion-button>
-            <ion-button color="light" expand="block">Report Issue</ion-button>
+            <ion-button 
+              color="light" 
+              expand="block" 
+              @click="() => router.push({ name: 'ReportIssue' })"
+            >
+              Report Issue
+            </ion-button>
           </div>
         </div>
       </div>
@@ -81,6 +87,9 @@ import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
 import SpaceWiFiInfo from "@/components/space/SpaceWiFiInfo.vue";
 import SpaceOptionsMenu from "@/components/space/SpaceOptionsMenu.vue";
 import { Space } from "@/types";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const space: Space = {
   shortCode: 1,
