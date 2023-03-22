@@ -1,5 +1,4 @@
 <template>
-  <ion-content>
     <div class="container">
       <ul class="space-options-menu">
         <li class="space-options-menu-item">
@@ -43,12 +42,10 @@
         </li>
       </ul>
     </div>
-  </ion-content>
 </template>
 
 <script setup lang="ts">
 import { defineProps } from "vue";
-import { IonContent } from "@ionic/vue";
 import { Issue } from "@/types";
 
 interface Props {

@@ -2,12 +2,13 @@
   <ion-page>
     <div class="issues-panel">
       <div class="issues-panel-container">
-        <ion-content>
+        <ion-header>
           <div class="issues-panel__header">
             <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">{{ props.issue.title }}</h1>
             <p class="issues-panel__comment color-light-gray font-size-xs">{{ props.issue.comment }}</p>
           </div>
-
+        </ion-header>
+        <ion-content>
           <div class="issues-panel__section issues-panel__add-comment">
             <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Add Comment</h2>
             <ion-textarea class="issues-panel__add-comment__textarea" placeholder="Enter a comment here"></ion-textarea>
@@ -59,24 +60,31 @@
             </ul>
           </div>
         </ion-content>
-        <ion-button>Submit Issue</ion-button>
+        <ion-footer>
+          <ion-button expand="block">Submit Issue</ion-button>
+        </ion-footer>
       </div>
     </div>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { reactive, defineProps, defineComponent } from "vue";
-import { IonPage, IonContent, IonSelect, IonSelectOption, IonTextarea, IonButton } from "@ionic/vue";
+import { reactive, defineProps } from "vue";
+import { 
+  IonPage, 
+  IonContent,
+  IonHeader,
+  IonFooter,
+  IonSelect, 
+  IonSelectOption, 
+  IonTextarea, 
+  IonButton 
+} from "@ionic/vue";
 const props = defineProps(
   ['issue'],
 );
 const state = reactive({
   issue: props.issue
-});
-
-defineComponent({
-  components: { IonSelect, IonTextarea },
 });
 </script>
 

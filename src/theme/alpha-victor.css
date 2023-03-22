@@ -27,6 +27,8 @@
   --ion-color-danger: var(--av-red);
   --ion-background-color: #000000;
 
+  --ion-padding: 32px;
+
   --ion-font-family: "Akkurat-Regular";
 }
 
@@ -112,7 +114,7 @@ ion-button {
   --text-transform: none;
 }
 
-ion-input.custom {
+.custom-input {
   --padding-top: 18px;
   --padding-bottom: 18px;
   --padding-start: 24px;
@@ -125,6 +127,62 @@ ion-input.custom {
   border: 1px solid #313131;
   height: auto;
   margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.custom-select {
+  --padding-top: 18px;
+  --padding-bottom: 18px;
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --placeholder-color: #9ca0a6;
+  --placeholder-opacity: 1;
+  appearance: none;
+  background: none;
+  border: 1px solid #313131;
+  border-radius: 8px;
+  width: 100%;
+  color: var(--av-light-gray);
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.custom-select::part(icon) {
+  content: url("@/theme/icons/arrow-down.svg");
+}
+
+.custom-textarea {
+  appearance: none;
+  resize: none;
+  background: none;
+  border: 0.75px solid #313131;
+  border-radius: 8px;
+  width: 100%;
+  padding: 18px 24px;
+  min-height: 100px;
+  color: var(--av-light-gray);
+  font-size: 15px;
+  line-height: 20px;
+}
+
+ion-toolbar {
+  --background: none;
+  --min-height: 90px;
+  --padding-start: 30px;
+  --padding-end: 30px;
+  --border-style: none;
+}
+
+ion-menu-button {
+  height: 50px;
+}
+
+ion-button.back {
+  --padding-start: 0;
+}
+
+ion-toggle {
+  --background: rgba(171, 187, 194, 0.26);
 }
 
 ion-modal {
@@ -267,6 +325,74 @@ ion-modal::part(handle) {
   line-height: var(--av-font-xl);
 }
 
+.inline-block {
+  display: inline-block;
+}
+
+/* Linked List Item with arrow */
+
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 0.75px solid #313131;
+}
+
+.list.list--condensed .list-item {
+  padding: 18px 0;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+}
+
+.list-item:not(:first-of-type) {
+  border-top: 0.75px solid #313131;
+}
+
+.list-item__info {
+  display: flex;
+  align-items: center;
+}
+
+.list-item__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+
+.list-item__name {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.list-item__name .manufacturer {
+  position: absolute;
+  top: 100%;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+.list-item__details .secondaryText {
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+.list-item .arrow-right {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url("@/theme/icons/arrow-right.svg");
+  background-repeat: no-repeat;
+  background-size: 8px 12px;
+  background-position: center;
+}
+
 /* Status Dots */
 
 .dot {
@@ -328,6 +454,60 @@ ion-modal::part(handle) {
   justify-content: flex-end;
   flex: 1;
   padding: 32px;
+}
+
+/* Settings modal styles */
+
+.settings-panel {
+  height: 100%;
+  border-radius: 40px 40px 0px 0px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #181818;
+}
+
+.settings-panel-container {
+  position: relative;
+  height: 100%;
+  background-color: #181818;
+  border-radius: 40px 40px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 45px 32px 32px;
+}
+
+.settings-panel__header {
+  margin-bottom: 20px;
+  padding-bottom: 32px;
+  border-bottom: 0.75px solid #313131;
+}
+
+.settings-panel__title {
+  margin-bottom: 12px;
+}
+
+.settings-panel__section {
+  margin-bottom: 20px;
+}
+
+.settings-panel__heading {
+  margin-bottom: 5px;
+}
+
+.setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setting .sublabel {
+  margin-left: 12px;
+}
+
+.settings-panel__comment:not(:first-of-type) {
+  margin-top: 18px;
 }
 
 /* Swiper Global Overrides */

@@ -27,10 +27,10 @@
       </div>
     </div>
     <div class="document-panel">
-      <div class="document-panel__pdf">
+      <div class="document-panel__pdf" :v-if="loaded === true">
         <pdf
-          :src="url" 
           v-for="i in pages" 
+          :src="props.url"
           :key="i" 
           :id="i" 
           :page="i"
@@ -71,7 +71,7 @@ const pages = ref(1);
 const loaded = ref(false);
 const fit = ref(true);
 const rotation = ref(0);
-const url = ref("http://localhost:8100/assets/sample2.pdf");
+const url = ref();
 const panel = ref();
 
 onMounted(() => {
@@ -79,7 +79,7 @@ onMounted(() => {
 });
 
 const setupPDF = async () => {
-  url.value = "http://localhost:8100/assets/sample2.pdf";
+  url.value = props.url;
   const pdfData = await pdf.createLoadingTask(url.value);
   pages.value = pdfData.numPages;
   loaded.value = true;

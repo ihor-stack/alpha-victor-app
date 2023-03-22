@@ -4,10 +4,12 @@
       <div class="equipment-panel__icon">
         <img :src="useEquipmentIcon(props.selectedEquipment.category)" />
       </div>
-      <div class="equipment-panel__header">
-        <h1 class="equipment-name font-bold">{{ props.selectedEquipment.name }}</h1>
-        <p class="font-size-xxs color-dark-gray font-mono device-information">device.information</p>
-      </div>
+      <ion-header>
+        <div class="equipment-panel__header">
+          <h1 class="equipment-name font-bold">{{ props.selectedEquipment.name }}</h1>
+          <p class="font-size-xxs color-dark-gray font-mono device-information">device.information</p>
+        </div>
+      </ion-header>
       <ion-content>
         <div v-if="props.selectedEquipment.technical" class="equipment-panel__info-section">
           <h4 class="equipment-panel__info-section__heading">Technical</h4>
@@ -28,16 +30,18 @@
           </ul>
         </div>
       </ion-content>
-      <div class="equipment-panel__footer">
-        <ion-button expand="block" size="small">User Guide</ion-button>
-        <ion-button color="light" expand="block" size="small">Report Issue</ion-button>
-      </div>
+      <ion-footer>
+        <div class="equipment-panel__footer">
+          <ion-button expand="block" size="small">User Guide</ion-button>
+          <ion-button color="light" expand="block" size="small">Report Issue</ion-button>
+        </div>
+      </ion-footer>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { IonButton, IonContent } from "@ionic/vue";
+import { IonHeader, IonFooter, IonButton, IonContent } from "@ionic/vue";
 import { useDotify, useEquipmentIcon } from "@/composables/utilities";
 const props = defineProps(
   ['selectedEquipment'],

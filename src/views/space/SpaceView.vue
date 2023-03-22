@@ -1,6 +1,18 @@
 <template>
   <ion-page>
-    <ion-content>
+    <app-header :no-background="true">
+      <template #start>
+        <ion-button fill="clear" color="light" size="small" class="back" @click="() => router.back()">
+          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+        </ion-button>
+      </template>
+      <template #end>
+        <ion-button fill="clear" size="small" class="favourite">
+          <img src="@/theme/icons/favourite.svg" class="nav-menu" alt="Nav Menu Button" />
+        </ion-button>
+      </template>
+    </app-header>
+    <ion-content :fullscreen="true">
       <div class="outer-container">
         <div class="space-header">
           <div class="space-header__background">
@@ -8,15 +20,6 @@
             <div class="space-header__background__gradient"></div>
           </div>
           <div class="space-header__foreground">
-            <header>
-              <ion-button fill="clear" color="light" size="small" class="back" @click="router.back()">
-                <span class="font-mono font-size-xs">&lt;&lt; back</span>
-              </ion-button>
-              <img src="@/theme/img/logo/logo-without-name.svg" class="logo" alt="AlphaVictor logo" />
-              <ion-button fill="clear" size="small" class="favourite">
-                <img src="@/theme/icons/favourite.svg" class="nav-menu" alt="Nav Menu Button" />
-              </ion-button>
-            </header>
             <div class="space-header__info">
               <div class="space-header__info__left">
                 <div class="capacity">
@@ -55,33 +58,35 @@
         <div class="space-options-menu-container">
           <space-options-menu :issues="space.issues" />
         </div>
-        <!-- Space CTAs -->
-        <div class="space-cta-container">
-          <button type="button" class="sos-button">
-            <div class="icon"></div>
-            <div>
-              <span class="text">Call SOS</span>
-            </div>
-          </button>
-
-          <div class="ctas">
-            <ion-button expand="block">Give Feedback</ion-button>
-            <ion-button 
-              color="light" 
-              expand="block" 
-              @click="() => router.push({ name: 'ReportIssue' })"
-            >
-              Report Issue
-            </ion-button>
-          </div>
-        </div>
       </div>
     </ion-content>
+    <ion-footer>
+      <div class="space-cta-container">
+        <button type="button" class="sos-button">
+          <div class="icon"></div>
+          <div>
+            <span class="text">Call SOS</span>
+          </div>
+        </button>
+
+        <div class="ctas">
+          <ion-button expand="block">Give Feedback</ion-button>
+          <ion-button 
+            color="light" 
+            expand="block" 
+            @click="() => router.push({ name: 'ReportIssue' })"
+          >
+            Report Issue
+          </ion-button>
+        </div>
+      </div>
+    </ion-footer>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonContent, IonButton } from "@ionic/vue";
+import { IonPage, IonContent, IonButton, IonFooter } from "@ionic/vue";
+import AppHeader from "@/components/shared/AppHeader.vue";
 import OccupiedStatus from "@/components/shared/OccupiedStatus.vue";
 import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
 import SpaceWiFiInfo from "@/components/space/SpaceWiFiInfo.vue";
@@ -169,8 +174,8 @@ const space: Space = {
 .space-header__foreground {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 50px 30px 24px;
+  justify-content: flex-end;
+  padding: 20px 0 24px;
   position: absolute;
   top: 0;
   left: 0;
@@ -178,29 +183,24 @@ const space: Space = {
   bottom: 0;
   z-index: 1;
 }
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header .back {
+.back {
   --padding-start: 0;
   --padding-top: 0;
   --padding-bottom: 0;
 }
 
-header .favourite {
+.favourite {
   --padding-end: 0;
   --padding-top: 0;
   --padding-bottom: 0;
+  min-height: 50px;
 }
 
 .space-header__info {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  padding: 0 30px;
 }
 
 .space-header__info__right {
@@ -258,7 +258,7 @@ header .favourite {
 
 .space-cta-container {
   flex: 0 0 20vh;
-  padding: 0 30px;
+  padding: 0 30px 20px;
 }
 
 .sos-button {

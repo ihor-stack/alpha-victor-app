@@ -1,37 +1,39 @@
 <template>
-  <ion-page>
-    <ion-content>
-      <div class="outer-container">
-        <header>
-          <ion-button fill="clear" color="light">
-            <img src="@/theme/icons/switch-location.svg" alt="Switch Location">
-          </ion-button>
-          <img src="@/theme/img/logo/logo-without-name.svg" class="logo" alt="AlphaVictor logo" />
-          <ion-button fill="clear">
-            <img src="@/theme/icons/nav-menu.svg" class="nav-menu" alt="Nav Menu Button" />
-          </ion-button>
-        </header>
-        <div class="dashboard-search-container">
-          <dashboard-search />
+  <ion-page id="dashboard" class="outer-container">
+    <app-header :no-background="true">
+      <template #start>
+        <ion-button fill="clear" color="light" class="switch-location">
+          <img src="@/theme/icons/switch-location.svg" alt="Switch Location">
+        </ion-button>
+      </template>
+      <template #end>
+        <ion-menu-button fill="clear">
+          <img src="@/theme/icons/nav-menu.svg" class="nav-menu" alt="Nav Menu Button" />
+        </ion-menu-button>
+      </template>
+    </app-header>
+    <ion-content :scroll-y="false">
+      <div class="dashboard-search-container">
+        <dashboard-search />
+      </div>
+      <div class="dashboard-sliders">
+        <div class="dashboard-slider-container">
+          <dashboard-slider title="Nearby spaces" cta-url="" :slides="spaces" />
         </div>
-        <div class="dashboard-sliders">
-          <div class="dashboard-slider-container">
-            <dashboard-slider title="Recently Viewed" cta-url="/" :slides="spaces" />
-          </div>
-          <div class="dashboard-slider-container">
-            <dashboard-slider title="My Favourites" cta-url="/" :slides="spaces" />
-          </div>
-        </div>
-        <div class="cta-container">
-          <ion-button expand="block" @click="exploreSpaces">Explore Spaces</ion-button>
+        <div class="dashboard-slider-container">
+          <dashboard-slider title="Recently viewed" cta-url="/recently-viewed" :slides="spaces" />
         </div>
       </div>
     </ion-content>
+    <ion-footer class="ion-no-border">
+      <ion-button expand="block" @click="exploreSpaces">Explore Spaces</ion-button>
+    </ion-footer>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-  import { IonPage, IonContent, IonButton } from "@ionic/vue";
+  import { IonPage, IonContent, IonFooter, IonButton, IonMenuButton } from "@ionic/vue";
+  import AppHeader from "@/components/shared/AppHeader.vue";
   import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
   import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
   import { Space } from "@/types";
@@ -77,37 +79,29 @@
 </script>
 
 <style scoped>
-
 .outer-container {
   display: flex;
   flex-direction: column;
 }
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex: 0 0 15vh;
-  padding-top: 30px;
-}
-
 .dashboard-search-container {
   padding: 0 32px 32px;
+  background: 0;
 }
-
 .dashboard-sliders {
   flex: 1;
 }
-
 .dashboard-slider-container:not(:last-of-type) {
   margin-bottom: 32px;
 }
+.switch-location {
+  height: 50px;
+}
 
-.cta-container {
-  padding: 0 32px;
-  flex: 0 0 15vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+ion-content {
+  --background: none;
+}
+
+ion-footer {
+  padding: 20px 32px;
 }
 </style>

@@ -33,6 +33,28 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/dashboard/DashboardView.vue"),
   },
   {
+    path: "/find-space",
+    name: "FindSpace",
+    component: () => import("@/views/find-space/FindSpace.vue"),
+    children: [
+      {
+        path: "",
+        name: "FindSpaceLocation",
+        component: () => import("@/views/find-space/FindSpaceLocation.vue")
+      },
+    ]
+  },
+  {
+    path: "/recently-viewed",
+    name: "RecentlyViewed",
+    component: () => import("@/views/dashboard/RecentlyViewed.vue"),
+  },
+  {
+    path: "/favourites",
+    name: "Favourites",
+    component: () => import("@/views/dashboard/FavouritesView.vue"),
+  },
+  {
     path: "/space",
     name: "Space",
     component: () => import("@/views/space/SpaceView.vue"),
@@ -56,7 +78,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/known-issues",
     name: "KnownIssues",
     component: () => import("@/views/space/KnownIssuesView.vue"),
-    props: { reportIssueModalOpen: false }
+    props: { reportIssueModalOpen: false },
   },
   {
     path: "/report-issue",
@@ -64,6 +86,72 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/KnownIssuesView.vue"),
     props: { reportIssueModalOpen: true },
   },
+  {
+    path: "/settings",
+    name: "AccountSettings",
+    component: () => import("@/views/settings/AccountSettings.vue"),
+    children: [
+      {
+        path: "profile",
+        name: "AccountSettingsProfile",
+        component: () => import("@/views/settings/AccountSettingsProfile.vue"),
+      },
+      {
+        path: "notifications",
+        name: "AccountSettingsNotifications",
+        component: () =>
+          import("@/views/settings/AccountSettingsNotifications.vue"),
+      },
+      {
+        path: "bluetooth",
+        name: "AccountSettingsBluetooth",
+        component: () =>
+          import("@/views/settings/AccountSettingsBluetooth.vue"),
+      },
+      {
+        path: "bluetooth",
+        name: "AccountSettingsBluetooth",
+        component: () =>
+          import("@/views/settings/AccountSettingsBluetooth.vue"),
+      },
+      {
+        path: "location",
+        name: "AccountSettingsLocation",
+        component: () => import("@/views/settings/AccountSettingsLocation.vue"),
+      },
+      {
+        path: "password",
+        name: "AccountSettingsPassword",
+        component: () => import("@/views/settings/AccountSettingsPassword.vue"),
+      },
+      {
+        path: "language",
+        name: "AccountSettingsLanguage",
+        component: () => import("@/views/settings/AccountSettingsLanguage.vue"),
+      },
+      {
+        path: "delete-account",
+        name: "AccountSettingsDeleteAccount",
+        component: () =>
+          import("@/views/settings/AccountSettingsDeleteAccount.vue"),
+      },
+    ],
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: () => import("@/views/static/AboutView.vue")
+  },
+  {
+    path: "/legal-notices",
+    name: "LegalNotices",
+    component: () => import("@/views/static/LegalNotices.vue")
+  },
+  {
+    path: "/terms-and-conditions",
+    name: "TermsAndConditions",
+    component: () => import("@/views/static/TermsAndConditions.vue")
+  }
 ];
 
 const router = createRouter({

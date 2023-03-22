@@ -2,12 +2,13 @@
   <ion-page>
     <div class="issues-panel">
       <div class="issues-panel-container">
-        <ion-content>
+        <ion-header>
           <div class="issues-panel__header">
             <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">Report Issue</h1>
             <p class="issues-panel__comment color-light-gray font-size-xs">Please provide details on the issue you're facing, and which equipment</p>
           </div>
-
+        </ion-header>
+        <ion-content :scroll-y="false">
           <div class="issues-panel__section issues-panel__select-equipment">
             <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Select Equipment</h2>
             <ion-select interface="action-sheet" class="issues-panel__select-equipment__select" placeholder="Select equipment" v-model="state.equipment">
@@ -21,23 +22,30 @@
             <ion-textarea class="issues-panel__add-comment__textarea" placeholder="Enter a comment here" v-model="state.comment"></ion-textarea>
           </div>
         </ion-content>
-        <ion-button>Submit Issue</ion-button>
+        <ion-footer>
+          <ion-button expand="block">Submit Issue</ion-button>
+        </ion-footer>
       </div>
     </div>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { reactive, defineComponent } from "vue";
-import { IonPage, IonContent, IonButton, IonSelect, IonSelectOption, IonTextarea } from "@ionic/vue";
+import { reactive } from "vue";
+import { 
+  IonPage, 
+  IonContent, 
+  IonHeader, 
+  IonFooter, 
+  IonButton, 
+  IonSelect, 
+  IonSelectOption, 
+  IonTextarea 
+} from "@ionic/vue";
 
 const state = reactive({
   comment: "",
   equipment: "",
-});
-
-defineComponent({
-  components: { IonSelect, IonTextarea },
 });
 </script>
 

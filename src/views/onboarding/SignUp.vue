@@ -15,10 +15,10 @@
                 </h1>
               </div>
               <div class="form-container">
-                <ion-input class="custom" type="text" placeholder="Full name" name="full-name" />
-                <ion-input class="custom" type="email" placeholder="Email" name="email" />
-                <ion-input class="custom" type="password" placeholder="Password" name="password" />
-                <ion-input class="custom" type="password" placeholder="Confirm Password" name="confirm-password" />
+                <ion-input class="custom-input" type="text" placeholder="Full name" name="full-name" />
+                <ion-input class="custom-input" type="email" placeholder="Email" name="email" />
+                <ion-input class="custom-input" type="password" placeholder="Password" name="password" />
+                <ion-input class="custom-input" type="password" placeholder="Confirm Password" name="confirm-password" />
                 <ion-button expand="block">Sign up</ion-button>
               </div>
               <div class="link-container text-center">

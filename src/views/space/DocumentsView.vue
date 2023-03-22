@@ -1,13 +1,13 @@
 <template>
   <ion-page>
+    <app-header title="Documents">
+      <template #start>
+        <ion-button fill="clear" color="light" @click="() => router.back()" class="back">
+          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+        </ion-button>
+      </template>
+    </app-header>
     <ion-content>
-      <app-header title="Documents">
-        <template #app-header-left>
-          <ion-button fill="clear" color="light" @click="goBack">
-            <span class="font-mono font-size-xs">&lt;&lt; back</span>
-          </ion-button>
-        </template>
-      </app-header>
       <documents-list :documents="roomDocuments" />
     </ion-content>
   </ion-page>
@@ -19,10 +19,6 @@ import AppHeader from "@/components/shared/AppHeader.vue";
 import DocumentsList from "@/components/space/DocumentsList.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
-
-const goBack = () => {
-  router.back();
-};
 
 const roomDocuments = [
   {

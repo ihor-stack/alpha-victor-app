@@ -15,8 +15,8 @@
               </div>
               <div class="login-form">
                 <div class="login-form-fields">
-                  <ion-input type="email" class="custom" placeholder="Email" name="email" />
-                  <ion-input type="password" class="custom" placeholder="Password" name="password" />
+                  <ion-input type="email" class="custom-input" placeholder="Email" name="email" />
+                  <ion-input type="password" class="custom-input" placeholder="Password" name="password" />
                   <div class="text-right">
                     <router-link class="forgot-password" :to="{ name: 'ForgotPassword' }">Forgot password?</router-link>
                   </div>

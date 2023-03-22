@@ -1,14 +1,11 @@
 <template>
   <ion-app>
-    <ion-router-outlet />
+    <app-menu />
+    <ion-router-outlet id="content" />
   </ion-app>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  components: { IonApp, IonRouterOutlet},
-});
+import AppMenu from './components/shared/AppMenu.vue';
 </script>

@@ -1,35 +1,35 @@
 <template>
   <ion-page>
+    <app-header title="Known Issues">
+      <template #start>
+        <ion-button fill="clear" color="light" @click="() => router.back()" class="back">
+          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+        </ion-button>
+      </template>
+    </app-header>
     <ion-content :fullscreen="true">
-      <div class="known-issues__container">
-        <app-header title="Known Issues">
-          <template #app-header-left>
-            <ion-button fill="clear" color="light" @click="goBack">
-              <span class="font-mono font-size-xs">&lt;&lt; back</span>
-            </ion-button>
-          </template>
-        </app-header>
-        <div class="container">
-          <known-issues-list :open-issues="openIssues" :closed-issues="closedIssues" :click-handler="handleIssueClick" />
-        </div>
-        <div class="known-issues__report-issue">
-          <ion-button expand="block" @click="handleReportIssueClick">Report Issue</ion-button>
-        </div>
+      <div class="container">
+        <known-issues-list :open-issues="openIssues" :closed-issues="closedIssues" :click-handler="handleIssueClick" />
       </div>
-      <ion-modal :is-open="state.issueModalOpen" :initial-breakpoint="1" :breakpoints="[0, 1]" @willDismiss="handleDismissIssueModal">
-        <issues-modal :issue="state.selectedIssue" />
-      </ion-modal>
-      <ion-modal :is-open="state.reportIssueModalOpen" :initial-breakpoint="1" :breakpoints="[0, 1]" @willDismiss="handleDismissReportIssueModal">
-        <report-issue-modal />
-      </ion-modal>
     </ion-content>
+    <ion-footer>
+      <div class="known-issues__report-issue">
+        <ion-button expand="block" @click="handleReportIssueClick">Report Issue</ion-button>
+      </div>
+    </ion-footer>
+    <ion-modal :is-open="state.issueModalOpen" :initial-breakpoint="1" :breakpoints="[0, 1]" @willDismiss="handleDismissIssueModal">
+      <issues-modal :issue="state.selectedIssue" />
+    </ion-modal>
+    <ion-modal :is-open="state.reportIssueModalOpen" :initial-breakpoint="1" :breakpoints="[0, 1]" @willDismiss="handleDismissReportIssueModal">
+      <report-issue-modal />
+    </ion-modal>
   </ion-page>
 </template>
 
 <script setup lang="ts">
 import { defineProps, reactive } from "vue";
 import { useRouter } from "vue-router";
-import { IonContent, IonPage, IonButton, IonModal } from "@ionic/vue";
+import { IonContent, IonFooter, IonPage, IonButton, IonModal } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import IssuesModal from "@/components/modals/IssuesModal.vue";
 import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
@@ -74,10 +74,6 @@ const handleReportIssueClick = () => {
   state.reportIssueModalOpen = true;
 }
 
-const goBack = () => {
-  router.back();
-};
-
 const closedIssues = [
   {
     title: "WiFi network password doesn't work",
@@ -117,6 +113,10 @@ const openIssues = [
 <style scoped>
 ion-modal {
   --max-height: 80vh;
+}
+
+ion-footer {
+  background: #000000;
 }
 
 .known-issues__container {

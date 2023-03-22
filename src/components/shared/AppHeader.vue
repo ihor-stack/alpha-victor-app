@@ -1,64 +1,61 @@
 <template>
-  <header class="app-header">
-    <div class="app-header__upper">
-      <div class="app-header__left">
-        <slot name="app-header-left"></slot>
-      </div>
-      <div class="app-header__center">
-        <img src="@/theme/img/logo/logo-without-name.svg" class="logo" alt="AlphaVictor logo" />
-      </div>
-      <div class="app-header__right">
-        <slot name="app-header-right"></slot>
-      </div>
-    </div>
-    <div class="app-header__lower" v-if="props.title">
+  <ion-header :class="['ion-no-border', noBackground ? 'no-background' : '']">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <slot name="start"></slot>
+      </ion-buttons>
+
+      <ion-title>
+        <router-link to="/dashboard">
+          <img src="@/theme/img/logo/logo-without-name.svg" class="logo" alt="AlphaVictor logo" />
+        </router-link>
+      </ion-title>
+
+      <ion-buttons slot="end">
+        <slot name="end"></slot>
+      </ion-buttons>
+    </ion-toolbar>
+    <div class="title" v-if="props.title">
       <h1 class="font-bold font-size-lg color-light-gray">
         {{ props.title }}
       </h1>
     </div>
-  </header>
+  </ion-header>
 </template>
 
 <script setup lang="ts">
 import { defineProps } from "vue";
+import { IonHeader, IonToolbar, IonTitle, IonButtons } from "@ionic/vue";
 
 const props = defineProps({
   title: {
     type: String,
     required: false,
+  },
+  noBackground: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 });
 </script>
 
 <style scoped>
-.app-header__upper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 50px 0 12px;
-  width: 100%;
+ion-header {
+  background: #000000;
 }
-
-.app-header__left,
-.app-header__center,
-.app-header__right {
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-
-.app-header__center {
-  justify-content: center;
-}
-
-.app-header__right {
-  justify-content: flex-end;
-}
-
-.app-header__lower {
+.title {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 0 20px;
+  padding: 0 12px 24px;
+}
+
+ion-buttons {
+  min-height: 50px;
+}
+
+.no-background {
+  background: none;
 }
 </style>

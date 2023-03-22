@@ -37,13 +37,12 @@
   height: 6px;
   border-radius: 50%;
   position: absolute;
-  top: 1px;
-  left: 1px;
-  
+  top: 0px;
+  left: 0px;
 }
 
 .dot.occupied {
-  background-color: rgba(255, 55, 55, 0.5);
+  background-color: rgba(255, 55, 55, 0.25);
 }
 
 .dot.occupied::after {
@@ -51,7 +50,7 @@
 }
 
 .dot.vacant {
-  background: rgba(55, 177, 76, 0.5);
+  background: rgba(55, 177, 76, 0.25);
 }
 
 .dot.vacant::after {

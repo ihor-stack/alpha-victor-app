@@ -5,7 +5,7 @@
         <h2 class="title font-bold color-light-gray font-size-sm">
           {{ title }}
         </h2>
-        <ion-button fill="clear" size="small" @click="handleCta"
+        <ion-button v-if="props.ctaUrl" fill="clear" size="small" @click="handleCta"
           ><span class="color-light-gray font-mono font-size-xs text-spaced"
             >&gt;&gt; view.all</span
           ></ion-button
@@ -80,14 +80,16 @@ const router = useRouter();
 
 interface Props {
   title: string;
-  ctaUrl: string;
+  ctaUrl?: string | undefined;
   slides: Space[];
 }
 
 const props = defineProps<Props>();
 
 const handleCta = () => {
-  router.push({ path: props.ctaUrl });
+  if (props.ctaUrl) {
+    router.push({ path: props.ctaUrl });
+  }
 };
 </script>
 
