@@ -1,56 +1,92 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Blank</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-content>
+      <div class="outer-container onboarding">
+        <div class="gradient-container">
+          <div class="inner-container">
+            <div class="content-container">
+              <div class="blue-text-container">
+                <dot-text text="time.for.a.change" offset="-50" />
+              </div>
+              <div class="headline-container">
+                <h1 class="headline font-bold font-size-xl color-light-gray">
+                  a better experience.
+                </h1>
+              </div>
+              <div class="cta-container">
+                <div class="blurb-container">
+                  <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
+                </div>
+                <div class="button-container">
+                  <ion-button expand="block" @click="signup">Sign up</ion-button>
+                </div>
+              </div>
+              <div class="link-container text-center">
+                <p class="color-mid-gray font-md">
+                  Already have an account?
+                  <router-link :to="{ name: 'Dashboard' }" class="color-light-gray link">Login</router-link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonPage, IonButton } from "@ionic/vue";
+import { useRouter } from "vue-router";
+import DotText from "@/components/shared/DotText.vue";
+
+const router = useRouter();
+const signup = () => {
+  router.push({ name: "Signup" });
+};
 </script>
 
 <style scoped>
-#container {
+.content-container {
+  flex: 0 0 58%;
+  display: flex;
+  flex-direction: column;
+}
+
+.blue-text-container {
+  margin-bottom: 6px;
   text-align: center;
-  
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.cta-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
+.blurb-container {
+  flex: 1;
 }
 
-#container a {
-  text-decoration: none;
+.button-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* padding-top: 40px; */
+}
+
+.headline {
+  letter-spacing: 0.015em;
+  margin-left: 28px;
+  text-indent: -17px;
+  margin-bottom: 28px;
+}
+
+.link-container {
+  flex: 0 0 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
