@@ -40,9 +40,9 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "",
         name: "FindSpaceLocation",
-        component: () => import("@/views/find-space/FindSpaceLocation.vue")
+        component: () => import("@/views/find-space/FindSpaceLocation.vue"),
       },
-    ]
+    ],
   },
   {
     path: "/recently-viewed",
@@ -140,18 +140,33 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/about",
     name: "About",
-    component: () => import("@/views/static/AboutView.vue")
+    component: () => import("@/views/static/AboutView.vue"),
+  },
+  {
+    path: "/organisation",
+    name: "Oraganistion",
+    component: () => import("@/views/admin/OrganisationView.vue"),
+  },
+  {
+    path: "/organisation-edit",
+    name: "OrganisationEdit",
+    component: () => import("@/views/admin/OrganisationEditView.vue"),
+  },
+  {
+    path: "/organisation-edit-details",
+    name: "OrganisationEditDetails",
+    component: () => import("@/views/admin/OrganisationEditDetailsView.vue"),
   },
   {
     path: "/legal-notices",
     name: "LegalNotices",
-    component: () => import("@/views/static/LegalNotices.vue")
+    component: () => import("@/views/static/LegalNotices.vue"),
   },
   {
     path: "/terms-and-conditions",
     name: "TermsAndConditions",
-    component: () => import("@/views/static/TermsAndConditions.vue")
-  }
+    component: () => import("@/views/static/TermsAndConditions.vue"),
+  },
 ];
 
 const router = createRouter({
