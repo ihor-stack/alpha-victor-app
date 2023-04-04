@@ -2,23 +2,19 @@
     <div class="container">
       <ul class="space-options-menu">
         <li class="space-options-menu-item">
-          <router-link :to="{ name: 'Equipment' }">
-            <p class="label font-bold font-size-sm color-light-gray">
-              Room Equipment
-            </p>
-            <span class="arrow-right"></span>
-          </router-link>
+          <ion-item :router-link="{ name: 'Equipment' }" router-direction="root">
+            <span class="link-text">Room Equipment</span>
+            <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          </ion-item>
         </li>
         <li class="space-options-menu-item">
-          <router-link :to="{}">
-            <p class="label font-bold font-size-sm color-light-gray">
-              Get Help
-            </p>
-            <span class="arrow-right"></span>
-          </router-link>
+          <ion-item :router-link="{ name: 'Help' }" router-direction="root">
+            <span class="link-text">Get Help</span>
+            <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          </ion-item>
         </li>
         <li class="space-options-menu-item">
-          <router-link :to="{ name: 'KnownIssues' }">
+          <ion-item :router-link="{ name: 'KnownIssues' }" router-direction="root">
             <div class="with-counter">
               <p class="label font-bold font-size-sm color-light-gray">
                 Known Issues
@@ -29,16 +25,14 @@
                 </div>
               </div>
             </div>
-            <span class="arrow-right"></span>
-          </router-link>
+            <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          </ion-item>
         </li>
         <li class="space-options-menu-item">
-          <router-link :to="{ name: 'Documents' }">
-            <p class="label font-bold font-size-sm color-light-gray">
-              Documents
-            </p>
-            <span class="arrow-right"></span>
-          </router-link>
+          <ion-item :router-link="{ name: 'Documents' }" router-direction="root">
+            <span class="link-text">Documents</span>
+            <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          </ion-item>
         </li>
       </ul>
     </div>
@@ -46,6 +40,8 @@
 
 <script setup lang="ts">
 import { defineProps } from "vue";
+import { IonItem, IonIcon } from "@ionic/vue";
+import { chevronForwardOutline } from "ionicons/icons";
 import { Issue } from "@/types";
 
 interface Props {
@@ -62,15 +58,24 @@ defineProps<Props>();
   list-style-type: none;
 }
 
-.space-options-menu-item a {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 0;
+.space-options-menu-item ion-item {
+  --background: none;
+  --color: #FFFFFF;
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+  --inner-padding-top: 8px;
+  --inner-padding-bottom: 8px;
 }
 
-.space-options-menu-item:not(:first-of-type) {
-  border-top: 0.75px solid #313131;
+.space-options-menu-item ion-item ion-icon {
+  margin-right: 0;
+}
+
+.space-options-menu-item .link-text {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
 }
 
 .space-options-menu-item .arrow-right {

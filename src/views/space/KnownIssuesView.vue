@@ -11,6 +11,7 @@
       <div class="container">
         <known-issues-list :open-issues="openIssues" :closed-issues="closedIssues" :click-handler="handleIssueClick" />
       </div>
+      <custom-toast :status="state.toastData.toastStatus" :header="state.toastData.toastHeader" :message="state.toastData.toastMessage" :is-open="state.toastData.toastOpen" v-on:did-dismiss="hideToast" />
     </ion-content>
     <ion-footer>
       <div class="known-issues__report-issue">
@@ -34,7 +35,8 @@ import AppHeader from "@/components/shared/AppHeader.vue";
 import IssuesModal from "@/components/modals/IssuesModal.vue";
 import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 import KnownIssuesList from "@/components/space/KnownIssuesList.vue";
-import { Issue } from "@/types";
+import CustomToast from "@/components/shared/CustomToast.vue";
+import { Issue, ToastStatus } from "@/types";
 
 const router = useRouter();
 
@@ -42,19 +44,34 @@ interface Props {
   reportIssueModalOpen: boolean
 }
 
+interface ToastData {
+  toastOpen: boolean;
+  toastMessage: string;
+  toastHeader: string;
+  toastStatus: ToastStatus;
+}
+
 const props = defineProps<Props>();
 
 interface State {
-  issueModalOpen: boolean
-  reportIssueModalOpen: boolean
-  selectedIssue: Issue | null
+  issueModalOpen: boolean;
+  reportIssueModalOpen: boolean;
+  selectedIssue: Issue | null;
+  toastData: ToastData;
 }
 
 const state: State = reactive({
   issueModalOpen: false,
   reportIssueModalOpen: props.reportIssueModalOpen,
   selectedIssue: null,
+  toastData: {
+    toastOpen: false,
+    toastHeader: '',
+    toastMessage: '',
+    toastStatus: 'generic'
+  }
 });
+
 
 const handleDismissIssueModal = () => {
   state.issueModalOpen = false;
@@ -62,6 +79,12 @@ const handleDismissIssueModal = () => {
 
 const handleDismissReportIssueModal = () => {
   state.reportIssueModalOpen = false;
+  state.toastData = {
+    toastHeader: 'Error',
+    toastMessage: 'Something went wrong with your submission',
+    toastStatus: 'error',
+    toastOpen: true
+  }
 }
 
 const handleIssueClick = (item: any) => {
@@ -72,6 +95,11 @@ const handleIssueClick = (item: any) => {
 const handleReportIssueClick = () => {
   state.issueModalOpen = false;
   state.reportIssueModalOpen = true;
+}
+
+const hideToast = () => {
+  console.log('hiding toast');
+  state.toastData.toastOpen = false;
 }
 
 const closedIssues = [

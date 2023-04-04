@@ -2,8 +2,8 @@
   <ion-page id="dashboard" class="outer-container">
     <app-header :no-background="true">
       <template #start>
-        <ion-button fill="clear" color="light" class="switch-location">
-          <img src="@/theme/icons/switch-location.svg" alt="Switch Location">
+        <ion-button fill="clear" color="light" class="switch-organisation" @click="state.modalOpen = true">
+          <img src="@/theme/icons/switch-location.svg" alt="Switch Organisation">
         </ion-button>
       </template>
       <template #end>
@@ -28,17 +28,34 @@
     <ion-footer class="ion-no-border">
       <ion-button expand="block" @click="exploreSpaces">Explore Spaces</ion-button>
     </ion-footer>
+    <ion-modal :is-open="state.modalOpen" :initial-breakpoint="0.4" :breakpoints="[0, 0.4]" @willDismiss="handleDismiss">
+      <organisation-select-modal />
+    </ion-modal>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-  import { IonPage, IonContent, IonFooter, IonButton, IonMenuButton } from "@ionic/vue";
+  import { reactive } from "vue";
+  import { IonPage, IonContent, IonFooter, IonButton, IonMenuButton, IonModal } from "@ionic/vue";
   import AppHeader from "@/components/shared/AppHeader.vue";
   import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
   import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
+  import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
   import { Space } from "@/types";
   import { useRouter } from "vue-router";
   const router = useRouter();
+
+  interface State {
+    modalOpen: boolean;
+  }
+
+  const state: State = reactive({
+    modalOpen: false,
+  })
+
+  const handleDismiss = () => {
+    state.modalOpen = false;
+  };
 
   const spaces: Space[] = [
     {
@@ -93,7 +110,7 @@
 .dashboard-slider-container:not(:last-of-type) {
   margin-bottom: 32px;
 }
-.switch-location {
+.switch-organisation {
   height: 50px;
 }
 
