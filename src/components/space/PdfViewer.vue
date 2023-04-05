@@ -4,11 +4,16 @@
       <div class="document-panel__controls__pages">
           <ion-input
             type="number"
-            :value="page"
             :min="1"
             :max="pages"
+            :value="page"
+            :clear-on-edit="true"
+            :debounce="4000"
+            enterkeyhint="go"
+            inputmode="numeric"
             class="document-panel__controls__page-input"
-            @ion-change="jumpToPage($event)"
+            @ion-input="jumpToPage($event)"
+            ref="input"
           />
           <span>/</span> 
           {{ pages }}
@@ -27,7 +32,7 @@
       </div>
     </div>
     <div class="document-panel">
-      <div class="document-panel__pdf" :v-if="loaded === true">
+      <div class="document-panel__pdf">
         <pdf
           v-for="i in pages" 
           :src="props.url"
@@ -95,8 +100,8 @@ const rotate = () => {
 };
 
 const jumpToPage = (ev: CustomEvent) => {
-  const target = ev.detail.value;
-  const targetPagePos = findPos(document.getElementById(target.toString()));
+  const target = ev.detail.data;
+  const targetPagePos = findPos(document.getElementById(target?.toString()));
   panel.value.$el.scrollEl.scrollTop = targetPagePos - 75;
 }
 
@@ -143,10 +148,6 @@ ion-input {
 }
 .document-panel {
   background-color: #181818;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: calc(100% + 126px);
 }
 
 .document-panel__controls {
@@ -205,6 +206,6 @@ ion-input {
 }
 
 .document-panel__pdf {
-  flex: 1;
+  margin-bottom: 250px;
 }
 </style>

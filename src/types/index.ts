@@ -1,124 +1,98 @@
 enum Status {
   lowImpact,
   highImpact,
-  resolved,
+  resolved
 }
 
 enum DocumentTypeScope {
   organisation,
   location,
   floor,
-  space,
+  space
 }
 
 export interface Space {
-  spaceName: string;
-  shortCode: number;
-  qrCode?: string;
-  spaceType: string;
-  occupied: boolean;
-  capacity: number;
-  imageUrl: string;
-  email?: string;
-  phoneNumber?: string;
-  article?: Article;
-  video?: Video;
-  issues: Issue[];
-  typeformId?: Typeform;
-  spaceFeatures: SpaceFeature[];
-  decisionTree?: DecisionTree[];
-  devices?: Device[];
-  photos?: Photo[];
-  beacons?: Beacon[];
-  wifiDetails?: WifiDetails;
-  location?: string;
-}
-
-export interface Organisation {
-  organisationName: string;
-  shortCode: number;
-  qrCode?: string;
-  organisationType: string;
-  occupied: boolean;
-  capacity: number;
-  imageUrl: string;
-  email?: string;
-  phoneNumber?: string;
-  article?: Article;
-  video?: Video;
-  issues: Issue[];
-  typeformId?: Typeform;
-  organisationFeatures: organisationFeature[];
-  decisionTree?: DecisionTree[];
-  devices?: Device[];
-  photos?: Photo[];
-  beacons?: Beacon[];
-  wifiDetails?: WifiDetails;
-  location?: string;
+  spaceName: string
+  shortCode: number
+  qrCode?: string
+  spaceType: string
+  occupied: boolean
+  capacity: number
+  imageUrl: string
+  email?: string
+  phoneNumber?: string
+  article?: Article
+  video?: Video
+  issues: Issue[]
+  typeformId?: Typeform
+  spaceFeatures: SpaceFeature[]
+  decisionTree?: DecisionTree[]
+  devices?: Device[]
+  photos?: Photo[]
+  beacons?: Beacon[]
+  wifiDetails?: WifiDetails
+  location?: string
 }
 
 export interface Location {
-  location: string;
+  location: string
 }
 
 export interface Article {
-  title: string;
+  title: string
 }
 
 export interface Video {
-  url: string;
+  url: string
 }
 
 export interface Photo {
-  path: string;
-  order: number;
-  featuredPhoto: boolean;
+  path: string
+  order: number
+  featuredPhoto: boolean
 }
 
 export interface Issue {
-  title: string;
-  status: Status;
-  comment: string;
-  log: string[];
+  title: string
+  status: Status
+  comment: string
+  log: string[]
 }
 
 export interface Typeform {
-  id: string;
+  id: string
 }
 
 export interface SpaceFeature {
-  name: string;
-  category: string;
-}
-
-export interface organisationFeature {
-  name: string;
-  category: string;
+  name: string,
+  category: string
 }
 
 export interface DecisionTree {
-  articles: Article[];
-  videos: Video[];
+  articles: Article[]
+  videos: Video[]
 }
 
 export interface Device {
-  name: string;
+  name: string
 }
 
 export interface Document {
-  name: string;
-  documentType: DocumentType;
+  name: string
+  documentType: DocumentType
 }
 
 export interface DocumentType {
-  documentTypeScopes: DocumentTypeScope[];
+  documentTypeScopes: DocumentTypeScope[]
 }
 
 export interface Beacon {
-  uuid: string;
+  uuid: string
 }
 
 export interface WifiDetails {
-  networkName: string;
-  password: string;
+  networkName: string
+  password: string
 }
+
+export type ToastStatus = 'generic' | 'success' | 'problem' | 'error';

@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("@/views/LogIn.vue"),
+    component: () => import("@/views/auth/LogIn.vue"),
   },
   {
     path: "/signup",
@@ -20,7 +20,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/forgot-password",
     name: "ForgotPassword",
-    component: () => import("@/views/ForgotPassword.vue"),
+    component: () => import("@/views/auth/ForgotPassword.vue"),
+  },
+  {
+    path: "/reset-password",
+    name: "ResetPassword",
+    component: () => import("@/views/auth/ResetPassword.vue"),
   },
   {
     path: "/allow-access",
