@@ -9,7 +9,7 @@
         </template>
       </app-header>
       
-      <PdfViewer url="http://localhost:8100/assets/sample.pdf" />
+      <PdfViewer url="http://localhost:8100/assets/sample2.pdf" />
     </ion-content>
   </ion-page>
 </template>

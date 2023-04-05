@@ -3,7 +3,7 @@
     :is-open="props.isOpen"
     :header="props.header"
     :message="props.message"
-    :duration="5000"
+    :duration="props.duration || 3000"
     position="top"
     :icon="
       props.status === 'success' ? checkmarkCircle :
@@ -29,6 +29,7 @@ import { alertCircle, checkmarkCircle, closeCircle } from "ionicons/icons";
 interface Props {
   status: 'generic' | 'success' | 'problem' | 'error';
   header?: string;
+  duration?: number;
   message: string;
   isOpen: boolean;
 }

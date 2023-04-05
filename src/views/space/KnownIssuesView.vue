@@ -11,7 +11,7 @@
       <div class="container">
         <known-issues-list :open-issues="openIssues" :closed-issues="closedIssues" :click-handler="handleIssueClick" />
       </div>
-      <custom-toast :status="state.toastData.toastStatus" :header="state.toastData.toastHeader" :message="state.toastData.toastMessage" :is-open="state.toastData.toastOpen" v-on:did-dismiss="hideToast" />
+      <custom-toast :status="state.toastData.toastStatus" :header="state.toastData.toastHeader" :message="state.toastData.toastMessage" :is-open="state.toastData.toastOpen" :duration="state.toastData.toastDuration" v-on:did-dismiss="hideToast" />
     </ion-content>
     <ion-footer>
       <div class="known-issues__report-issue">
@@ -49,6 +49,7 @@ interface ToastData {
   toastMessage: string;
   toastHeader: string;
   toastStatus: ToastStatus;
+  toastDuration?: number; 
 }
 
 const props = defineProps<Props>();
@@ -80,9 +81,9 @@ const handleDismissIssueModal = () => {
 const handleDismissReportIssueModal = () => {
   state.reportIssueModalOpen = false;
   state.toastData = {
-    toastHeader: 'Error',
-    toastMessage: 'Something went wrong with your submission',
-    toastStatus: 'error',
+    toastHeader: 'Thank you',
+    toastMessage: 'Your issue report has been sent',
+    toastStatus: 'success',
     toastOpen: true
   }
 }
