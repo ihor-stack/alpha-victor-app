@@ -9,3 +9,9 @@
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import AppMenu from './components/shared/AppMenu.vue';
 </script>
+
+<style>
+  .ion-page-hidden {
+    display: none !important;
+  }
+</style>

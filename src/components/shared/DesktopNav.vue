@@ -214,6 +214,7 @@ const logout = () => {
 .side-nav {
   height: 100%;
   width: 30%;
+  max-width: 300px;
   position: fixed;
   z-index: 1;
   top: 0;

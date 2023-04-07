@@ -3,7 +3,7 @@
     <ion-grid>
       <ion-row>
         <ion-col class="col-nav">
-          <desktop-nav />
+          <!-- <desktop-nav /> -->
         </ion-col>
         <ion-col>
           <ion-content
@@ -18,7 +18,7 @@
             >
               <span class="font-mono font-size-xs">&lt;&lt; back</span>
             </ion-button>
-            <h1 class="title-pad">LinkedIn</h1>
+            <h1 class="font-bold font-size-lg color-light-gray">LinkedIn</h1>
             <h2 class="sub-head">
               LinkedIn &nbsp;>>&nbsp; Edit &nbsp;>>&nbsp; Details
             </h2>
@@ -26,97 +26,38 @@
               <ion-row>
                 <ion-col>
                   <div>
-                    <ion-label>Organisation name</ion-label>
-                    <ion-input
-                      class="input-box font-size-sm custom-pad"
-                      placeholder="LinkedIn"
-                    ></ion-input>
+                    <ion-button expand="block">
+                      Add new space type +
+                    </ion-button>
                   </div>
                   <div>
-                    <ion-label>Contact name</ion-label>
-                    <ion-input
-                      class="input-box font-size-sm custom-pad"
-                      placeholder="Joe Bloggs"
-                    ></ion-input>
-                  </div>
-                  <div>
-                    <ion-label>Phone number</ion-label>
-                    <ion-input
-                      class="input-box font-size-sm custom-pad"
-                      placeholder="07762522515"
-                    ></ion-input>
+                    <ion-label color="light">Space Types</ion-label>
+                    
+                    <ul class="type-options-menu">
+                      <li class="type-options-menu-item">
+                        <ion-item :router-link="{ name: 'Equipment' }" router-direction="root">
+                          <span class="link-text">Room Equipment</span>
+                          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+                        </ion-item>
+                      </li>
+                    </ul>
+                    
                   </div>
                 </ion-col>
                 <ion-col class="padl">
                   <div>
-                    <ion-label>Shortcode prefix</ion-label>
+                    <ion-button expand="block">
+                      Add new space feature +
+                    </ion-button>
+                  </div>
+                  <div>
+                    <ion-label color="light">Space Features</ion-label>
                     <ion-input
-                      class="input-box font-size-sm custom-pad"
+                      class="font-size-sm custom-pad"
+                      color="light"
                       placeholder="LIN"
                     ></ion-input>
                   </div>
-                  <div>
-                    <ion-label>Email address</ion-label>
-                    <ion-input
-                      class="input-box font-size-sm custom-pad"
-                      placeholder="joebloggs@email.com"
-                    ></ion-input>
-                  </div>
-                  <div>
-                    <ion-label>Language</ion-label>
-                    <ion-input
-                      class="input-box font-size-sm custom-pad"
-                      placeholder="English"
-                    ></ion-input>
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>
-                    <ion-label>Address line 1</ion-label>
-                    <ion-input
-                      class="input-box font-size-sm custom-pad"
-                      placeholder="1 Wilton Park"
-                    ></ion-input>
-                  </div>
-                  <div>
-                    <ion-label>City</ion-label>
-                    <ion-input
-                      class="input-box font-size-sm custom-pad"
-                      placeholder="Sunnyvale"
-                    ></ion-input>
-                  </div>
-                </ion-col>
-                <ion-col class="padl">
-                  <div>
-                    <ion-label>Address line 2</ion-label>
-                    <ion-input
-                      class="input-box font-size-sm custom-pad"
-                      placeholder="Logan Road"
-                    ></ion-input>
-                  </div>
-                  <div>
-                    <ion-label>Area code</ion-label>
-                    <ion-input
-                      class="input-box font-size-sm custom-pad"
-                      placeholder="94085"
-                    ></ion-input>
-                  </div>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <div>
-                    <ion-label>Website/email domain(s)</ion-label>
-                    <ion-input
-                      class="input-box font-size-sm custom-pad"
-                      placeholder="linkedin.com, linkedin.co.uk, linkedin.co, linkedin.ie"
-                    ></ion-input>
-                  </div>
-                  <ion-button expand="block" class="save-btn">
-                    Save Changes
-                  </ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>

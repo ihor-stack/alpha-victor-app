@@ -148,21 +148,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/static/AboutView.vue"),
   },
   {
-    path: "/organisation",
-    name: "Oraganistion",
-    component: () => import("@/views/admin/OrganisationView.vue"),
-  },
-  {
-    path: "/organisation-edit",
-    name: "OrganisationEdit",
-    component: () => import("@/views/admin/OrganisationEditView.vue"),
-  },
-  {
-    path: "/organisation-edit-details",
-    name: "OrganisationEditDetails",
-    component: () => import("@/views/admin/OrganisationEditDetailsView.vue"),
-  },
-  {
     path: "/legal-notices",
     name: "LegalNotices",
     component: () => import("@/views/static/LegalNotices.vue"),
@@ -171,6 +156,45 @@ const routes: Array<RouteRecordRaw> = [
     path: "/terms-and-conditions",
     name: "TermsAndConditions",
     component: () => import("@/views/static/TermsAndConditions.vue"),
+  },
+  {
+    path: "/admin",
+    name: "LayoutRouter",
+    component: () => import("@/layouts/LayoutRouter.vue"),
+    children: [
+      {
+        path: "",
+        name: "AdminLayout",
+        component: () => import("@/layouts/AdminLayout.vue"),
+        children: [
+          {
+            path: "organisations",
+            name: "OrganisationList",
+            component: () => import("@/views/admin/organisations/OrganisationList.vue"),
+          },
+          {
+            path: "organisation/id",
+            name: "OrganisationView",
+            component: () => import("@/views/admin/organisations/OrganisationView.vue"),
+          },
+          {
+            path: "organisation/id/details",
+            name: "OrganisationViewDetails",
+            component: () => import("@/views/admin/organisations/OrganisationViewDetails.vue"),
+          },
+          {
+            path: "organisation/id/theme",
+            name: "OrganisationViewTheme",
+            component: () => import("@/views/admin/organisations/OrganisationViewTheme.vue"),
+          },
+          {
+            path: "organisation/id/space-metadata",
+            name: "OrganisationViewSpaceMetadata",
+            component: () => import("@/views/admin/organisations/OrganisationViewSpaceMetadata.vue"),
+          }
+        ]
+      }
+    ]
   },
 ];
 
