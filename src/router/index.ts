@@ -191,6 +191,11 @@ const routes: Array<RouteRecordRaw> = [
             path: "organisation/id/space-metadata",
             name: "OrganisationViewSpaceMetadata",
             component: () => import("@/views/admin/organisations/OrganisationViewSpaceMetadata.vue"),
+          },
+          {
+            path: "organisation/id/document-types",
+            name: "OrganisationViewDocumentTypes",
+            component: () => import("@/views/admin/organisations/OrganisationViewDocumentTypes.vue"),
           }
         ]
       }
