@@ -14,24 +14,21 @@
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Current Document Types</ion-label >
-          <ion-item>
+          <ion-item v-for="doc in documents" v-bind:key="doc.id">
             <ion-input
-            class="font-size-sm"
-            color="light"
-            placeholder="Document Type"
-            value="Document"
-            />
-            <ion-button color="light" slot="end"  style="align-self: flex-end" >>> remove</ion-button>
+              class="font-size-sm doc-list-input"
+              color="light"
+              placeholder="Document Type"
+              :value="doc.name"
+            ></ion-input>
+            <ion-button 
+              color="light" 
+              slot="end"  
+              fill="clear"
+              class="remove-button">
+              >> remove
+            </ion-button>
           </ion-item>
-        
-          <!-- <ion-card color="light">
-            <ion-card-content color>
-              <div id="spaced-content">
-              <div>Document</div>
-              <div>>> remove</div>
-            </div>
-            </ion-card-content>
-          </ion-card> -->
       </ion-col>
     </ion-row> 
   </ion-grid>
@@ -44,9 +41,9 @@
     IonGrid,
     IonRow,
     IonCol,
-    IonInput,
     IonLabel,
-    IonItem
+    IonItem,
+    IonInput
   } from "@ionic/vue";
   import { ref } from "vue";
   import { chevronForwardOutline } from "ionicons/icons";
@@ -59,9 +56,12 @@
   </script>
   
   <style scoped>
-  #spaced-content {
-  display: flex;
-  justify-content: space-between;
-}
+  .doc-list-input {
+    z-index: 1;
+  }
+  .remove-button {
+    margin-left: -20%;
+    z-index: 2;
+  }
   </style>
   
