@@ -25,21 +25,25 @@
               @ion-focus="SetCurrecntDocument(doc)"
               @keydown.esc="ResetDocuments(doc.id)"
             ></ion-input>
+            
+            <ion-button 
+              @click="SaveDocument()"
+              class="save-button"
+              slot="end"  
+              fill="clear"
+              size="small"
+              v-if=enableEdit(doc.id)
+              > >> save 
+            </ion-button>
             <ion-button 
               @click="RemoveDocument(doc.id)"
               class="remove-button"
               slot="end"  
               fill="clear"
               size="small"
-              >>> remove
-            </ion-button>
-            <ion-button 
-              @click="RemoveDocument(doc.id)"
-              class="save-button"
-              slot="end"  
-              fill="clear"
-              size="small"
-              >>> save
+              v-else
+              >
+              >> remove
             </ion-button>
           </ion-item>
       </ion-col>
@@ -50,7 +54,8 @@
   
   <script setup lang="ts">
   
-  import {
+  import { numberLiteralTypeAnnotation } from "@babel/types";
+import {
     IonButton,
     IonGrid,
     IonRow,
@@ -77,16 +82,24 @@
   };
   const SetCurrecntDocument = (obj:{id: number , name: string}) => {
     currentDocument.value = obj
+    console.log(currentDocument.value)
   }
   const RemoveDocument = (id: number) => {
     documents.value = documents.value.filter(function( item ) {
       return item.id !== id;
     });
   };
-  
+  const SaveDocument = () => {
+    console.log('SAVE')
+  }
+  const enableEdit = (id: number) => {
+    const check = currentDocument?.value?.id === id ? true : false
+    return check
+  }
   const ResetDocuments = (id: number) => {
     const index = documents.value.findIndex(item => item.id === id);
     documents.value[index] = currentDocument.value
+    currentDocument.value = null
   };
   </script>
   
