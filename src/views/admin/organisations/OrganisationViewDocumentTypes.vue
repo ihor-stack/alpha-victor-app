@@ -34,7 +34,7 @@
               fill="clear"
               size="small"
               v-if=EnableEdit(doc.id)
-              > >> save 
+              > &gt;&gt; save 
             </ion-button>
             <ion-button 
               @click="RemoveDocument(doc.id)"
@@ -44,7 +44,7 @@
               size="small"
               v-else
               >
-              >> remove
+              &gt;&gt; remove
             </ion-button>
           </ion-item>
       </ion-col>
