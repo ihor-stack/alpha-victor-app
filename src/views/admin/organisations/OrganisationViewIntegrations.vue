@@ -10,7 +10,6 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="Enter Client ID"
             type="password">
           </ion-input>
         </ion-item>
@@ -23,16 +22,12 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="Enter Client Secret"
-            :value="newDocument"
-            type="password"
-            @ionInput="newDocument = $event.target.value;">
+            type="password">
           </ion-input>
         </ion-item>
       </ion-col>
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field"  >
+      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-select 
-            interface="action-sheet" 
             placeholder="Select language" 
             class="custom-select"
           >
@@ -58,7 +53,6 @@ import {
     IonInput,
     IonSelect, 
     IonSelectOption,
-    IonAlert
   } from "@ionic/vue";
   import { chevronForwardOutline } from 'ionicons/icons';
   import { ref } from "vue";
@@ -68,25 +62,34 @@ import {
     { id: 2, name: 'Pronestor' },
     { id: 3, name: 'Third option' },
   ]);
-  const newDocument = ref()
-  const currentDocument = ref();
-  const editedDocument = ref();
 
   </script>
   
   <style scoped>
-  /* ion-radio-group{
-    background-color: white;
-  }
-  ion-select {
-    background-color: grey; 
-  }
-  ion-select::part(text) {
-    color: white;
-  }
-  ion-select::content {
-    color: white;
-  } */
+    ion-select::part(text) {
+      color: white;
+    }
+    ion-select-option::part(text) {
+    --border-radius: 4px;
+    --inner-border-radius: 4px;
+  
+    --color: #ddd;
+    --color-checked: #6815ec;
+    }
+    ion-alert::part(text) {
+      color: #c00000;
+      background-color: #c00000;
+    }
+    ion-alert::part(text) {
+      color: #c00000;
+      background-color: #c00000 !important;
+    }
+    ion-radio::part(text) {
+      --border-radius: 4px;
+      --inner-border-radius: 4px;
 
+      --color: #ddd;
+      --color-checked: #6815ec;
+    }
   </style>
   
