@@ -7,31 +7,39 @@
           class="font-size-sm"
           color="light"
           placeholder="Enter new Document Type"
-        ></ion-input>
+          :value="newDocument"
+          @ionInput="newDocument = $event.target.value;">
+        </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-button>Add new +</ion-button>
+        <ion-button @click="AddDocument()">Add new +</ion-button>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Current Document Types</ion-label >
           <ion-item v-for="doc in documents" v-bind:key="doc.id">
             <ion-input
-              class="font-size-sm doc-list-input"
+              class="font-size-sm"
               color="light"
               placeholder="Document Type"
               :value="doc.name"
-              @click="check('click')"
               @ion-focus="SetCurrecntDocument(doc)"
-              @ion-blur="check('blur')"
+              @keydown.esc="ResetDocuments(doc.id)"
             ></ion-input>
             <ion-button 
               @click="RemoveDocument(doc.id)"
-              color="light" 
+              class="remove-button"
               slot="end"  
               fill="clear"
               size="small"
-              class="remove-button">
-              >> remove
+              >>> remove
+            </ion-button>
+            <ion-button 
+              @click="RemoveDocument(doc.id)"
+              class="save-button"
+              slot="end"  
+              fill="clear"
+              size="small"
+              >>> save
             </ion-button>
           </ion-item>
       </ion-col>
@@ -58,24 +66,27 @@
     { id: 2, name: 'Quick Start Guide' },
     { id: 3, name: 'Schematics' },
   ]);
+  const newDocument = ref()
   const currentDocument = ref();
   const check = (data: any) => {
   console.log(data)
   }
+  const AddDocument = () => {
+    documents.value.push({id: documents.value.length + 1, name: newDocument.value})
+    newDocument.value = null
+  };
   const SetCurrecntDocument = (obj:{id: number , name: string}) => {
     currentDocument.value = obj
   }
   const RemoveDocument = (id: number) => {
-  documents.value = documents.value.filter(function( item ) {
-    return item.id !== id;
-  });
-  console.log('remove')
+    documents.value = documents.value.filter(function( item ) {
+      return item.id !== id;
+    });
   };
-  const AddDocument = () => {
-  // function to add selected document
-  };
-  const ResetDocuments = () => {
-  // function to add reset document
+  
+  const ResetDocuments = (id: number) => {
+    const index = documents.value.findIndex(item => item.id === id);
+    documents.value[index] = currentDocument.value
   };
   </script>
   
@@ -84,8 +95,14 @@
     z-index: 1;
   }
   .remove-button {
-    margin-left: -20%;
-    z-index: 2;
+    /* margin-left: -20%;
+    z-index: 2; */
+    --color: red;
+  }
+  .save-button {
+    /* margin-left: -20%;
+    z-index: 2; */
+    --color: green;
   }
   </style>
   
