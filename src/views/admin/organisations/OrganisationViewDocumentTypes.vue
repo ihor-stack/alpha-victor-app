@@ -22,17 +22,18 @@
               color="light"
               placeholder="Document Type"
               :value="doc.name"
+              @ionInput="editedDocument = $event.target.value;"
               @ion-focus="SetCurrecntDocument(doc)"
               @keydown.esc="ResetDocuments(doc.id)"
             ></ion-input>
             
             <ion-button 
-              @click="SaveDocument()"
+              @click="SaveDocument(doc.id)"
               class="save-button"
               slot="end"  
               fill="clear"
               size="small"
-              v-if=enableEdit(doc.id)
+              v-if=EnableEdit(doc.id)
               > >> save 
             </ion-button>
             <ion-button 
@@ -54,7 +55,6 @@
   
   <script setup lang="ts">
   
-  import { numberLiteralTypeAnnotation } from "@babel/types";
 import {
     IonButton,
     IonGrid,
@@ -73,26 +73,27 @@ import {
   ]);
   const newDocument = ref()
   const currentDocument = ref();
-  const check = (data: any) => {
-  console.log(data)
-  }
+  const editedDocument = ref();
+
   const AddDocument = () => {
     documents.value.push({id: documents.value.length + 1, name: newDocument.value})
     newDocument.value = null
   };
   const SetCurrecntDocument = (obj:{id: number , name: string}) => {
     currentDocument.value = obj
-    console.log(currentDocument.value)
   }
   const RemoveDocument = (id: number) => {
     documents.value = documents.value.filter(function( item ) {
       return item.id !== id;
     });
   };
-  const SaveDocument = () => {
-    console.log('SAVE')
+  const SaveDocument = (id: number) => {
+    const index = documents.value.findIndex(item => item.id === id);
+    documents.value[index].name = editedDocument.value
+    currentDocument.value = null
+    editedDocument.value = null
   }
-  const enableEdit = (id: number) => {
+  const EnableEdit = (id: number) => {
     const check = currentDocument?.value?.id === id ? true : false
     return check
   }
@@ -104,17 +105,11 @@ import {
   </script>
   
   <style scoped>
-  .doc-list-input {
-    z-index: 1;
-  }
+ 
   .remove-button {
-    /* margin-left: -20%;
-    z-index: 2; */
     --color: red;
   }
   .save-button {
-    /* margin-left: -20%;
-    z-index: 2; */
     --color: green;
   }
   </style>
