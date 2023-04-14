@@ -20,11 +20,14 @@ export const adminDocuments = defineStore('adminDocuments', {
     add(newDocument: Document) {
       this.documents.push(newDocument)
     },
-    remove() {
-
+    remove(newDocument: Document) {
+      this.documents = this.documents.filter(function( item ) {
+        return item.id !== newDocument.id;
+      });
     },
-    edit() {
-      
+    edit(newDocument: Document, edit: string) {
+      const index = this.documents.findIndex(item => item.id === newDocument.id);
+      this.documents[index].title = edit
     }
   }
 });
