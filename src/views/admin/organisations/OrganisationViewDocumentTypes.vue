@@ -26,7 +26,6 @@
               @ion-focus="SetCurrecntDocument(doc)"
               @keydown.esc="ResetDocuments(doc.id)"
             ></ion-input>
-            
             <ion-button 
               @click="SaveDocument(doc.id)"
               class="save-button"
