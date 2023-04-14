@@ -74,10 +74,7 @@ const newDocument = ref()
 const currentDocument = ref();
 const editedDocument = ref();
 
-const AddDocument = () => {
-  props.documents.push({id: props.documents.length + 1, title: newDocument.value, dateUploaded: new Date().toDateString()})
-  newDocument.value = null
-};
+
 const SetCurrecntDocument = (obj:{id: number , title: string}) => {
   currentDocument.value = obj
 }
@@ -88,7 +85,7 @@ const RemoveDocument = (id: number) => {
 };
 const SaveDocument = (id: number) => {
   const index = props.documents.findIndex(item => item.id === id);
-  props.documents[index].title = editedDocument.value
+  // props.documents[index].title = editedDocument.value
   currentDocument.value = null
   editedDocument.value = null
 }
@@ -98,7 +95,7 @@ const EnableEdit = (id: number) => {
 }
 const ResetDocuments = (id: number) => {
   const index = props.documents.findIndex(item => item.id === id);
-  props.documents[index] = currentDocument.value
+  // props.documents[index] = currentDocument.value
   currentDocument.value = null
 };
 </script>

@@ -14,14 +14,17 @@
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-button @click="AddDocument()">Add new +</ion-button>
       </ion-col>
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+      <ion-col>
+        <DocumentField :documents="documents" />
+      </ion-col>
+      <!-- <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Current Document Types</ion-label >
           <ion-item v-for="doc in documents" v-bind:key="doc.id">
             <ion-input
               class="font-size-sm"
               color="light"
               placeholder="Document Type"
-              :value="doc.name"
+              :value="doc.title"
               @ionInput="editedDocument = $event.target.value;"
               @ion-focus="SetCurrecntDocument(doc)"
               @keydown.esc="ResetDocuments(doc.id)"
@@ -46,7 +49,7 @@
               &gt;&gt; remove
             </ion-button>
           </ion-item>
-      </ion-col>
+      </ion-col> -->
     </ion-row> 
   </ion-grid>
   
@@ -63,32 +66,33 @@ import {
     IonItem,
     IonInput
   } from "@ionic/vue";
-  import { ref } from "vue";
+  import DocumentField from '@/components/admin/DocumentField.vue'
+  import { ref, reactive } from "vue";
 
-  const documents = ref([
-    { id: 1, name: 'User Manual' },
-    { id: 2, name: 'Quick Start Guide' },
-    { id: 3, name: 'Schematics' },
+  let documents = reactive([
+    { id: 1, title: 'User Manual', dateUploaded: '' },
+    { id: 2, title: 'Quick Start Guide', dateUploaded: '' },
+    { id: 3, title: 'Schematics', dateUploaded: '' },
   ]);
   const newDocument = ref()
   const currentDocument = ref();
   const editedDocument = ref();
 
   const AddDocument = () => {
-    documents.value.push({id: documents.value.length + 1, name: newDocument.value})
+    documents.push({id: documents.length + 1, title: newDocument.value, dateUploaded: new Date().toDateString()})
     newDocument.value = null
   };
-  const SetCurrecntDocument = (obj:{id: number , name: string}) => {
+  const SetCurrecntDocument = (obj:{id: number , title: string}) => {
     currentDocument.value = obj
   }
   const RemoveDocument = (id: number) => {
-    documents.value = documents.value.filter(function( item ) {
+    documents = documents.filter(function( item ) {
       return item.id !== id;
     });
   };
   const SaveDocument = (id: number) => {
-    const index = documents.value.findIndex(item => item.id === id);
-    documents.value[index].name = editedDocument.value
+    const index = documents.findIndex(item => item.id === id);
+    documents[index].title = editedDocument.value
     currentDocument.value = null
     editedDocument.value = null
   }
@@ -97,8 +101,8 @@ import {
     return check
   }
   const ResetDocuments = (id: number) => {
-    const index = documents.value.findIndex(item => item.id === id);
-    documents.value[index] = currentDocument.value
+    const index = documents.findIndex(item => item.id === id);
+    documents[index] = currentDocument.value
     currentDocument.value = null
   };
   </script>
