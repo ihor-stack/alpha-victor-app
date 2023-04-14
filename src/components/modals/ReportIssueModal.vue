@@ -11,7 +11,7 @@
         <ion-content :scroll-y="false">
           <div class="issues-panel__section issues-panel__select-equipment">
             <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Select Equipment</h2>
-            <ion-select interface="action-sheet" class="issues-panel__select-equipment__select" placeholder="Select equipment" v-model="state.equipment">
+            <ion-select interface="action-sheet" class="issues-panel__select-equipment__select" placeholder="Select equipment" v-model="state.equipment" @ion-change="checkForInputs">
               <ion-select-option value="wifi">WiFi</ion-select-option>
               <ion-select-option value="computer">Computer</ion-select-option>
             </ion-select>
@@ -19,11 +19,11 @@
 
           <div class="issues-panel__section issues-panel__add-comment">
             <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Add Comment</h2>
-            <ion-textarea class="issues-panel__add-comment__textarea" placeholder="Enter a comment here" v-model="state.comment"></ion-textarea>
+            <ion-textarea class="issues-panel__add-comment__textarea" placeholder="Enter a comment here" v-model="state.comment" helper-text="Helper Text" @ion-change="checkForInputs"></ion-textarea>
           </div>
         </ion-content>
         <ion-footer>
-          <ion-button expand="block">Submit Issue</ion-button>
+          <ion-button expand="block" :disabled="!state.canSubmit" @click="submitIssue">Submit Issue</ion-button>
         </ion-footer>
       </div>
     </div>
@@ -46,7 +46,16 @@ import {
 const state = reactive({
   comment: "",
   equipment: "",
+  canSubmit: false
 });
+
+const submitIssue = () => {
+  console.log('submitting issue with comment: ' + state.comment);
+}
+
+const checkForInputs = () => {
+  return state.comment.length > 0 && state.equipment.length > 0 ? state.canSubmit = true : state.canSubmit = false;
+}
 </script>
 
 <style scoped>

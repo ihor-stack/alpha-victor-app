@@ -19,14 +19,17 @@
                 <ion-input class="custom-input" type="email" placeholder="Email" name="email" />
                 <ion-input class="custom-input" type="password" placeholder="Password" name="password" />
                 <ion-input class="custom-input" type="password" placeholder="Confirm Password" name="confirm-password" />
+              </div>
+              <ion-footer>
                 <ion-button expand="block">Sign up</ion-button>
-              </div>
-              <div class="link-container text-center">
-                <p class="color-mid-gray font-md">
-                  Already signed up?
-                  <router-link :to="{ name: 'AllowAccess' }" class="color-light-gray link">Allow Access</router-link>
-                </p>
-              </div>
+
+                <div class="link-container text-center">
+                  <p class="color-mid-gray font-md">
+                    Already signed up?
+                    <router-link :to="{ name: 'AllowAccess' }" class="color-light-gray link">Allow Access</router-link>
+                  </p>
+                </div>
+              </ion-footer>
             </div>
           </div>
         </div>
@@ -36,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage, IonButton, IonInput } from "@ionic/vue";
+import { IonContent, IonFooter, IonPage, IonButton, IonInput } from "@ionic/vue";
 import DotText from "@/components/shared/DotText.vue";
 </script>
 
@@ -61,6 +64,13 @@ import DotText from "@/components/shared/DotText.vue";
 
 .form-container {
   flex: 1;
+}
+
+ion-footer {
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .link-container {

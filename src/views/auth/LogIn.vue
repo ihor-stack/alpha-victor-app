@@ -21,18 +21,20 @@
                     <router-link class="forgot-password" :to="{ name: 'ForgotPassword' }">Forgot password?</router-link>
                   </div>
                 </div>
-                <div class="login-form-controls">
+              </div>
+              <ion-footer>
+                <div>
                   <ion-button expand="block" @click="signIn">Sign in</ion-button>
                   <ion-button fill="outline" color="light" expand="block" @click="signInViaEmail">Sign in via
-                    email</ion-button>
+                  email</ion-button>
                 </div>
-              </div>
-              <div class="link-container text-center">
-                <p class="color-mid-gray font-md">
-                  Don't have an account?
-                  <router-link :to="{ name: 'Signup' }" class="color-light-gray link">Sign Up</router-link>
-                </p>
-              </div>
+                <div class="link-container text-center">
+                  <p class="color-mid-gray font-md">
+                    Don't have an account?
+                    <router-link :to="{ name: 'Signup' }" class="color-light-gray link">Sign Up</router-link>
+                  </p>
+                </div>
+              </ion-footer>
             </div>
           </div>
         </div>
@@ -42,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage, IonButton, IonInput } from "@ionic/vue";
+import { IonContent, IonFooter, IonPage, IonButton, IonInput } from "@ionic/vue";
 import DotText from "@/components/shared/DotText.vue";
 
 const signIn = () => {
@@ -72,7 +74,7 @@ const signInViaEmail = () => {
   letter-spacing: 0.015em;
   margin-left: 29px;
   text-indent: -19px;
-  margin-bottom: 12px;
+  margin-bottom: 70px;
 }
 
 .forgot-password {
@@ -89,6 +91,13 @@ const signInViaEmail = () => {
 
 .login-form-fields {
   margin-bottom: 15px;
+}
+
+ion-footer {
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .link-container {
