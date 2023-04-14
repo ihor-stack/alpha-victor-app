@@ -168,6 +168,16 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/layouts/AdminLayout.vue"),
         children: [
           {
+            path: "equipment",
+            name: "EquipmentView",
+            component: () => import("@/views/admin/equipment/EquipmentView.vue"),
+          },
+          {
+            path: "equipment/details",
+            name: "EquipmentDetails",
+            component: () => import("@/views/admin/equipment/EquipmentDetails.vue"),
+          },
+          {
             path: "organisations",
             name: "OrganisationList",
             component: () => import("@/views/admin/organisations/OrganisationList.vue"),

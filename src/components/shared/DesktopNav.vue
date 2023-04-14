@@ -114,7 +114,7 @@
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/#" class="font-size-sm color-light-gray"
+          <router-link to="/admin/equipment" class="font-size-sm color-light-gray"
             >Equipment</router-link
           >
           <ion-icon
