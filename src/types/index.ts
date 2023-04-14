@@ -94,3 +94,5 @@ export interface WifiDetails {
   networkName: string
   password: string
 }
+
+export type ToastStatus = 'generic' | 'success' | 'problem' | 'error';

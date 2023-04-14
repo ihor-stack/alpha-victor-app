@@ -5,6 +5,7 @@
   --av-dark-gray: #767676;
   --av-red: #ff3737;
   --av-green: #37b14c;
+  --av-orange: #FF9700;
 
   --av-font-light: "Akkurat-Light";
   --av-font-light-italic: "Akkurat-Light-Italic";
@@ -103,6 +104,16 @@ p {
 
 a {
   text-decoration: none;
+}
+
+::selection {
+  color: #FFF;
+  background: var(--av-primary);
+}
+
+::-moz-selection {
+  color: #FFF;
+  background: var(--av-primary);
 }
 
 /* Overrides */
@@ -520,4 +531,113 @@ ion-modal::part(handle) {
 .swiper-pagination-bullet-active {
   background: var(--av-light-gray) !important;
   opacity: 1 !important;
+}
+
+/* Action Sheet Styling overrides */
+ion-action-sheet .action-sheet-title {
+  color: #131313;
+}
+
+ion-action-sheet .action-sheet-button {
+  color: #000000 !important;
+  font-size: 15.597px !important;
+}
+
+ion-action-sheet .action-sheet-cancel {
+  color: #FFFFFF !important;
+}
+
+ion-action-sheet .action-sheet-cancel::after {
+  background: #000000 !important;
+}
+
+ion-action-sheet .action-sheet-selected::after {
+  background: var(--av-primary) !important;
+}
+
+ion-action-sheet .action-sheet-selected .action-sheet-button-inner {
+  color: #FFF !important;
+}
+
+@media (any-hover: hover) {
+  ion-action-sheet .action-sheet-button:hover {
+    color: #000000;
+  }
+}
+
+ion-action-sheet ion-backdrop {
+  opacity: 0.6;
+}
+
+/* Toast Styling */
+ion-toast.customToast::part(container) {
+  position: relative;
+  border-radius: 15px;
+}
+
+ion-toast.customToast.customToastGeneric::part(container) {
+  background-image: url('@/theme/icons/av.svg');
+  background-repeat: no-repeat;
+  background-position: left 10px center;
+  background-size: 53px 53px;
+}
+
+ion-toast.customToast::part(container)::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  bottom: 12px;
+  width: 5px;
+  border-radius: 4px;
+  background: #000;
+}
+
+ion-toast.customToast.customToastSuccess::part(container)::after {
+  background: var(--av-green);
+}
+
+ion-toast.customToast.customToastProblem::part(container)::after {
+  background: var(--av-orange);
+}
+
+ion-toast.customToast.customToastError::part(container)::after {
+  background: var(--av-red);
+}
+
+ion-toast.customToast.customToastGeneric::part(container)::after {
+  display: none;
+}
+
+ion-toast.customToast::part(icon) {
+  margin-left: 32px;
+  width: 24px;
+  height: 24px;
+}
+
+ion-toast.customToast.customToastSuccess::part(icon) {
+  color: var(--av-green);
+}
+
+ion-toast.customToast.customToastProblem::part(icon) {
+  color: var(--av-orange);
+}
+
+ion-toast.customToast.customToastError::part(icon) {
+  color: var(--av-red);
+}
+
+ion-toast.customToast::part(header) {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  color: #303030;
+}
+
+ion-toast.customToast::part(message) {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 15px;
+  color: #303030;
 }

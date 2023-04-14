@@ -12,7 +12,7 @@
         </ion-button>
       </template>
     </app-header>
-    <ion-content :fullscreen="true">
+    <ion-content :fullscreen="true" :scroll-y="false">
       <div class="outer-container">
         <div class="space-header">
           <div class="space-header__background">
@@ -46,15 +46,14 @@
           </div>
         </div>
 
-        <!-- Space features slider -->
         <div class="space-features-slider-container">
           <space-features-slider :features="space.spaceFeatures" />
         </div>
-        <!-- Space WIFI details -->
+        
         <div class="space-wifi-info-container">
           <space-wi-fi-info />
         </div>
-        <!-- Space options menu -->
+        
         <div class="space-options-menu-container">
           <space-options-menu :issues="space.issues" />
         </div>
@@ -62,12 +61,10 @@
     </ion-content>
     <ion-footer>
       <div class="space-cta-container">
-        <button type="button" class="sos-button">
-          <div class="icon"></div>
-          <div>
-            <span class="text">Call SOS</span>
-          </div>
-        </button>
+        <div class="announcement">
+          <h4 class="color-light-gray">Important Announcement</h4>
+          <p class="color-light-gray">This space will be temporarily closed between the hours or 18:00 and 22:00 on Wednesday 22nd March for essential maintenance. Sorry for any inconvenience caused.</p>
+        </div>
 
         <div class="ctas">
           <ion-button expand="block">Give Feedback</ion-button>
@@ -261,44 +258,25 @@ const space: Space = {
   padding: 0 30px 20px;
 }
 
-.sos-button {
-  background: rgba(255, 55, 55, 0.075);
-  border: 0.75px solid #ff3737;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 28px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  color: #ff3737;
-  padding: 10px 18px;
+.announcement {
+  background: #181818;
+  border: 0.75px solid #313131;
+  border-radius: 4px;
+  color: #FFFFFF;
+  padding: 14px 12px;
+  margin-bottom: 12px;
 }
 
-.sos-button:active {
-  background: #ff3737;
-}
-
-.sos-button span {
-  display: inline-block;
+.announcement h4 {
+  margin-bottom: 4px;
+  font-weight: 700;
   font-size: 14px;
   line-height: 14px;
-  vertical-align: sub;
 }
 
-.sos-button .icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background: no-repeat center/cover url("@/theme/icons/danger.svg");
-  margin-right: 9px;
-}
-
-.sos-button:active span {
-  color: #000000;
-}
-
-.sos-button:active .icon {
-  background: no-repeat center/cover url("@/theme/icons/danger-black.svg");
+.announcement p {
+  font-size: 10px;
+  line-height: 16px;
 }
 
 .ctas {
