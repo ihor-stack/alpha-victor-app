@@ -9,7 +9,6 @@
           </ion-label>
           <ion-input
             class="font-size-sm"
-            color="light"
             type="password">
           </ion-input>
         </ion-item>
@@ -21,19 +20,21 @@
           </ion-label>
           <ion-input
             class="font-size-sm"
-            color="light"
             type="password">
           </ion-input>
         </ion-item>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-select 
-            placeholder="Select language" 
+            placeholder="Select organisation" 
             class="custom-select"
           >
-            <ion-select-option value="english">English</ion-select-option>
-            <ion-select-option value="french">French</ion-select-option>
-            <ion-select-option value="german">German</ion-select-option>
+            <ion-select-option 
+            value="english" v-for="(org, id) in oganisations" 
+            :key="id">
+              {{org.name}}
+            </ion-select-option>
+
           </ion-select>
       </ion-col>
     </ion-row> 
@@ -54,42 +55,17 @@ import {
     IonSelect, 
     IonSelectOption,
   } from "@ionic/vue";
-  import { chevronForwardOutline } from 'ionicons/icons';
   import { ref } from "vue";
 
-  const items = ref([
-    { id: 1, name: 'Ubiquisense' },
-    { id: 2, name: 'Pronestor' },
-    { id: 3, name: 'Third option' },
+  const oganisations = ref([
+    { id: 1, name: 'option1' },
+    { id: 2, name: 'option2' },
+    { id: 3, name: 'option3' },
   ]);
 
   </script>
   
   <style scoped>
-    ion-select::part(text) {
-      color: white;
-    }
-    ion-select-option::part(text) {
-    --border-radius: 4px;
-    --inner-border-radius: 4px;
-  
-    --color: #ddd;
-    --color-checked: #6815ec;
-    }
-    ion-alert::part(text) {
-      color: #c00000;
-      background-color: #c00000;
-    }
-    ion-alert::part(text) {
-      color: #c00000;
-      background-color: #c00000 !important;
-    }
-    ion-radio::part(text) {
-      --border-radius: 4px;
-      --inner-border-radius: 4px;
 
-      --color: #ddd;
-      --color-checked: #6815ec;
-    }
   </style>
   

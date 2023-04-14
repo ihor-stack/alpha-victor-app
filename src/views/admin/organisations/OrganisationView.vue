@@ -32,7 +32,7 @@
       </ion-item>
     </li>
     <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewIntegrations' }" router-direction="root">
+      <ion-item :router-link="{ name: 'OrganisationViewIntegrationsList' }" router-direction="root">
         <span class="link-text">Integrations</span>
         <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
       </ion-item>
