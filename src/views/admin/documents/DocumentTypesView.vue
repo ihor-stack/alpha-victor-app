@@ -1,5 +1,5 @@
-  <template>
-    <h1 class="font-bold font-size-lg color-light-gray">Document Types</h1>
+<template>
+    <h1 class="font-bold font-size-lg color-light-gray">Document Types Test</h1>
     <ion-grid>
       <ion-row class="form-admin--group" >
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -14,10 +14,7 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-button @click="AddDocument()">Add new +</ion-button>
         </ion-col>
-        <ion-col size-xs="12"  class="form-admin--group_field">
-          <h3 class="font-bold font-size-md color-light-gray">Documents</h3>
-        </ion-col>
-        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+        <ion-col>
           <DocumentField />
         </ion-col>
       </ion-row> 

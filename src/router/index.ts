@@ -178,6 +178,11 @@ const routes: Array<RouteRecordRaw> = [
             component: () => import("@/views/admin/equipment/EquipmentDetails.vue"),
           },
           {
+            path: "documents",
+            name: "DocumentTypesView",
+            component: () => import("@/views/admin/documents/DocumentTypesView.vue"),
+          },
+          {
             path: "organisations",
             name: "OrganisationList",
             component: () => import("@/views/admin/organisations/OrganisationList.vue"),

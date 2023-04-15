@@ -1,41 +1,35 @@
 <template>
-<ion-grid>
-    <ion-row>
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-      <ion-label color="light">Documents</ion-label >
-        <ion-item v-for="doc in store.documentsArray" v-bind:key="doc.id">
-          <ion-input
-            class="font-size-sm"
-            color="light"
-            placeholder="Document Type"
-            :value="doc.title"
-            @ionInput="editedDocument = $event.target.value;"
-            @ion-focus="currentDocument = doc"
-            @keydown.esc="ResetDocuments(doc.id)"
-          ></ion-input>
-          <ion-button 
-            @click="SaveDocument(doc.id)"
-            class="save-button"
-            slot="end"  
-            fill="clear"
-            size="small"
-            v-if=EnableEdit(doc.id)
-            > &gt;&gt; save 
-          </ion-button>
-          <ion-button 
-            @click="RemoveDocument(doc.id)"
-            class="remove-button"
-            slot="end"  
-            fill="clear"
-            size="small"
-            v-else
-            >
-            &gt;&gt; remove
-          </ion-button>
-        </ion-item>
-    </ion-col>
-    </ion-row>
-  </ion-grid>
+
+  <ion-item v-for="doc in store.documentsArray" v-bind:key="doc.id">
+    <ion-input
+      class="font-size-sm"
+      color="light"
+      placeholder="Document Type"
+      :value="doc.title"
+      @ionInput="editedDocument = $event.target.value;"
+      @ion-focus="currentDocument = doc"
+      @keydown.esc="ResetDocuments(doc.id)"
+    ></ion-input>
+    <ion-button 
+      @click="SaveDocument(doc.id)"
+      class="save-button"
+      slot="end"  
+      fill="clear"
+      size="small"
+      v-if=EnableEdit(doc.id)
+      > &gt;&gt; save 
+    </ion-button>
+    <ion-button 
+      @click="RemoveDocument(doc.id)"
+      class="remove-button"
+      slot="end"  
+      fill="clear"
+      size="small"
+      v-else
+      >
+      &gt;&gt; remove
+    </ion-button>
+  </ion-item>
 </template>
 
 <script setup lang="ts">

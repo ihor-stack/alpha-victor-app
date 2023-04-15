@@ -124,7 +124,7 @@
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/#" class="font-size-sm color-light-gray"
+          <router-link to="/admin/documents" class="font-size-sm color-light-gray"
             >Document Types</router-link
           >
           <ion-icon
