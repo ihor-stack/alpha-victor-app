@@ -20,43 +20,15 @@
             <ion-input color="light" label="Serial number"></ion-input>
           </ion-item> 
         </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-grid>
-      <ion-row>
+        <ion-col size-xs="12" class="form-admin--group_field">
+          
+        </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Documents</ion-label >
-          <ion-item v-for="doc in documents" v-bind:key="doc.id">
-            <ion-input
-              class="font-size-sm"
-              color="light"
-              placeholder="Document Type"
-              :value="doc.name"
-              @ionInput="editedDocument = $event.target.value;"
-              @ion-focus="SetCurrecntDocument(doc)"
-              @keydown.esc="ResetDocuments(doc.id)"
-            ></ion-input>
-            <ion-button 
-              @click="SaveDocument(doc.id)"
-              class="save-button"
-              slot="end"  
-              fill="clear"
-              size="small"
-              v-if=EnableEdit(doc.id)
-              > &gt;&gt; save 
-            </ion-button>
-            <ion-button 
-              @click="RemoveDocument(doc.id)"
-              class="remove-button"
-              slot="end"  
-              fill="clear"
-              size="small"
-              v-else
-              >
-              &gt;&gt; remove
-            </ion-button>
-          </ion-item>
-      </ion-col>
+          <DocumentField />
+        </ion-col>
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <DocumentField />
+        </ion-col>
       </ion-row>
     </ion-grid>
 </template>
@@ -75,7 +47,7 @@
     IonGrid
   } from "@ionic/vue";
   import { ref } from "vue";
-  import { chevronForwardOutline } from "ionicons/icons";
+  import DocumentField from '@/components/admin/DocumentField.vue'
   
   const manufacturers = ref([
     { id: 1, name: 'opt 1' },
