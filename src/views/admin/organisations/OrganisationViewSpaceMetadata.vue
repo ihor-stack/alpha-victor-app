@@ -1,111 +1,70 @@
 <template>
-  <ion-page class="ion-bg" id="organisation-edit-details">
-    <ion-grid>
-      <ion-row>
-        <ion-col class="col-nav">
-          <!-- <desktop-nav /> -->
-        </ion-col>
-        <ion-col>
-          <ion-content
-            class="col-content ion-padding-horizontal"
-            :scroll-y="false"
-          >
-            <ion-button
-              class="back-pos"
-              fill="clear"
-              color="light"
-              @click="() => router.back()"
-            >
-              <span class="font-mono font-size-xs">&lt;&lt; back</span>
-            </ion-button>
-            <h1 class="font-bold font-size-lg color-light-gray">LinkedIn</h1>
-            <h2 class="sub-head">
-              LinkedIn &nbsp;>>&nbsp; Edit &nbsp;>>&nbsp; Details
-            </h2>
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  <div>
-                    <ion-button expand="block">
-                      Add new space type +
-                    </ion-button>
-                  </div>
-                  <div>
-                    <ion-label color="light">Space Types</ion-label>
-                    
-                    <ul class="type-options-menu">
-                      <li class="type-options-menu-item">
-                        <ion-item :router-link="{ name: 'Equipment' }" router-direction="root">
-                          <span class="link-text">Room Equipment</span>
-                          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-                        </ion-item>
-                      </li>
-                    </ul>
-                    
-                  </div>
-                </ion-col>
-                <ion-col class="padl">
-                  <div>
-                    <ion-button expand="block">
-                      Add new space feature +
-                    </ion-button>
-                  </div>
-                  <div>
-                    <ion-label color="light">Space Features</ion-label>
-                    <ion-input
-                      class="font-size-sm custom-pad"
-                      color="light"
-                      placeholder="LIN"
-                    ></ion-input>
-                  </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-content>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-page>
+  <ion-grid>
+    <ion-row>
+      <ion-col ion-col size-xs="12">
+          <h1 class="font-bold font-size-lg color-light-gray">LinkedIn</h1>
+          <!-- <h2 class="sub-head">
+            LinkedIn &nbsp;>>&nbsp; Edit &nbsp;>>&nbsp; Details
+          </h2> -->
+          <ion-grid>
+            <ion-row>
+              <ion-col size-xs="6">
+                <ion-button expand="block">
+                  Add new space type +
+                </ion-button>
+              </ion-col>
+              <ion-col size-xs="6">
+                <ion-button expand="block">
+                  Add new space feature +
+                </ion-button>
+              </ion-col>
+              <ion-col size-xs="6">
+                <ion-label color="light">Space Types</ion-label>
+                <DocumentField />
+              </ion-col>
+              <ion-col size-xs="6">
+                <ion-label color="light">Space Features</ion-label>
+                <DocumentField />
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </template>
 
 <script setup lang="ts">
 import {
-  IonPage,
-  IonContent,
   IonButton,
-  IonIcon,
-  IonItem,
   IonLabel,
-  IonThumbnail,
-  IonInput,
   IonCol,
   IonGrid,
   IonRow,
 } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
-import DesktopNav from "@/components/shared/DesktopNav.vue";
-import OrganisationsSelect from "@/components/admin/OrganisationsSelect.vue";
-import { Organisation } from "@/types";
+// import DesktopNav from "@/components/shared/DesktopNav.vue";
+// import OrganisationsSelect from "@/components/admin/OrganisationsSelect.vue";
 import { useRouter } from "vue-router";
+import DocumentField from '@/components/admin/DocumentField.vue'
 
 const router = useRouter();
 
-const organisations: Organisation[] = [
-  {
-    shortCode: 1,
-    organisationType: "Conference Room",
-    organisationName: "The Johnson",
-    occupied: true,
-    capacity: 10,
-    imageUrl: "space-the-johnson.jpg",
-    organisationFeatures: [],
-    issues: [],
-  },
-];
+// const organisations = [
+//   {
+//     shortCode: 1,
+//     organisationType: "Conference Room",
+//     organisationName: "The Johnson",
+//     occupied: true,
+//     capacity: 10,
+//     imageUrl: "space-the-johnson.jpg",
+//     organisationFeatures: [],
+//     issues: [],
+//   },
+// ];
 
-const exploreOrgnistion = () => {
-  router.push({ name: "Organisation" });
-};
+// const exploreOrgnistion = () => {
+//   router.push({ name: "Organisation" });
+// };
 </script>
 
 <style scoped>

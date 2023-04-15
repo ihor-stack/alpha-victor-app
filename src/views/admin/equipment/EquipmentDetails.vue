@@ -32,7 +32,7 @@
         <ion-col size-xs="12" class="form-admin--group_field">
           <ion-button>Add New Document+</ion-button>
         </ion-col>
-        <ion-col size-xs="12" class="save-button">
+        <ion-col size-xs="12" class="save-button" >
           <ion-button>Save Changes</ion-button>
         </ion-col>
       </ion-row>
