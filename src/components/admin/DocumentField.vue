@@ -53,36 +53,34 @@ import {
 } from "@ionic/vue";
 import { ref } from "vue";
 import {adminDocuments} from '@/stores/adminStore'
+const store = adminDocuments()
+
 interface Document {
   id: number;
   title: string;
   dateUploaded: string;
 }
 
-const store = adminDocuments()
-
-const newDocument = ref()
 const currentDocument = ref();
 const editedDocument = ref();
 
-const RemoveDocument = (id: number) => {
-    const filter = store.documentsArray.filter(function( item ) {
-    return item.id !== id;
-  });
-};
+
 const SaveDocument = (id: number) => {
   const index = store.documentsArray.findIndex(item => item.id === id);
-  // props.documents[index].title = editedDocument.value
+  store.edit(index, editedDocument.value)
   currentDocument.value = null
   editedDocument.value = null
 }
+const RemoveDocument = (id: number) => {
+  store.remove(id)
+};
 const EnableEdit = (id: number) => {
   const check = currentDocument?.value?.id === id ? true : false
   return check
 }
 const ResetDocuments = (id: number) => {
   const index = store.documentsArray.findIndex(item => item.id === id);
-  store.edit(index, currentDocument.value)
+  store.reset(index, currentDocument.value)
   currentDocument.value = null
 };
 </script>

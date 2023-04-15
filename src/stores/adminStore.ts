@@ -20,12 +20,16 @@ export const adminDocuments = defineStore('adminDocuments', {
     async add(newDocument: Document) {
       this.documents.push(newDocument)
     },
-    async remove(newDocument: Document) {
+    async remove(id: number) {
       this.documents = this.documents.filter(function( item ) {
-        return item.id !== newDocument.id;
+        return item.id !== id;
       });
     },
-    async edit(index: number, edit: Document) {
+    async edit(index: number, edit: string) {
+      this.documents[index].title = edit
+      this.documents[index].dateUploaded = new Date().toDateString()
+    },
+    async reset(index: number, edit: Document) {
       this.documents[index] = edit
     }
   },
