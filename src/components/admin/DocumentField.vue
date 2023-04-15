@@ -3,14 +3,14 @@
     <ion-row>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
       <ion-label color="light">Documents</ion-label >
-        <ion-item v-for="doc in props.documents" v-bind:key="doc.id">
+        <ion-item v-for="doc in store.documentsArray" v-bind:key="doc.id">
           <ion-input
             class="font-size-sm"
             color="light"
             placeholder="Document Type"
             :value="doc.title"
             @ionInput="editedDocument = $event.target.value;"
-            @ion-focus="SetCurrecntDocument(doc)"
+            @ion-focus="currentDocument = doc"
             @keydown.esc="ResetDocuments(doc.id)"
           ></ion-input>
           <ion-button 
@@ -52,39 +52,26 @@ import {
   IonGrid
 } from "@ionic/vue";
 import { ref } from "vue";
-import { chevronForwardOutline } from "ionicons/icons";
-
+import {adminDocuments} from '@/stores/adminStore'
 interface Document {
   id: number;
   title: string;
   dateUploaded: string;
 }
-interface Props {
-    documents: Document[]
-}
 
-const props = defineProps<Props>();
+const store = adminDocuments()
 
-// const documents = ref([
-//   { id: 1, name: 'User Manual' },
-//   { id: 2, name: 'Quick Start Guide' },
-//   { id: 3, name: 'Schematics' },
-// ]);
 const newDocument = ref()
 const currentDocument = ref();
 const editedDocument = ref();
 
-
-const SetCurrecntDocument = (obj:{id: number , title: string}) => {
-  currentDocument.value = obj
-}
 const RemoveDocument = (id: number) => {
-    const filter = props.documents.filter(function( item ) {
+    const filter = store.documentsArray.filter(function( item ) {
     return item.id !== id;
   });
 };
 const SaveDocument = (id: number) => {
-  const index = props.documents.findIndex(item => item.id === id);
+  const index = store.documentsArray.findIndex(item => item.id === id);
   // props.documents[index].title = editedDocument.value
   currentDocument.value = null
   editedDocument.value = null
@@ -94,8 +81,8 @@ const EnableEdit = (id: number) => {
   return check
 }
 const ResetDocuments = (id: number) => {
-  const index = props.documents.findIndex(item => item.id === id);
-  // props.documents[index] = currentDocument.value
+  const index = store.documentsArray.findIndex(item => item.id === id);
+  store.edit(index, currentDocument.value)
   currentDocument.value = null
 };
 </script>

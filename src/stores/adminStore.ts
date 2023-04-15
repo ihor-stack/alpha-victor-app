@@ -17,17 +17,19 @@ export const adminDocuments = defineStore('adminDocuments', {
   }
   },
   actions: {
-    add(newDocument: Document) {
+    async add(newDocument: Document) {
       this.documents.push(newDocument)
     },
-    remove(newDocument: Document) {
+    async remove(newDocument: Document) {
       this.documents = this.documents.filter(function( item ) {
         return item.id !== newDocument.id;
       });
     },
-    edit(newDocument: Document, edit: string) {
-      const index = this.documents.findIndex(item => item.id === newDocument.id);
-      this.documents[index].title = edit
+    async edit(index: number, edit: Document) {
+      this.documents[index] = edit
     }
-  }
+  },
+  getters: {
+    documentsArray: (state) => state.documents,
+  },
 });
