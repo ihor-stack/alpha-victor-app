@@ -44,6 +44,9 @@
       </ion-item>
     </li>
   </ul>
+  <ion-button>
+    Delete organisation
+  </ion-button>
 </template>
 
 <script setup lang="ts">
