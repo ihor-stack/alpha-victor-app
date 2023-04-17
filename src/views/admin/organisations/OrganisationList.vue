@@ -2,8 +2,13 @@
   <h1 class="font-bold font-size-lg color-light-gray">Organisations</h1>
   <ul class="organisations-list-menu">
     <li class="organisations-list-menu-item">
-      <ion-item v-for="org in organisations" v-bind:key="org.id" :router-link="{ name: 'OrganisationView' }" router-direction="root">
-          <img
+      <ion-item 
+      v-for="org in organisations" 
+      v-bind:key="org.id" 
+      :router-link="{ name: 'OrganisationView', params: { id: org.id} }"
+      router-direction="root"
+      >
+        <img
           src="@/theme/img/mclaren.svg"
           :alt="org.name"
         />

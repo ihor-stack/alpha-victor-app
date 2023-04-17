@@ -188,8 +188,9 @@ const routes: Array<RouteRecordRaw> = [
             component: () => import("@/views/admin/organisations/OrganisationList.vue"),
           },
           {
-            path: "organisation/id",
+            path: "organisation/:id",
             name: "OrganisationView",
+            props: true,
             component: () => import("@/views/admin/organisations/OrganisationView.vue"),
           },
           {
