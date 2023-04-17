@@ -33,7 +33,7 @@
                     Export QR Codes
                 </ion-button>
             </ion-col>
-            <ion-col size-xs="12" size-sm="9" class="form-admin--group_field">
+            <!-- <ion-col size-xs="12" size-sm="9" class="form-admin--group_field">
                 <AdminLocationsList />
                 <ion-button>
                     Add new space +
@@ -50,7 +50,7 @@
                 <ion-button>
                     Export QR Codes
                 </ion-button>
-            </ion-col>
+            </ion-col> -->
         </ion-row>
     </ion-grid>
 </template>

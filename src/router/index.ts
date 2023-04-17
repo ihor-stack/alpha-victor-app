@@ -225,8 +225,23 @@ const routes: Array<RouteRecordRaw> = [
           {
             path: "organisation/id/locations",
             name: "OrganisationViewLocations",
-            component: () => import("@/views/admin/organisations/OrganisationViewLocations.vue"),
-          }
+            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocations.vue"),
+          },
+          {
+            path: "organisation/id/locations/floor",
+            name: "OrganisationViewLocationsFloors",
+            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsFloors.vue"),
+          },
+          {
+            path: "organisation/id/locations/floor/space",
+            name: "OrganisationViewLocationsSpaces",
+            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsSpaces.vue"),
+          },
+          {
+            path: "organisation/id/locations/floor/space/devices",
+            name: "OrganisationViewLocationsDevices",
+            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsDevices.vue"),
+          },
         ]
       }
     ]

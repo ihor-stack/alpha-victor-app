@@ -17,6 +17,8 @@
                 ></ion-input>
             </ion-col>
             <ion-col size-xs="12">
+                <h1 class="font-bold font-size-lg color-light-gray">Spaces</h1>
+
                 <AdminFloorsField />
             </ion-col>
         </ion-row>
