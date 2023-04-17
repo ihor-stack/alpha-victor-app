@@ -8,6 +8,7 @@
       :value="doc.title"
       @ionInput="editedDocument = $event.target.value;"
       @ion-focus="currentDocument = doc"
+      @ion-blur="ResetDocuments(doc.id)"
       @keydown.esc="ResetDocuments(doc.id)"
     ></ion-input>
     <ion-button 
