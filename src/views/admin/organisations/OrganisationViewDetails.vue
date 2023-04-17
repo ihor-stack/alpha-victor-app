@@ -46,9 +46,9 @@
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Language</ion-label>
         <ion-select interface="popover" class="font-size-sm" color="light" aria-label="Fruit" placeholder="Select all fruits that apply" :multiple="true">
-          <ion-select-option value="apples">Apples</ion-select-option>
-          <ion-select-option value="oranges">Oranges</ion-select-option>
-          <ion-select-option value="bananas">Bananas</ion-select-option>
+          <ion-select-option value="apples">English</ion-select-option>
+          <ion-select-option value="oranges">Welsh</ion-select-option>
+          <ion-select-option value="bananas">Spannish</ion-select-option>
         </ion-select>
       </ion-col>
     </ion-row>

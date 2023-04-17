@@ -1,6 +1,6 @@
 <template>
     <h1 class="font-bold font-size-lg color-light-gray">Equipment</h1>
-    <ion-row>
+    <ion-row class="form-admin">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-select 
         placeholder="Select organisation" 
@@ -13,7 +13,7 @@
             {{manufature.name}}
           </ion-select-option>
         </ion-select>
-        <ion-button>
+        <ion-button class="font-size-xs text-lowercase">
             Add new manufacturer + 
         </ion-button>
       </ion-col>
@@ -29,7 +29,7 @@
             {{asset.name}}
           </ion-select-option>
         </ion-select>
-        <ion-button>
+        <ion-button class="font-size-xs text-lowercase">
             Add new asset type + 
         </ion-button>
       </ion-col>
@@ -86,6 +86,21 @@
 </script>
   
 <style scoped>
+h1 {
+  margin-bottom: 3%;
+}
+p {
+  margin-left: 2%;
+  font-family: "Akkurat-Mono";
+  font-size: var(--av-font-xs);
+}
+ion-select {
+  margin-bottom: 3%;
+}
+ion-button {
+  margin-bottom: 5%;
+  width: 246px;
+}
 
 </style>
   

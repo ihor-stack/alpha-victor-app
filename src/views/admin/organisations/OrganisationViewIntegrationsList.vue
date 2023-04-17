@@ -34,6 +34,10 @@ import {
   </script>
   
   <style scoped>
- 
+p {
+  margin-left: 3%;
+  font-family: "Akkurat-Mono";
+  font-size: var(--av-font-xs);
+}
   </style>
   

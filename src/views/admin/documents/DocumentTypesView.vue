@@ -1,6 +1,6 @@
 <template>
     <h1 class="font-bold font-size-lg color-light-gray">Document Types Test</h1>
-    <ion-grid>
+    <ion-grid class="form-admin">
       <ion-row class="form-admin--group" >
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-input
@@ -11,10 +11,12 @@
             @ionInput="newDocument = $event.target.value;">
           </ion-input>
         </ion-col>
-        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-button @click="AddDocument()">Add new +</ion-button>
+        <ion-col size-xs="12" size-sm="6" >
+          <ion-button @click="AddDocument()" class="font-size-sm text-lowercase">
+            Add new +
+          </ion-button>
         </ion-col>
-        <ion-col>
+        <ion-col size-xs="12" class="form-admin--group_field">
           <DocumentField />
         </ion-col>
       </ion-row> 
@@ -46,5 +48,9 @@ import {
   </script>
   
   <style scoped>
+  ion-button {
+  margin-bottom: 5%;
+  width: 246px;
+}
   </style>
   

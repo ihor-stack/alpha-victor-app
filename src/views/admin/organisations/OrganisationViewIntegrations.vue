@@ -1,46 +1,45 @@
 <template>
   <h1 class="font-bold font-size-lg color-light-gray">Ubiquisense</h1>
-  <ion-grid>
+  <ion-grid class="form-admin">
     <ion-row class="form-admin--group" >
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-item>
-          <ion-label color="light" slot='start'>
+          <ion-label color="light">
             Client ID
           </ion-label>
           <ion-input
             class="font-size-sm"
             type="password">
           </ion-input>
-        </ion-item>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-item>
-          <ion-label color="light" slot='start'>
+
+          <ion-label color="light">
             Client Secret
           </ion-label>
           <ion-input
             class="font-size-sm"
             type="password">
           </ion-input>
-        </ion-item>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-select 
-          interface="popover"
+            interface="popover"
             placeholder="Select organisation" 
-            class="custom-select"
+            class="issues-panel__select-equipment__select"
+            color="light"
           >
             <ion-select-option 
             value="english" v-for="(org, id) in oganisations" 
             :key="id">
               {{org.name}}
             </ion-select-option>
-
           </ion-select>
       </ion-col>
     </ion-row> 
   </ion-grid>
-  <ion-button>Save Changes</ion-button>
+  <ion-button class="font-size-xs text-lowercase">
+    Save Changes
+  </ion-button>
   </template>
   
   <script setup lang="ts">
@@ -66,7 +65,7 @@ import {
 
   </script>
   
-  <style scoped>
+<style scoped>
 
-  </style>
+</style>
   

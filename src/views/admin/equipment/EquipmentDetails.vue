@@ -1,24 +1,18 @@
 <template>
     <h1 class="font-bold font-size-lg color-light-gray">NUC7iDNKE</h1>
-    <ion-grid>
-      <ion-row>
+    <ion-grid class="form-admin">
+      <ion-row class="form-admin--group" >
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-item>
-            <ion-label color="light" slot="start">Manufacturer</ion-label>
+            <ion-label color="light">Manufacturer</ion-label>
             <ion-input label="Manufacturer" color="light"></ion-input>
-          </ion-item> 
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-item>
-            <ion-label color="light" slot="start">Model</ion-label>
+            <ion-label color="light" >Model</ion-label>
             <ion-input color="light" label="Model"></ion-input>
-          </ion-item> 
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-item>
-            <ion-label color="light" slot="start">Serial number</ion-label>
+            <ion-label color="light">Serial number</ion-label>
             <ion-input color="light" label="Serial number"></ion-input>
-          </ion-item> 
         </ion-col>
         <ion-col size-xs="12" class="form-admin--group_field">
           
@@ -30,10 +24,15 @@
           <DocumentField />
         </ion-col>
         <ion-col size-xs="12" class="form-admin--group_field">
-          <ion-button>Add New Document+</ion-button>
+          <ion-button class="font-size-xs text-lowercase new-document-button" fill="outline" color="--av-light-gray">
+            Add New Document  +
+          </ion-button>
         </ion-col>
-        <ion-col size-xs="12" class="save-button" >
-          <ion-button>Save Changes</ion-button>
+        <ion-col size-xs="12" >
+          <ion-button 
+          class="font-size-xs text-lowercase save-button ">
+            Save Changes
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -41,7 +40,6 @@
   
 <script setup lang="ts">
   import {
-    IonItem,
     IonLabel,
     IonInput,
     IonRow,
@@ -55,9 +53,14 @@
 </script>
   
 <style scoped>
-  .save-button {
-    margin-top: 5%;
-  }
- 
+.save-button {
+  margin-top: 5%;
+}
+.new-document-button {
+  color: var(--av-light-gray);
+}
+ion-button {
+  width: 246px
+}
 </style>
   

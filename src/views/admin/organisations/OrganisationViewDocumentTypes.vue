@@ -1,6 +1,6 @@
   <template>
     <h1 class="font-bold font-size-lg color-light-gray">Document Types</h1>
-    <ion-grid>
+    <ion-grid class="form-admin">
       <ion-row class="form-admin--group" >
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-input
@@ -12,10 +12,15 @@
           </ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-button @click="AddDocument()" :disabled="newDocument ? false : true">Add new +</ion-button>
+          <ion-button 
+          @click="AddDocument()" 
+          :disabled="newDocument ? false : true"
+          class="font-size-xs text-lowercase">
+            Add new +
+          </ion-button>
         </ion-col>
         <ion-col size-xs="12"  class="form-admin--group_field">
-          <h3 class="font-bold font-size-md color-light-gray">Documents</h3>
+          <h3 class="font-bold font-size-md color-light-gray">Current Document Types</h3>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <DocumentField />
@@ -49,5 +54,9 @@ import {
   </script>
   
   <style scoped>
+  ion-button {
+    width: 30%;
+    text-transform: capitalize;
+  }
   </style>
   
