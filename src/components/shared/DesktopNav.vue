@@ -102,7 +102,7 @@
           ></ion-icon>
         </li>
         <div class="spacer-line"></div>
-        <li class="sub-title font-size-xxs">adminisation</li>
+        <li class="sub-title font-size-xxs color-light-gray">administration</li>
         <li class="nav-menu-link arrow-align">
           <router-link to="/admin/organisations" class="font-size-sm color-light-gray"
             >Organisations</router-link
