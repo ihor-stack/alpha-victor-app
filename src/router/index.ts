@@ -247,6 +247,16 @@ const routes: Array<RouteRecordRaw> = [
             name: "OrganisationViewLocationsBeacon",
             component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsBeacon.vue"),
           },
+          {
+            path: "organisation/id/locations/floor/space/integrations",
+            name: "OrganisationViewLocationsIntegrations",
+            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsIntegrations.vue"),
+          },
+          {
+            path: "organisation/id/locations/floor/space/wifi",
+            name: "OrganisationViewLocationsWifi",
+            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsWifi.vue"),
+          },
         ]
       }
     ]

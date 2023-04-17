@@ -1,4 +1,5 @@
 <template>
+    <h1 class="font-bold font-size-lg color-light-gray">Beacon</h1>
     <ion-grid class="form-admin">
         <ion-row class="form-admin--group">
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
