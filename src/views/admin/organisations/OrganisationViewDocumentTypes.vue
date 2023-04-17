@@ -12,7 +12,7 @@
           </ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-button @click="AddDocument()">Add new +</ion-button>
+          <ion-button @click="AddDocument()" :disabled="newDocument ? false : true">Add new +</ion-button>
         </ion-col>
         <ion-col size-xs="12"  class="form-admin--group_field">
           <h3 class="font-bold font-size-md color-light-gray">Documents</h3>
