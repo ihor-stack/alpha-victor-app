@@ -5,6 +5,7 @@
         <ion-select 
         placeholder="Select organisation" 
         class="custom-select"
+        interface="popover"
         >
           <ion-select-option 
             value="english" v-for="(manufature, id) in manufacturers" 
@@ -20,6 +21,7 @@
         <ion-select 
         placeholder="Select organisation" 
         class="custom-select"
+        interface="popover"
         >
           <ion-select-option 
             value="english" v-for="(asset, id) in assets" 

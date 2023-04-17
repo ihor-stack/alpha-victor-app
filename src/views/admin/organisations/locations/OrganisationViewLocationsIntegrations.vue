@@ -5,7 +5,7 @@
         <ion-row class="form-admin--group">
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Select location</ion-label>
-                <ion-select color="light" placeholder="Select Location" class="form-admin--group_field">
+                <ion-select color="light" placeholder="Select Location" class="form-admin--group_field" interface="popover">
                     <ion-select-option value="apples">location 1</ion-select-option>
                     <ion-select-option value="oranges">location 2</ion-select-option>
                     <ion-select-option value="bananas">location 3</ion-select-option>
