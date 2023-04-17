@@ -31,7 +31,7 @@
         <ion-input
           class="font-size-sm"
           color="light"
-          placeholder="LinkedIn"
+          type="color" 
         ></ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -39,7 +39,7 @@
         <ion-input
           class="font-size-sm"
           color="light"
-          placeholder="Joe Bloggs"
+          type="color" 
         ></ion-input>
       </ion-col>
     </ion-row>
