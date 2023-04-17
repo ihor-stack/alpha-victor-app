@@ -101,6 +101,17 @@
 </template>
 
 <script setup lang="ts">
+import { 
+  IonGrid, 
+  IonRow, 
+  IonCol, 
+  IonInput, 
+  IonLabel, 
+  IonSelect,
+  IonSelectOption,
+  IonButton
+ } 
+  from "@ionic/vue";
 
 </script>
 

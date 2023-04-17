@@ -37,7 +37,8 @@ import {
     IonRow,
     IonCol,
     IonInput,
-    IonButton
+    IonButton,
+    IonLabel
 } from "@ionic/vue";
 import AdminLocationDevices from '@/components/admin/locations/AdminLocationDevices.vue'
   

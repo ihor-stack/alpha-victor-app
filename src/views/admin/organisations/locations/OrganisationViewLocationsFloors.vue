@@ -20,6 +20,7 @@
       IonGrid,
       IonRow,
       IonCol,
+      IonButton
     } from "@ionic/vue";
     import AdminLocationsList from '@/components/admin/locations/AdminLocationsList.vue'
     import { ref } from "vue";

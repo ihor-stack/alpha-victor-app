@@ -40,6 +40,7 @@
     IonItem,
     IonInput,
     IonButton,
+    IonThumbnail
   } from "@ionic/vue";
   import { ref } from "vue";
   import {adminDocuments} from '@/stores/adminStore'

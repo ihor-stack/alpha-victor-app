@@ -17,16 +17,11 @@
   <script setup lang="ts">
   
 import {
-    IonButton,
-    IonGrid,
-    IonRow,
-    IonCol,
+    IonIcon,
     IonLabel,
     IonItem,
-    IonInput
   } from "@ionic/vue";
-  import { chevronForwardOutline
-, star } from 'ionicons/icons';
+  import { chevronForwardOutline } from 'ionicons/icons';
 
   import { ref } from "vue";
 

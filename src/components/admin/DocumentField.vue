@@ -36,15 +36,8 @@
 <script setup lang="ts">
 import {
   IonItem,
-  IonLabel,
-  IonIcon,
   IonInput,
-  IonRow,
-  IonCol,
-  IonSelect,
-  IonSelectOption,
   IonButton,
-  IonGrid
 } from "@ionic/vue";
 import { ref } from "vue";
 import {adminDocuments} from '@/stores/adminStore'

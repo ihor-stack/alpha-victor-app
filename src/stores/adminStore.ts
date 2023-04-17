@@ -9,6 +9,7 @@ interface Document {
 export const adminDocuments = defineStore('adminDocuments', {
   state: () => {
     return {
+      // testing with hard coded info
       documents: [
       { id: 1, title: 'User Manual', dateUploaded: '' },
       { id: 2, title: 'Quick Start Guide', dateUploaded: '' },
@@ -35,5 +36,22 @@ export const adminDocuments = defineStore('adminDocuments', {
   },
   getters: {
     documentsArray: (state) => state.documents,
+  },
+});
+
+export const Organisation = defineStore('adminDocuments', {
+  state: () => {
+    return {
+      // testing with hard coded info
+      id: 123
+  }
+  },
+  actions: {
+    setId(newId: number) {
+      this.id = newId
+    },
+  },
+  getters: {
+    getId: (state) => state.id,
   },
 });

@@ -84,7 +84,9 @@ import {
     IonLabel,
     IonItem,
     IonInput,
-    IonTextarea
+    IonTextarea,
+    IonButton,
+    IonIcon
 } from "@ionic/vue";
 import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 import { chevronForwardOutline } from 'ionicons/icons';

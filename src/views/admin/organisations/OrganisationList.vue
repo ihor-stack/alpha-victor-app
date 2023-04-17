@@ -5,7 +5,7 @@
       <ion-item 
       v-for="org in organisations" 
       v-bind:key="org.id" 
-      :router-link="{ name: 'OrganisationView', params: { id: org.id} }"
+      :router-link="{ name: 'OrganisationView', params: { id: store.id} }"
       router-direction="root"
       >
         <img
@@ -26,6 +26,9 @@ import {
 } from "@ionic/vue";
 import { ref } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
+import {Organisation}  from '@/stores/adminStore'
+
+const store = Organisation()
 
 const organisations = ref([
   { id: 1, name: 'Organisation 1' },

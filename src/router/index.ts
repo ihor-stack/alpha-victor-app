@@ -191,72 +191,98 @@ const routes: Array<RouteRecordRaw> = [
             path: "organisation/:id",
             name: "OrganisationView",
             props: true,
-            component: () => import("@/views/admin/organisations/OrganisationView.vue"),
+            component: () => 
+            import("@/views/admin/organisations/OrganisationView.vue"),
           },
           {
-            path: "organisation/id/details",
+            path: "organisation/:id/details",
             name: "OrganisationViewDetails",
-            component: () => import("@/views/admin/organisations/OrganisationViewDetails.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewDetails.vue"),
           },
           {
-            path: "organisation/id/theme",
+            path: "organisation/:id/theme",
             name: "OrganisationViewTheme",
-            component: () => import("@/views/admin/organisations/OrganisationViewTheme.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewTheme.vue"),
           },
           {
-            path: "organisation/id/space-metadata",
+            path: "organisation/:id/space-metadata",
             name: "OrganisationViewSpaceMetadata",
-            component: () => import("@/views/admin/organisations/OrganisationViewSpaceMetadata.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewSpaceMetadata.vue"),
           },
           {
             path: "organisation/id/document-types",
             name: "OrganisationViewDocumentTypes",
-            component: () => import("@/views/admin/organisations/OrganisationViewDocumentTypes.vue"),
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewDocumentTypes.vue"),
           },
           {
-            path: "organisation/id/integrations",
+            path: "organisation/:id/integrations",
             name: "OrganisationViewIntegrationsList",
-            component: () => import("@/views/admin/organisations/OrganisationViewIntegrationsList.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewIntegrationsList.vue"),
           },
           {
-            path: "organisation/id/integrations/edit",
+            path: "organisation/:id/integrations/edit",
             name: "OrganisationViewIntegrations",
-            component: () => import("@/views/admin/organisations/OrganisationViewIntegrations.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewIntegrations.vue"),
           },
           {
-            path: "organisation/id/locations",
+            path: "organisation/:id/locations",
             name: "OrganisationViewLocations",
-            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocations.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocations.vue"),
           },
           {
-            path: "organisation/id/locations/floor",
+            path: "organisation/:id/locations/floor",
             name: "OrganisationViewLocationsFloors",
-            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsFloors.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsFloors.vue"),
           },
           {
-            path: "organisation/id/locations/floor/space",
+            path: "organisation/:id/locations/floor/space",
             name: "OrganisationViewLocationsSpaces",
-            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsSpaces.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsSpaces.vue"),
           },
           {
-            path: "organisation/id/locations/floor/space/devices",
+            path: "organisation/:id/locations/floor/space/devices",
             name: "OrganisationViewLocationsDevices",
-            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsDevices.vue"),
+            props: true,
+            component: () =>
+             import("@/views/admin/organisations/locations/OrganisationViewLocationsDevices.vue"),
           },
           {
-            path: "organisation/id/locations/floor/space/beacon",
+            path: "organisation/:id/locations/floor/space/beacon",
             name: "OrganisationViewLocationsBeacon",
-            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsBeacon.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsBeacon.vue"),
           },
           {
-            path: "organisation/id/locations/floor/space/integrations",
+            path: "organisation/:id/locations/floor/space/integrations",
             name: "OrganisationViewLocationsIntegrations",
-            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsIntegrations.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsIntegrations.vue"),
           },
           {
-            path: "organisation/id/locations/floor/space/wifi",
+            path: "organisation/:id/locations/floor/space/wifi",
             name: "OrganisationViewLocationsWifi",
-            component: () => import("@/views/admin/organisations/locations/OrganisationViewLocationsWifi.vue"),
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsWifi.vue"),
           },
         ]
       }

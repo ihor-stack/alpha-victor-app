@@ -16,37 +16,18 @@
 
 <script setup lang="ts">
     
-  import {
-      IonGrid,
-      IonRow,
-      IonCol,
-    } from "@ionic/vue";
-    import AdminLocationDetails from '@/components/admin/locations/AdminLocationDetails.vue'
-    import { ref } from "vue";
-  
-    const locations = ref([
-        {
-            id: 1,
-            name: '1  Wilton Park',
-            floors: ['Ground Floor','First Floor', 'Second Floor', 'Third Floor']
-        },
-        {
-            id: 2,
-            name: '58 Howard Street',
-            floors: ['Ground Floor','First Floor']
-        },
-        {
-            id: 3,
-            name: '75 Howard Street',
-            floors: ['Ground Floor','First Floor', 'Second Floor']
-        }
-    ])
-  
-    </script>
-    
-    <style scoped>
-   .floor_padding {
-    padding: 15px;
-   }
-    </style>
-    
+import {
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonButton
+} from "@ionic/vue";
+import AdminLocationDetails from '@/components/admin/locations/AdminLocationDetails.vue'
+
+</script>
+
+<style scoped>
+.floor_padding {
+padding: 15px;
+}
+</style>

@@ -28,8 +28,6 @@ import {
     IonGrid,
     IonRow,
     IonCol,
-    IonLabel,
-    IonItem,
     IonInput
   } from "@ionic/vue";
   import DocumentField from '@/components/admin/DocumentField.vue'

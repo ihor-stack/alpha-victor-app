@@ -43,16 +43,12 @@
   import {
     IonItem,
     IonLabel,
-    IonIcon,
     IonInput,
     IonRow,
     IonCol,
-    IonSelect,
-    IonSelectOption,
     IonButton,
     IonGrid
   } from "@ionic/vue";
-  import { ref } from "vue";
   import DocumentField from '@/components/admin/DocumentField.vue'
   
 

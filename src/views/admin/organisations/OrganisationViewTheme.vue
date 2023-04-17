@@ -49,7 +49,14 @@
 </template>
 
 <script setup lang="ts">
-
+import {
+    IonButton,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonInput,
+    IonLabel
+  } from "@ionic/vue";
 </script>
 
 <style scoped>

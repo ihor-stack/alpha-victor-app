@@ -3,9 +3,6 @@
     <ion-row>
       <ion-col ion-col size-xs="12">
           <h1 class="font-bold font-size-lg color-light-gray">LinkedIn</h1>
-          <!-- <h2 class="sub-head">
-            LinkedIn &nbsp;>>&nbsp; Edit &nbsp;>>&nbsp; Details
-          </h2> -->
           <ion-grid>
             <ion-row>
               <ion-col size-xs="6">
@@ -41,30 +38,11 @@ import {
   IonGrid,
   IonRow,
 } from "@ionic/vue";
-import { chevronForwardOutline } from "ionicons/icons";
-// import DesktopNav from "@/components/shared/DesktopNav.vue";
-// import OrganisationsSelect from "@/components/admin/OrganisationsSelect.vue";
 import { useRouter } from "vue-router";
 import DocumentField from '@/components/admin/DocumentField.vue'
 
 const router = useRouter();
 
-// const organisations = [
-//   {
-//     shortCode: 1,
-//     organisationType: "Conference Room",
-//     organisationName: "The Johnson",
-//     occupied: true,
-//     capacity: 10,
-//     imageUrl: "space-the-johnson.jpg",
-//     organisationFeatures: [],
-//     issues: [],
-//   },
-// ];
-
-// const exploreOrgnistion = () => {
-//   router.push({ name: "Organisation" });
-// };
 </script>
 
 <style scoped>

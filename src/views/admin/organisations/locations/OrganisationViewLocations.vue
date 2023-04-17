@@ -45,10 +45,13 @@
       IonCol,
       IonLabel,
       IonItem,
+      IonAccordion,
+      IonAccordionGroup,
+      IonButton,
+      IonIcon
     } from "@ionic/vue";
     import { returnDownForwardOutline, chevronForwardOutline } from 'ionicons/icons';
     import AdminLocationsForm from '@/components/admin/locations/AdminLocationsForm.vue'
-    
     import { ref } from "vue";
   
     const locations = ref([

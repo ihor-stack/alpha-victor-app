@@ -52,7 +52,12 @@ import {
     IonRow,
     IonCol,
     IonInput,
-    IonButton
+    IonButton,
+    IonSelect,
+    IonSelectOption,
+    IonLabel,
+    IonItem,
+    IonIcon
 } from "@ionic/vue";
 import { chevronForwardOutline } from 'ionicons/icons';
 

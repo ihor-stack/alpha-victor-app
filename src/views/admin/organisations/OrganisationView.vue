@@ -50,7 +50,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
 import { IonItem, IonIcon } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
 </script>
