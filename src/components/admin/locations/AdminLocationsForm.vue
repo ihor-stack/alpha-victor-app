@@ -112,7 +112,6 @@ import {
     IonRow,
     IonCol,
     IonLabel,
-    IonItem,
     IonInput
 } from "@ionic/vue";
 import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
