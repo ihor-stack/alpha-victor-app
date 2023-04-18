@@ -59,7 +59,7 @@
                                     Save changes
                                 </ion-button>
                                 <ion-button 
-                                class="font-size-sm text-lowercase  delete-button" 
+                                class="font-size-sm text-lowercase delete-button" 
                                 fill="clear" >
                                     or delete device
                                 </ion-button>
