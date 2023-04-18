@@ -30,7 +30,7 @@
         </ion-row>
     </ion-grid>
     <ion-button class="font-size-sm text-lowercase add-button">
-        Add new integration +
+        Add new device +
     </ion-button>
 </template>
 
