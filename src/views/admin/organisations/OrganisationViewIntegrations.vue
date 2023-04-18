@@ -22,6 +22,9 @@
           </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <ion-label color="light">
+            Select organisation
+          </ion-label>
           <ion-select 
             interface="popover"
             placeholder="Select organisation" 
@@ -66,6 +69,8 @@ import {
   </script>
   
 <style scoped>
-
+h1{
+  margin-bottom: 38px;
+}
 </style>
   

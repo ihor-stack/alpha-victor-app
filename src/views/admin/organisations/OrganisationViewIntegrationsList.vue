@@ -12,18 +12,17 @@
     </ion-label>
     <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
   </ion-item>
-  </template>
+</template>
   
   <script setup lang="ts">
   
 import {
-    IonIcon,
-    IonLabel,
-    IonItem,
-  } from "@ionic/vue";
-  import { chevronForwardOutline } from 'ionicons/icons';
-
-  import { ref } from "vue";
+  IonIcon,
+  IonLabel,
+  IonItem,
+} from "@ionic/vue";
+import { chevronForwardOutline } from 'ionicons/icons';
+import { ref } from "vue";
 
   const items = ref([
     { id: 1, name: 'Ubiquisense' },
@@ -34,10 +33,14 @@ import {
   </script>
   
   <style scoped>
-p {
-  margin-left: 3%;
-  font-family: "Akkurat-Mono";
-  font-size: var(--av-font-xs);
-}
+  p {
+    margin-left: 3%;
+    font-family: "Akkurat-Mono";
+    font-size: var(--av-font-xs);
+  }
+  h1{
+    margin-bottom: 38px;
+  }
+  
   </style>
   

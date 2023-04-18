@@ -32,6 +32,7 @@
   --ion-padding: 32px;
 
   --ion-font-family: "Akkurat-Regular";
+  
 }
 
 @media (prefers-color-scheme: dark) {
@@ -564,14 +565,15 @@ ion-action-sheet .action-sheet-selected .action-sheet-button-inner {
   color: #FFF !important;
 }
 
-@media (any-hover: hover) {
-  ion-action-sheet .action-sheet-button:hover {
-    color: #000000;
-  }
+ion-select-option::part(text) {
+  color: #FFFFFF !important;
+  background-color: #FFFFFF !important;
 }
 
-ion-action-sheet ion-backdrop {
-  opacity: 0.6;
+@media (any-hover: hover) {
+  ion-action-sheet .action-popover-button:hover {
+    color: #000000;
+  }
 }
 
 /* Toast Styling */

@@ -1,6 +1,5 @@
 <template>
   <h1 class="font-bold font-size-lg color-light-gray">LinkedIn</h1>
-
   <ion-grid class="form-admin">
     <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -97,7 +96,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-button>Save changes</ion-button>
+  <ion-button class="font-size-sm text-lowercase">Save changes</ion-button>
 </template>
 
 <script setup lang="ts">
@@ -116,5 +115,10 @@ import {
 </script>
 
 <style scoped>
-
+  h1{
+    margin-bottom: 38px;
+  }
+  ion-button {
+    width: 246px
+  }
 </style>
