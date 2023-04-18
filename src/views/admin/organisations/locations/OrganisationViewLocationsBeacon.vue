@@ -16,13 +16,13 @@
                 color="light"
                 ></ion-input>
             </ion-col>
-            <ion-col size-xs="12" class="form-admin--group_field">
-                <ion-button>
+            <ion-col size-xs="12" >
+                <ion-button class="font-size-sm text-lowercase">
                     Scan for beacons
                 </ion-button>
             </ion-col>
-            <ion-col size-xs="12" class="form-admin--group_field">
-                <ion-button>
+            <ion-col size-xs="12" >
+                <ion-button class="font-size-sm text-lowercase add-button">
                     Add new device +
                 </ion-button>
             </ion-col>
@@ -40,13 +40,21 @@ import {
     IonButton,
     IonLabel
 } from "@ionic/vue";
-import AdminLocationDevices from '@/components/admin/locations/AdminLocationDevices.vue'
   
 </script>
 
 <style scoped>
-.floor_padding {
-padding: 15px;
+ion-button {
+    width: 246px
+}
+ion-icon {
+    color: white
+}
+h1{
+    margin-bottom: 48px;
+}
+.add-button{
+    margin-top: 500px;
 }
 </style>
     
