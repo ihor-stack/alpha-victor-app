@@ -53,11 +53,9 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-col size-xs="12" >
-        <ion-button class="font-size-sm text-lowercase add-button">
-            Add new integration +
-        </ion-button>
-    </ion-col>
+    <ion-button class="font-size-sm text-lowercase add-button">
+        Add new integration +
+    </ion-button>
 </template>
 
 <script setup lang="ts">
