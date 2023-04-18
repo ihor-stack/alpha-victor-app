@@ -1,5 +1,5 @@
 <template>
-    <h1 class="font-bold font-size-lg color-light-gray">Document Types Test</h1>
+    <h1 class="font-bold font-size-lg color-light-gray">Document Types</h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group" >
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -16,7 +16,11 @@
             Add new +
           </ion-button>
         </ion-col>
-        <ion-col size-xs="12" class="form-admin--group_field">
+      </ion-row> 
+    </ion-grid>
+    <ion-grid >
+      <ion-row class="form-admin--group" >
+        <ion-col size-xs="12"  class="form-admin--group_field">
           <DocumentField />
         </ion-col>
       </ion-row> 
@@ -49,8 +53,9 @@ import {
   
   <style scoped>
   ion-button {
-  margin-bottom: 5%;
-  width: 246px;
-}
+    margin-bottom: 5%;
+    width: 246px;
+    height: 45px
+  }
   </style>
   

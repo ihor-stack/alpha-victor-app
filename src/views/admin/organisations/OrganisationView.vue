@@ -44,17 +44,32 @@
       </ion-item>
     </li>
   </ul>
-  <ion-button>
+  <div class="delete-div">
+    <ion-button class="delete-button" color="red">
     Delete organisation
-  </ion-button>
+    </ion-button>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { IonItem, IonIcon } from "@ionic/vue";
+import { IonItem, IonIcon, IonButton } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
 </script>
 
 <style scoped>
+/* check why the button can only change color to red 
+if both back ground color on style and color="red" are used together */
+.delete-button{
+  background-color: var(--av-red);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 8px;
+}
+.delete-div{
+  height: 322px;
+  position: relative;
+}
 .organisation-options-menu {
   padding: 0;
   margin: 0;
