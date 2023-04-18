@@ -1,24 +1,23 @@
 <template>
     <ion-grid class="form-admin">
         <h1 class="font-bold font-size-lg color-light-gray">First Floor</h1>
-        <ion-row>
-            <ion-col size-xs="12" size-sm="6">
+        <ion-row class="form-admin--group">
+            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Floor name</ion-label>
                 <ion-input
                 class="font-size-sm"
                 color="light"
                 ></ion-input>
             </ion-col>
-            <ion-col size-xs="12" size-sm="6">
+            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Short name</ion-label>
                 <ion-input
                 class="font-size-sm"
                 color="light"
                 ></ion-input>
             </ion-col>
-            <ion-col size-xs="12">
-                <h1 class="font-bold font-size-lg color-light-gray">Spaces</h1>
-
+            <ion-col size-xs="12" class="form-admin--group_field">
+                <h2 class="font-bold font-size-lg color-light-gray">Spaces</h2>
                 <AdminFloorsField />
             </ion-col>
         </ion-row>
@@ -40,7 +39,11 @@ import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 </script>
 
 <style scoped>
-.floor_padding {
-padding: 15px;
+h1{
+    margin-bottom: 48px;
+}
+h2{
+    margin-top: 30px;
+    margin-bottom: 16px;
 }
 </style>

@@ -20,8 +20,6 @@ import AdminLocationDevices from '@/components/admin/locations/AdminLocationDevi
 </script>
 
 <style scoped>
-.floor_padding {
-padding: 15px;
-}
+
 </style>
     

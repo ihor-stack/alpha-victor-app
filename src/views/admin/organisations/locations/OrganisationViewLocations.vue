@@ -26,12 +26,17 @@
             <ion-col size-xs="12" size-sm="9" class="form-admin--group_field">
                 <h1 class="font-bold font-size-lg color-light-gray">1 Wilton Park</h1>
                 <AdminLocationsForm />
-                <ion-button>
-                    Save changes
-                </ion-button>
-                <ion-button>
-                    Export QR Codes
-                </ion-button>
+                <div class="button-div-margin">
+                    <ion-button class="font-size-xs text-lowercase">
+                        Save changes
+                    </ion-button>
+                    <ion-button 
+                    class="font-size-xs text-lowercase export-button" 
+                    fill="outline" 
+                    color="--av-light-gray">
+                        Export QR Codes
+                    </ion-button>
+                </div>
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -76,7 +81,18 @@
     
     <style scoped>
    .floor_padding {
-    padding: 15px;
-   }
+        padding: 15px;
+    }
+    ion-button {
+        width: 246px
+    }
+    .export-button {
+        color: var(--av-light-gray);
+        margin-left: 26px;
+    }
+    .button-div-margin{
+        margin-top: 10%;
+        width: 100%
+    }
     </style>
     

@@ -3,12 +3,17 @@
         <ion-row class="form-admin--group">
             <ion-col size-xs="12" size-sm="9" class="form-admin--group_field">
                 <AdminLocationsList />
-                <ion-button>
-                    Save changes
-                </ion-button>
-                <ion-button>
-                    Export QR Codes
-                </ion-button>
+                <div class="button-div-margin">
+                    <ion-button class="font-size-sm text-lowercase">
+                        Save changes
+                    </ion-button>
+                    <ion-button 
+                    class="font-size-sm text-lowercase export-button" 
+                    fill="outline" 
+                    color="--av-light-gray">
+                        Export QR Codes
+                    </ion-button>
+                </div>
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -23,31 +28,21 @@
       IonButton
     } from "@ionic/vue";
     import AdminLocationsList from '@/components/admin/locations/AdminLocationsList.vue'
-    import { ref } from "vue";
-  
-    const locations = ref([
-        {
-            id: 1,
-            name: '1  Wilton Park',
-            floors: ['Ground Floor','First Floor', 'Second Floor', 'Third Floor']
-        },
-        {
-            id: 2,
-            name: '58 Howard Street',
-            floors: ['Ground Floor','First Floor']
-        },
-        {
-            id: 3,
-            name: '75 Howard Street',
-            floors: ['Ground Floor','First Floor', 'Second Floor']
-        }
-    ])
+
   
     </script>
     
     <style scoped>
-   .floor_padding {
-    padding: 15px;
-   }
+    ion-button {
+        width: 246px
+    }
+    .export-button {
+        color: var(--av-light-gray);
+        margin-left: 26px;
+    }
+    .button-div-margin{
+        margin-top: 10%;
+        width: 100%
+    }
     </style>
     

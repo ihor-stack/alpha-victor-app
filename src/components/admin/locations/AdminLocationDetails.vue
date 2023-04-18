@@ -6,43 +6,43 @@
         alt="location pic" />
         </ion-thumbnail>
         <h1 class="font-bold font-size-lg color-light-gray">The Johnson</h1>
-        <ion-row>
-            <ion-col size-xs="12" size-sm="6">
+        <ion-row class="form-admin--group">
+            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Space name</ion-label>
                 <ion-input
                 class="font-size-sm"
                 color="light"
                 ></ion-input>
             </ion-col>
-            <ion-col size-xs="12" size-sm="6">
+            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Space shortcode</ion-label>
                 <ion-input
                 class="font-size-sm"
                 color="light"
                 ></ion-input>
             </ion-col>
-            <ion-col size-xs="12" size-sm="6">
+            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Room type</ion-label>
                 <ion-input
                 class="font-size-sm"
                 color="light"
                 ></ion-input>
             </ion-col>
-            <ion-col size-xs="12" size-sm="6">
+            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Capacity</ion-label>
                 <ion-input
                 class="font-size-sm"
                 color="light"
                 ></ion-input>
             </ion-col>
-            <ion-col size-xs="12" size-sm="6">
+            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Typeform ID</ion-label>
                 <ion-input
                 class="font-size-sm"
                 color="light"
                 ></ion-input>
             </ion-col>
-            <ion-col size-xs="12" size-sm="6">
+            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Decision Tree</ion-label>
                 <ion-input
                 class="font-size-sm"
@@ -50,17 +50,17 @@
                 ></ion-input>
             </ion-col>
         </ion-row>
-        <ion-row>
-            <ion-col size-xs="12">
+        <ion-row class="form-admin--group_field component_container">
+            <ion-col size-xs="12" class="form-admin--group_field">
                 <ion-label color="light">Photos</ion-label>
                 <AdminFloorsField />
             </ion-col>
-            <ion-col size-xs="12">
+            <ion-col size-xs="12" class="form-admin--group_field">
                 <ion-label color="light">Documents</ion-label>
                 <AdminFloorsField />
             </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row class="form-admin--group_field">
             <ion-col size-xs="12">
                 <ion-item 
                 v-for="(space, index) in spaceRoutes" 
@@ -102,7 +102,7 @@ const spaceRoutes = [
 </script>
 
 <style scoped>
-.floor_padding {
-padding: 15px;
+.component_container {
+    margin-top: 30px;
 }
 </style>

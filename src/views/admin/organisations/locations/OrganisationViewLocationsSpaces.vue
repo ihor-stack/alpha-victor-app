@@ -3,12 +3,16 @@
         <ion-row class="form-admin--group">
             <ion-col size-xs="12" size-sm="9" class="form-admin--group_field">
                 <AdminLocationDetails />
-                <ion-button>
-                    Save changes
-                </ion-button>
-                <ion-button>
-                    Export QR Codes
-                </ion-button>
+                <div class="button-div-margin">
+                    <ion-button class="font-size-sm text-lowercase">
+                        Save changes
+                    </ion-button>
+                    <ion-button 
+                    class="delete-button font-size-sm text-lowercase" 
+                    color="red">
+                        Delete space
+                    </ion-button>
+                </div>
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -27,7 +31,16 @@ import AdminLocationDetails from '@/components/admin/locations/AdminLocationDeta
 </script>
 
 <style scoped>
-.floor_padding {
-padding: 15px;
-}
+    ion-button {
+        width: 246px;
+        margin-right: 20px;
+    }
+    .delete-button{
+        background-color: var(--av-red);
+        border-radius: 8px;
+        }
+    .button-div-margin{
+        margin-top: 10%;
+        width: 100%
+    }
 </style>
