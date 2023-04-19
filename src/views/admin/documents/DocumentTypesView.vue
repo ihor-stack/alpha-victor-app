@@ -12,7 +12,10 @@
           </ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" >
-          <ion-button @click="AddDocument()" class="font-size-sm text-lowercase">
+          <ion-button 
+          @click="AddDocument()" 
+          class="font-size-sm text-lowercase"
+          :disabled="newDocument ? false : true"  >
             Add new +
           </ion-button>
         </ion-col>

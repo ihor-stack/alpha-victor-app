@@ -15,7 +15,7 @@
       ></ion-input>
       <ion-button 
         @click="SaveDocument(doc.id)"
-        class="save-button"
+        class="save-button text-lowercase"
         slot="end"  
         fill="clear"
         size="small"
@@ -24,7 +24,7 @@
       </ion-button>
       <ion-button 
         @click="RemoveDocument(doc.id)"
-        class="remove-button"
+        class="remove-button text-lowercase"
         slot="end"  
         fill="clear"
         size="small"
@@ -78,10 +78,15 @@
   
   <style scoped>
   .remove-button {
-    --color: red;
-  }
+  color: var(--av-red);
+  font-family: "Akkurat-Mono";
+}
   .save-button {
-    --color: green;
+    color: var(--av-green);
+    font-family: "Akkurat-Mono";
+  }
+  ion-item {
+    margin-bottom: 20px;
   }
   </style>
   

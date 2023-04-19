@@ -13,7 +13,7 @@
     ></ion-input>
     <ion-button 
       @click="SaveDocument(doc.id)"
-      class="save-button text-lowercase font-face"
+      class="save-button text-lowercase"
       slot="end"  
       fill="clear"
       size="small"
@@ -22,7 +22,7 @@
     </ion-button>
     <ion-button 
       @click="RemoveDocument(doc.id)"
-      class="remove-button text-lowercase Akkurat-Mono"
+      class="remove-button text-lowercase"
       slot="end"  
       fill="clear"
       size="small"
