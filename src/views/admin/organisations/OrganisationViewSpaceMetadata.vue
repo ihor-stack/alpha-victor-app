@@ -1,31 +1,27 @@
 <template>
-  <ion-grid>
-    <ion-row>
-      <ion-col ion-col size-xs="12">
-          <h1 class="font-bold font-size-lg color-light-gray">LinkedIn</h1>
-          <ion-grid>
-            <ion-row>
-              <ion-col size-xs="6">
-                <ion-button expand="block">
-                  Add new space type +
-                </ion-button>
-              </ion-col>
-              <ion-col size-xs="6">
-                <ion-button expand="block">
-                  Add new space feature +
-                </ion-button>
-              </ion-col>
-              <ion-col size-xs="6">
-                <ion-label color="light">Space Types</ion-label>
-                <DocumentField />
-              </ion-col>
-              <ion-col size-xs="6">
-                <ion-label color="light">Space Features</ion-label>
-                <DocumentField />
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-      </ion-col>
+  <h1 class="font-bold font-size-lg color-light-gray">LinkedIn</h1>
+  <ion-grid class="form-admin">
+    <ion-row class="form-admin--group">
+        <ion-col size-xs="6" class="form-admin--group_field">
+          <ion-button  class="font-size-sm text-lowercase">
+            Add new space type +
+          </ion-button>
+        </ion-col>
+        <ion-col size-xs="6" class="form-admin--group_field">
+          <ion-button class="font-size-sm text-lowercase">
+            Add new space feature +
+          </ion-button>
+        </ion-col>
+    </ion-row>
+    <ion-row class="form-admin--group">
+        <ion-col size-xs="6" class="form-admin--group_field">
+          <ion-label color="light">Space Types</ion-label>
+          <DocumentField />
+        </ion-col>
+        <ion-col size-xs="6" class="form-admin--group_field">
+          <ion-label color="light">Space Features</ion-label>
+          <DocumentField />
+        </ion-col>
     </ion-row>
   </ion-grid>
 </template>
@@ -46,6 +42,13 @@ const router = useRouter();
 </script>
 
 <style scoped>
+ ion-button {
+  margin-bottom: 5%;
+  width: 246px;
+}
+ion-row{
+  margin-top: 30px;
+}
 .ion-bg {
   background-color: #000000;
   --ion-item-background: #000000;
