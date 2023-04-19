@@ -36,7 +36,7 @@
             color="light"
             :disabled="true"
           >
-            <ion-label color="light">Enable dark mode</ion-label>
+            <ion-label color="light" class="custom-label">Enable dark mode</ion-label>
             <ion-toggle class='custom-toggle' color="light"/>
           </ion-input>
       </ion-col>
@@ -50,9 +50,12 @@
           color="light"
           :disabled="true"
         >
+        <div :style="{ width: '100%' }">
           <input
+          :style="{ marginLeft: '90%'}"
           type="color"
           />
+        </div>
         </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -62,15 +65,19 @@
           color="light"
           :disabled="true"
         >
+        <div :style="{ width: '100%' }">
           <input
+          :style="{ marginLeft: '90%'}"
           type="color"
           />
+        </div>
+          
         </ion-input>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-button>Save changes</ion-button>
+  <ion-button class="font-size-sm text-lowercase">Save changes</ion-button>
 </template>
 
 <script setup lang="ts">
@@ -91,10 +98,14 @@ import {
 h1{
     margin-bottom: 38px;
   }
-p{
-  background-color: aliceblue;
-}
 .custom-toggle{
-  margin-left: 60%;
+  margin-left: 65%;
+}
+.custom-label{
+  margin-left: 3%;
+}
+ion-button {
+  width: 246px;
+  margin-top: 200px;
 }
 </style>
