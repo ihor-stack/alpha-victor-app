@@ -8,7 +8,7 @@
         <ion-input
           class="font-size-sm"
           color="light"
-          label="Readonly input"
+          :disabled="true"
         >
           <input
             type="file"
@@ -21,7 +21,7 @@
         <ion-input
           class="font-size-sm"
           color="light"
-          label="Readonly input"
+          :disabled="true"
         >
           <input
             type="file"
@@ -29,9 +29,16 @@
           />
         </ion-input>
       </ion-col>
-      <ion-col size-xs="12" class="form-admin--group_field">
-        <ion-label color="light">Dark mode</ion-label>
-        <ion-toggle>Enable dark mode</ion-toggle>
+      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <ion-label color="light">Dark mode</ion-label>
+          <ion-input
+            class="font-size-sm"
+            color="light"
+            :disabled="true"
+          >
+            <ion-label color="light">Enable dark mode</ion-label>
+            <ion-toggle class='custom-toggle' color="light"/>
+          </ion-input>
       </ion-col>
     </ion-row>
 
@@ -41,7 +48,7 @@
         <ion-input
           class="font-size-sm"
           color="light"
-          label="Readonly input" 
+          :disabled="true"
         >
           <input
           type="color"
@@ -53,7 +60,7 @@
         <ion-input
           class="font-size-sm"
           color="light"
-          label="Readonly input"
+          :disabled="true"
         >
           <input
           type="color"
@@ -74,17 +81,20 @@ import {
     IonCol,
     IonInput,
     IonLabel,
-    IonToggle
+    IonToggle,
+    IonItem
   } from "@ionic/vue";
-import { ref } from "vue";
 
-  const fileInfo = ref<any>()
-  const getFile = (event: any) => {
-      console.log(event.target.files);
-      //fileInfo.value= event.target.files[0];
-  };
 </script>
 
 <style scoped>
-
+h1{
+    margin-bottom: 38px;
+  }
+p{
+  background-color: aliceblue;
+}
+.custom-toggle{
+  margin-left: 60%;
+}
 </style>
