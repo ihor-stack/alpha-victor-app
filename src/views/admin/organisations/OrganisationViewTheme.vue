@@ -8,18 +8,28 @@
         <ion-input
           class="font-size-sm"
           color="light"
-          type="file"
-        ></ion-input>
+          label="Readonly input"
+        >
+          <input
+            type="file"
+            accept=".jpeg, .png, .jpg"
+          />
+        </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Background image</ion-label>
         <ion-input
           class="font-size-sm"
           color="light"
-          type="file"
-        ></ion-input>
+          label="Readonly input"
+        >
+          <input
+            type="file"
+            accept=".jpeg, .png, .jpg"
+          />
+        </ion-input>
       </ion-col>
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+      <ion-col size-xs="12" class="form-admin--group_field">
         <ion-label color="light">Dark mode</ion-label>
         <ion-toggle>Enable dark mode</ion-toggle>
       </ion-col>
@@ -31,16 +41,24 @@
         <ion-input
           class="font-size-sm"
           color="light"
-          type="color" 
-        ></ion-input>
+          label="Readonly input" 
+        >
+          <input
+          type="color"
+          />
+        </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Secondary colour</ion-label>
         <ion-input
           class="font-size-sm"
           color="light"
-          type="color" 
-        ></ion-input>
+          label="Readonly input"
+        >
+          <input
+          type="color"
+          />
+        </ion-input>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -55,8 +73,16 @@ import {
     IonRow,
     IonCol,
     IonInput,
-    IonLabel
+    IonLabel,
+    IonToggle
   } from "@ionic/vue";
+import { ref } from "vue";
+
+  const fileInfo = ref<any>()
+  const getFile = (event: any) => {
+      console.log(event.target.files);
+      //fileInfo.value= event.target.files[0];
+  };
 </script>
 
 <style scoped>
