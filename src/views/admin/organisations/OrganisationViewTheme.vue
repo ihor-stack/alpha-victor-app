@@ -54,7 +54,7 @@
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Primary colour</ion-label>
           <ion-row>
-          <ion-col size-sm="11">
+          <ion-col size-sm="10">
             <ion-input
               class="font-size-lg"
               color="light"
@@ -75,7 +75,7 @@
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Secondary colour</ion-label>
         <ion-row>
-          <ion-col size-sm="11">
+          <ion-col size-sm="10">
             <ion-input
               class="font-size-lg"
               color="light"
@@ -135,7 +135,7 @@ div{
   margin-top: 5px;
 }
 .custom-toggle{
-  margin-left: 65%;
+  margin-left: 50%;
 }
 .custom-label{
   margin-left: 3%;
@@ -144,4 +144,5 @@ ion-button {
   width: 246px;
   margin-top: 200px;
 }
+
 </style>
