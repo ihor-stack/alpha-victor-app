@@ -17,18 +17,30 @@
                         @click="accordionGroupChange(location.id)">
                             <ion-label>{{location.name}}</ion-label>
                         </ion-item>
-                        <ion-item
-                        class="font-size-sm"
-                        color="dark"
-                        slot="content"
-                        v-for="(floor, index) in location.floors" :key="index"
-                        >   
-                            <ion-icon :icon="returnDownForwardOutline" slot="start"/>
-                            <ion-label class="floor_padding">
-                            {{floor}}
-                            </ion-label>
-                            <ion-icon :icon="chevronForwardOutline" slot="end"/>
-                        </ion-item>
+                        <ion-accordion-group slot="content">
+                            <ion-accordion v-for="(floor, index) in location.floors" :key="index">
+                                <ion-item 
+                                slot="header" 
+                                color="dark">
+                                <ion-label>
+                                    <ion-icon :icon="returnDownForwardOutline" size="small"/>
+                                    {{floor.title}}
+                                </ion-label>
+                                </ion-item>
+                                <ion-item
+                                class="font-size-sm"
+                                color="dark"
+                                slot="content"
+                                v-for="(room, index) in floor.rooms" :key="index"
+                                >   
+                                    <ion-label>
+                                        <ion-icon :icon="returnDownForwardOutline" size="small"/>
+                                        {{room}}
+                                    </ion-label>
+                                    <ion-icon :icon="chevronForwardOutline" size="small" slot="end"/>
+                                </ion-item>
+                            </ion-accordion>
+                        </ion-accordion-group>
                     </ion-accordion>
                 </ion-accordion-group> 
             </ion-content>
@@ -79,21 +91,30 @@ AccordionGroupCustomEvent
         {
             id: 1,
             name: '1  Wilton Park',
-            floors: ['Ground Floor','First Floor', 'Second Floor', 'Third Floor']
+            floors: [
+                {title: 'Ground Floor', rooms: ['room1', 'room2', 'room3']},
+                {title: 'First Floor', rooms: ['room1', 'room2']},
+                {title: 'Second Floor', rooms: ['room1', 'room2', 'room3']},
+                {title: 'Third Floor', rooms: ['room1']}]
         },
         {
             id: 2,
             name: '58 Howard Street',
-            floors: ['Ground Floor','First Floor']
+            floors: [
+                {title: 'Ground Floor', rooms: ['room1', 'room2', 'room3']},
+                {title: 'First Floor', rooms: ['room1', 'room2',]}]
         },
         {
             id: 3,
             name: '75 Howard Street',
-            floors: ['Ground Floor','First Floor', 'Second Floor']
+            floors: [
+                {title: 'Ground Floor', rooms: ['room1']},
+                {title: 'First Floor', rooms: ['room1', 'room2']},
+                {title: 'Second Floor', rooms: ['room1', 'room2', 'room3']}]
         }
     ])
     const accordionGroupChange = (id: number) => {
-        currentItem.value = id
+        currentItem.value === id ? currentItem.value = 0 : currentItem.value = id
     };
     </script>
     
