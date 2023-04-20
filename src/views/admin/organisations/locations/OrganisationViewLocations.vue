@@ -47,31 +47,32 @@
             </ion-content>
         </ion-menu>
         <div class="ion-page" id="locations">
-            <ion-grid class="form-admin" color="medium">
-                <ion-row class="form-admin--group">
-                    <ion-col size-xs="12" class="form-admin--group_field">
-                        <h1 class="font-bold font-size-lg color-light-gray">1 Wilton Park</h1>
-                        <AdminLocationsForm />
-                        <div class="button-div-margin">
-                            <ion-button class="font-size-xs text-lowercase">
-                                Save changes
-                            </ion-button>
-                            <ion-button 
-                            class="font-size-xs text-lowercase export-button" 
-                            fill="outline" 
-                            color="--av-light-gray">
-                                Export QR Codes
-                            </ion-button>
-                        </div>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
+            <ion-content class="ion-padding">
+                <ion-grid class="form-admin" color="medium">
+                    <ion-row class="form-admin--group">
+                        <ion-col size-xs="12" class="form-admin--group_field">
+                            <h1 class="font-bold font-size-lg color-light-gray">1 Wilton Park</h1>
+                            <AdminLocationsForm />
+                            <div class="button-div-margin">
+                                <ion-button class="font-size-xs text-lowercase">
+                                    Save changes
+                                </ion-button>
+                                <ion-button 
+                                class="font-size-xs text-lowercase export-button" 
+                                fill="outline" 
+                                color="--av-light-gray">
+                                    Export QR Codes
+                                </ion-button>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-content>
         </div>
     </ion-split-pane>
 </template>
 
-<script setup lang="ts">
-    
+<script setup lang="ts"> 
   import {
       IonGrid,
       IonRow,
@@ -86,7 +87,8 @@
       IonMenu,
       IonHeader,
       IonToolbar,
-      IonTitle
+      IonTitle,
+      IonContent
     } from "@ionic/vue";
     import { returnDownForwardOutline, chevronForwardOutline } from 'ionicons/icons';
     import AdminLocationsForm from '@/components/admin/locations/AdminLocationsForm.vue'
