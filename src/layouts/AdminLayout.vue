@@ -29,7 +29,7 @@
 import {
   IonPage,
   IonContent,
-  IonButton
+  IonButton,
 } from "@ionic/vue";
 import { reactive, watch } from "vue";
 import DesktopNav from "@/components/shared/DesktopNav.vue";

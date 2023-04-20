@@ -13,15 +13,16 @@
                     <ion-accordion v-for="location in locations" :key="location.id">
                         <ion-item 
                         slot="header" 
-                        :color="currentItem === location.id ? 'medium' : 'dark'" 
-                        @click="accordionGroupChange(location.id)">
+                        :color="currentLocation === location.id ? 'medium' : 'dark'" 
+                        @click="setLocation(location.id)">
                             <ion-label>{{location.name}}</ion-label>
                         </ion-item>
                         <ion-accordion-group slot="content">
                             <ion-accordion v-for="(floor, index) in location.floors" :key="index">
                                 <ion-item 
                                 slot="header" 
-                                color="dark">
+                                :color="currentFloor === floor.title ? 'medium' : 'dark'" 
+                                @click="setFloor(location.id, floor.title)">
                                 <ion-label>
                                     <ion-icon :icon="returnDownForwardOutline" size="small"/>
                                     {{floor.title}}
@@ -81,12 +82,17 @@
       IonAccordionGroup,
       IonButton,
       IonIcon,
-AccordionGroupCustomEvent
+      IonSplitPane,
+      IonMenu,
+      IonHeader,
+      IonToolbar,
+      IonTitle
     } from "@ionic/vue";
     import { returnDownForwardOutline, chevronForwardOutline } from 'ionicons/icons';
     import AdminLocationsForm from '@/components/admin/locations/AdminLocationsForm.vue'
     import { ref } from "vue";
-    const currentItem = ref(0);
+    const currentLocation = ref(0);
+    const currentFloor = ref('')
     const locations = ref([
         {
             id: 1,
@@ -113,8 +119,12 @@ AccordionGroupCustomEvent
                 {title: 'Second Floor', rooms: ['room1', 'room2', 'room3']}]
         }
     ])
-    const accordionGroupChange = (id: number) => {
-        currentItem.value === id ? currentItem.value = 0 : currentItem.value = id
+    const setLocation = (id: number) => {
+        currentLocation.value === id ? currentLocation.value = 0 : currentLocation.value = id
+    };
+    const setFloor = (id: number, floor: string) => {
+        currentLocation.value === id && currentFloor.value === floor ? 
+        currentFloor.value = '' : currentFloor.value = floor
     };
     </script>
     

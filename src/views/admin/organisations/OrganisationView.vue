@@ -45,7 +45,7 @@
     </li>
   </ul>
   <div class="delete-div">
-    <ion-button class="delete-button" color="red">
+    <ion-button class="delete-button font-size-sm text-lowercase" color="red">
     Delete organisation
     </ion-button>
   </div>
