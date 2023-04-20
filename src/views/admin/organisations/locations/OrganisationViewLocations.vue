@@ -1,16 +1,25 @@
 <template>
-    <ion-grid class="form-admin">
-        <ion-row class="form-admin--group">
-            <ion-col size-xs="12" size-sm="3" class="form-admin--group_field">
-                <h1 class="font-bold font-size-lg color-light-gray">Locations</h1>
-                <ion-accordion-group>
+    <ion-split-pane when="xs" content-id="locations">
+        <ion-menu content-id="locations">
+            <ion-header>
+                <ion-toolbar color="dark">
+                <ion-title>
+                    <h1 class="font-bold font-size-lg color-light-gray">Locations</h1>
+                </ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content color="dark">
+                <ion-accordion-group >
                     <ion-accordion v-for="location in locations" :key="location.id">
-                        <ion-item slot="header" color="medium">
+                        <ion-item 
+                        slot="header" 
+                        :color="currentItem === location.id ? 'medium' : 'dark'" 
+                        @click="accordionGroupChange(location.id)">
                             <ion-label>{{location.name}}</ion-label>
                         </ion-item>
                         <ion-item
                         class="font-size-sm"
-                        color="medium"
+                        color="dark"
                         slot="content"
                         v-for="(floor, index) in location.floors" :key="index"
                         >   
@@ -21,25 +30,31 @@
                             <ion-icon :icon="chevronForwardOutline" slot="end"/>
                         </ion-item>
                     </ion-accordion>
-                </ion-accordion-group>                
-            </ion-col>
-            <ion-col size-xs="12" size-sm="9" class="form-admin--group_field">
-                <h1 class="font-bold font-size-lg color-light-gray">1 Wilton Park</h1>
-                <AdminLocationsForm />
-                <div class="button-div-margin">
-                    <ion-button class="font-size-xs text-lowercase">
-                        Save changes
-                    </ion-button>
-                    <ion-button 
-                    class="font-size-xs text-lowercase export-button" 
-                    fill="outline" 
-                    color="--av-light-gray">
-                        Export QR Codes
-                    </ion-button>
-                </div>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+                </ion-accordion-group> 
+            </ion-content>
+        </ion-menu>
+        <div class="ion-page" id="locations">
+            <ion-grid class="form-admin" color="medium">
+                <ion-row class="form-admin--group">
+                    <ion-col size-xs="12" class="form-admin--group_field">
+                        <h1 class="font-bold font-size-lg color-light-gray">1 Wilton Park</h1>
+                        <AdminLocationsForm />
+                        <div class="button-div-margin">
+                            <ion-button class="font-size-xs text-lowercase">
+                                Save changes
+                            </ion-button>
+                            <ion-button 
+                            class="font-size-xs text-lowercase export-button" 
+                            fill="outline" 
+                            color="--av-light-gray">
+                                Export QR Codes
+                            </ion-button>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ion-split-pane>
 </template>
 
 <script setup lang="ts">
@@ -53,12 +68,13 @@
       IonAccordion,
       IonAccordionGroup,
       IonButton,
-      IonIcon
+      IonIcon,
+AccordionGroupCustomEvent
     } from "@ionic/vue";
     import { returnDownForwardOutline, chevronForwardOutline } from 'ionicons/icons';
     import AdminLocationsForm from '@/components/admin/locations/AdminLocationsForm.vue'
     import { ref } from "vue";
-  
+    const currentItem = ref(0);
     const locations = ref([
         {
             id: 1,
@@ -76,10 +92,15 @@
             floors: ['Ground Floor','First Floor', 'Second Floor']
         }
     ])
-  
+    const accordionGroupChange = (id: number) => {
+        currentItem.value = id
+    };
     </script>
     
     <style scoped>
+    ion-content{
+        margin: 0%;
+    }
    .floor_padding {
         padding: 15px;
     }
