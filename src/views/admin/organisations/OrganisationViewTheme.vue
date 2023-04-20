@@ -10,10 +10,14 @@
           color="light"
           :disabled="true"
         >
+        <div>
           <input
+            class="file-input"
             type="file"
-            accept=".jpeg, .png, .jpg"
+            accept=".*"
           />
+        </div>
+          
         </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -23,10 +27,14 @@
           color="light"
           :disabled="true"
         >
+        <div>
           <input
+            class="file-input"
             type="file"
-            accept=".jpeg, .png, .jpg"
+            accept=".*"
           />
+        </div>
+          
         </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -45,34 +53,45 @@
     <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Primary colour</ion-label>
-        <ion-input
-          class="font-size-sm"
-          color="light"
-          :disabled="true"
-        >
-        <div :style="{ width: '100%' }">
-          <input
-          :style="{ marginLeft: '90%'}"
-          type="color"
-          />
-        </div>
-        </ion-input>
+          <ion-row>
+          <ion-col size-sm="11">
+            <ion-input
+              class="font-size-lg"
+              color="light"
+              :disabled="true"
+              v-model="color1"
+            >
+            </ion-input>
+          </ion-col>
+          <ion-col size-sm="1">
+            <input
+              class="color-input"
+              type="color"
+              v-model="color1"
+              />
+          </ion-col>
+        </ion-row>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Secondary colour</ion-label>
-        <ion-input
-          class="font-size-sm"
-          color="light"
-          :disabled="true"
-        >
-        <div :style="{ width: '100%' }">
-          <input
-          :style="{ marginLeft: '90%'}"
-          type="color"
-          />
-        </div>
-          
-        </ion-input>
+        <ion-row>
+          <ion-col size-sm="11">
+            <ion-input
+              class="font-size-lg"
+              color="light"
+              :disabled="true"
+              v-model="color2"
+            >
+          </ion-input>
+          </ion-col>
+          <ion-col size-sm="1">
+            <input
+              class="color-input"
+              type="color"
+              v-model="color2"
+            />
+          </ion-col>
+        </ion-row>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -89,15 +108,32 @@ import {
     IonInput,
     IonLabel,
     IonToggle,
-    IonItem
   } from "@ionic/vue";
+import {ref} from 'vue'
+
+const color1 = ref()
+const color2 = ref()
 
 </script>
 
 <style scoped>
 h1{
     margin-bottom: 38px;
-  }
+}
+div{
+  width: 100%;
+}
+.file-input{
+  width: 100%;
+  min-height: 40px;
+  cursor: pointer
+}
+.color-input{
+  cursor: pointer;
+  height: 50px;
+  margin-left: 10%;
+  margin-top: 5px;
+}
 .custom-toggle{
   margin-left: 65%;
 }
