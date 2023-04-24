@@ -2,7 +2,6 @@
     <ion-button  class="font-size-sm text-lowercase add-button" @click="state.modalOpen = true">
         Add New Space Type +
     </ion-button>
-    <ion-content class="ion-padding">
     <ion-modal 
     :is-open="state.modalOpen"  
     @willDismiss="handleDismiss"
@@ -44,7 +43,6 @@
         </div>
         </ion-page>
     </ion-modal>
-</ion-content>
   </template>
   
   <script setup lang="ts">
