@@ -31,12 +31,14 @@
               <p class="issues-panel__comment color-light-gray font-size-xs">
                 Upload document
               </p>
-              <div class="issues-panel__section issues-panel__select-equipment upload-icons">
+              <div class="issues-panel__section issues-panel__select-equipment upload-icons" onclick="document.getElementById('fileInput').click()">
                 <input
                   class="file-input"
                   type="file"
                   accept=".*"
                   style="display:none"
+                  id="fileInput"
+                  v-on:change="yourVueMethod()"
                 />
                   <ion-icon 
                   :icon="cloudDownloadOutline" 
@@ -74,16 +76,20 @@
     IonModal,
     IonIcon
   } from "@ionic/vue";
-  import {close, cloudDownloadOutline} from 'ionicons/icons'
-  
+  import {close, cloudDownloadOutline, constructOutline} from 'ionicons/icons'
+  import { ref} from "vue"
+
   const state = reactive({
     organisation: "",
     modalOpen: false,
   });
+
   const handleDismiss = () => {
     state.modalOpen = false;
   };
-
+  const yourVueMethod = () => {
+    console.log('yourVueMethod')
+  }
   </script>
   
   <style scoped>
@@ -91,14 +97,14 @@
     background: #181818;
   }
   .add-button {
-    margin-bottom: 5%;
-    width: 246px;
-    }
-    .close-button{
-        width: 20px;
-        margin-left: 95%;
-        cursor: pointer;
-    }
+  margin-bottom: 5%;
+  width: 246px;
+  }
+  .close-button{
+      width: 20px;
+      margin-left: 95%;
+      cursor: pointer;
+  }
   .issues-panel {
     height: 70%;
     width: 60%;
@@ -151,7 +157,7 @@
   display: grid
 }
 .align-icon {
-  margin-left: 135px;
+  margin-left: 48%;
   margin-top: 20px
 }
   </style>
