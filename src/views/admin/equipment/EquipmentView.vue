@@ -13,9 +13,7 @@
             {{manufature.name}}
           </ion-select-option>
         </ion-select>
-        <ion-button class="font-size-xs text-lowercase">
-            Add new manufacturer + 
-        </ion-button>
+        <EquimentManufacutrerModal />
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-select 
@@ -29,9 +27,7 @@
             {{asset.name}}
           </ion-select-option>
         </ion-select>
-        <ion-button class="font-size-xs text-lowercase">
-            Add new asset type + 
-        </ion-button>
+        <EquimentAssetTypeModal />
       </ion-col>
       <ion-col size-xs="12" class="form-admin--group_field">
         <h1 class="font-bold font-size-md color-light-gray">Equipment</h1>
@@ -62,11 +58,12 @@
     IonCol,
     IonSelect,
     IonSelectOption,
-    IonButton
   } from "@ionic/vue";
   import { ref } from "vue";
   import { chevronForwardOutline } from "ionicons/icons";
-  
+  import EquimentAssetTypeModal from "@/components/admin/equipment/EquimentAssetTypeModal.vue"
+  import EquimentManufacutrerModal from "@/components/admin/equipment/EquimentManufacutrerModal.vue"
+
   const manufacturers = ref([
     { id: 1, name: 'opt 1' },
     { id: 2, name: 'opt 2' },
