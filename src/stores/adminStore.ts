@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import {adminAPI} from '@/axios'
 
 interface Document {
   id: number;
@@ -18,6 +19,11 @@ export const adminDocuments = defineStore('adminDocuments', {
   }
   },
   actions: {
+    async set(){
+      adminAPI.get('/Organisation').then(response => 
+        {console.log(response)}
+      )
+    },
     async add(newDocument: Document) {
       this.documents.push(newDocument)
     },

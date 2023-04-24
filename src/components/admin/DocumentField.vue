@@ -39,7 +39,7 @@ import {
   IonInput,
   IonButton,
 } from "@ionic/vue";
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import {adminDocuments} from '@/stores/adminStore'
 const store = adminDocuments()
 
@@ -71,6 +71,10 @@ const ResetDocuments = (id: number) => {
   store.reset(index, currentDocument.value)
   currentDocument.value = null
 };
+onBeforeMount(async () => {
+  store.set()
+})
+
 </script>
 
 <style scoped>

@@ -6,8 +6,8 @@
     <ion-modal 
     :is-open="state.modalOpen"  
     @willDismiss="handleDismiss"
-    :initial-breakpoint="0.8" 
-    :breakpoints="[0, 0.8]">
+    :initial-breakpoint="0.9" 
+    :breakpoints="[0, 0.9]">
         <ion-page>
         <div class="issues-panel">
             <div class="issues-panel-container">
@@ -31,7 +31,9 @@
               <p class="issues-panel__comment color-light-gray font-size-xs">
                 Upload document
               </p>
-              <div class="issues-panel__section issues-panel__select-equipment upload-icons" onclick="document.getElementById('fileInput').click()">
+              <div 
+              class="issues-panel__section issues-panel__select-equipment upload-icons" 
+              onclick="document.getElementById('fileInput').click()">
                 <input
                   class="file-input"
                   type="file"
@@ -48,6 +50,17 @@
                   <span class="issues-panel__comment color-light-gray font-size-xs">
                     Click to browse device
                   </span>
+              </div>
+              <div class="issues-panel__select-equipment form-admin">
+                <ion-select 
+                interface="popover" c
+                olor="light" 
+                class="form-admin--group_field" 
+                :interfaceOptions="{ cssClass: 'popover-wide' }">
+                  <ion-select-option value="apples">Apples</ion-select-option>
+                  <ion-select-option value="oranges">Oranges</ion-select-option>
+                  <ion-select-option value="bananas">Bananas</ion-select-option>
+                </ion-select>
               </div>
             </ion-content>
             <ion-footer>
@@ -72,12 +85,10 @@
     IonHeader, 
     IonFooter, 
     IonButton,
-    IonInput,
     IonModal,
     IonIcon
   } from "@ionic/vue";
-  import {close, cloudDownloadOutline, constructOutline} from 'ionicons/icons'
-  import { ref} from "vue"
+  import {close, cloudDownloadOutline} from 'ionicons/icons'
 
   const state = reactive({
     organisation: "",
@@ -97,16 +108,16 @@
     background: #181818;
   }
   .add-button {
-  margin-bottom: 5%;
-  width: 246px;
+    margin-bottom: 5%;
+    width: 246px;
   }
   .close-button{
-      width: 20px;
-      margin-left: 95%;
-      cursor: pointer;
+    width: 20px;
+    margin-left: 95%;
+    cursor: pointer;
   }
   .issues-panel {
-    height: 70%;
+    height: 80%;
     width: 60%;
     margin-left: 20%;
     border-radius: 40px 40px 40px 40px;
@@ -118,7 +129,7 @@
   }
   
   .issues-panel {
-  height: 70%;
+  height: 80%;
   width: 60%;
   border-radius: 40px 40px 40px 40px;
   overflow: hidden;
@@ -149,6 +160,7 @@
 .issues-panel__section {
   margin-bottom: 20px;
   border-style: dotted;
+  cursor: pointer;
   border-color: var(--av-darkest-gray);
   height: 100px;
 }
@@ -159,6 +171,13 @@
 .align-icon {
   margin-left: 48%;
   margin-top: 20px
+}
+.popover-wide .alert-wrapper {
+  --background: rgba(40, 173, 218, 0.6);
+  --backdrop-opacity: 0.6;
+  --box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6);
+  --color: white;
+  --width: 300px;
 }
   </style>
   
