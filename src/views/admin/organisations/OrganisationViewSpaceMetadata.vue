@@ -3,14 +3,10 @@
   <ion-grid class="form-admin">
     <ion-row class="form-admin--group">
         <ion-col size-xs="6" class="form-admin--group_field">
-          <ion-button  class="font-size-sm text-lowercase">
-            Add new space type +
-          </ion-button>
+          <SpaceTypeModal />
         </ion-col>
         <ion-col size-xs="6" class="form-admin--group_field">
-          <ion-button class="font-size-sm text-lowercase">
-            Add new space feature +
-          </ion-button>
+          <SpaceFeatureModal />
         </ion-col>
     </ion-row>
     <ion-row class="form-admin--group">
@@ -36,6 +32,8 @@ import {
 } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import DocumentField from '@/components/admin/DocumentField.vue'
+import SpaceTypeModal from '@/components/admin/space-metadata/SpaceTypeModal.vue'
+import SpaceFeatureModal from '@/components/admin/space-metadata/SpaceFeatureModal.vue'
 
 const router = useRouter();
 
