@@ -1,6 +1,6 @@
 <template>
     <ion-button  class="font-size-sm text-lowercase add-button" @click="state.modalOpen = true">
-      Add new Asset Type +
+      Add new Document +
     </ion-button>
 
     <ion-modal 
@@ -20,17 +20,33 @@
                 @click="state.modalOpen = false"/>
                 <div class="issues-panel__header">
                 <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
-                  Add new Asset Type
+                  Add new Document +
                 </h1>
                 <p class="issues-panel__comment color-light-gray font-size-xs">
-                    You can create a new asset type via the form below.
+                  You can upload a document and document type using the form below.
                 </p>
                 </div>
             </ion-header>
             <ion-content :scroll-y="false" class="form-admin--group_field">
-                <div class="issues-panel__section issues-panel__select-equipment">
-                    <ion-input color="light" placeholder="e.g. meeting room"/>
-                </div>
+              <p class="issues-panel__comment color-light-gray font-size-xs">
+                Upload document
+              </p>
+              <div class="issues-panel__section issues-panel__select-equipment upload-icons">
+                <input
+                  class="file-input"
+                  type="file"
+                  accept=".*"
+                  style="display:none"
+                />
+                  <ion-icon 
+                  :icon="cloudDownloadOutline" 
+                  size="small" 
+                  color='light' 
+                  class="align-icon"/>
+                  <span class="issues-panel__comment color-light-gray font-size-xs">
+                    Click to browse device
+                  </span>
+              </div>
             </ion-content>
             <ion-footer>
                 <ion-button 
@@ -58,7 +74,7 @@
     IonModal,
     IonIcon
   } from "@ionic/vue";
-  import {close} from 'ionicons/icons'
+  import {close, cloudDownloadOutline} from 'ionicons/icons'
   
   const state = reactive({
     organisation: "",
@@ -85,8 +101,8 @@
     }
   .issues-panel {
     height: 70%;
-    width: 40%;
-    margin-left: 30%;
+    width: 60%;
+    margin-left: 20%;
     border-radius: 40px 40px 40px 40px;
     overflow: hidden;
     display: flex;
@@ -97,7 +113,7 @@
   
   .issues-panel {
   height: 70%;
-  width: 40%;
+  width: 60%;
   border-radius: 40px 40px 40px 40px;
   overflow: hidden;
   display: flex;
@@ -126,7 +142,17 @@
 
 .issues-panel__section {
   margin-bottom: 20px;
+  border-style: dotted;
+  border-color: var(--av-darkest-gray);
+  height: 100px;
 }
-
+.upload-icons {
+  text-align: center;
+  display: grid
+}
+.align-icon {
+  margin-left: 135px;
+  margin-top: 20px
+}
   </style>
   
