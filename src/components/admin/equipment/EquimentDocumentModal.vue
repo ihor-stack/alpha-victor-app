@@ -52,15 +52,11 @@
                   </span>
               </div>
               <div class="issues-panel__select-equipment form-admin">
-                <ion-select 
-                interface="popover" c
-                olor="light" 
-                class="form-admin--group_field" 
-                :interfaceOptions="{ cssClass: 'popover-wide' }">
-                  <ion-select-option value="apples">Apples</ion-select-option>
-                  <ion-select-option value="oranges">Oranges</ion-select-option>
-                  <ion-select-option value="bananas">Bananas</ion-select-option>
-                </ion-select>
+                <ion-input id="click-trigger"/>
+                <ion-popover trigger="click-trigger" trigger-action="click" size="cover">
+                  <div class="ion-padding select-content">Option 1</div>
+                  <div class="ion-padding select-content">Option 2</div>
+                </ion-popover>
               </div>
             </ion-content>
             <ion-footer>
@@ -86,7 +82,9 @@
     IonFooter, 
     IonButton,
     IonModal,
-    IonIcon
+    IonIcon,
+    IonInput,
+    IonPopover
   } from "@ionic/vue";
   import {close, cloudDownloadOutline} from 'ionicons/icons'
 
@@ -116,7 +114,7 @@
     margin-left: 95%;
     cursor: pointer;
   }
-  .issues-panel {
+.issues-panel {
     height: 80%;
     width: 60%;
     margin-left: 20%;
@@ -126,9 +124,8 @@
     flex-direction: column;
     justify-content: flex-start;
     background-color: #181818;
-  }
-  
-  .issues-panel {
+  }  
+.issues-panel {
   height: 80%;
   width: 60%;
   border-radius: 40px 40px 40px 40px;
@@ -138,7 +135,6 @@
   justify-content: flex-start;
   background-color: #181818;
 }
-
 .issues-panel-container {
   position: relative;
   height: 100%;
@@ -148,15 +144,12 @@
   flex-direction: column;
   padding: 45px 32px 32px;
 }
-
 .issues-panel__header {
   margin-bottom: 20px;
 }
-
 .issues-panel__title {
   margin-bottom: 12px;
 }
-
 .issues-panel__section {
   margin-bottom: 20px;
   border-style: dotted;
@@ -179,5 +172,17 @@
   --color: white;
   --width: 300px;
 }
+  ion-popover {
+    --background: var(--av-light-gray);
+    --backdrop-opacity: 0.6;
+    --box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6);
+    --color: white;
+    --width: 300px;
+  }
+  ion-popover::part(backdrop) {
+    background-color: rgb(6, 14, 106);
+  }
+
+  
   </style>
   
