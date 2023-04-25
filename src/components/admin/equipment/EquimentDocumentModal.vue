@@ -52,8 +52,8 @@
                   </span>
               </div>
               <div class="issues-panel__select-equipment form-admin">
-                <ion-input id="click-trigger"/>
-                <ion-popover trigger="click-trigger" trigger-action="click" size="cover">
+                <ion-input id="click-trigger" :disabled="true"/>
+                <ion-popover trigger="click-trigger" trigger-action="click" size="cover" >
                   <div class="ion-padding select-content">Option 1</div>
                   <div class="ion-padding select-content">Option 2</div>
                 </ion-popover>
@@ -105,6 +105,17 @@
   ion-content::part(background) {
     background: #181818;
   }
+  ion-popover {
+    --background: var(--av-light-gray);
+    --backdrop-opacity: 0.6;
+    --box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6);
+    --color: white;
+    --width: 300px;
+  }
+  ion-popover::part(backdrop) {
+    background-color: rgb(6, 14, 106);
+  }
+
   .add-button {
     margin-bottom: 5%;
     width: 246px;
@@ -165,24 +176,6 @@
   margin-left: 48%;
   margin-top: 20px
 }
-.popover-wide .alert-wrapper {
-  --background: rgba(40, 173, 218, 0.6);
-  --backdrop-opacity: 0.6;
-  --box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6);
-  --color: white;
-  --width: 300px;
-}
-  ion-popover {
-    --background: var(--av-light-gray);
-    --backdrop-opacity: 0.6;
-    --box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6);
-    --color: white;
-    --width: 300px;
-  }
-  ion-popover::part(backdrop) {
-    background-color: rgb(6, 14, 106);
-  }
-
   
   </style>
   

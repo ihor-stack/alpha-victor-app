@@ -71,9 +71,9 @@ const ResetDocuments = (id: number) => {
   store.reset(index, currentDocument.value)
   currentDocument.value = null
 };
-// onBeforeMount(async () => {
-//   store.set()
-// })
+onBeforeMount(async () => {
+  store.set()
+})
 
 </script>
 

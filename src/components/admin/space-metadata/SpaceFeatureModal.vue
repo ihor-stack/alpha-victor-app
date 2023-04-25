@@ -85,8 +85,8 @@
     }
   .issues-panel {
     height: 70%;
-    width: 40%;
-    margin-left: 30%;
+    width: 60%;
+    margin-left: 20%;
     border-radius: 40px 40px 40px 40px;
     overflow: hidden;
     display: flex;
@@ -97,7 +97,7 @@
   
   .issues-panel {
   height: 70%;
-  width: 40%;
+  width: 60%;
   border-radius: 40px 40px 40px 40px;
   overflow: hidden;
   display: flex;
