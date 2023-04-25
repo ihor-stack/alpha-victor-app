@@ -8,6 +8,35 @@ interface Document {
   dateUploaded: string;
 }
 
+export const Organisations = defineStore('Organisations', {
+  state: () => {
+    return {
+      organisationList: [] as AdminOrganisation[],
+      currentOrg: '' as string
+    }
+  },
+  actions: {
+    async getOrganisations() {
+      adminAPI.get<AdminOrganisation[]>('/Organisation').then(response => 
+        {
+          this.organisationList = response.data
+        }
+      ).catch(error =>{
+        console.log(error)
+      })
+    },
+    setId(newId: string) {
+      this.currentOrg = newId
+      return true
+    },
+  },
+  getters: {
+    getList: (state) => state.organisationList,
+    getId: (state) => state.currentOrg,
+  },
+});
+
+
 export const adminDocuments = defineStore('adminDocuments', {
   state: () => {
     return {
@@ -42,44 +71,5 @@ export const adminDocuments = defineStore('adminDocuments', {
   },
   getters: {
     documentsArray: (state) => state.documents,
-  },
-});
-
-export const Organisation = defineStore('Organisation', {
-  state: () => {
-    return {
-      // testing with hard coded info
-      id: 123
-  }
-  },
-  actions: {
-    setId(newId: number) {
-      this.id = newId
-    },
-  },
-  getters: {
-    getId: (state) => state.id,
-  },
-});
-
-export const Organisations = defineStore('Organisations', {
-  state: () => {
-    return {
-      organisationList: [] as AdminOrganisation[]
-    }
-  },
-  actions: {
-    async getOrganisations() {
-      adminAPI.get<AdminOrganisation[]>('/Organisation').then(response => 
-        {
-          this.organisationList = response.data
-        }
-      ).catch(error =>{
-        console.log(error)
-      })
-    },
-  },
-  getters: {
-    getList: (state) => state.organisationList,
   },
 });

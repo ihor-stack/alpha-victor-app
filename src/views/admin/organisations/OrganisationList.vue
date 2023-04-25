@@ -3,13 +3,14 @@
   <ul class="organisations-list-menu">
     <li class="organisations-list-menu-item">
       <ion-item 
-      v-for="org in store.getList" 
-      v-bind:key="org.id" 
-      :router-link="{ name: 'OrganisationView', params: { id: store2.id} }"
+      v-for="org in organisation.getList" 
+      v-bind:key="org.id"
+      :router-link="redirect(org.id)"
       router-direction="root"
       >
+        <!-- src="@/theme/img/mclaren.svg" -->
         <img
-          src="@/theme/img/mclaren.svg"
+          :src="org.logo"
           :alt="org.name"
         />
         <span class="link-text">{{ org.name }}</span>
@@ -26,14 +27,17 @@ import {
 } from "@ionic/vue";
 import { onBeforeMount, ref } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
-import {Organisation}  from '@/stores/adminStore'
 import {Organisations} from '@/stores/adminStore'
 
-const store = Organisations()
-const store2 = Organisation()
-
+const organisation = Organisations()
+const redirect = (id: string) => {
+  if(organisation.setId(id)){
+    return { name: 'OrganisationView', params: { id: organisation.getId} }
+  }
+  
+}
 onBeforeMount(() => {
-  store.getOrganisations()
+  organisation.getOrganisations()
 })
 </script>
 
