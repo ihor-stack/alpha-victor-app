@@ -52,11 +52,15 @@
                   </span>
               </div>
               <div class="issues-panel__select-equipment form-admin">
-                <ion-input id="click-trigger" :disabled="true"/>
+                <!-- <ion-input id="click-trigger" :disabled="true"/>
                 <ion-popover trigger="click-trigger" trigger-action="click" size="cover" >
                   <div class="ion-padding select-content">Option 1</div>
                   <div class="ion-padding select-content">Option 2</div>
-                </ion-popover>
+                </ion-popover> -->
+                <AdminSelect 
+                label="Document Type"
+                v-model="state.selected" 
+                :options="state.selectOptions"/>
               </div>
             </ion-content>
             <ion-footer>
@@ -87,10 +91,12 @@
     IonPopover
   } from "@ionic/vue";
   import {close, cloudDownloadOutline} from 'ionicons/icons'
-
+  import AdminSelect from '@/components/admin/AdminSelect.vue'
   const state = reactive({
     organisation: "",
     modalOpen: false,
+    selected: '',
+    selectOptions: ['opt1', 'opt2', 'opt3']
   });
 
   const handleDismiss = () => {

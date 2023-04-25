@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
+import {AdminOrganisation} from '@/types/index'
 
 interface Document {
   id: number;
@@ -10,7 +11,6 @@ interface Document {
 export const adminDocuments = defineStore('adminDocuments', {
   state: () => {
     return {
-      // testing with hard coded info
       documents: [
       { id: 1, title: 'User Manual', dateUploaded: '' },
       { id: 2, title: 'Quick Start Guide', dateUploaded: '' },
@@ -45,7 +45,7 @@ export const adminDocuments = defineStore('adminDocuments', {
   },
 });
 
-export const Organisation = defineStore('adminDocuments', {
+export const Organisation = defineStore('Organisation', {
   state: () => {
     return {
       // testing with hard coded info
@@ -59,5 +59,27 @@ export const Organisation = defineStore('adminDocuments', {
   },
   getters: {
     getId: (state) => state.id,
+  },
+});
+
+export const Organisations = defineStore('Organisations', {
+  state: () => {
+    return {
+      organisationList: [] as AdminOrganisation[]
+    }
+  },
+  actions: {
+    async getOrganisations() {
+      adminAPI.get<AdminOrganisation[]>('/Organisation').then(response => 
+        {
+          this.organisationList = response.data
+        }
+      ).catch(error =>{
+        console.log(error)
+      })
+    },
+  },
+  getters: {
+    getList: (state) => state.organisationList,
   },
 });

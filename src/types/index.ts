@@ -96,3 +96,10 @@ export interface WifiDetails {
 }
 
 export type ToastStatus = 'generic' | 'success' | 'problem' | 'error';
+
+export interface AdminOrganisation {
+  id: string,
+  name: string,
+  prefix: string,
+  logo: string
+}

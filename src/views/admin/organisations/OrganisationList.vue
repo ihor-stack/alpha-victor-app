@@ -3,9 +3,9 @@
   <ul class="organisations-list-menu">
     <li class="organisations-list-menu-item">
       <ion-item 
-      v-for="org in organisations" 
+      v-for="org in store.getList" 
       v-bind:key="org.id" 
-      :router-link="{ name: 'OrganisationView', params: { id: store.id} }"
+      :router-link="{ name: 'OrganisationView', params: { id: store2.id} }"
       router-direction="root"
       >
         <img
@@ -24,17 +24,17 @@ import {
   IonItem,
   IonIcon
 } from "@ionic/vue";
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import {Organisation}  from '@/stores/adminStore'
+import {Organisations} from '@/stores/adminStore'
 
-const store = Organisation()
+const store = Organisations()
+const store2 = Organisation()
 
-const organisations = ref([
-  { id: 1, name: 'Organisation 1' },
-  { id: 2, name: 'Organisation 2' },
-  { id: 3, name: 'Organisation 3' },
-]);
+onBeforeMount(() => {
+  store.getOrganisations()
+})
 </script>
 
 <style scoped>
