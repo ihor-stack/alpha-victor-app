@@ -12,7 +12,12 @@ export const Organisations = defineStore('Organisations', {
   state: () => {
     return {
       organisationList: [] as AdminOrganisation[],
-      currentOrg: '' as string
+      currentOrg: '' as string,
+      // to add later
+      details: null,
+      metaData: null,
+      theme: null,
+      integration: null
     }
   },
   actions: {
