@@ -15,6 +15,7 @@
             class="file-input"
             type="file"
             accept=".*"
+            :v-model="theme.logo"
           />
         </div>
           
@@ -32,6 +33,7 @@
             class="file-input"
             type="file"
             accept=".*"
+            :v-model="theme.backgroundImage"
           />
         </div>
           
@@ -45,7 +47,7 @@
             :disabled="true"
           >
             <ion-label color="light" class="custom-label">Enable dark mode</ion-label>
-            <ion-toggle class='custom-toggle' color="light"/>
+            <ion-toggle class='custom-toggle' color="light" v-model="theme.darkmodeEnabled"/>
           </ion-input>
       </ion-col>
     </ion-row>
@@ -59,7 +61,7 @@
               class="font-size-lg"
               color="light"
               :disabled="true"
-              v-model="color1"
+              v-model="theme.primaryColour"
             >
             </ion-input>
           </ion-col>
@@ -67,7 +69,7 @@
             <input
               class="color-input"
               type="color"
-              v-model="color1"
+              v-model="theme.primaryColour"
               />
           </ion-col>
         </ion-row>
@@ -80,7 +82,7 @@
               class="font-size-lg"
               color="light"
               :disabled="true"
-              v-model="color2"
+              v-model="theme.secondaryColour"
             >
           </ion-input>
           </ion-col>
@@ -88,7 +90,7 @@
             <input
               class="color-input"
               type="color"
-              v-model="color2"
+              v-model="theme.secondaryColour"
             />
           </ion-col>
         </ion-row>
@@ -96,7 +98,9 @@
     </ion-row>
   </ion-grid>
 
-  <ion-button class="font-size-sm text-lowercase">Save changes</ion-button>
+  <ion-button class="font-size-sm text-lowercase" @click="organisation.saveThemes">
+    Save changes
+  </ion-button>
 </template>
 
 <script setup lang="ts">
@@ -111,15 +115,15 @@ import {
   } from "@ionic/vue";
 import {onBeforeMount, ref} from 'vue'
 import {Organisations} from '@/stores/adminStore'
+import { storeToRefs } from 'pinia'
 
 const organisation = Organisations()
-
-const color1 = ref()
-const color2 = ref()
+const { theme } = storeToRefs(organisation);
 
 onBeforeMount(() => {
   organisation.getThemes()
 })
+
 </script>
 
 <style scoped>

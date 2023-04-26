@@ -37,7 +37,6 @@ export const Organisations = defineStore('Organisations', {
     return {
       organisationList: [] as AdminOrganisation[],
       currentOrg: '' as string,
-      // to add later
       details: null,
       metaData: null,
       theme: {} as AdminTheme,
@@ -66,7 +65,17 @@ export const Organisations = defineStore('Organisations', {
           this.theme = response.data
         }
       ).catch(error =>{
-        console.log(error)
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async saveThemes() {
+      adminAPI.put<AdminTheme>('/Organisation/' + cookies.get('orgId') + '/Theme', this.theme)
+      .then(response => 
+        {
+          this.theme = response.data
+        }
+      ).catch(error =>{
         const alert = Alert()
         alert.open(error.message)
       })
