@@ -1,13 +1,37 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
-import {AdminOrganisation} from '@/types/index'
+import {AdminOrganisation,
+  AdminTheme} from '@/types/index'
+import { useCookies } from "vue3-cookies";
 
+const { cookies } = useCookies();
+  
 interface Document {
   id: number;
   title: string;
   dateUploaded: string;
 }
-
+export const Alert = defineStore('Alert', {
+  state: () => {
+    return {
+      active: false,
+      message: ''
+    }
+  },
+  actions: {
+    open(message: string) {
+      this.active = true
+      this.message = message
+    },
+    close() {
+      this.active = false
+    },
+  },
+  getters: {
+    getActive: (state) => state.active,
+    getMessage: (state) => state.message,
+  },
+});
 export const Organisations = defineStore('Organisations', {
   state: () => {
     return {
@@ -16,7 +40,7 @@ export const Organisations = defineStore('Organisations', {
       // to add later
       details: null,
       metaData: null,
-      theme: null,
+      theme: {} as AdminTheme,
       integration: null
     }
   },
@@ -25,19 +49,33 @@ export const Organisations = defineStore('Organisations', {
       adminAPI.get<AdminOrganisation[]>('/Organisation').then(response => 
         {
           this.organisationList = response.data
+          
         }
       ).catch(error =>{
-        console.log(error)
+        const alert = Alert()
+        alert.open(error.message)
       })
     },
     setId(newId: string) {
       this.currentOrg = newId
       return true
     },
+    async getThemes() {
+      adminAPI.get<AdminTheme>('/Organisation/' + cookies.get('orgId') + '/Theme').then(response => 
+        {
+          this.theme = response.data
+        }
+      ).catch(error =>{
+        console.log(error)
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
   },
   getters: {
     getList: (state) => state.organisationList,
     getId: (state) => state.currentOrg,
+    getTheme: (state) => state.theme
   },
 });
 

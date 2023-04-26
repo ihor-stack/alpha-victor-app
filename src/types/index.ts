@@ -97,9 +97,17 @@ export interface WifiDetails {
 
 export type ToastStatus = 'generic' | 'success' | 'problem' | 'error';
 
+// Admin Types
 export interface AdminOrganisation {
   id: string,
   name: string,
   prefix: string,
   logo: string
+}
+export interface AdminTheme {
+  logo: string,
+  backgroundImage: string,
+  primaryColour: string,
+  secondaryColour: string,
+  darkmodeEnabled: boolean
 }

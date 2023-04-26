@@ -109,11 +109,17 @@ import {
     IonLabel,
     IonToggle,
   } from "@ionic/vue";
-import {ref} from 'vue'
+import {onBeforeMount, ref} from 'vue'
+import {Organisations} from '@/stores/adminStore'
+
+const organisation = Organisations()
 
 const color1 = ref()
 const color2 = ref()
 
+onBeforeMount(() => {
+  organisation.getThemes()
+})
 </script>
 
 <style scoped>

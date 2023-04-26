@@ -1,7 +1,7 @@
 <template>
     <ion-modal 
-    :is-open="state.modalOpen"  
-    @willDismiss="handleDismiss"
+    :is-open="alert.getActive"  
+    @willDismiss="alert.close()"
     :initial-breakpoint="0.8" 
     :breakpoints="[0, 0.8]">
         <ion-page>
@@ -13,13 +13,13 @@
                 :icon="close" 
                 size="small" 
                 class="close-button" 
-                @click="state.modalOpen = false"/>
+                @click="alert.close()"/>
                 <div class="issues-panel__header">
                 <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
                   ERROR
                 </h1>
                 <p class="issues-panel__comment color-light-gray font-size-xs">
-                    YOUR ERROR
+                    {{ alert.getMessage }}
                 </p>
                 </div>
             </ion-header>
@@ -27,7 +27,7 @@
                 <ion-button 
                 class="font-size-sm text-lowercase"
                 expand="block"
-                @click="state.modalOpen = false">
+                @click="alert.close()">
                     Close
                 </ion-button>
             </ion-footer>
@@ -48,14 +48,8 @@
     IonIcon
   } from "@ionic/vue";
   import {close} from 'ionicons/icons'
-  
-  const state = reactive({
-    organisation: "",
-    modalOpen: true,
-  });
-  const handleDismiss = () => {
-    state.modalOpen = false;
-  };
+  import {Alert} from '@/stores/adminStore'
+  const alert = Alert()
 
   </script>
   
@@ -74,8 +68,8 @@
 }
   .issues-panel {
     height: 40%;
-    width: 60%;
-    margin-left: 20%;
+    width: 40%;
+    margin-left: 30%;
     border-radius: 40px 40px 40px 40px;
     overflow: hidden;
     display: flex;

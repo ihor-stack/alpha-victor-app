@@ -28,11 +28,15 @@ import {
 import { onBeforeMount, ref } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import {Organisations} from '@/stores/adminStore'
+import { useCookies } from "vue3-cookies";
+
+const { cookies } = useCookies();
 
 const organisation = Organisations()
 const redirect = (id: string) => {
-  if(organisation.setId(id)){
-    return { name: 'OrganisationView', params: { id: organisation.getId} }
+  cookies.set('orgId', id)
+  if( cookies.get('orgId')){
+    return { name: 'OrganisationView', params: { id: cookies.get('orgId')} }
   }
   
 }
