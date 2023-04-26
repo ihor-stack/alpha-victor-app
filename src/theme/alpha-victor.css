@@ -207,10 +207,7 @@ ion-modal::part(handle) {
   top: 10px;
   background-color: rgba(255, 255, 255, 0.2);
 }
-/* ion alert */
-ion-alert.your-custom-class {
-  --background: #801ce4;
-}
+
 /* Colors */
 .color-primary {
   color: var(--av-primary);
