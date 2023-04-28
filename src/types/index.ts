@@ -128,3 +128,17 @@ export interface spaceFeature {
   name: string,
   spaceFeatureId: string,
 }
+
+export interface OrgDetails {
+  id: string,
+  name: string,
+  prefix: string,
+  contactName: string,
+  email: string,
+  phone: string,
+  selectedLanguage: 0,
+  postCode: string,
+  city: string,
+  addressLines: string[],
+  website: string[]
+}

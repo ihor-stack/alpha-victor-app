@@ -48,7 +48,7 @@
     IonIcon
   } from "@ionic/vue";
   import {close} from 'ionicons/icons'
-  import {Alert} from '@/stores/adminStore'
+  import {Alert} from '@/stores/globalAlert'
   const alert = Alert()
 
   </script>

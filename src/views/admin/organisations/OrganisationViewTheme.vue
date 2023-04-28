@@ -114,10 +114,10 @@ import {
     IonToggle,
   } from "@ionic/vue";
 import {onBeforeMount, ref} from 'vue'
-import {Organisations} from '@/stores/adminStore'
+import {Theme} from '@/stores/adminThemes'
 import { storeToRefs } from 'pinia'
 
-const organisation = Organisations()
+const organisation = Theme()
 const { theme } = storeToRefs(organisation);
 
 onBeforeMount(() => {

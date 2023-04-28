@@ -27,7 +27,7 @@ import {
 } from "@ionic/vue";
 import { onBeforeMount, ref } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
-import {Organisations} from '@/stores/adminStore'
+import {Organisations} from '@/stores/adminOrganisations'
 import { useCookies } from "vue3-cookies";
 
 const { cookies } = useCookies();

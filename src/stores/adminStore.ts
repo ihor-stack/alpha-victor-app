@@ -161,3 +161,5 @@ export const adminDocuments = defineStore('adminDocuments', {
     documentsArray: (state) => state.documents,
   },
 });
+
+export { Alert };
