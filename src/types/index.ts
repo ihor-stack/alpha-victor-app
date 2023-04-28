@@ -97,7 +97,12 @@ export interface WifiDetails {
 
 export type ToastStatus = 'generic' | 'success' | 'problem' | 'error';
 
-// Admin Types
+// Admin Types - Api Integration
+export interface AdminDocument {
+  id: number;
+  title: string;
+  dateUploaded: string;
+}
 export interface AdminOrganisation {
   id: string,
   name: string,
@@ -110,4 +115,16 @@ export interface AdminTheme {
   primaryColour: string,
   secondaryColour: string,
   darkmodeEnabled: boolean
+}
+export interface AdminMetaData {
+  spaceTypes: spaceType[],
+  spaceFeatures: spaceFeature[]
+}
+export interface spaceType {
+  name: string,
+  spaceTypeId: string,
+}
+export interface spaceFeature {
+  name: string,
+  spaceFeatureId: string,
 }

@@ -47,7 +47,7 @@
             :disabled="true"
           >
             <ion-label color="light" class="custom-label">Enable dark mode</ion-label>
-            <ion-toggle class='custom-toggle' color="light" v-model="theme.darkmodeEnabled"/>
+            <ion-toggle class='custom-toggle' color="primary" v-model="theme.darkmodeEnabled"/>
           </ion-input>
       </ion-col>
     </ion-row>

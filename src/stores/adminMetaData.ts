@@ -11,72 +11,13 @@ import { Alert } from "./globalAlert";
 
 const { cookies } = useCookies();
   
-export const Organisations = defineStore('Organisations', {
+export const MetaData = defineStore('MetaData', {
   state: () => {
     return {
-      organisationList: [] as AdminOrganisation[],
-      currentOrg: '' as string,
-      details: null,
       metaData: {} as AdminMetaData,
-      theme: {} as AdminTheme,
-      integration: null
     }
   },
   actions: {
-    async getOrganisations() {
-      adminAPI.get<AdminOrganisation[]>('/Organisation').then(response => 
-        {
-          this.organisationList = response.data
-          
-        }
-      ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
-      })
-    },
-    setId(newId: string) {
-      this.currentOrg = newId
-      return true
-    },
-      // async set(){
-    //   adminAPI.get('/Organisation').then(response => 
-    //     {console.log(response)}
-    //   )
-    // },
-    // async add(newDocument: AdminDocument) {
-    //   this.documents.push(newDocument)
-    // },
-    // async remove(id: number) {
-    //   this.documents = this.documents.filter(function( item ) {
-    //     return item.id !== id;
-    //   });
-    // },
-    // async edit(index: number, edit: string) {
-    //   this.documents[index].title = edit
-    //   this.documents[index].dateUploaded = new Date().toDateString()
-    // },
-    // API CALLS
-    async getThemes() {
-      adminAPI.get<AdminTheme>('/Organisation/' + cookies.get('orgId') + '/Theme').then(response => 
-        {
-          this.theme = response.data
-        }
-      ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
-      })
-    },
-    async saveThemes() {
-      adminAPI.put<AdminTheme>('/Organisation/' + cookies.get('orgId') + '/Theme', this.theme)
-      .then(response => 
-        {
-          this.theme = response.data
-        }
-      ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
-      })
-    },
     async getMetaData() {
       adminAPI.get<AdminMetaData>('/Organisation/' + cookies.get('orgId') + '/Metadata')
       .then(response => 
@@ -117,9 +58,6 @@ export const Organisations = defineStore('Organisations', {
     },
   },
   getters: {
-    getList: (state) => state.organisationList,
-    getId: (state) => state.currentOrg,
-    getTheme: (state) => state.theme,
     getMeta: (state) => state.metaData
   },
 });
