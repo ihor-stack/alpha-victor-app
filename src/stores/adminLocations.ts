@@ -51,10 +51,7 @@ export const Locations = defineStore('Locations', {
         })
     },
     async removeLocation(id: string) {
-      adminAPI.patch('/Location/' + cookies.get('orgId'),
-      {
-        locationId: id
-      })
+      adminAPI.delete('/Location/' + cookies.get('orgId') + '/' + id)
       .then(() => 
           {
             this.getLocations()
@@ -77,7 +74,7 @@ export const Locations = defineStore('Locations', {
     },
     async updateLocation(id: string) {
       adminAPI.patch('/Location/' + cookies.get('orgId') + '/' + id)
-      .then((response) => 
+      .then(() => 
           {
             this.getLocations()
           }
