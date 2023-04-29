@@ -142,3 +142,45 @@ export interface OrgDetails {
   addressLines: string[],
   website: string[]
 }
+
+export interface Integration {
+  id: string,
+  name: string,
+  clientId: string,
+  clientSecret: string,
+  selectedOrgnisation:string,
+}
+export interface NavSpace {
+  spaceId: string,
+  spaceName: string,
+}
+export interface NavFloor {
+  floorId: string,
+  floorName: string,
+  spaces: NavSpace[]
+}
+export interface NavLocation {
+  locationId: string,
+  locationName: string,
+  floors: NavFloor[]
+}
+export interface Navigation {
+  organisationId: string,
+  organisationName: string,
+  locations: Location[]
+}
+
+export interface Location {
+  id: string,
+  name: string,
+  prefix: string,
+  mainContactName: string,
+  email: string,
+  phone: string,
+  sosNumber: string,
+  wifiSsid: string,
+  wifiPassword: string,
+  addressLines: string[],
+  city: string,
+  postcode: string,
+}

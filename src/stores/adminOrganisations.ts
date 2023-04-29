@@ -43,6 +43,18 @@ export const Organisations = defineStore('Organisations', {
         alert.open(error.message)
       })
     },
+    async updateOrgDetails() {
+      adminAPI.patch<OrgDetails>('/Organisation/'+ cookies.get('orgId') +'/Details' )
+      .then(response => 
+        {
+          this.organisationDetails = response.data
+          
+        }
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
     async removeOrganisation() {
       adminAPI.delete('/Organisation/' + cookies.get('orgId'))
       .catch(error =>{
