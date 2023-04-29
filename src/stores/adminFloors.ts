@@ -15,7 +15,7 @@ export const Floors = defineStore('Floors', {
   },
   actions: {
     async getFloors(id: string) {
-      adminAPI.get<NavFloor[]>('/Location/' + id)
+      adminAPI.get<NavFloor[]>('/Floor/' + id)
       .then(response => 
         {
           this.floors = response.data
@@ -26,7 +26,7 @@ export const Floors = defineStore('Floors', {
       })
     },
     async saveFloor(id: string) {
-      adminAPI.post('/Location/' + id,
+      adminAPI.post('/Floor/' + id,
         {
           "longName": "string",
           "shortName": "string"
@@ -36,14 +36,14 @@ export const Floors = defineStore('Floors', {
         })
     },
     async removeLocation(id: string) {
-      adminAPI.delete('/Location/' + id)
+      adminAPI.delete('/Floor/' + id)
       .catch(error =>{
           const alert = Alert()
           alert.open(error.message)
         })
     },
     async getSingleLocation<NavFloor>(id: string) {
-      adminAPI.get('/Location/Location/' + id)
+      adminAPI.get('/Floor/' + id)
       .then(response => 
         {
           this.floor = response.data
@@ -54,7 +54,7 @@ export const Floors = defineStore('Floors', {
         })
     },
     async updateSingleLocation(id: string) {
-      adminAPI.patch('/Location/' + id, 
+      adminAPI.patch('/Floor/' + id, 
       {
         "name": "string",
         "prefix": "string",

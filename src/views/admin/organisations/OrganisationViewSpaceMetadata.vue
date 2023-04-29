@@ -43,25 +43,25 @@ import ItemField from '@/components/admin/ItemField.vue'
 import SpaceTypeModal from '@/components/admin/space-metadata/SpaceTypeModal.vue'
 import SpaceFeatureModal from '@/components/admin/space-metadata/SpaceFeatureModal.vue'
 import {onBeforeMount, ref} from 'vue'
-import {Organisations} from '@/stores/adminStore'
+import {MetaData} from '@/stores/adminMetaData'
 import { storeToRefs } from 'pinia'
 import { spaceType } from "@/types";
 
 const router = useRouter();
 
-const organisation = Organisations()
-const { metaData } = storeToRefs(organisation);
+const Spaces = MetaData()
+const { metaData } = storeToRefs(Spaces);
 
 onBeforeMount(() => {
-  organisation.getMetaData()
+  Spaces.getMetaData()
 })
 const SaveDocument = (value: string, doc: spaceType) => {
   const currentItem = doc
   currentItem.name = value
-  organisation.editSpaceType(currentItem)
+  Spaces.editSpaceType(currentItem)
 }
 const Remove = (doc: spaceType) => {
-  organisation.editSpaceType(doc)
+  Spaces.editSpaceType(doc)
 };
 </script>
 

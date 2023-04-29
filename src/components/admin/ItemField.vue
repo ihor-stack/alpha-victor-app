@@ -7,7 +7,7 @@
       :value="modelValue"
       @ionInput="editedDocument = $event.target.value;"
       @ion-focus="currentDocument = props.modelValue, edit = true"
-      @keydown.esc="$emit('update:modelValue', currentDocument), edit = false"
+      @keydown.esc="$emit('update:modelValue', currentDocument), edit = false, $event.target.blur()"
     ></ion-input>
     <!-- @ion-blur="$emit('update:modelValue', currentDocument), edit = false" -->
     <ion-button
