@@ -16,8 +16,8 @@
             <ItemField
             :id="data.spaceTypeId"
             v-model="data.name"
-            @save="(value) => {SaveDocument(value, data)}"
-            @remove="Remove(data)"
+            @save="(value: any) => {SaveDocument(value, data)}"
+            @remove="(value: any) => {Remove(value)}"
             />
           </div>
         </ion-col>
@@ -60,8 +60,9 @@ const SaveDocument = (value: string, doc: spaceType) => {
   currentItem.name = value
   Spaces.editSpaceType(currentItem)
 }
-const Remove = (doc: spaceType) => {
-  Spaces.editSpaceType(doc)
+const Remove = (item: spaceType) => {
+  console.log('Remove')
+  Spaces.removeSpaceType(item)
 };
 </script>
 

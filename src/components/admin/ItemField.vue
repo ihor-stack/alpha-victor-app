@@ -5,13 +5,22 @@
       color="light"
       placeholder="Document Type"
       :value="modelValue"
-      @ionInput="editedDocument = $event.target.value;"
+      @ion-input="$emit('update:modelValue', $event.target.value)"
       @ion-focus="currentDocument = props.modelValue, edit = true"
-      @keydown.esc="$emit('update:modelValue', currentDocument), edit = false, $event.target.blur()"
     ></ion-input>
-    <!-- @ion-blur="$emit('update:modelValue', currentDocument), edit = false" -->
+    <!-- @ion-blur="$emit('update:modelValue', currentDocument), edit = false" 
+     @keydown.esc="$event.target.blur()"
+      @ion-blur="$emit('update:modelValue', currentDocument), edit = false"-->
+    <ion-icon
+      @click="$emit('update:modelValue', currentDocument), edit = false"
+      class="reset-button text-lowercase"
+      :icon="syncOutline" 
+      slot="end"
+      fill="clear"
+      size="small"
+      />
     <ion-button
-      @click="$emit('save', editedDocument)"
+      @click="$emit('remove', editedDocument)"
       class="save-button text-lowercase"
       slot="end"
       fill="clear"
@@ -20,7 +29,7 @@
       > &gt;&gt; save
     </ion-button>
     <ion-button
-      @click="$emit('remove')"
+      @click="$emit('remove', currentDocument)"
       class="remove-button text-lowercase"
       slot="end"
       fill="clear"
@@ -40,6 +49,7 @@ import {
 } from "@ionic/vue";
 import { onBeforeMount, ref } from "vue";
 import {adminDocuments} from '@/stores/adminStore'
+import {syncOutline} from 'ionicons/icons'
 
 const store = adminDocuments()
 
@@ -48,30 +58,14 @@ interface Props {
   modelValue: string;
 }
 const props = defineProps<Props>();
+defineEmits(['update:modelValue'])
 
 const currentDocument = ref();
 const editedDocument = ref();
 const edit = ref(false)
-
-const SaveDocument = (id: string) => {
-  // const index = store.documentsArray.findIndex(item => item.id === id);
-  // store.edit(index, editedDocument.value)
-  // currentDocument.value = null
-  // editedDocument.value = null
+const check = (value: any) => {
+  console.log('value',value)
 }
-const RemoveDocument = (id: string) => {
-  // store.remove(id)
-};
-
-const ResetDocuments = () => {
-  
-  // console.log(editedDocument.value, currentDocument.value)
-  // editedDocument.value = currentDocument.value
-  // currentDocument.value = null
-  // const index = store.documentsArray.findIndex(item => item.id === id);
-  // store.reset(index, currentDocument.value)
-  // currentDocument.value = null
-};
 
 // onBeforeMount(async () => {
 //   store.set()
@@ -83,6 +77,11 @@ const ResetDocuments = () => {
 .remove-button {
   color: var(--av-red);
   font-family: "Akkurat-Mono";
+}
+.reset-button {
+  color: var(--av-orange);
+  font-family: "Akkurat-Mono";
+  cursor: pointer
 }
 .save-button {
   color: var(--av-green);

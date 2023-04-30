@@ -16,6 +16,9 @@ export const MetaData = defineStore('MetaData', {
     }
   },
   actions: {
+    setSpaceType(index: number, data: spaceType){
+      this.metaData.spaceTypes[index] = data
+    },
     async getMetaData() {
       adminAPI.get<AdminMetaData>('/Organisation/' + cookies.get('orgId') + '/Metadata')
       .then(response => 
@@ -27,14 +30,13 @@ export const MetaData = defineStore('MetaData', {
         alert.open(error.message)
       })
     },
-    async saveSpaceType(edit: spaceType) {
-      adminAPI.post('/Organisation/' + cookies.get('orgId') + '/SpaceType/' + edit.spaceTypeId,
+    async saveSpaceType(name: string) {
+      adminAPI.post('/Organisation/' + cookies.get('orgId') + '/SpaceType/',
         {
-          "name": edit.name,
+          "name": name,
           "icon": "string"
         }).then(() => 
           {
-            this.metaData = {} as AdminMetaData
             this.getMetaData()
           }
         ).catch(error =>{
@@ -69,10 +71,10 @@ export const MetaData = defineStore('MetaData', {
           alert.open(error.message)
         })
     },
-    async saveSpaceFeature(edit: spaceFeature) {
-      adminAPI.post('/Organisation/' + cookies.get('orgId') + '/SpaceFeature/' + edit.spaceFeatureId,
+    async saveSpaceFeature(name: string) {
+      adminAPI.post('/Organisation/' + cookies.get('orgId') + '/SpaceFeature/',
         {
-          "name": edit.name,
+          "name": name,
           "icon": "string"
         }).then(() => 
           {
