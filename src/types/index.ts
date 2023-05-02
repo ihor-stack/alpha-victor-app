@@ -167,7 +167,7 @@ export interface NavLocation {
 export interface Navigation {
   organisationId: string,
   organisationName: string,
-  locations: Location[]
+  locations: NavLocation[]
 }
 
 export interface Location {

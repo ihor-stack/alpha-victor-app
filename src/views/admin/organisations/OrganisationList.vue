@@ -38,7 +38,6 @@ const redirect = (id: string) => {
   if( cookies.get('orgId')){
     return { name: 'OrganisationView', params: { id: cookies.get('orgId')} }
   }
-  
 }
 onBeforeMount(() => {
   organisation.getOrganisations()

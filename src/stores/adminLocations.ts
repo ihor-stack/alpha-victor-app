@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
-import {Location} from '@/types/index'
+import {Location, NavLocation, Navigation} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -9,13 +9,14 @@ const { cookies } = useCookies();
 export const Locations = defineStore('Locations', {
   state: () => {
     return {
-      locations: [] as Location[],
-      location: {} as Location
+      locations: [] as NavLocation[],
+      location: {} as NavLocation,
+      navigationThree: [] as Navigation[]
     }
   },
   actions: {
     async getLocations() {
-      adminAPI.get<Location[]>('/Location/' + cookies.get('orgId'))
+      adminAPI.get<NavLocation[]>('/Location?organisationId=' + cookies.get('orgId'))
       .then(response => 
         {
           this.locations = response.data
@@ -83,6 +84,17 @@ export const Locations = defineStore('Locations', {
           alert.open(error.message)
         })
     },
+    async getNavigationThree(){
+      adminAPI.get<Navigation[]>('/Organisation/' + cookies.get('orgId') + '/NavigationTree')
+      .then((response) => 
+          {
+            this.navigationThree = response.data
+          }
+        ).catch(error =>{
+          const alert = Alert()
+          alert.open(error.message)
+        })
+    }
   },
   getters: {
     Locations: (state) => state.locations

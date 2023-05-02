@@ -10,33 +10,33 @@
             </ion-header>
             <ion-content color="dark">
                 <ion-accordion-group >
-                    <ion-accordion v-for="location in locations" :key="location.id">
+                    <ion-accordion v-for="location in navigationThree[0]?.locations" :key="location.locationId">
                         <ion-item 
                         slot="header" 
-                        :color="currentLocation === location.id ? 'medium' : 'dark'" 
-                        @click="setLocation(location.id)">
-                            <ion-label>{{location.name}}</ion-label>
+                        :color="currentLocation === location.locationId ? 'medium' : 'dark'" 
+                        @click="setLocation(location.locationId)">
+                            <ion-label>{{location.locationName}}</ion-label>
                         </ion-item>
                         <ion-accordion-group slot="content">
                             <ion-accordion v-for="(floor, index) in location.floors" :key="index">
                                 <ion-item 
                                 slot="header" 
-                                :color="currentFloor === floor.title ? 'medium' : 'dark'" 
-                                @click="setFloor(location.id, floor.title)">
+                                :color="currentFloor === floor.floorName ? 'medium' : 'dark'" 
+                                @click="setFloor(location.locationId, floor.floorName)">
                                 <ion-label>
                                     <ion-icon :icon="returnDownForwardOutline" size="small"/>
-                                    {{floor.title}}
+                                    {{floor.floorName}}
                                 </ion-label>
                                 </ion-item>
                                 <ion-item
                                 class="font-size-sm"
                                 color="dark"
                                 slot="content"
-                                v-for="(room, index) in floor.rooms" :key="index"
+                                v-for="(space, index) in floor.spaces" :key="index"
                                 >   
                                     <ion-label>
                                         <ion-icon :icon="returnDownForwardOutline" size="small"/>
-                                        {{room}}
+                                        {{space.spaceName}}
                                     </ion-label>
                                     <ion-icon :icon="chevronForwardOutline" size="small" slot="end"/>
                                 </ion-item>
@@ -92,39 +92,49 @@
     } from "@ionic/vue";
     import { returnDownForwardOutline, chevronForwardOutline } from 'ionicons/icons';
     import AdminLocationsForm from '@/components/admin/locations/AdminLocationsForm.vue'
-    import { ref } from "vue";
-    const currentLocation = ref(0);
+    import { onBeforeMount, ref } from "vue";
+    import {Locations} from '@/stores/adminLocations'
+    import { storeToRefs } from 'pinia'
+
+    const Location = Locations()
+    const { navigationThree } = storeToRefs(Location);
+
+    const currentLocation = ref('0');
     const currentFloor = ref('')
-    const locations = ref([
-        {
-            id: 1,
-            name: '1  Wilton Park',
-            floors: [
-                {title: 'Ground Floor', rooms: ['room1', 'room2', 'room3']},
-                {title: 'First Floor', rooms: ['room1', 'room2']},
-                {title: 'Second Floor', rooms: ['room1', 'room2', 'room3']},
-                {title: 'Third Floor', rooms: ['room1']}]
-        },
-        {
-            id: 2,
-            name: '58 Howard Street',
-            floors: [
-                {title: 'Ground Floor', rooms: ['room1', 'room2', 'room3']},
-                {title: 'First Floor', rooms: ['room1', 'room2',]}]
-        },
-        {
-            id: 3,
-            name: '75 Howard Street',
-            floors: [
-                {title: 'Ground Floor', rooms: ['room1']},
-                {title: 'First Floor', rooms: ['room1', 'room2']},
-                {title: 'Second Floor', rooms: ['room1', 'room2', 'room3']}]
-        }
-    ])
-    const setLocation = (id: number) => {
-        currentLocation.value === id ? currentLocation.value = 0 : currentLocation.value = id
+
+    onBeforeMount(() =>{
+        Location.getNavigationThree()
+    })
+    // const locations = ref([
+    //     {
+    //         id: 1,
+    //         name: '1  Wilton Park',
+    //         floors: [
+    //             {title: 'Ground Floor', rooms: ['room1', 'room2', 'room3']},
+    //             {title: 'First Floor', rooms: ['room1', 'room2']},
+    //             {title: 'Second Floor', rooms: ['room1', 'room2', 'room3']},
+    //             {title: 'Third Floor', rooms: ['room1']}]
+    //     },
+    //     {
+    //         id: 2,
+    //         name: '58 Howard Street',
+    //         floors: [
+    //             {title: 'Ground Floor', rooms: ['room1', 'room2', 'room3']},
+    //             {title: 'First Floor', rooms: ['room1', 'room2',]}]
+    //     },
+    //     {
+    //         id: 3,
+    //         name: '75 Howard Street',
+    //         floors: [
+    //             {title: 'Ground Floor', rooms: ['room1']},
+    //             {title: 'First Floor', rooms: ['room1', 'room2']},
+    //             {title: 'Second Floor', rooms: ['room1', 'room2', 'room3']}]
+    //     }
+    // ])
+    const setLocation = (id: string) => {
+        currentLocation.value === id ? currentLocation.value = '0' : currentLocation.value = id
     };
-    const setFloor = (id: number, floor: string) => {
+    const setFloor = (id: string, floor: string) => {
         currentLocation.value === id && currentFloor.value === floor ? 
         currentFloor.value = '' : currentFloor.value = floor
     };
