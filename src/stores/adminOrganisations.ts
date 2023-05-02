@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
-import { AdminOrganisation, OrgDetails} from '@/types/index'
+import { AdminOrganisation, OrgDetails, NewOrgDetails} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -44,16 +44,31 @@ export const Organisations = defineStore('Organisations', {
       })
     },
     async updateOrgDetails() {
-      adminAPI.patch<OrgDetails>('/Organisation/'+ cookies.get('orgId') +'/Details' )
-      .then(response => 
-        {
-          this.organisationDetails = response.data
+      // const editedOrg = this.organisationDetails
+      console.log(this.organisationDetails)
+      // adminAPI.patch<OrgDetails>('/Organisation/'+ cookies.get('orgId') +'/Details', 
+      // {
+      //   "name": editedOrg.name,
+      //   "prefix": editedOrg.prefix,
+      //   "contactName": editedOrg.contactName,
+      //   "email": editedOrg.email,
+      //   "phone": editedOrg.phone,
+      //   "addressLines": editedOrg.addressLines,
+      //   "city": editedOrg.city,
+      //   "postcode": editedOrg.postCode,
+      //   "website": editedOrg.website,
+      //   "language": 0
+      // }
+      //  )
+      // .then(response => 
+      //   {
+      //    console.log(response.data)
           
-        }
-      ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
-      })
+      //   }
+      // ).catch(error =>{
+      //   const alert = Alert()
+      //   alert.open(error.message)
+      // })
     },
     async removeOrganisation() {
       adminAPI.delete('/Organisation/' + cookies.get('orgId'))

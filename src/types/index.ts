@@ -142,7 +142,19 @@ export interface OrgDetails {
   addressLines: string[],
   website: string[]
 }
-
+export interface NewOrgDetails {
+  name: string,
+  prefix: string,
+  contactName: string,
+  email: string,
+  phone: string,
+  selectedLanguage: 0,
+  postCode: string,
+  city: string,
+  addressLines: string[],
+  website: string[],
+  language: number
+}
 export interface Integration {
   id: string,
   name: string,
