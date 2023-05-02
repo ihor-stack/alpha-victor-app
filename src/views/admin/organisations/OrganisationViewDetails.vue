@@ -115,7 +115,9 @@
     </ion-row>
   </ion-grid>
 
-  <ion-button class="font-size-sm text-lowercase" @click="saveChanges()">Save changes</ion-button>
+  <ion-button class="font-size-sm text-lowercase" @click="saveChanges()">
+    Save changes
+  </ion-button>
 </template>
 
 <script setup lang="ts">
@@ -125,7 +127,9 @@ import {
   IonCol, 
   IonInput, 
   IonLabel, 
-  IonButton
+  IonButton,
+  IonIcon,
+  IonChip
  } 
   from "@ionic/vue";
   import {Organisations} from '@/stores/adminOrganisations'
@@ -133,16 +137,22 @@ import {
   import { onBeforeMount, ref } from "vue";
   import AdminSelect from  '@/components/admin/AdminSelect.vue'
   import {closeCircle} from 'ionicons/icons'
+  import {SelectItem} from '@/types/index'
 
   const organisation = Organisations()
   const { organisationDetails } = storeToRefs(organisation);
   const languageOptions = [
-    'English', 'Welsh', 'French', 'Spanish', 'German', 'Polish'
+    {id:0, title:'English'},
+    {id:1, title:'Welsh'},
+    {id:2, title:'French'},
+    {id:3, title:'Spanish'},
+    {id:4, title:'German'},
+    {id:5, title:'Polish'}
   ]
-  const selectedLanguage = ref()
+  const selectedLanguage = ref({} as SelectItem)
   const newDomain = ref()
   const saveChanges = () => {
-    organisation.updateOrgDetails()
+    organisation.updateOrgDetails(selectedLanguage.value.id)
   }
   const removeDomain = (index: number) => {
     if (index > -1) {
@@ -162,7 +172,7 @@ import {
     width: 246px
   }
   ion-chip {
-  --background: #00213f;
-  --color: #adefd1;
+  --background: var(--av-primary);
+  --color: var(--av-light-gray);
   }
 </style>

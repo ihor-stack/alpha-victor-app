@@ -43,32 +43,32 @@ export const Organisations = defineStore('Organisations', {
         alert.open(error.message)
       })
     },
-    async updateOrgDetails() {
-      // const editedOrg = this.organisationDetails
+    async updateOrgDetails(languageIndex: number) {
+      const editedOrg = this.organisationDetails
       console.log(this.organisationDetails)
-      // adminAPI.patch<OrgDetails>('/Organisation/'+ cookies.get('orgId') +'/Details', 
-      // {
-      //   "name": editedOrg.name,
-      //   "prefix": editedOrg.prefix,
-      //   "contactName": editedOrg.contactName,
-      //   "email": editedOrg.email,
-      //   "phone": editedOrg.phone,
-      //   "addressLines": editedOrg.addressLines,
-      //   "city": editedOrg.city,
-      //   "postcode": editedOrg.postCode,
-      //   "website": editedOrg.website,
-      //   "language": 0
-      // }
-      //  )
-      // .then(response => 
-      //   {
-      //    console.log(response.data)
+      adminAPI.patch<OrgDetails>('/Organisation/'+ cookies.get('orgId') +'/Details', 
+      {
+        "name": editedOrg.name,
+        "prefix": editedOrg.prefix,
+        "contactName": editedOrg.contactName,
+        "email": editedOrg.email,
+        "phone": editedOrg.phone,
+        "addressLines": editedOrg.addressLines,
+        "city": editedOrg.city,
+        "postcode": editedOrg.postCode,
+        "website": editedOrg.website,
+        "language": languageIndex
+      }
+       )
+      .then(response => 
+        {
+         console.log(response.data)
           
-      //   }
-      // ).catch(error =>{
-      //   const alert = Alert()
-      //   alert.open(error.message)
-      // })
+        }
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
     },
     async removeOrganisation() {
       adminAPI.delete('/Organisation/' + cookies.get('orgId'))

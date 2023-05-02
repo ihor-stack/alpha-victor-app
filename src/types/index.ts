@@ -196,3 +196,8 @@ export interface Location {
   city: string,
   postcode: string,
 }
+
+export interface SelectItem {
+  id: number,
+  title: string
+}
