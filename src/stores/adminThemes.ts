@@ -24,10 +24,10 @@ export const Theme = defineStore('Themes', {
       })
     },
     async saveThemes() {
-      adminAPI.put<AdminTheme>('/Organisation/' + cookies.get('orgId') + '/Theme', this.theme)
+      adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Theme', this.theme)
       .then(response => 
         {
-          this.theme = response.data
+          console.log(response)
         }
       ).catch(error =>{
         const alert = Alert()

@@ -48,7 +48,7 @@ import {
   IonButton,
 } from "@ionic/vue";
 import { onBeforeMount, ref } from "vue";
-import {adminDocuments} from '@/stores/adminStore'
+import {adminDocuments} from '@/stores/adminDocumentTypes'
 import {syncOutline} from 'ionicons/icons'
 
 const store = adminDocuments()

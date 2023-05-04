@@ -99,9 +99,8 @@ export type ToastStatus = 'generic' | 'success' | 'problem' | 'error';
 
 // Admin Types - Api Integration
 export interface AdminDocument {
-  id: number;
-  title: string;
-  dateUploaded: string;
+  id: string,
+  name: string,
 }
 export interface AdminOrganisation {
   id: string,
@@ -110,12 +109,17 @@ export interface AdminOrganisation {
   logo: string
 }
 export interface AdminTheme {
-  logo: string,
-  backgroundImage: string,
   primaryColour: string,
   secondaryColour: string,
-  darkmodeEnabled: boolean
+  darkmodeEnabled: boolean,
+  logoBase64Payload?: string,
+  logoFileName?: string,
+  logoContentType?: string,
+  logo?: string,
+  backgroundImage?: string,
 }
+
+
 export interface AdminMetaData {
   spaceTypes: spaceType[],
   spaceFeatures: spaceFeature[]

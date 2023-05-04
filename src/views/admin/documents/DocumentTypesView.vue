@@ -41,7 +41,7 @@ import {
   } from "@ionic/vue";
   import DocumentField from '@/components/admin/DocumentField.vue'
   import { ref } from "vue";
-  import {adminDocuments} from '@/stores/adminStore'
+  import {adminDocuments} from '@/stores/adminDocumentTypes'
 
   const store = adminDocuments()
 

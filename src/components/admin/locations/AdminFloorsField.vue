@@ -43,7 +43,7 @@
     IonThumbnail
   } from "@ionic/vue";
   import { ref } from "vue";
-  import {adminDocuments} from '@/stores/adminStore'
+  import {adminDocuments} from '@/stores/adminDocumentTypes'
   const store = adminDocuments()
   
   interface Document {
