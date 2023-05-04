@@ -229,7 +229,7 @@ const routes: Array<RouteRecordRaw> = [
             import("@/views/admin/organisations/OrganisationViewIntegrationsList.vue"),
           },
           {
-            path: "organisation/:id/integrations/edit",
+            path: "organisation/:id/integrations/:integrationId",
             name: "OrganisationViewIntegrations",
             props: true,
             component: () => 

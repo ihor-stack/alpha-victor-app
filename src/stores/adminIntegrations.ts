@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
-import {
-  Integration} from '@/types/index'
+import {Integration} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -11,6 +10,7 @@ export const Integrations = defineStore('Integrations', {
   state: () => {
     return {
       integrations: [] as Integration[],
+      integration: {} as Integration
     }
   },
   actions: {

@@ -1,10 +1,10 @@
 <template>
   <h1 class="font-bold font-size-lg color-light-gray">Integration</h1>
   <ion-item 
-  v-for="item in items" 
-  v-bind:key="item.id" 
-  button 
-  :router-link="{ name: 'OrganisationViewIntegrations' }" 
+  v-for="item in integrations.integrations.value" 
+  :key="item.id" 
+  button
+  :router-link="redirect(item.id)"
   router-direction="root">
     <ion-label color="light" >
       <h2>{{item.name}}</h2>
@@ -16,21 +16,30 @@
   
   <script setup lang="ts">
   
+import { Integrations } from "@/stores/adminIntegrations";
 import {
   IonIcon,
   IonLabel,
   IonItem,
 } from "@ionic/vue";
 import { chevronForwardOutline } from 'ionicons/icons';
-import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { onBeforeMount, ref } from "vue";
+const store = Integrations()
+const integrations = storeToRefs(store)
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
 
-  const items = ref([
-    { id: 1, name: 'Ubiquisense' },
-    { id: 2, name: 'Pronestor' },
-    { id: 3, name: 'Third option' },
-  ]);
-
-  </script>
+const redirect = (id: string) => {
+  cookies.set('integrationId', id)
+  if( cookies.get('integrationId') && cookies.get('orgId')){
+    return { name: 'OrganisationViewIntegrations', params: { id: cookies.get('orgId'),integrationId: cookies.get('integrationId')} }
+  }
+}
+onBeforeMount(() => {
+  store.getIntegrations()
+})
+</script>
   
   <style scoped>
   p {

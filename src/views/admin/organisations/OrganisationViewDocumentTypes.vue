@@ -31,8 +31,6 @@
             @remove="RemoveDocumentType(document.id)"
             />
           </div>
-          
-          
         </ion-col>
       </ion-row> 
     </ion-grid>
