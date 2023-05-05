@@ -7,11 +7,12 @@
     :disabled="true"
     :value="modelValue.title"
     />
-    <ion-popover trigger="click-trigger" trigger-action="click" size="cover" :dismiss-on-select="true">
+    <ion-popover trigger="click-trigger" trigger-action="click" size="cover" :dismiss-on-select="true" v-if="props.options">
         <div 
         class="ion-padding select-content"
         v-for="(option) in props.options" :key="option.id"
-        @click="$emit('update:modelValue', option)">
+        @click="$emit('update:modelValue', option)"
+        >
         {{option.title}}
         </div>
     </ion-popover>

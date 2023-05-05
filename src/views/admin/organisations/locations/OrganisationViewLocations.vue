@@ -48,11 +48,13 @@
         </ion-menu>
         <div class="ion-page" id="locations">
             <ion-content class="ion-padding">
-                <ion-grid class="form-admin" color="medium">
+                <ion-nav :root="component"/>
+                <!-- <ion-grid class="form-admin" color="medium">
                     <ion-row class="form-admin--group">
                         <ion-col size-xs="12" class="form-admin--group_field">
-                            <h1 class="font-bold font-size-lg color-light-gray">1 Wilton Park</h1>
-                            <AdminLocationsForm />
+                            <ion-nav :root="component"/>
+                        </ion-col> -->
+                        <!-- <ion-col size-xs="12" class="form-admin--group_field">
                             <div class="button-div-margin">
                                 <ion-button class="font-size-xs text-lowercase">
                                     Save changes
@@ -64,9 +66,9 @@
                                     Export QR Codes
                                 </ion-button>
                             </div>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
+                        </ion-col> -->
+                    <!-- </ion-row>
+                </ion-grid> -->
             </ion-content>
         </div>
     </ion-split-pane>
@@ -88,7 +90,8 @@
       IonHeader,
       IonToolbar,
       IonTitle,
-      IonContent
+      IonContent,
+      IonNav
     } from "@ionic/vue";
     import { returnDownForwardOutline, chevronForwardOutline } from 'ionicons/icons';
     import AdminLocationsForm from '@/components/admin/locations/AdminLocationsForm.vue'
@@ -101,36 +104,11 @@
 
     const currentLocation = ref('0');
     const currentFloor = ref('')
-
+    const component = AdminLocationsForm
     onBeforeMount(() =>{
         Location.getNavigationThree()
     })
-    // const locations = ref([
-    //     {
-    //         id: 1,
-    //         name: '1  Wilton Park',
-    //         floors: [
-    //             {title: 'Ground Floor', rooms: ['room1', 'room2', 'room3']},
-    //             {title: 'First Floor', rooms: ['room1', 'room2']},
-    //             {title: 'Second Floor', rooms: ['room1', 'room2', 'room3']},
-    //             {title: 'Third Floor', rooms: ['room1']}]
-    //     },
-    //     {
-    //         id: 2,
-    //         name: '58 Howard Street',
-    //         floors: [
-    //             {title: 'Ground Floor', rooms: ['room1', 'room2', 'room3']},
-    //             {title: 'First Floor', rooms: ['room1', 'room2',]}]
-    //     },
-    //     {
-    //         id: 3,
-    //         name: '75 Howard Street',
-    //         floors: [
-    //             {title: 'Ground Floor', rooms: ['room1']},
-    //             {title: 'First Floor', rooms: ['room1', 'room2']},
-    //             {title: 'Second Floor', rooms: ['room1', 'room2', 'room3']}]
-    //     }
-    // ])
+
     const setLocation = (id: string) => {
         currentLocation.value === id ? currentLocation.value = '0' : currentLocation.value = id
     };
@@ -140,23 +118,22 @@
     };
     </script>
     
-    <style scoped>
-    ion-content{
-        margin: 0%;
-    }
-   .floor_padding {
-        padding: 15px;
-    }
-    ion-button {
-        width: 246px
-    }
-    .export-button {
-        color: var(--av-light-gray);
-        margin-left: 26px;
-    }
-    .button-div-margin{
-        margin-top: 10%;
-        width: 100%
-    }
-    </style>
-    
+<style scoped>
+ion-content{
+    margin: 0%;
+}
+.floor_padding {
+    padding: 15px;
+}
+ion-button {
+    width: 246px
+}
+.export-button {
+    color: var(--av-light-gray);
+    margin-left: 26px;
+}
+.button-div-margin{
+    margin-top: 10%;
+    width: 100%
+}
+</style>

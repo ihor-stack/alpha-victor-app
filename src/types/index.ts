@@ -160,8 +160,8 @@ export interface NewOrgDetails {
   language: number
 }
 export interface Integration {
-  id: string,
-  name: string,
+  id?: string,
+  name?: string,
   clientId: string,
   clientSecret: string,
   selectedOrgnisation:string,
@@ -204,4 +204,5 @@ export interface Location {
 export interface SelectItem {
   id: number,
   title: string
+  aditionalInfo?: any
 }

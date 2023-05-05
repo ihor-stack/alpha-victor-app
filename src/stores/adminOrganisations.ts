@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
-import { AdminOrganisation, OrgDetails, NewOrgDetails} from '@/types/index'
+import { AdminOrganisation, OrgDetails, NewOrgDetails, SelectItem} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -11,7 +11,8 @@ export const Organisations = defineStore('Organisations', {
     return {
       organisationList: [] as AdminOrganisation[],
       organisationDetails: {} as OrgDetails,
-      currentOrg: '' as string
+      currentOrg: '' as string,
+      formattedOrgSelect: [] as SelectItem[]
     }
   },
   actions: {
@@ -23,8 +24,7 @@ export const Organisations = defineStore('Organisations', {
     async getOrganisations() {
       adminAPI.get<AdminOrganisation[]>('/Organisation' ).then(response => 
         {
-          this.organisationList = response.data
-          
+          this.organisationList = response.data  
         }
       ).catch(error =>{
         const alert = Alert()
@@ -73,6 +73,28 @@ export const Organisations = defineStore('Organisations', {
     async removeOrganisation() {
       adminAPI.delete('/Organisation/' + cookies.get('orgId'))
       .catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async getOrgsSelectItem() {
+      adminAPI.get<AdminOrganisation[]>('/Organisation' )
+      .then(response => 
+        {
+          const formnatedList: SelectItem[] = []
+          response.data.forEach((element, index) => {
+            formnatedList.push(
+              {
+                id: index,
+                title: element.name,
+                aditionalInfo: element.id
+              }
+            )
+          }); 
+          this.formattedOrgSelect = formnatedList
+        }
+      ).catch(error =>{
+        this.formattedOrgSelect = []
         const alert = Alert()
         alert.open(error.message)
       })

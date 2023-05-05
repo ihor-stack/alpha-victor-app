@@ -25,17 +25,22 @@ export const Integrations = defineStore('Integrations', {
         alert.open(error.message)
       })
     },
-    async editIntegration(edit: Integration) {
-      adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Integration/' + edit.id,
+    async getSingleIntegration() {
+      adminAPI.get<Integration>
+      ('/Organisation/' + cookies.get('orgId') + '/Integration/' + cookies.get('integrationId'))
+      .then(response => 
         {
-          "clientId": "string",
-          "clientSecret": "string",
-          "selectedOrgnisation": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-        }).then(() => 
-          {
-            this.getIntegrations()
-          }
-        ).catch(error =>{
+          this.integration = response.data
+        }
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async editIntegration(edit: Integration) {
+      console.log(edit)
+      adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Integration/' + cookies.get('integrationId'), edit)
+      .catch(error =>{
           const alert = Alert()
           alert.open(error.message)
         })
