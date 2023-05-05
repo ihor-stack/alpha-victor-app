@@ -206,3 +206,18 @@ export interface SelectItem {
   title: string
   aditionalInfo?: any
 }
+
+export interface SingleLocation {
+  id: string,
+  name: string,
+  prefix: string,
+  mainContactName: string,
+  email: string,
+  phone: string,
+  sosNumber: string,
+  wifiSsid: string,
+  wifiPassword: string,
+  addressLines: string[],
+  city: string,
+  postcode: string,
+}

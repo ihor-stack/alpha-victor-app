@@ -33,6 +33,7 @@
                                 color="dark"
                                 slot="content"
                                 v-for="(space, index) in floor.spaces" :key="index"
+                                @click="setSpace(location.locationId, floor.floorName, space.spaceName)"
                                 >   
                                     <ion-label>
                                         <ion-icon :icon="returnDownForwardOutline" size="small"/>
@@ -49,91 +50,67 @@
         <div class="ion-page" id="locations">
             <ion-content class="ion-padding">
                 <ion-nav :root="component"/>
-                <!-- <ion-grid class="form-admin" color="medium">
-                    <ion-row class="form-admin--group">
-                        <ion-col size-xs="12" class="form-admin--group_field">
-                            <ion-nav :root="component"/>
-                        </ion-col> -->
-                        <!-- <ion-col size-xs="12" class="form-admin--group_field">
-                            <div class="button-div-margin">
-                                <ion-button class="font-size-xs text-lowercase">
-                                    Save changes
-                                </ion-button>
-                                <ion-button 
-                                class="font-size-xs text-lowercase export-button" 
-                                fill="outline" 
-                                color="--av-light-gray">
-                                    Export QR Codes
-                                </ion-button>
-                            </div>
-                        </ion-col> -->
-                    <!-- </ion-row>
-                </ion-grid> -->
             </ion-content>
         </div>
     </ion-split-pane>
 </template>
 
 <script setup lang="ts"> 
-  import {
-      IonGrid,
-      IonRow,
-      IonCol,
-      IonLabel,
-      IonItem,
-      IonAccordion,
-      IonAccordionGroup,
-      IonButton,
-      IonIcon,
-      IonSplitPane,
-      IonMenu,
-      IonHeader,
-      IonToolbar,
-      IonTitle,
-      IonContent,
-      IonNav
-    } from "@ionic/vue";
-    import { returnDownForwardOutline, chevronForwardOutline } from 'ionicons/icons';
-    import AdminLocationsForm from '@/components/admin/locations/AdminLocationsForm.vue'
-    import { onBeforeMount, ref } from "vue";
-    import {Locations} from '@/stores/adminLocations'
-    import { storeToRefs } from 'pinia'
+import {
+IonLabel,
+IonItem,
+IonAccordion,
+IonAccordionGroup,
+IonIcon,
+IonSplitPane,
+IonMenu,
+IonHeader,
+IonToolbar,
+IonTitle,
+IonContent,
+IonNav
+} from "@ionic/vue";
+import { returnDownForwardOutline, chevronForwardOutline } from 'ionicons/icons';
+import AdminLocationsForm from '@/components/admin/locations/AdminLocationsForm.vue'
+import { onBeforeMount, ref } from "vue";
+import {Locations} from '@/stores/adminLocations'
+import { storeToRefs } from 'pinia'
 
-    const Location = Locations()
-    const { navigationThree } = storeToRefs(Location);
+const Location = Locations()
+const { navigationThree } = storeToRefs(Location);
 
-    const currentLocation = ref('0');
-    const currentFloor = ref('')
-    const component = AdminLocationsForm
-    onBeforeMount(() =>{
-        Location.getNavigationThree()
-    })
+const currentLocation = ref('0');
+const currentFloor = ref('')
+const currentSpace = ref('')
+const component = AdminLocationsForm
 
-    const setLocation = (id: string) => {
-        currentLocation.value === id ? currentLocation.value = '0' : currentLocation.value = id
-    };
-    const setFloor = (id: string, floor: string) => {
-        currentLocation.value === id && currentFloor.value === floor ? 
-        currentFloor.value = '' : currentFloor.value = floor
-    };
-    </script>
+const setLocation = (id: string) => {
+    if(currentLocation.value === id ){
+        currentLocation.value = '0'
+    } else {
+        currentLocation.value = id
+        Location.getLocation(id)
+    }
+};
+const setFloor = (id: string, floor: string) => {
+    currentLocation.value === id && currentFloor.value === floor ? 
+    currentFloor.value = '' : currentFloor.value = floor
+};
+const setSpace = (id: string, floor: string, space: string) => {
+    currentLocation.value === id && currentFloor.value === floor &&  currentSpace.value === space? 
+    currentSpace.value = '' : currentSpace.value = space
+}
+
+onBeforeMount(() =>{
+    Location.getNavigationThree()
+})
+</script>
     
 <style scoped>
 ion-content{
     margin: 0%;
 }
-.floor_padding {
-    padding: 15px;
-}
 ion-button {
     width: 246px
-}
-.export-button {
-    color: var(--av-light-gray);
-    margin-left: 26px;
-}
-.button-div-margin{
-    margin-top: 10%;
-    width: 100%
 }
 </style>
