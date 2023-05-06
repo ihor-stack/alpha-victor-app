@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
-import {NavFloor} from '@/types/index'
+import {SingleFloor} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -9,13 +9,13 @@ const { cookies } = useCookies();
 export const Floors = defineStore('Floors', {
   state: () => {
     return {
-      floors: [] as NavFloor[],
-      floor: {} as NavFloor
+      floors: [] as SingleFloor[],
+      floor: {} as SingleFloor
     }
   },
   actions: {
     async getFloors() {
-      adminAPI.get<NavFloor[]>('/Floor?locationId=' + cookies.get('locationId'))
+      adminAPI.get<SingleFloor[]>('/Floor?locationId=' + cookies.get('locationId'))
       .then(response => 
         {
           this.floors = response.data

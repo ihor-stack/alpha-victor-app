@@ -113,9 +113,21 @@
             <!-- <ion-col size-xs="12">
                 <AdminFloorsField />
             </ion-col> -->
-            <!-- <ion-col size-xs="12">
-                <AdminFloorsField />
-            </ion-col> -->
+            <ion-col size-xs="12">
+                <h1 class="font-bold font-size-lg color-light-gray">Floors</h1>
+                <ion-item 
+                v-for="(floor, index) in floors" 
+                :key="index" 
+                button
+                :router-link="redirect(String(floor.id))"
+                router-direction="root">
+                <ion-label color="light" >
+                    <h2>{{floor.name}}</h2>
+                    <p>Floor</p>
+                </ion-label>
+                <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
+                </ion-item>
+            </ion-col>
             <ion-col size-xs="12">
                 <ion-button class="font-size-xs text-lowercase" @click="saveChanges(location.id)">
                     Save changes
@@ -144,10 +156,12 @@ import {
 import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 import {Locations} from '@/stores/adminLocations'
 import {Floors} from '@/stores/adminFloors'
-
+import { chevronForwardOutline } from 'ionicons/icons';
 import { storeToRefs } from "pinia";
 import { onBeforeMount } from "vue";
+import { useCookies } from "vue3-cookies";
 
+const { cookies } = useCookies();
 const Location = Locations()
 const Floor = Floors()
 const { location } = storeToRefs(Location);
@@ -155,6 +169,15 @@ const { floors } = storeToRefs(Floor);
 
 const saveChanges = (id: string) => {
     Location.updateLocation(id)
+}
+const redirect = (id: string) => {
+  cookies.set('locationId', id)
+  if( cookies.get('locationId') && cookies.get('orgId')){
+    return { 
+      name: 'OrganisationViewLocations', 
+      params: { id: cookies.get('orgId'),locationId: cookies.get('locationId')} 
+    }
+  }
 }
 onBeforeMount(() =>{
     Location.getLocation()

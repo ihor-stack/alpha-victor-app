@@ -221,3 +221,9 @@ export interface SingleLocation {
   city: string,
   postcode: string,
 }
+
+export interface SingleFloor {
+  id: string,
+  name: string,
+  spaces: NavSpace[]
+}
