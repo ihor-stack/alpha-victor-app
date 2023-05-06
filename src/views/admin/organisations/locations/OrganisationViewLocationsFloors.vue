@@ -1,4 +1,5 @@
 <template>
+    <ion-content>
     <ion-grid class="form-admin">
         <ion-row class="form-admin--group">
             <ion-col size-xs="12" size-sm="9" class="form-admin--group_field">
@@ -17,6 +18,7 @@
             </ion-col>
         </ion-row>
     </ion-grid>
+    </ion-content>
 </template>
 
 <script setup lang="ts">

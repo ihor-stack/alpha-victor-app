@@ -10,8 +10,21 @@ export const Locations = defineStore('Locations', {
   state: () => {
     return {
       locations: [] as NavLocation[],
-      location: {} as SingleLocation,
-      navigationThree: [] as Navigation[]
+      navigationThree: [] as Navigation[],
+      location: {
+        id: '',
+        name: '',
+        prefix: '',
+        mainContactName: '',
+        email: '',
+        phone: '',
+        sosNumber: '',
+        wifiSsid: '',
+        wifiPassword: '',
+        addressLines: ['',''],
+        city: '',
+        postcode: '',
+      } as SingleLocation
     }
   },
   actions: {

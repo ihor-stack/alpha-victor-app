@@ -48,9 +48,7 @@
             </ion-content>
         </ion-menu>
         <div class="ion-page" id="locations">
-            <ion-content class="ion-padding">
-                <ion-nav :root="component"/>
-            </ion-content>
+            <AdminLocationsForm />
         </div>
     </ion-split-pane>
 </template>
