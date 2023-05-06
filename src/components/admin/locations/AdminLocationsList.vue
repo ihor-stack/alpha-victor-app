@@ -30,7 +30,7 @@
             </ion-col> -->
             <ion-col size-xs="12" class="form-admin--group_field">
                 <div class="button-div-margin">
-                    <ion-button class="font-size-sm text-lowercase">
+                    <ion-button class="font-size-sm text-lowercase" @click="Floor.saveFloor">
                         Save changes
                     </ion-button>
                     <ion-button 
@@ -55,7 +55,8 @@ import {
     IonCol,
     IonLabel,
     IonItem,
-    IonInput
+    IonInput,
+    IonButton
 } from "@ionic/vue";
 //import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 import {Floors} from '@/stores/adminFloors'

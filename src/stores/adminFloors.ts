@@ -26,10 +26,10 @@ export const Floors = defineStore('Floors', {
       })
     },
     async saveFloor(id: string) {
-      adminAPI.post('/Floor/' + id,
+      adminAPI.patch('/Floor/' + id,
         {
-          "longName": "string",
-          "shortName": "string"
+          longName: this.floor.name,
+          shortName: this.floor.shortName
         }).catch(error =>{
           const alert = Alert()
           alert.open(error.message)
