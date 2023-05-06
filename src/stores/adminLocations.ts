@@ -79,7 +79,6 @@ export const Locations = defineStore('Locations', {
       adminAPI.get('/Location/Location/' + cookies.get('locationId'))
       .then((response) => 
           {
-            console.log(response.data)
             this.location = response.data
           }
         ).catch(error =>{

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
-import {SingleFloor} from '@/types/index'
+import {SingleFloor, SpecificFloor} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -10,7 +10,7 @@ export const Floors = defineStore('Floors', {
   state: () => {
     return {
       floors: [] as SingleFloor[],
-      floor: {} as SingleFloor
+      floor: {} as SpecificFloor
     }
   },
   actions: {
@@ -35,15 +35,8 @@ export const Floors = defineStore('Floors', {
           alert.open(error.message)
         })
     },
-    async removeLocation(id: string) {
-      adminAPI.delete('/Floor/' + id)
-      .catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
-        })
-    },
-    async getSingleLocation<NavFloor>(id: string) {
-      adminAPI.get('/Floor/' + id)
+    async getFloorDetails() {
+      adminAPI.get<SpecificFloor>('/Floor/' + cookies.get('floorId'))
       .then(response => 
         {
           this.floor = response.data

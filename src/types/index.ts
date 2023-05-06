@@ -169,6 +169,7 @@ export interface Integration {
 export interface NavSpace {
   spaceId: string,
   spaceName: string,
+  image?: string,
 }
 export interface NavFloor {
   floorId: string,
@@ -225,5 +226,13 @@ export interface SingleLocation {
 export interface SingleFloor {
   id: string,
   name: string,
+  spaces: NavSpace[]
+}
+
+export interface SpecificFloor
+{
+  id: string,
+  name: string,
+  shortName: string,
   spaces: NavSpace[]
 }

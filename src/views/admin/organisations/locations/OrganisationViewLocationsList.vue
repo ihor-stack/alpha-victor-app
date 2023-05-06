@@ -32,6 +32,7 @@ const Location = Locations()
 const { navigationThree } = storeToRefs(Location);
 
 const redirect = (id: string) => {
+    console.log('locationId',id)
   cookies.set('locationId', id)
   if( cookies.get('locationId') && cookies.get('orgId')){
     return { 

@@ -151,9 +151,10 @@ import {
     IonCol,
     IonLabel,
     IonInput,
-    IonButton
+    IonButton,
+    IonItem
 } from "@ionic/vue";
-import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
+//import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 import {Locations} from '@/stores/adminLocations'
 import {Floors} from '@/stores/adminFloors'
 import { chevronForwardOutline } from 'ionicons/icons';
@@ -171,13 +172,16 @@ const saveChanges = (id: string) => {
     Location.updateLocation(id)
 }
 const redirect = (id: string) => {
-  cookies.set('locationId', id)
-  if( cookies.get('locationId') && cookies.get('orgId')){
-    return { 
-      name: 'OrganisationViewLocations', 
-      params: { id: cookies.get('orgId'),locationId: cookies.get('locationId')} 
+    cookies.set('floorId', id)
+    if( cookies.get('floorId') && cookies.get('orgId')){
+        return { 
+        name: 'OrganisationViewLocationsFloors', 
+        params: { 
+            id: cookies.get('orgId'),
+            locationId: cookies.get('locationId'),
+            floorId: cookies.get('floorId')} 
+        }
     }
-  }
 }
 onBeforeMount(() =>{
     Location.getLocation()
