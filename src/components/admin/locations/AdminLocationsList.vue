@@ -1,4 +1,5 @@
 <template>
+    <ion-content>
     <ion-grid class="form-admin">
         <h1 class="font-bold font-size-lg color-light-gray">First Floor</h1>
         <ion-row class="form-admin--group">
@@ -22,6 +23,7 @@
             </ion-col>
         </ion-row>
     </ion-grid>
+    </ion-content>
 </template>
 
 <script setup lang="ts">

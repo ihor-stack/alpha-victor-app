@@ -14,8 +14,8 @@ export const Floors = defineStore('Floors', {
     }
   },
   actions: {
-    async getFloors(id: string) {
-      adminAPI.get<NavFloor[]>('/Floor/' + id)
+    async getFloors() {
+      adminAPI.get<NavFloor[]>('/Floor?locationId=' + cookies.get('locationId'))
       .then(response => 
         {
           this.floors = response.data

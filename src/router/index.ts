@@ -237,6 +237,13 @@ const routes: Array<RouteRecordRaw> = [
           },
           {
             path: "organisation/:id/locations",
+            name: "OrganisationViewLocationsList",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsList.vue"),
+          },
+          {
+            path: "organisation/:id/location/:locationId",
             name: "OrganisationViewLocations",
             props: true,
             component: () => 

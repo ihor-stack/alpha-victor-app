@@ -4,7 +4,7 @@
   v-for="item in integrations.integrations.value" 
   :key="item.id" 
   button
-  :router-link="redirect(item.id)"
+  :router-link="redirect(String(item.id))"
   router-direction="root">
     <ion-label color="light" >
       <h2>{{item.name}}</h2>

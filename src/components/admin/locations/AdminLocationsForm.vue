@@ -1,5 +1,4 @@
 <template>
-    <ion-content v-if="location">
     <h1 class="font-bold font-size-lg color-light-gray">Location Details</h1>
     <ion-grid class="form-admin">
         <ion-row class="form-admin--group_field">
@@ -114,6 +113,9 @@
             <!-- <ion-col size-xs="12">
                 <AdminFloorsField />
             </ion-col> -->
+            <!-- <ion-col size-xs="12">
+                <AdminFloorsField />
+            </ion-col> -->
             <ion-col size-xs="12">
                 <ion-button class="font-size-xs text-lowercase" @click="saveChanges(location.id)">
                     Save changes
@@ -127,7 +129,6 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-</ion-content>
 </template>
 
 <script setup lang="ts">
@@ -142,15 +143,23 @@ import {
 } from "@ionic/vue";
 import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 import {Locations} from '@/stores/adminLocations'
+import {Floors} from '@/stores/adminFloors'
+
 import { storeToRefs } from "pinia";
+import { onBeforeMount } from "vue";
 
 const Location = Locations()
+const Floor = Floors()
 const { location } = storeToRefs(Location);
+const { floors } = storeToRefs(Floor);
 
 const saveChanges = (id: string) => {
     Location.updateLocation(id)
 }
-
+onBeforeMount(() =>{
+    Location.getLocation()
+    Floor.getFloors();
+})
 </script>
 
 <style scoped>
