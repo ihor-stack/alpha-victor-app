@@ -234,5 +234,47 @@ export interface SpecificFloor
   id: string,
   name: string,
   shortName: string,
-  spaces: NavSpace[]
+  spaces: SpecificSpace[]
+}
+export interface SpecificSpace
+{
+  image?: string,
+  name: string,
+  spaceId: string,
+}
+export interface DetailedSpace 	
+{
+  spaceName: string,
+  shortcode: string,
+  roomTypeId: string,
+  capacity: string,
+  typeformId: string,
+  decisionTreeId: string,
+  qrCode: string,
+  roomTypes: SpaceDetailsRooms[],
+  spaceFeatures: SpaceDetailsFeatures[],
+  photos: SpaceDetailsPhotos[],
+  documents: SpaceDetailsDocs[]
+}
+export interface SpaceDetailsRooms {
+  name: string,
+  spaceTypeId: string,
+  icon: string,
+}
+export interface SpaceDetailsFeatures {
+  name: string,
+  spaceFeatureId: string,
+  icon: string,
+}
+export interface SpaceDetailsPhotos {
+  id: string,
+  name: string,
+  order: string,
+  path: string,
+}
+export interface SpaceDetailsDocs {
+  id: string,
+  name: string,
+  documentType: string,
+  path: string,
 }

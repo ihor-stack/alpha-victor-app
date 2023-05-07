@@ -257,7 +257,7 @@ const routes: Array<RouteRecordRaw> = [
             import("@/views/admin/organisations/locations/OrganisationViewLocationsFloors.vue"),
           },
           {
-            path: "organisation/:id/locations/floor/space",
+            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId",
             name: "OrganisationViewLocationsSpaces",
             props: true,
             component: () => 

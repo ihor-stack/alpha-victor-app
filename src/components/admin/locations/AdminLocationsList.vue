@@ -22,7 +22,18 @@
             </ion-col>
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <h2 class="font-bold font-size-lg color-light-gray">Spaces</h2>
-
+                <ion-item 
+                v-for="(space, index) in floor.spaces" 
+                :key="index" 
+                button
+                :router-link="redirect(String(space.spaceId))"
+                router-direction="root">
+                <ion-label color="light" >
+                    <h2>{{space.name}}</h2>
+                    <p>Location</p>
+                </ion-label>
+                <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
+                </ion-item>
             </ion-col>
             <!-- <ion-col size-xs="12" class="form-admin--group_field">
                 <h2 class="font-bold font-size-lg color-light-gray">Spaces</h2>
@@ -62,9 +73,27 @@ import {
 import {Floors} from '@/stores/adminFloors'
 import { storeToRefs } from "pinia";
 import { onBeforeMount } from "vue";
+import { chevronForwardOutline } from 'ionicons/icons';
+import { useCookies } from "vue3-cookies";
+
+const { cookies } = useCookies();
 const Floor = Floors()
 const { floor } = storeToRefs(Floor);
 
+const redirect = (id: string) => {
+  cookies.set('spaceId', id)
+  if( cookies.get('locationId') && cookies.get('spaceId')){
+    return { 
+      name: 'OrganisationViewLocationsSpaces', 
+      params: { 
+        id: cookies.get('orgId'),
+        locationId: cookies.get('spaceId'),
+        floorId: cookies.get('floorId'),
+        spaceId: cookies.get('spaceId')
+        } 
+    }
+  }
+}
 onBeforeMount(() =>{
     Floor.getFloorDetails()
 })
@@ -79,14 +108,14 @@ h2{
     margin-bottom: 16px;
 }
 ion-button {
-        width: 246px
-    }
-    .export-button {
-        color: var(--av-light-gray);
-        margin-left: 26px;
-    }
-    .button-div-margin{
-        margin-top: 10%;
-        width: 100%
-    }
+    width: 246px
+}
+.export-button {
+    color: var(--av-light-gray);
+    margin-left: 26px;
+}
+.button-div-margin{
+    margin-top: 10%;
+    width: 100%
+}
 </style>

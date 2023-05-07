@@ -46,28 +46,6 @@ export const Floors = defineStore('Floors', {
           alert.open(error.message)
         })
     },
-    async updateSingleLocation(id: string) {
-      adminAPI.patch('/Floor/' + id, 
-      {
-        "name": "string",
-        "prefix": "string",
-        "mainContactName": "string",
-        "email": "string",
-        "phone": "string",
-        "sosNumber": "string",
-        "wifiSsid": "string",
-        "wifiPassword": "string",
-        "addressLines": [
-          "string"
-        ],
-        "city": "string",
-        "postcode": "string"
-      })
-      .catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
-        })
-    },
   },
   getters: {
     Floors: (state) => state.floors,
