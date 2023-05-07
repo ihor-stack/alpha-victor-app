@@ -127,7 +127,7 @@
                 v-for="(space, index) in spaceRoutes" 
                 v-bind:key="index"
                 button 
-                :router-link="{ name: space.route }" 
+                :router-link="redirect(space.route)"
                 router-direction="root">
                     <ion-label color="light" >
                     <h2>{{space.title}}</h2>
@@ -185,13 +185,24 @@ const SpaceHeader = ref('')
 onBeforeMount(()=>{
     Space.getSpaces();
 })
-
+const redirect = (route: string) => {
+    if( cookies.get('floorId') && cookies.get('orgId')  && cookies.get('spaceId')){
+        return { 
+        name: route, 
+        params: { 
+            id: cookies.get('orgId'),
+            locationId: cookies.get('locationId'),
+            floorId: cookies.get('floorId'),
+            spaceId: cookies.get('spaceId')}
+        }
+    }
+}
 const spaceRoutes = [
-    {title: 'Panorama' , route: 'AdminLocationDevices'},
-    {title: 'Devices' , route: ''},
-    {title: 'Beacon' , route: ''},
-    {title: 'Integrations' , route: ''},
-    {title: 'Wifi Password' , route: ''}
+    {title: 'Panorama' , route: ''},
+    {title: 'Devices' , route: 'OrganisationViewLocationsDevices'},
+    {title: 'Beacon' , route: 'OrganisationViewLocationsBeacon'},
+    {title: 'Integrations' , route: 'OrganisationViewLocationsIntegrations'},
+    {title: 'Wifi Password' , route: 'OrganisationViewLocationsWifi'}
 ]
 const spaceFeatures = [
     {

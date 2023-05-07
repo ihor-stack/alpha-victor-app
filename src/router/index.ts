@@ -264,28 +264,28 @@ const routes: Array<RouteRecordRaw> = [
             import("@/views/admin/organisations/locations/OrganisationViewLocationsSpaces.vue"),
           },
           {
-            path: "organisation/:id/locations/floor/space/devices",
+            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/devices",
             name: "OrganisationViewLocationsDevices",
             props: true,
             component: () =>
              import("@/views/admin/organisations/locations/OrganisationViewLocationsDevices.vue"),
           },
           {
-            path: "organisation/:id/locations/floor/space/beacon",
+            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/beacon",
             name: "OrganisationViewLocationsBeacon",
             props: true,
             component: () => 
             import("@/views/admin/organisations/locations/OrganisationViewLocationsBeacon.vue"),
           },
           {
-            path: "organisation/:id/locations/floor/space/integrations",
+            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/integrations",
             name: "OrganisationViewLocationsIntegrations",
             props: true,
             component: () => 
             import("@/views/admin/organisations/locations/OrganisationViewLocationsIntegrations.vue"),
           },
           {
-            path: "organisation/:id/locations/floor/space/wifi",
+            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/wifi",
             name: "OrganisationViewLocationsWifi",
             props: true,
             component: () => 
