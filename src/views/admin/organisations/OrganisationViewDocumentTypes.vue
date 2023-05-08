@@ -13,9 +13,9 @@
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-button 
-          @click="AddDocument()" 
           :disabled="newDocument ? false : true"
-          class="font-size-xs text-lowercase">
+          class="font-size-xs text-lowercase"
+          @click="newDocumentType()">
             Add new +
           </ion-button>
         </ion-col>
@@ -23,7 +23,14 @@
           <h3 class="font-bold font-size-md color-light-gray">Current Document Types</h3>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <DocumentField />
+          <div v-for="(document, index) in documentTypes.documents.value" :key="index">
+            <DocumentField 
+            :id="document.id"
+            :modelValue="document.name"
+            @save="(args: string) => {updateDocumentType(args, document.id)}"
+            @remove="RemoveDocumentType(document.id)"
+            />
+          </div>
         </ion-col>
       </ion-row> 
     </ion-grid>
@@ -39,18 +46,26 @@ import {
     IonInput
   } from "@ionic/vue";
   import DocumentField from '@/components/admin/DocumentField.vue'
-  import { ref } from "vue";
-  import {adminDocuments} from '@/stores/adminStore'
+  import { onBeforeMount, ref } from "vue";
+  import {adminDocuments} from '@/stores/adminDocumentTypes'
+  import { storeToRefs } from "pinia";
 
   const store = adminDocuments()
-
+  const documentTypes = storeToRefs(store)
   const newDocument = ref()
 
-  const AddDocument = () => {
-    store.add({id: store.documentsArray.length + 1, title: newDocument.value, dateUploaded: new Date().toDateString()})
-    newDocument.value = null
-  };
-
+  const newDocumentType = () => {
+    store.saveNewDocument(newDocument.value)
+  }
+  const updateDocumentType = (newDocumentType: string, id: string) => {
+    store.editDocument({id: id, name: newDocumentType})
+  }
+  const RemoveDocumentType = (id: string) => {
+    store.deleteDocument(id)
+  }
+  onBeforeMount(() =>{
+    store.getDocuments()
+  })
   </script>
   
   <style scoped>

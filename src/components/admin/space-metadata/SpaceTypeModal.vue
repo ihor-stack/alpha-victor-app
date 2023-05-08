@@ -1,9 +1,9 @@
 <template>
-    <ion-button  class="font-size-sm text-lowercase add-button" @click="state.modalOpen = true">
+    <ion-button  class="font-size-sm text-lowercase add-button" @click="modalOpen = true">
         Add New Space Type +
     </ion-button>
     <ion-modal 
-    :is-open="state.modalOpen"  
+    :is-open="modalOpen"  
     @willDismiss="handleDismiss"
     :initial-breakpoint="0.8" 
     :breakpoints="[0, 0.8]">
@@ -16,7 +16,7 @@
                 :icon="close" 
                 size="small" 
                 class="close-button" 
-                @click="state.modalOpen = false"/>
+                @click="modalOpen = false"/>
                 <div class="issues-panel__header">
                 <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
                     Add new space Type
@@ -28,14 +28,18 @@
             </ion-header>
             <ion-content :scroll-y="false" class="form-admin--group_field">
                 <div class="issues-panel__section issues-panel__select-equipment">
-                    <ion-input color="light" placeholder="e.g. meeting room"/>
+                    <ion-input 
+                    color="light" 
+                    placeholder="e.g. meeting room" 
+                    :value="newType"
+                    @input="newType=$event.target.value" />
                 </div>
             </ion-content>
             <ion-footer>
                 <ion-button 
                 class="font-size-sm text-lowercase"
                 expand="block"
-                @click="state.modalOpen = false">
+                @click="saveNewType()">
                 Add new space Type +
                 </ion-button>
             </ion-footer>
@@ -46,7 +50,7 @@
   </template>
   
   <script setup lang="ts">
-  import { reactive } from "vue";
+  import { ref } from "vue";
   import { 
     IonPage, 
     IonContent, 
@@ -58,15 +62,19 @@
     IonIcon
   } from "@ionic/vue";
   import {close} from 'ionicons/icons'
+  import {MetaData} from '@/stores/adminMetaData'
   
-  const state = reactive({
-    organisation: "",
-    modalOpen: false,
-  });
+  const Spaces = MetaData()
+  const modalOpen = ref(false)
+  const newType = ref('')
   const handleDismiss = () => {
-    state.modalOpen = false;
+    modalOpen.value = false;
   };
-
+  const saveNewType = () => {
+    console.log(newType.value)
+    Spaces.saveSpaceType(newType.value)
+    modalOpen.value = false
+  }
   </script>
   
   <style scoped>

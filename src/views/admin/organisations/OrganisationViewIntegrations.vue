@@ -3,70 +3,80 @@
   <ion-grid class="form-admin">
     <ion-row class="form-admin--group" >
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">
-            Client ID
-          </ion-label>
-          <ion-input
-            class="font-size-sm"
-            type="password">
-          </ion-input>
+        <ion-label color="light">
+          Client ID
+        </ion-label>
+        <ion-input
+          class="font-size-sm"
+          type="password"
+          :value="integration.integration.value.clientId"
+          @ion-input="integration.integration.value.clientId = String($event.target.value)">
+        </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-
-          <ion-label color="light">
-            Client Secret
-          </ion-label>
-          <ion-input
-            class="font-size-sm"
-            type="password">
-          </ion-input>
+        <ion-label color="light">
+          Client Secret
+        </ion-label>
+        <ion-input
+          class="font-size-sm"
+          type="password"
+          :value="integration.integration.value.clientSecret"
+          @ion-input="integration.integration.value.clientSecret = String($event.target.value)">
+        </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">
-            Select organisation
-          </ion-label>
-          <ion-select 
-            interface="popover"
-            placeholder="Select organisation" 
-            class="issues-panel__select-equipment__select"
-            color="light"
-          >
-            <ion-select-option 
-            value="english" v-for="(org, id) in oganisations" 
-            :key="id">
-              {{org.name}}
-            </ion-select-option>
-          </ion-select>
+        <ion-label color="light">
+          Select organisation
+        </ion-label>
+        <AdminSelect v-model="selectedOrg" :options="organisations.formattedOrgSelect.value"/>
       </ion-col>
     </ion-row> 
   </ion-grid>
-  <ion-button class="font-size-xs text-lowercase">
+  <ion-button class="font-size-xs text-lowercase" @click="SaveEdit">
     Save Changes
   </ion-button>
-  </template>
+</template>
   
-  <script setup lang="ts">
-  
+<script setup lang="ts">
+
 import {
-    IonButton,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonLabel,
-    IonItem,
-    IonInput,
-    IonSelect, 
-    IonSelectOption,
-  } from "@ionic/vue";
-  import { ref } from "vue";
+  IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonLabel,
+  IonInput,
+  IonSelect, 
+  IonSelectOption,
+} from "@ionic/vue";
+import { storeToRefs } from "pinia";
+import { onBeforeMount, ref } from "vue";
+import { Integrations } from "@/stores/adminIntegrations";
+import { Organisations } from "@/stores/adminOrganisations";
 
-  const oganisations = ref([
-    { id: 1, name: 'option1' },
-    { id: 2, name: 'option2' },
-    { id: 3, name: 'option3' },
-  ]);
+import AdminSelect from '@/components/admin/AdminSelect.vue'
+import { SelectItem, Integration } from "@/types";
 
-  </script>
+const store = Integrations()
+const orgStore = Organisations()
+const integration = storeToRefs(store)
+const organisations = storeToRefs(orgStore)
+const selectedOrg = ref({} as SelectItem)
+
+const SaveEdit = () =>{
+  const newEdit: Integration = {
+    clientId: integration.integration.value.clientId,
+    clientSecret: integration.integration.value.clientSecret,
+    selectedOrgnisation: String(selectedOrg.value.aditionalInfo)
+  }
+  store.editIntegration(newEdit)
+}
+
+onBeforeMount(() =>{
+  store.getSingleIntegration()
+  orgStore.getOrgsSelectItem()
+})
+</script>
   
 <style scoped>
 h1{

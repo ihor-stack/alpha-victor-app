@@ -1,36 +1,67 @@
 <template>
-
-  <ion-item v-for="doc in store.documentsArray" v-bind:key="doc.id">
-    <ion-input
-      class="font-size-sm"
-      color="light"
-      placeholder="Document Type"
-      :value="doc.title"
-      @ionInput="editedDocument = $event.target.value;"
-      @ion-focus="currentDocument = doc"
-      @ion-blur="ResetDocuments(doc.id)"
-      @keydown.esc="ResetDocuments(doc.id)"
-    ></ion-input>
-    <ion-button 
-      @click="SaveDocument(doc.id)"
-      class="save-button text-lowercase"
-      slot="end"  
+  <ion-item>
+    <ion-label 
+      class="font-size-lg"
+      color="light">{{modelValue}}
+    </ion-label>
+    <ion-icon
+      class="reset-button text-lowercase"
+      :icon="createOutline" 
+      slot="end"
       fill="clear"
       size="small"
-      v-if=EnableEdit(doc.id)
-      > &gt;&gt; save 
-    </ion-button>
-    <ion-button 
-      @click="RemoveDocument(doc.id)"
-      class="remove-button text-lowercase"
-      slot="end"  
-      fill="clear"
-      size="small"
-      v-else
-      >
-      &gt;&gt; remove
-    </ion-button>
+      @click="openModal()"
+      />
   </ion-item>
+  <ion-modal
+    :is-open="active"  
+    @willDismiss="active = false"
+    :initial-breakpoint="0.8" 
+    :breakpoints="[0, 0.9]">
+      <ion-page>
+      <div class="issues-panel">
+          <div class="issues-panel-container">
+          <ion-header>
+              <ion-icon 
+              color='light' 
+              :icon="close" 
+              size="small" 
+              class="close-button" 
+              @click="active = false"/>
+              <div class="issues-panel__header">
+              <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
+                Edit Document Type
+              </h1>
+              <ion-input
+                class="font-size-sm"
+                color="light"
+                placeholder="Document Type"
+                :value="newDocument"
+                @ion-input="newDocument = $event.target.value"
+              ></ion-input>
+              </div>
+          </ion-header>
+          <ion-footer>
+            <ion-button
+              @click="$emit('save', newDocument), active = false"
+              class="save-button text-lowercase"
+              fill="clear"
+              size="small"
+              > &gt;&gt; save
+            </ion-button>
+            <ion-button
+              @click="$emit('remove'), active = false"
+              class="remove-button text-lowercase"
+              fill="clear"
+              size="small"
+              >
+              &gt;&gt; remove
+          </ion-button>
+          </ion-footer>
+          </div>
+      </div>
+      </ion-page>
+    </ion-modal>
 </template>
 
 <script setup lang="ts">
@@ -38,42 +69,30 @@ import {
   IonItem,
   IonInput,
   IonButton,
+  IonIcon,
+  IonModal,
+  IonFooter,
+  IonPage
 } from "@ionic/vue";
-import { onBeforeMount, ref } from "vue";
-import {adminDocuments} from '@/stores/adminStore'
+import {adminDocuments} from '@/stores/adminDocumentTypes'
+import {createOutline, close} from 'ionicons/icons'
+import { ref } from "vue";
+
 const store = adminDocuments()
-
-interface Document {
-  id: number;
-  title: string;
-  dateUploaded: string;
+interface Props {
+  id: string;
+  modelValue: string;
 }
+const props = defineProps<Props>();
+defineEmits(['update:modelValue'])
 
-const currentDocument = ref();
-const editedDocument = ref();
+const active = ref(false)
+const newDocument = ref()
 
-
-const SaveDocument = (id: number) => {
-  const index = store.documentsArray.findIndex(item => item.id === id);
-  store.edit(index, editedDocument.value)
-  currentDocument.value = null
-  editedDocument.value = null
+const openModal = () => {
+  active.value = true
+  newDocument.value = props.modelValue
 }
-const RemoveDocument = (id: number) => {
-  store.remove(id)
-};
-const EnableEdit = (id: number) => {
-  const check = currentDocument?.value?.id === id ? true : false
-  return check
-}
-const ResetDocuments = (id: number) => {
-  const index = store.documentsArray.findIndex(item => item.id === id);
-  store.reset(index, currentDocument.value)
-  currentDocument.value = null
-};
-// onBeforeMount(async () => {
-//   store.set()
-// })
 
 </script>
 
@@ -82,6 +101,11 @@ const ResetDocuments = (id: number) => {
   color: var(--av-red);
   font-family: "Akkurat-Mono";
 }
+.reset-button {
+  color: var(--av-orange);
+  font-family: "Akkurat-Mono";
+  cursor: pointer
+}
 .save-button {
   color: var(--av-green);
   font-family: "Akkurat-Mono";
@@ -89,4 +113,46 @@ const ResetDocuments = (id: number) => {
 ion-item {
   margin-bottom: 20px;
 }
+ion-icon {
+  cursor: pointer;
+}
+ion-content::part(background) {
+  background: #181818;
+}
+.close-button{
+    width: 20px;
+    margin-left: 95%;
+    cursor: pointer;
+}
+.issues-panel {
+  height: 40%;
+  width: 70%;
+  margin-left: 15%;
+  border-radius: 40px 40px 40px 40px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #181818;
+}
+
+.issues-panel-container {
+  position: relative;
+  height: 100%;
+  background-color: #181818;
+  border-radius: 40px 40px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 45px 32px 32px;
+}
+
+.issues-panel__header {
+  margin-bottom: 20px;
+}
+
+.issues-panel__title {
+  margin-bottom: 12px;
+}
+
+
 </style>

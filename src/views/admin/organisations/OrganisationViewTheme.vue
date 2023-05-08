@@ -14,8 +14,9 @@
           <input
             class="file-input"
             type="file"
-            accept=".*"
-            :v-model="theme.logo"
+            accept="image/*"
+            :v-model="image"
+            @change="uploadFile" 
           />
         </div>
           
@@ -32,8 +33,9 @@
           <input
             class="file-input"
             type="file"
-            accept=".*"
-            :v-model="theme.backgroundImage"
+            accept="image/*"
+            :v-model="image2"
+            @change="uploadFile2" 
           />
         </div>
           
@@ -47,7 +49,7 @@
             :disabled="true"
           >
             <ion-label color="light" class="custom-label">Enable dark mode</ion-label>
-            <ion-toggle class='custom-toggle' color="light" v-model="theme.darkmodeEnabled"/>
+            <ion-toggle class='custom-toggle' color="primary" v-model="theme.darkmodeEnabled"/>
           </ion-input>
       </ion-col>
     </ion-row>
@@ -98,7 +100,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-button class="font-size-sm text-lowercase" @click="organisation.saveThemes">
+  <ion-button class="font-size-sm text-lowercase" @click="organisation.saveThemes()">
     Save changes
   </ion-button>
 </template>
@@ -113,17 +115,88 @@ import {
     IonLabel,
     IonToggle,
   } from "@ionic/vue";
-import {onBeforeMount, ref} from 'vue'
-import {Organisations} from '@/stores/adminStore'
+import {computed, onBeforeMount, ref} from 'vue'
+import {Theme} from '@/stores/adminThemes'
 import { storeToRefs } from 'pinia'
 
-const organisation = Organisations()
+const organisation = Theme()
 const { theme } = storeToRefs(organisation);
 
+const image = ref()
+const fileLogo = ref();
+const fileName1 = computed(() => fileLogo.value?.name);
+const fileExtension1 = computed(() => fileName1.value?.substr(fileName1.value?.lastIndexOf(".") + 1));
+// const fileMimeType1 = computed(() => fileLogo.value?.type);
+
+const image2 = ref()
+const fileBackGround = ref();
+const fileName2 = computed(() => fileBackGround.value?.name);
+// const fileExtension2 = computed(() => fileName2.value?.substr(fileName2.value?.lastIndexOf(".") + 1));
+// const fileMimeType2 = computed(() => fileBackGround.value?.type);
+const uploadFile = (event: any) => {
+  fileLogo.value = event.target.files[0];
+  updateLogoState()
+};
+const uploadFile2 = (event: any) => {
+  fileBackGround.value = event.target.files[0];
+  updateBackgrundState()
+};
+const updateLogoState = () => {
+  const reader1 = new FileReader();
+  reader1.readAsDataURL(fileLogo.value);
+  reader1.onload = async () => {
+    if (typeof reader1.result === 'string') {
+      const encodedFile = reader1.result?.split(",")[1];
+      theme.value.logo = fileName1.value
+      theme.value.logoFileName = fileName1.value
+      theme.value.logoContentType = fileExtension1.value
+      theme.value.logoBase64Payload = encodedFile
+
+      // const data = {
+      //   file: encodedFile,
+      //   fileName: fileName1.value,
+      //   fileExtension: fileExtension1.value,
+      //   fileMimeType: fileMimeType1.value,
+      // }
+      // try {
+      //   console.log(data)
+      //   return data;
+      // }
+      // catch (error) {
+      //   console.error(error);
+      // }
+    }
+  }
+  //console.log(theme.value)
+  //organisation.saveThemes()
+}
+const updateBackgrundState = () => {
+  const reader2 = new FileReader();
+  reader2.readAsDataURL(fileBackGround.value);
+  reader2.onload = async () => {
+    if (typeof reader2.result === 'string') {
+      const encodedFile = reader2.result?.split(",")[1];
+      theme.value.backgroundImage = fileName2.value
+      // theme.value.logoContentType = fileExtension1.value
+      // theme.value.logoBase64Payload = encodedFile
+      // const data = {
+      //   file: encodedFile,
+      //   fileName: fileName2.value,
+      //   fileExtension: fileExtension2.value,
+      //   fileMimeType: fileMimeType2.value,
+      // }
+      // try {
+      //   return data;
+      // }
+      // catch (error) {
+      //   console.error(error);
+      // }
+    }
+  } 
+}
 onBeforeMount(() => {
   organisation.getThemes()
 })
-
 </script>
 
 <style scoped>

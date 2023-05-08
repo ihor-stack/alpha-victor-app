@@ -5,30 +5,31 @@
     <ion-input 
     id="click-trigger" 
     :disabled="true"
-    :value="modelValue"
+    :value="modelValue.title"
     />
-    <ion-popover trigger="click-trigger" trigger-action="click" size="cover" :dismiss-on-select="true">
+    <ion-popover trigger="click-trigger" trigger-action="click" size="cover" :dismiss-on-select="true" v-if="props.options">
         <div 
         class="ion-padding select-content"
-        v-for="(option, index) in props.options" :key="index"
-        @click="$emit('update:modelValue', option)">
-        {{option}}
+        v-for="(option) in props.options" :key="option.id"
+        @click="$emit('update:modelValue', option)"
+        >
+        {{option.title}}
         </div>
     </ion-popover>
   </template>
   
   <script setup lang="ts">
-  import { reactive, ref } from "vue";
   import { 
     IonLabel,
     IonInput,
     IonPopover
   } from "@ionic/vue";
-  import {close, cloudDownloadOutline} from 'ionicons/icons'
+  import {SelectItem} from '@/types/index'
+
   interface Props {
     label?: string,
-    modelValue: string,
-    options: string[]
+    modelValue: SelectItem,
+    options: SelectItem[]
     }
 
     const props = defineProps<Props>();
