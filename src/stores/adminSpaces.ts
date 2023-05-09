@@ -1,6 +1,11 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
-import {DetailedSpace, SelectItem, SingleFloor, SpecificFloor} from '@/types/index'
+import {
+  DetailedSpace, 
+  SelectItem, 
+  SingleFloor, 
+  SpaceDevices, 
+  SpecificFloor} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -13,7 +18,8 @@ export const Spaces = defineStore('Spaces', {
       currentSpace: '' as string,
       formattedSelect: [] as SelectItem[],
       optionSelected: {} as SelectItem,
-      qrCode: '' as string
+      qrCode: '' as string,
+      devices: [] as SpaceDevices[]
     }
   },
   actions: {
@@ -101,7 +107,30 @@ export const Spaces = defineStore('Spaces', {
         alert.open(error.message)
       })
     },
-    
+    async getSpacesDevices() {
+      adminAPI.get<SpaceDevices[]>('/Space/' + cookies.get('spaceId') + '/Device')
+      .then(response => 
+        {
+          this.devices = response.data
+        }
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async editSpacesDevices(deviceIndex: number) {
+      const deviceEdit = Object.assign({}, this.devices[deviceIndex]);
+      delete deviceEdit.photos;
+      adminAPI.patch('/Space/' + 
+      cookies.get('spaceId') + 
+      '/Device/' + 
+      this.devices[deviceIndex].id,
+      deviceEdit
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
   },
   getters: {
     Space: (state) => state.space

@@ -278,3 +278,14 @@ export interface SpaceDetailsDocs {
   documentType: string,
   path: string,
 }
+
+export interface SpaceDevices {
+  id: string,
+  name: string,
+  serialNumber: string,
+  installer: string,
+  installDate: string,
+  warrantyExpiryDate: string,
+  description: string,
+  photos?: SpaceDetailsPhotos[]
+}
