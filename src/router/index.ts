@@ -291,9 +291,21 @@ const routes: Array<RouteRecordRaw> = [
             component: () => 
             import("@/views/admin/organisations/locations/OrganisationViewLocationsWifi.vue"),
           },
+          {
+            path: "organisation/id/decision-trees",
+            name: "OrganisationViewDecisionTrees",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewDecisionTrees.vue"),
+          }
         ]
       }
     ]
+  },
+  {
+    path: "/admin/organisation/id/decision-trees/id",
+    name: "OrganisationViewDecisionTreeDetails",
+    component: () => import("@/views/admin/organisations/OrganisationViewDecisionTreeDetails.vue"),
   },
 ];
 
