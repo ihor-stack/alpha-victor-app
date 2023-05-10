@@ -35,21 +35,32 @@
                             </ion-col>
                             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                                 <ion-label color="light">Install date</ion-label>
-                                <ion-input
+                                <ion-datetime-button datetime="datetime1"></ion-datetime-button>
+                                <ion-modal :keep-contents-mounted="true">
+                                    <ion-datetime 
+                                    id="datetime1" 
+                                    :value="device.installDate.split('.',1)[0]"
+                                    @ion-change="device.installDate = String($event.target.value), check(index)"
+                                    />
+                                </ion-modal>
+                                <!-- <ion-input
                                 class="font-size-sm"
                                 color="light"
+                                type="date"
                                 :value="device.installDate"
                                 @ion-input="device.installDate = String($event.target.value)"
-                                ></ion-input>
+                                ></ion-input> -->
                             </ion-col>
                             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                                 <ion-label color="light">Warranty expiry date</ion-label>
-                                <ion-input
-                                class="font-size-sm"
-                                color="light"
-                                :value="device.warrantyExpiryDate"
-                                @ion-input="device.warrantyExpiryDate = String($event.target.value)"
-                                ></ion-input>
+                                <ion-datetime-button datetime="datetime2"></ion-datetime-button>
+                                <ion-modal :keep-contents-mounted="true">
+                                    <ion-datetime 
+                                    id="datetime2" 
+                                    :value="device.warrantyExpiryDate.split('.',1)[0]"
+                                    @ion-change="device.warrantyExpiryDate = String($event.target.value), check(index)"
+                                    />
+                                </ion-modal>
                             </ion-col>
                             <ion-col size-xs="12" class="form-admin--group_field">
                                 <ion-label color="light">Description</ion-label>
@@ -102,7 +113,10 @@ import {
     IonTextarea,
     IonButton,
     IonAccordion,
-    IonAccordionGroup
+    IonAccordionGroup,
+    IonDatetime,
+    IonDatetimeButton,
+    IonModal
 } from "@ionic/vue";
 //import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 import {Spaces} from '@/stores/adminSpaces'
@@ -121,6 +135,10 @@ const items = [
     {title: 'Academy 16U' , route: ''},
     {title: 'Extron DTP HD DA 4K' , route: ''},
 ]
+const check = (index: number) => {
+    console.log(devices.value[index].installDate)
+    console.log(devices.value[index].warrantyExpiryDate)
+}
 onBeforeMount(() =>[
     Space.getSpacesDevices()
 ])

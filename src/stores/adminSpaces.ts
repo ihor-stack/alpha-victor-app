@@ -121,11 +121,39 @@ export const Spaces = defineStore('Spaces', {
     async editSpacesDevices(deviceIndex: number) {
       const deviceEdit = Object.assign({}, this.devices[deviceIndex]);
       delete deviceEdit.photos;
-      adminAPI.patch('/Space/' + 
+      console.log(deviceEdit.warrantyExpiryDate.split('.',1)[0])
+      // adminAPI.patch('/Space/' + 
+      // cookies.get('spaceId') + 
+      // '/Device/' + 
+      // this.devices[deviceIndex].id,
+      // deviceEdit
+      // ).catch(error =>{
+      //   const alert = Alert()
+      //   alert.open(error.message)
+      // })
+    },
+    async deleteSpacesDevices(deviceIndex: number) {
+      adminAPI.delete('/Space/' + 
       cookies.get('spaceId') + 
       '/Device/' + 
       this.devices[deviceIndex].id,
-      deviceEdit
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async saveSpacesDevices(deviceIndex: number) {
+      adminAPI.post('/Space/' + 
+      cookies.get('spaceId') + 
+      '/Device/',
+      {
+        name: 'string',
+        serialNumber: 'string',
+        installer: 'string',
+        installDate: '2023-05-09T16:59:24.771Z',
+        warrantyExpiryDate: '2023-05-09T16:59:24.771Z',
+        description: 'string'
+      }
       ).catch(error =>{
         const alert = Alert()
         alert.open(error.message)
