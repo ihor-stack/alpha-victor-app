@@ -75,7 +75,7 @@
         <hr />
         <li class="nav-menu-link">
           <ion-menu-toggle>
-            <ion-item router-link="/admin" lines="none" router-direction="root">
+            <ion-item router-link="/admin/organisations" lines="none" router-direction="root">
               <span class="link-text">Admin</span>
             <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
             </ion-item>

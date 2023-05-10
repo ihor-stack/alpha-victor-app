@@ -32,7 +32,7 @@
               <swiper-slide v-for="slide in slides" :key="slide.shortCode">
                 <div class="swiper-slide__image">
                   <div class="swiper-slide__image__gradient"></div>
-                  <img src="@/theme/img/space-the-johnson.jpg" />
+                  <img src="@/theme/img/space-the-red-room.jpg" />
                 </div>
                 <div class="swiper-slide__info">
                   <div>
@@ -40,7 +40,7 @@
                       <h6 class="category color-light-gray">
                         {{ slide.spaceType }}
                       </h6>
-                      <occupied-status :occupied="slide.occupied" />
+                      <occupied-status :vacant="slide.vacant" />
                     </div>
                     <div class="swiper-slide__info__bottom">
                       <h5 class="name font-bold color-light-gray">
@@ -77,7 +77,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
-import { Space } from "@/types";
+import { Organisation } from "@/types";
 import OccupiedStatus from "../shared/OccupiedStatus.vue";
 
 const router = useRouter();
@@ -85,7 +85,7 @@ const router = useRouter();
 interface Props {
   title: string;
   ctaUrl?: string | undefined;
-  slides: Space[];
+  slides: Organisation[];
 }
 
 const props = defineProps<Props>();
