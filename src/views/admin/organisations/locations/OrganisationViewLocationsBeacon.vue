@@ -7,6 +7,9 @@
                 <ion-input
                 class="font-size-sm"
                 color="light"
+                type="number"
+                :value="major"
+                @ion-input="major = String($event.target.value)"
                 ></ion-input>
             </ion-col>
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">                
@@ -14,10 +17,24 @@
                 <ion-input
                 class="font-size-sm"
                 color="light"
+                type="number"
+                :value="minor"
+                @ion-input="minor = String($event.target.value)"
                 ></ion-input>
             </ion-col>
             <ion-col size-xs="12" >
-                <ion-button class="font-size-sm text-lowercase">
+                <ion-item 
+                v-for="(beacon, index) in beacons" 
+                v-bind:key="index">
+                    <ion-label color="light" >
+                    <h2>{{beacon.beaconId}}</h2>
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col size-xs="12" >
+                <ion-button 
+                class="font-size-sm text-lowercase"
+                @click="Space.getSpacesBeacon(minor, major)">
                     Scan for beacons
                 </ion-button>
             </ion-col>
@@ -38,9 +55,18 @@ import {
     IonCol,
     IonInput,
     IonButton,
-    IonLabel
+    IonLabel,
+    IonItem
 } from "@ionic/vue";
-  
+import { storeToRefs } from "pinia";
+import {Spaces} from '@/stores/adminSpaces'
+import { ref } from "vue";
+
+const Space = Spaces()
+const major = ref('')
+const minor = ref('')
+const { beacons } = storeToRefs(Space);
+
 </script>
 
 <style scoped>
