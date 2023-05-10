@@ -1,22 +1,8 @@
 <template>
   <ion-header :class="['ion-no-border', noBackground ? 'no-background' : '']">
     <ion-toolbar>
-      <ion-buttons slot="start">
+      <ion-buttons class="no-padding" slot="start">
         <slot name="start"></slot>
-      </ion-buttons>
-
-      <ion-title>
-        <router-link to="/dashboard">
-          <img
-            src="@/theme/img/logo/logo-without-name.svg"
-            class="logo"
-            alt="AlphaVictor logo"
-          />
-        </router-link>
-      </ion-title>
-
-      <ion-buttons slot="end">
-        <slot name="end"></slot>
       </ion-buttons>
     </ion-toolbar>
     <div class="title" v-if="props.title">
@@ -48,6 +34,7 @@ const props = defineProps({
 ion-header {
   background: #000000;
 }
+
 .title {
   display: flex;
   justify-content: center;

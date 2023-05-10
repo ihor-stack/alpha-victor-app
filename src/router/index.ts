@@ -45,9 +45,9 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "",
         name: "FindSpaceLocation",
-        component: () => import("@/views/find-space/FindSpaceLocation.vue")
+        component: () => import("@/views/find-space/FindSpaceLocation.vue"),
       },
-    ]
+    ],
   },
   {
     path: "/recently-viewed",
@@ -145,18 +145,156 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/about",
     name: "About",
-    component: () => import("@/views/static/AboutView.vue")
+    component: () => import("@/views/static/AboutView.vue"),
   },
   {
     path: "/legal-notices",
     name: "LegalNotices",
-    component: () => import("@/views/static/LegalNotices.vue")
+    component: () => import("@/views/static/LegalNotices.vue"),
   },
   {
     path: "/terms-and-conditions",
     name: "TermsAndConditions",
-    component: () => import("@/views/static/TermsAndConditions.vue")
-  }
+    component: () => import("@/views/static/TermsAndConditions.vue"),
+  },
+  {
+    path: "/admin",
+    name: "LayoutRouter",
+    component: () => import("@/layouts/LayoutRouter.vue"),
+    children: [
+      {
+        path: "",
+        name: "AdminLayout",
+        component: () => import("@/layouts/AdminLayout.vue"),
+        children: [
+          {
+            path: "equipment",
+            name: "EquipmentView",
+            component: () => import("@/views/admin/equipment/EquipmentView.vue"),
+          },
+          {
+            path: "equipment/details",
+            name: "EquipmentDetails",
+            component: () => import("@/views/admin/equipment/EquipmentDetails.vue"),
+          },
+          {
+            path: "documents",
+            name: "DocumentTypesView",
+            component: () => import("@/views/admin/documents/DocumentTypesView.vue"),
+          },
+          {
+            path: "organisations",
+            name: "OrganisationList",
+            component: () => import("@/views/admin/organisations/OrganisationList.vue"),
+          },
+          {
+            path: "organisation/:id",
+            name: "OrganisationView",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationView.vue"),
+          },
+          {
+            path: "organisation/:id/details",
+            name: "OrganisationViewDetails",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewDetails.vue"),
+          },
+          {
+            path: "organisation/:id/theme",
+            name: "OrganisationViewTheme",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewTheme.vue"),
+          },
+          {
+            path: "organisation/:id/space-metadata",
+            name: "OrganisationViewSpaceMetadata",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewSpaceMetadata.vue"),
+          },
+          {
+            path: "organisation/id/document-types",
+            name: "OrganisationViewDocumentTypes",
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewDocumentTypes.vue"),
+          },
+          {
+            path: "organisation/:id/integrations",
+            name: "OrganisationViewIntegrationsList",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewIntegrationsList.vue"),
+          },
+          {
+            path: "organisation/:id/integrations/:integrationId",
+            name: "OrganisationViewIntegrations",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/OrganisationViewIntegrations.vue"),
+          },
+          {
+            path: "organisation/:id/locations",
+            name: "OrganisationViewLocationsList",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsList.vue"),
+          },
+          {
+            path: "organisation/:id/location/:locationId",
+            name: "OrganisationViewLocations",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocations.vue"),
+          },
+          {
+            path: "organisation/:id/location/:locationId/floor/:floorId",
+            name: "OrganisationViewLocationsFloors",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsFloors.vue"),
+          },
+          {
+            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId",
+            name: "OrganisationViewLocationsSpaces",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsSpaces.vue"),
+          },
+          {
+            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/devices",
+            name: "OrganisationViewLocationsDevices",
+            props: true,
+            component: () =>
+             import("@/views/admin/organisations/locations/OrganisationViewLocationsDevices.vue"),
+          },
+          {
+            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/beacon",
+            name: "OrganisationViewLocationsBeacon",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsBeacon.vue"),
+          },
+          {
+            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/integrations",
+            name: "OrganisationViewLocationsIntegrations",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsIntegrations.vue"),
+          },
+          {
+            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/wifi",
+            name: "OrganisationViewLocationsWifi",
+            props: true,
+            component: () => 
+            import("@/views/admin/organisations/locations/OrganisationViewLocationsWifi.vue"),
+          },
+        ]
+      }
+    ]
+  },
 ];
 
 const router = createRouter({
