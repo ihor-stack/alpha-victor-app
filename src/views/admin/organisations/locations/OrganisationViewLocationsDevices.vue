@@ -39,10 +39,15 @@
                                 <ion-modal :keep-contents-mounted="true">
                                     <ion-datetime 
                                     id="datetime1" 
-                                    :value="device.installDate.split('.',1)[0]"
-                                    @ion-change="device.installDate = String($event.target.value), check(index)"
+                                    :value="mytime"
+                                    @ion-change="mytime = $event.target.value, check(index)"
                                     />
                                 </ion-modal>
+                                <!-- <ion-datetime 
+                                    id="datetime1" 
+                                    :value="device.installDate.split('.',1)[0]"
+                                    @ion-change="device.installDate = String($event.target.value), check(index)"
+                                    /> -->
                                 <!-- <ion-input
                                 class="font-size-sm"
                                 color="light"
@@ -57,6 +62,8 @@
                                 <ion-modal :keep-contents-mounted="true">
                                     <ion-datetime 
                                     id="datetime2" 
+                                    display-format="DD/MM/YYYY HH:mm:ss"
+                                    picker-format="DD MMM YYYY HH:mm:ss"
                                     :value="device.warrantyExpiryDate.split('.',1)[0]"
                                     @ion-change="device.warrantyExpiryDate = String($event.target.value), check(index)"
                                     />
@@ -129,6 +136,7 @@ const currentIndex = ref<number>(0)
 const editDevice = () => {
     Space.editSpacesDevices(currentIndex.value)
 }
+const mytime = ref()
 const items = [
     {title: 'Facilities Panel - HDMI, VGA & Audio', route: ''},
     {title: 'USD Extender TX' , route: ''},
@@ -136,7 +144,8 @@ const items = [
     {title: 'Extron DTP HD DA 4K' , route: ''},
 ]
 const check = (index: number) => {
-    console.log(devices.value[index].installDate)
+    console.log(mytime.value)
+    // console.log(devices.value[index].installDate)
     console.log(devices.value[index].warrantyExpiryDate)
 }
 onBeforeMount(() =>[

@@ -5,7 +5,8 @@ import {
   SelectItem, 
   SingleFloor, 
   SpaceDevices, 
-  SpecificFloor} from '@/types/index'
+  SpecificFloor,
+  SpaceBeacon} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -19,7 +20,9 @@ export const Spaces = defineStore('Spaces', {
       formattedSelect: [] as SelectItem[],
       optionSelected: {} as SelectItem,
       qrCode: '' as string,
-      devices: [] as SpaceDevices[]
+      devices: [] as SpaceDevices[],
+      beacons: [] as SpaceBeacon[]
+
     }
   },
   actions: {
@@ -142,7 +145,7 @@ export const Spaces = defineStore('Spaces', {
         alert.open(error.message)
       })
     },
-    async saveSpacesDevices(deviceIndex: number) {
+    async saveSpacesDevices() {
       adminAPI.post('/Space/' + 
       cookies.get('spaceId') + 
       '/Device/',
@@ -154,6 +157,19 @@ export const Spaces = defineStore('Spaces', {
         warrantyExpiryDate: '2023-05-09T16:59:24.771Z',
         description: 'string'
       }
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async getSpacesBeacon(minor: string, major: string) {
+      adminAPI.get<SpaceBeacon[]>('/Space/' + 
+      cookies.get('spaceId') + 
+      '/Beacon?Minor=' + minor + '&Major=' + major
+      ).then(response => 
+        {
+          this.beacons = response.data
+        }
       ).catch(error =>{
         const alert = Alert()
         alert.open(error.message)

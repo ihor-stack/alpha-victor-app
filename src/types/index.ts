@@ -289,3 +289,8 @@ export interface SpaceDevices {
   description: string,
   photos?: SpaceDetailsPhotos[]
 }
+
+export interface SpaceBeacon {
+  beaconId: string,
+  uuiDs: string,
+}

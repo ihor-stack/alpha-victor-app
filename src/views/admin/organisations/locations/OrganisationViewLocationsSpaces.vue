@@ -175,7 +175,7 @@ import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
 import { storeToRefs } from "pinia";
 import {Spaces} from '@/stores/adminSpaces'
 import { useCookies } from "vue3-cookies";
-import { onBeforeMount, onMounted, onUpdated, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import AdminSelect from  '@/components/admin/AdminSelect.vue'
 
 const { cookies } = useCookies();
