@@ -7,6 +7,8 @@
                 <ion-input
                 class="font-size-sm"
                 color="light"
+                :value="wifi.wifiName"
+                @ion-input="wifi.wifiName = String($event.target.value)"
                 ></ion-input>
             </ion-col>
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">                
@@ -14,16 +16,23 @@
                 <ion-input
                 class="font-size-sm"
                 color="light"
+                :value="wifi.wifiPassword"
+                @ion-input="wifi.wifiPassword = String($event.target.value)"
                 ></ion-input>
             </ion-col>
             <ion-col size-xs="12" class="form-admin--group_field">
                 <ion-item>
                     <ion-label color="light">Show wifi password</ion-label>
-                    <ion-toggle  color="light" justify="space-between">Space Between Label and Control</ion-toggle>
+                    <ion-toggle  
+                    color="primary" 
+                    justify="space-between"
+                    :value="wifi.showWifiPassword"
+                    @ion-input="wifi.showWifiPassword = $event.target.value"
+                    />
                 </ion-item>
             </ion-col>
             <ion-col size-xs="12" class="form-admin--group_field">
-                <ion-button class="font-size-sm text-lowercase">
+                <ion-button class="font-size-sm text-lowercase" @click="Space.editSpacesWifi()">
                     Save changes
                 </ion-button>
             </ion-col>
@@ -47,7 +56,16 @@ import {
     IonItem,
     IonIcon
 } from "@ionic/vue";
+import { storeToRefs } from "pinia";
+import {Spaces} from '@/stores/adminSpaces'
+import { onBeforeMount } from "vue";
 
+const Space = Spaces()
+const { wifi } = storeToRefs(Space);
+
+onBeforeMount(() => {
+    Space.getSpacesWifi()
+})
 </script>
 
 <style scoped>

@@ -294,3 +294,9 @@ export interface SpaceBeacon {
   beaconId: string,
   uuiDs: string,
 }
+
+export interface SpaceWifi {
+  showWifiPassword: string,
+  wifiName: string,
+  wifiPassword: string,
+}

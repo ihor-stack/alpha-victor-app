@@ -6,7 +6,8 @@ import {
   SingleFloor, 
   SpaceDevices, 
   SpecificFloor,
-  SpaceBeacon} from '@/types/index'
+  SpaceBeacon,
+  SpaceWifi} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -21,8 +22,8 @@ export const Spaces = defineStore('Spaces', {
       optionSelected: {} as SelectItem,
       qrCode: '' as string,
       devices: [] as SpaceDevices[],
-      beacons: [] as SpaceBeacon[]
-
+      beacons: [] as SpaceBeacon[],
+      wifi: {} as SpaceWifi,
     }
   },
   actions: {
@@ -175,8 +176,28 @@ export const Spaces = defineStore('Spaces', {
         alert.open(error.message)
       })
     },
-  },
-  getters: {
-    Space: (state) => state.space
+    async getSpacesWifi() {
+      adminAPI.get<SpaceWifi>('/Space/' + 
+      cookies.get('spaceId') + '/Wifi'
+      ).then(response => 
+        {
+          this.wifi = response.data
+        }
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async editSpacesWifi() {
+      adminAPI.patch('/Space/' + 
+      cookies.get('spaceId') + 
+      '/Wifi?ShowWifiPassword=' + this.wifi.showWifiPassword +
+      '&WifiName=' + this.wifi.wifiName + 
+      '&WifiPassword=' + this.wifi.wifiPassword
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
   },
 });
