@@ -199,5 +199,26 @@ export const Spaces = defineStore('Spaces', {
         alert.open(error.message)
       })
     },
+    async editSpacesPhoto() {
+      const photoQuery = `?organisationId=${cookies.get('organisationId')}
+      &locationId=${cookies.get('locationId')}
+      &spaceId=${cookies.get('spaceId')}
+      &deviceId=${cookies.get('deviceId')}`
+        adminAPI.post('/Photo' + 
+        photoQuery
+        ).catch(error =>{
+          const alert = Alert()
+          alert.open(error.message)
+        })
+    },
+    async deleteSpacesPhoto(photoId: string) {
+      const photoQuery = `?photoId=${{photoId}}`
+        adminAPI.delete('/Photo' + 
+        photoQuery
+        ).catch(error =>{
+          const alert = Alert()
+          alert.open(error.message)
+        })
+    },
   },
 });
