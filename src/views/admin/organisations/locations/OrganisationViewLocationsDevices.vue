@@ -39,22 +39,10 @@
                                 <ion-modal :keep-contents-mounted="true">
                                     <ion-datetime 
                                     id="datetime1" 
-                                    :value="mytime"
-                                    @ion-change="mytime = $event.target.value, check(index)"
+                                    :value="device.installDate.split('.',1)[0]"
+                                    @ion-change="(e)=>{(device.installDate = String(e.target.value))}"
                                     />
                                 </ion-modal>
-                                <!-- <ion-datetime 
-                                    id="datetime1" 
-                                    :value="device.installDate.split('.',1)[0]"
-                                    @ion-change="device.installDate = String($event.target.value), check(index)"
-                                    /> -->
-                                <!-- <ion-input
-                                class="font-size-sm"
-                                color="light"
-                                type="date"
-                                :value="device.installDate"
-                                @ion-input="device.installDate = String($event.target.value)"
-                                ></ion-input> -->
                             </ion-col>
                             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                                 <ion-label color="light">Warranty expiry date</ion-label>
@@ -65,7 +53,7 @@
                                     display-format="DD/MM/YYYY HH:mm:ss"
                                     picker-format="DD MMM YYYY HH:mm:ss"
                                     :value="device.warrantyExpiryDate.split('.',1)[0]"
-                                    @ion-change="device.warrantyExpiryDate = String($event.target.value), check(index)"
+                                    @ion-change="(e)=>{(device.warrantyExpiryDate = String(e.target.value))}"
                                     />
                                 </ion-modal>
                             </ion-col>
@@ -89,7 +77,8 @@
                                 </ion-button>
                                 <ion-button 
                                 class="font-size-sm text-lowercase delete-button" 
-                                fill="clear" >
+                                fill="clear" 
+                                @click="deleteDevice()">
                                     or delete device
                                 </ion-button>
                             </ion-col>
@@ -99,12 +88,9 @@
                 </ion-accordion-group>
             </ion-col>
             <ion-col size-xs="12">
-                <ion-button class="font-size-sm text-lowercase">
-                    Add new device +
-                </ion-button>
+                <NewDeviceModal />
             </ion-col>
         </ion-row>
-
     </ion-grid>
 </template>
 
@@ -129,24 +115,15 @@ import {
 import {Spaces} from '@/stores/adminSpaces'
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref } from "vue";
-
+import NewDeviceModal from '@/components/admin/spaces/NewDeviceModal.vue'
 const Space = Spaces()
 const {devices} = storeToRefs(Space);
 const currentIndex = ref<number>(0)
 const editDevice = () => {
     Space.editSpacesDevices(currentIndex.value)
 }
-const mytime = ref()
-const items = [
-    {title: 'Facilities Panel - HDMI, VGA & Audio', route: ''},
-    {title: 'USD Extender TX' , route: ''},
-    {title: 'Academy 16U' , route: ''},
-    {title: 'Extron DTP HD DA 4K' , route: ''},
-]
-const check = (index: number) => {
-    console.log(mytime.value)
-    // console.log(devices.value[index].installDate)
-    console.log(devices.value[index].warrantyExpiryDate)
+const deleteDevice = () => {
+    Space.deleteSpacesDevices(currentIndex.value)
 }
 onBeforeMount(() =>[
     Space.getSpacesDevices()

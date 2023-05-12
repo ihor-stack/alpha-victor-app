@@ -118,8 +118,6 @@ export interface AdminTheme {
   logo?: string,
   backgroundImage?: string,
 }
-
-
 export interface AdminMetaData {
   spaceTypes: spaceType[],
   spaceFeatures: spaceFeature[]
@@ -280,7 +278,7 @@ export interface SpaceDetailsDocs {
 }
 
 export interface SpaceDevices {
-  id: string,
+  id?: string,
   name: string,
   serialNumber: string,
   installer: string,
@@ -299,4 +297,11 @@ export interface SpaceWifi {
   showWifiPassword: string,
   wifiName: string,
   wifiPassword: string,
+}
+
+export interface SpaceNewDocument {
+  base64Payload: string,
+  contentType: string,
+  fileName: string,
+  documentTypeId: string,
 }

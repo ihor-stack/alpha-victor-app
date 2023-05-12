@@ -139,7 +139,7 @@ const uploadFile = (event: any) => {
 };
 const uploadFile2 = (event: any) => {
   fileBackGround.value = event.target.files[0];
-  updateBackgrundState()
+  updateBackgroundState()
 };
 const updateLogoState = () => {
   const reader1 = new FileReader();
@@ -167,10 +167,8 @@ const updateLogoState = () => {
       // }
     }
   }
-  //console.log(theme.value)
-  //organisation.saveThemes()
 }
-const updateBackgrundState = () => {
+const updateBackgroundState = () => {
   const reader2 = new FileReader();
   reader2.readAsDataURL(fileBackGround.value);
   reader2.onload = async () => {

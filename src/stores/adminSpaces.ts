@@ -7,7 +7,8 @@ import {
   SpaceDevices, 
   SpecificFloor,
   SpaceBeacon,
-  SpaceWifi} from '@/types/index'
+  SpaceWifi,
+  SpaceNewDocument} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -125,39 +126,37 @@ export const Spaces = defineStore('Spaces', {
     async editSpacesDevices(deviceIndex: number) {
       const deviceEdit = Object.assign({}, this.devices[deviceIndex]);
       delete deviceEdit.photos;
-      console.log(deviceEdit.warrantyExpiryDate.split('.',1)[0])
-      // adminAPI.patch('/Space/' + 
-      // cookies.get('spaceId') + 
-      // '/Device/' + 
-      // this.devices[deviceIndex].id,
-      // deviceEdit
-      // ).catch(error =>{
-      //   const alert = Alert()
-      //   alert.open(error.message)
-      // })
+      adminAPI.patch('/Space/' + 
+      cookies.get('spaceId') + 
+      '/Device/' + 
+      this.devices[deviceIndex].id,
+      deviceEdit
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
     },
     async deleteSpacesDevices(deviceIndex: number) {
       adminAPI.delete('/Space/' + 
       cookies.get('spaceId') + 
       '/Device/' + 
       this.devices[deviceIndex].id,
-      ).catch(error =>{
+      ).then(() => {
+        this.getSpacesDevices()
+      }).catch(error =>{
         const alert = Alert()
         alert.open(error.message)
       })
     },
-    async saveSpacesDevices() {
+    async saveSpacesDevices(newDevice: SpaceDevices) {
       adminAPI.post('/Space/' + 
       cookies.get('spaceId') + 
       '/Device/',
-      {
-        name: 'string',
-        serialNumber: 'string',
-        installer: 'string',
-        installDate: '2023-05-09T16:59:24.771Z',
-        warrantyExpiryDate: '2023-05-09T16:59:24.771Z',
-        description: 'string'
-      }
+      newDevice
+      ).then(() => 
+        {
+          this.getSpacesDevices()
+        }
       ).catch(error =>{
         const alert = Alert()
         alert.open(error.message)
@@ -220,5 +219,24 @@ export const Spaces = defineStore('Spaces', {
           alert.open(error.message)
         })
     },
+    async addSpacesDocument(newDocument: SpaceNewDocument) {
+        adminAPI.post('/Document/' + 
+        cookies.get('spaceId') +
+        '/Document',
+        newDocument
+        ).catch(error =>{
+          const alert = Alert()
+          alert.open(error.message)
+        })
+    },
+    async deleteSpacesDocument(documentId: string) {
+      adminAPI.delete('/Document/' + 
+      cookies.get('spaceId') +
+      '/' + documentId
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+  },
   },
 });
