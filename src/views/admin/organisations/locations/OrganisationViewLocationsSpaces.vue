@@ -48,7 +48,7 @@
             </ion-col>
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Room type</ion-label>
-                <AdminSelect v-model="optionSelected" :options="Space.formattedSelect"/>
+                <AdminSelect v-model="optionSelected" :options="formattedSelect"/>
             </ion-col>
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Capacity</ion-label>
@@ -113,10 +113,7 @@
                 <ion-label color="light">Documents</ion-label>6
             </ion-col>
             <ion-col size-xs="6" class="form-admin--group_field">
-                <ion-chip color="light">
-                    <ion-icon :icon="addOutline" ></ion-icon>
-                    <ion-label>Add New Document</ion-label>
-                </ion-chip>
+                <DocumentModal />
             </ion-col>
             <ion-col size-xs="12" class="form-admin--group_field">
                 <ion-item v-for="document in space.documents" v-bind:key="document.id">
@@ -190,7 +187,7 @@ import { useCookies } from "vue3-cookies";
 import { onBeforeMount, ref } from "vue";
 import AdminSelect from  '@/components/admin/AdminSelect.vue'
 import {addOutline} from 'ionicons/icons'
-
+import DocumentModal from '@/components/admin/spaces/DocumentModal.vue'
 const { cookies } = useCookies();
 const Space = Spaces()
 const { space, currentSpace, formattedSelect, optionSelected } = storeToRefs(Space);
