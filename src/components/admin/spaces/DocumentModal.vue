@@ -46,7 +46,7 @@
                     />
                   </div>
                   </ion-input> -->
-                  <AdminSelect v-model="selectedDocType" :options="documentTypes"/>
+                  <AdminList v-model="selectedDocType" :options="documentTypes"/>
               </div>
           </ion-content>
           <ion-footer>
@@ -81,7 +81,7 @@ import {close} from 'ionicons/icons'
 import {Organisations} from '@/stores/adminOrganisations'
 import {addOutline} from 'ionicons/icons'
 import { storeToRefs } from "pinia";
-import AdminSelect from '@/components/admin/AdminSelect.vue'
+import AdminList from '@/components/admin/AdminList.vue'
 import { SelectItem } from "@/types";
 
 const Org = Organisations()
