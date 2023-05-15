@@ -1,8 +1,22 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import Auth from '@/auth';
 
-export const adminAPI = axios.create({
-  baseURL: `https://alphavictor-dev.azurewebsites.net/api/admin`,
-  headers: {
-  'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ilg1ZVhrNHh5b2pORnVtMWtsMll0djhkbE5QNC1jNTdkTzZRR1RWQndhTmsiLCJ0eXAiOiJKV1QifQ.eyJvaWQiOiJjMjZiMWI0ZS0yNDBmLTRiNzQtYTVkZC1iMWM0YzFhZTg2NDEiLCJzdWIiOiJjMjZiMWI0ZS0yNDBmLTRiNzQtYTVkZC1iMWM0YzFhZTg2NDEiLCJnaXZlbl9uYW1lIjoiTWFyY3VzIiwidGZwIjoiQjJDXzFfU2lnblVwU2lnbkluIiwic2NwIjoiYWxwaGF2aWN0b3IiLCJhenAiOiI2YzY5MGY5NC1kOTU4LTQyZWItOWFjOC1mNGI0NTAzMzc3MTQiLCJ2ZXIiOiIxLjAiLCJpYXQiOjE2ODM0OTAyOTMsImF1ZCI6IjZjNjkwZjk0LWQ5NTgtNDJlYi05YWM4LWY0YjQ1MDMzNzcxNCIsImV4cCI6MTY4MzQ5Mzg5MywiaXNzIjoiaHR0cHM6Ly9hbHBoYXZpY3RvcmRldi5iMmNsb2dpbi5jb20vMzcyMzhjYWItMGZjMi00MjUyLTg4Y2MtMzQ3Mzg1MmI3MTViL3YyLjAvIiwibmJmIjoxNjgzNDkwMjkzfQ.rDagX7TfmqKVVcy-ZeoEKkku-hThqX54zVU0uAzGBIMKd_TOtUjYBAHFUfHBBfqL_KVpVtC5q3ifVSnQlGR3x_Hg18Nszne7Wu_GwUCJTkl5o-eJxEQO_U40zhMINGhxQ0V4dHsha7XZ33FzwT7OrJAcJuhI2Cy6lqkuvnvZtsjf_EYPyp_Hd7FmSUq9T8ewvbpwprCacVjaDXrDQGkH39YGatd7Plml4zbPecZCx3bg0F2JnCiahWx5mKKEFoUibAkZqI6GETd_5IVEQyM2NKWbOqL4R5w7FMOr0ivYtuG6DQVJhcfkasmr2AojxI6b-7Sg1vx45WrUMdCNMeZxQA'
+const adminAPIAxios = axios.create({
+  baseURL: `https://alphavictor-dev.azurewebsites.net/api/admin`
+});
+
+const authService = new Auth();
+
+export const adminAPI = async (config : AxiosRequestConfig) => {
+
+  const accessToken = await authService.fetchCurrentAccessToken();
+
+  if (accessToken) {
+    config.headers = {
+      Authorization: `Bearer ${accessToken}`
+    };
   }
-})
+
+  return await adminAPIAxios(config);   
+
+}
