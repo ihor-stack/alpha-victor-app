@@ -78,13 +78,10 @@
         </ion-row>
         <ion-row class="form-admin--group_field component_container">
             <ion-col size-xs="6" class="form-admin--group_field">
-                <ion-label color="light">Photos</ion-label>6
+                <ion-label color="light">Photos</ion-label>
             </ion-col>
             <ion-col size-xs="6" class="form-admin--group_field">
-                <ion-chip color="light">
-                    <ion-icon :icon="addOutline" ></ion-icon>
-                    <ion-label>Add New Photo</ion-label>
-                </ion-chip>
+                <PhotoModal />
             </ion-col>
             <ion-col 
             size-xs="12" 
@@ -104,6 +101,7 @@
                         slot="end"  
                         fill="clear"
                         size="small"
+                        @click="removePhoto(photo.id)"
                         >
                         &gt;&gt; remove
                     </ion-button>
@@ -188,6 +186,7 @@ import { onBeforeMount, ref } from "vue";
 import AdminSelect from  '@/components/admin/AdminSelect.vue'
 import {addOutline} from 'ionicons/icons'
 import DocumentModal from '@/components/admin/spaces/DocumentModal.vue'
+import PhotoModal from '@/components/admin/spaces/PhotoModal.vue'
 const { cookies } = useCookies();
 const Space = Spaces()
 const { space, currentSpace, formattedSelect, optionSelected } = storeToRefs(Space);
@@ -206,6 +205,9 @@ const redirect = (route: string) => {
             spaceId: cookies.get('spaceId')}
         }
     }
+}
+const removePhoto = (photoId: string) => {
+    Space.deleteSpacesPhoto(photoId)
 }
 const spaceRoutes = [
     {title: 'Panorama' , route: ''},
@@ -231,7 +233,7 @@ const spaceFeatures = [
       name: "Presenting",
       category: "presenting",
     },
-  ]
+]
 </script>
 
 <style scoped>
