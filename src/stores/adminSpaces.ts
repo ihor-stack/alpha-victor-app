@@ -1,6 +1,14 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
-import {DetailedSpace, SelectItem, SingleFloor, SpecificFloor} from '@/types/index'
+import {
+  DetailedSpace, 
+  SelectItem, 
+  SingleFloor, 
+  SpaceDevices, 
+  SpecificFloor,
+  SpaceBeacon,
+  SpaceWifi,
+  SpaceNewDocument} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -13,7 +21,10 @@ export const Spaces = defineStore('Spaces', {
       currentSpace: '' as string,
       formattedSelect: [] as SelectItem[],
       optionSelected: {} as SelectItem,
-      qrCode: '' as string
+      qrCode: '' as string,
+      devices: [] as SpaceDevices[],
+      beacons: [] as SpaceBeacon[],
+      wifi: {} as SpaceWifi,
     }
   },
   actions: {
@@ -101,9 +112,131 @@ export const Spaces = defineStore('Spaces', {
         alert.open(error.message)
       })
     },
-    
+    async getSpacesDevices() {
+      adminAPI.get<SpaceDevices[]>('/Space/' + cookies.get('spaceId') + '/Device')
+      .then(response => 
+        {
+          this.devices = response.data
+        }
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async editSpacesDevices(deviceIndex: number) {
+      const deviceEdit = Object.assign({}, this.devices[deviceIndex]);
+      delete deviceEdit.photos;
+      adminAPI.patch('/Space/' + 
+      cookies.get('spaceId') + 
+      '/Device/' + 
+      this.devices[deviceIndex].id,
+      deviceEdit
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async deleteSpacesDevices(deviceIndex: number) {
+      adminAPI.delete('/Space/' + 
+      cookies.get('spaceId') + 
+      '/Device/' + 
+      this.devices[deviceIndex].id,
+      ).then(() => {
+        this.getSpacesDevices()
+      }).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async saveSpacesDevices(newDevice: SpaceDevices) {
+      adminAPI.post('/Space/' + 
+      cookies.get('spaceId') + 
+      '/Device/',
+      newDevice
+      ).then(() => 
+        {
+          this.getSpacesDevices()
+        }
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async getSpacesBeacon(minor: string, major: string) {
+      adminAPI.get<SpaceBeacon[]>('/Space/' + 
+      cookies.get('spaceId') + 
+      '/Beacon?Minor=' + minor + '&Major=' + major
+      ).then(response => 
+        {
+          this.beacons = response.data
+        }
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async getSpacesWifi() {
+      adminAPI.get<SpaceWifi>('/Space/' + 
+      cookies.get('spaceId') + '/Wifi'
+      ).then(response => 
+        {
+          this.wifi = response.data
+        }
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async editSpacesWifi() {
+      adminAPI.patch('/Space/' + 
+      cookies.get('spaceId') + 
+      '/Wifi?ShowWifiPassword=' + this.wifi.showWifiPassword +
+      '&WifiName=' + this.wifi.wifiName + 
+      '&WifiPassword=' + this.wifi.wifiPassword
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
+    async editSpacesPhoto() {
+      const photoQuery = `?organisationId=${cookies.get('organisationId')}
+      &locationId=${cookies.get('locationId')}
+      &spaceId=${cookies.get('spaceId')}
+      &deviceId=${cookies.get('deviceId')}`
+        adminAPI.post('/Photo' + 
+        photoQuery
+        ).catch(error =>{
+          const alert = Alert()
+          alert.open(error.message)
+        })
+    },
+    async deleteSpacesPhoto(photoId: string) {
+      const photoQuery = `?photoId=${{photoId}}`
+        adminAPI.delete('/Photo' + 
+        photoQuery
+        ).catch(error =>{
+          const alert = Alert()
+          alert.open(error.message)
+        })
+    },
+    async addSpacesDocument(newDocument: SpaceNewDocument) {
+        adminAPI.post('/Document/' + 
+        cookies.get('spaceId') +
+        '/Document',
+        newDocument
+        ).catch(error =>{
+          const alert = Alert()
+          alert.open(error.message)
+        })
+    },
+    async deleteSpacesDocument(documentId: string) {
+      adminAPI.delete('/Document/' + 
+      cookies.get('spaceId') +
+      '/' + documentId
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
   },
-  getters: {
-    Space: (state) => state.space
   },
 });
