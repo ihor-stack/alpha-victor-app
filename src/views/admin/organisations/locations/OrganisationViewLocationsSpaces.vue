@@ -48,7 +48,7 @@
             </ion-col>
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Room type</ion-label>
-                <AdminSelect v-model="optionSelected" :options="Space.formattedSelect"/>
+                <AdminSelect v-model="optionSelected" :options="formattedSelect"/>
             </ion-col>
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Capacity</ion-label>
@@ -76,8 +76,16 @@
                 ></ion-input>
             </ion-col>
         </ion-row>
-        <ion-label color="light">Photos</ion-label>
         <ion-row class="form-admin--group_field component_container">
+            <ion-col size-xs="6" class="form-admin--group_field">
+                <ion-label color="light">Photos</ion-label>6
+            </ion-col>
+            <ion-col size-xs="6" class="form-admin--group_field">
+                <ion-chip color="light">
+                    <ion-icon :icon="addOutline" ></ion-icon>
+                    <ion-label>Add New Photo</ion-label>
+                </ion-chip>
+            </ion-col>
             <ion-col 
             size-xs="12" 
             size-md="6" 
@@ -105,7 +113,7 @@
                 <ion-label color="light">Documents</ion-label>6
             </ion-col>
             <ion-col size-xs="6" class="form-admin--group_field">
-                <ion-label color="light">+ Add New Document</ion-label>
+                <DocumentModal />
             </ion-col>
             <ion-col size-xs="12" class="form-admin--group_field">
                 <ion-item v-for="document in space.documents" v-bind:key="document.id">
@@ -162,7 +170,8 @@ import {
     IonInput,
     IonIcon,
     IonButton,
-    IonThumbnail
+    IonThumbnail,
+    IonChip
 } from "@ionic/vue";
 import { 
     chevronForwardOutline, 
@@ -175,9 +184,10 @@ import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
 import { storeToRefs } from "pinia";
 import {Spaces} from '@/stores/adminSpaces'
 import { useCookies } from "vue3-cookies";
-import { onBeforeMount, onMounted, onUpdated, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import AdminSelect from  '@/components/admin/AdminSelect.vue'
-
+import {addOutline} from 'ionicons/icons'
+import DocumentModal from '@/components/admin/spaces/DocumentModal.vue'
 const { cookies } = useCookies();
 const Space = Spaces()
 const { space, currentSpace, formattedSelect, optionSelected } = storeToRefs(Space);
