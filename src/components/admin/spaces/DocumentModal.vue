@@ -26,11 +26,11 @@
           </ion-header>
           <ion-content :scroll-y="false" class="form-admin--group_field">
               <div class="issues-panel__section issues-panel__select-equipment">
-                  <!-- <ion-input 
+                  <ion-input 
                   color="light" 
-                  placeholder="e.g. meeting room"
-                  :value="newFeature"
-                  @input="newFeature=$event.target.value" />
+                  placeholder="Document Name"
+                  :value="newDocument"
+                  @input="newDocument=$event.target.value" />
                   <ion-input
                     class="font-size-sm"
                     color="light"
@@ -40,22 +40,22 @@
                     <input
                       class="file-input"
                       type="file"
-                      accept="image/*"
+                      accept="*/"
                       :v-model="image"
                       @change="uploadFile" 
                     />
                   </div>
-                  </ion-input> -->
+                  </ion-input>
                   <AdminList v-model="selectedDocType" :options="documentTypes"/>
               </div>
           </ion-content>
           <ion-footer>
-              <!-- <ion-button 
+              <ion-button 
               class="font-size-sm text-lowercase"
               expand="block"
-              @click="saveNewFeature()">
-              Add new space feature +
-              </ion-button> -->
+              @click="saveNewDocument()">
+                Save
+              </ion-button>
           </ion-footer>
         </div>
       </div>
@@ -79,74 +79,61 @@ import {
 } from "@ionic/vue";
 import {close} from 'ionicons/icons'
 import {Organisations} from '@/stores/adminOrganisations'
+import {Spaces} from '@/stores/adminSpaces'
+
 import {addOutline} from 'ionicons/icons'
 import { storeToRefs } from "pinia";
 import AdminList from '@/components/admin/AdminList.vue'
 import { SelectItem } from "@/types";
 
 const Org = Organisations()
+const Space = Spaces()
 const {documentTypes} = storeToRefs(Org)
 const selectedDocType = ref({} as SelectItem) 
 
 const modalOpen = ref(false)
-const newFeature = ref('')
+const newDocument = ref('')
 const handleDismiss = () => {
   modalOpen.value = false;
 };
 const image = ref()
-const fileLogo = ref();
-const fileName1 = computed(() => fileLogo.value?.name);
-const fileExtension1 = computed(() => fileName1.value?.substr(fileName1.value?.lastIndexOf(".") + 1));
-const fileMimeType1 = computed(() => fileLogo.value?.type);
+const uploadedDoc = ref()
+const fileName = computed(() => uploadedDoc.value?.name);
+const fileExtension = computed(() => fileName.value?.substr(fileName.value?.lastIndexOf(".") + 0));
+const fileMimeType = computed(() => uploadedDoc.value?.type);
 const uploadFile = (event: any) => {
-  fileLogo.value = event.target.files[0];
-  //updateLogoState()
+  uploadedDoc.value = event.target.files[0];
 };
-// const saveNewFeature = () => {
-//   console.log(newFeature.value)
-//   Spaces.saveSpaceFeature(newFeature.value)
-//   modalOpen.value = false
-// }
-// const image = ref()
-// const fileLogo = ref();
-// const fileName1 = computed(() => fileLogo.value?.name);
-// const fileExtension1 = computed(() => fileName1.value?.substr(fileName1.value?.lastIndexOf(".") + 1));
-// const fileMimeType1 = computed(() => fileLogo.value?.type);
-// const uploadFile = (event: any) => {
-//   fileLogo.value = event.target.files[0];
-//   updateLogoState()
-// };
-// const updateLogoState = () => {
-// const reader1 = new FileReader();
-// reader1.readAsDataURL(fileLogo.value);
-// reader1.onload = async () => {
-  // if (typeof reader1.result === 'string') {
-  //   const encodedFile = reader1.result?.split(",")[1];
-  //   theme.value.logo = fileName1.value
-  //   theme.value.logoFileName = fileName1.value
-  //   theme.value.logoContentType = fileExtension1.value
-  //   theme.value.logoBase64Payload = encodedFile
+const saveNewDocument = () => {
+  const reader = new FileReader();
+  reader.readAsDataURL(uploadedDoc.value);
+  reader.onload = async () => {
+    if (typeof reader.result === 'string') {
+      const encodedFile = reader.result?.split(",")[1];
+      uploadedDoc.value.logo = fileName.value
+      uploadedDoc.value.logoFileName = fileName.value
+      uploadedDoc.value.logoContentType = fileExtension.value
+      uploadedDoc.value.logoBase64Payload = encodedFile
 
-  //   const data = {
-  //     file: encodedFile,
-  //     fileName: fileName1.value,
-  //     fileExtension: fileExtension1.value,
-  //     fileMimeType: fileMimeType1.value,
-  //   }
-  //   try {
-  //     console.log(data)
-  //     return data;
-  //   }
-  //   catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-// }
-// }
+      const data = {
+        base64Payload: encodedFile,
+        fileName: fileName.value,
+        documentTypeId: selectedDocType.value.aditionalInfo,
+        contentType: fileMimeType.value,
+      }
+      try {
+        Space.addSpacesDocument(data)
+        return data;
+      }
+      catch (error) {
+        console.error(error);
+      }
+    }
+  }
+}
 
 onBeforeMount(()=>{
   Org.getOrgDocumentTypes()
-  //console.log('documentTypes',documentTypes)
 })
 </script>
 
