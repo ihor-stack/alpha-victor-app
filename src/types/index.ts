@@ -305,3 +305,11 @@ export interface SpaceNewDocument {
   fileName: string,
   documentTypeId: string,
 }
+
+export interface NewPhoto {
+  base64Payload: string,
+  fileName: string,
+  contentType: string,
+  "order": string,
+  "featuredPhoto": string,
+}
