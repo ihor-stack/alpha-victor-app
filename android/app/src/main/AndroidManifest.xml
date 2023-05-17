@@ -23,6 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!-- azure ad b2c -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/azure_b2c_scheme" android:host="@string/package_name" android:path="@string/azure_b2c_signature_hash" />
+            </intent-filter>
+
         </activity>
 
         <provider
