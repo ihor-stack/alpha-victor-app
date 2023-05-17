@@ -8,7 +8,8 @@ import {
   SpecificFloor,
   SpaceBeacon,
   SpaceWifi,
-  SpaceNewDocument} from '@/types/index'
+  SpaceNewDocument,
+  NewPhoto} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -198,11 +199,8 @@ export const Spaces = defineStore('Spaces', {
         alert.open(error.message)
       })
     },
-    async editSpacesPhoto() {
-      const photoQuery = `?organisationId=${cookies.get('organisationId')}
-      &locationId=${cookies.get('locationId')}
-      &spaceId=${cookies.get('spaceId')}
-      &deviceId=${cookies.get('deviceId')}`
+    async saveSpacesPhoto() {
+      const photoQuery = `?spaceId=${cookies.get('spaceId')}`
         adminAPI.post('/Photo' + 
         photoQuery
         ).catch(error =>{
@@ -214,6 +212,8 @@ export const Spaces = defineStore('Spaces', {
       const photoQuery = `?photoId=${{photoId}}`
         adminAPI.delete('/Photo' + 
         photoQuery
+        ).then(response => 
+          this.getSpaces()
         ).catch(error =>{
           const alert = Alert()
           alert.open(error.message)
@@ -224,6 +224,8 @@ export const Spaces = defineStore('Spaces', {
         cookies.get('spaceId') +
         '/Document',
         newDocument
+        ).then(response => 
+          this.getSpaces()
         ).catch(error =>{
           const alert = Alert()
           alert.open(error.message)
@@ -237,6 +239,15 @@ export const Spaces = defineStore('Spaces', {
         const alert = Alert()
         alert.open(error.message)
       })
-  },
+    },
+    async addSpacesPhoto(newPhoto: NewPhoto) {
+      adminAPI.post('/Photo?spaceId=' + cookies.get('spaceId'),
+      ).then(() => 
+        this.getSpaces()
+      ).catch(error =>{
+        const alert = Alert()
+        alert.open(error.message)
+      })
+    },
   },
 });
