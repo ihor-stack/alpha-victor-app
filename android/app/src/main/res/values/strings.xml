@@ -2,6 +2,12 @@
 <resources>
     <string name="app_name">alpha-victor</string>
     <string name="title_activity_main">alpha-victor</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="package_name">com.mythdigital.alphavictor</string>
+    <string name="custom_url_scheme">com.mythdigital.alphavictor</string>
+    <string name="custom_host">alphavictor</string>
+    <string name="azure_b2c_scheme">msauth</string>
+    <!-- TODO: Populate this from directory --> 
+    <!-- The leading slash is required. Copied from Azure Portal Android Config "Signature hash" field -->
+    <string name="azure_b2c_signature_hash">/your-signature-hash</string>
+
 </resources>

@@ -32,3 +32,6 @@ npm-debug.log*
 /www
 
 *.pdf
+
+.env*
+!.env.sample
