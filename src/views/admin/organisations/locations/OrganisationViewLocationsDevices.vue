@@ -35,10 +35,10 @@
                             </ion-col>
                             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                                 <ion-label color="light">Install date</ion-label>
-                                <ion-datetime-button datetime="datetime1"></ion-datetime-button>
+                                <ion-datetime-button :datetime="`installDate${device.id}`"></ion-datetime-button>
                                 <ion-modal :keep-contents-mounted="true">
                                     <ion-datetime 
-                                    id="datetime1" 
+                                    :id="`installDate${device.id}`"
                                     :value="device.installDate.split('.',1)[0]"
                                     @ion-change="(e)=>{(device.installDate = String(e.target.value))}"
                                     />
@@ -46,12 +46,10 @@
                             </ion-col>
                             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                                 <ion-label color="light">Warranty expiry date</ion-label>
-                                <ion-datetime-button datetime="datetime2"></ion-datetime-button>
+                                <ion-datetime-button :datetime="`warrantyDate${device.id}`"></ion-datetime-button>
                                 <ion-modal :keep-contents-mounted="true">
                                     <ion-datetime 
-                                    id="datetime2" 
-                                    display-format="DD/MM/YYYY HH:mm:ss"
-                                    picker-format="DD MMM YYYY HH:mm:ss"
+                                    :id="`warrantyDate${device.id}`"
                                     :value="device.warrantyExpiryDate.split('.',1)[0]"
                                     @ion-change="(e)=>{(device.warrantyExpiryDate = String(e.target.value))}"
                                     />
