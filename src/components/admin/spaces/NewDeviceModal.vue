@@ -58,7 +58,8 @@
                 <ion-modal :keep-contents-mounted="true">
                     <ion-datetime 
                     id="datetime1" 
-                    :value="newDevice.installDate"
+                    display-format="DD/MM/YYYY HH:mm:ss"
+                    picker-format="DD MMM YYYY HH:mm:ss"
                     @ion-change="(e)=>{(newDevice.installDate = String(e.target.value))}"
                     />
                 </ion-modal>
@@ -71,7 +72,6 @@
                     id="datetime2" 
                     display-format="DD/MM/YYYY HH:mm:ss"
                     picker-format="DD MMM YYYY HH:mm:ss"
-                    :value="newDevice.warrantyExpiryDate"
                     @ion-change="(e)=>{(newDevice.warrantyExpiryDate = String(e.target.value))}"
                     />
                 </ion-modal>
@@ -130,7 +130,7 @@ const handleDismiss = () => {
 };
 const saveNewDevice = () => {
   console.log(newDevice.value)
-  Space.saveSpacesDevices(newDevice.value)
+  //Space.saveSpacesDevices(newDevice.value)
 }
 </script>
 

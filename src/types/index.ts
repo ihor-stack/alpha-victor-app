@@ -311,5 +311,5 @@ export interface NewPhoto {
   fileName: string,
   contentType: string,
   "order": string,
-  "featuredPhoto": string,
+  "featuredPhoto": boolean,
 }
