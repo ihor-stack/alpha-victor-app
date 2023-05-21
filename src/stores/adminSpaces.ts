@@ -209,7 +209,7 @@ export const Spaces = defineStore('Spaces', {
         })
     },
     async deleteSpacesPhoto(photoId: string) {
-      const photoQuery = `?photoId=${{photoId}}`
+      const photoQuery = `?photoId=${photoId}`
         adminAPI.delete('/Photo' + 
         photoQuery
         ).then(response => 
@@ -224,7 +224,7 @@ export const Spaces = defineStore('Spaces', {
         cookies.get('spaceId') +
         '/Document',
         newDocument
-        ).then(response => 
+        ).then(() => 
           this.getSpaces()
         ).catch(error =>{
           const alert = Alert()
@@ -234,14 +234,16 @@ export const Spaces = defineStore('Spaces', {
     async deleteSpacesDocument(documentId: string) {
       adminAPI.delete('/Document/' + 
       cookies.get('spaceId') +
-      '/' + documentId
+      '/Document/' + documentId
+      ).then(() => 
+        this.getSpaces()
       ).catch(error =>{
         const alert = Alert()
         alert.open(error.message)
       })
     },
     async addSpacesPhoto(newPhoto: NewPhoto) {
-      adminAPI.post('/Photo?spaceId=' + cookies.get('spaceId'),
+      adminAPI.post('/Photo?spaceId=' + cookies.get('spaceId'),newPhoto
       ).then(() => 
         this.getSpaces()
       ).catch(error =>{

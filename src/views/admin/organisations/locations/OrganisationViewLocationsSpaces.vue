@@ -121,6 +121,7 @@
                         slot="end"  
                         fill="clear"
                         size="small"
+                        @click="Space.deleteSpacesDocument(document.id)"
                         >
                         &gt;&gt; remove
                     </ion-button>

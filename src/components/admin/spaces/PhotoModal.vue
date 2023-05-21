@@ -114,7 +114,7 @@ const saveNewPhoto = () => {
         fileName: fileName.value,
         contentType: fileMimeType.value,
         order: '0',
-        featuredPhoto: String(featured.value)
+        featuredPhoto: featured.value
       }
       try {
         Space.addSpacesPhoto(data)

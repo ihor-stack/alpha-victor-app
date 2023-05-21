@@ -1,22 +1,23 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import Auth from '@/auth';
 
-const adminAPIAxios = axios.create({
+const adminAPI = axios.create({
   baseURL: `https://alphavictor-dev.azurewebsites.net/api/admin`
 });
 
 const authService = new Auth();
 
-export const adminAPI = async (config : AxiosRequestConfig) => {
+adminAPI.interceptors.request.use(async (c) => {
 
   const accessToken = await authService.fetchCurrentAccessToken();
 
   if (accessToken) {
-    config.headers = {
-      Authorization: `Bearer ${accessToken}`
-    };
+    c.headers.Authorization = `Bearer ${accessToken}`;
   }
 
-  return await adminAPIAxios(config);   
+  return c;
 
-}
+});
+
+export { adminAPI };
+
