@@ -54,24 +54,28 @@
               </ion-col>
               <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Install date</ion-label>
-                <ion-datetime-button datetime="datetime1"></ion-datetime-button>
+                <ion-datetime-button datetime="newDocInstallDate"></ion-datetime-button>
                 <ion-modal :keep-contents-mounted="true">
                     <ion-datetime 
-                    id="datetime1" 
+                    id="newDocInstallDate" 
+                    display-format="DD/MM/YYYY HH:mm:ss"
+                    picker-format="DD MMM YYYY HH:mm:ss"
                     :value="newDevice.installDate"
+                    show-default-buttons
                     @ion-change="(e)=>{(newDevice.installDate = String(e.target.value))}"
                     />
                 </ion-modal>
               </ion-col>
               <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Warranty expiry date</ion-label>
-                <ion-datetime-button datetime="datetime2"></ion-datetime-button>
+                <ion-datetime-button datetime="newDocWarrantyDate"></ion-datetime-button>
                 <ion-modal :keep-contents-mounted="true">
                     <ion-datetime 
-                    id="datetime2" 
+                    id="newDocWarrantyDate" 
                     display-format="DD/MM/YYYY HH:mm:ss"
                     picker-format="DD MMM YYYY HH:mm:ss"
                     :value="newDevice.warrantyExpiryDate"
+                    :show-default-buttons="true"
                     @ion-change="(e)=>{(newDevice.warrantyExpiryDate = String(e.target.value))}"
                     />
                 </ion-modal>
@@ -128,9 +132,12 @@ const modalOpen = ref(false)
 const handleDismiss = () => {
   modalOpen.value = false;
 };
+const check = (value: any) =>{
+  console.log(value)
+}
 const saveNewDevice = () => {
   console.log(newDevice.value)
-  Space.saveSpacesDevices(newDevice.value)
+  //Space.saveSpacesDevices(newDevice.value)
 }
 </script>
 
