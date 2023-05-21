@@ -13,7 +13,7 @@ export default class Auth {
 
   static getCurrentTimeInSeconds() : number {
     return Math.floor(Date.now() / 1000);
-  };
+  }
 
   static getOidcOptions() : OAuth2AuthenticateOptions {
     return {
