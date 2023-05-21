@@ -13,6 +13,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/auth/LogIn.vue"),
   },
   {
+    path: "/email-link-login",
+    name: "EmailLinkLogin",
+    component: () => import("@/views/auth/EmailLinkLogin.vue"),
+  },
+  {
     path: "/signup",
     name: "Signup",
     component: () => import("@/views/onboarding/SignUp.vue"),

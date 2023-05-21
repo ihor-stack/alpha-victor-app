@@ -15,12 +15,15 @@ export default class Auth {
     return Math.floor(Date.now() / 1000);
   }
 
-  static getOidcOptions() : OAuth2AuthenticateOptions {
-    return {
+  static getOidcOptions(emailLinkLogin : boolean, idTokenHint : string | null) : OAuth2AuthenticateOptions {
+
+    const policy = emailLinkLogin ? process.env.VUE_APP_AUTH_EMAIL_LINK_SIGNIN_POLICY_NAME : process.env.VUE_APP_AUTH_SIGNIN_POLICY_NAME;
+
+    const authOptions = {
       appId: process.env.VUE_APP_AUTH_CLIENT_ID,
-      authorizationBaseUrl: `https://${process.env.VUE_APP_AUTH_TENANT_NAME}.b2clogin.com/${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/${process.env.VUE_APP_AUTH_POLICY_NAME}/oauth2/v2.0/authorize`,
+      authorizationBaseUrl: `https://${process.env.VUE_APP_AUTH_TENANT_NAME}.b2clogin.com/${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/${policy}/oauth2/v2.0/authorize`,
       scope: `openid offline_access https://${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/${process.env.VUE_APP_AUTH_CLIENT_ID}/alphavictor`,
-      accessTokenEndpoint: `https://${process.env.VUE_APP_AUTH_TENANT_NAME}.b2clogin.com/${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/${process.env.VUE_APP_AUTH_POLICY_NAME}/oauth2/v2.0/token`,
+      accessTokenEndpoint: `https://${process.env.VUE_APP_AUTH_TENANT_NAME}.b2clogin.com/${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/${policy}/oauth2/v2.0/token`,
       responseType: "code",
       pkceEnabled: true,
       logsEnabled: true,
@@ -34,8 +37,15 @@ export default class Auth {
       ios: {
           pkceEnabled: true,
           redirectUrl: "msauth.{package-name}://auth"
-      }
+      },
+      additionalParameters: {}
     };
+
+    if (emailLinkLogin) {
+      authOptions.additionalParameters = { "id_token_hint": idTokenHint}
+    }
+
+    return authOptions;
   }
 
   static getOidcRefreshOptions(refreshToken : string) : OAuth2RefreshTokenOptions {
@@ -72,18 +82,18 @@ export default class Auth {
     return true;
   }
 
-  async authenticate() : Promise<boolean> {
+  async authenticate(emailLinkLogin : boolean, idTokenHint : string | null = null) : Promise<boolean> {
 
-    const oidcOptions = Auth.getOidcOptions();
+    const oidcOptions = Auth.getOidcOptions(emailLinkLogin, idTokenHint);
 
     try {
   
       const resp = await OAuth2Client.authenticate(oidcOptions);
   
       const accessToken = resp["access_token"];
-      const refreshToken = resp["refresh_token"];
-      const expiresIn = resp["expiresIn"];
-      const issuedAt = resp["issuedAt"];
+      const refreshToken = resp['access_token_response']["refresh_token"];
+      const expiresIn = resp['access_token_response']["expires_in"];
+      const issuedAt = Auth.getCurrentTimeInSeconds().toString();
   
       await SecureStoragePlugin.set( {key: SECURE_STORE_ACCESS_TOKEN, value: accessToken });
       await SecureStoragePlugin.set( {key: SECURE_STORE_REFRESH_TOKEN, value: refreshToken });
@@ -112,9 +122,9 @@ export default class Auth {
       const resp = await OAuth2Client.refreshToken(oidcRefreshOptions);
 
       const accessToken = resp["access_token"];
-      const refreshToken = resp["refresh_token"];
-      const expiresIn = resp["expiresIn"];
-      const issuedAt = resp["issuedAt"];
+      const refreshToken = resp['access_token_response']["refresh_token"];
+      const expiresIn = resp['access_token_response']["expires_in"];
+      const issuedAt = Auth.getCurrentTimeInSeconds().toString();
 
       await SecureStoragePlugin.set( {key: SECURE_STORE_ACCESS_TOKEN, value: accessToken });
       await SecureStoragePlugin.set( {key: SECURE_STORE_REFRESH_TOKEN, value: refreshToken });

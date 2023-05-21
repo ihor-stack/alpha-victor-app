@@ -13,20 +13,16 @@
                   Sign in to your<br />account.
                 </h1>
               </div>
-              <div class="login-form">
+              <!-- <div class="login-form">
                 <div class="login-form-fields">
                   <ion-input type="email" class="custom-input" placeholder="Email" name="email" />
-                  <ion-input type="password" class="custom-input" placeholder="Password" name="password" />
-                  <div class="text-right">
-                    <router-link class="forgot-password" :to="{ name: 'ForgotPassword' }">Forgot password?</router-link>
-                  </div>
                 </div>
-              </div>
+              </div> -->
               <ion-footer>
                 <div>
                   <ion-button expand="block" @click="signIn">Sign in</ion-button>
-                  <ion-button fill="outline" color="light" expand="block" @click="signInViaEmail">Sign in via
-                  email</ion-button>
+                  <!-- <ion-button fill="outline" color="light" expand="block" @click="signInViaEmail">Sign in via
+                  email</ion-button> -->
                 </div>
                 <div class="link-container text-center">
                   <p class="color-mid-gray font-md">
@@ -46,14 +42,26 @@
 <script setup lang="ts">
 import { IonContent, IonFooter, IonPage, IonButton, IonInput } from "@ionic/vue";
 import DotText from "@/components/shared/DotText.vue";
+import { useRouter  } from "vue-router";
+import Auth from "@/auth";
 
-const signIn = () => {
+const router = useRouter();
+const authService = new Auth();
+
+const signIn = async () => {
   // Sign in logic here
-  return null;
+  const authRes = await authService.authenticate(false);
+
+  if (authRes) {
+    return router.replace({ name: "Dashboard" });
+  } else {
+    return router.replace({ name: "Login" });
+  }
 };
 
 const signInViaEmail = () => {
   // Sign in via email logic here
+  // TODO: Do API integration here 
   return null;
 };
 </script>
