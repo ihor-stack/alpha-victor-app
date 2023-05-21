@@ -23,7 +23,7 @@ export const Organisations = defineStore('Organisations', {
       return true
     },
     async getOrganisations() {
-      adminAPI.get<AdminOrganisation[]>('/Organisation' ).then(response => 
+      adminAPI.get<AdminOrganisation[]>('/Organisation/' + cookies.get('orgId') ).then(response => 
         {
           this.organisationList = response.data  
         }
