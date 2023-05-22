@@ -1,5 +1,6 @@
-import { defineStore } from "pinia";
+import { defineStore } from "pinia"
 import {adminAPI} from '@/axios'
+import {publicAPI} from '@/axios'
 import { AdminOrganisation, OrgDetails, NewOrgDetails, SelectItem, AdminDocument} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
@@ -23,9 +24,9 @@ export const Organisations = defineStore('Organisations', {
       return true
     },
     async getOrganisations() {
-      adminAPI.get<AdminOrganisation[]>('/Organisation/' + cookies.get('orgId') ).then(response => 
+      publicAPI.get<AdminOrganisation[]>('/Organisation/').then(response => 
         {
-          this.organisationList = response.data  
+          this.organisationList = response.data
         }
       ).catch(error =>{
         const alert = Alert()
@@ -37,7 +38,6 @@ export const Organisations = defineStore('Organisations', {
       .then(response => 
         {
           this.organisationDetails = response.data
-          
         }
       ).catch(error =>{
         const alert = Alert()

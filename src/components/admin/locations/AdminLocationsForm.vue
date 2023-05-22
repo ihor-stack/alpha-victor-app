@@ -1,146 +1,130 @@
 <template>
-    <h1 class="font-bold font-size-lg color-light-gray">Location Details</h1>
-    <ion-grid class="form-admin">
-        <ion-row class="form-admin--group_field">
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Location name</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.name"
-                @ion-input="location.name = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Location prefix</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.prefix"
-                @ion-input="location.prefix = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Main contact name</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.mainContactName"
-                @ion-input="location.mainContactName = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Email address</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.email"
-                @ion-input="location.email = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Phone number</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.phone"
-                @ion-input="location.phone = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">SOS Number</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.sosNumber"
-                @ion-input="location.sosNumber = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Public Wifi</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.wifiSsid"
-                @ion-input="location.wifiSsid = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Wifi Password</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.wifiPassword"
-                @ion-input="location.wifiPassword = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Address Line 1</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.addressLines[0]"
-                @ion-input="location.addressLines[0] = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Address Line 2</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.addressLines[1]"
-                @ion-input="location.addressLines[1] = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">City</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.city"
-                @ion-input="location.city = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Area Code</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="location.postcode"
-                @ion-input="location.postcode = String($event.target.value)"
-                ></ion-input>
-            </ion-col>
-            <!-- <ion-col size-xs="12">
-                <AdminFloorsField />
-            </ion-col> -->
-            <ion-col size-xs="12">
-                <h1 class="font-bold font-size-lg color-light-gray">Floors</h1>
-                <ion-item 
-                v-for="(floor, index) in floors" 
-                :key="index" 
-                button
-                :router-link="redirect(String(floor.id))"
-                router-direction="root">
-                <ion-label color="light" >
-                    <h2>{{floor.name}}</h2>
-                    <p>Floor</p>
-                </ion-label>
-                <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
-                </ion-item>
-            </ion-col>
-            <ion-col size-xs="12">
-                <ion-button class="font-size-xs text-lowercase" @click="saveChanges(location.id)">
-                    Save changes
-                </ion-button>
-                <ion-button 
-                class="font-size-xs text-lowercase export-button" 
-                fill="outline" 
-                color="--av-light-gray">
-                    Export QR Codes
-                </ion-button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+    <div>
+        <h1 class="font-bold font-size-lg color-light-gray">Location Details</h1>
+        <ion-grid class="form-admin">
+            <ion-row class="form-admin--group_field">
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">Location name</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.name"
+                    @ion-input="location.name = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">Location prefix</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.prefix"
+                    @ion-input="location.prefix = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">Main contact name</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.mainContactName"
+                    @ion-input="location.mainContactName = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">Email address</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.email"
+                    @ion-input="location.email = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">Phone number</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.phone"
+                    @ion-input="location.phone = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">SOS Number</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.sosNumber"
+                    @ion-input="location.sosNumber = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">Public Wifi</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.wifiSsid"
+                    @ion-input="location.wifiSsid = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">Wifi Password</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.wifiPassword"
+                    @ion-input="location.wifiPassword = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">Address Line 1</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.addressLines[0]"
+                    @ion-input="location.addressLines[0] = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">Address Line 2</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.addressLines[1]"
+                    @ion-input="location.addressLines[1] = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">City</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.city"
+                    @ion-input="location.city = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <ion-label color="light">Area Code</ion-label>
+                    <ion-input
+                    class="font-size-sm"
+                    color="light"
+                    :value="location.postcode"
+                    @ion-input="location.postcode = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12">
+                    <ion-button class="font-size-xs text-lowercase" @click="saveChanges(location.id)">
+                        Save changes
+                    </ion-button>
+                    <ion-button 
+                    class="font-size-xs text-lowercase export-button" 
+                    fill="outline" 
+                    color="--av-light-gray">
+                        Export QR Codes
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -157,10 +141,10 @@ import {
 //import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 import {Locations} from '@/stores/adminLocations'
 import {Floors} from '@/stores/adminFloors'
-import { chevronForwardOutline } from 'ionicons/icons';
-import { storeToRefs } from "pinia";
-import { onBeforeMount } from "vue";
-import { useCookies } from "vue3-cookies";
+import { chevronForwardOutline } from 'ionicons/icons'
+import { storeToRefs } from "pinia"
+import { onBeforeMount } from "vue"
+import { useCookies } from "vue3-cookies"
 
 const { cookies } = useCookies();
 const Location = Locations()

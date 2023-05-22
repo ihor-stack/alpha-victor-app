@@ -10,7 +10,7 @@ export const Locations = defineStore('Locations', {
   state: () => {
     return {
       locations: [] as NavLocation[],
-      navigationThree: [{}] as Navigation[],
+      navigationTree: [{}] as Navigation[],
       location: {
         id: '',
         name: '',
@@ -95,11 +95,11 @@ export const Locations = defineStore('Locations', {
           alert.open(error.message)
         })
     },
-    async getNavigationThree(){
+    async getNavigationTree(){
       adminAPI.get<Navigation[]>('/Organisation/' + cookies.get('orgId') + '/NavigationTree')
       .then((response) => 
           {
-            this.navigationThree = response.data
+            this.navigationTree = response.data
           }
         ).catch(error =>{
           const alert = Alert()
