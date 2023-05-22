@@ -1,59 +1,75 @@
 <template>
-  <h1 class="font-bold font-size-lg color-light-gray">LinkedIn</h1>
-  <ul class="organisation-options-menu">
-    <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewDetails' }" router-direction="root">
-        <span class="link-text">Details</span>
-        <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-      </ion-item>
-    </li>
-    <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewTheme' }" router-direction="root">
-        <span class="link-text">Theme</span>
-        <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-      </ion-item>
-    </li>
-    <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewSpaceMetadata' }" router-direction="root">
-        <span class="link-text">Space Metadata</span>
-        <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-      </ion-item>
-    </li>
-    <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewDocumentTypes' }" router-direction="root">
-        <span class="link-text">Document Types</span>
-        <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-      </ion-item>
-    </li>
-    <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewDecisionTrees' }" router-direction="root">
-        <span class="link-text">Decision Trees</span>
-        <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-      </ion-item>
-    </li>
-    <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewIntegrationsList' }" router-direction="root">
-        <span class="link-text">Integrations</span>
-        <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-      </ion-item>
-    </li>
-    <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewLocationsList' }" router-direction="root">
-        <span class="link-text">Locations</span>
-        <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-      </ion-item>
-    </li>
-  </ul>
-  <div class="delete-div">
-    <ion-button class="delete-button font-size-sm text-lowercase" color="red">
-    Delete organisation
-    </ion-button>
+  <div>
+    <h1 class="font-bold font-size-lg color-light-gray">{{ organisationDetails.name }}</h1>
+    <ul class="organisation-options-menu">
+      <li class="organisation-options-menu-item">
+        <ion-item :router-link="{ name: 'OrganisationViewDetails' }" router-direction="root">
+          <span class="link-text">Details</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+      <li class="organisation-options-menu-item">
+        <ion-item :router-link="{ name: 'OrganisationViewTheme' }" router-direction="root">
+          <span class="link-text">Theme</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+      <li class="organisation-options-menu-item">
+        <ion-item :router-link="{ name: 'OrganisationViewSpaceMetadata' }" router-direction="root">
+          <span class="link-text">Space Metadata</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+      <li class="organisation-options-menu-item">
+        <ion-item :router-link="{ name: 'OrganisationViewDocumentTypes' }" router-direction="root">
+          <span class="link-text">Document Types</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+      <li class="organisation-options-menu-item">
+        <ion-item :router-link="{ name: 'OrganisationViewDecisionTrees' }" router-direction="root">
+          <span class="link-text">Decision Trees</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+      <li class="organisation-options-menu-item">
+        <ion-item :router-link="{ name: 'OrganisationViewIntegrationsList' }" router-direction="root">
+          <span class="link-text">Integrations</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+      <li class="organisation-options-menu-item">
+        <ion-item :router-link="{ name: 'OrganisationViewLocations' }" router-direction="root">
+          <span class="link-text">Locations</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+    </ul>
+    <div class="delete-div">
+      <ion-button class="delete-button font-size-sm text-lowercase" color="red">
+      Delete organisation
+      </ion-button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { IonItem, IonIcon, IonButton } from "@ionic/vue";
-import { chevronForwardOutline } from "ionicons/icons";
+import {
+  IonItem,
+  IonIcon,
+  IonButton
+} from "@ionic/vue"
+import { onBeforeMount, ref } from "vue"
+import { chevronForwardOutline } from "ionicons/icons"
+import {Organisations} from '@/stores/adminOrganisations'
+import { storeToRefs } from 'pinia'
+
+const organisation = Organisations()
+const { organisationDetails } = storeToRefs(organisation);
+
+onBeforeMount(() =>{
+  organisation.getOrgDetails()
+})
 </script>
 
 <style scoped>

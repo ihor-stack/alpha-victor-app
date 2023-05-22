@@ -20,25 +20,7 @@
                 @ion-input="floor.shortName = String($event.target.value)"
                 ></ion-input>
             </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <h2 class="font-bold font-size-lg color-light-gray">Spaces</h2>
-                <ion-item 
-                v-for="(space, index) in floor.spaces" 
-                :key="index" 
-                button
-                :router-link="redirect(String(space.spaceId))"
-                router-direction="root">
-                <ion-label color="light" >
-                    <h2>{{space.name}}</h2>
-                    <p>Location</p>
-                </ion-label>
-                <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
-                </ion-item>
-            </ion-col>
-            <!-- <ion-col size-xs="12" class="form-admin--group_field">
-                <h2 class="font-bold font-size-lg color-light-gray">Spaces</h2>
-                <AdminFloorsField />
-            </ion-col> -->
+            
             <ion-col size-xs="12" class="form-admin--group_field">
                 <div class="button-div-margin">
                     <ion-button class="font-size-sm text-lowercase" @click="Floor.saveFloor">

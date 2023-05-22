@@ -1,32 +1,34 @@
 <template>
-  <h1 class="font-bold font-size-lg color-light-gray">Organisations</h1>
-  <ul class="organisations-list-menu">
-    <li class="organisations-list-menu-item">
-      <ion-item 
-      v-for="org in organisation.getList" 
-      v-bind:key="org.id"
-      :router-link="redirect(org.id)"
-      router-direction="root"
-      >
-        <!-- src="@/theme/img/mclaren.svg" -->
-        <img
-          :src="org.logo"
-          :alt="org.name"
-        />
-        <span class="link-text">{{ org.name }}</span>
-        <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-      </ion-item>
-    </li>
-  </ul>
+  <div>
+    <h1 class="font-bold font-size-lg color-light-gray">Organisations</h1>
+    <ul class="organisations-list-menu">
+      <li class="organisations-list-menu-item">
+        <ion-item 
+        v-for="org in organisation.getList" 
+        v-bind:key="org.id"
+        :router-link="redirect(org.organisationId)"
+        router-direction="root"
+        >
+          <!-- src="@/theme/img/mclaren.svg" -->
+          <img
+            :src="org.logo"
+            :alt="org.name"
+          />
+          <span class="link-text">{{ org.name }}</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
 import {
   IonItem,
   IonIcon
-} from "@ionic/vue";
-import { onBeforeMount, ref } from "vue";
-import { chevronForwardOutline } from "ionicons/icons";
+} from "@ionic/vue"
+import { onBeforeMount, ref } from "vue"
+import { chevronForwardOutline } from "ionicons/icons"
 import {Organisations} from '@/stores/adminOrganisations'
 import { useCookies } from "vue3-cookies";
 

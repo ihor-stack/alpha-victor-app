@@ -9,14 +9,14 @@ import {Locations} from '@/stores/adminLocations'
 import { storeToRefs } from 'pinia'
 
 const Location = Locations()
-const { navigationThree } = storeToRefs(Location);
+const { navigationTree } = storeToRefs(Location);
 
 
 const component = AdminLocationsForm
 
 
 onBeforeMount(() =>{
-    Location.getNavigationThree()
+    Location.getNavigationTree()
 })
 </script>
     

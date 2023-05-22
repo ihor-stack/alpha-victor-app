@@ -104,6 +104,7 @@ export interface AdminDocument {
 }
 export interface AdminOrganisation {
   id: string,
+  organisationId: string,
   name: string,
   prefix: string,
   logo: string
