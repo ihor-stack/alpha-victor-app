@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="font-bold font-size-lg color-light-gray">Location Details</h1>
+        <h1 class="title-admin font-bold font-size-lg color-light-gray">{{ location.name }}</h1>
         <ion-grid class="form-admin">
             <ion-row class="form-admin--group_field">
                 <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -21,6 +21,11 @@
                     @ion-input="location.prefix = String($event.target.value)"
                     ></ion-input>
                 </ion-col>
+            </ion-row>
+
+            <hr class="form-admin--divider" />
+
+            <ion-row class="form-admin--group_field">
                 <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                     <ion-label color="light">Main contact name</ion-label>
                     <ion-input
@@ -57,6 +62,11 @@
                     @ion-input="location.sosNumber = String($event.target.value)"
                     ></ion-input>
                 </ion-col>
+            </ion-row>
+
+            <hr class="form-admin--divider" />
+
+            <ion-row class="form-admin--group_field">
                 <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                     <ion-label color="light">Public Wifi</ion-label>
                     <ion-input
@@ -75,6 +85,11 @@
                     @ion-input="location.wifiPassword = String($event.target.value)"
                     ></ion-input>
                 </ion-col>
+            </ion-row>
+
+            <hr class="form-admin--divider" />
+
+            <ion-row class="form-admin--group_field">
                 <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                     <ion-label color="light">Address Line 1</ion-label>
                     <ion-input
@@ -111,12 +126,12 @@
                     @ion-input="location.postcode = String($event.target.value)"
                     ></ion-input>
                 </ion-col>
-                <ion-col size-xs="12">
-                    <ion-button class="font-size-xs text-lowercase" @click="saveChanges(location.id)">
+                <ion-col size-xs="12" class="button-pair">
+                    <ion-button class="button-wide" @click="saveChanges(location.id)">
                         Save changes
                     </ion-button>
                     <ion-button 
-                    class="font-size-xs text-lowercase export-button" 
+                    class="button-wide button-outline" 
                     fill="outline" 
                     color="--av-light-gray">
                         Export QR Codes
@@ -177,13 +192,4 @@ onBeforeMount(() =>{
 ion-content{
     margin: 0%;
 }
-
-ion-button {
-    width: 246px
-}
-.export-button {
-    color: var(--av-light-gray);
-    margin-left: 26px;
-}
-
 </style>

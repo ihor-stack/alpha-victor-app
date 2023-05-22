@@ -1,13 +1,14 @@
 <template>
-    <ion-button  class="font-size-sm text-lowercase add-button" @click="modalOpen = true">
-        Add New Space Feature +
+  <div>
+    <ion-button class="button-wide" @click="modalOpen = true">
+      Add new space feature +
     </ion-button>
 
     <ion-modal 
-    :is-open="modalOpen"  
-    @willDismiss="handleDismiss"
-    :initial-breakpoint="0.8" 
-    :breakpoints="[0, 0.8]">
+      :is-open="modalOpen"  
+      @willDismiss="handleDismiss"
+      :initial-breakpoint="0.8" 
+      :breakpoints="[0, 0.8]">
         <ion-page>
         <div class="issues-panel">
             <div class="issues-panel-container">
@@ -46,9 +47,10 @@
             </ion-footer>
             </div>
         </div>
-        </ion-page>
+      </ion-page>
     </ion-modal>
-  </template>
+  </div>
+</template>
   
   <script setup lang="ts">
   import { ref } from "vue";

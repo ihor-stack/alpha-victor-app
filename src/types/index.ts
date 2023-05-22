@@ -126,10 +126,12 @@ export interface AdminMetaData {
 export interface spaceType {
   name: string,
   spaceTypeId: string,
+  icon: string
 }
 export interface spaceFeature {
   name: string,
   spaceFeatureId: string,
+  icon: string
 }
 
 export interface OrgDetails {

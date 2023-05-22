@@ -1,93 +1,110 @@
 <template>
   <ion-item>
+    <div class="item-icon" v-if="props.icon">
+      <img :src="props.icon" :alt="props.modelValue" />
+    </div>
     <ion-input
-      class="font-size-sm"
       color="light"
-      placeholder="Document Type"
-      :value="modelValue"
-      @ion-input="$emit('update:modelValue', $event.target.value)"
-      @ion-focus="currentDocument = props.modelValue, edit = true"
-    ></ion-input>
-    <!-- @ion-blur="$emit('update:modelValue', currentDocument), edit = false" 
-     @keydown.esc="$event.target.blur()"
-      @ion-blur="$emit('update:modelValue', currentDocument), edit = false"-->
-    <ion-icon
-      @click="$emit('update:modelValue', currentDocument), edit = false"
-      class="reset-button text-lowercase"
-      :icon="syncOutline" 
-      slot="end"
-      fill="clear"
-      size="small"
-      />
+      :placeholder="props.placeholder"
+      :value="currentField"
+      @ion-input="currentField = $event.target.value"
+      @ion-focus="onInputFocus"
+      @keydown.esc="cancelEdit"
+    >
+    </ion-input>
     <ion-button
-      @click="$emit('remove', editedDocument)"
-      class="save-button text-lowercase"
+      @click="saveField"
+      class="color-green"
       slot="end"
       fill="clear"
       size="small"
-      v-if=edit
-      > &gt;&gt; save
+      v-if="editMode"
+    >
+      &gt;&gt; save
     </ion-button>
     <ion-button
-      @click="$emit('remove', currentDocument)"
-      class="remove-button text-lowercase"
+      @click="removeField"
+      class="color-red"
       slot="end"
       fill="clear"
       size="small"
       v-else
-      >
+    >
       &gt;&gt; remove
     </ion-button>
   </ion-item>
 </template>
 
-<script setup lang="ts">
-import {
-  IonItem,
-  IonInput,
-  IonButton,
-} from "@ionic/vue";
-import { onBeforeMount, ref } from "vue";
-import {adminDocuments} from '@/stores/adminDocumentTypes'
-import {syncOutline} from 'ionicons/icons'
 
-const store = adminDocuments()
+<script setup lang="ts">
+import { ref, defineProps, defineEmits, onBeforeMount, watch } from "vue";
 
 interface Props {
-  id: string;
   modelValue: string;
+  icon?: string;
+  placeholder: string;
+  data: any;
 }
+
 const props = defineProps<Props>();
-defineEmits(['update:modelValue'])
+const emit = defineEmits(["update:modelValue", "remove"]);
 
-const currentDocument = ref();
-const editedDocument = ref();
-const edit = ref(false)
-const check = (value: any) => {
-  console.log('value',value)
-}
+const currentField = ref(props.modelValue);
+const editMode = ref(false);
+const localData = ref({...props.data});
 
-// onBeforeMount(async () => {
-//   store.set()
-// })
+const onInputFocus = () => {
+  editMode.value = true;
+};
 
+const cancelEdit = () => {
+  currentField.value = props.modelValue;
+  editMode.value = false;
+};
+
+const saveField = () => {
+  localData.value.name = currentField.value; 
+  emit("update:modelValue", localData.value); 
+  editMode.value = false;
+};
+
+const removeField = () => {
+  emit("remove", localData.value);
+};
+
+onBeforeMount(() => {
+  currentField.value = props.modelValue;
+});
+
+watch(props.data, (newVal) => {
+  localData.value = {...newVal};
+});
 </script>
 
 <style scoped>
-.remove-button {
-  color: var(--av-red);
-  font-family: "Akkurat-Mono";
-}
-.reset-button {
-  color: var(--av-orange);
-  font-family: "Akkurat-Mono";
-  cursor: pointer
-}
-.save-button {
-  color: var(--av-green);
-  font-family: "Akkurat-Mono";
-}
-ion-item {
-  margin-bottom: 20px;
-}
+  ion-item {
+    border: 1px solid #313131;
+    border-radius: 5px;
+    margin: 20px 0;
+  }
+  ion-input {
+    background: var(--av-black);
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+  ion-button {
+    position: absolute;
+    z-index: 9999;
+    right: 20px;
+  }
+  .item-icon {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+  }
+  .item-icon img {
+    width: 20px;
+    height: 20px;
+  }
 </style>

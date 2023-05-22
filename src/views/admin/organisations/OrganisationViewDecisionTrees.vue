@@ -1,5 +1,5 @@
 <template>
-  <h1 class="font-bold font-size-lg color-light-gray">Decision Trees</h1>
+  <h1 class="title-admin font-bold font-size-lg color-light-gray">Decision Trees</h1>
 
   <ion-grid class="form-admin">
 

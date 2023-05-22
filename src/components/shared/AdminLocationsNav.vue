@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="font-bold font-size-lg color-light-gray">Locations</h1>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">Locations</h1>
     <ul class="nav-menu">
       <li class="nav-menu-link" v-for="(location, index) in navigationTree[0].locations" :key="index">
         <div class="nav-menu-link-title">

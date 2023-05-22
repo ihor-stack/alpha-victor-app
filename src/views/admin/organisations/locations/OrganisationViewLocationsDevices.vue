@@ -1,6 +1,6 @@
 <template>
     <ion-grid class="form-admin">
-        <h1 class="font-bold font-size-lg color-light-gray">Devices</h1>
+        <h1 class="title-admin font-bold font-size-lg color-light-gray">Devices</h1>
         <ion-row>
             <ion-col size-xs="12">
                 <ion-accordion-group>
