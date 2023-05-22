@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="font-bold font-size-lg color-light-gray">{{ organisationDetails.name }}</h1>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">{{ organisationDetails.name }}</h1>
     <ul class="organisation-options-menu">
       <li class="organisation-options-menu-item">
         <ion-item :router-link="{ name: 'OrganisationViewDetails' }" router-direction="root">

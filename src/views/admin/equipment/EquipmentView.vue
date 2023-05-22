@@ -1,5 +1,5 @@
 <template>
-    <h1 class="font-bold font-size-lg color-light-gray">Equipment</h1>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">Equipment</h1>
     <ion-row class="form-admin">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-select 

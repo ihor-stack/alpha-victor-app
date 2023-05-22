@@ -1,5 +1,5 @@
 <template>
-  <h1 class="font-bold font-size-lg color-light-gray">Integration</h1>
+  <h1 class="title-admin font-bold font-size-lg color-light-gray">Integration</h1>
   <ion-item 
   v-for="item in integrations.integrations.value" 
   :key="item.id" 

@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1 class="font-bold font-size-lg color-light-gray">Location Details</h1>
+      <h1 class="title-admin font-bold font-size-lg color-light-gray">Location Details TESTTT</h1>
       <ion-grid class="form-admin">
           <ion-row class="form-admin--group_field">
               <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -115,7 +115,7 @@
                   <AdminFloorsField />
               </ion-col> -->
               <ion-col size-xs="12">
-                  <h1 class="font-bold font-size-lg color-light-gray">Floors</h1>
+                  <h1 class="title-admin font-bold font-size-lg color-light-gray">Floors</h1>
                   <ion-item 
                   v-for="(floor, index) in floors" 
                   :key="index" 

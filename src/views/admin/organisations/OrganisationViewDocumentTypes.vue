@@ -1,12 +1,12 @@
-  <template>
-    <h1 class="font-bold font-size-lg color-light-gray">Document Types</h1>
+<template>
+  <div>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">Document Types</h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group" >
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-input
-            class="font-size-sm"
             color="light"
-            placeholder="Enter new Document Type"
+            placeholder="Enter New Document Type"
             :value="newDocument"
             @ionInput="newDocument = $event.target.value;">
           </ion-input>
@@ -14,7 +14,7 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-button 
           :disabled="newDocument ? false : true"
-          class="font-size-xs text-lowercase"
+          class="button-wide"
           @click="newDocumentType()">
             Add new +
           </ion-button>
@@ -23,21 +23,24 @@
           <h3 class="font-bold font-size-md color-light-gray">Current Document Types</h3>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <div v-for="(document, index) in documentTypes.documents.value" :key="index">
-            <DocumentField 
-            :id="document.id"
-            :modelValue="document.name"
-            @save="(args: string) => {updateDocumentType(args, document.id)}"
-            @remove="RemoveDocumentType(document.id)"
+          <div v-for="(data, index) in documents" :key="index">
+            <ItemField
+              v-model="data.name"
+              :data="data"
+              icon=""
+              :id="data.id"
+              placeholder="Document Type"
+              @update:modelValue="updateTypeValue"
+              @remove="removeType"
             />
           </div>
         </ion-col>
       </ion-row> 
     </ion-grid>
-  </template>
+  </div>
+</template>
   
-  <script setup lang="ts">
-  
+<script setup lang="ts">
 import {
     IonButton,
     IonGrid,
@@ -45,33 +48,30 @@ import {
     IonCol,
     IonInput
   } from "@ionic/vue";
-  import DocumentField from '@/components/admin/DocumentField.vue'
   import { onBeforeMount, ref } from "vue";
-  import {adminDocuments} from '@/stores/adminDocumentTypes'
+  import { adminDocuments } from '@/stores/adminDocumentTypes'
   import { storeToRefs } from "pinia";
+  import { AdminDocument } from "@/types";
 
-  const store = adminDocuments()
-  const documentTypes = storeToRefs(store)
+  const DocTypes = adminDocuments();
+  const { documents } = storeToRefs(DocTypes);
+
+  onBeforeMount(() => {
+    DocTypes.getDocuments()
+  })
+
   const newDocument = ref()
 
   const newDocumentType = () => {
-    store.saveNewDocument(newDocument.value)
+    DocTypes.saveNewDocument(newDocument.value)
   }
-  const updateDocumentType = (newDocumentType: string, id: string) => {
-    store.editDocument({id: id, name: newDocumentType})
-  }
-  const RemoveDocumentType = (id: string) => {
-    store.deleteDocument(id)
-  }
-  onBeforeMount(() =>{
-    store.getDocuments()
-  })
-  </script>
-  
-  <style scoped>
-  ion-button {
-    width: 30%;
-    text-transform: capitalize;
-  }
-  </style>
-  
+
+  const updateTypeValue = (value: string, data: AdminDocument) => {
+    const updatedItem = { ...data, name: value };
+    DocTypes.editDocumentType(updatedItem);
+  };
+
+  const removeType = (data: AdminDocument) => {
+    DocTypes.removeDocumentType(data.id);
+  };
+</script>

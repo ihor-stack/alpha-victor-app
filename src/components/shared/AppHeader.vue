@@ -20,7 +20,7 @@
       </ion-buttons>
     </ion-toolbar>
     <div class="title" v-if="props.title">
-      <h1 class="font-bold font-size-lg color-light-gray">
+      <h1 class="title-admin font-bold font-size-lg color-light-gray">
         {{ props.title }}
       </h1>
     </div>

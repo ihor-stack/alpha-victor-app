@@ -1,6 +1,7 @@
 <template>
-    <ion-button  class="font-size-sm text-lowercase add-button" @click="modalOpen = true">
-        Add New Space Type +
+  <div>
+    <ion-button class="button-wide" @click="modalOpen = true">
+      Add new space type +
     </ion-button>
     <ion-modal 
     :is-open="modalOpen"  
@@ -47,9 +48,10 @@
         </div>
         </ion-page>
     </ion-modal>
-  </template>
+  </div>
+</template>
   
-  <script setup lang="ts">
+<script setup lang="ts">
   import { ref } from "vue";
   import { 
     IonPage, 
@@ -77,19 +79,19 @@
   }
   </script>
   
-  <style scoped>
+<style scoped>
   ion-content::part(background) {
     background: #181818;
   }
   .add-button {
     margin-bottom: 5%;
     width: 246px;
-    }
-    .close-button{
-        width: 20px;
-        margin-left: 95%;
-        cursor: pointer;
-    }
+  }
+  .close-button{
+      width: 20px;
+      margin-left: 95%;
+      cursor: pointer;
+  }
   .issues-panel {
     height: 70%;
     width: 60%;
@@ -103,37 +105,36 @@
   }
   
   .issues-panel {
-  height: 70%;
-  width: 60%;
-  border-radius: 40px 40px 40px 40px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #181818;
-}
+    height: 70%;
+    width: 60%;
+    border-radius: 40px 40px 40px 40px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #181818;
+  }
 
-.issues-panel-container {
-  position: relative;
-  height: 100%;
-  background-color: #181818;
-  border-radius: 40px 40px 0px 0px;
-  display: flex;
-  flex-direction: column;
-  padding: 45px 32px 32px;
-}
+  .issues-panel-container {
+    position: relative;
+    height: 100%;
+    background-color: #181818;
+    border-radius: 40px 40px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    padding: 45px 32px 32px;
+  }
 
-.issues-panel__header {
-  margin-bottom: 20px;
-}
+  .issues-panel__header {
+    margin-bottom: 20px;
+  }
 
-.issues-panel__title {
-  margin-bottom: 12px;
-}
+  .issues-panel__title {
+    margin-bottom: 12px;
+  }
 
-.issues-panel__section {
-  margin-bottom: 20px;
-}
-
-  </style>
+  .issues-panel__section {
+    margin-bottom: 20px;
+  }
+</style>
   
