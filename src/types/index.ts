@@ -179,6 +179,7 @@ export interface NavFloor {
 }
 export interface NavLocation {
   locationId: string,
+  id: string,
   locationName: string,
   floors: NavFloor[]
 }

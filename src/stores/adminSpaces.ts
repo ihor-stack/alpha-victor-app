@@ -30,7 +30,7 @@ export const Spaces = defineStore('Spaces', {
   },
   actions: {
     async getSpaces() {
-      adminAPI.get<DetailedSpace>('/Space/Space/' + cookies.get('spaceId') + '/Details')
+      adminAPI.get<DetailedSpace>('/Space/' + cookies.get('spaceId') + '/Details')
       .then(response => 
         {
           this.space = response.data
@@ -177,9 +177,7 @@ export const Spaces = defineStore('Spaces', {
       })
     },
     async getSpacesWifi() {
-      adminAPI.get<SpaceWifi>('/Space/' + 
-      cookies.get('spaceId') + '/Wifi'
-      ).then(response => 
+      adminAPI.get<SpaceWifi>('/Space/' + cookies.get('spaceId') + '/Wifi').then(response => 
         {
           this.wifi = response.data
         }

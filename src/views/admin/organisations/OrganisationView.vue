@@ -39,7 +39,14 @@
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
-        <ion-item :router-link="{ name: 'OrganisationViewLocations' }" router-direction="root">
+        <ion-item v-if="locations.length > 0" 
+                  :router-link="{ 
+                    name: 'OrganisationViewLocations', 
+                    params: {
+                      locationId: locations[0].id 
+                    } 
+                  }" 
+                  router-direction="root">
           <span class="link-text">Locations</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
@@ -61,14 +68,19 @@ import {
 } from "@ionic/vue"
 import { onBeforeMount, ref } from "vue"
 import { chevronForwardOutline } from "ionicons/icons"
-import {Organisations} from '@/stores/adminOrganisations'
+import { Organisations } from '@/stores/adminOrganisations'
+import { Locations } from '@/stores/adminLocations'
 import { storeToRefs } from 'pinia'
 
 const organisation = Organisations()
+const location = Locations()
+
 const { organisationDetails } = storeToRefs(organisation);
+const { locations } = storeToRefs(location)
 
 onBeforeMount(() =>{
   organisation.getOrgDetails()
+  location.getLocations()
 })
 </script>
 

@@ -1,31 +1,31 @@
 <template>
-    <div>
+    <div> 
         <ion-grid class="form-admin">
             <ion-row class="form-admin--group">
-                <ion-col size-xs="12" size-sm="3" class="form-admin--group_field">
-                    <img 
-                    src="https://ionicframework.com/docs/img/demos/thumbnail.svg"
-                    alt="location pic" 
-                    height="135"/>
+                <ion-col size-xs="12" size-sm="2" class="form-admin--group_field">
+                    <div class="img-container">
+                        <img src="https://imageio.forbes.com/specials-images/imageserve/61b8b4834a7373c7800e631a/Business-people-video-conferencing-in-meeting-room/960x0.jpg?format=jpg&width=960" alt="" />
+                    </div>
                 </ion-col>
-                <ion-col size-xs="12" size-sm="4" class="form-admin--group_field">
-                    <h1 class="title-admin font-bold font-size-lg color-light-gray">{{currentSpace}}</h1>
-                    <p class="font-size-sm font-mono color-light-gray">
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field header-left">
+                    <h1 class="font-bold font-size-lg color-light-gray">{{currentSpace}}</h1>
+                    <span class="font-size-xs font-mono color-light-gray header-left--label">
                         <ion-icon :icon="locationOutline" color="light"></ion-icon>
                         2B Ground Floor
-                    </p>
-                    <p class="font-size-sm font-mono color-light-gray">
+                    </span>
+                    <span class="font-size-xs font-mono color-light-gray header-left--label">
                         <ion-icon :icon="peopleOutline" color="light"></ion-icon>
                         &gt;&gt; 10
-                    </p>
+                    </span>
                 </ion-col>
-                <ion-col size-xs="12" size-sm="4" class="form-admin--group_field" id="container">
-                    <div><ion-icon :icon="qrCodeOutline" color="light" class="large_icons"></ion-icon></div>
-                    <div class="vl"></div>
-                    <div><ion-icon :icon="scanOutline" color="light" class="large_icons"></ion-icon></div>
+                <ion-col size-xs="12" size-sm="4" class="form-admin--group_field header-right">
+                    <div class="header-right--icon"><ion-icon :icon="qrCodeOutline" color="light" class="large_icons"></ion-icon></div>
+                    <div class="header-right--icon"><ion-icon :icon="scanOutline" color="light" class="large_icons"></ion-icon></div>
                 </ion-col>
-                <ion-col size-xs="12" class="form-admin--group_field">
+                <ion-col size-xs="12">
+                    <hr class="form-admin--divider" />
                     <space-features-slider :features="spaceFeatures" />
+                    <hr class="form-admin--divider" />
                 </ion-col>
             </ion-row>
             <ion-row class="form-admin--group">
@@ -77,28 +77,36 @@
                     ></ion-input>
                 </ion-col>
             </ion-row>
-            <ion-row class="form-admin--group_field component_container">
-                <ion-col size-xs="6" class="form-admin--group_field">
+            
+            <hr class="form-admin--divider" />
+
+            <ion-row>
+                <ion-col size-xs="6">
                     <ion-label color="light">Photos</ion-label>
                 </ion-col>
-                <ion-col size-xs="6" class="form-admin--group_field">
+                <ion-col size-xs="6">
                     <PhotoModal />
                 </ion-col>
+            </ion-row>
+
+            <ion-row class="form-admin--group_field">
                 <ion-col 
                 size-xs="12" 
-                size-md="6" 
-                class="form-admin--group_field" 
+                size-md="6"
+                class="form-admin--group_field"
                 v-for="photo in space.photos" 
                 v-bind:key="photo.id">
-                    <ion-item >
+                    <ion-item button class="form-admin--group_field-item rev-margin ion-no-padding">
                         <ion-thumbnail slot="start">
                             <img 
                             alt="Photo" 
                             :src="photo.path" />
                         </ion-thumbnail>
-                        <ion-label color="light">{{ photo.name }}</ion-label>
+                        <ion-label color="light" >
+                            {{ photo.name }}
+                        </ion-label>
                         <ion-button 
-                            class="remove-button text-lowercase"
+                            class="button-red text-lowercase"
                             slot="end"  
                             fill="clear"
                             size="small"
@@ -108,25 +116,30 @@
                         </ion-button>
                     </ion-item>
                 </ion-col>
-                <ion-col size-xs="6" class="form-admin--group_field">
-                    <ion-label color="light">Documents</ion-label>6
+            </ion-row>
+
+            <hr class="form-admin--divider" />
+
+            <ion-row>
+                <ion-col size-xs="6">
+                    <ion-label color="light">Documents</ion-label>
                 </ion-col>
-                <ion-col size-xs="6" class="form-admin--group_field">
+                <ion-col size-xs="6">
                     <DocumentModal />
                 </ion-col>
-                <ion-col size-xs="12" class="form-admin--group_field">
-                    <ion-item v-for="document in space.documents" v-bind:key="document.id">
-                        <ion-label color="light">{{ document.name }}</ion-label>
-                        <ion-button 
-                            class="remove-button text-lowercase"
-                            slot="end"  
-                            fill="clear"
-                            size="small"
-                            @click="Space.deleteSpacesDocument(document.id)"
-                            >
-                            &gt;&gt; remove
-                        </ion-button>
-                    </ion-item>
+            </ion-row>
+
+            <ion-row class="form-admin--group_field component_container">
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                    <div v-for="document in space.documents" :key="document.id">
+                        <ItemField
+                        v-model="document.name"
+                        :data="document"
+                        icon=""
+                        :id="document.id"
+                        placeholder="Document Type"
+                        />
+                    </div>
                 </ion-col>
             </ion-row>
 
@@ -136,18 +149,15 @@
                 <li
                     v-for="(space, index) in spaceRoutes" 
                     v-bind:key="index"
-                    button 
-                    :router-link="redirect(space.route)"
-                    router-direction="root"
                     class="list-item"
                 >
-                    <div class="list-item__info">
+                    <router-link :to="redirect(space.route)" router-direction="root" class="list-item__info">
                         <div class="list-item__details">
                             <p class="primaryText font-bold font-size-sm color-light-gray">
                                 {{space.title}}
                             </p>
                         </div>
-                    </div>
+                    </router-link>
                     <span class="arrow-right"></span>
                 </li>
             </ul>
@@ -196,10 +206,12 @@ import AdminSelect from  '@/components/admin/AdminSelect.vue'
 import {addOutline} from 'ionicons/icons'
 import DocumentModal from '@/components/admin/spaces/DocumentModal.vue'
 import PhotoModal from '@/components/admin/spaces/PhotoModal.vue'
+
 const { cookies } = useCookies();
 const Space = Spaces()
 const { space, currentSpace, formattedSelect, optionSelected } = storeToRefs(Space);
 const SpaceHeader = ref('')
+
 onBeforeMount(()=>{
     Space.getSpaces();
 })
@@ -218,6 +230,11 @@ const redirect = (route: string) => {
 const removePhoto = (photoId: string) => {
     Space.deleteSpacesPhoto(photoId)
 }
+
+// const removeSpacesDocument = (data: Spaces) => {
+//     Space.deleteSpacesDocument(data.id);
+// };
+
 const spaceRoutes = [
     {title: 'Panorama' , route: ''},
     {title: 'Devices' , route: 'OrganisationViewLocationsDevices'},
@@ -225,6 +242,7 @@ const spaceRoutes = [
     {title: 'Integrations' , route: 'OrganisationViewLocationsIntegrations'},
     {title: 'Wifi Password' , route: 'OrganisationViewLocationsWifi'}
 ]
+
 const spaceFeatures = [
     {
       name: "Smart TV",
@@ -246,5 +264,40 @@ const spaceFeatures = [
 </script>
 
 <style scoped>
+.img-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
 
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-left--label {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.header-left--label ion-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+.header-right {
+    display: flex;
+    justify-content: end;
+}
+.header-right--icon ion-icon {
+    width: 50px;
+    height: 50px;
+    border-right: 1px solid var(--av-dark-grey);
+    margin: 0 25px;
+}
 </style>

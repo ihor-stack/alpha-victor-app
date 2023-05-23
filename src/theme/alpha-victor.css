@@ -399,6 +399,7 @@ ion-button.button-red {
   justify-content: space-between;
   align-items: center;
   padding: 24px 0;
+  cursor: pointer;
 }
 
 .list-item:not(:first-of-type) {
@@ -727,6 +728,11 @@ ion-toast.customToast::part(message) {
   margin-top: 20px;
   border: 1px solid var(--av-darkest-gray);
   border-radius: 10px;
+}
+
+.form-admin--group_field-item.rev-margin {
+  margin-bottom: 20px;
+  margin-top: 0;
 }
 
 .form-admin--group_field-item > img {

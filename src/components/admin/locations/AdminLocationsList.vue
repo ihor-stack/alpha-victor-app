@@ -38,11 +38,11 @@
                 :router-link="redirect(String(space.spaceId))"
                 router-direction="root"
                 class="form-admin--group_field-item ion-no-padding">
-                <img src="https://imageio.forbes.com/specials-images/imageserve/61b8b4834a7373c7800e631a/Business-people-video-conferencing-in-meeting-room/960x0.jpg?format=jpg&width=960" alt="" />
-                <ion-label color="light" >
-                    {{space.name}}
-                </ion-label>
-                <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
+                    <img src="https://imageio.forbes.com/specials-images/imageserve/61b8b4834a7373c7800e631a/Business-people-video-conferencing-in-meeting-room/960x0.jpg?format=jpg&width=960" alt="" />
+                    <ion-label color="light" >
+                        {{space.name}}
+                    </ion-label>
+                    <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
                 </ion-item>
             </ion-col>
             
@@ -58,7 +58,6 @@
 </template>
 
 <script setup lang="ts">
-
 import {
     IonGrid,
     IonRow,

@@ -1,63 +1,65 @@
 <template>
-  <ion-chip color="light" @click="modalOpen = true">
-    <ion-icon :icon="addOutline" ></ion-icon>
-    <ion-label>Add New Photo</ion-label>
-  </ion-chip>
-  <ion-modal 
-  :is-open="modalOpen"  
-  @willDismiss="handleDismiss"
-  :initial-breakpoint="0.8" 
-  :breakpoints="[0, 0.8]">
-    <ion-page>
-      <div class="issues-panel">
-        <div class="issues-panel-container">
-          <ion-header>
-            <ion-icon 
-            color='light' 
-            :icon="close" 
-            size="small" 
-            class="close-button" 
-            @click="modalOpen = false"/>
-            <div class="issues-panel__header">
-              <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
-                Add New Photo
-              </h1>
-            </div>
-          </ion-header>
-          <ion-content :scroll-y="false" class="form-admin--group_field">
-            <div class="issues-panel__section issues-panel__select-equipment">
-              <ion-input
-                class="font-size-sm"
-                color="light"
-                :disabled="true"
-              >
-              <div>
-                <input
-                  class="file-input"
-                  type="file"
-                  accept="*/"
-                  :v-model="image"
-                  @change="uploadFile" 
-                />
+  <div>
+    <ion-chip class="font-size-xs font-mono" color="light" @click="modalOpen = true">
+      <ion-label>Add New Photo</ion-label>
+      <ion-icon :icon="addOutline" ></ion-icon>
+    </ion-chip>
+    <ion-modal 
+    :is-open="modalOpen"  
+    @willDismiss="handleDismiss"
+    :initial-breakpoint="0.8" 
+    :breakpoints="[0, 0.8]">
+      <ion-page>
+        <div class="issues-panel">
+          <div class="issues-panel-container">
+            <ion-header>
+              <ion-icon 
+              color='light' 
+              :icon="close" 
+              size="small" 
+              class="close-button" 
+              @click="modalOpen = false"/>
+              <div class="issues-panel__header">
+                <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
+                  Add New Photo
+                </h1>
               </div>
-              </ion-input>
-              <ion-label color="light">Featured Photo</ion-label>
-              <ion-toggle :checked="featured" />
-            </div>
-          </ion-content>
-          <ion-footer>
-            <ion-button 
-            class="font-size-sm text-lowercase"
-            expand="block"
-            @click="saveNewPhoto()">
-              Save
-            </ion-button>
-          </ion-footer>
+            </ion-header>
+            <ion-content :scroll-y="false" class="form-admin--group_field">
+              <div class="issues-panel__section issues-panel__select-equipment">
+                <ion-input
+                  class="font-size-sm"
+                  color="light"
+                  :disabled="true"
+                >
+                <div>
+                  <input
+                    class="file-input"
+                    type="file"
+                    accept="*/"
+                    :v-model="image"
+                    @change="uploadFile" 
+                  />
+                </div>
+                </ion-input>
+                <ion-label color="light">Featured Photo</ion-label>
+                <ion-toggle :checked="featured" />
+              </div>
+            </ion-content>
+            <ion-footer>
+              <ion-button 
+              class="font-size-sm text-lowercase"
+              expand="block"
+              @click="saveNewPhoto()">
+                Save
+              </ion-button>
+            </ion-footer>
+          </div>
         </div>
-      </div>
-    </ion-page>
-  </ion-modal>
-  </template>
+      </ion-page>
+    </ion-modal>
+  </div>
+</template>
   
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
@@ -136,9 +138,8 @@ onBeforeMount(()=>{
 ion-content::part(background) {
 background: #181818;
 }
-.add-button {
-margin-bottom: 5%;
-width: 246px;
+ion-chip {
+  float:right;
 }
 .close-button{
 width: 20px;
