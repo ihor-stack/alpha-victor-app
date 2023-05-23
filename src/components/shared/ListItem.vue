@@ -36,6 +36,7 @@ const props = defineProps<Props>();
   justify-content: space-between;
   align-items: center;
   padding: 24px 0;
+  cursor: pointer;
 }
 .list-item:not(:first-of-type) {
   border-top: 0.75px solid #313131;

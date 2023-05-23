@@ -11,9 +11,7 @@ import { storeToRefs } from 'pinia'
 const Location = Locations()
 const { navigationTree } = storeToRefs(Location);
 
-
 const component = AdminLocationsForm
-
 
 onBeforeMount(() =>{
     Location.getNavigationTree()

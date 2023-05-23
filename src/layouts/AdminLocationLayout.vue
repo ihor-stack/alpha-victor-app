@@ -68,8 +68,11 @@ const router = useRouter();
     background: var(--av-darkest-gray);
     color: #fff;
     width: 260px;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     display: block;
+    position: sticky;
+    top: 0;
   }
   .av-sidebar-cont {
     width: 200px;
