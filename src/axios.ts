@@ -1,14 +1,13 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import Auth from '@/auth';
+import axios, { AxiosRequestConfig } from "axios";
+import Auth from "@/auth";
 
 const adminAPI = axios.create({
-  baseURL: `https://alphavictor-dev.azurewebsites.net/api/admin`
+  baseURL: `https://alphavictor-dev.azurewebsites.net/api/admin`,
 });
 
 const authService = new Auth();
 
 adminAPI.interceptors.request.use(async (c) => {
-
   const accessToken = await authService.fetchCurrentAccessToken();
 
   if (accessToken) {
@@ -16,8 +15,6 @@ adminAPI.interceptors.request.use(async (c) => {
   }
 
   return c;
-
 });
 
 export { adminAPI };
-

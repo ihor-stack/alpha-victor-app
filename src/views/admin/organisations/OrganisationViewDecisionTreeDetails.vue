@@ -200,7 +200,8 @@
 
 <script>
 import { watch, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
 import { closeCircle, informationCircle, create, search } from "ionicons/icons";
 import {
   isPlatform,
@@ -220,6 +221,11 @@ import {
 import DesktopNav from "@/components/shared/DesktopNav.vue";
 import InputWithIcon from "@/components/shared/InputWithIcon.vue";
 import CommonModal from "@/components/modals/CommonModal.vue";
+import { DecisionTreeNodeType } from "@/types/index";
+
+import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
+
+const organisationsStore = useOrganisationsStore();
 
 export default {
   components: {
@@ -238,9 +244,14 @@ export default {
     CommonModal,
   },
 
+  mounted() {
+    const route = useRoute();
+    const decisionTreeID = route.params.decisionTreeID;
+    // organisationsStore.getDecisionDetails(decisionTreeID);
+  },
+
   setup() {
     const destinationWidth = 200;
-    const outcomeWidth = 150;
     const outcomeHeight = 20;
     const iconSize = 20;
     const cornerRadius = 0;
@@ -253,21 +264,16 @@ export default {
 
     let dragStart;
     let dragDestination;
-    let newOutcome;
     const destinations = [];
-    const outcomes = [];
     let c;
 
     const editDestination = ref();
-    const editOutcome = ref();
 
     const deletedDestinationIDs = [];
-    const deletedOutcomeIDs = [];
 
     const destinationVisible = ref(false);
     const newDestinationVisible = ref(false);
 
-    const outcomeVisible = ref(false);
     const infoVisible = ref(false);
     const searchTerm = ref("");
     const dirty = ref(false);
@@ -287,11 +293,7 @@ export default {
 
     const router = useRouter();
 
-    const demoTree = JSON.parse(
-      '{"id":"8Lr3DC4U8qOcd0Zx99Iz","title":"Demo document nodes","rootID":"RG6PGksvBHpHPLHb6WzZ","destinations":{"19d71652-19cd-4db6-a4d3-fcb4f6fa269c":{"id":"19d71652-19cd-4db6-a4d3-fcb4f6fa269c","email":"","outcomeIDs":[],"phone":"","y":500,"x":960,"title":"Data Sheet","locked":true,"destinationID":{"documentTypeID":"ipUoDtUfVDB5CzWJHEi6","description":"Data Sheet","url":"https://firebasestorage.googleapis.com/v0/b/alpha-victor-prod.appspot.com/o/Models%2FJAsQhmX7euh2RSMSUhi0%2FX80J_X81J_X85J_SERIES_DATA_SHEET_PAGES2.pdf?alt=media&token=bfcbec15-0481-46c4-8e78-a39d846d5c4b","path":"Models/JAsQhmX7euh2RSMSUhi0/X80J_X81J_X85J_SERIES_DATA_SHEET_PAGES2.pdf"},"type":"Document"},"RG6PGksvBHpHPLHb6WzZ":{"id":"RG6PGksvBHpHPLHb6WzZ","y":360,"phone":"","destinationID":null,"type":"Question","locked":false,"email":"","outcomeIDs":["e88fe69e-4298-4bcd-a407-210cee28216b","3edda60c-e888-4635-9b9f-0fbd7f78b97d"],"title":"How can I help? 50","x":660},"V1kp6fSwzGxrcway30NV":{"id":"V1kp6fSwzGxrcway30NV","x":220,"title":"How can I help?","phone":"","locked":false,"type":"Question","email":"","destinationID":null,"y":500,"outcomeIDs":["951a57b5-79fb-46b6-a4f7-2fac7d42e678","17e4b960-a518-4829-8068-64101e135aee","944419d5-e883-4193-a0e6-1bc700dff41c"]},"bcf2b0ad-279b-4191-b3b3-8d31f457feeb":{"id":"bcf2b0ad-279b-4191-b3b3-8d31f457feeb","phone":"","outcomeIDs":[],"email":"","x":960,"type":"Document","locked":true,"title":"Manual","y":240,"destinationID":{"documentTypeID":"ooA1Rvhuu2MdfmZXZEp9","path":"Models/JAsQhmX7euh2RSMSUhi0/FWD-65X80J.pdf","description":"Manual","url":"https://firebasestorage.googleapis.com/v0/b/alpha-victor-prod.appspot.com/o/Models%2FJAsQhmX7euh2RSMSUhi0%2FFWD-65X80J.pdf?alt=media&token=452822d1-2849-45de-8f86-fdc3ef878d34"}}},"outcomes":{"3edda60c-e888-4635-9b9f-0fbd7f78b97d":{"id":"3edda60c-e888-4635-9b9f-0fbd7f78b97d","childID":"19d71652-19cd-4db6-a4d3-fcb4f6fa269c","label":"Show data sheet","parentID":"RG6PGksvBHpHPLHb6WzZ"},"944419d5-e883-4193-a0e6-1bc700dff41c":{"id":"944419d5-e883-4193-a0e6-1bc700dff41c","parentID":"V1kp6fSwzGxrcway30NV","label":"Answer 1","childID":"19d71652-19cd-4db6-a4d3-fcb4f6fa269c"},"e88fe69e-4298-4bcd-a407-210cee28216b":{"id":"e88fe69e-4298-4bcd-a407-210cee28216b","parentID":"RG6PGksvBHpHPLHb6WzZ","label":"Show manual","childID":"bcf2b0ad-279b-4191-b3b3-8d31f457feeb"}},"destinationsLoaded":true,"outcomesLoaded":true,"loaded":true}'
-    );
-
-    const decisionTree = ref(demoTree);
+    const { decisionTree } = storeToRefs(organisationsStore);
 
     const model = ref();
     const manufacturer = ref();
@@ -322,52 +324,75 @@ export default {
     }
 
     class Destination {
-      constructor(
-        id,
-        title,
-        type,
-        x,
-        y,
-        outcomeIDs,
-        destinationID,
-        locked = false
-      ) {
+      constructor(id, text, type, x, y, parent, children, locked = false) {
         this.id = id;
-        this.title = title;
+        this.text = text;
         this.type = type;
         this.x = x;
         this.y = y;
-        this.outcomeIDs = outcomeIDs;
+        this.parent = parent;
+        this.children = children;
         this.hover = false;
-        this.destinationID = destinationID;
         this.locked = locked;
       }
 
+      get child() {
+        return Destination.getByID(this.children?.[0]?.id);
+      }
+
       get lines() {
-        return getLines(c, this.title, destinationWidth - 2 * padding);
+        return getLines(c, this.text, destinationWidth - 2 * padding);
       }
 
       get lineHeight() {
         return 15;
       }
 
-      get totalHeight() {
-        return this.lines.length * this.lineHeight + 2 * padding;
-      }
-
       get bottom() {
-        return this.y + this.totalHeight;
+        return this.realY + this.height;
       }
 
       get right() {
-        return this.x + destinationWidth;
+        return this.realX + destinationWidth;
       }
 
       get center() {
         return {
-          x: this.x + destinationWidth / 2,
-          y: this.y + this.totalHeight / 2,
+          x: this.realX + destinationWidth / 2,
+          y: this.realY + this.height / 2,
         };
+      }
+
+      get x1() {
+        return this.parent?.connectors.bottomCenter.x;
+      }
+
+      get x2() {
+        return this.child?.connectors.topCenter.x;
+      }
+
+      get y1() {
+        return this.parent?.connectors.bottomCenter.y;
+      }
+
+      get y2() {
+        return this.child?.connectors.topCenter.y;
+      }
+
+      get labelX() {
+        return this.x1 + (this.x2 - this.x1 - destinationWidth) / 2;
+      }
+
+      get labelY() {
+        return this.y1 + (this.y2 - this.y1 - outcomeHeight) / 2;
+      }
+
+      get realX() {
+        return this.type === 3 ? this.labelX : this.x;
+      }
+
+      get realY() {
+        return this.type === 3 ? this.labelY : this.y;
       }
 
       get connectors() {
@@ -409,7 +434,7 @@ export default {
       }
 
       get toolbarY() {
-        return this.y - this.height - 46;
+        return this.realY - this.height - 46;
       }
 
       get iconY() {
@@ -417,44 +442,42 @@ export default {
       }
 
       draw() {
-        let color = "#0000FF";
-        let contrast = "white";
+        let fillColor = "#0000FF";
+        let strokeColor = "#0000FF";
+        let textColor = "#FFFFFF";
 
         if (
           this.x > canvas.value.width ||
           this.x < -destinationWidth ||
-          this.y < -this.totalHeight ||
+          this.y < -this.height ||
           this.y > canvas.value.height
         )
           return;
 
         switch (this.type) {
-          case "Question":
-            color = "#0000FF";
-            contrast = "white";
-            break;
-          case "Video":
-            color = "#0000FF";
-            contrast = "white";
+          case 3: // Answer
+            fillColor = "#FFFFFF";
+            strokeColor = "#000000";
+            textColor = "#000000";
             break;
           default:
             break;
         }
 
         drawBox(
-          this.x,
-          this.y,
+          this.realX,
+          this.realY,
           destinationWidth,
           this.lineHeight,
           this.lines,
           2,
-          color,
-          color,
-          contrast,
+          fillColor,
+          strokeColor,
+          textColor,
           this.lineHeight
         );
         if (this.hover) {
-          const toolbarX = this.x - 18;
+          const toolbarX = this.realX - 18;
 
           c.drawImage(
             toolbar,
@@ -465,28 +488,28 @@ export default {
           );
           c.drawImage(
             addIcon,
-            this.x - 6 + toolbarDelta * 0.5 - iconSize / 2,
+            this.realX - 6 + toolbarDelta * 0.5 - iconSize / 2,
             this.iconY,
             iconSize,
             iconSize
           );
           c.drawImage(
             editIcon,
-            this.x - 6 + toolbarDelta * 1.5 - iconSize / 2,
+            this.realX - 6 + toolbarDelta * 1.5 - iconSize / 2,
             this.iconY,
             iconSize,
             iconSize
           );
           c.drawImage(
             lockIcon,
-            this.x - 6 + toolbarDelta * 2.5 - iconSize / 2,
+            this.realX - 6 + toolbarDelta * 2.5 - iconSize / 2,
             this.iconY,
             iconSize,
             iconSize
           );
           c.drawImage(
             deleteIcon,
-            this.x - 6 + toolbarDelta * 3.5 - iconSize / 2,
+            this.realX - 6 + toolbarDelta * 3.5 - iconSize / 2,
             this.iconY,
             iconSize,
             iconSize
@@ -494,43 +517,71 @@ export default {
         }
       }
 
+      drawConnector() {
+        if (!this.parent && this.child) return;
+        c.beginPath();
+
+        const x1 = this.parent.connectors.centerRight.x;
+        const y1 = this.parent.connectors.centerRight.y;
+        const x2 = this.child.connectors.centerLeft.x;
+        const y2 = this.child.connectors.centerLeft.y;
+        c.moveTo(x1, y1);
+        c.bezierCurveTo(x2 - (x2 - x1) / 2, y1, x1 + (x2 - x1) / 2, y2, x2, y2);
+
+        c.lineWidth = 0.5;
+        c.strokeStyle = "black";
+        c.setLineDash([5, 2]);
+        c.stroke();
+        c.setLineDash([]);
+      }
+
       checkSelected(x, y) {
-        if (y > this.toolbarY && y < this.toolbarY + this.toolbarHeight) {
+        if (
+          this.hover &&
+          y > this.toolbarY &&
+          y < this.toolbarY + this.toolbarHeight
+        ) {
           if (
-            x > this.x - 6 + toolbarDelta * 0.5 - iconSize / 2 &&
-            x < this.x - 6 + toolbarDelta * 0.5 + iconSize / 2
+            x > this.realX - 6 + toolbarDelta * 0.5 - iconSize / 2 &&
+            x < this.realX - 6 + toolbarDelta * 0.5 + iconSize / 2
           ) {
             return "add";
           }
           if (
-            x > this.x - 6 + toolbarDelta * 1.5 - iconSize / 2 &&
-            x < this.x - 6 + toolbarDelta * 1.5 + iconSize / 2
+            x > this.realX - 6 + toolbarDelta * 1.5 - iconSize / 2 &&
+            x < this.realX - 6 + toolbarDelta * 1.5 + iconSize / 2
           ) {
             return "edit";
           }
           if (
-            x > this.x - 6 + toolbarDelta * 2.5 - iconSize / 2 &&
-            x < this.x - 6 + toolbarDelta * 2.5 + iconSize / 2
+            x > this.realX - 6 + toolbarDelta * 2.5 - iconSize / 2 &&
+            x < this.realX - 6 + toolbarDelta * 2.5 + iconSize / 2
           ) {
             return "lock";
           }
           if (
-            x > this.x - 6 + toolbarDelta * 3.5 - iconSize / 2 &&
-            x < this.x - 6 + toolbarDelta * 3.5 + iconSize / 2
+            x > this.realX - 6 + toolbarDelta * 3.5 - iconSize / 2 &&
+            x < this.realX - 6 + toolbarDelta * 3.5 + iconSize / 2
           ) {
             return "delete";
           }
         }
-        if (x > this.x && x < this.right && y > this.y && y < this.bottom)
+        if (
+          x > this.realX &&
+          x < this.right &&
+          y > this.realY &&
+          y < this.bottom
+        )
           return "click";
         if (
           this.hover &&
-          x > this.x &&
+          x > this.realX &&
           x < this.right &&
           y > this.toolbarY &&
           y < this.bottom
         )
           return "hover";
+
         return null;
       }
 
@@ -543,199 +594,51 @@ export default {
           return;
         }
 
-        const destinationIndex = destinations.findIndex((d) => d.id == this.id);
+        const destinationIndex = destinations.findIndex(
+          (d) => d.id === this.id
+        );
         destinations.splice(destinationIndex, 1);
         deletedDestinationIDs.push(this.id);
-
-        const linkedOutcomes = outcomes.filter(
-          (o) => o.child.id == this.id || o.parent.id == this.id
-        );
-        linkedOutcomes.forEach((outcome) => outcome.delete());
-        renderChart();
-      }
-    }
-
-    class Outcome {
-      constructor(id, parent, label, child, x, y) {
-        this.id = id;
-        this.parent = parent;
-        this.child = child;
-        this.label = label;
-        this.x = x;
-        this.y = y;
-        this.hover = false;
-      }
-
-      get lines() {
-        return getLines(c, this.label, outcomeWidth);
-      }
-
-      get lineHeight() {
-        return 12;
-      }
-
-      get x1() {
-        return this.parent?.connectors.bottomCenter.x;
-      }
-
-      get x2() {
-        return this.child?.connectors.topCenter.x;
-      }
-
-      get y1() {
-        return this.parent?.connectors.bottomCenter.y;
-      }
-
-      get y2() {
-        return this.child?.connectors.topCenter.y;
-      }
-
-      get labelX() {
-        return this.x1 + (this.x2 - this.x1 - outcomeWidth) / 2;
-      }
-
-      get labelY() {
-        return this.y1 + (this.y2 - this.y1 - outcomeHeight) / 2;
-      }
-
-      drawConnector() {
-        if (!this.parent && this.child) return;
-        c.beginPath();
-
-        const x1 = this.parent.connectors.centerRight.x;
-        const y1 = this.parent.connectors.centerRight.y;
-        const x2 = this.x || this.child.connectors.centerLeft.x;
-        const y2 = this.y || this.child.connectors.centerLeft.y;
-        c.moveTo(x1, y1);
-        c.bezierCurveTo(x2 - (x2 - x1) / 2, y1, x1 + (x2 - x1) / 2, y2, x2, y2);
-
-        c.lineWidth = 0.5;
-        c.strokeStyle = "black";
-        c.setLineDash([5, 2]);
-        c.stroke();
-        c.setLineDash([]);
-      }
-
-      drawLabel() {
-        drawBox(
-          this.labelX,
-          this.labelY,
-          outcomeWidth,
-          this.lineHeight,
-          this.lines,
-          2,
-          "white",
-          "black",
-          "#000000",
-          this.lineHeight
-        );
-      }
-
-      checkSelected(x, y) {
-        if (
-          x > this.labelX - iconSize / 3 &&
-          x < this.labelX + (iconSize * 2) / 3 &&
-          y > this.labelY - iconSize / 3 &&
-          y < this.labelY + (iconSize * 2) / 3
-        )
-          return "delete";
-        if (
-          x > this.labelX &&
-          x < this.labelX + destinationWidth &&
-          y > this.labelY &&
-          y < this.labelY + this.lines.length * this.lineHeight + 2 * padding
-        )
-          return "click";
-        return null;
-      }
-
-      delete() {
-        deletedOutcomeIDs.push(this.id);
-
-        const linkedDestinations = destinations.filter((d) =>
-          d.outcomeIDs.includes(this.id)
-        );
-        linkedDestinations.forEach((d) => {
-          d.outcomeIDs.splice(
-            d.outcomeIDs.findIndex((o) => o == this.id),
-            1
-          );
-        });
-
-        const outcomeIndex = outcomes.findIndex((o) => o.id == this.id);
-        outcomes.splice(outcomeIndex, 1);
 
         renderChart();
       }
     }
 
     const initialiseData = async () => {
-      const mappedDestinations = objectToArray(
-        decisionTree.value?.destinations
+      getDestinations(decisionTree.value?.root);
+    };
+
+    const getDestinations = (node, parent) => {
+      const newDestination = new Destination(
+        node.id,
+        node.text,
+        node.type,
+        node.xPosition,
+        node.yPosition,
+        parent,
+        node.children
       );
-      const mappedOutcomes = objectToArray(decisionTree.value?.outcomes);
-
-      for (const destination of mappedDestinations) {
-        const newDestination = new Destination(
-          destination.id,
-          destination.title,
-          destination.type,
-          destination.x,
-          destination.y,
-          destination.outcomeIDs,
-          destination.destinationID,
-          destination.locked
-        );
-        destinations.push(newDestination);
+      destinations.push(newDestination);
+      for (const child of node.children) {
+        getDestinations(child, newDestination);
       }
-
-      if (decisionTree.value.destinations.length == 0) {
-        const newDestination = new Destination(
-          crypto.randomUUID(),
-          "First Question",
-          "Question",
-          50,
-          50,
-          [],
-          null
-        );
-        destinations.push(newDestination);
-        decisionTree.value.rootID = newDestination.id;
-      }
-
-      for (const outcome of mappedOutcomes) {
-        const parent = Destination.getByID(outcome.parentID);
-        const child = Destination.getByID(outcome.childID);
-        const newOutcome = new Outcome(
-          outcome.id,
-          parent,
-          outcome.label,
-          child
-        );
-        outcomes.push(newOutcome);
-      }
-
       renderChart();
     };
 
     const renderChart = () => {
       if (!c) return;
       c.clearRect(0, 0, canvas.value.width, canvas.value.height);
-      outcomes.forEach((o) => {
-        o.drawConnector();
-      });
-
-      outcomes.forEach((o) => {
-        o.drawLabel();
-      });
-
-      destinations.forEach((d) => {
-        d.draw();
-      });
-
-      if (newOutcome) {
-        newOutcome.drawConnector();
-      }
+      destinations
+        .filter((d) => d.type === 3)
+        .forEach((d) => {
+          d.drawConnector();
+          d.draw();
+        });
+      destinations
+        .filter((d) => d.type !== 3)
+        .forEach((d) => {
+          d.draw();
+        });
     };
 
     const onMouseDown = (e) => {
@@ -757,7 +660,7 @@ export default {
         ) {
           return;
         }
-        if (destinationHover === "click") {
+        if (destinationHover === "click" && destination.type !== 3) {
           dragDestination = destination;
         }
       });
@@ -798,15 +701,6 @@ export default {
 
         if (action === "add" && destination.type === "Question") {
           eventHandled = true;
-          newOutcome = new Outcome(
-            crypto.randomUUID(),
-            destination,
-            "Answer",
-            null,
-            x,
-            y
-          );
-          destination.outcomeIDs.push(newOutcome.id);
           return;
         }
 
@@ -822,68 +716,9 @@ export default {
 
           return;
         }
-
-        // if (action == "click" && newOutcome) {
-        //   eventHandled = true;
-
-        //   // Destination - Existing destination has been clicked
-        //   if (
-        //     outcomes.some((o) => {
-        //       return o.parent.id == newOutcome.parent.id && o.child.id == destination.id;
-        //     })
-        //   ) {
-        //     newOutcome.parent.outcomeIDs.splice(
-        //       newOutcome.parent.outcomeIDs.findIndex((o) => o.id == newOutcome.id),
-        //       1
-        //     );
-        //     newOutcome = null;
-        //     renderChart();
-        //     return;
-        //   }
-
-        //   newOutcome.child = destination;
-        //   newOutcome.x = null;
-        //   newOutcome.y = null;
-        //   outcomes.push(newOutcome);
-        //   editOutcome.value = outcomes[outcomes.length - 1];
-        //   outcomeVisible.value = true;
-        //   // showMenu("outcomeMenu");
-        //   newOutcome = null;
-        //   dirty.value = true;
-        //   renderChart();
-        //   return;
-        // }
-
-        // if (action == "click") {
-        //   console.log();
-        // }
       });
 
       if (eventHandled) return;
-
-      if (newOutcome) {
-        // Create Destination object and push it to the destinations array
-        const newDestination = new Destination(
-          crypto.randomUUID(),
-          "New question",
-          "Question",
-          x - destinationWidth / 2,
-          y,
-          []
-        );
-        destinations.push(newDestination);
-
-        //Make the new destination the target of the active outcome
-        newOutcome.x = null;
-        newOutcome.y = null;
-        newOutcome.child = newDestination;
-        outcomes.push(newOutcome);
-        newOutcome = null;
-        renderChart();
-        editDestination.value = destinations[destinations.length - 1];
-        editOutcome.value = outcomes[outcomes.length - 1];
-        destinationVisible.value = true;
-      }
     };
 
     const onDrag = (e) => {
@@ -895,13 +730,6 @@ export default {
       const left = event.target.getBoundingClientRect().left;
       const x = clientX - left;
       const y = clientY - top;
-
-      if (newOutcome) {
-        newOutcome.x = x;
-        newOutcome.y = y;
-        renderChart();
-        return;
-      }
 
       if (x < 0 || y < 0) dragDestination = null;
 
@@ -920,9 +748,6 @@ export default {
             destination.x += x - dragStart.x;
             destination.y += y - dragStart.y;
           }
-        }
-        for (const outcome of outcomes) {
-          outcome.hover = outcome.checkSelected(x, y);
         }
       }
 
@@ -1044,13 +869,6 @@ export default {
       router.back();
     };
 
-    const objectToArray = (obj) => {
-      if (!obj) return [];
-      const keys = Object.keys(obj);
-      const mapped = keys.map((k) => obj[k]);
-      return mapped;
-    };
-
     return {
       canvas,
       container,
@@ -1063,8 +881,6 @@ export default {
       save,
       cancel,
       editDestination,
-      editOutcome,
-      outcomeVisible,
       newDestinationVisible,
       destinationVisible,
       infoVisible,

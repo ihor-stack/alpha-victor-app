@@ -2,43 +2,64 @@
   <h1 class="font-bold font-size-lg color-light-gray">LinkedIn</h1>
   <ul class="organisation-options-menu">
     <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewDetails' }" router-direction="root">
+      <ion-item
+        :router-link="{ name: 'OrganisationViewDetails' }"
+        router-direction="root"
+      >
         <span class="link-text">Details</span>
         <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
       </ion-item>
     </li>
     <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewTheme' }" router-direction="root">
+      <ion-item
+        :router-link="{ name: 'OrganisationViewTheme' }"
+        router-direction="root"
+      >
         <span class="link-text">Theme</span>
         <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
       </ion-item>
     </li>
     <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewSpaceMetadata' }" router-direction="root">
+      <ion-item
+        :router-link="{ name: 'OrganisationViewSpaceMetadata' }"
+        router-direction="root"
+      >
         <span class="link-text">Space Metadata</span>
         <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
       </ion-item>
     </li>
     <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewDocumentTypes' }" router-direction="root">
+      <ion-item
+        :router-link="{ name: 'OrganisationViewDocumentTypes' }"
+        router-direction="root"
+      >
         <span class="link-text">Document Types</span>
         <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
       </ion-item>
     </li>
     <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewDecisionTrees' }" router-direction="root">
+      <ion-item
+        :router-link="{ name: 'OrganisationViewDecisionTrees' }"
+        router-direction="root"
+      >
         <span class="link-text">Decision Trees</span>
         <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
       </ion-item>
     </li>
     <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewIntegrationsList' }" router-direction="root">
+      <ion-item
+        :router-link="{ name: 'OrganisationViewIntegrationsList' }"
+        router-direction="root"
+      >
         <span class="link-text">Integrations</span>
         <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
       </ion-item>
     </li>
     <li class="organisation-options-menu-item">
-      <ion-item :router-link="{ name: 'OrganisationViewLocationsList' }" router-direction="root">
+      <ion-item
+        :router-link="{ name: 'OrganisationViewLocationsList' }"
+        router-direction="root"
+      >
         <span class="link-text">Locations</span>
         <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
       </ion-item>
@@ -46,27 +67,35 @@
   </ul>
   <div class="delete-div">
     <ion-button class="delete-button font-size-sm text-lowercase" color="red">
-    Delete organisation
+      Delete organisation
     </ion-button>
   </div>
 </template>
 
 <script setup lang="ts">
+import { onBeforeMount, ref } from "vue";
 import { IonItem, IonIcon, IonButton } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
+import { Organisations } from "@/stores/adminOrganisations";
+
+const organisation = Organisations();
+
+onBeforeMount(() => {
+  organisation.getOrgDetails();
+});
 </script>
 
 <style scoped>
 /* check why the button can only change color to red 
 if both back ground color on style and color="red" are used together */
-.delete-button{
+.delete-button {
   background-color: var(--av-red);
   position: absolute;
   bottom: 0;
   right: 0;
   border-radius: 8px;
 }
-.delete-div{
+.delete-div {
   height: 322px;
   position: relative;
 }
@@ -78,7 +107,7 @@ if both back ground color on style and color="red" are used together */
 
 .organisation-options-menu-item ion-item {
   --background: none;
-  --color: #FFFFFF;
+  --color: #ffffff;
   --padding-start: 0;
   --padding-end: 0;
   --inner-padding-end: 0;
