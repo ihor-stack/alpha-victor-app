@@ -7,13 +7,13 @@
 </template>
 
 <script setup lang="ts">
-import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import AppMenu from './components/shared/AppMenu.vue';
-import AdminAlertModal from '@/components/admin/AdminAlertModal.vue'
+import { IonApp, IonRouterOutlet } from "@ionic/vue";
+import AppMenu from "./components/shared/AppMenu.vue";
+import AdminAlertModal from "@/components/admin/AdminAlertModal.vue";
 </script>
 
 <style>
-  .ion-page-hidden {
-    display: none !important;
-  }
+.ion-page-hidden {
+  display: none !important;
+}
 </style>
