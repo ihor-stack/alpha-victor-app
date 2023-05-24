@@ -96,6 +96,7 @@ export interface DecisionTree {
   id: string;
   name: string;
   root: DecisionTreeNode;
+  loaded?: boolean;
 }
 
 export interface Device {

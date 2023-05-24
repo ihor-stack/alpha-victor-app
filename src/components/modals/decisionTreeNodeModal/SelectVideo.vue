@@ -22,14 +22,14 @@
           class="list-item"
           v-for="video in filteredVideos"
           :key="video.id"
-          @click="state.selectedVideo = video.id"
+          @click="state.selectedVideo = video"
         >
           <p class="primaryText font-bold font-size-sm color-light-gray">
             {{ video.title }}
           </p>
           <div class="font-size-xs">
             <ion-row
-              v-if="video.id === state.selectedVideo"
+              v-if="video.id === state.selectedVideo?.id"
               class="color-green ion-align-items-center"
             >
               <ion-icon :icon="checkmarkCircle" size="small" />
@@ -48,19 +48,22 @@
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
           <ion-label color="light">Add new video</ion-label>
-          <ion-input
-            color="light"
-            placeholder="Enter Vimeo or YouTube URL"
-            v-model="state.newVideo"
-          ></ion-input>
+          <ion-row>
+            <ion-input
+              color="light"
+              placeholder="Enter Vimeo or YouTube URL"
+              v-model="state.newVideo"
+            ></ion-input>
+            <ion-button class="addVideoButton">Add +</ion-button>
+          </ion-row>
         </ion-col>
       </ion-row>
       <ion-button
         class="ion-text-capitalize"
         expand="block"
-        @click="handleClickConfirm"
+        @click="handleClickConfirm({ video: state.selectedVideo })"
       >
-        Add video
+        Confirm selection
       </ion-button>
       <ion-button
         class="ion-text-capitalize"
@@ -76,7 +79,15 @@
 </template>
 <script setup>
 import { reactive, computed } from "vue";
-import { IonContent, IonButton, IonFooter, IonRow, IonCol } from "@ionic/vue";
+import {
+  IonContent,
+  IonButton,
+  IonFooter,
+  IonRow,
+  IonCol,
+  IonLabel,
+  IonInput,
+} from "@ionic/vue";
 import CommonModal from "@/components/modals/CommonModal.vue";
 import InputWithIcon from "@/components/shared/InputWithIcon.vue";
 import { checkmarkCircle, search } from "ionicons/icons";
@@ -94,38 +105,16 @@ const props = defineProps([
 
 const state = reactive({
   searchTerm: "",
-  selectedVideo: props.editTreeNode?.video?.id,
+  selectedVideo: props.editTreeNode?.video,
   newVideo: "",
 });
 
 const filteredVideos = computed(() => {
   const videos = organisationsStore.currentOrganisationDetails?.videos || [];
 
-  // return articles.filter(
-  //   (a) =>
-  //     a.title?.toLowerCase().indexOf(state.searchTerm.value.toLowerCase()) > -1
-  // );
-  const mockVideos = [
-    {
-      id: "1",
-      title: "Teams Room",
-      richText:
-        "loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum",
-    },
-    {
-      id: "2",
-      title: "Alternative Teams Room",
-      richText:
-        "loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum",
-    },
-    {
-      id: "3",
-      title: "Alternative Teams Room",
-      richText:
-        "loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum",
-    },
-  ];
-  return mockVideos;
+  return videos.filter(
+    (a) => a.title?.toLowerCase().indexOf(state.searchTerm.toLowerCase()) > -1
+  );
 });
 </script>
 
@@ -150,5 +139,15 @@ ion-content::part(background) {
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 15px;
+}
+
+ion-button.addVideoButton {
+  --color: blue;
+  --background: white;
+  margin: 5px 0 0 12px;
+}
+
+.form-admin--group_field {
+  padding-right: 0;
 }
 </style>

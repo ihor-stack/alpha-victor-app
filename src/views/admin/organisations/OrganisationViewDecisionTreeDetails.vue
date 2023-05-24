@@ -79,6 +79,7 @@
         }
       "
       :handleClickNext="handleClickNextOnEdit"
+      :handleClickConfirm="handleClickConfirm"
     />
   </ion-page>
 </template>
@@ -126,9 +127,8 @@ export default {
     const route = useRoute();
     const decisionTreeID = route.params.decisionTreeID;
     const organisationID = route.params.organisationID;
-    // organisationsStore.getDecisionDetails(decisionTreeID);
-    // organisationsStore.getOrgDetails();
-    console.log(decisionTreeID, organisationID);
+    organisationsStore.getDecisionDetails(decisionTreeID);
+    organisationsStore.getOrgDetails(organisationID);
   },
 
   setup() {
@@ -175,6 +175,7 @@ export default {
     const router = useRouter();
 
     const { decisionTree } = storeToRefs(organisationsStore);
+    console.log(decisionTree);
 
     const model = ref();
     const manufacturer = ref();
@@ -185,12 +186,26 @@ export default {
     });
 
     const handleClickNextOnEdit = (questionData) => {
+      const currentTreeNode = Destination.getByID(editTreeNode.value.id);
       editTreeNode.value.text = questionData.text;
       editTreeNode.value.type = questionData.type;
+      currentTreeNode.text = questionData.text;
+      currentTreeNode.type = questionData.type;
       const answerNode = editTreeNode.value.parent;
       if (answerNode?.type === 3) {
         answerNode.text = questionData.outcomeLabel;
       }
+      renderChart();
+    };
+
+    const handleClickConfirm = (treeNodeData) => {
+      const currentTreeNode = Destination.getByID(editTreeNode.value.id);
+      for (const key of Object.keys(treeNodeData)) {
+        const value = treeNodeData[key];
+        currentTreeNode[key] = value;
+      }
+
+      destinationVisible.value = false;
       renderChart();
     };
 
@@ -840,6 +855,7 @@ export default {
 
     return {
       handleClickNextOnEdit,
+      handleClickConfirm,
       canvas,
       container,
       dirty,

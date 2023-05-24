@@ -1,3 +1,4 @@
+import { Article, Video } from "./index";
 export enum DecisionTreeNodeType {
   Article,
   Video,
@@ -5,7 +6,6 @@ export enum DecisionTreeNodeType {
   Answer,
   Email,
   Phone,
-  Document,
 }
 
 export class DecisionTreeNode {
@@ -18,6 +18,10 @@ export class DecisionTreeNode {
   children: any[];
   hover = false;
   locked = false;
+  article: Article | null = null;
+  video: Video | null = null;
+  phone: string | null = null;
+  email: string | null = null;
 
   constructor(
     id: string,
