@@ -1,4 +1,5 @@
 <template>
+  <div>
     <ion-label v-if="label" color="light">
       {{ label }}
     </ion-label >
@@ -16,7 +17,8 @@
         {{option.title}}
         </div>
     </ion-popover>
-  </template>
+  </div>
+</template>
   
   <script setup lang="ts">
   import { 
@@ -38,14 +40,17 @@
   
   <style scoped>
   ion-popover {
-    --background: var(--av-light-gray);
+    --background: #ffffff;
     --backdrop-opacity: 0.6;
     --box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.6);
     --color: white;
     --width: 300px;
   }
   ion-popover::part(backdrop) {
-    background-color: rgb(6, 14, 106);
+    background-color: var(--av-darkest-gray);
+  }
+  ion-popover select-content {
+    border-bottom: 1px solid #000;
   }
   </style>
   

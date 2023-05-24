@@ -1,67 +1,69 @@
 <template>
-  <ion-chip color="light" @click="modalOpen = true">
-    <ion-icon :icon="addOutline" ></ion-icon>
-    <ion-label>Add New Document</ion-label>
-  </ion-chip>
-  <ion-modal 
-  :is-open="modalOpen"  
-  @willDismiss="handleDismiss"
-  :initial-breakpoint="1" 
-  :breakpoints="[0, 1]">
-    <ion-page>
-      <div class="issues-panel">
-        <div class="issues-panel-container">
-          <ion-header>
-            <ion-icon 
-            color='light' 
-            :icon="close" 
-            size="small" 
-            class="close-button" 
-            @click="modalOpen = false"/>
-            <div class="issues-panel__header">
-              <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
-                Add New Document
-              </h1>
-            </div>
-          </ion-header>
-          <ion-content :scroll-y="false" class="form-admin--group_field">
-              <div class="issues-panel__section issues-panel__select-equipment">
-                  <ion-input 
-                  color="light" 
-                  placeholder="Document Name"
-                  :value="newDocument"
-                  @input="newDocument=$event.target.value" />
-                  <ion-input
-                    class="font-size-sm"
-                    color="light"
-                    :disabled="true"
-                  >
-                  <div>
-                    <input
-                      class="file-input"
-                      type="file"
-                      accept="*/"
-                      :v-model="image"
-                      @change="uploadFile" 
-                    />
-                  </div>
-                  </ion-input>
-                  <AdminList v-model="selectedDocType" :options="documentTypes"/>
+  <div>
+    <ion-chip class="font-size-xs font-mono" color="light" @click="modalOpen = true">
+      <ion-label>Add New Document</ion-label>
+      <ion-icon :icon="addOutline"></ion-icon>
+    </ion-chip>
+    <ion-modal 
+    :is-open="modalOpen"  
+    @willDismiss="handleDismiss"
+    :initial-breakpoint="1" 
+    :breakpoints="[0, 1]">
+      <ion-page>
+        <div class="issues-panel">
+          <div class="issues-panel-container">
+            <ion-header>
+              <ion-icon 
+              color='light' 
+              :icon="close" 
+              size="small" 
+              class="close-button" 
+              @click="modalOpen = false"/>
+              <div class="issues-panel__header">
+                <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
+                  Add New Document
+                </h1>
               </div>
-          </ion-content>
-          <ion-footer>
-              <ion-button 
-              class="font-size-sm text-lowercase"
-              expand="block"
-              @click="saveNewDocument()">
-                Save
-              </ion-button>
-          </ion-footer>
+            </ion-header>
+            <ion-content :scroll-y="false" class="form-admin--group_field">
+                <div class="issues-panel__section issues-panel__select-equipment">
+                    <ion-input 
+                    color="light" 
+                    placeholder="Document Name"
+                    :value="newDocument"
+                    @input="newDocument=$event.target.value" />
+                    <ion-input
+                      class="font-size-sm"
+                      color="light"
+                      :disabled="true"
+                    >
+                    <div>
+                      <input
+                        class="file-input"
+                        type="file"
+                        accept="*/"
+                        :v-model="image"
+                        @change="uploadFile" 
+                      />
+                    </div>
+                    </ion-input>
+                    <AdminList v-model="selectedDocType" :options="documentTypes"/>
+                </div>
+            </ion-content>
+            <ion-footer>
+                <ion-button 
+                class="font-size-sm text-lowercase"
+                expand="block"
+                @click="saveNewDocument()">
+                  Save
+                </ion-button>
+            </ion-footer>
+          </div>
         </div>
-      </div>
-    </ion-page>
-  </ion-modal>
-  </template>
+      </ion-page>
+    </ion-modal>
+  </div>
+</template>
   
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from "vue";
@@ -141,9 +143,8 @@ onBeforeMount(()=>{
 ion-content::part(background) {
 background: #181818;
 }
-.add-button {
-margin-bottom: 5%;
-width: 246px;
+ion-chip {
+  float:right;
 }
 .close-button{
 width: 20px;
@@ -151,7 +152,7 @@ margin-left: 95%;
 cursor: pointer;
 }
 .issues-panel {
-height: 90%;
+height: 60%;
 width: 60%;
 margin-left: 20%;
 border-radius: 40px 40px 40px 40px;

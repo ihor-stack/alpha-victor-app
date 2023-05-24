@@ -54,6 +54,6 @@ const router = useRouter();
 
   .fixed-sidebar {
     width: 30%;
-    max-width: 300px;
+    max-width: 270px;
   }
 </style>

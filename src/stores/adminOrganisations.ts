@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { adminAPI } from "@/axios";
+import { publicAPI } from "@/axios";
 import {
   AdminOrganisation,
   OrgDetails,
@@ -8,6 +9,7 @@ import {
   AdminDocument,
   DecisionTree,
 } from "@/types/index";
+
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -171,7 +173,7 @@ export const Organisations = defineStore("Organisations", {
       return true;
     },
     async getOrganisations() {
-      adminAPI
+      publicAPI
         .get<AdminOrganisation[]>("/Organisation/")
         .then((response) => {
           this.organisationList = response.data;
@@ -183,7 +185,7 @@ export const Organisations = defineStore("Organisations", {
     },
     async getOrgDetails() {
       adminAPI
-        .get<OrgDetails>(`/Organisation/${cookies.get("orgId")}/Details`)
+        .get<OrgDetails>("/Organisation/" + cookies.get("orgId") + "/Details")
         .then((response) => {
           this.organisationDetails = response.data;
         })

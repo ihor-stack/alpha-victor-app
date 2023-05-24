@@ -5,6 +5,10 @@ const adminAPI = axios.create({
   baseURL: `https://alphavictor-dev.azurewebsites.net/api/admin`,
 });
 
+const publicAPI = axios.create({
+  baseURL: `https://alphavictor-dev.azurewebsites.net/api`,
+});
+
 const authService = new Auth();
 
 adminAPI.interceptors.request.use(async (c) => {
@@ -17,4 +21,14 @@ adminAPI.interceptors.request.use(async (c) => {
   return c;
 });
 
-export { adminAPI };
+publicAPI.interceptors.request.use(async (c) => {
+  const accessToken = await authService.fetchCurrentAccessToken();
+
+  if (accessToken) {
+    c.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  return c;
+});
+
+export { adminAPI, publicAPI };

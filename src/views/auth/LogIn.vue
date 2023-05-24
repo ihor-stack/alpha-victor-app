@@ -58,12 +58,6 @@ const signIn = async () => {
     return router.replace({ name: "Login" });
   }
 };
-
-const signInViaEmail = () => {
-  // Sign in via email logic here
-  // TODO: Do API integration here 
-  return null;
-};
 </script>
 
 <style scoped>

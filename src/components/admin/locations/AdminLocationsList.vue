@@ -1,6 +1,6 @@
 <template>
     <ion-grid class="form-admin">
-        <h1 class="font-bold font-size-lg color-light-gray">First Floor</h1>
+        <h1 class="title-admin font-bold font-size-lg color-light-gray">First Floor</h1>
         <ion-row class="form-admin--group">
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Floor name</ion-label>
@@ -20,37 +20,36 @@
                 @ion-input="floor.shortName = String($event.target.value)"
                 ></ion-input>
             </ion-col>
-            <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <h2 class="font-bold font-size-lg color-light-gray">Spaces</h2>
+
+            <ion-col size-xs="12" class="button-pair">
+                <ion-button class="button-wide" @click="Floor.saveFloor">
+                    Save floor
+                </ion-button>
+            </ion-col>
+            
+            <hr class="form-admin--divider" />
+
+            <ion-col size-xs="12" class="form-admin--group_field">
+                <h4 class="font-bold font-size-normal color-light-gray">Spaces</h4>
                 <ion-item 
                 v-for="(space, index) in floor.spaces" 
                 :key="index" 
                 button
                 :router-link="redirect(String(space.spaceId))"
-                router-direction="root">
-                <ion-label color="light" >
-                    <h2>{{space.name}}</h2>
-                    <p>Location</p>
-                </ion-label>
-                <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
+                router-direction="root"
+                class="form-admin--group_field-item ion-no-padding">
+                    <img src="https://imageio.forbes.com/specials-images/imageserve/61b8b4834a7373c7800e631a/Business-people-video-conferencing-in-meeting-room/960x0.jpg?format=jpg&width=960" alt="" />
+                    <ion-label color="light" >
+                        {{space.name}}
+                    </ion-label>
+                    <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
                 </ion-item>
             </ion-col>
-            <!-- <ion-col size-xs="12" class="form-admin--group_field">
-                <h2 class="font-bold font-size-lg color-light-gray">Spaces</h2>
-                <AdminFloorsField />
-            </ion-col> -->
-            <ion-col size-xs="12" class="form-admin--group_field">
-                <div class="button-div-margin">
-                    <ion-button class="font-size-sm text-lowercase" @click="Floor.saveFloor">
-                        Save changes
-                    </ion-button>
-                    <ion-button 
-                    class="font-size-sm text-lowercase export-button" 
-                    fill="outline" 
-                    color="--av-light-gray">
-                        Export QR Codes
-                    </ion-button>
-                </div>
+            
+            <ion-col size-xs="12" class="button-pair">
+                <ion-button class="button-wide">
+                    Add new space +
+                </ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -59,7 +58,6 @@
 </template>
 
 <script setup lang="ts">
-
 import {
     IonGrid,
     IonRow,
@@ -100,9 +98,6 @@ onBeforeMount(() =>{
 </script>
 
 <style scoped>
-h1{
-    margin-bottom: 48px;
-}
 h2{
     margin-top: 30px;
     margin-bottom: 16px;

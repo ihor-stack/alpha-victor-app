@@ -966,7 +966,7 @@ ion-row.decission-tree-wrapper {
 
 .fixed-sidebar {
   width: 30%;
-  max-width: 300px;
+  max-width: 270px;
 }
 
 #pageContainer {

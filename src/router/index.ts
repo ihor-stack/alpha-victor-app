@@ -253,16 +253,23 @@ const routes: Array<RouteRecordRaw> = [
               ),
           },
           {
-            path: "organisation/:id/locations",
-            name: "OrganisationViewLocationsList",
+            path: "organisation/id/decision-trees",
+            name: "OrganisationViewDecisionTrees",
             props: true,
             component: () =>
               import(
-                "@/views/admin/organisations/locations/OrganisationViewLocationsList.vue"
+                "@/views/admin/organisations/OrganisationViewDecisionTrees.vue"
               ),
           },
+        ],
+      },
+      {
+        path: "organisation/:id/location",
+        name: "AdminLocationLayout",
+        component: () => import("@/layouts/AdminLocationLayout.vue"),
+        children: [
           {
-            path: "organisation/:id/location/:locationId",
+            path: ":locationId",
             name: "OrganisationViewLocations",
             props: true,
             component: () =>
@@ -271,7 +278,7 @@ const routes: Array<RouteRecordRaw> = [
               ),
           },
           {
-            path: "organisation/:id/location/:locationId/floor/:floorId",
+            path: ":locationId/floor/:floorId",
             name: "OrganisationViewLocationsFloors",
             props: true,
             component: () =>
@@ -280,7 +287,7 @@ const routes: Array<RouteRecordRaw> = [
               ),
           },
           {
-            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId",
+            path: ":locationId/floor/:floorId/space/:spaceId",
             name: "OrganisationViewLocationsSpaces",
             props: true,
             component: () =>
@@ -289,7 +296,7 @@ const routes: Array<RouteRecordRaw> = [
               ),
           },
           {
-            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/devices",
+            path: ":locationId/floor/:floorId/space/:spaceId/devices",
             name: "OrganisationViewLocationsDevices",
             props: true,
             component: () =>
@@ -298,7 +305,7 @@ const routes: Array<RouteRecordRaw> = [
               ),
           },
           {
-            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/beacon",
+            path: ":locationId/floor/:floorId/space/:spaceId/beacon",
             name: "OrganisationViewLocationsBeacon",
             props: true,
             component: () =>
@@ -307,7 +314,7 @@ const routes: Array<RouteRecordRaw> = [
               ),
           },
           {
-            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/integrations",
+            path: ":locationId/floor/:floorId/space/:spaceId/integrations",
             name: "OrganisationViewLocationsIntegrations",
             props: true,
             component: () =>
@@ -316,21 +323,12 @@ const routes: Array<RouteRecordRaw> = [
               ),
           },
           {
-            path: "organisation/:id/location/:locationId/floor/:floorId/space/:spaceId/wifi",
+            path: ":locationId/floor/:floorId/space/:spaceId/wifi",
             name: "OrganisationViewLocationsWifi",
             props: true,
             component: () =>
               import(
                 "@/views/admin/organisations/locations/OrganisationViewLocationsWifi.vue"
-              ),
-          },
-          {
-            path: "organisation/id/decision-trees",
-            name: "OrganisationViewDecisionTrees",
-            props: true,
-            component: () =>
-              import(
-                "@/views/admin/organisations/OrganisationViewDecisionTrees.vue"
               ),
           },
         ],
