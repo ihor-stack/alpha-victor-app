@@ -2,10 +2,13 @@
   <h1 class="font-bold font-size-lg color-light-gray">Decision Trees</h1>
 
   <ion-grid class="form-admin">
-
     <ion-row class="form-admin--group">
       <ion-col size-xs="4" size-sm="4" class="form-admin--group_field">
-        <ion-input class="font-size-sm" color="light" placeholder="Add new decision tree"></ion-input>
+        <ion-input
+          class="font-size-sm"
+          color="light"
+          placeholder="Add new decision tree"
+        ></ion-input>
       </ion-col>
       <ion-col size-xs="2" size-sm="2" class="form-admin--group_field">
         <ion-button>Add new +</ion-button>
@@ -14,14 +17,25 @@
 
     <ion-row>
       Current decisions trees
-      <ion-item :router-link="{ name: 'OrganisationViewDecisionTreeDetails' }" router-direction="root">
+      <ion-item
+        :router-link="{
+          name: 'OrganisationViewDecisionTreeDetails',
+          params: { decisionTreeID: '00000000-0000-0000-0000-000000000001' },
+        }"
+        router-direction="root"
+      >
         Boardroom DT
       </ion-item>
-      <ion-item :router-link="{ name: 'OrganisationViewDecisionTreeDetails' }" router-direction="root">
+      <ion-item
+        :router-link="{
+          name: 'OrganisationViewDecisionTreeDetails',
+          params: { decisionTreeID: '00000000-0000-0000-0000-000000000001' },
+        }"
+        router-direction="root"
+      >
         Boardroom DT
       </ion-item>
     </ion-row>
-
   </ion-grid>
 </template>
 
@@ -40,7 +54,7 @@ import { chevronForwardOutline } from "ionicons/icons";
 
 .organisation-options-menu-item ion-item {
   --background: none;
-  --color: #FFFFFF;
+  --color: #ffffff;
   --padding-start: 0;
   --padding-end: 0;
   --inner-padding-end: 0;

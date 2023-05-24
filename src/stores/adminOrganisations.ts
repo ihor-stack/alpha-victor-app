@@ -51,7 +51,7 @@ export const Organisations = defineStore("Organisations", {
                   id: "00000000-0000-0000-0000-000000000005",
                   text: "What do you want to do?",
                   parentId: "00000000-0000-0000-0000-000000000003",
-                  type: 2,
+                  type: 6,
                   xPosition: 200,
                   yPosition: 100,
                   article: null,
@@ -114,7 +114,7 @@ export const Organisations = defineStore("Organisations", {
                   id: "00000000-0000-0000-0000-000000000006",
                   text: "What do you want to do?",
                   parentId: "00000000-0000-0000-0000-000000000004",
-                  type: 2,
+                  type: 1,
                   xPosition: 200,
                   yPosition: 600,
                   article: null,
@@ -183,7 +183,7 @@ export const Organisations = defineStore("Organisations", {
     },
     async getOrgDetails() {
       adminAPI
-        .get<OrgDetails>("/Organisation/" + cookies.get("orgId") + "/Details")
+        .get<OrgDetails>(`/Organisation/${cookies.get("orgId")}/Details`)
         .then((response) => {
           this.organisationDetails = response.data;
         })
@@ -296,5 +296,6 @@ export const Organisations = defineStore("Organisations", {
     getList: (state) => state.organisationList,
     getId: (state) => state.currentOrg,
     getDecisionTree: (state) => state.decisionTree,
+    currentOrganisationDetails: (state) => state.organisationDetails,
   },
 });
