@@ -230,8 +230,8 @@ export default {
     }
 
     class Destination extends DecisionTreeNode {
-      constructor(id, text, type, x, y, parent, children, locked = false) {
-        super(id, text, type, x, y, parent, children, locked);
+      constructor(initialData) {
+        super(initialData);
       }
 
       get child() {
@@ -520,15 +520,19 @@ export default {
     };
 
     const getDestinations = (node, parent) => {
-      const newDestination = new Destination(
-        node.id,
-        node.text,
-        node.type,
-        node.xPosition,
-        node.yPosition,
-        parent,
-        node.children
-      );
+      const newDestination = new Destination({
+        id: node.id,
+        text: node.text,
+        type: node.type,
+        x: node.xPosition,
+        y: node.yPosition,
+        parent: parent,
+        children: node.children,
+        article: node.article,
+        video: node.video,
+        email: node.email,
+        phone: node.phone,
+      });
       destinations.push(newDestination);
       for (const child of node.children) {
         getDestinations(child, newDestination);
@@ -616,15 +620,19 @@ export default {
         if (action === "add" && destination.type === 2) {
           // Question
           eventHandled = true;
-          newTreeNode = new Destination(
-            crypto.randomUUID(),
-            "Answer",
-            3,
+          newTreeNode = new Destination({
+            id: crypto.randomUUID(),
+            text: "Answer",
+            type: 3,
             x,
             y,
-            destination,
-            []
-          );
+            parent: destination,
+            children: [],
+            article: null,
+            video: null,
+            email: null,
+            phone: null,
+          });
           editTreeNode.value = newTreeNode;
           return;
         }
@@ -670,15 +678,19 @@ export default {
       create a new destination and make it the target of the new outcome */
       if (newTreeNode) {
         // Create Destination object and push it to the destinations array
-        const newDestination = new Destination(
-          crypto.randomUUID(),
-          "New question",
-          2,
-          x - destinationWidth / 2,
+        const newDestination = new Destination({
+          id: crypto.randomUUID(),
+          text: "New question",
+          type: 2,
+          x: x - destinationWidth / 2,
           y,
-          newTreeNode,
-          []
-        );
+          parent: newTreeNode,
+          children: [],
+          article: null,
+          video: null,
+          email: null,
+          phone: null,
+        });
         newTreeNode.children = [
           {
             id: newDestination.id,

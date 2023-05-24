@@ -1,5 +1,5 @@
 export * from "./decisionTree";
-import { DecisionTreeNodeType } from "./decisionTree";
+import { DecisionTree } from "./decisionTree";
 enum Status {
   lowImpact,
   highImpact,
@@ -76,27 +76,6 @@ export interface Typeform {
 export interface SpaceFeature {
   name: string;
   category: string;
-}
-
-export interface DecisionTreeNode {
-  id: string;
-  xPosition: number;
-  yPosition: number;
-  text: string | null;
-  parentId: string | null;
-  type: DecisionTreeNodeType;
-  article: Article | null;
-  video: Video | null;
-  phoneNumber: string | null;
-  emailAddress: string | null;
-  children?: DecisionTreeNode[];
-}
-
-export interface DecisionTree {
-  id: string;
-  name: string;
-  root: DecisionTreeNode;
-  loaded?: boolean;
 }
 
 export interface Device {
