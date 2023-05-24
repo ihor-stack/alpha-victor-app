@@ -656,8 +656,6 @@ export default {
             return;
           }
           newTreeNode.children = [{ id: destination.id }];
-          newTreeNode.x = null;
-          newTreeNode.y = null;
           destinations.push(newTreeNode);
           editTreeNode.value = newTreeNode;
           newTreeNode = null;
