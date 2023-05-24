@@ -1,50 +1,35 @@
 <template>
-  <ion-page>
-    <div class="issues-panel">
-      <div class="issues-panel-container">
-        <ion-header>
-          <ion-icon
-            color="light"
-            :icon="close"
-            size="small"
-            class="close-button"
-            @click="handleDismiss()"
-          />
-          <div class="issues-panel__header">
-            <h1
-              class="issues-panel__title color-light-gray font-bold font-size-lg"
-            >
-              {{ title }}
-            </h1>
-            <p class="issues-panel__comment color-light-gray font-size-normal">
-              {{ description }}
-            </p>
-          </div>
-        </ion-header>
-        <slot></slot>
-      </div>
+  <div class="issues-panel">
+    <div class="issues-panel-container">
+      <ion-header>
+        <ion-icon
+          color="light"
+          :icon="close"
+          size="small"
+          class="close-button"
+          @click="handleDismiss"
+        />
+        <div class="issues-panel__header">
+          <h1
+            class="issues-panel__title color-light-gray font-bold font-size-lg"
+          >
+            {{ title }}
+          </h1>
+          <p class="issues-panel__comment color-light-gray font-size-normal">
+            {{ description }}
+          </p>
+        </div>
+      </ion-header>
+      <slot></slot>
     </div>
-  </ion-page>
+  </div>
 </template>
 
-<script setup lang="ts">
-import { reactive } from "vue";
-import {
-  IonPage,
-  IonContent,
-  IonHeader,
-  IonFooter,
-  IonButton,
-  IonIcon,
-  IonInput,
-  IonPopover,
-} from "@ionic/vue";
-import { close, cloudDownloadOutline } from "ionicons/icons";
+<script setup>
+import { IonPage, IonHeader, IonIcon } from "@ionic/vue";
+import { close } from "ionicons/icons";
 
 const props = defineProps(["title", "description", "handleDismiss"]);
-const state = reactive({
-  modalOpen: false,
-});
 </script>
 
 <style scoped>
@@ -64,8 +49,10 @@ ion-popover::part(backdrop) {
 
 .close-button {
   width: 20px;
-  margin-left: 95%;
   cursor: pointer;
+  position: absolute;
+  top: -24px;
+  right: -16px;
 }
 
 .issues-panel {
@@ -85,7 +72,7 @@ ion-popover::part(backdrop) {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 32px 32px;
+  padding: 45px 30px 10px;
 }
 .issues-panel__header {
   margin-bottom: 20px;

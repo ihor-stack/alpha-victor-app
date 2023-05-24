@@ -69,132 +69,17 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-modal
-      :is-open="destinationVisible"
-      @didDismiss="destinationVisible = false"
-      :showBackdrop="false"
-    >
-      <common-modal
-        :title="
-          editDestination.step === 1
-            ? `Select ${editDestination.type}`
-            : 'Edit destination'
-        "
-        :description="
-          editDestination.step === 1
-            ? `You can select an ${editDestination.type} to be presented via the list below.`
-            : 'You can adjust the destination and outcomes via the form below.'
-        "
-        :handleDismiss="
-          () => {
-            destinationVisible = false;
-          }
-        "
-      >
-        <ion-content :scroll-y="false">
-          <v-container v-if="editDestination.step === 1">
-            <v-container v-if="editDestination.type === 'Article'">
-              <ion-row>
-                <ion-col size="12">
-                  <input-with-icon
-                    iconPosition="start"
-                    color="light"
-                    type="search"
-                    placeholder="Search for an article"
-                    v-model="searchTerm"
-                    :icon="search"
-                  ></input-with-icon>
-                </ion-col>
-              </ion-row>
-              <ul>
-                <li class="list-item">
-                  <p
-                    class="primaryText font-bold font-size-sm color-light-gray"
-                  >
-                    Teams Room
-                  </p>
-                  <div class="font-size-xs">
-                    <span>>> select</span>
-                  </div>
-                </li>
-                <li class="list-item">
-                  <p
-                    class="primaryText font-bold font-size-sm color-light-gray"
-                  >
-                    Board Room
-                  </p>
-                  <div class="font-size-xs">
-                    <span>>> select</span>
-                  </div>
-                </li>
-              </ul>
-            </v-container>
-            <ion-button
-              class="ion-text-capitalize"
-              fill="outline"
-              expand="block"
-              color="light"
-              @click="destinationVisible = false"
-            >
-              Add new article +</ion-button
-            >
-            <ion-button
-              class="ion-text-capitalize"
-              expand="block"
-              @click="destinationVisible = false"
-            >
-              Confirm Selection</ion-button
-            >
-          </v-container>
-          <v-container v-else>
-            <ion-row>
-              <ion-col size="12" class="form-admin--group_field">
-                <ion-label color="light">Question title</ion-label>
-                <ion-input
-                  color="light"
-                  placeholder="Enter new question"
-                ></ion-input>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="form-admin--group_field">
-                <ion-label color="light">Outcome label</ion-label>
-                <ion-input
-                  color="light"
-                  placeholder="Enter new outcome"
-                ></ion-input>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="12" class="form-admin--group_field">
-                <ion-label color="light">Outcome type</ion-label>
-                <ion-select
-                  interface="action-sheet"
-                  placeholder="Select type"
-                  v-model="editDestination.type"
-                >
-                  <ion-select-option value="Question"
-                    >Question</ion-select-option
-                  >
-                  <ion-select-option value="Article">Article</ion-select-option>
-                  <ion-select-option value="Video">Video</ion-select-option>
-                  <ion-select-option Document="Video"
-                    >Document</ion-select-option
-                  >
-                </ion-select>
-              </ion-col>
-            </ion-row>
-            <ion-button
-              class="ion-text-capitalize"
-              expand="block"
-              @click="editDestination.step = 1"
-            >
-              Next</ion-button
-            >
-          </v-container>
-        </ion-content>
-      </common-modal>
-    </ion-modal>
+    <DecisionTreeNodeModal
+      v-if="destinationVisible"
+      :isOpen="destinationVisible"
+      :editTreeNode="editTreeNode"
+      :handleDismiss="
+        () => {
+          destinationVisible = false;
+        }
+      "
+      :handleClickNext="handleClickNextOnEdit"
+    />
   </ion-page>
 </template>
 
@@ -219,9 +104,8 @@ import {
 } from "@ionic/vue";
 
 import DesktopNav from "@/components/shared/DesktopNav.vue";
-import InputWithIcon from "@/components/shared/InputWithIcon.vue";
-import CommonModal from "@/components/modals/CommonModal.vue";
-import { DecisionTreeNodeType } from "@/types/index";
+import DecisionTreeNodeModal from "@/components/modals/decisionTreeNodeModal/DecisionTreeNodeModal.vue";
+import { DecisionTreeNode } from "@/types/decisionTree";
 
 import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
 
@@ -232,22 +116,19 @@ export default {
     DesktopNav,
     IonContent,
     IonPage,
-    IonButton,
     IonModal,
     IonRow,
     IonCol,
-    IonLabel,
-    IonInput,
-    IonSelect,
-    IonSelectOption,
-    InputWithIcon,
-    CommonModal,
+    DecisionTreeNodeModal,
   },
 
   mounted() {
     const route = useRoute();
     const decisionTreeID = route.params.decisionTreeID;
+    const organisationID = route.params.organisationID;
     // organisationsStore.getDecisionDetails(decisionTreeID);
+    // organisationsStore.getOrgDetails();
+    console.log(decisionTreeID, organisationID);
   },
 
   setup() {
@@ -264,15 +145,15 @@ export default {
 
     let dragStart;
     let dragDestination;
-    const destinations = [];
+    let destinations = [];
     let c;
 
-    const editDestination = ref();
+    const editTreeNode = ref();
+    let newTreeNode = null;
 
     const deletedDestinationIDs = [];
 
     const destinationVisible = ref(false);
-    const newDestinationVisible = ref(false);
 
     const infoVisible = ref(false);
     const searchTerm = ref("");
@@ -303,6 +184,16 @@ export default {
       onResize();
     });
 
+    const handleClickNextOnEdit = (questionData) => {
+      editTreeNode.value.text = questionData.text;
+      editTreeNode.value.type = questionData.type;
+      const answerNode = editTreeNode.value.parent;
+      if (answerNode?.type === 3) {
+        answerNode.text = questionData.outcomeLabel;
+      }
+      renderChart();
+    };
+
     function getLines(ctx, text, maxWidth) {
       const workingText = text || "";
       const words = workingText.split(" ");
@@ -323,17 +214,9 @@ export default {
       return lines;
     }
 
-    class Destination {
+    class Destination extends DecisionTreeNode {
       constructor(id, text, type, x, y, parent, children, locked = false) {
-        this.id = id;
-        this.text = text;
-        this.type = type;
-        this.x = x;
-        this.y = y;
-        this.parent = parent;
-        this.children = children;
-        this.hover = false;
-        this.locked = locked;
+        super(id, text, type, x, y, parent, children, locked);
       }
 
       get child() {
@@ -364,19 +247,23 @@ export default {
       }
 
       get x1() {
-        return this.parent?.connectors.bottomCenter.x;
+        return this.parent?.connectors
+          ? this.parent.connectors.bottomCenter.x
+          : 0;
       }
 
       get x2() {
-        return this.child?.connectors.topCenter.x;
+        return this.child?.connectors ? this.child.connectors.topCenter.x : 0;
       }
 
       get y1() {
-        return this.parent?.connectors.bottomCenter.y;
+        return this.parent?.connectors
+          ? this.parent.connectors.bottomCenter.y
+          : 0;
       }
 
       get y2() {
-        return this.child?.connectors.topCenter.y;
+        return this.child?.connectors ? this.child.connectors.topCenter.y : 0;
       }
 
       get labelX() {
@@ -523,8 +410,8 @@ export default {
 
         const x1 = this.parent.connectors.centerRight.x;
         const y1 = this.parent.connectors.centerRight.y;
-        const x2 = this.child.connectors.centerLeft.x;
-        const y2 = this.child.connectors.centerLeft.y;
+        const x2 = this.child?.connectors?.centerLeft?.x || this.x;
+        const y2 = this.child?.connectors?.centerLeft?.y || this.y;
         c.moveTo(x1, y1);
         c.bezierCurveTo(x2 - (x2 - x1) / 2, y1, x1 + (x2 - x1) / 2, y2, x2, y2);
 
@@ -541,27 +428,24 @@ export default {
           y > this.toolbarY &&
           y < this.toolbarY + this.toolbarHeight
         ) {
-          if (
-            x > this.realX - 6 + toolbarDelta * 0.5 - iconSize / 2 &&
-            x < this.realX - 6 + toolbarDelta * 0.5 + iconSize / 2
-          ) {
+          if (x > this.realX + 6 && x < this.realX + toolbarDelta) {
             return "add";
           }
           if (
-            x > this.realX - 6 + toolbarDelta * 1.5 - iconSize / 2 &&
-            x < this.realX - 6 + toolbarDelta * 1.5 + iconSize / 2
+            x > this.realX + 6 + toolbarDelta &&
+            x < this.realX + toolbarDelta * 2
           ) {
             return "edit";
           }
           if (
-            x > this.realX - 6 + toolbarDelta * 2.5 - iconSize / 2 &&
-            x < this.realX - 6 + toolbarDelta * 2.5 + iconSize / 2
+            x > this.realX + 6 + toolbarDelta * 2 &&
+            x < this.realX + toolbarDelta * 3
           ) {
             return "lock";
           }
           if (
-            x > this.realX - 6 + toolbarDelta * 3.5 - iconSize / 2 &&
-            x < this.realX - 6 + toolbarDelta * 3.5 + iconSize / 2
+            x > this.realX + 10 + toolbarDelta * 3 &&
+            x < this.realX + 6 + toolbarDelta * 4
           ) {
             return "delete";
           }
@@ -594,12 +478,24 @@ export default {
           return;
         }
 
-        const destinationIndex = destinations.findIndex(
-          (d) => d.id === this.id
-        );
-        destinations.splice(destinationIndex, 1);
         deletedDestinationIDs.push(this.id);
 
+        const linkedOutcomes = destinations.filter(
+          (o) =>
+            o.type === 3 && (o.child?.id === this.id || o.parent?.id == this.id)
+        );
+        deletedDestinationIDs.push(...linkedOutcomes.map((o) => o.id));
+
+        destinations = destinations.filter(
+          (d) => !deletedDestinationIDs.includes(d.id)
+        );
+
+        destinations.map((d) => {
+          d.children = d.children.filter(
+            (child) => !deletedDestinationIDs.includes(child.id)
+          );
+          return d;
+        });
         renderChart();
       }
     }
@@ -639,6 +535,9 @@ export default {
         .forEach((d) => {
           d.draw();
         });
+      if (newTreeNode) {
+        newTreeNode.drawConnector();
+      }
     };
 
     const onMouseDown = (e) => {
@@ -699,14 +598,25 @@ export default {
       destinations.forEach(async (destination) => {
         const action = destination.checkSelected(x, y);
 
-        if (action === "add" && destination.type === "Question") {
+        if (action === "add" && destination.type === 2) {
+          // Question
           eventHandled = true;
+          newTreeNode = new Destination(
+            crypto.randomUUID(),
+            "Answer",
+            3,
+            x,
+            y,
+            destination,
+            []
+          );
+          editTreeNode.value = newTreeNode;
           return;
         }
 
         if (action == "edit") {
           eventHandled = true;
-          editDestination.value = { ...destination, step: 0 };
+          editTreeNode.value = { ...destination };
           destinationVisible.value = true;
         }
 
@@ -716,9 +626,60 @@ export default {
 
           return;
         }
+
+        if (action == "click" && newTreeNode) {
+          eventHandled = true;
+          if (
+            destinations
+              .filter((destination) => destination.type === 3)
+              .some(
+                (o) =>
+                  o.parent.id === newTreeNode.parent.id &&
+                  o.child.id === destination.id
+              )
+          ) {
+            return;
+          }
+          newTreeNode.children = [{ id: destination.id }];
+          newTreeNode.x = null;
+          newTreeNode.y = null;
+          destinations.push(newTreeNode);
+          editTreeNode.value = newTreeNode;
+          newTreeNode = null;
+          renderChart();
+          return;
+        }
       });
 
       if (eventHandled) return;
+
+      /* If click has occurred outside all destinations and outcomes, and there is a newOutcome active,
+      create a new destination and make it the target of the new outcome */
+      if (newTreeNode) {
+        // Create Destination object and push it to the destinations array
+        const newDestination = new Destination(
+          crypto.randomUUID(),
+          "New question",
+          2,
+          x - destinationWidth / 2,
+          y,
+          newTreeNode,
+          []
+        );
+        newTreeNode.children = [
+          {
+            id: newDestination.id,
+          },
+        ];
+        destinations.push(newTreeNode);
+        destinations.push(newDestination);
+
+        //Make the new destination the target of the active outcome
+        newTreeNode = null;
+        renderChart();
+        editTreeNode.value = destinations[destinations.length - 1];
+        destinationVisible.value = true;
+      }
     };
 
     const onDrag = (e) => {
@@ -730,6 +691,14 @@ export default {
       const left = event.target.getBoundingClientRect().left;
       const x = clientX - left;
       const y = clientY - top;
+
+      //If user is already creating a new outcome, update the connector line
+      if (newTreeNode) {
+        newTreeNode.x = x;
+        newTreeNode.y = y;
+        renderChart();
+        return;
+      }
 
       if (x < 0 || y < 0) dragDestination = null;
 
@@ -870,6 +839,7 @@ export default {
     };
 
     return {
+      handleClickNextOnEdit,
       canvas,
       container,
       dirty,
@@ -880,8 +850,7 @@ export default {
       assetType,
       save,
       cancel,
-      editDestination,
-      newDestinationVisible,
+      editTreeNode,
       destinationVisible,
       infoVisible,
       closeCircle,
@@ -1015,10 +984,6 @@ ion-row.decission-tree-wrapper {
 
 ion-modal {
   --border-radius: 20px;
-}
-
-ion-content::part(background) {
-  background: #181818;
 }
 
 ion-select {

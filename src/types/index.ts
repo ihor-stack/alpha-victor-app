@@ -1,3 +1,4 @@
+import { DecisionTreeNodeType } from "./decisionTree";
 enum Status {
   lowImpact,
   highImpact,
@@ -9,15 +10,6 @@ enum DocumentTypeScope {
   location,
   floor,
   space,
-}
-
-enum DecisionTreeNodeType {
-  Article,
-  Video,
-  Question,
-  Answer,
-  Email,
-  Phone,
 }
 
 export interface Space {
