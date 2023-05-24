@@ -64,7 +64,7 @@
       <ion-button
         class="ion-text-capitalize ion-margin-top"
         expand="block"
-        @click="handleClickConfirm"
+        @click="handleClickConfirm(state)"
       >
         Confirm Selection</ion-button
       >

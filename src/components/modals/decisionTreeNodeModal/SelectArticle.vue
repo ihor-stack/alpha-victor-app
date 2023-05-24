@@ -22,14 +22,14 @@
           class="list-item"
           v-for="article in filteredArticles"
           :key="article.id"
-          @click="state.selectedArticle = article.id"
+          @click="state.selectedArticle = article"
         >
           <p class="primaryText font-bold font-size-sm color-light-gray">
             {{ article.title }}
           </p>
           <div class="font-size-xs">
             <ion-row
-              v-if="article.id === state.selectedArticle"
+              v-if="article.id === state.selectedArticle?.id"
               class="color-green ion-align-items-center"
             >
               <ion-icon :icon="checkmarkCircle" size="small" />
@@ -52,7 +52,7 @@
       <ion-button
         class="ion-text-capitalize ion-margin-top"
         expand="block"
-        @click="handleClickConfirm"
+        @click="handleClickConfirm({ article: state.selectedArticle })"
       >
         Confirm Selection</ion-button
       >
@@ -88,37 +88,15 @@ const props = defineProps([
 
 const state = reactive({
   searchTerm: "",
-  selectedArticle: props.editTreeNode?.aticle?.id,
+  selectedArticle: props.editTreeNode?.article,
 });
 
 const filteredArticles = computed(() => {
-  const articles = organisationsStore.currentOrganisationDetails;
+  const articles = organisationsStore.currentOrganisationDetails?.articles;
 
-  // return articles.filter(
-  //   (a) =>
-  //     a.title?.toLowerCase().indexOf(state.searchTerm.value.toLowerCase()) > -1
-  // );
-  const mockArticles = [
-    {
-      id: "1",
-      title: "Teams Room",
-      richText:
-        "loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum",
-    },
-    {
-      id: "2",
-      title: "Alternative Teams Room",
-      richText:
-        "loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum",
-    },
-    {
-      id: "3",
-      title: "Alternative Teams Room",
-      richText:
-        "loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum",
-    },
-  ];
-  return mockArticles;
+  return articles.filter(
+    (a) => a.title?.toLowerCase().indexOf(state.searchTerm.toLowerCase()) > -1
+  );
 });
 </script>
 

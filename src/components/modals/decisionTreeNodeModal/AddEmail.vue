@@ -18,7 +18,7 @@
       <ion-button
         class="ion-text-capitalize"
         expand="block"
-        @click="handleClickConfirm"
+        @click="handleClickConfirm(state)"
       >
         Confirm Selection</ion-button
       >
@@ -54,7 +54,7 @@ const props = defineProps([
 ]);
 
 const state = reactive({
-  phone: props.editTreeNode?.phone,
+  email: props.editTreeNode?.email,
 });
 </script>
 

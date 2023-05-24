@@ -18,7 +18,7 @@
       <ion-button
         class="ion-text-capitalize"
         expand="block"
-        @click="handleClickConfirm"
+        @click="handleClickConfirm(state)"
       >
         Update</ion-button
       >
