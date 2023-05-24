@@ -1,107 +1,109 @@
 <template>
-  <ion-button class="font-size-sm text-lowercase" @click="modalOpen = true">
-      Add new device +
-  </ion-button>
-  <ion-modal 
-  :is-open="modalOpen"  
-  @willDismiss="handleDismiss"
-  :initial-breakpoint="1" 
-  :breakpoints="[0, 1]">
-    <ion-page>
-      <div class="issues-panel">
-        <div class="issues-panel-container">
-          <ion-header>
-            <ion-icon 
-            color='light' 
-            :icon="close" 
-            size="small" 
-            class="close-button" 
-            @click="modalOpen = false"/>
-            <div class="issues-panel__header">
-              <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
-                Add New Device
-              </h1>
-            </div>
-          </ion-header>
-          <ion-content :scroll-y="false" class="form-admin--group_field">
-            <ion-row class="form-admin--group">
-              <ion-col size-xs="11" class="form-admin--group_field">
-                <ion-label color="light">Serial number</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="newDevice.serialNumber"
-                @ion-input="newDevice.serialNumber = String($event.target.value)"
-                ></ion-input>
-              </ion-col>
-              <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Installer</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="newDevice.installer"
-                @ion-input="newDevice.installer = String($event.target.value)"
-                ></ion-input>
-              </ion-col>
-              <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Name</ion-label>
-                <ion-input
-                class="font-size-sm"
-                color="light"
-                :value="newDevice.name"
-                @ion-input="newDevice.name = String($event.target.value)"
-                ></ion-input>
-              </ion-col>
-              <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Install date</ion-label>
-                <ion-datetime-button datetime="newDocInstallDate"></ion-datetime-button>
-                <ion-modal :keep-contents-mounted="true">
-                    <ion-datetime 
-                    id="newDocInstallDate" 
-                    display-format="DD/MM/YYYY HH:mm:ss"
-                    picker-format="DD MMM YYYY HH:mm:ss"
-                    :value="newDevice.installDate"
-                    show-default-buttons
-                    @ion-change="(e)=>{(newDevice.installDate = String(e.target.value))}"
-                    />
-                </ion-modal>
-              </ion-col>
-              <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                <ion-label color="light">Warranty expiry date</ion-label>
-                <ion-datetime-button datetime="newDocWarrantyDate"></ion-datetime-button>
-                <ion-modal :keep-contents-mounted="true">
-                    <ion-datetime 
-                    id="newDocWarrantyDate" 
-                    display-format="DD/MM/YYYY HH:mm:ss"
-                    picker-format="DD MMM YYYY HH:mm:ss"
-                    :value="newDevice.warrantyExpiryDate"
-                    :show-default-buttons="true"
-                    @ion-change="(e)=>{(newDevice.warrantyExpiryDate = String(e.target.value))}"
-                    />
-                </ion-modal>
-              </ion-col>
-              <ion-col size-xs="12" class="form-admin--group_field">
-                <ion-label color="light">Description</ion-label>
-                <ion-textarea
-                class="font-size-sm"
-                color="light"
-                fill="solid"
-                :value="newDevice.description"
-                @ion-input="newDevice.description = String($event.target.value)"
-                ></ion-textarea>
-              </ion-col>
-              <ion-col size-xs="12" class="form-admin--group_field">
-                <ion-button class="font-size-sm text-lowercase" @click="saveNewDevice()">
-                    Save
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-content> 
+  <div>
+    <ion-button class="button-wide" @click="modalOpen = true">
+        Add new device +
+    </ion-button>
+    <ion-modal 
+    :is-open="modalOpen"  
+    @willDismiss="handleDismiss"
+    :initial-breakpoint="1" 
+    :breakpoints="[0, 1]">
+      <ion-page>
+        <div class="issues-panel">
+          <div class="issues-panel-container">
+            <ion-header>
+              <ion-icon 
+              color='light' 
+              :icon="close" 
+              size="small" 
+              class="close-button" 
+              @click="modalOpen = false"/>
+              <div class="issues-panel__header">
+                <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
+                  Add New Device
+                </h1>
+              </div>
+            </ion-header>
+            <ion-content :scroll-y="false" class="form-admin--group_field">
+              <ion-row class="form-admin--group">
+                <ion-col size-xs="11" class="form-admin--group_field">
+                  <ion-label color="light">Serial number</ion-label>
+                  <ion-input
+                  class="font-size-sm"
+                  color="light"
+                  :value="newDevice.serialNumber"
+                  @ion-input="newDevice.serialNumber = String($event.target.value)"
+                  ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                  <ion-label color="light">Installer</ion-label>
+                  <ion-input
+                  class="font-size-sm"
+                  color="light"
+                  :value="newDevice.installer"
+                  @ion-input="newDevice.installer = String($event.target.value)"
+                  ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                  <ion-label color="light">Name</ion-label>
+                  <ion-input
+                  class="font-size-sm"
+                  color="light"
+                  :value="newDevice.name"
+                  @ion-input="newDevice.name = String($event.target.value)"
+                  ></ion-input>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                  <ion-label color="light">Install date</ion-label>
+                  <ion-datetime-button datetime="newDocInstallDate"></ion-datetime-button>
+                  <ion-modal :keep-contents-mounted="true">
+                      <ion-datetime 
+                      id="newDocInstallDate" 
+                      display-format="DD/MM/YYYY HH:mm:ss"
+                      picker-format="DD MMM YYYY HH:mm:ss"
+                      :value="newDevice.installDate"
+                      show-default-buttons
+                      @ion-change="(e)=>{(newDevice.installDate = String(e.target.value))}"
+                      />
+                  </ion-modal>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+                  <ion-label color="light">Warranty expiry date</ion-label>
+                  <ion-datetime-button datetime="newDocWarrantyDate"></ion-datetime-button>
+                  <ion-modal :keep-contents-mounted="true">
+                      <ion-datetime 
+                      id="newDocWarrantyDate" 
+                      display-format="DD/MM/YYYY HH:mm:ss"
+                      picker-format="DD MMM YYYY HH:mm:ss"
+                      :value="newDevice.warrantyExpiryDate"
+                      :show-default-buttons="true"
+                      @ion-change="(e)=>{(newDevice.warrantyExpiryDate = String(e.target.value))}"
+                      />
+                  </ion-modal>
+                </ion-col>
+                <ion-col size-xs="12" class="form-admin--group_field">
+                  <ion-label color="light">Description</ion-label>
+                  <ion-textarea
+                  class="font-size-sm"
+                  color="light"
+                  fill="solid"
+                  :value="newDevice.description"
+                  @ion-input="newDevice.description = String($event.target.value)"
+                  ></ion-textarea>
+                </ion-col>
+                <ion-col size-xs="12" class="form-admin--group_field">
+                  <ion-button class="font-size-sm text-lowercase" @click="saveNewDevice()">
+                      Save
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-content> 
+          </div>
         </div>
-      </div>
-    </ion-page>
-  </ion-modal>
-  </template>
+      </ion-page>
+    </ion-modal>
+  </div>
+</template>
   
 <script setup lang="ts">
 import { ref } from "vue";

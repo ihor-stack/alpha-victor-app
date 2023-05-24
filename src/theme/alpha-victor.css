@@ -3,7 +3,8 @@
   --av-light-gray: #f4f7ff;
   --av-mid-gray: #9ca0a6;
   --av-dark-gray: #767676;
-  --av-darkest-gray: #242424;
+  --av-darkest-gray: #181818;
+  --av-black: #040404;
   --av-red: #ff3737;
   --av-green: #37b14c;
   --av-orange: #FF9700;
@@ -125,6 +126,7 @@ ion-button {
   --padding-bottom: 20px;
   letter-spacing: 0.015em;
   --text-transform: none;
+  text-transform: none;
 }
 
 .custom-input {
@@ -346,6 +348,39 @@ ion-modal::part(handle) {
   display: inline-block;
 }
 
+h1.title-admin {
+  margin-bottom: 30px;
+}
+
+.button-pair {
+  margin-top: 30px;
+}
+
+.button-pair > ion-button {
+  margin-right: 20px;
+}
+
+ion-button.button-wide {
+  min-width: 250px;
+}
+
+ion-button.button-outline {
+  color: var(--av-light-gray);
+}
+
+ion-button.button-red {
+  color: var(--av-red);
+}
+
+.form-toggle {
+  background: var(--av-black);
+  padding: 0 15px !important;
+}
+
+.form-colorpick {
+  background: var(--av-black);
+}
+
 /* Linked List Item with arrow */
 
 .list {
@@ -364,6 +399,7 @@ ion-modal::part(handle) {
   justify-content: space-between;
   align-items: center;
   padding: 24px 0;
+  cursor: pointer;
 }
 
 .list-item:not(:first-of-type) {
@@ -659,12 +695,15 @@ ion-toast.customToast::part(message) {
   --border-radius: 10px;
 }
 
-.form-admin--group {
-  border-bottom: 1px solid var(--av-darkest-gray);
+.form-admin--divider {
+  height: 1px;
+  width: 100%;
+  background: #313131;
+  margin: 20px 0;
 }
 
 .form-admin--group_field {
-  margin-bottom: 20px;
+  margin: 10px 0;
   padding-right: 10px;
   padding-left: 10px;
 }
@@ -681,6 +720,27 @@ ion-toast.customToast::part(message) {
 .form-admin--group_field ion-select {
   margin-top: 5px;
   border-radius: 5px;
-  line-height: 25px;
+  line-height: 30px;
   border: 1px solid #313131;
+}
+
+.form-admin--group_field-item {
+  margin-top: 20px;
+  border: 1px solid var(--av-darkest-gray);
+  border-radius: 10px;
+}
+
+.form-admin--group_field-item.rev-margin {
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.form-admin--group_field-item > img {
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.form-admin--group_field-item:hover {
+  border: 1px solid var(--av-dark-gray);
 }

@@ -1,3 +1,4 @@
+export * from "./decisionTree";
 import { DecisionTreeNodeType } from "./decisionTree";
 enum Status {
   lowImpact,
@@ -128,6 +129,7 @@ export interface AdminDocument {
 }
 export interface AdminOrganisation {
   id: string;
+  organisationId: string;
   name: string;
   prefix: string;
   logo: string;
@@ -149,10 +151,12 @@ export interface AdminMetaData {
 export interface spaceType {
   name: string;
   spaceTypeId: string;
+  icon: string;
 }
 export interface spaceFeature {
   name: string;
   spaceFeatureId: string;
+  icon: string;
 }
 
 export interface OrgDetails {
@@ -201,6 +205,7 @@ export interface NavFloor {
 }
 export interface NavLocation {
   locationId: string;
+  id: string;
   locationName: string;
   floors: NavFloor[];
 }

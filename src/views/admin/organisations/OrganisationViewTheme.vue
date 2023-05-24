@@ -1,108 +1,78 @@
 <template>
-  <h1 class="font-bold font-size-lg color-light-gray">LinkedIn</h1>
+  <div>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">Theme</h1>
+    <ion-grid class="form-admin">
+      <ion-row class="form-admin--group">
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <ion-label color="light">Logo</ion-label>
+          <CustomIonUploadInput :buttonText="'Select file'" @upload="uploadFile" />
+        </ion-col>
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <ion-label color="light">Background image</ion-label>
+          <CustomIonUploadInput :buttonText="'Select file'" @upload="uploadFile2" />
+        </ion-col>
+      </ion-row>
 
-  <ion-grid class="form-admin">
-    <ion-row class="form-admin--group">
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Logo</ion-label>
-        <ion-input
-          class="font-size-sm"
-          color="light"
-          :disabled="true"
-        >
-        <div>
-          <input
-            class="file-input"
-            type="file"
-            accept="image/*"
-            :v-model="image"
-            @change="uploadFile" 
-          />
-        </div>
-          
-        </ion-input>
-      </ion-col>
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Background image</ion-label>
-        <ion-input
-          class="font-size-sm"
-          color="light"
-          :disabled="true"
-        >
-        <div>
-          <input
-            class="file-input"
-            type="file"
-            accept="image/*"
-            :v-model="image2"
-            @change="uploadFile2" 
-          />
-        </div>
-          
-        </ion-input>
-      </ion-col>
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Dark mode</ion-label>
-          <ion-input
-            class="font-size-sm"
-            color="light"
-            :disabled="true"
-          >
-            <ion-label color="light" class="custom-label">Enable dark mode</ion-label>
-            <ion-toggle class='custom-toggle' color="primary" v-model="theme.darkmodeEnabled"/>
-          </ion-input>
-      </ion-col>
-    </ion-row>
-
-    <ion-row class="form-admin--group">
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Primary colour</ion-label>
-          <ion-row>
-          <ion-col size-sm="10">
+      <ion-row class="form-admin--group">
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+            <ion-label color="light">Dark mode</ion-label>
             <ion-input
-              class="font-size-lg"
               color="light"
+              class="form-toggle"
               :disabled="true"
-              v-model="theme.primaryColour"
             >
+              <ion-label color="light">Enable dark mode</ion-label>
+              <ion-toggle color="primary" v-model="theme.darkmodeEnabled"/>
             </ion-input>
-          </ion-col>
-          <ion-col size-sm="1">
-            <input
-              class="color-input"
-              type="color"
-              v-model="theme.primaryColour"
-              />
-          </ion-col>
-        </ion-row>
-      </ion-col>
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Secondary colour</ion-label>
-        <ion-row>
-          <ion-col size-sm="10">
-            <ion-input
-              class="font-size-lg"
-              color="light"
-              :disabled="true"
-              v-model="theme.secondaryColour"
-            >
-          </ion-input>
-          </ion-col>
-          <ion-col size-sm="1">
-            <input
-              class="color-input"
-              type="color"
-              v-model="theme.secondaryColour"
-            />
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        </ion-col>
+      </ion-row>
 
-  <ion-button class="font-size-sm text-lowercase" @click="organisation.saveThemes()">
-    Save changes
-  </ion-button>
+      <hr class="form-admin--divider" />
+
+      <ion-row class="form-admin--group">
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <ion-label color="light">Primary colour</ion-label>
+            <ion-row>
+            <ion-col size-sm="12">
+              <ion-input
+                class="form-colorpick"
+                color="light"
+                v-model="theme.primaryColour"
+              >
+              <input
+                class="color-input"
+                type="color"
+                v-model="theme.primaryColour"
+                />
+              </ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <ion-label color="light">Secondary colour</ion-label>
+          <ion-row>
+            <ion-col size-sm="12">
+              <ion-input
+                class="form-colorpick"
+                color="light"
+                v-model="theme.secondaryColour"
+              >
+              <input
+                class="color-input"
+                type="color"
+                v-model="theme.secondaryColour"
+              />
+            </ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+ 
+    <ion-button class="button-wide" @click="organisation.saveThemes()">
+      Save changes
+    </ion-button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -118,14 +88,15 @@ import {
 import {computed, onBeforeMount, ref} from 'vue'
 import {Theme} from '@/stores/adminThemes'
 import { storeToRefs } from 'pinia'
+import CustomIonUploadInput from "@/components/shared/CustomIonUploadInput.vue";
 
 const organisation = Theme()
-const { theme } = storeToRefs(organisation);
+const { theme } = storeToRefs(organisation)
 
 const image = ref()
-const fileLogo = ref();
-const fileName1 = computed(() => fileLogo.value?.name);
-const fileExtension1 = computed(() => fileName1.value?.substr(fileName1.value?.lastIndexOf(".") + 1));
+const fileLogo = ref()
+const fileName1 = computed(() => fileLogo.value?.name)
+const fileExtension1 = computed(() => fileName1.value?.substr(fileName1.value?.lastIndexOf(".") + 1))
 // const fileMimeType1 = computed(() => fileLogo.value?.type);
 
 const image2 = ref()
@@ -198,32 +169,12 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-h1{
-    margin-bottom: 38px;
+.color-input {
+  position: absolute;
+  right: 15px;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
 }
-div{
-  width: 100%;
-}
-.file-input{
-  width: 100%;
-  min-height: 40px;
-  cursor: pointer
-}
-.color-input{
-  cursor: pointer;
-  height: 50px;
-  margin-left: 10%;
-  margin-top: 5px;
-}
-.custom-toggle{
-  margin-left: 50%;
-}
-.custom-label{
-  margin-left: 3%;
-}
-ion-button {
-  width: 246px;
-  margin-top: 200px;
-}
-
 </style>

@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
-import {
-  AdminDocument} from '@/types/index'
+import {AdminDocument} from '@/types/index'
 import { useCookies } from "vue3-cookies";
 import { Alert } from "./globalAlert";
 
@@ -19,7 +18,6 @@ export const adminDocuments = defineStore('adminDocuments', {
       .then(response => 
         {
           this.documents = response.data
-          
         }
       ).catch(error =>{
         const alert = Alert()
@@ -36,7 +34,7 @@ export const adminDocuments = defineStore('adminDocuments', {
         alert.open(error.message)
       })
     },
-    async editDocument(document: AdminDocument) {
+    async editDocumentType(document: AdminDocument) {
       adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/DocumentType/' + document.id,
         {
           "name": document.name,
@@ -47,7 +45,7 @@ export const adminDocuments = defineStore('adminDocuments', {
           alert.open(error.message)
         })
     },
-    async deleteDocument(id: string) {
+    async removeDocumentType(id: string) {
       adminAPI.delete('/Organisation/' + cookies.get('orgId') + '/DocumentType/' + id)
       .then(() => {
           this.getDocuments()

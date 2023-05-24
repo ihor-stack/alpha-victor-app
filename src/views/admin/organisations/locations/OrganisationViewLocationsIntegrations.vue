@@ -1,5 +1,5 @@
 <template>
-    <h1 class="font-bold font-size-lg color-light-gray">Integrations</h1>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">Integrations</h1>
     <h2 class="font-bold font-size-sm color-light-gray">Ubiqisense</h2>
     <ion-grid class="form-admin">
         <ion-row class="form-admin--group">
