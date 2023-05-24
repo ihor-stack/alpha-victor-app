@@ -8,39 +8,68 @@ export enum DecisionTreeNodeType {
   Phone,
 }
 
+export interface IDecisionTreeNode {
+  id: string;
+  xPosition: number;
+  yPosition: number;
+  text: string | null;
+  parentId: string | null;
+  type: DecisionTreeNodeType;
+  article: Article | null;
+  video: Video | null;
+  phone: string | null;
+  email: string | null;
+  children: IDecisionTreeNode[];
+}
+
+export interface DecisionTree {
+  id: string;
+  name: string;
+  root: IDecisionTreeNode;
+  loaded?: boolean;
+}
+
 export class DecisionTreeNode {
   id: string;
-  text: string;
-  type: DecisionTreeNodeType;
   x: number;
   y: number;
-  parent: DecisionTreeNode;
-  children: any[];
-  hover = false;
-  locked = false;
-  article: Article | null = null;
-  video: Video | null = null;
-  phone: string | null = null;
-  email: string | null = null;
+  text: string | null;
+  parent: DecisionTreeNode | null;
+  type: DecisionTreeNodeType;
+  article: Article | null;
+  video: Video | null;
+  phone: string | null;
+  email: string | null;
+  children?: IDecisionTreeNode[] | undefined;
+  locked: false;
+  hover: false;
 
-  constructor(
-    id: string,
-    text: string,
-    type: DecisionTreeNodeType,
-    x: number,
-    y: number,
-    parent: DecisionTreeNode,
-    children: any[],
-    locked = false
-  ) {
+  constructor(data: any) {
+    const {
+      id,
+      x,
+      y,
+      text,
+      parent,
+      type,
+      article,
+      video,
+      phone,
+      email,
+      children,
+    } = data;
     this.id = id;
     this.text = text;
     this.type = type;
     this.x = x;
     this.y = y;
     this.parent = parent;
+    this.article = article;
+    this.video = video;
+    this.phone = phone;
+    this.email = email;
     this.children = children;
     this.hover = false;
-    this.locked = locked;
+    this.locked = false;
   }
 }
