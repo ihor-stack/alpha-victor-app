@@ -84,10 +84,10 @@ export const Locations = defineStore('Locations', {
       .then((response) => 
         {
           this.location = response.data
-          loadingService.close();
+          loadingService.close()
         }
       ).catch(error =>{
-        toastService.show('Error', error, 'error', 'top');
+        toastService.show('Error', error, 'error', 'top')
       })
     },
 

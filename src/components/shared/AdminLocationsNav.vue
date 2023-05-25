@@ -41,7 +41,7 @@ const { navigationTree } = storeToRefs(Location);
 const { floors } = storeToRefs(Floor);
 
 const getLocationRoute = (locationId: string) => {
-  cookies.set("locationId", locationId);
+  cookies.set('locationId', locationId);
   if (cookies.get("locationId") && cookies.get("orgId")) {
     return {
       name: "OrganisationViewLocations",
@@ -51,6 +51,7 @@ const getLocationRoute = (locationId: string) => {
 };
 
 const getFloorRoute = (floorId: string) => {
+  cookies.set('floorId', floorId);
   const locationId = cookies.get("locationId");
   if (locationId && cookies.get("orgId")) {
     return {
