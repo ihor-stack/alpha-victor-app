@@ -112,6 +112,7 @@ export default {
     const padding = 10;
     const toolbarWidth = destinationWidth + 36;
     const toolbarDelta = (toolbarWidth - 24) / 4;
+    const gridSize = 20;
 
     const canvas = ref();
     const container = ref();
@@ -502,8 +503,8 @@ export default {
         email: node.email,
         phone: node.phone,
       });
-      newDestination.x = Math.round(newDestination.x / 60) * 60;
-      newDestination.y = Math.round(newDestination.y / 60) * 60;
+      newDestination.x = Math.round(newDestination.x / gridSize) * gridSize;
+      newDestination.y = Math.round(newDestination.y / gridSize) * gridSize;
       originalDestinations.push(newDestination);
       for (const child of node.children) {
         getDestinations(child, newDestination);
@@ -563,14 +564,14 @@ export default {
 
     const onMouseUp = (e) => {
       if (dragDestination !== undefined && dragDestination !== null) {
-        dragDestination.x = Math.round(dragDestination.x / 60) * 60;
-        dragDestination.y = Math.round(dragDestination.y / 60) * 60;
+        dragDestination.x = Math.round(dragDestination.x / gridSize) * gridSize;
+        dragDestination.y = Math.round(dragDestination.y / gridSize) * gridSize;
       }
 
       for (const destination of destinations) {
         if (dragStart) {
-          destination.x = Math.round(destination.x / 60) * 60;
-          destination.y = Math.round(destination.y / 60) * 60;
+          destination.x = Math.round(destination.x / gridSize) * gridSize;
+          destination.y = Math.round(destination.y / gridSize) * gridSize;
         }
       }
 
@@ -629,12 +630,18 @@ export default {
 
         if (action == "lock") {
           eventHandled = true;
-          destination.lock = !destination.lock;
+          destination.locked = !destination.locked;
           return;
         }
 
         if (action == "click" && newTreeNode) {
           eventHandled = true;
+          if (
+            destination.type === 3 ||
+            newTreeNode.parent?.id === destination.id
+          ) {
+            return;
+          }
           if (
             destinations
               .filter((destination) => destination.type === 3)
@@ -737,9 +744,15 @@ export default {
 
     const onResize = () => {
       if (canvas.value && container.value) {
-        canvas.value.height = container.value.clientHeight - 20;
-        canvas.value.width = container.value.clientWidth - 20;
+        canvas.value.height = container.value.clientHeight;
+        canvas.value.width = container.value.clientWidth;
         renderChart();
+      }
+    };
+
+    const onKeydown = (e) => {
+      if (e.keyCode == 27) {
+        newTreeNode = null;
       }
     };
 
@@ -747,8 +760,8 @@ export default {
       if (!(decisionTree.value?.loaded && !!container.value && !!canvas.value))
         return;
       setTimeout(() => {
-        canvas.value.width = container.value.clientWidth - 20;
-        canvas.value.height = container.value.clientHeight - 20;
+        canvas.value.width = container.value.clientWidth;
+        canvas.value.height = container.value.clientHeight;
 
         c = canvas.value.getContext("2d");
         canvas.value.addEventListener("mousedown", onMouseDown);
@@ -758,6 +771,7 @@ export default {
         canvas.value.addEventListener("touchend", onMouseUp);
         canvas.value.addEventListener("touchmove", onDrag);
         canvas.value.addEventListener("click", onClick);
+        window.addEventListener("keydown", onKeydown);
         window.addEventListener("focus", onResize);
         window.addEventListener("resize", onResize);
         initialiseData();
@@ -956,7 +970,7 @@ export default {
 #canvas {
   background-image: linear-gradient(to right, #d1d5db 1px, transparent 1px),
     linear-gradient(to bottom, #d9d9d9 1px, transparent 1px);
-  background-size: 60px 60px;
+  background-size: 20px 20px;
   background-position: 0 0;
   background-color: #ededee;
   display: block;
