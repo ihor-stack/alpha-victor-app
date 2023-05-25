@@ -65,7 +65,7 @@ const Space = Spaces()
 const { wifi } = storeToRefs(Space);
 
 onBeforeMount(() => {
-    Space.getSpacesWifi()
+    Space.getSpaceDetailsWifi()
 })
 </script>
 

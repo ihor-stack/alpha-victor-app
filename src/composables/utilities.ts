@@ -7,7 +7,6 @@ export const useDotify = (input: string): string => {
   return join;
 };
 
-
 export const useEquipmentIcon = (feature: string) => {
   switch (feature) {
     case "screen":

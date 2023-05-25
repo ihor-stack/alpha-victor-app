@@ -144,12 +144,8 @@ const saveNewDevice = () => {
 </script>
 
 <style scoped>
-ion-content::part(background) {
-background: #181818;
-}
-.add-button {
-margin-bottom: 5%;
-width: 246px;
+ion-button {
+  margin-top: 40px;
 }
 .close-button{
 width: 20px;

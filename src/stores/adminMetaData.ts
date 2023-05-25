@@ -5,7 +5,8 @@ import {
   spaceFeature,
   spaceType} from '@/types/index'
 import { useCookies } from "vue3-cookies";
-import { Alert } from "./globalAlert";
+import loadingService from '@/services/loadingService';
+import toastService from '@/services/toastService';
 
 const { cookies } = useCookies();
   
@@ -19,31 +20,35 @@ export const MetaData = defineStore('MetaData', {
     setSpaceType(index: number, data: spaceType){
       this.metaData.spaceTypes[index] = data
     },
+    
     async getMetaData() {
+      loadingService.show('Loading...');
       adminAPI.get<AdminMetaData>('/Organisation/' + cookies.get('orgId') + '/Metadata')
       .then(response => 
         {
           this.metaData = response.data
+          loadingService.close();
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
+
     async saveSpaceType(name: string) {
       adminAPI.post('/Organisation/' + cookies.get('orgId') + '/SpaceType/',
         {
           "name": name,
           "icon": "string"
         }).then(() => 
-          {
-            this.getMetaData()
-          }
-        ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
-        })
+        {
+          toastService.show('Success', 'New space type added successfully', 'success', 'top')
+          this.getMetaData()
+        }
+      ).catch(error =>{
+        toastService.show('Error', error, 'error', 'top');
+      })
     },
+
     async editSpaceType(edit: spaceType) {
       adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/SpaceType/' + edit.spaceTypeId,
         {
@@ -55,10 +60,10 @@ export const MetaData = defineStore('MetaData', {
             this.getMetaData()
           }
         ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
+
     async removeSpaceType(edit: spaceType) {
       adminAPI.delete('/Organisation/' + cookies.get('orgId') + '/SpaceType/' + edit.spaceTypeId)
       .then(() => 
@@ -67,10 +72,10 @@ export const MetaData = defineStore('MetaData', {
             this.getMetaData()
           }
         ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
+
     async saveSpaceFeature(name: string) {
       adminAPI.post('/Organisation/' + cookies.get('orgId') + '/SpaceFeature/',
         {
@@ -78,14 +83,15 @@ export const MetaData = defineStore('MetaData', {
           "icon": "string"
         }).then(() => 
           {
+            toastService.show('Success', 'New space feature added successfully', 'success', 'top')
             this.metaData = {} as AdminMetaData
             this.getMetaData()
           }
         ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
+
     async editSpaceFeature(edit: spaceFeature) {
       adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/SpaceFeature/' + edit.spaceFeatureId,
         {
@@ -97,8 +103,7 @@ export const MetaData = defineStore('MetaData', {
             this.getMetaData()
           }
         ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
     async removeSpaceFeature(edit: spaceFeature) {
@@ -109,8 +114,7 @@ export const MetaData = defineStore('MetaData', {
             this.getMetaData()
           }
         ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
   },

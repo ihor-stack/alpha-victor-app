@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
 import {Integration} from '@/types/index'
 import { useCookies } from "vue3-cookies";
-import { Alert } from "./globalAlert";
+import loadingService from '@/services/loadingService';
+import toastService from '@/services/toastService';
 
 const { cookies } = useCookies();
   
@@ -21,8 +22,7 @@ export const Integrations = defineStore('Integrations', {
           this.integrations = response.data
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async getSingleIntegration() {
@@ -33,16 +33,14 @@ export const Integrations = defineStore('Integrations', {
           this.integration = response.data
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async editIntegration(edit: Integration) {
       console.log(edit)
       adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Integration/' + cookies.get('integrationId'), edit)
       .catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
   },

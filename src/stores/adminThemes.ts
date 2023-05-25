@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
 import {AdminTheme} from '@/types/index'
 import { useCookies } from "vue3-cookies";
-import { Alert } from "./globalAlert";
+import loadingService from '@/services/loadingService';
+import toastService from '@/services/toastService';
 
 const { cookies } = useCookies();
   
@@ -19,19 +20,17 @@ export const Theme = defineStore('Themes', {
           this.theme = response.data
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async saveThemes() {
       adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Theme', this.theme)
-      .then(response => 
+      .then(() => 
         {
-          console.log(response)
+          toastService.show('Success', 'Theme information updated', 'success', 'top');
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
  },

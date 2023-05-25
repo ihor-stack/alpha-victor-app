@@ -11,11 +11,11 @@
                     <h1 class="font-bold font-size-lg color-light-gray">{{currentSpace}}</h1>
                     <span class="font-size-xs font-mono color-light-gray header-left--label">
                         <ion-icon :icon="locationOutline" color="light"></ion-icon>
-                        2B Ground Floor
+                        Howard Street Belfast
                     </span>
                     <span class="font-size-xs font-mono color-light-gray header-left--label">
                         <ion-icon :icon="peopleOutline" color="light"></ion-icon>
-                        &gt;&gt; 10
+                        &gt;&gt; {{ space.capacity }}
                     </span>
                 </ion-col>
                 <ion-col size-xs="12" size-sm="4" class="form-admin--group_field header-right">
@@ -23,9 +23,7 @@
                     <div class="header-right--icon"><ion-icon :icon="scanOutline" color="light" class="large_icons"></ion-icon></div>
                 </ion-col>
                 <ion-col size-xs="12">
-                    <hr class="form-admin--divider" />
-                    <space-features-slider :features="spaceFeatures" />
-                    <hr class="form-admin--divider" />
+                    <space-features-slider :features="space.spaceFeatures" />
                 </ion-col>
             </ion-row>
             <ion-row class="form-admin--group">
@@ -49,7 +47,7 @@
                 </ion-col>
                 <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                     <ion-label color="light">Room type</ion-label>
-                    <AdminSelect v-model="optionSelected" :options="formattedSelect"/>
+                    <AdminSelect v-model="roomTypeSelected" :options="formattedSelect"/>
                 </ion-col>
                 <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                     <ion-label color="light">Capacity</ion-label>
@@ -74,6 +72,8 @@
                     <ion-input
                     class="font-size-sm"
                     color="light"
+                    :value="space.decisionTreeId"
+                    @ion-input="space.decisionTreeId = String($event.target.value)"
                     ></ion-input>
                 </ion-col>
             </ion-row>
@@ -118,7 +118,7 @@
                 </ion-col>
             </ion-row>
 
-            <hr class="form-admin--divider" />
+            <!-- <hr class="form-admin--divider" />
 
             <ion-row>
                 <ion-col size-xs="6">
@@ -143,7 +143,7 @@
                 </ion-col>
             </ion-row>
 
-            <hr class="form-admin--divider" />
+            <hr class="form-admin--divider" /> -->
             
             <ul class="list">
                 <li
@@ -187,11 +187,9 @@ import {
     IonInput,
     IonIcon,
     IonButton,
-    IonThumbnail,
-    IonChip
+    IonThumbnail
 } from "@ionic/vue";
 import { 
-    chevronForwardOutline, 
     locationOutline, 
     peopleOutline, 
     qrCodeOutline, 
@@ -203,18 +201,13 @@ import {Spaces} from '@/stores/adminSpaces'
 import { useCookies } from "vue3-cookies";
 import { onBeforeMount, ref } from "vue";
 import AdminSelect from  '@/components/admin/AdminSelect.vue'
-import {addOutline} from 'ionicons/icons'
 import DocumentModal from '@/components/admin/spaces/DocumentModal.vue'
 import PhotoModal from '@/components/admin/spaces/PhotoModal.vue'
 
 const { cookies } = useCookies();
 const Space = Spaces()
-const { space, currentSpace, formattedSelect, optionSelected } = storeToRefs(Space);
-const SpaceHeader = ref('')
+const { space, currentSpace, formattedSelect, roomTypeSelected } = storeToRefs(Space);
 
-onBeforeMount(()=>{
-    Space.getSpaces();
-})
 const redirect = (route: string) => {
     if( cookies.get('floorId') && cookies.get('orgId')  && cookies.get('spaceId')){
         return { 
@@ -227,6 +220,7 @@ const redirect = (route: string) => {
         }
     }
 }
+
 const removePhoto = (photoId: string) => {
     Space.deleteSpacesPhoto(photoId)
 }
@@ -243,24 +237,9 @@ const spaceRoutes = [
     {title: 'Wifi Password' , route: 'OrganisationViewLocationsWifi'}
 ]
 
-const spaceFeatures = [
-    {
-      name: "Smart TV",
-      category: "screen",
-    },
-    {
-      name: "WiFi",
-      category: "wifi",
-    },
-    {
-      name: "Phone",
-      category: "phone",
-    },
-    {
-      name: "Presenting",
-      category: "presenting",
-    },
-]
+onBeforeMount(()=>{
+    Space.getSpaceDetails();
+})
 </script>
 
 <style scoped>
