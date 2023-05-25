@@ -3,7 +3,8 @@ import {adminAPI} from '@/axios'
 import {publicAPI} from '@/axios'
 import { AdminOrganisation, OrgDetails, NewOrgDetails, SelectItem, AdminDocument} from '@/types/index'
 import { useCookies } from "vue3-cookies";
-import { Alert } from "./globalAlert";
+import loadingService from '@/services/loadingService';
+import toastService from '@/services/toastService';
 
 const { cookies } = useCookies();
   
@@ -18,35 +19,36 @@ export const Organisations = defineStore('Organisations', {
     }
   },
   actions: {
-    
     setId(newId: string) {
       this.currentOrg = newId
       return true
     },
     async getOrganisations() {
+      loadingService.show('Loading...');
       publicAPI.get<AdminOrganisation[]>('/Organisation/').then(response => 
         {
           this.organisationList = response.data
+          loadingService.close();
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async getOrgDetails() {
+      loadingService.show('Loading...');
       adminAPI.get<OrgDetails>('/Organisation/'+ cookies.get('orgId') +'/Details' )
       .then(response => 
         {
           this.organisationDetails = response.data
+          loadingService.close();
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async updateOrgDetails(languageIndex: number) {
       const editedOrg = this.organisationDetails
-      console.log(this.organisationDetails)
+      loadingService.show('Loading...');
       adminAPI.patch<OrgDetails>('/Organisation/'+ cookies.get('orgId') +'/Details', 
       {
         "name": editedOrg.name,
@@ -60,31 +62,29 @@ export const Organisations = defineStore('Organisations', {
         "website": editedOrg.website,
         "language": languageIndex
       }
-       )
-      .then(response => 
+      )
+      .then(() => 
         {
-         console.log(response.data)
-          
+          loadingService.close();
+          toastService.show('Success', 'Organisation details saved', 'success', 'top');
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async removeOrganisation() {
       adminAPI.delete('/Organisation/' + cookies.get('orgId'))
       .catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async getOrgsSelectItem() {
       adminAPI.get<AdminOrganisation[]>('/Organisation' )
       .then(response => 
         {
-          const formnatedList: SelectItem[] = []
+          const formattedList: SelectItem[] = []
           response.data.forEach((element, index) => {
-            formnatedList.push(
+            formattedList.push(
               {
                 id: index,
                 title: element.name,
@@ -92,21 +92,21 @@ export const Organisations = defineStore('Organisations', {
               }
             )
           }); 
-          this.formattedOrgSelect = formnatedList
+          this.formattedOrgSelect = formattedList
         }
       ).catch(error =>{
         this.formattedOrgSelect = []
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async getOrgDocumentTypes() {
+      loadingService.show('Loading...');
+
       adminAPI.get<AdminDocument[]>('/Organisation/' + cookies.get('orgId') + '/DocumentTypes')
       .then((response) =>{
-        
-        const formnatedList: SelectItem[] = []
+        const formattedList: SelectItem[] = []
         response.data.forEach((element, index) => {
-          formnatedList.push(
+          formattedList.push(
               {
                 id: index,
                 title: element.name,
@@ -115,12 +115,11 @@ export const Organisations = defineStore('Organisations', {
             )
           }
         )
-        this.documentTypes = formnatedList
-        console.log(this.documentTypes)
+        this.documentTypes = formattedList
+        loadingService.close();
       })
       .catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
   },

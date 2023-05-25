@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
 import {Location, NavLocation, Navigation, SingleLocation} from '@/types/index'
 import { useCookies } from "vue3-cookies";
-import { Alert } from "./globalAlert";
+import loadingService from '@/services/loadingService';
+import toastService from '@/services/toastService';
 
 const { cookies } = useCookies();
   
@@ -29,16 +30,18 @@ export const Locations = defineStore('Locations', {
   },
   actions: {
     async getLocations() {
+      loadingService.show('Loading...');
       adminAPI.get<NavLocation[]>('/Location?organisationId=' + cookies.get('orgId'))
       .then(response => 
         {
           this.locations = response.data
+          loadingService.close();
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
+
     async saveLocation(edit: Location) {
       adminAPI.post('/Location/' + cookies.get('orgId'),
         {
@@ -60,10 +63,10 @@ export const Locations = defineStore('Locations', {
             this.getLocations()
           }
         ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
+
     async removeLocation(id: string) {
       adminAPI.delete('/Location/' + cookies.get('orgId') + '/' + id)
       .then(() => 
@@ -71,39 +74,45 @@ export const Locations = defineStore('Locations', {
             this.getLocations()
           }
         ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
+
     async getLocation() {
+      loadingService.show('Loading...');
       adminAPI.get('/Location/Location/' + cookies.get('locationId'))
       .then((response) => 
-          {
-            this.location = response.data
-          }
-        ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
-        })
+        {
+          this.location = response.data
+          loadingService.close();
+        }
+      ).catch(error =>{
+        toastService.show('Error', error, 'error', 'top');
+      })
     },
+
     async updateLocation(id: string) {
       adminAPI.patch('/Location/' + id,
         this.location
-      )
-      .catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
-        })
+      ).then(() => 
+      {
+        toastService.show('Success', 'Location updated successfully', 'success', 'top')
+      }
+      ).catch(error =>{
+        toastService.show('Error', error, 'error', 'top');
+      })
     },
+
     async getNavigationTree(){
+      loadingService.show('Loading...');
       adminAPI.get<Navigation[]>('/Organisation/' + cookies.get('orgId') + '/NavigationTree')
       .then((response) => 
           {
             this.navigationTree = response.data
+            loadingService.close();
           }
         ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     }
   },

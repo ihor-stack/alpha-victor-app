@@ -1,4 +1,5 @@
 <template>
+  <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">Equipment</h1>
     <ion-row class="form-admin">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -45,8 +46,7 @@
         </ion-item>
       </ion-col>
     </ion-row>
-    
-    
+  </div>
 </template>
   
 <script setup lang="ts">
@@ -98,6 +98,5 @@ ion-button {
   margin-bottom: 5%;
   width: 246px;
 }
-
 </style>
   

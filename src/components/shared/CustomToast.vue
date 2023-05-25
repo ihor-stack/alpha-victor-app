@@ -4,7 +4,7 @@
     :header="props.header"
     :message="props.message"
     :duration="props.duration || 3000"
-    position="top"
+    :position="props.position || 'top'"
     :icon="
       props.status === 'success' ? checkmarkCircle :
       props.status === 'problem' ? alertCircle :
@@ -31,6 +31,7 @@ interface Props {
   header?: string;
   duration?: number;
   message: string;
+  position: string;
   isOpen: boolean;
 }
 

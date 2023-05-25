@@ -1,12 +1,9 @@
 <template>
   <div>
-    <swiper :slidesPerView="'auto'" :spaceBetween="20" class="mySwiper">
+    <swiper :slidesPerView="'auto'" :spaceBetween="10" class="space-features">
       <swiper-slide v-for="feature in features" :key="feature.name">
         <router-link :to="{}">
           <div class="feature">
-            <div class="feature-icon">
-              <img :src="useEquipmentIcon(feature.category)" />
-            </div>
             <p class="font-size-xxs font-bold color-light-gray">{{ feature.name }}</p>
           </div>
         </router-link>
@@ -30,13 +27,17 @@ defineProps<Props>();
 </script>
 
 <style scoped>
+.space-features {
+  margin: 20px 0;
+}
+
 .swiper {
   width: 100%;
   height: 100%;
 }
 
 .swiper-slide {
-  width: 108px;
+  width: auto;
   height: 37px;
   border-radius: 4px;
   position: relative;
@@ -52,16 +53,5 @@ defineProps<Props>();
   justify-content: center;
   align-items: center;
   padding: 6px 12px;
-}
-
-.feature-icon {
-  width: 34px;
-  height: 25px;
-  background-image: url('@/theme/backgrounds/triangle-background.svg');
-  background-size: contain;
-  background-position: center;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
 </style>
