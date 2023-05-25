@@ -152,39 +152,21 @@ import {
     IonButton,
     IonItem
 } from "@ionic/vue";
-//import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 import {Locations} from '@/stores/adminLocations'
-import {Floors} from '@/stores/adminFloors'
-import { chevronForwardOutline } from 'ionicons/icons'
 import { storeToRefs } from "pinia"
 import { onBeforeMount } from "vue"
 import { useCookies } from "vue3-cookies"
 
 const { cookies } = useCookies();
 const Location = Locations()
-const Floor = Floors()
 const { location } = storeToRefs(Location);
-const { floors } = storeToRefs(Floor);
 
 const saveChanges = (id: string) => {
     Location.updateLocation(id)
 }
 
-const redirect = (id: string) => {
-    cookies.set('floorId', id)
-    if( cookies.get('floorId') && cookies.get('orgId')){
-        return { 
-        name: 'OrganisationViewLocationsFloors', 
-        params: { 
-            id: cookies.get('orgId'),
-            locationId: cookies.get('locationId'),
-            floorId: cookies.get('floorId')} 
-        }
-    }
-}
 onBeforeMount(() =>{
     Location.getLocation()
-    Floor.getFloors();
 })
 </script>
 
