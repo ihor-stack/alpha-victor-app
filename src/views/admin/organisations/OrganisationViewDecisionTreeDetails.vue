@@ -41,6 +41,7 @@
                     <canvas ref="canvas" id="canvas"></canvas>
                   </div>
                 </div>
+                <div>{{ canvasPostion.top }}</div>
               </ion-content>
             </ion-page>
           </ion-content>
@@ -100,8 +101,9 @@ export default {
     const route = useRoute();
     const decisionTreeID = route.params.decisionTreeID;
     const organisationID = route.params.organisationID;
-    organisationsStore.getDecisionDetails(decisionTreeID);
+    organisationsStore.setId(organisationID);
     organisationsStore.getOrgDetails(organisationID);
+    organisationsStore.getDecisionDetails(decisionTreeID);
   },
 
   setup() {
@@ -112,10 +114,12 @@ export default {
     const toolbarWidth = 253;
     const toolbarDelta = (toolbarWidth - 24) / 4;
     const toolbarHeight = 79;
+
     const gridSize = 20;
 
     const canvas = ref();
     const container = ref();
+    const canvasPostion = ref({ top: 0, left: 0 });
 
     let dragStart;
     let dragDestination;
@@ -532,9 +536,117 @@ export default {
       renderChart();
     };
 
+    // const drawLines = (width, height, startPosition) => {
+    //   const numRows = height / gridSize;
+    //   const numCols = width / gridSize;
+    //   c.lineWidth = 1;
+    //   c.strokeStyle = "#d1d5db";
+    //   for (let i = 0; i <= numRows; i++) {
+    //     for (let j = 0; j <= numCols; j++) {
+    //       c.beginPath();
+    //       c.moveTo(
+    //         j * gridSize + startPosition.x,
+    //         i * gridSize + startPosition.y
+    //       );
+    //       c.lineTo(
+    //         j * gridSize + startPosition.x,
+    //         i * gridSize + gridSize + startPosition.y
+    //       );
+    //       c.lineTo(
+    //         j * gridSize + gridSize + startPosition.x,
+    //         i * gridSize + gridSize + startPosition.y
+    //       );
+    //       c.stroke();
+    //     }
+    //   }
+    // };
+
+    // const drawLines1 = (width, height, startPosition) => {
+    //   const numRows = height / gridSize;
+    //   const numCols = width / gridSize;
+    //   c.lineWidth = 1;
+    //   c.strokeStyle = "#d1d5db";
+    //   for (let i = numRows - 1; i >= -1; i--) {
+    //     for (let j = numCols - 1; j >= -1; j--) {
+    //       c.beginPath();
+    //       c.moveTo(
+    //         j * gridSize + startPosition.x,
+    //         i * gridSize + startPosition.y
+    //       );
+    //       c.lineTo(
+    //         j * gridSize + startPosition.x,
+    //         i * gridSize + gridSize + startPosition.y
+    //       );
+    //       c.lineTo(
+    //         j * gridSize + gridSize + startPosition.x,
+    //         i * gridSize + gridSize + startPosition.y
+    //       );
+    //       c.stroke();
+    //     }
+    //   }
+    // };
+
+    // const drawLines2 = () => {
+    //   const numRows = gridPosition.y / gridSize;
+    //   const numCols = (canvas.value.width - gridPosition.x) / gridSize;
+    //   c.lineWidth = 1;
+    //   c.strokeStyle = "#d1d5db";
+    //   for (let i = numRows - 1; i >= -1; i--) {
+    //     for (let j = 0; j <= numCols; j++) {
+    //       c.beginPath();
+    //       c.moveTo(j * gridSize + gridPosition.x, i * gridSize);
+    //       c.lineTo(j * gridSize + gridPosition.x, i * gridSize + gridSize);
+    //       c.lineTo(
+    //         j * gridSize + gridPosition.x + gridSize,
+    //         i * gridSize + gridSize
+    //       );
+    //       c.stroke();
+    //     }
+    //   }
+    // };
+
+    // const drawLines3 = () => {
+    //   const numRows = (canvas.value.height - gridPosition.y) / gridSize;
+    //   const numCols = gridPosition.x / gridSize;
+    //   c.lineWidth = 1;
+    //   c.strokeStyle = "#d1d5db";
+    //   for (let i = 0; i <= numRows; i++) {
+    //     for (let j = numCols - 1; j >= -1; j--) {
+    //       c.beginPath();
+    //       c.moveTo(j * gridSize, i * gridSize + gridPosition.y);
+    //       c.lineTo(j * gridSize, i * gridSize + gridSize + gridPosition.y);
+    //       c.lineTo(
+    //         j * gridSize + gridSize,
+    //         i * gridSize + gridSize + gridPosition.y
+    //       );
+    //       c.stroke();
+    //     }
+    //   }
+    // };
+
+    const drawGrid = () => {
+      c.strokeStyle = "#d1d5db";
+      c.lineWidth = 1;
+
+      for (let x = 0; x <= canvas.value.width; x += gridSize) {
+        c.beginPath();
+        c.moveTo(x, 0);
+        c.lineTo(x, canvas.value.height);
+        c.stroke();
+      }
+
+      for (let y = 0; y <= canvas.value.height; y += gridSize) {
+        c.beginPath();
+        c.moveTo(0, y);
+        c.lineTo(canvas.value.width, y);
+        c.stroke();
+      }
+    };
+
     const renderChart = () => {
       if (!c) return;
       c.clearRect(0, 0, canvas.value.width, canvas.value.height);
+      drawGrid();
       destinations
         .filter((d) => d.type === 3)
         .forEach((d) => {
@@ -745,6 +857,7 @@ export default {
           dragDestination.x = Math.round(dragDestination.x);
           dragDestination.y = Math.round(dragDestination.y);
           dirty.value = true;
+          renderChart();
         }
       } else {
         for (const destination of destinations) {
@@ -755,9 +868,13 @@ export default {
           }
         }
       }
-
-      if (dragStart) dragStart = { x: x, y: y };
-
+      if (dragStart) {
+        if (!dragDestination) {
+          canvasPostion.value.top = canvasPostion.value.top + y - dragStart.y;
+          canvasPostion.value.left = canvasPostion.value.left + x - dragStart.x;
+        }
+        dragStart = { x: x, y: y };
+      }
       renderChart();
     };
 
@@ -914,6 +1031,7 @@ export default {
       informationCircle,
       create,
       search,
+      canvasPostion,
     };
   },
 };
@@ -952,6 +1070,7 @@ export default {
   padding-left: 30px;
   padding-right: 30px;
   height: 55px;
+  z-index: 1;
 }
 
 .bg-white {
@@ -987,10 +1106,6 @@ export default {
 }
 
 #canvas {
-  background-image: linear-gradient(to right, #d1d5db 1px, transparent 1px),
-    linear-gradient(to bottom, #d9d9d9 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-position: 0 0;
   background-color: #ededee;
   display: block;
   height: 100%;
