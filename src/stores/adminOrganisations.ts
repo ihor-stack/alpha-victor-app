@@ -8,6 +8,8 @@ import {
   SelectItem,
   AdminDocument,
   DecisionTree,
+  Article,
+  Video,
 } from "@/types/index";
 
 import { useCookies } from "vue3-cookies";
@@ -155,6 +157,38 @@ export const Organisations = defineStore("Organisations", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        });
+    },
+
+    async createAarticle(article: Article, callback?: (res: Video) => void) {
+      loadingService.show("Loading...");
+      adminAPI
+        .post(`/article?organisationId=${this.currentOrg}`, article)
+        .then((res) => {
+          this.getOrgDetails();
+          callback ? callback(res.data) : null;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+
+    async createVideo(video: Video, callback?: (res: Video) => void) {
+      loadingService.show("Loading...");
+      adminAPI
+        .post(`/video?organisationId=${this.currentOrg}`, video)
+        .then((res) => {
+          this.getOrgDetails();
+          callback ? callback(res.data) : null;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
         });
     },
   },

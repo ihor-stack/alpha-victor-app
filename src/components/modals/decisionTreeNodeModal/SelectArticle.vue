@@ -89,6 +89,15 @@ const props = defineProps([
 const state = reactive({
   searchTerm: "",
   selectedArticle: props.editTreeNode?.article,
+  isAddingArticle: false,
+  newArticleTitle: {
+    error: false,
+    value: "",
+  },
+  newArticleRichText: {
+    error: false,
+    value: "",
+  },
 });
 
 const filteredArticles = computed(() => {
@@ -98,6 +107,24 @@ const filteredArticles = computed(() => {
     (a) => a.title?.toLowerCase().indexOf(state.searchTerm.toLowerCase()) > -1
   );
 });
+
+const onAddArticle = () => {
+  organisationsStore.createVideo({
+    title: state.newArticleTitle.value,
+    richText: state.newArticleRichText.value,
+  });
+  organisationsStore.createAarticle(
+    {
+      title: state.newArticleTitle.value,
+      url: state.newArticleRichText.value,
+    },
+    (res) => {
+      state.newArticleTitle.value = "";
+      state.newArticleRichText.value = "";
+      state.selectedArticle = res;
+    }
+  );
+};
 </script>
 
 <style scoped>

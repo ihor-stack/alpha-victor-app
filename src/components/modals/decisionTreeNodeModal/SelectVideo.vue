@@ -39,12 +39,10 @@
           </div>
         </li>
       </ul>
-    </ion-content>
-    <div class="divider">
-      <div></div>
-      <span>or</span>
-    </div>
-    <ion-footer>
+      <div class="divider">
+        <div></div>
+        <span>or</span>
+      </div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
           <ion-label color="light">Add new video</ion-label>
@@ -52,12 +50,26 @@
             <ion-input
               color="light"
               placeholder="Enter Vimeo or YouTube URL"
-              v-model="state.newVideo"
+              v-model="state.newVideoUrl.value"
             ></ion-input>
-            <ion-button class="addVideoButton">Add +</ion-button>
+            <ion-button class="addVideoButton" @click="onAddVideo"
+              >Add +</ion-button
+            >
           </ion-row>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col size="12" class="form-admin--group_field">
+          <ion-label color="light">Add video title</ion-label>
+          <ion-input
+            color="light"
+            placeholder="New video added"
+            v-model="state.newVideoTitle.value"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+    <ion-footer>
       <ion-button
         class="ion-text-capitalize"
         expand="block"
@@ -94,8 +106,6 @@ import { checkmarkCircle, search } from "ionicons/icons";
 
 import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
 
-const organisationsStore = useOrganisationsStore();
-
 const props = defineProps([
   "editTreeNode",
   "handleClickConfirm",
@@ -106,16 +116,39 @@ const props = defineProps([
 const state = reactive({
   searchTerm: "",
   selectedVideo: props.editTreeNode?.video,
-  newVideo: "",
+  newVideoTitle: {
+    error: false,
+    value: "",
+  },
+  newVideoUrl: {
+    error: false,
+    value: "",
+  },
 });
 
 const filteredVideos = computed(() => {
+  const organisationsStore = useOrganisationsStore();
   const videos = organisationsStore.currentOrganisationDetails?.videos || [];
 
   return videos.filter(
     (a) => a.title?.toLowerCase().indexOf(state.searchTerm.toLowerCase()) > -1
   );
 });
+
+const onAddVideo = () => {
+  const organisationsStore = useOrganisationsStore();
+  organisationsStore.createVideo(
+    {
+      title: state.newVideoTitle.value,
+      url: state.newVideoUrl.value,
+    },
+    (res) => {
+      state.newVideoTitle.value = "";
+      state.newVideoUrl.value = "";
+      state.selectedVideo = res;
+    }
+  );
+};
 </script>
 
 <style scoped>
