@@ -28,7 +28,7 @@ export default class Auth {
       pkceEnabled: true,
       logsEnabled: true,
       web: {
-          redirectUrl: `https://${process.env.VUE_APP_BASE_URL}/auth`,
+          redirectUrl: `${process.env.VUE_APP_BASE_URL}/auth`,
           windowOptions: "height=600,left=0,top=0",
       },
       android: {
