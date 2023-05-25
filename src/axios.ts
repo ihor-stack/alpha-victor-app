@@ -2,11 +2,11 @@ import axios, { AxiosRequestConfig } from 'axios';
 import Auth from '@/auth';
 
 const adminAPI = axios.create({
-  baseURL: `https://alphavictor-dev.azurewebsites.net/api/admin`
+  baseURL: process.env.VUE_APP_API_ADMIN_URL
 });
-
+ 
 const publicAPI = axios.create({
-  baseURL: `https://alphavictor-dev.azurewebsites.net/api`
+  baseURL: process.env.VUE_APP_API_PUBLIC_URL
 });
 
 const authService = new Auth();
