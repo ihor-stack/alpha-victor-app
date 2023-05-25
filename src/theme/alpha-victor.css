@@ -7,7 +7,7 @@
   --av-black: #040404;
   --av-red: #ff3737;
   --av-green: #37b14c;
-  --av-orange: #FF9700;
+  --av-orange: #ff9700;
 
   --av-font-light: "Akkurat-Light";
   --av-font-light-italic: "Akkurat-Light-Italic";
@@ -33,7 +33,6 @@
   --ion-padding: 32px;
 
   --ion-font-family: "Akkurat-Regular";
-  
 }
 
 @media (prefers-color-scheme: dark) {
@@ -110,12 +109,12 @@ a {
 }
 
 ::selection {
-  color: #FFF;
+  color: #fff;
   background: var(--av-primary);
 }
 
 ::-moz-selection {
-  color: #FFF;
+  color: #fff;
   background: var(--av-primary);
 }
 
@@ -581,12 +580,12 @@ ion-action-sheet .action-sheet-title {
 }
 
 ion-action-sheet .action-sheet-button {
-  color: #000000 !important;
+  /* color: #000000 !important; */
   font-size: 15.597px !important;
 }
 
 ion-action-sheet .action-sheet-cancel {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 ion-action-sheet .action-sheet-cancel::after {
@@ -598,12 +597,13 @@ ion-action-sheet .action-sheet-selected::after {
 }
 
 ion-action-sheet .action-sheet-selected .action-sheet-button-inner {
-  color: #FFF !important;
+  color: #fff !important;
+  font-size: 18px;
 }
 
 ion-select-option::part(text) {
-  color: #FFFFFF !important;
-  background-color: #FFFFFF !important;
+  color: #ffffff !important;
+  background-color: #ffffff !important;
 }
 
 @media (any-hover: hover) {
@@ -619,14 +619,14 @@ ion-toast.customToast::part(container) {
 }
 
 ion-toast.customToast.customToastGeneric::part(container) {
-  background-image: url('@/theme/icons/av.svg');
+  background-image: url("@/theme/icons/av.svg");
   background-repeat: no-repeat;
   background-position: left 10px center;
   background-size: 53px 53px;
 }
 
 ion-toast.customToast::part(container)::after {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   top: 12px;
@@ -691,7 +691,7 @@ ion-toast.customToast::part(message) {
   --background: #181818;
   --color: #fff;
   --placeholder-color: #ddd;
-  --placeholder-opacity: .4;
+  --placeholder-opacity: 0.4;
   --border-radius: 10px;
 }
 
