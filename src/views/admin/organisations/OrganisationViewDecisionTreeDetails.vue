@@ -34,37 +34,15 @@
                         </svg>
                         <span>Auto layout</span>
                       </button>
-                      <button class="button-action bg-blue">
+                      <ion-button :disabled="!dirty" @click="save">
                         Save decision tree
-                      </button>
+                      </ion-button>
                     </div>
                     <canvas ref="canvas" id="canvas"></canvas>
                   </div>
                 </div>
               </ion-content>
             </ion-page>
-            <ion-modal
-              :is-open="modalOpen"
-              :initial-breakpoint="0.75"
-              :breakpoints="[0, 0, 0, 0]"
-            >
-              <onboarding-access-panel
-                dotText="location.access"
-                :ctaFunc="setOpen"
-              >
-                <template v-slot:image>
-                  <img src="@/theme/img/onboarding-access-location.svg" />
-                </template>
-                <template v-slot:heading>
-                  Enable <br />
-                  location.
-                </template>
-                <template v-slot:info-text>
-                  Please allow location access to allow us to see which room
-                  you’re in.
-                </template>
-              </onboarding-access-panel>
-            </ion-modal>
           </ion-content>
         </ion-col>
       </ion-row>
@@ -95,13 +73,8 @@ import {
   IonContent,
   IonPage,
   IonButton,
-  IonModal,
   IonRow,
   IonCol,
-  IonLabel,
-  IonInput,
-  IonSelect,
-  IonSelectOption,
 } from "@ionic/vue";
 
 import DesktopNav from "@/components/shared/DesktopNav.vue";
@@ -117,10 +90,10 @@ export default {
     DesktopNav,
     IonContent,
     IonPage,
-    IonModal,
     IonRow,
     IonCol,
     DecisionTreeNodeModal,
+    IonButton,
   },
 
   mounted() {
@@ -146,40 +119,34 @@ export default {
     let dragStart;
     let dragDestination;
     let destinations = [];
+    const originalDestinations = [];
     let c;
 
     const editTreeNode = ref();
     let newTreeNode = null;
 
-    const deletedDestinationIDs = [];
-
     const destinationVisible = ref(false);
 
-    const infoVisible = ref(false);
-    const searchTerm = ref("");
     const dirty = ref(false);
-    const modalOpen = ref(false);
 
     const toolbar = new Image();
     const deleteIcon = new Image();
     const addIcon = new Image();
+    const disabledAddIcon = new Image();
     const editIcon = new Image();
     const lockIcon = new Image();
+    const unlockIcon = new Image();
 
     toolbar.src = "/img/admin/decission-toolbar-background.svg";
     deleteIcon.src = "/img/icons/trash.svg";
     addIcon.src = "/img/icons/add.svg";
+    disabledAddIcon.src = "/img/icons/add-disabled.svg";
     editIcon.src = "/img/icons/edit.svg";
     lockIcon.src = "/img/icons/lock.svg";
+    unlockIcon.src = "/img/icons/unlock.svg";
 
     const router = useRouter();
-
     const { decisionTree } = storeToRefs(organisationsStore);
-    console.log(decisionTree);
-
-    const model = ref();
-    const manufacturer = ref();
-    const assetType = ref();
 
     onIonViewDidEnter(() => {
       onResize();
@@ -196,6 +163,7 @@ export default {
         answerNode.text = questionData.outcomeLabel;
       }
       renderChart();
+      dirty.value = true;
     };
 
     const handleClickConfirm = (treeNodeData) => {
@@ -207,6 +175,7 @@ export default {
 
       destinationVisible.value = false;
       renderChart();
+      dirty.value = true;
     };
 
     function getLines(ctx, text, maxWidth) {
@@ -389,7 +358,7 @@ export default {
             this.toolbarHeight
           );
           c.drawImage(
-            addIcon,
+            this.type === 2 ? addIcon : disabledAddIcon,
             this.realX - 6 + toolbarDelta * 0.5 - iconSize / 2,
             this.iconY,
             iconSize,
@@ -403,7 +372,7 @@ export default {
             iconSize
           );
           c.drawImage(
-            lockIcon,
+            this.locked ? lockIcon : unlockIcon,
             this.realX - 6 + toolbarDelta * 2.5 - iconSize / 2,
             this.iconY,
             iconSize,
@@ -493,7 +462,7 @@ export default {
           return;
         }
 
-        deletedDestinationIDs.push(this.id);
+        const deletedDestinationIDs = [this.id];
 
         const linkedOutcomes = destinations.filter(
           (o) =>
@@ -533,10 +502,13 @@ export default {
         email: node.email,
         phone: node.phone,
       });
-      destinations.push(newDestination);
+      newDestination.x = Math.round(newDestination.x / 60) * 60;
+      newDestination.y = Math.round(newDestination.y / 60) * 60;
+      originalDestinations.push(newDestination);
       for (const child of node.children) {
         getDestinations(child, newDestination);
       }
+      destinations = [...originalDestinations];
       renderChart();
     };
 
@@ -578,7 +550,11 @@ export default {
         ) {
           return;
         }
-        if (destinationHover === "click" && destination.type !== 3) {
+        if (
+          destinationHover === "click" &&
+          destination.type !== 3 &&
+          !destination.lock
+        ) {
           dragDestination = destination;
         }
       });
@@ -634,6 +610,7 @@ export default {
             phone: null,
           });
           editTreeNode.value = newTreeNode;
+          dirty.value = true;
           return;
         }
 
@@ -646,7 +623,13 @@ export default {
         if (action == "delete") {
           eventHandled = true;
           destination.delete();
+          dirty.value = true;
+          return;
+        }
 
+        if (action == "lock") {
+          eventHandled = true;
+          destination.lock = !destination.lock;
           return;
         }
 
@@ -667,6 +650,7 @@ export default {
           destinations.push(newTreeNode);
           editTreeNode.value = newTreeNode;
           newTreeNode = null;
+          dirty.value = true;
           renderChart();
           return;
         }
@@ -704,6 +688,7 @@ export default {
         renderChart();
         editTreeNode.value = destinations[destinations.length - 1];
         destinationVisible.value = true;
+        dirty.value = true;
       }
     };
 
@@ -855,6 +840,24 @@ export default {
     };
 
     const save = async () => {
+      const deletedIds = originalDestinations
+        .filter(
+          (originNode) =>
+            !destinations.some((node) => node.id === originNode.id)
+        )
+        .map((node) => node.id);
+      const addedIds = destinations
+        .filter(
+          (node) =>
+            !originalDestinations.some(
+              (originNode) => originNode.id === node.id
+            )
+        )
+        .map((node) => node.id);
+      const updatedIds = destinations
+        .filter((node) => !addedIds.includes(node.id))
+        .map((node) => node.id);
+      console.log(deletedIds, addedIds, updatedIds);
       dirty.value = false;
     };
 
@@ -870,15 +873,10 @@ export default {
       container,
       dirty,
       decisionTree,
-      searchTerm,
-      model,
-      manufacturer,
-      assetType,
       save,
       cancel,
       editTreeNode,
       destinationVisible,
-      infoVisible,
       closeCircle,
       informationCircle,
       create,
@@ -906,11 +904,6 @@ export default {
 
 .button-action span {
   margin-top: 5px;
-}
-
-.bg-blue {
-  color: #ffffff;
-  background-color: #0000ff !important;
 }
 
 .button-container {
