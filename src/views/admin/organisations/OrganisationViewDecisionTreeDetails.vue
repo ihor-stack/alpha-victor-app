@@ -107,11 +107,11 @@ export default {
   setup() {
     const destinationWidth = 200;
     const outcomeHeight = 20;
-    const iconSize = 20;
     const cornerRadius = 0;
     const padding = 10;
-    const toolbarWidth = destinationWidth + 36;
+    const toolbarWidth = 253;
     const toolbarDelta = (toolbarWidth - 24) / 4;
+    const toolbarHeight = 79;
     const gridSize = 20;
 
     const canvas = ref();
@@ -132,19 +132,49 @@ export default {
 
     const toolbar = new Image();
     const deleteIcon = new Image();
+    const disabledDeleteIcon = new Image();
     const addIcon = new Image();
     const disabledAddIcon = new Image();
     const editIcon = new Image();
     const lockIcon = new Image();
+    const disabledLockIcon = new Image();
     const unlockIcon = new Image();
+    const disabledUnlockIcon = new Image();
 
     toolbar.src = "/img/admin/decission-toolbar-background.svg";
+    toolbar.width = toolbarWidth;
+    toolbar.height = toolbarHeight;
     deleteIcon.src = "/img/icons/trash.svg";
+    deleteIcon.width = 14;
+    deleteIcon.height = 18;
+    disabledDeleteIcon.src = "/img/icons/trash-disabled.svg";
+    disabledDeleteIcon.width = 14;
+    disabledDeleteIcon.height = 18;
+
     addIcon.src = "/img/icons/add.svg";
+    addIcon.width = 20;
+    addIcon.height = 20;
     disabledAddIcon.src = "/img/icons/add-disabled.svg";
+    disabledAddIcon.width = 20;
+    disabledAddIcon.height = 20;
+
     editIcon.src = "/img/icons/edit.svg";
+    editIcon.width = 20;
+    editIcon.height = 20;
+
     lockIcon.src = "/img/icons/lock.svg";
+    lockIcon.width = 16;
+    lockIcon.height = 21;
+    disabledLockIcon.src = "/img/icons/lock-disabled.svg";
+    disabledLockIcon.width = 16;
+    disabledLockIcon.height = 21;
+
     unlockIcon.src = "/img/icons/unlock.svg";
+    unlockIcon.width = 16;
+    unlockIcon.height = 21;
+    disabledUnlockIcon.src = "/img/icons/unlock-disabled.svg";
+    disabledUnlockIcon.width = 16;
+    disabledUnlockIcon.height = 21;
 
     const router = useRouter();
     const { decisionTree } = storeToRefs(organisationsStore);
@@ -301,16 +331,12 @@ export default {
         return this.lines.length * this.lineHeight + 2 * padding;
       }
 
-      get toolbarHeight() {
-        return this.height + 35;
-      }
-
       get toolbarY() {
-        return this.realY - this.height - 46;
+        return this.realY - toolbarHeight - 12;
       }
 
-      get iconY() {
-        return this.toolbarY + this.toolbarHeight / 2 - iconSize / 2;
+      getIconY(iconHeight) {
+        return this.toolbarY + toolbarHeight / 2 - iconHeight / 2;
       }
 
       draw() {
@@ -351,40 +377,32 @@ export default {
         if (this.hover) {
           const toolbarX = this.realX - 18;
 
-          c.drawImage(
-            toolbar,
-            toolbarX,
-            this.toolbarY,
-            toolbarWidth,
-            this.toolbarHeight
-          );
+          c.drawImage(toolbar, toolbarX, this.toolbarY);
           c.drawImage(
             this.type === 2 ? addIcon : disabledAddIcon,
-            this.realX - 6 + toolbarDelta * 0.5 - iconSize / 2,
-            this.iconY,
-            iconSize,
-            iconSize
+            toolbarX + 12 + toolbarDelta * 0.5 - addIcon.width / 2,
+            this.getIconY(addIcon.height)
           );
           c.drawImage(
             editIcon,
-            this.realX - 6 + toolbarDelta * 1.5 - iconSize / 2,
-            this.iconY,
-            iconSize,
-            iconSize
+            toolbarX + 12 + toolbarDelta * 1.5 - editIcon.width / 2,
+            this.getIconY(addIcon.height)
           );
           c.drawImage(
-            this.locked ? lockIcon : unlockIcon,
-            this.realX - 6 + toolbarDelta * 2.5 - iconSize / 2,
-            this.iconY,
-            iconSize,
-            iconSize
+            this.locked
+              ? this.type === 3
+                ? disabledLockIcon
+                : lockIcon
+              : this.type === 3
+              ? disabledUnlockIcon
+              : unlockIcon,
+            toolbarX + 12 + toolbarDelta * 2.5 - lockIcon.width / 2,
+            this.getIconY(addIcon.height)
           );
           c.drawImage(
-            deleteIcon,
-            this.realX - 6 + toolbarDelta * 3.5 - iconSize / 2,
-            this.iconY,
-            iconSize,
-            iconSize
+            this.type === 3 ? disabledDeleteIcon : deleteIcon,
+            toolbarX + 12 + toolbarDelta * 3.5 - deleteIcon.width / 2,
+            this.getIconY(addIcon.height)
           );
         }
       }
@@ -411,26 +429,26 @@ export default {
         if (
           this.hover &&
           y > this.toolbarY &&
-          y < this.toolbarY + this.toolbarHeight
+          y < this.toolbarY + toolbarHeight
         ) {
-          if (x > this.realX + 6 && x < this.realX + toolbarDelta) {
+          if (x > this.realX - 6 && x < this.realX - 6 + toolbarDelta) {
             return "add";
           }
           if (
-            x > this.realX + 6 + toolbarDelta &&
-            x < this.realX + toolbarDelta * 2
+            x > this.realX - 6 + toolbarDelta &&
+            x < this.realX - 6 + toolbarDelta * 2
           ) {
             return "edit";
           }
           if (
-            x > this.realX + 6 + toolbarDelta * 2 &&
-            x < this.realX + toolbarDelta * 3
+            x > this.realX - 6 + toolbarDelta * 2 &&
+            x < this.realX - 6 + toolbarDelta * 3
           ) {
             return "lock";
           }
           if (
-            x > this.realX + 10 + toolbarDelta * 3 &&
-            x < this.realX + 6 + toolbarDelta * 4
+            x > this.realX - 6 + toolbarDelta * 3 &&
+            x < this.realX - 6 + toolbarDelta * 4
           ) {
             return "delete";
           }
@@ -440,12 +458,13 @@ export default {
           x < this.right &&
           y > this.realY &&
           y < this.bottom
-        )
+        ) {
           return "click";
+        }
         if (
           this.hover &&
-          x > this.realX &&
-          x < this.right &&
+          x > this.realX - 6 &&
+          x < this.realX + toolbarWidth - 30 &&
           y > this.toolbarY &&
           y < this.bottom
         )
@@ -621,14 +640,14 @@ export default {
           destinationVisible.value = true;
         }
 
-        if (action == "delete") {
+        if (action == "delete" && destination.type !== 3) {
           eventHandled = true;
           destination.delete();
           dirty.value = true;
           return;
         }
 
-        if (action == "lock") {
+        if (action == "lock" && destination.type !== 3) {
           eventHandled = true;
           destination.locked = !destination.locked;
           return;
