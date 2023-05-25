@@ -13,7 +13,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row class="form-admin--group">
+      <!-- <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
             <ion-label color="light">Dark mode</ion-label>
             <ion-input
@@ -25,7 +25,7 @@
               <ion-toggle color="primary" v-model="theme.darkmodeEnabled"/>
             </ion-input>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
 
       <hr class="form-admin--divider" />
 

@@ -11,7 +11,7 @@
       <div class="container">
         <known-issues-list :open-issues="openIssues" :closed-issues="closedIssues" :click-handler="handleIssueClick" />
       </div>
-      <custom-toast :status="state.toastData.toastStatus" :header="state.toastData.toastHeader" :message="state.toastData.toastMessage" :is-open="state.toastData.toastOpen" :duration="state.toastData.toastDuration" v-on:did-dismiss="hideToast" />
+      <custom-toast :status="state.toastData.toastStatus" :header="state.toastData.toastHeader" :message="state.toastData.toastMessage" :is-open="true" :duration="state.toastData.toastDuration" v-on:did-dismiss="hideToast" />
     </ion-content>
     <ion-footer>
       <div class="known-issues__report-issue">

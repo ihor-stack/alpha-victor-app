@@ -11,7 +11,8 @@ import {
 } from "@/types/index";
 
 import { useCookies } from "vue3-cookies";
-import { Alert } from "./globalAlert";
+import loadingService from "@/services/loadingService";
+import toastService from "@/services/toastService";
 
 const { cookies } = useCookies();
 
@@ -24,147 +25,6 @@ export const Organisations = defineStore("Organisations", {
       formattedOrgSelect: [] as SelectItem[],
       documentTypes: [] as SelectItem[],
       decisionTree: {} as DecisionTree,
-      // decisionTree: {
-      //   root: {
-      //     id: "00000000-0000-0000-0000-000000000002",
-      //     text: "How Can I Help You?",
-      //     parentId: null,
-      //     type: 2,
-      //     xPosition: 50,
-      //     yPosition: 350,
-      //     article: null,
-      //     video: null,
-      //     phoneNumber: null,
-      //     emailAddress: null,
-      //     children: [
-      //       {
-      //         id: "00000000-0000-0000-0000-000000000003",
-      //         text: "I'm on a call and I need assistance",
-      //         parentId: "00000000-0000-0000-0000-000000000002",
-      //         type: 3,
-      //         xPosition: 100,
-      //         yPosition: 250,
-      //         article: null,
-      //         video: null,
-      //         phoneNumber: null,
-      //         emailAddress: null,
-      //         children: [
-      //           {
-      //             id: "00000000-0000-0000-0000-000000000005",
-      //             text: "What do you want to do?",
-      //             parentId: "00000000-0000-0000-0000-000000000003",
-      //             type: 4,
-      //             xPosition: 200,
-      //             yPosition: 100,
-      //             article: null,
-      //             video: null,
-      //             phoneNumber: null,
-      //             emailAddress: null,
-      //             children: [],
-      //             // children: [
-      //             //   {
-      //             //     id: "00000000-0000-0000-0000-000000000007",
-      //             //     text: "Watch a video.",
-      //             //     parentId: "00000000-0000-0000-0000-000000000005",
-      //             //     type: 1,
-      //             //     xPosition: 30,
-      //             //     yPosition: 10,
-      //             //     article: null,
-      //             //     video: {
-      //             //       id: "00000000-0000-0000-0000-000000000001",
-      //             //       title: "Video 1",
-      //             //       url: "https://vimeo.com/105776929",
-      //             //       vimeoData: {
-      //             //         total: 0,
-      //             //         data: [],
-      //             //       },
-      //             //     },
-      //             //     phoneNumber: null,
-      //             //     emailAddress: null,
-      //             //     children: [],
-      //             //   },
-      //             //   {
-      //             //     id: "00000000-0000-0000-0000-000000000010",
-      //             //     text: "Email for help.",
-      //             //     parentId: "00000000-0000-0000-0000-000000000005",
-      //             //     type: 4,
-      //             //     xPosition: 40,
-      //             //     yPosition: -10,
-      //             //     article: null,
-      //             //     video: null,
-      //             //     phoneNumber: null,
-      //             //     emailAddress: "alex@mythdigital.co",
-      //             //     children: [],
-      //             //   },
-      //             // ],
-      //           },
-      //         ],
-      //       },
-      //       {
-      //         id: "00000000-0000-0000-0000-000000000004",
-      //         text: "I haven't joined a call yet, but need assistance.",
-      //         parentId: "00000000-0000-0000-0000-000000000002",
-      //         type: 3,
-      //         xPosition: 100,
-      //         yPosition: 450,
-      //         article: null,
-      //         video: null,
-      //         phoneNumber: null,
-      //         emailAddress: null,
-      //         children: [
-      //           {
-      //             id: "00000000-0000-0000-0000-000000000006",
-      //             text: "What do you want to do?",
-      //             parentId: "00000000-0000-0000-0000-000000000004",
-      //             type: 5,
-      //             xPosition: 200,
-      //             yPosition: 600,
-      //             article: null,
-      //             video: null,
-      //             phoneNumber: null,
-      //             emailAddress: null,
-      //             children: [],
-      //             // children: [
-      //             //   {
-      //             //     id: "00000000-0000-0000-0000-000000000008",
-      //             //     text: "Read an article.",
-      //             //     parentId: "00000000-0000-0000-0000-000000000006",
-      //             //     type: 0,
-      //             //     xPosition: 30,
-      //             //     yPosition: -10,
-      //             //     article: {
-      //             //       id: "00000000-0000-0000-0000-000000000001",
-      //             //       title: "Article 1",
-      //             //       richText: "<html><body><b>Article</b></body></html>",
-      //             //     },
-      //             //     video: null,
-      //             //     phoneNumber: null,
-      //             //     emailAddress: null,
-      //             //     children: [],
-      //             //   },
-      //             //   {
-      //             //     id: "00000000-0000-0000-0000-000000000011",
-      //             //     text: "Phone for help.",
-      //             //     parentId: "00000000-0000-0000-0000-000000000006",
-      //             //     type: 5,
-      //             //     xPosition: 50,
-      //             //     yPosition: -10,
-      //             //     article: null,
-      //             //     video: null,
-      //             //     phoneNumber: "000123123",
-      //             //     emailAddress: null,
-      //             //     children: [],
-      //             //   },
-      //             // ],
-      //           },
-      //         ],
-      //       },
-      //     ],
-      //   },
-      //   name: "Deicsion Tree with Root",
-      //   id: "00000000-0000-0000-0000-000000000001",
-      //   loaded: true,
-      // } as DecisionTree,
     };
   },
   actions: {
@@ -173,30 +33,32 @@ export const Organisations = defineStore("Organisations", {
       return true;
     },
     async getOrganisations() {
+      loadingService.show("Loading...");
       publicAPI
         .get<AdminOrganisation[]>("/Organisation/")
         .then((response) => {
           this.organisationList = response.data;
+          loadingService.close();
         })
         .catch((error) => {
-          const alert = Alert();
-          alert.open(error.message);
+          toastService.show("Error", error, "error", "top");
         });
     },
-    async getOrgDetails(orgId = cookies.get("orgId")) {
+    async getOrgDetails() {
+      loadingService.show("Loading...");
       adminAPI
-        .get<OrgDetails>(`/Organisation/${orgId}/Details`)
+        .get<OrgDetails>("/Organisation/" + cookies.get("orgId") + "/Details")
         .then((response) => {
-          this.organisationDetails = { ...response.data };
+          this.organisationDetails = response.data;
+          loadingService.close();
         })
         .catch((error) => {
-          const alert = Alert();
-          alert.open(error.message);
+          toastService.show("Error", error, "error", "top");
         });
     },
     async updateOrgDetails(languageIndex: number) {
       const editedOrg = this.organisationDetails;
-      console.log(this.organisationDetails);
+      loadingService.show("Loading...");
       adminAPI
         .patch<OrgDetails>(
           "/Organisation/" + cookies.get("orgId") + "/Details",
@@ -213,62 +75,66 @@ export const Organisations = defineStore("Organisations", {
             language: languageIndex,
           }
         )
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
+          loadingService.close();
+          toastService.show(
+            "Success",
+            "Organisation details saved",
+            "success",
+            "top"
+          );
         })
         .catch((error) => {
-          const alert = Alert();
-          alert.open(error.message);
+          toastService.show("Error", error, "error", "top");
         });
     },
     async removeOrganisation() {
       adminAPI
         .delete("/Organisation/" + cookies.get("orgId"))
         .catch((error) => {
-          const alert = Alert();
-          alert.open(error.message);
+          toastService.show("Error", error, "error", "top");
         });
     },
     async getOrgsSelectItem() {
       adminAPI
         .get<AdminOrganisation[]>("/Organisation")
         .then((response) => {
-          const formnatedList: SelectItem[] = [];
+          const formattedList: SelectItem[] = [];
           response.data.forEach((element, index) => {
-            formnatedList.push({
+            formattedList.push({
               id: index,
               title: element.name,
               aditionalInfo: element.id,
             });
           });
-          this.formattedOrgSelect = formnatedList;
+          this.formattedOrgSelect = formattedList;
         })
         .catch((error) => {
           this.formattedOrgSelect = [];
-          const alert = Alert();
-          alert.open(error.message);
+          toastService.show("Error", error, "error", "top");
         });
     },
     async getOrgDocumentTypes() {
+      loadingService.show("Loading...");
+
       adminAPI
         .get<AdminDocument[]>(
           "/Organisation/" + cookies.get("orgId") + "/DocumentTypes"
         )
         .then((response) => {
-          const formnatedList: SelectItem[] = [];
+          const formattedList: SelectItem[] = [];
           response.data.forEach((element, index) => {
-            formnatedList.push({
+            formattedList.push({
               id: index,
               title: element.name,
               aditionalInfo: element.id,
             });
           });
-          this.documentTypes = formnatedList;
-          console.log(this.documentTypes);
+          this.documentTypes = formattedList;
+          loadingService.close();
         })
         .catch((error) => {
-          const alert = Alert();
-          alert.open(error.message);
+          toastService.show("Error", error, "error", "top");
         });
     },
     async getDecisionDetails(decisionTreeId: string) {
@@ -278,8 +144,7 @@ export const Organisations = defineStore("Organisations", {
           this.decisionTree = { ...response.data, loaded: true };
         })
         .catch((error) => {
-          const alert = Alert();
-          alert.open(error.message);
+          toastService.show("Error", error, "error", "top");
         });
     },
     async getDecisionTrees() {
@@ -289,8 +154,7 @@ export const Organisations = defineStore("Organisations", {
           // this.decisionTree = response.data;
         })
         .catch((error) => {
-          const alert = Alert();
-          alert.open(error.message);
+          toastService.show("Error", error, "error", "top");
         });
     },
   },

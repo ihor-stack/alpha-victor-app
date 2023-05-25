@@ -24,7 +24,7 @@
               <div class="link-container text-center">
                 <p class="color-mid-gray font-md">
                   Already have an account?
-                  <router-link :to="{ name: 'Dashboard' }" class="color-light-gray link">Login</router-link>
+                  <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link>
                 </p>
               </div>
             </div>

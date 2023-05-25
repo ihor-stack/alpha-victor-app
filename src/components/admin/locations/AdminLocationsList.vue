@@ -22,7 +22,7 @@
             </ion-col>
 
             <ion-col size-xs="12" class="button-pair">
-                <ion-button class="button-wide" @click="Floor.saveFloor">
+                <ion-button class="button-wide" @click="Floor.saveFloor(floor.id)">
                     Save floor
                 </ion-button>
             </ion-col>
@@ -46,11 +46,11 @@
                 </ion-item>
             </ion-col>
             
-            <ion-col size-xs="12" class="button-pair">
+            <!-- <ion-col size-xs="12" class="button-pair">
                 <ion-button class="button-wide">
                     Add new space +
                 </ion-button>
-            </ion-col>
+            </ion-col> -->
         </ion-row>
     </ion-grid>
     

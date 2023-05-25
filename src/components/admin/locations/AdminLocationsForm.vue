@@ -143,7 +143,6 @@
 </template>
 
 <script setup lang="ts">
-
 import {
     IonGrid,
     IonRow,
@@ -170,6 +169,7 @@ const { floors } = storeToRefs(Floor);
 const saveChanges = (id: string) => {
     Location.updateLocation(id)
 }
+
 const redirect = (id: string) => {
     cookies.set('floorId', id)
     if( cookies.get('floorId') && cookies.get('orgId')){

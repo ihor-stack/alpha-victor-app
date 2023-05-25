@@ -75,7 +75,8 @@ export interface Typeform {
 
 export interface SpaceFeature {
   name: string;
-  category: string;
+  icon: string;
+  spaceFeatureId: string;
 }
 
 export interface Device {
