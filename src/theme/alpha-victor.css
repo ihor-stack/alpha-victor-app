@@ -386,6 +386,7 @@ ion-button.button-red {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  width: 100%;
   border-bottom: 0.75px solid #313131;
 }
 
@@ -399,6 +400,7 @@ ion-button.button-red {
   align-items: center;
   padding: 24px 0;
   cursor: pointer;
+  width: 100%;
 }
 
 .list-item:not(:first-of-type) {
@@ -675,19 +677,20 @@ ion-toast.customToast::part(header) {
   font-weight: 700;
   font-size: 16px;
   line-height: 22px;
-  color: #303030;
+  color: var(--av-light-gray);
 }
 
 ion-toast.customToast::part(message) {
   font-weight: 500;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 15px;
-  color: #303030;
+  color: var(--av-light-gray);
 }
 
 /* Form styling */
 
-.form-admin ion-input {
+.form-admin ion-input,
+.form-admin ion-textarea {
   --background: #181818;
   --color: #fff;
   --placeholder-color: #ddd;
@@ -717,7 +720,8 @@ ion-toast.customToast::part(message) {
 }
 
 .form-admin--group_field ion-input,
-.form-admin--group_field ion-select {
+.form-admin--group_field ion-select,
+.form-admin--group_field ion-textarea {
   margin-top: 5px;
   border-radius: 5px;
   line-height: 30px;

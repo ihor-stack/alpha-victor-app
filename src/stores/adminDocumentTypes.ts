@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
 import {AdminDocument} from '@/types/index'
 import { useCookies } from "vue3-cookies";
-import { Alert } from "./globalAlert";
+import loadingService from '@/services/loadingService';
+import toastService from '@/services/toastService';
 
 const { cookies } = useCookies();
   
@@ -20,8 +21,7 @@ export const adminDocuments = defineStore('adminDocuments', {
           this.documents = response.data
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async saveNewDocument(documentName: string) {
@@ -30,8 +30,7 @@ export const adminDocuments = defineStore('adminDocuments', {
       }).then(() => {
         this.getDocuments()
       }).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async editDocumentType(document: AdminDocument) {
@@ -41,8 +40,7 @@ export const adminDocuments = defineStore('adminDocuments', {
         }).then(() => {
           this.getDocuments()
         }).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
     async removeDocumentType(id: string) {
@@ -50,8 +48,7 @@ export const adminDocuments = defineStore('adminDocuments', {
       .then(() => {
           this.getDocuments()
         }).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
   },
@@ -59,6 +56,3 @@ export const adminDocuments = defineStore('adminDocuments', {
     getDocList: (state) => state.documents
   }
 });
-
-
-export { Alert };

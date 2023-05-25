@@ -9,18 +9,20 @@
     :value="modelValue.title"
     />
     <ion-popover trigger="click-trigger" trigger-action="click" size="cover" :dismiss-on-select="true" v-if="props.options">
-        <div 
-        class="ion-padding select-content"
-        v-for="(option) in props.options" :key="option.id"
-        @click="$emit('update:modelValue', option)"
+      <ul class="admin-select">  
+        <li 
+          class="admin-select--item"
+          v-for="(option) in props.options" :key="option.id"
+          @click="$emit('update:modelValue', option)"
         >
         {{option.title}}
-        </div>
+        </li>
+      </ul>
     </ion-popover>
   </div>
 </template>
   
-  <script setup lang="ts">
+<script setup lang="ts">
   import { 
     IonLabel,
     IonInput,
@@ -35,10 +37,9 @@
     }
 
     const props = defineProps<Props>();
-
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   ion-popover {
     --background: #ffffff;
     --backdrop-opacity: 0.6;
@@ -49,8 +50,19 @@
   ion-popover::part(backdrop) {
     background-color: var(--av-darkest-gray);
   }
-  ion-popover select-content {
-    border-bottom: 1px solid #000;
+  ion-popover .admin-select {
+    padding: 0 20px;
+    list-style: none;
   }
-  </style>
-  
+  ion-popover .admin-select--item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--av-mid-gray);
+    cursor: pointer;
+  }
+  ion-popover .admin-select--item:hover {
+    color: var(--av-mid-gray);
+  }
+  ion-popover .admin-select--item:last-of-type {
+    border-bottom: none;
+  }
+</style>

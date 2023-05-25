@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import {adminAPI} from '@/axios'
 import {SingleFloor, SpecificFloor} from '@/types/index'
 import { useCookies } from "vue3-cookies";
-import { Alert } from "./globalAlert";
+import loadingService from '@/services/loadingService';
+import toastService from '@/services/toastService';
 
 const { cookies } = useCookies();
   
@@ -21,8 +22,7 @@ export const Floors = defineStore('Floors', {
           this.floors = response.data
         }
       ).catch(error =>{
-        const alert = Alert()
-        alert.open(error.message)
+        toastService.show('Error', error, 'error', 'top');
       })
     },
     async saveFloor(id: string) {
@@ -30,9 +30,12 @@ export const Floors = defineStore('Floors', {
         {
           longName: this.floor.name,
           shortName: this.floor.shortName
-        }).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+        })
+        .then(() => {
+          toastService.show('Success', 'Floor updated successfully', 'success', 'top');
+        }
+        ).catch(error =>{
+          toastService.show('Error', error, 'error', 'top');
         })
     },
     async getFloorDetails() {
@@ -42,8 +45,7 @@ export const Floors = defineStore('Floors', {
           this.floor = response.data
         }
       ).catch(error =>{
-          const alert = Alert()
-          alert.open(error.message)
+          toastService.show('Error', error, 'error', 'top');
         })
     },
   },

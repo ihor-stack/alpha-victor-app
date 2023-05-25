@@ -8,12 +8,20 @@
                         v-for="(device, index) in devices" 
                         v-bind:key="index"
                         :value="String(index)"
+                        class="list"
                         @click="currentIndex = index"
                     >
-                        <ion-item slot="header" color="--av-darkest-gray">
-                        <ion-label color="light">{{device.name}}</ion-label>
-                        </ion-item>
-                        <div class="ion-padding" slot="content">
+                        <div class="list-item" slot="header" color="--av-darkest-gray">
+                            <div class="list-item__info">
+                            <div class="list-item__details">
+                                <p class="primaryText font-bold font-size-sm color-light-gray">
+                                    {{device.name}}
+                                </p>
+                            </div>
+                            </div>
+                            <span class="arrow-right"></span>
+                        </div>
+                        <div slot="content">
                             <ion-row class="form-admin--group">
                                 <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                                     <ion-label color="light">Serial number</ion-label>
@@ -60,21 +68,20 @@
                                     <ion-textarea
                                     class="font-size-sm"
                                     color="light"
-                                    fill="solid"
                                     :value="device.description"
                                     @ion-input="device.description = String($event.target.value)"
                                     ></ion-textarea>
                                 </ion-col>
-                                <ion-col size-xs="12" class="form-admin--group_field">
+                                <!-- <ion-col size-xs="12" class="form-admin--group_field">
                                     <ion-label color="light">Photos</ion-label>
-                                    <!-- <AdminFloorsField /> -->
-                                </ion-col>
-                                <ion-col size-xs="12" class="form-admin--group_field">
-                                    <ion-button class="font-size-sm text-lowercase" @click="editDevice()">
+                                    <AdminFloorsField />
+                                </ion-col> -->
+                                <ion-col size-xs="12">
+                                    <ion-button class="button-wide" @click="editDevice()">
                                         Save changes
                                     </ion-button>
                                     <ion-button 
-                                    class="font-size-sm text-lowercase delete-button" 
+                                    class="button-wide button-red" 
                                     fill="clear" 
                                     @click="deleteDevice()">
                                         or delete device
@@ -93,7 +100,6 @@
 </template>
 
 <script setup lang="ts">
-
 import {
     IonGrid,
     IonRow,
@@ -124,18 +130,12 @@ const deleteDevice = () => {
     Space.deleteSpacesDevices(currentIndex.value)
 }
 onBeforeMount(() =>[
-    Space.getSpacesDevices()
+    Space.getSpaceDetailsDevices()
 ])
 </script>
 
 <style scoped>
-ion-button {
-    width: 246px
-}
-ion-icon {
-    color: white
-}
-.delete-button{
-    color: var(--av-red)
+ion-datetime-button {
+    margin-top: 20px;
 }
 </style>
