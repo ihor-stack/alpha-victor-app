@@ -44,10 +44,10 @@ export const Organisations = defineStore("Organisations", {
           toastService.show("Error", error, "error", "top");
         });
     },
-    async getOrgDetails(id: string) {
+    async getOrgDetails(id = cookies.get("orgId")) {
       loadingService.show("Loading...");
       adminAPI
-        .get<OrgDetails>(`/Organisation/${id || cookies.get("orgId")}/Details`)
+        .get<OrgDetails>(`/Organisation/${id}/Details`)
         .then((response) => {
           this.organisationDetails = response.data;
           loadingService.close();

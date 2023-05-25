@@ -4,18 +4,9 @@
 
 <script setup lang="ts"> 
 import AdminLocationsForm from '@/components/admin/locations/AdminLocationsForm.vue'
-import { onBeforeMount, ref } from "vue";
-import {Locations} from '@/stores/adminLocations'
-import { storeToRefs } from 'pinia'
-
-const Location = Locations()
-const { navigationTree } = storeToRefs(Location);
+import { onBeforeMount, ref } from "vue"
 
 const component = AdminLocationsForm
-
-onBeforeMount(() =>{
-    Location.getNavigationTree()
-})
 </script>
     
 <style scoped>

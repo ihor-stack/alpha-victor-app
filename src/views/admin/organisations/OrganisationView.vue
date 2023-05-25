@@ -61,12 +61,7 @@
       <li class="organisation-options-menu-item">
         <ion-item
           v-if="locations.length > 0"
-          :router-link="{
-            name: 'OrganisationViewLocations',
-            params: {
-              locationId: locations[0].id,
-            },
-          }"
+          :router-link="redirectToLocation(locations[0].id)"
           router-direction="root"
         >
           <span class="link-text">Locations</span>
@@ -89,12 +84,22 @@ import { chevronForwardOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
 import { Locations } from "@/stores/adminLocations";
 import { storeToRefs } from "pinia";
+import { useCookies } from "vue3-cookies";
+
+const { cookies } = useCookies();
 
 const organisation = Organisations();
 const location = Locations();
 
 const { organisationDetails } = storeToRefs(organisation);
 const { locations } = storeToRefs(location);
+
+const redirectToLocation = (id: string) => {
+  cookies.set("locationId", id);
+  if (cookies.get("locationId")) {
+    return { name: "OrganisationViewLocations", params: { locationId: id } };
+  }
+};
 
 onBeforeMount(() => {
   organisation.getOrgDetails();
