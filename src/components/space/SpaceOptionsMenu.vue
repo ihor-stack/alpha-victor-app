@@ -1,41 +1,50 @@
 <template>
-    <div class="container">
-      <ul class="space-options-menu">
-        <li class="space-options-menu-item">
-          <ion-item :router-link="{ name: 'Equipment' }" router-direction="root">
-            <span class="link-text">Room Equipment</span>
-            <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-          </ion-item>
-        </li>
-        <li class="space-options-menu-item">
-          <ion-item :router-link="{ name: 'Help' }" router-direction="root">
-            <span class="link-text">Get Help</span>
-            <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-          </ion-item>
-        </li>
-        <li class="space-options-menu-item">
-          <ion-item :router-link="{ name: 'KnownIssues' }" router-direction="root">
-            <div class="with-counter">
-              <p class="label font-bold font-size-sm color-light-gray">
-                Known Issues
-              </p>
-              <div v-if="issues && issues.length > 0" class="counter">
-                <div>
-                  <span>{{ issues.length }}</span>
-                </div>
+  <div class="container">
+    <ul class="space-options-menu">
+      <li class="space-options-menu-item">
+        <ion-item :router-link="{ name: 'Equipment' }" router-direction="root">
+          <span class="link-text">Room Equipment</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+      <li class="space-options-menu-item">
+        <ion-item
+          :router-link="{
+            name: 'GetHelp',
+            params: { decisionTreeID: '00000000-0000-0000-0000-000000000001' },
+          }"
+          router-direction="root"
+        >
+          <span class="link-text">Get Help</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+      <li class="space-options-menu-item">
+        <ion-item
+          :router-link="{ name: 'KnownIssues' }"
+          router-direction="root"
+        >
+          <div class="with-counter">
+            <p class="label font-bold font-size-sm color-light-gray">
+              Known Issues
+            </p>
+            <div v-if="issues && issues.length > 0" class="counter">
+              <div>
+                <span>{{ issues.length }}</span>
               </div>
             </div>
-            <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-          </ion-item>
-        </li>
-        <li class="space-options-menu-item">
-          <ion-item :router-link="{ name: 'Documents' }" router-direction="root">
-            <span class="link-text">Documents</span>
-            <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
-          </ion-item>
-        </li>
-      </ul>
-    </div>
+          </div>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+      <li class="space-options-menu-item">
+        <ion-item :router-link="{ name: 'Documents' }" router-direction="root">
+          <span class="link-text">Documents</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -60,7 +69,7 @@ defineProps<Props>();
 
 .space-options-menu-item ion-item {
   --background: none;
-  --color: #FFFFFF;
+  --color: #ffffff;
   --padding-start: 0;
   --padding-end: 0;
   --inner-padding-end: 0;
