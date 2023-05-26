@@ -75,6 +75,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/EquipmentView.vue"),
   },
   {
+    path: "/get-help/:decisionTreeID",
+    name: "GetHelp",
+    component: () => import("@/views/space/GetHelpView.vue"),
+  },
+  {
     path: "/documents",
     name: "Documents",
     component: () => import("@/views/space/DocumentsView.vue"),
