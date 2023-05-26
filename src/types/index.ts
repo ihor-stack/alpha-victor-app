@@ -1,4 +1,5 @@
 export * from "./decisionTree";
+export * from "./equipments";
 import { DecisionTree } from "./decisionTree";
 enum Status {
   lowImpact,
@@ -84,7 +85,12 @@ export interface Device {
 }
 
 export interface Document {
+  id: string;
+  manufacturerId: string | null;
+  assetTypeId: string;
+  equipmentId: string;
   name: string;
+  path: string | null;
   documentType: DocumentType;
 }
 

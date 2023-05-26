@@ -11,14 +11,14 @@
           <ion-select
             interface="action-sheet"
             placeholder="Select manufacturer"
-            v-model="state.manufacturer"
+            v-model="state.manufacturerId"
           >
             <ion-select-option
               v-for="option in manufacturers"
-              :key="option.value"
-              :value="option.value"
+              :key="option.manufacturerId"
+              :value="option.manufacturerId"
             >
-              {{ option.label }}
+              {{ option.name }}
             </ion-select-option>
           </ion-select>
         </ion-col>
@@ -29,14 +29,14 @@
           <ion-select
             interface="action-sheet"
             placeholder="Select type"
-            v-model="state.type"
+            v-model="state.assetTypeId"
           >
             <ion-select-option
               v-for="option in types"
-              :key="option.value"
-              :value="option.value"
+              :key="option.assetId"
+              :value="option.assetId"
             >
-              {{ option.label }}
+              {{ option.name }}
             </ion-select-option>
           </ion-select>
         </ion-col>
@@ -47,24 +47,29 @@
           <ion-select
             interface="action-sheet"
             placeholder="Select model"
-            v-model="state.model"
+            v-model="state.equipmentId"
           >
             <ion-select-option
               v-for="option in models"
-              :key="option.value"
-              :value="option.value"
+              :key="option.equipmentId"
+              :value="option.equipmentId"
             >
-              {{ option.label }}
+              {{ option.equipmentName }}
             </ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
+      <CustomList
+        :listData="state.documents"
+        :selectedItem="state.selectedDocument"
+        :handleSelectItem="(item) => (state.selectedDocument = item)"
+      ></CustomList>
     </ion-content>
     <ion-footer>
       <ion-button
         class="ion-text-capitalize ion-margin-top"
         expand="block"
-        @click="handleClickConfirm(state)"
+        @click="handleClickConfirm({ document: state.selectedDocument })"
       >
         Confirm Selection</ion-button
       >
@@ -81,7 +86,7 @@
   </common-modal>
 </template>
 <script setup>
-import { reactive, computed } from "vue";
+import { reactive, computed, watch, onBeforeMount } from "vue";
 import {
   IonContent,
   IonButton,
@@ -92,9 +97,13 @@ import {
   IonLabel,
   IonFooter,
 } from "@ionic/vue";
-import CommonModal from "@/components/modals/CommonModal.vue";
 
+import CustomList from "./CustomList.vue";
+import CommonModal from "@/components/modals/CommonModal.vue";
+import { adminAPI } from "@/axios";
 import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
+import toastService from "@/services/toastService";
+import loadingService from "@/services/loadingService";
 
 const organisationsStore = useOrganisationsStore();
 
@@ -106,81 +115,54 @@ const props = defineProps([
 ]);
 
 const state = reactive({
-  manufacturer: "",
-  type: "",
-  model: "",
+  manufacturerId: props.editTreeNode?.document?.manufacturerId,
+  assetTypeId: props.editTreeNode?.document?.assetTypeId,
+  equipmentId: props.editTreeNode?.document?.equipmentId,
+  documentId: props.editTreeNode?.document?.id,
+  documents: [],
+  selectedDocument: props.editTreeNode?.document,
 });
 
 const manufacturers = computed(() => {
-  // const articles = organisationsStore.currentOrganisationDetails;
-
-  // return articles.filter(
-  //   (a) =>
-  //     a.title?.toLowerCase().indexOf(state.searchTerm.value.toLowerCase()) > -1
-  // );
-  const mockManufacturer = [
-    {
-      id: "1",
-      title: "Teams Room",
-    },
-    {
-      id: "2",
-      title: "Alternative Teams Room",
-    },
-    {
-      id: "3",
-      title: "Alternative Teams Room",
-    },
-  ];
-  return mockManufacturer;
+  return organisationsStore.equipmentList?.manufacturers || [];
 });
 
 const types = computed(() => {
-  // const articles = organisationsStore.currentOrganisationDetails;
-
-  // return articles.filter(
-  //   (a) =>
-  //     a.title?.toLowerCase().indexOf(state.searchTerm.value.toLowerCase()) > -1
-  // );
-  const mockTypes = [
-    {
-      id: "1",
-      title: "Teams Room",
-    },
-    {
-      id: "2",
-      title: "Alternative Teams Room",
-    },
-    {
-      id: "3",
-      title: "Alternative Teams Room",
-    },
-  ];
-  return mockTypes;
+  return organisationsStore.equipmentList?.assetTypes || [];
 });
 
 const models = computed(() => {
-  // const articles = organisationsStore.currentOrganisationDetails;
+  const equipmentList = organisationsStore.equipmentList?.equipments || [];
+  return equipmentList.filter(
+    (equipment) =>
+      equipment.manufacturerId === state.manufacturerId &&
+      equipment.assetTypeId === state.assetTypeId
+  );
+});
 
-  // return articles.filter(
-  //   (a) =>
-  //     a.title?.toLowerCase().indexOf(state.searchTerm.value.toLowerCase()) > -1
-  // );
-  const mockModels = [
-    {
-      id: "1",
-      title: "Teams Room",
-    },
-    {
-      id: "2",
-      title: "Alternative Teams Room",
-    },
-    {
-      id: "3",
-      title: "Alternative Teams Room",
-    },
-  ];
-  return mockModels;
+const getDocuments = (equipmentId) => {
+  if (!equipmentId) return;
+  loadingService.show("Loading...");
+  adminAPI
+    .get(`/Document/${equipmentId}`)
+    .then((response) => {
+      state.documents = response.data;
+    })
+    .catch((error) => {
+      state.documents = [];
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
+};
+
+onBeforeMount(() => {
+  getDocuments(props.editTreeNode?.document?.equipmentId);
+});
+
+watch([() => state.equipmentId], (value) => {
+  getDocuments(value);
 });
 </script>
 

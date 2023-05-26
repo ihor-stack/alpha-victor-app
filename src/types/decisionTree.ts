@@ -1,4 +1,4 @@
-import { Article, Video } from "./index";
+import { Article, Video, Document } from "./index";
 export enum DecisionTreeNodeType {
   Article,
   Video,
@@ -6,6 +6,7 @@ export enum DecisionTreeNodeType {
   Answer,
   Email,
   Phone,
+  Document,
 }
 
 export interface IDecisionTreeNode {
@@ -19,6 +20,7 @@ export interface IDecisionTreeNode {
   video: Video | null;
   phone: string | null;
   email: string | null;
+  Document: Document | null;
   children: IDecisionTreeNode[];
 }
 
@@ -40,6 +42,7 @@ export class DecisionTreeNode {
   video: Video | null;
   phone: string | null;
   email: string | null;
+  document: Document | null;
   children?: IDecisionTreeNode[] | undefined;
   locked: false;
   hover: false;
@@ -56,6 +59,7 @@ export class DecisionTreeNode {
       video,
       phone,
       email,
+      document,
       children,
     } = data;
     this.id = id;
@@ -68,6 +72,7 @@ export class DecisionTreeNode {
     this.video = video;
     this.phone = phone;
     this.email = email;
+    this.document = document;
     this.children = children;
     this.hover = false;
     this.locked = false;

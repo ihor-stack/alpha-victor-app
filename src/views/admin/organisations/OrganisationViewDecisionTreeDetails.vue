@@ -104,6 +104,7 @@ export default {
     organisationsStore.setId(organisationID);
     organisationsStore.getOrgDetails(organisationID);
     organisationsStore.getDecisionDetails(decisionTreeID);
+    organisationsStore.getEquipments();
   },
 
   setup() {
@@ -524,6 +525,7 @@ export default {
         article: node.article,
         video: node.video,
         email: node.email,
+        document: node.document,
         phone: node.phone,
       });
       newDestination.x = Math.round(newDestination.x / gridSize) * gridSize;
@@ -740,6 +742,7 @@ export default {
             video: null,
             email: null,
             phone: null,
+            document: null,
           });
           editTreeNode.value = newTreeNode;
           dirty.value = true;
@@ -812,6 +815,7 @@ export default {
           video: null,
           email: null,
           phone: null,
+          document: null,
         });
         newTreeNode.children = [
           {

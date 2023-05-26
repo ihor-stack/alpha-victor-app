@@ -10,6 +10,7 @@ import {
   DecisionTree,
   Article,
   Video,
+  EquipmentList,
 } from "@/types/index";
 
 import { useCookies } from "vue3-cookies";
@@ -27,6 +28,11 @@ export const Organisations = defineStore("Organisations", {
       formattedOrgSelect: [] as SelectItem[],
       documentTypes: [] as SelectItem[],
       decisionTree: {} as DecisionTree,
+      equipmentList: {
+        manufacturers: [],
+        assetTypes: [],
+        equipments: [],
+      } as EquipmentList,
     };
   },
   actions: {
@@ -183,6 +189,21 @@ export const Organisations = defineStore("Organisations", {
         .then((res) => {
           this.getOrgDetails();
           callback ? callback(res.data) : null;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+
+    async getEquipments() {
+      loadingService.show("Loading...");
+      adminAPI
+        .get<EquipmentList>(`/Equipment`)
+        .then((response) => {
+          this.equipmentList = response.data;
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
