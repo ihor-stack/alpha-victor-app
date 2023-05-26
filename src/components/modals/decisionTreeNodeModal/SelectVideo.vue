@@ -17,28 +17,11 @@
           ></input-with-icon>
         </ion-col>
       </ion-row>
-      <ul class="list">
-        <li
-          class="list-item"
-          v-for="video in filteredVideos"
-          :key="video.id"
-          @click="state.selectedVideo = video"
-        >
-          <p class="primaryText font-bold font-size-sm color-light-gray">
-            {{ video.title }}
-          </p>
-          <div class="font-size-xs">
-            <ion-row
-              v-if="video.id === state.selectedVideo?.id"
-              class="color-green ion-align-items-center"
-            >
-              <ion-icon :icon="checkmarkCircle" size="small" />
-              <ion-col> selected </ion-col>
-            </ion-row>
-            <ion-col v-else>>> select</ion-col>
-          </div>
-        </li>
-      </ul>
+      <CustomList
+        :listData="filteredVideos"
+        :selectedItem="state.selectedVideo"
+        :handleSelectItem="(item) => (state.selectedVideo = item)"
+      ></CustomList>
       <div class="divider">
         <div></div>
         <span>or</span>
@@ -102,8 +85,9 @@ import {
 } from "@ionic/vue";
 import CommonModal from "@/components/modals/CommonModal.vue";
 import InputWithIcon from "@/components/shared/InputWithIcon.vue";
-import { checkmarkCircle, search } from "ionicons/icons";
+import { search } from "ionicons/icons";
 
+import CustomList from "./CustomList.vue";
 import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
 
 const props = defineProps([
@@ -154,9 +138,6 @@ const onAddVideo = () => {
 <style scoped>
 ion-content::part(background) {
   background: #181818;
-}
-.list {
-  border-bottom: none;
 }
 .divider {
   position: relative;

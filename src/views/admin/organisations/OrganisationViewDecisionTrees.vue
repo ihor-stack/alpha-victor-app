@@ -1,5 +1,7 @@
 <template>
-  <h1 class="title-admin font-bold font-size-lg color-light-gray">Decision Trees</h1>
+  <h1 class="title-admin font-bold font-size-lg color-light-gray">
+    Decision Trees
+  </h1>
 
   <ion-grid class="form-admin">
     <ion-row class="form-admin--group">
@@ -40,9 +42,20 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, onBeforeMount } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { IonItem, IonIcon } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
+import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
+
+const route = useRoute();
+const organisationsStore = useOrganisationsStore();
+
+onBeforeMount(() => {
+  const organisationID = route.params.organisationID as string;
+  organisationsStore.setId(organisationID);
+  organisationsStore.getOrgDetails(organisationID);
+});
 </script>
 
 <style scoped>

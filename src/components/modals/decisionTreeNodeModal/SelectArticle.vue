@@ -17,28 +17,11 @@
           ></input-with-icon>
         </ion-col>
       </ion-row>
-      <ul class="list">
-        <li
-          class="list-item"
-          v-for="article in filteredArticles"
-          :key="article.id"
-          @click="state.selectedArticle = article"
-        >
-          <p class="primaryText font-bold font-size-sm color-light-gray">
-            {{ article.title }}
-          </p>
-          <div class="font-size-xs">
-            <ion-row
-              v-if="article.id === state.selectedArticle?.id"
-              class="color-green ion-align-items-center"
-            >
-              <ion-icon :icon="checkmarkCircle" size="small" />
-              <ion-col> selected </ion-col>
-            </ion-row>
-            <span v-else>>> select</span>
-          </div>
-        </li>
-      </ul>
+      <CustomList
+        :listData="filteredArticles"
+        :selectedItem="state.selectedArticle"
+        :handleSelectItem="(item) => (state.selectedArticle = item)"
+      ></CustomList>
     </ion-content>
     <ion-footer>
       <ion-button
@@ -73,7 +56,7 @@ import { reactive, computed } from "vue";
 import { IonContent, IonButton, IonFooter, IonRow, IonCol } from "@ionic/vue";
 import CommonModal from "@/components/modals/CommonModal.vue";
 import InputWithIcon from "@/components/shared/InputWithIcon.vue";
-import { checkmarkCircle, search } from "ionicons/icons";
+import CustomList from "./CustomList.vue";
 
 import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
 
@@ -130,9 +113,5 @@ const onAddArticle = () => {
 <style scoped>
 ion-content::part(background) {
   background: #181818;
-}
-
-.list-item {
-  padding: 20px 0;
 }
 </style>
