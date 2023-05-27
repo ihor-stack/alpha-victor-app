@@ -1,19 +1,18 @@
 <template>
   <div>
-    <h1 class="title-admin font-bold font-size-lg color-light-gray">Organisations</h1>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">
+      Organisations
+    </h1>
     <ul class="organisations-list-menu">
       <li class="organisations-list-menu-item">
-        <ion-item 
-        v-for="org in organisation.getList" 
-        v-bind:key="org.id"
-        :router-link="redirect(org.organisationId)"
-        router-direction="root"
+        <ion-item
+          v-for="org in organisation.getList"
+          v-bind:key="org.id"
+          :router-link="redirect(org.organisationId)"
+          router-direction="root"
         >
           <!-- src="@/theme/img/mclaren.svg" -->
-          <img
-            :src="org.logo"
-            :alt="org.name"
-          />
+          <img :src="org.logo" :alt="org.name" />
           <span class="link-text">{{ org.name }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
@@ -23,27 +22,24 @@
 </template>
 
 <script setup lang="ts">
-import {
-  IonItem,
-  IonIcon
-} from "@ionic/vue"
-import { onBeforeMount, ref } from "vue"
-import { chevronForwardOutline } from "ionicons/icons"
-import {Organisations} from '@/stores/adminOrganisations'
+import { IonItem, IonIcon } from "@ionic/vue";
+import { onBeforeMount, ref } from "vue";
+import { chevronForwardOutline } from "ionicons/icons";
+import { Organisations } from "@/stores/adminOrganisations";
 import { useCookies } from "vue3-cookies";
 
 const { cookies } = useCookies();
 
-const organisation = Organisations()
+const organisation = Organisations();
 const redirect = (id: string) => {
-  cookies.set('orgId', id)
-  if( cookies.get('orgId')){
-    return { name: 'OrganisationView', params: { id: cookies.get('orgId')} }
+  cookies.set("orgId", id);
+  if (cookies.get("orgId")) {
+    return { name: "OrganisationView", params: { id: cookies.get("orgId") } };
   }
-}
+};
 onBeforeMount(() => {
-  organisation.getOrganisations()
-})
+  organisation.getOrganisations();
+});
 </script>
 
 <style scoped>
@@ -55,7 +51,7 @@ onBeforeMount(() => {
 
 .organisations-list-menu-item ion-item {
   --background: none;
-  --color: #FFFFFF;
+  --color: #ffffff;
   --padding-start: 0;
   --padding-end: 0;
   --inner-padding-end: 0;

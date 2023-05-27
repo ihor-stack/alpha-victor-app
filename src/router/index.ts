@@ -75,7 +75,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/EquipmentView.vue"),
   },
   {
-    path: "/get-help/:decisionTreeID",
+    path: "/get-help/:decisionTreeId",
     name: "GetHelp",
     component: () => import("@/views/space/GetHelpView.vue"),
   },
@@ -258,7 +258,7 @@ const routes: Array<RouteRecordRaw> = [
               ),
           },
           {
-            path: "organisation/id/decision-trees",
+            path: "organisation/:id/decision-trees",
             name: "OrganisationViewDecisionTrees",
             props: true,
             component: () =>
@@ -341,7 +341,7 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
-    path: "/admin/organisation/:organisationID/decision-trees/:decisionTreeID",
+    path: "/admin/organisation/:organisationId/decision-trees/:decisionTreeId",
     name: "OrganisationViewDecisionTreeDetails",
     component: () =>
       import(

@@ -59,8 +59,8 @@ const handleClickNode = (node: IDecisionTreeNode) => {
 };
 
 onBeforeMount(() => {
-  const decisionTreeID: string = route.params.decisionTreeID as string;
-  organisationsStore.getDecisionDetails(decisionTreeID);
+  const decisionTreeId: string = route.params.decisionTreeId as string;
+  organisationsStore.getDecisionDetails(decisionTreeId);
 });
 </script>
 

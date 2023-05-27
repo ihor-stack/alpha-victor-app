@@ -11,7 +11,7 @@
         <ion-item
           :router-link="{
             name: 'GetHelp',
-            params: { decisionTreeID: '00000000-0000-0000-0000-000000000001' },
+            params: { decisionTreeId: '00000000-0000-0000-0000-000000000001' },
           }"
           router-direction="root"
         >

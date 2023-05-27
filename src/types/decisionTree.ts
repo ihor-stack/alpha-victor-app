@@ -10,22 +10,22 @@ export enum DecisionTreeNodeType {
 }
 
 export interface IDecisionTreeNode {
-  id: string;
+  id?: string;
   xPosition: number;
   yPosition: number;
   text: string | null;
-  parentId: string | null;
+  parentId?: string | null;
   type: DecisionTreeNodeType;
-  article: Article | null;
-  video: Video | null;
-  phone: string | null;
-  email: string | null;
-  Document: Document | null;
+  article?: Article | null;
+  video?: Video | null;
+  phone?: string | null;
+  email?: string | null;
+  Document?: Document | null;
   children: IDecisionTreeNode[];
 }
 
 export interface DecisionTree {
-  id: string;
+  id?: string;
   name: string;
   root: IDecisionTreeNode;
   loaded?: boolean;
