@@ -99,11 +99,15 @@ export default {
 
   mounted() {
     const route = useRoute();
-    const decisionTreeID = route.params.decisionTreeID;
-    const organisationID = route.params.organisationID;
-    organisationsStore.setId(organisationID);
-    organisationsStore.getOrgDetails(organisationID);
-    organisationsStore.getDecisionDetails(decisionTreeID);
+    const organisationId = route.params.organisationId;
+    const decisionTreeId = route.params.decisionTreeId;
+    if (organisationsStore.organisationDetails?.id !== organisationId) {
+      organisationsStore.setId(organisationId);
+      organisationsStore.getOrgDetails(organisationId);
+    }
+    if (organisationsStore.decisionTree?.id !== decisionTreeId) {
+      organisationsStore.getDecisionDetails(decisionTreeId);
+    }
     organisationsStore.getEquipments();
   },
 
@@ -182,6 +186,7 @@ export default {
     disabledUnlockIcon.height = 21;
 
     const router = useRouter();
+    const route = useRoute();
     const { decisionTree } = storeToRefs(organisationsStore);
 
     onIonViewDidEnter(() => {
@@ -405,7 +410,9 @@ export default {
             this.getIconY(addIcon.height)
           );
           c.drawImage(
-            this.type === 3 ? disabledDeleteIcon : deleteIcon,
+            this.type === 3 || decisionTree.value?.root?.id === this.id
+              ? disabledDeleteIcon
+              : deleteIcon,
             toolbarX + 12 + toolbarDelta * 3.5 - deleteIcon.width / 2,
             this.getIconY(addIcon.height)
           );
@@ -483,7 +490,10 @@ export default {
       }
 
       delete() {
-        if (destinations.length == 1) {
+        if (
+          destinations.length == 1 ||
+          decisionTree.value?.root?.id === this.id
+        ) {
           return;
         }
 
@@ -789,6 +799,10 @@ export default {
           }
           newTreeNode.children = [{ id: destination.id }];
           destinations.push(newTreeNode);
+          newTreeNode.parent.children = [
+            ...newTreeNode.parent.children,
+            newTreeNode,
+          ];
           editTreeNode.value = newTreeNode;
           newTreeNode = null;
           dirty.value = true;
@@ -823,6 +837,10 @@ export default {
           },
         ];
         destinations.push(newTreeNode);
+        newTreeNode.parent.children = [
+          ...newTreeNode.parent.children,
+          newTreeNode,
+        ];
         destinations.push(newDestination);
 
         //Make the new destination the target of the active outcome
@@ -878,6 +896,7 @@ export default {
           canvasPostion.value.left = canvasPostion.value.left + x - dragStart.x;
         }
         dragStart = { x: x, y: y };
+        dirty.value = true;
       }
       renderChart();
     };
@@ -993,30 +1012,46 @@ export default {
       }
     };
 
+    const getTreeNodeFromDestination = (destination) => {
+      const treeNode = {
+        id: destination.id,
+        type: destination.type,
+        text: destination.text,
+        phone: destination.phone,
+        email: destination.email,
+        articleId: destination.article?.id,
+        videoId: destination.video?.id,
+        documentId: destination.document?.id,
+        xPosition: destination.x,
+        yPosition: destination.y,
+      };
+      const children = [];
+      if (destination?.children) {
+        for (const child of destination.children) {
+          const childDestination = Destination.getByID(child.id);
+          const childNode = getTreeNodeFromDestination(childDestination);
+          children.push(childNode);
+        }
+      }
+      treeNode.children = children;
+      if (!destination.parent) {
+        const decisionTreeId = route.params.decisionTreeId;
+        organisationsStore.updateDecisionDetails(decisionTreeId, {
+          root: treeNode,
+          name: decisionTree.value?.name,
+        });
+      }
+      return treeNode;
+    };
+
     const save = async () => {
-      const deletedIds = originalDestinations
-        .filter(
-          (originNode) =>
-            !destinations.some((node) => node.id === originNode.id)
-        )
-        .map((node) => node.id);
-      const addedIds = destinations
-        .filter(
-          (node) =>
-            !originalDestinations.some(
-              (originNode) => originNode.id === node.id
-            )
-        )
-        .map((node) => node.id);
-      const updatedIds = destinations
-        .filter((node) => !addedIds.includes(node.id))
-        .map((node) => node.id);
-      console.log(deletedIds, addedIds, updatedIds);
+      const rootDestination = Destination.getByID(decisionTree.value?.root?.id);
+      if (!rootDestination) return;
+      getTreeNodeFromDestination(rootDestination);
       dirty.value = false;
     };
 
     const cancel = async () => {
-      decisionTree.value = decisionTree;
       router.back();
     };
 

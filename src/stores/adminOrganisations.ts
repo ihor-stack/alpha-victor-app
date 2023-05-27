@@ -38,6 +38,7 @@ export const Organisations = defineStore("Organisations", {
   actions: {
     setId(newId: string) {
       this.currentOrg = newId;
+      cookies.set("orgId", newId);
       return true;
     },
     async getOrganisations() {
@@ -146,6 +147,7 @@ export const Organisations = defineStore("Organisations", {
         });
     },
     async getDecisionDetails(decisionTreeId: string) {
+      loadingService.show("Loading...");
       adminAPI
         .get<DecisionTree>(`/DecisionTree/${decisionTreeId}`)
         .then((response) => {
@@ -153,9 +155,29 @@ export const Organisations = defineStore("Organisations", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
         });
     },
+
+    async updateDecisionDetails(decisionTreeId: string, treeData: any) {
+      loadingService.show("Loading...");
+      adminAPI
+        .patch<DecisionTree>(`/DecisionTree/${decisionTreeId}`, treeData)
+        .then((response) => {
+          this.decisionTree = { ...response.data, loaded: true };
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+
     async getDecisionTrees() {
+      loadingService.show("Loading...");
       adminAPI
         .get<DecisionTree>(`/DecisionTree`)
         .then((response) => {
@@ -163,6 +185,29 @@ export const Organisations = defineStore("Organisations", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+
+    async createDecisionTree(decisionTree: DecisionTree) {
+      loadingService.show("Loading...");
+      adminAPI
+        .post(`/DecisionTree?organisationId=${this.currentOrg}`, decisionTree)
+        .then((res) => {
+          if (res.data?.value) {
+            this.organisationDetails.decisionTrees = [
+              ...this.organisationDetails.decisionTrees,
+              res.data.value,
+            ];
+          }
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
         });
     },
 

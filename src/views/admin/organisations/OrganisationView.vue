@@ -42,7 +42,10 @@
       </li>
       <li class="organisation-options-menu-item">
         <ion-item
-          :router-link="{ name: 'OrganisationViewDecisionTrees' }"
+          :router-link="{
+            name: 'OrganisationViewDecisionTrees',
+            params: { id: organisationDetails.id },
+          }"
           router-direction="root"
         >
           <span class="link-text">Decision Trees</span>
@@ -79,14 +82,16 @@
 
 <script setup lang="ts">
 import { IonItem, IonIcon, IonButton } from "@ionic/vue";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
 import { Locations } from "@/stores/adminLocations";
 import { storeToRefs } from "pinia";
 import { useCookies } from "vue3-cookies";
+import { useRoute } from "vue-router";
 
 const { cookies } = useCookies();
+const route = useRoute();
 
 const organisation = Organisations();
 const location = Locations();
@@ -102,8 +107,12 @@ const redirectToLocation = (id: string) => {
 };
 
 onBeforeMount(() => {
-  organisation.getOrgDetails();
-  location.getLocations();
+  const organisationId = route.params.id as string;
+  if (organisation.organisationDetails?.id !== organisationId) {
+    organisation.setId(organisationId);
+    organisation.getOrgDetails();
+    location.getLocations();
+  }
 });
 </script>
 
