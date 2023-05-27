@@ -59,10 +59,12 @@ export const Organisations = defineStore("Organisations", {
         .get<OrgDetails>(`/Organisation/${id}/Details`)
         .then((response) => {
           this.organisationDetails = response.data;
-          loadingService.close();
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
         });
     },
     async updateOrgDetails(languageIndex: number) {
@@ -244,7 +246,6 @@ export const Organisations = defineStore("Organisations", {
     },
 
     async getEquipments() {
-      loadingService.show("Loading...");
       adminAPI
         .get<EquipmentList>(`/Equipment`)
         .then((response) => {
@@ -252,9 +253,6 @@ export const Organisations = defineStore("Organisations", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
-        })
-        .finally(() => {
-          loadingService.close();
         });
     },
   },
