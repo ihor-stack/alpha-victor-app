@@ -266,6 +266,14 @@ const routes: Array<RouteRecordRaw> = [
                 "@/views/admin/organisations/OrganisationViewDecisionTrees.vue"
               ),
           },
+          {
+            path: "/admin/organisation/:organisationId/decision-trees/:decisionTreeId",
+            name: "OrganisationViewDecisionTreeDetails",
+            component: () =>
+              import(
+                "@/views/admin/organisations/OrganisationViewDecisionTreeDetails.vue"
+              ),
+          },
         ],
       },
       {
@@ -339,14 +347,6 @@ const routes: Array<RouteRecordRaw> = [
         ],
       },
     ],
-  },
-  {
-    path: "/admin/organisation/:organisationId/decision-trees/:decisionTreeId",
-    name: "OrganisationViewDecisionTreeDetails",
-    component: () =>
-      import(
-        "@/views/admin/organisations/OrganisationViewDecisionTreeDetails.vue"
-      ),
   },
 ];
 

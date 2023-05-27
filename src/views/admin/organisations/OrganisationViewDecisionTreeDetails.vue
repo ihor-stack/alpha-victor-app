@@ -1,53 +1,35 @@
 <template>
   <ion-page class="ion-bg" id="admin">
-    <ion-grid class="ion-no-padding">
-      <ion-row class="ion-no-padding decission-tree-wrapper">
-        <ion-col class="fixed-sidebar ion-padding">
-          <desktop-nav />
-        </ion-col>
-        <ion-col>
-          <ion-content>
-            <ion-page>
-              <ion-content :scroll-y="false" id="decisionTreeContent">
-                <div id="pageContainer">
-                  <div id="container" ref="container">
-                    <div class="button-container left bg-white">
-                      <button class="back-button" @click="cancel()">
-                        &#60;&#60; back
-                      </button>
-                      <div class="divider"></div>
-                      <h1 class="title">Teams Room Decision Tree</h1>
-                    </div>
-                    <div class="button-container right">
-                      <button class="button-action bg-white">
-                        <svg
-                          width="22"
-                          height="22"
-                          viewBox="0 0 22 22"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M17.7188 8L16.4688 5.25L13.7188 4L16.4688 2.75L17.7188 0L18.9688 2.75L21.7188 4L18.9688 5.25L17.7188 8ZM17.7188 22L16.4688 19.25L13.7188 18L16.4688 16.75L17.7188 14L18.9688 16.75L21.7188 18L18.9688 19.25L17.7188 22ZM7.71875 19L5.21875 13.5L-0.28125 11L5.21875 8.5L7.71875 3L10.2188 8.5L15.7188 11L10.2188 13.5L7.71875 19ZM7.71875 14.15L8.71875 12L10.8687 11L8.71875 10L7.71875 7.85L6.71875 10L4.56875 11L6.71875 12L7.71875 14.15Z"
-                            fill="#0000FF"
-                          />
-                        </svg>
-                        <span>Auto layout</span>
-                      </button>
-                      <ion-button :disabled="!dirty" @click="save">
-                        Save decision tree
-                      </ion-button>
-                    </div>
-                    <canvas ref="canvas" id="canvas"></canvas>
-                  </div>
-                </div>
-                <div>{{ canvasPostion.top }}</div>
-              </ion-content>
-            </ion-page>
-          </ion-content>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <div id="pageContainer">
+      <div id="container" ref="container">
+        <div class="button-container left bg-white">
+          <button class="back-button" @click="cancel()">&#60;&#60; back</button>
+          <div class="divider"></div>
+          <h1 class="title">Teams Room Decision Tree</h1>
+        </div>
+        <div class="button-container right">
+          <button class="button-action bg-white">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.7188 8L16.4688 5.25L13.7188 4L16.4688 2.75L17.7188 0L18.9688 2.75L21.7188 4L18.9688 5.25L17.7188 8ZM17.7188 22L16.4688 19.25L13.7188 18L16.4688 16.75L17.7188 14L18.9688 16.75L21.7188 18L18.9688 19.25L17.7188 22ZM7.71875 19L5.21875 13.5L-0.28125 11L5.21875 8.5L7.71875 3L10.2188 8.5L15.7188 11L10.2188 13.5L7.71875 19ZM7.71875 14.15L8.71875 12L10.8687 11L8.71875 10L7.71875 7.85L6.71875 10L4.56875 11L6.71875 12L7.71875 14.15Z"
+                fill="#0000FF"
+              />
+            </svg>
+            <span>Auto layout</span>
+          </button>
+          <ion-button :disabled="!dirty" @click="save">
+            Save decision tree
+          </ion-button>
+        </div>
+        <canvas ref="canvas" id="canvas"></canvas>
+      </div>
+    </div>
     <DecisionTreeNodeModal
       v-if="destinationVisible"
       :isOpen="destinationVisible"
@@ -68,17 +50,8 @@ import { watch, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { closeCircle, informationCircle, create, search } from "ionicons/icons";
-import {
-  isPlatform,
-  onIonViewDidEnter,
-  IonContent,
-  IonPage,
-  IonButton,
-  IonRow,
-  IonCol,
-} from "@ionic/vue";
+import { isPlatform, onIonViewDidEnter, IonPage, IonButton } from "@ionic/vue";
 
-import DesktopNav from "@/components/shared/DesktopNav.vue";
 import DecisionTreeNodeModal from "@/components/modals/decisionTreeNodeModal/DecisionTreeNodeModal.vue";
 import { DecisionTreeNode } from "@/types/decisionTree";
 
@@ -88,11 +61,7 @@ const organisationsStore = useOrganisationsStore();
 
 export default {
   components: {
-    DesktopNav,
-    IonContent,
     IonPage,
-    IonRow,
-    IonCol,
     DecisionTreeNodeModal,
     IonButton,
   },
@@ -520,7 +489,9 @@ export default {
     }
 
     const initialiseData = async () => {
-      getDestinations(decisionTree.value?.root);
+      if (decisionTree.value?.root) {
+        getDestinations(decisionTree.value?.root);
+      }
     };
 
     const getDestinations = (node, parent) => {
@@ -1052,6 +1023,7 @@ export default {
     };
 
     const cancel = async () => {
+      decisionTree.value = null;
       router.back();
     };
 
@@ -1158,16 +1130,6 @@ export default {
 
 .button-container.right {
   right: 10px;
-}
-
-ion-grid {
-  width: 100%;
-}
-
-ion-row.decission-tree-wrapper {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
 }
 
 .fixed-sidebar {

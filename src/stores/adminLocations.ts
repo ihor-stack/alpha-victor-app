@@ -35,12 +35,10 @@ export const Locations = defineStore("Locations", {
   },
   actions: {
     async getLocations() {
-      loadingService.show("Loading...");
       adminAPI
         .get<NavLocation[]>("/Location?organisationId=" + cookies.get("orgId"))
         .then((response) => {
           this.locations = response.data;
-          loadingService.close();
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
