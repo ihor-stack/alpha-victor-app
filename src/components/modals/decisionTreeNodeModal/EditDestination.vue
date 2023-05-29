@@ -103,7 +103,7 @@ const props = defineProps([
 
 const state = reactive({
   text: props.editTreeNode.text,
-  outcomeLabel: "Answer",
+  outcomeLabel: props.editTreeNode.parent?.text || "Answer",
   type: props.type,
 });
 </script>

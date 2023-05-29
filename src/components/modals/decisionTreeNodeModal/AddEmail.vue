@@ -56,7 +56,6 @@ const props = defineProps([
 const state = reactive({
   email: props.editTreeNode?.email,
 });
-console.log(props.editTreeNode);
 </script>
 
 <style scoped>

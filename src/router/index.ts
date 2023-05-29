@@ -267,7 +267,7 @@ const routes: Array<RouteRecordRaw> = [
               ),
           },
           {
-            path: "/admin/organisation/:organisationId/decision-trees/:decisionTreeId",
+            path: "organisation/:organisationId/decision-trees/:decisionTreeId",
             name: "OrganisationViewDecisionTreeDetails",
             component: () =>
               import(
