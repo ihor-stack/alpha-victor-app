@@ -9,11 +9,15 @@
     </div>
     <div class="answers-list-wrapper">
       <IonList class="answers-list" lines="none">
-        <div>{{ nodeData.text }}</div>
+        <ion-list-header class="answers-wrapper-title">{{
+          nodeData.text
+        }}</ion-list-header>
         <IonItem
           class="answer-item-wrapper"
           v-for="node in nodeData.children"
           :key="node.id"
+          button
+          :disabled="!isAvailable"
           @click="selectAnswerHandler(node)"
         >
           <span>{{ node.text }}</span>
@@ -40,13 +44,14 @@
 
 <script setup lang="ts">
 import { defineProps } from "vue";
-import { IonList, IonItem, IonIcon } from "@ionic/vue";
+import { IonList, IonItem, IonListHeader, IonIcon } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
 
 import { IDecisionTreeNode } from "@/types/decisionTree";
 
 interface Props {
   nodeData: IDecisionTreeNode;
+  isAvailable: boolean;
   selectAnswerHandler: (answer: IDecisionTreeNode) => void;
 }
 defineProps<Props>();
@@ -98,5 +103,13 @@ defineProps<Props>();
 
 .answer-item-wrapper {
   margin-bottom: 10px;
+}
+.answer-item-wrapper.item-disabled {
+  opacity: 1;
+}
+
+.answers-wrapper-title {
+  --color: #000000;
+  font-size: 15px;
 }
 </style>

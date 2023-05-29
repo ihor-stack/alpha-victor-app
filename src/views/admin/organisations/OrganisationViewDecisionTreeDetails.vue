@@ -379,7 +379,9 @@ export default {
             this.getIconY(addIcon.height)
           );
           c.drawImage(
-            this.type === 3 || decisionTree.value?.root?.id === this.id
+            this.type === 3 ||
+              decisionTree.value?.root?.id === this.id ||
+              (this.child && this.child.type === 3)
               ? disabledDeleteIcon
               : deleteIcon,
             toolbarX + 12 + toolbarDelta * 3.5 - deleteIcon.width / 2,
