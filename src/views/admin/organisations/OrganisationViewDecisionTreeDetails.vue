@@ -491,9 +491,18 @@ export default {
     }
 
     const initialiseData = async () => {
-      if (decisionTree.value?.root) {
-        getDestinations(decisionTree.value?.root);
+      if (!decisionTree.value.root) {
+        const rootNode = {
+          id: crypto.randomUUID(),
+          text: "New Question",
+          xPosition: 0,
+          yPosition: 0,
+          children: [],
+          type: 2,
+        };
+        decisionTree.value.root = rootNode;
       }
+      getDestinations(decisionTree.value?.root);
     };
 
     const getDestinations = (node, parent) => {
