@@ -166,9 +166,10 @@ export const Organisations = defineStore("Organisations", {
     async updateDecisionDetails(decisionTreeId: string, treeData: any) {
       loadingService.show("Loading...");
       adminAPI
-        .patch<DecisionTree>(`/DecisionTree/${decisionTreeId}`, treeData)
+        .patch(`/DecisionTree/${decisionTreeId}`, treeData)
         .then((response) => {
-          this.decisionTree = { ...response.data, loaded: true };
+          if (response.data?.value)
+            this.decisionTree = { ...response.data.value, loaded: true };
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

@@ -2,12 +2,7 @@
   <ion-page>
     <app-header title="Get help">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" color="light" @click="handleBack" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
@@ -25,6 +20,7 @@ import AppHeader from "@/components/shared/AppHeader.vue";
 import GetHelpList from "@/components/space/getHelp/GetHelpList.vue";
 
 const router = useRouter();
+const handleBack = () => router.back();
 </script>
 
 <style scoped>

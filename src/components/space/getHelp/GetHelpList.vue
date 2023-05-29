@@ -55,6 +55,10 @@ const handleClickNode = (node: IDecisionTreeNode) => {
       node,
       ...node.children,
     ];
+  } else if (node.type === DecisionTreeNodeType.Phone) {
+    window.open(`tel:${node.phone}`, "_blank");
+  } else if (node.type === DecisionTreeNodeType.Email) {
+    window.open(`mailto:${node.email}`, "_blank");
   }
 };
 
