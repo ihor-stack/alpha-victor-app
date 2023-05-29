@@ -3,17 +3,23 @@
     <QuestionNode
       v-if="decisionTree.root"
       :nodeData="decisionTree.root"
+      :isAvailable="state.currentDecitionTreeNodes.length === 0"
       :selectAnswerHandler="handleClickNode"
     ></QuestionNode>
 
-    <div v-for="treeNode in state.currentDecitionTreeNodes" :key="treeNode.id">
+    <div
+      v-for="(treeNode, index) in state.currentDecitionTreeNodes"
+      :key="treeNode.id"
+    >
       <AnswerNode
         v-if="treeNode.type === DecisionTreeNodeType.Answer"
         :nodeData="treeNode"
+        :handleCancelAndAskAgain="handleCancelAndAskAgain"
       ></AnswerNode>
       <QuestionNode
         v-else
         :nodeData="treeNode"
+        :isAvailable="index === state.currentDecitionTreeNodes.length - 1"
         :selectAnswerHandler="handleClickNode"
       ></QuestionNode>
     </div>
@@ -21,15 +27,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, reactive, onBeforeMount } from "vue";
+import { computed, reactive, onBeforeMount } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import {
-  IonContent,
-  IonFooter,
-  IonPage,
-  IonButton,
-  IonModal,
-} from "@ionic/vue";
+
 import QuestionNode from "./QuestionNode.vue";
 import AnswerNode from "./AnswerNode.vue";
 import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
@@ -56,6 +56,16 @@ const handleClickNode = (node: IDecisionTreeNode) => {
       ...node.children,
     ];
   }
+};
+
+const handleCancelAndAskAgain = (ask: IDecisionTreeNode) => {
+  const index = state.currentDecitionTreeNodes.findIndex(
+    (node) => node.id === ask.id
+  );
+  state.currentDecitionTreeNodes = state.currentDecitionTreeNodes.slice(
+    0,
+    index
+  );
 };
 
 onBeforeMount(() => {
