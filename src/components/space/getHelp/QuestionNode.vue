@@ -76,7 +76,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
 import { IonList, IonItem, IonListHeader, IonIcon } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
 

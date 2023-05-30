@@ -20,7 +20,7 @@ export interface IDecisionTreeNode {
   video?: Video | null;
   phone?: string | null;
   email?: string | null;
-  Document?: Document | null;
+  document?: Document | null;
   children: IDecisionTreeNode[];
 }
 

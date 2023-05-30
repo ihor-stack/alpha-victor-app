@@ -24,8 +24,7 @@ const handleBack = () => router.back();
 </script>
 
 <style scoped>
-.container {
-  flex: 1;
-  padding: 0px 30px;
+ion-content {
+  --background: #000000;
 }
 </style>

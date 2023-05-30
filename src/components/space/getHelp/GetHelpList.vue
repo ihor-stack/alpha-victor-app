@@ -49,6 +49,7 @@ const state: State = reactive({
 });
 
 const handleClickNode = (node: IDecisionTreeNode) => {
+  console.log(node);
   if (node.type === DecisionTreeNodeType.Answer) {
     state.currentDecitionTreeNodes = [
       ...state.currentDecitionTreeNodes,
@@ -59,6 +60,12 @@ const handleClickNode = (node: IDecisionTreeNode) => {
     window.open(`tel:${node.phone}`, "_blank");
   } else if (node.type === DecisionTreeNodeType.Email) {
     window.open(`mailto:${node.email}`, "_blank");
+  } else if (node.type === DecisionTreeNodeType.Article) {
+    router.push({ path: `/article/${node.article?.id}` });
+  } else if (node.type === DecisionTreeNodeType.Video) {
+    router.push({ path: `/video/${node.video?.id}` });
+  } else if (node.type === DecisionTreeNodeType.Document) {
+    router.push({ path: `/document/${node.document?.id}` });
   }
 };
 
@@ -80,8 +87,7 @@ onBeforeMount(() => {
 
 <style scoped>
 .decisition-list-container {
-  background: #000000;
-  padding: 0 10px;
+  padding: 0 10px 20px;
   height: 100%;
   display: flex;
   flex-direction: column;
