@@ -80,6 +80,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/GetHelpView.vue"),
   },
   {
+    path: "/article/:id",
+    name: "ArticleDetailsView",
+    component: () => import("@/views/space/ArticleView.vue"),
+  },
+  {
+    path: "/video/:id",
+    name: "VideoDetailsView",
+    component: () => import("@/views/space/VideoView.vue"),
+  },
+  {
     path: "/documents",
     name: "Documents",
     component: () => import("@/views/space/DocumentsView.vue"),
