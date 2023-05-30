@@ -66,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, watch, onMounted, onBeforeMount, ref } from "vue";
+import { reactive, onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
   IonPage,
@@ -125,18 +125,43 @@ const state: State = reactive({
 
 const getVideo = () => {
   loadingService.show("Loading...");
-  // adminAPI
-  //   .get(`/Video/${videoId}`)
-  //   .then((response) => {
-  //     state.videoIdData = response.data;
-  //   })
-  //   .catch((error) => {
-  //     state.videoData = null;
-  //     toastService.show("Error", error, "error", "top");
-  //   })
-  //   .finally(() => {
-  //     loadingService.close();
-  //   });
+  adminAPI
+    .get(`/Video/${videoId}`)
+    .then(async (response) => {
+      player = new Player(playerRef.value, {
+        url: response.data.url,
+        responsive: true,
+        loop: true,
+        muted: false,
+        autoplay: false,
+        controls: true,
+      });
+
+      player.on("chapterchange", async (playerData: any) => {
+        if (
+          state.hasPlayed &&
+          (!state.autoplay ||
+            (state.currentChapter === state.chapters?.length &&
+              playerData?.index == 1))
+        ) {
+          player.pause();
+          state.playing = false;
+        }
+        state.currentChapter = playerData?.index;
+        state.hasPlayed = true;
+      });
+
+      state.duration = await player.getDuration();
+      state.chapters = await player.getChapters();
+      state.videoData = response.data;
+    })
+    .catch((error) => {
+      state.videoData = null;
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
 };
 
 const chapterClicked = async (chapter: number) => {
@@ -165,38 +190,6 @@ const getChapterLength = (index: number) => {
   }
   return seconds;
 };
-
-const back = () => {
-  router.back();
-};
-
-onMounted(async () => {
-  player = new Player(playerRef.value, {
-    url: `https://player.vimeo.com/video/776778541?h=b74d6e8827`,
-    responsive: true,
-    loop: true,
-    muted: false,
-    autoplay: false,
-    controls: true,
-  });
-
-  player.on("chapterchange", async (playerData: any) => {
-    if (
-      state.hasPlayed &&
-      (!state.autoplay ||
-        (state.currentChapter === state.chapters?.length &&
-          playerData?.index == 1))
-    ) {
-      player.pause();
-      state.playing = false;
-    }
-    state.currentChapter = playerData?.index;
-    state.hasPlayed = true;
-  });
-
-  state.duration = await player.getDuration();
-  state.chapters = await player.getChapters();
-});
 
 onBeforeMount(() => getVideo());
 </script>

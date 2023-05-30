@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, watch, onBeforeMount } from "vue";
+import { reactive, onBeforeMount } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
   IonPage,
@@ -57,25 +57,24 @@ interface State {
 const state: State = reactive({
   articleData: {
     id: articleId,
-    title: "Connecting to Valarea",
-    richText: "<div>Test Article</div>",
+    title: "",
+    richText: "",
   },
 });
 
 const getArticle = () => {
-  // loadingService.show("Loading...");
-  // adminAPI
-  //   .get(`/Article/${articleId}`)
-  //   .then((response) => {
-  //     state.articleData = response.data;
-  //   })
-  //   .catch((error) => {
-  //     state.articleData = null;
-  //     toastService.show("Error", error, "error", "top");
-  //   })
-  //   .finally(() => {
-  //     loadingService.close();
-  //   });
+  loadingService.show("Loading...");
+  adminAPI
+    .get(`/Article/${articleId}`)
+    .then((response) => {
+      state.articleData = response.data;
+    })
+    .catch((error) => {
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
 };
 
 onBeforeMount(() => getArticle());
