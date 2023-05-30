@@ -95,7 +95,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/DocumentsView.vue"),
   },
   {
-    path: "/document-viewer",
+    path: "/document-viewer/:id",
     name: "DocumentViewer",
     component: () => import("@/views/space/DocumentView.vue"),
   },

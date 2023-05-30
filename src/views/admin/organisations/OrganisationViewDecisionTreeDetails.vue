@@ -90,10 +90,10 @@ export default {
     const toolbarHeight = 79;
 
     const gridSize = 20;
+    const gridPosition = { x: 0, y: 0 };
 
     const canvas = ref();
     const container = ref();
-    const canvasPostion = ref({ top: 0, left: 0 });
 
     let dragStart;
     let dragDestination;
@@ -530,109 +530,21 @@ export default {
       renderChart();
     };
 
-    // const drawLines = (width, height, startPosition) => {
-    //   const numRows = height / gridSize;
-    //   const numCols = width / gridSize;
-    //   c.lineWidth = 1;
-    //   c.strokeStyle = "#d1d5db";
-    //   for (let i = 0; i <= numRows; i++) {
-    //     for (let j = 0; j <= numCols; j++) {
-    //       c.beginPath();
-    //       c.moveTo(
-    //         j * gridSize + startPosition.x,
-    //         i * gridSize + startPosition.y
-    //       );
-    //       c.lineTo(
-    //         j * gridSize + startPosition.x,
-    //         i * gridSize + gridSize + startPosition.y
-    //       );
-    //       c.lineTo(
-    //         j * gridSize + gridSize + startPosition.x,
-    //         i * gridSize + gridSize + startPosition.y
-    //       );
-    //       c.stroke();
-    //     }
-    //   }
-    // };
-
-    // const drawLines1 = (width, height, startPosition) => {
-    //   const numRows = height / gridSize;
-    //   const numCols = width / gridSize;
-    //   c.lineWidth = 1;
-    //   c.strokeStyle = "#d1d5db";
-    //   for (let i = numRows - 1; i >= -1; i--) {
-    //     for (let j = numCols - 1; j >= -1; j--) {
-    //       c.beginPath();
-    //       c.moveTo(
-    //         j * gridSize + startPosition.x,
-    //         i * gridSize + startPosition.y
-    //       );
-    //       c.lineTo(
-    //         j * gridSize + startPosition.x,
-    //         i * gridSize + gridSize + startPosition.y
-    //       );
-    //       c.lineTo(
-    //         j * gridSize + gridSize + startPosition.x,
-    //         i * gridSize + gridSize + startPosition.y
-    //       );
-    //       c.stroke();
-    //     }
-    //   }
-    // };
-
-    // const drawLines2 = () => {
-    //   const numRows = gridPosition.y / gridSize;
-    //   const numCols = (canvas.value.width - gridPosition.x) / gridSize;
-    //   c.lineWidth = 1;
-    //   c.strokeStyle = "#d1d5db";
-    //   for (let i = numRows - 1; i >= -1; i--) {
-    //     for (let j = 0; j <= numCols; j++) {
-    //       c.beginPath();
-    //       c.moveTo(j * gridSize + gridPosition.x, i * gridSize);
-    //       c.lineTo(j * gridSize + gridPosition.x, i * gridSize + gridSize);
-    //       c.lineTo(
-    //         j * gridSize + gridPosition.x + gridSize,
-    //         i * gridSize + gridSize
-    //       );
-    //       c.stroke();
-    //     }
-    //   }
-    // };
-
-    // const drawLines3 = () => {
-    //   const numRows = (canvas.value.height - gridPosition.y) / gridSize;
-    //   const numCols = gridPosition.x / gridSize;
-    //   c.lineWidth = 1;
-    //   c.strokeStyle = "#d1d5db";
-    //   for (let i = 0; i <= numRows; i++) {
-    //     for (let j = numCols - 1; j >= -1; j--) {
-    //       c.beginPath();
-    //       c.moveTo(j * gridSize, i * gridSize + gridPosition.y);
-    //       c.lineTo(j * gridSize, i * gridSize + gridSize + gridPosition.y);
-    //       c.lineTo(
-    //         j * gridSize + gridSize,
-    //         i * gridSize + gridSize + gridPosition.y
-    //       );
-    //       c.stroke();
-    //     }
-    //   }
-    // };
-
     const drawGrid = () => {
       c.strokeStyle = "#d1d5db";
       c.lineWidth = 1;
 
-      for (let x = 0; x <= canvas.value.width; x += gridSize) {
+      for (let x = -10000 + gridPosition.x; x <= 10000; x += gridSize) {
         c.beginPath();
-        c.moveTo(x, 0);
-        c.lineTo(x, canvas.value.height);
+        c.moveTo(x, -10000);
+        c.lineTo(x, 10000);
         c.stroke();
       }
 
-      for (let y = 0; y <= canvas.value.height; y += gridSize) {
+      for (let y = -10000 + gridPosition.y; y <= 10000; y += gridSize) {
         c.beginPath();
-        c.moveTo(0, y);
-        c.lineTo(canvas.value.width, y);
+        c.moveTo(-10000, y);
+        c.lineTo(10000, y);
         c.stroke();
       }
     };
@@ -692,7 +604,8 @@ export default {
         dragDestination.x = Math.round(dragDestination.x / gridSize) * gridSize;
         dragDestination.y = Math.round(dragDestination.y / gridSize) * gridSize;
       }
-
+      gridPosition.x = Math.round(gridPosition.x / gridSize) * gridSize;
+      gridPosition.y = Math.round(gridPosition.y / gridSize) * gridSize;
       for (const destination of destinations) {
         if (dragStart) {
           destination.x = Math.round(destination.x / gridSize) * gridSize;
@@ -874,8 +787,9 @@ export default {
       }
       if (dragStart) {
         if (!dragDestination) {
-          canvasPostion.value.top = canvasPostion.value.top + y - dragStart.y;
-          canvasPostion.value.left = canvasPostion.value.left + x - dragStart.x;
+          gridPosition;
+          gridPosition.y = gridPosition.y + y - dragStart.y;
+          gridPosition.x = gridPosition.x + x - dragStart.x;
         }
         dragStart = { x: x, y: y };
         dirty.value = true;
@@ -1053,7 +967,6 @@ export default {
       informationCircle,
       create,
       search,
-      canvasPostion,
     };
   },
 };

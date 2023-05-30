@@ -49,7 +49,6 @@ const state: State = reactive({
 });
 
 const handleClickNode = (node: IDecisionTreeNode) => {
-  console.log(node);
   if (node.type === DecisionTreeNodeType.Answer) {
     state.currentDecitionTreeNodes = [
       ...state.currentDecitionTreeNodes,
@@ -65,7 +64,7 @@ const handleClickNode = (node: IDecisionTreeNode) => {
   } else if (node.type === DecisionTreeNodeType.Video) {
     router.push({ path: `/video/${node.video?.id}` });
   } else if (node.type === DecisionTreeNodeType.Document) {
-    router.push({ path: `/document/${node.document?.id}` });
+    router.push({ path: `/document-viewer/${node.document?.id}` });
   }
 };
 

@@ -85,13 +85,13 @@ export interface Device {
 }
 
 export interface Document {
-  id: string;
-  manufacturerId: string | null;
-  assetTypeId: string;
-  equipmentId: string;
+  id?: string;
+  manufacturerId?: string | null;
+  assetTypeId?: string;
+  equipmentId?: string;
   name: string;
-  path: string | null;
-  documentType: DocumentType;
+  path?: string;
+  documentType?: DocumentType;
 }
 
 export interface DocumentType {
