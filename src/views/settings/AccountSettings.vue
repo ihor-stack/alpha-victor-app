@@ -2,14 +2,23 @@
   <ion-page>
     <app-header title="Account Settings">
       <template #start>
-        <ion-button fill="clear" color="light" @click="() => router.back()" class="back">
+        <ion-button
+          fill="clear"
+          color="light"
+          @click="() => router.back()"
+          class="back"
+        >
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
 
       <template #end>
         <ion-menu-button fill="clear">
-          <img src="@/theme/icons/nav-menu.svg" class="nav-menu" alt="Nav Menu Button" />
+          <img
+            src="@/theme/icons/nav-menu.svg"
+            class="nav-menu"
+            alt="Nav Menu Button"
+          />
         </ion-menu-button>
       </template>
     </app-header>
@@ -17,11 +26,20 @@
     <div class="profile" @click="handleUrlChange('/settings/profile')">
       <div class="profile-info">
         <div class="profile-image">
-          <img src="@/theme/img/example-profile-img@2x.png" alt="Current user's profile image" />
+          <img
+            src="@/theme/img/example-profile-img@2x.png"
+            alt="Current user's profile image"
+          />
         </div>
         <div class="profile-details">
-          <h2 class="name font-bold font-size-sm color-light-gray">Joe Bloggs</h2>
-          <p class="email font-mono font-size-xxs color-dark-gray text-lowercase">joebloggs@email.com</p>
+          <h2 class="name font-bold font-size-sm color-light-gray">
+            Joe Bloggs
+          </h2>
+          <p
+            class="email font-mono font-size-xxs color-dark-gray text-lowercase"
+          >
+            joebloggs@email.com
+          </p>
         </div>
       </div>
       <span class="arrow-right"></span>
@@ -32,13 +50,16 @@
           v-for="(option, index) in options"
           :key="index"
           class="list-item"
-          @click="handleUrlChange(option.path)">
+          @click="handleUrlChange(option.path)"
+        >
           <div class="list-item__info">
             <div class="list-item__details">
               <p class="primaryText font-bold font-size-sm color-light-gray">
                 {{ option.title }}
               </p>
-              <p class="secondaryText font-mono font-size-xxs color-dark-gray text-lowercase">
+              <p
+                class="secondaryText font-mono font-size-xxs color-dark-gray text-lowercase"
+              >
                 {{ useDotify(option.subtitle) }}
               </p>
             </div>
@@ -47,42 +68,47 @@
         </li>
       </ul>
     </ion-content>
-    <ion-modal :is-open="state.modalOpen" :initial-breakpoint="1" :breakpoints="[0, 1]" @willDismiss="handleDismiss">
+    <ion-modal
+      :is-open="state.modalOpen"
+      :initial-breakpoint="1"
+      :breakpoints="[0, 1]"
+      @willDismiss="handleDismiss"
+    >
       <ion-router-outlet id="settings-modal"></ion-router-outlet>
     </ion-modal>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { 
-  IonPage, 
-  IonRouterOutlet, 
-  IonContent, 
-  IonButton, 
-  IonMenuButton, 
-  IonModal 
+import {
+  IonPage,
+  IonRouterOutlet,
+  IonContent,
+  IonButton,
+  IonMenuButton,
+  IonModal,
 } from "@ionic/vue";
 import { reactive, watch } from "vue";
-import AppHeader from '@/components/shared/AppHeader.vue';
+import AppHeader from "@/components/shared/AppHeader.vue";
 import { useRouter } from "vue-router";
 import { useDotify } from "@/composables/utilities";
 
 const router = useRouter();
 
 interface State {
-  modalOpen: boolean
-  selectedOption: string | undefined
+  modalOpen: boolean;
+  selectedOption: string | undefined;
 }
 
 const state: State = reactive({
   modalOpen: false,
-  selectedOption: undefined
-})
+  selectedOption: undefined,
+});
 
 const handleUrlChange = (url: string) => {
   router.push({ path: url });
   state.modalOpen = true;
-}
+};
 
 const handleDismiss = () => {
   state.modalOpen = false;
@@ -92,32 +118,32 @@ const options = [
   {
     title: "Notifications",
     subtitle: "Notifications Settings",
-    path: "/settings/notifications"
+    path: "/settings/notifications",
   },
   {
     title: "Bluetooth",
     subtitle: "Bluetooth Settings",
-    path: "/settings/bluetooth"
+    path: "/settings/bluetooth",
   },
   {
     title: "Location",
     subtitle: "Location Settings",
-    path: "/settings/location"
+    path: "/settings/location",
   },
   {
     title: "Password",
     subtitle: "Password Settings",
-    path: "/settings/password"
+    path: "/settings/password",
   },
   {
     title: "Language",
     subtitle: "Language Settings",
-    path: "/settings/language"
+    path: "/settings/language",
   },
   {
     title: "Delete Account",
     subtitle: "Delete Your Account",
-    path: "/settings/delete-account"
+    path: "/settings/delete-account",
   },
 ];
 
@@ -127,7 +153,7 @@ watch(
     if (modalOpen === false) {
       router.go(-1);
     }
-  }  
+  }
 );
 </script>
 

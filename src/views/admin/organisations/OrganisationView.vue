@@ -1,47 +1,72 @@
 <template>
   <div>
-    <h1 class="title-admin font-bold font-size-lg color-light-gray">{{ organisationDetails.name }}</h1>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">
+      {{ organisationDetails.name }}
+    </h1>
     <ul class="organisation-options-menu">
       <li class="organisation-options-menu-item">
-        <ion-item :router-link="{ name: 'OrganisationViewDetails' }" router-direction="root">
+        <ion-item
+          :router-link="{ name: 'OrganisationViewDetails' }"
+          router-direction="root"
+        >
           <span class="link-text">Details</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
-        <ion-item :router-link="{ name: 'OrganisationViewTheme' }" router-direction="root">
+        <ion-item
+          :router-link="{ name: 'OrganisationViewTheme' }"
+          router-direction="root"
+        >
           <span class="link-text">Theme</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
-        <ion-item :router-link="{ name: 'OrganisationViewSpaceMetadata' }" router-direction="root">
+        <ion-item
+          :router-link="{ name: 'OrganisationViewSpaceMetadata' }"
+          router-direction="root"
+        >
           <span class="link-text">Space Metadata</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
-        <ion-item :router-link="{ name: 'OrganisationViewDocumentTypes' }" router-direction="root">
+        <ion-item
+          :router-link="{ name: 'OrganisationViewDocumentTypes' }"
+          router-direction="root"
+        >
           <span class="link-text">Document Types</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
-        <ion-item :router-link="{ name: 'OrganisationViewDecisionTrees' }" router-direction="root">
+        <ion-item
+          :router-link="{
+            name: 'OrganisationViewDecisionTrees',
+            params: { id: organisationDetails.id },
+          }"
+          router-direction="root"
+        >
           <span class="link-text">Decision Trees</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
-        <ion-item :router-link="{ name: 'OrganisationViewIntegrationsList' }" router-direction="root">
+        <ion-item
+          :router-link="{ name: 'OrganisationViewIntegrationsList' }"
+          router-direction="root"
+        >
           <span class="link-text">Integrations</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
-        <ion-item v-if="locations.length > 0" 
-        :router-link="redirectToLocation(locations[0].id)"
-        router-direction="root">
+        <ion-item
+          v-if="locations.length > 0"
+          :router-link="redirectToLocation(locations[0].id)"
+          router-direction="root"
+        >
           <span class="link-text">Locations</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
@@ -49,57 +74,59 @@
     </ul>
     <div class="delete-div">
       <ion-button class="delete-button font-size-sm text-lowercase" color="red">
-      Delete organisation
+        Delete organisation
       </ion-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  IonItem,
-  IonIcon,
-  IonButton
-} from "@ionic/vue"
-import { onBeforeMount, ref } from "vue"
-import { chevronForwardOutline } from "ionicons/icons"
-import { Organisations } from '@/stores/adminOrganisations'
-import { Locations } from '@/stores/adminLocations'
-import { storeToRefs } from 'pinia'
+import { IonItem, IonIcon, IonButton } from "@ionic/vue";
+import { onBeforeMount } from "vue";
+import { chevronForwardOutline } from "ionicons/icons";
+import { Organisations } from "@/stores/adminOrganisations";
+import { Locations } from "@/stores/adminLocations";
+import { storeToRefs } from "pinia";
 import { useCookies } from "vue3-cookies";
+import { useRoute } from "vue-router";
 
 const { cookies } = useCookies();
+const route = useRoute();
 
-const organisation = Organisations()
-const location = Locations()
+const organisation = Organisations();
+const location = Locations();
 
 const { organisationDetails } = storeToRefs(organisation);
-const { locations } = storeToRefs(location)
+const { locations } = storeToRefs(location);
 
 const redirectToLocation = (id: string) => {
-  cookies.set('locationId', id)
-  if( cookies.get('locationId')){
-    return { name: 'OrganisationViewLocations', params: { locationId: id }}
+  cookies.set("locationId", id);
+  if (cookies.get("locationId")) {
+    return { name: "OrganisationViewLocations", params: { locationId: id } };
   }
-}
+};
 
-onBeforeMount(() =>{
-  organisation.getOrgDetails()
-  location.getLocations()
-})
+onBeforeMount(() => {
+  const organisationId = route.params.id as string;
+  if (organisation.organisationDetails?.id !== organisationId) {
+    organisation.setId(organisationId);
+    organisation.getOrgDetails();
+    location.getLocations();
+  }
+});
 </script>
 
 <style scoped>
 /* check why the button can only change color to red 
 if both back ground color on style and color="red" are used together */
-.delete-button{
+.delete-button {
   background-color: var(--av-red);
   position: absolute;
   bottom: 0;
   right: 0;
   border-radius: 8px;
 }
-.delete-div{
+.delete-div {
   height: 322px;
   position: relative;
 }
@@ -111,7 +138,7 @@ if both back ground color on style and color="red" are used together */
 
 .organisation-options-menu-item ion-item {
   --background: none;
-  --color: #FFFFFF;
+  --color: #ffffff;
   --padding-start: 0;
   --padding-end: 0;
   --inner-padding-end: 0;
