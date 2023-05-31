@@ -1,0 +1,31 @@
+.tox .tox-toolbar__overflow,
+.tox .tox-toolbar__primary {
+  background: #181818 !important;
+  border-bottom: 1px solid #313131;
+}
+.tox .tox-toolbar__group {
+  background: #181818;
+  border: none;
+}
+
+.tox .tox-tbtn {
+  color: #ffffff !important;
+}
+
+.tox .tox-tbtn svg {
+  fill: #ffffff !important;
+}
+
+.tox.tox-tinymce {
+  border-radius: 8px;
+  border: 1px solid #313131;
+}
+
+.tox .tox-statusbar {
+  background: #181818 !important;
+  border-top: none !important;
+}
+
+.tox .tox-statusbar__text-container {
+  display: none !important;
+}

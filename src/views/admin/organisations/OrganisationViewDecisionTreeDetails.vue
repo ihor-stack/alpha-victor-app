@@ -1,114 +1,192 @@
 <template>
   <ion-page class="ion-bg" id="admin">
-    <ion-grid class="ion-no-padding">
-      <ion-row class="ion-no-padding">
-        <ion-col class="fixed-sidebar ion-padding">
-          <desktop-nav />
-        </ion-col>
-        <ion-col>
-          <ion-content>
-            <ion-page>
-              <ion-content :scroll-y="false" id="decisionTreeContent">
-                <div id="pageContainer">
-                  <div id="container" ref="container">
-                    <div class="button-container left bg-white">
-                      <button class="back-button">&#60;&#60; back</button>
-                      <div class="divider"></div>
-                      <h1 class="title">Teams Room Decision Tree</h1>
-                    </div>
-                    <div class="button-container right">
-                      <button class="button-action bg-white">
-                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M17.7188 8L16.4688 5.25L13.7188 4L16.4688 2.75L17.7188 0L18.9688 2.75L21.7188 4L18.9688 5.25L17.7188 8ZM17.7188 22L16.4688 19.25L13.7188 18L16.4688 16.75L17.7188 14L18.9688 16.75L21.7188 18L18.9688 19.25L17.7188 22ZM7.71875 19L5.21875 13.5L-0.28125 11L5.21875 8.5L7.71875 3L10.2188 8.5L15.7188 11L10.2188 13.5L7.71875 19ZM7.71875 14.15L8.71875 12L10.8687 11L8.71875 10L7.71875 7.85L6.71875 10L4.56875 11L6.71875 12L7.71875 14.15Z" fill="#0000FF"/>
-                        </svg>
-                        <span>Auto layout</span>
-                      </button>
-                      <button class="button-action bg-blue">
-                        Save decision tree
-                      </button>
-                    </div>
-                    <canvas ref="canvas" id="canvas"></canvas>
-                  </div>
-                </div>
-              </ion-content>
-            </ion-page>
-            <ion-modal :is-open="modalOpen" :initial-breakpoint="0.75" :breakpoints="[0, 0, 0, 0]">
-              <onboarding-access-panel dotText="location.access" :ctaFunc="setOpen">
-                <template v-slot:image>
-                  <img src="@/theme/img/onboarding-access-location.svg" />
-                </template>
-                <template v-slot:heading>
-                  Enable <br /> location.
-                </template>
-                <template v-slot:info-text>
-                  Please allow location access to allow us to see which room you’re
-                  in.
-                </template>
-              </onboarding-access-panel>
-            </ion-modal>
-          </ion-content>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <div id="pageContainer">
+      <div id="container" ref="container">
+        <div class="button-container left bg-white">
+          <button class="back-button" @click="cancel()">&#60;&#60; back</button>
+          <div class="divider"></div>
+          <h1 class="title">Teams Room Decision Tree</h1>
+        </div>
+        <div class="button-container right">
+          <button class="button-action bg-white">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 22 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.7188 8L16.4688 5.25L13.7188 4L16.4688 2.75L17.7188 0L18.9688 2.75L21.7188 4L18.9688 5.25L17.7188 8ZM17.7188 22L16.4688 19.25L13.7188 18L16.4688 16.75L17.7188 14L18.9688 16.75L21.7188 18L18.9688 19.25L17.7188 22ZM7.71875 19L5.21875 13.5L-0.28125 11L5.21875 8.5L7.71875 3L10.2188 8.5L15.7188 11L10.2188 13.5L7.71875 19ZM7.71875 14.15L8.71875 12L10.8687 11L8.71875 10L7.71875 7.85L6.71875 10L4.56875 11L6.71875 12L7.71875 14.15Z"
+                fill="#0000FF"
+              />
+            </svg>
+            <span>Auto layout</span>
+          </button>
+          <ion-button :disabled="!dirty" @click="save">
+            Save decision tree
+          </ion-button>
+        </div>
+        <canvas ref="canvas" id="canvas"></canvas>
+      </div>
+    </div>
+    <DecisionTreeNodeModal
+      v-if="destinationVisible"
+      :isOpen="destinationVisible"
+      :editTreeNode="editTreeNode"
+      :handleDismiss="
+        () => {
+          destinationVisible = false;
+        }
+      "
+      :handleClickNext="handleClickNextOnEdit"
+      :handleClickConfirm="handleClickConfirm"
+    />
   </ion-page>
 </template>
 
 <script>
-import { watch, ref, computed } from "vue";
-import { useRouter } from "vue-router";
+import { watch, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
 import { closeCircle, informationCircle, create, search } from "ionicons/icons";
-import { isPlatform, onIonViewDidEnter, IonContent, IonPage, IonButton, IonModal } from "@ionic/vue";
-import DesktopNav from "@/components/shared/DesktopNav.vue";
+import { isPlatform, onIonViewDidEnter, IonPage, IonButton } from "@ionic/vue";
+
+import DecisionTreeNodeModal from "@/components/modals/decisionTreeNodeModal/DecisionTreeNodeModal.vue";
+import { DecisionTreeNode } from "@/types/decisionTree";
+
+import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
+
+const organisationsStore = useOrganisationsStore();
 
 export default {
-
   components: {
-    DesktopNav, IonContent, IonPage, IonModal
+    IonPage,
+    DecisionTreeNodeModal,
+    IonButton,
+  },
+
+  mounted() {
+    const route = useRoute();
+    const organisationId = route.params.organisationId;
+    const decisionTreeId = route.params.decisionTreeId;
+    if (organisationsStore.organisationDetails?.id !== organisationId) {
+      organisationsStore.setId(organisationId);
+      organisationsStore.getOrgDetails(organisationId);
+    }
+    if (organisationsStore.decisionTree?.id !== decisionTreeId) {
+      organisationsStore.getDecisionDetails(decisionTreeId);
+    }
+    organisationsStore.getEquipments();
   },
 
   setup() {
     const destinationWidth = 200;
-    const outcomeWidth = 150;
     const outcomeHeight = 20;
-    const iconSize = 20;
     const cornerRadius = 0;
     const padding = 10;
+    const toolbarWidth = 253;
+    const toolbarDelta = (toolbarWidth - 24) / 4;
+    const toolbarHeight = 79;
+
+    const gridSize = 20;
+    const gridPosition = { x: 0, y: 0 };
+
     const canvas = ref();
     const container = ref();
 
     let dragStart;
     let dragDestination;
-    let newOutcome;
-    const destinations = [];
-    const outcomes = [];
+    let destinations = [];
+    const originalDestinations = [];
     let c;
 
-    const editDestination = ref();
-    const editOutcome = ref();
-    const deletedDestinationIDs = [];
-    const deletedOutcomeIDs = [];
+    const editTreeNode = ref();
+    let newTreeNode = null;
 
     const destinationVisible = ref(false);
-    const newDestinationVisible = ref(false);
-    const outcomeVisible = ref(false);
-    const infoVisible = ref(false);
-    const searchTerm = ref("");
+
     const dirty = ref(false);
-    const modalOpen = ref(false);
+
+    const toolbar = new Image();
+    const deleteIcon = new Image();
+    const disabledDeleteIcon = new Image();
+    const addIcon = new Image();
+    const disabledAddIcon = new Image();
+    const editIcon = new Image();
+    const lockIcon = new Image();
+    const disabledLockIcon = new Image();
+    const unlockIcon = new Image();
+    const disabledUnlockIcon = new Image();
+
+    toolbar.src = "/img/admin/decission-toolbar-background.svg";
+    toolbar.width = toolbarWidth;
+    toolbar.height = toolbarHeight;
+    deleteIcon.src = "/img/icons/trash.svg";
+    deleteIcon.width = 14;
+    deleteIcon.height = 18;
+    disabledDeleteIcon.src = "/img/icons/trash-disabled.svg";
+    disabledDeleteIcon.width = 14;
+    disabledDeleteIcon.height = 18;
+
+    addIcon.src = "/img/icons/add.svg";
+    addIcon.width = 20;
+    addIcon.height = 20;
+    disabledAddIcon.src = "/img/icons/add-disabled.svg";
+    disabledAddIcon.width = 20;
+    disabledAddIcon.height = 20;
+
+    editIcon.src = "/img/icons/edit.svg";
+    editIcon.width = 20;
+    editIcon.height = 20;
+
+    lockIcon.src = "/img/icons/lock.svg";
+    lockIcon.width = 16;
+    lockIcon.height = 21;
+    disabledLockIcon.src = "/img/icons/lock-disabled.svg";
+    disabledLockIcon.width = 16;
+    disabledLockIcon.height = 21;
+
+    unlockIcon.src = "/img/icons/unlock.svg";
+    unlockIcon.width = 16;
+    unlockIcon.height = 21;
+    disabledUnlockIcon.src = "/img/icons/unlock-disabled.svg";
+    disabledUnlockIcon.width = 16;
+    disabledUnlockIcon.height = 21;
 
     const router = useRouter();
-
-    const demoTree = JSON.parse("{\"id\":\"8Lr3DC4U8qOcd0Zx99Iz\",\"title\":\"Demo document nodes\",\"rootID\":\"RG6PGksvBHpHPLHb6WzZ\",\"destinations\":{\"19d71652-19cd-4db6-a4d3-fcb4f6fa269c\":{\"id\":\"19d71652-19cd-4db6-a4d3-fcb4f6fa269c\",\"email\":\"\",\"outcomeIDs\":[],\"phone\":\"\",\"y\":500,\"x\":960,\"title\":\"Data Sheet\",\"locked\":true,\"destinationID\":{\"documentTypeID\":\"ipUoDtUfVDB5CzWJHEi6\",\"description\":\"Data Sheet\",\"url\":\"https://firebasestorage.googleapis.com/v0/b/alpha-victor-prod.appspot.com/o/Models%2FJAsQhmX7euh2RSMSUhi0%2FX80J_X81J_X85J_SERIES_DATA_SHEET_PAGES2.pdf?alt=media&token=bfcbec15-0481-46c4-8e78-a39d846d5c4b\",\"path\":\"Models/JAsQhmX7euh2RSMSUhi0/X80J_X81J_X85J_SERIES_DATA_SHEET_PAGES2.pdf\"},\"type\":\"Document\"},\"RG6PGksvBHpHPLHb6WzZ\":{\"id\":\"RG6PGksvBHpHPLHb6WzZ\",\"y\":360,\"phone\":\"\",\"destinationID\":null,\"type\":\"Question\",\"locked\":false,\"email\":\"\",\"outcomeIDs\":[\"e88fe69e-4298-4bcd-a407-210cee28216b\",\"3edda60c-e888-4635-9b9f-0fbd7f78b97d\"],\"title\":\"How can I help? 50\",\"x\":660},\"V1kp6fSwzGxrcway30NV\":{\"id\":\"V1kp6fSwzGxrcway30NV\",\"x\":220,\"title\":\"How can I help?\",\"phone\":\"\",\"locked\":false,\"type\":\"Question\",\"email\":\"\",\"destinationID\":null,\"y\":500,\"outcomeIDs\":[\"951a57b5-79fb-46b6-a4f7-2fac7d42e678\",\"17e4b960-a518-4829-8068-64101e135aee\",\"944419d5-e883-4193-a0e6-1bc700dff41c\"]},\"bcf2b0ad-279b-4191-b3b3-8d31f457feeb\":{\"id\":\"bcf2b0ad-279b-4191-b3b3-8d31f457feeb\",\"phone\":\"\",\"outcomeIDs\":[],\"email\":\"\",\"x\":960,\"type\":\"Document\",\"locked\":true,\"title\":\"Manual\",\"y\":240,\"destinationID\":{\"documentTypeID\":\"ooA1Rvhuu2MdfmZXZEp9\",\"path\":\"Models/JAsQhmX7euh2RSMSUhi0/FWD-65X80J.pdf\",\"description\":\"Manual\",\"url\":\"https://firebasestorage.googleapis.com/v0/b/alpha-victor-prod.appspot.com/o/Models%2FJAsQhmX7euh2RSMSUhi0%2FFWD-65X80J.pdf?alt=media&token=452822d1-2849-45de-8f86-fdc3ef878d34\"}}},\"outcomes\":{\"3edda60c-e888-4635-9b9f-0fbd7f78b97d\":{\"id\":\"3edda60c-e888-4635-9b9f-0fbd7f78b97d\",\"childID\":\"19d71652-19cd-4db6-a4d3-fcb4f6fa269c\",\"label\":\"Show data sheet\",\"parentID\":\"RG6PGksvBHpHPLHb6WzZ\"},\"944419d5-e883-4193-a0e6-1bc700dff41c\":{\"id\":\"944419d5-e883-4193-a0e6-1bc700dff41c\",\"parentID\":\"V1kp6fSwzGxrcway30NV\",\"label\":\"Answer 1\",\"childID\":\"19d71652-19cd-4db6-a4d3-fcb4f6fa269c\"},\"e88fe69e-4298-4bcd-a407-210cee28216b\":{\"id\":\"e88fe69e-4298-4bcd-a407-210cee28216b\",\"parentID\":\"RG6PGksvBHpHPLHb6WzZ\",\"label\":\"Show manual\",\"childID\":\"bcf2b0ad-279b-4191-b3b3-8d31f457feeb\"}},\"destinationsLoaded\":true,\"outcomesLoaded\":true,\"loaded\":true}");
-
-    const decisionTree = ref(demoTree);
-
-    const model = ref();
-    const manufacturer = ref();
-    const assetType = ref();
+    const route = useRoute();
+    const { decisionTree } = storeToRefs(organisationsStore);
 
     onIonViewDidEnter(() => {
       onResize();
     });
+
+    const handleClickNextOnEdit = (questionData) => {
+      const currentTreeNode = Destination.getByID(editTreeNode.value.id);
+      editTreeNode.value.text = questionData.text;
+      editTreeNode.value.type = questionData.type;
+      currentTreeNode.text = questionData.text;
+      currentTreeNode.type = questionData.type;
+      const answerNode = editTreeNode.value.parent;
+      if (answerNode?.type === 3) {
+        answerNode.text = questionData.outcomeLabel;
+      }
+      renderChart();
+      dirty.value = true;
+    };
+
+    const handleClickConfirm = (treeNodeData) => {
+      const currentTreeNode = Destination.getByID(editTreeNode.value.id);
+      for (const key of Object.keys(treeNodeData)) {
+        const value = treeNodeData[key];
+        currentTreeNode[key] = value;
+      }
+
+      destinationVisible.value = false;
+      renderChart();
+      dirty.value = true;
+    };
 
     function getLines(ctx, text, maxWidth) {
       const workingText = text || "";
@@ -130,179 +208,186 @@ export default {
       return lines;
     }
 
-    class Destination {
-      constructor(id, title, type, x, y, outcomeIDs, destinationID, locked = false) {
-        this.id = id;
-        this.title = title;
-        this.type = type;
-        this.x = x;
-        this.y = y;
-        this.outcomeIDs = outcomeIDs;
-        this.hover = false;
-        this.destinationID = destinationID;
-        this.locked = locked;
+    class Destination extends DecisionTreeNode {
+      constructor(initialData) {
+        super(initialData);
+      }
+
+      get child() {
+        return Destination.getByID(this.children?.[0]?.id);
       }
 
       get lines() {
-        return getLines(c, this.title, destinationWidth - 2 * padding);
+        return getLines(c, this.text, destinationWidth - 2 * padding);
       }
 
       get lineHeight() {
         return 15;
       }
 
-      get totalHeight() {
-        return this.lines.length * this.lineHeight + 2 * padding;
-      }
-
       get bottom() {
-        return this.y + this.totalHeight;
+        return this.realY + this.height;
       }
 
       get right() {
-        return this.x + destinationWidth;
+        return this.realX + destinationWidth;
       }
 
       get center() {
         return {
-          x: this.x + destinationWidth / 2,
-          y: this.y + this.totalHeight / 2
+          x: this.realX + destinationWidth / 2,
+          y: this.realY + this.height / 2,
         };
+      }
+
+      get x1() {
+        return this.parent?.connectors
+          ? this.parent.connectors.bottomCenter.x
+          : 0;
+      }
+
+      get x2() {
+        return this.child?.connectors ? this.child.connectors.topCenter.x : 0;
+      }
+
+      get y1() {
+        return this.parent?.connectors
+          ? this.parent.connectors.bottomCenter.y
+          : 0;
+      }
+
+      get y2() {
+        return this.child?.connectors ? this.child.connectors.topCenter.y : 0;
+      }
+
+      get labelX() {
+        return this.x1 + (this.x2 - this.x1 - destinationWidth) / 2;
+      }
+
+      get labelY() {
+        return this.y1 + (this.y2 - this.y1 - outcomeHeight) / 2;
+      }
+
+      get realX() {
+        return this.type === 3 ? this.labelX : this.x;
+      }
+
+      get realY() {
+        return this.type === 3 ? this.labelY : this.y;
       }
 
       get connectors() {
         const bottomCenter = {
           x: this.center.x,
-          y: this.bottom
+          y: this.bottom,
         };
         const bottomLeft = {
           x: this.x,
-          y: this.bottom
+          y: this.bottom,
         };
         const topCenter = {
           x: this.center.x,
-          y: this.y
+          y: this.y,
         };
         const centerRight = {
           x: this.right,
-          y: this.center.y
+          y: this.center.y,
         };
         const centerLeft = {
           x: this.x,
-          y: this.center.y
+          y: this.center.y,
         };
         return {
           bottomCenter: bottomCenter,
           bottomLeft: bottomLeft,
           topCenter: topCenter,
           centerRight: centerRight,
-          centerLeft: centerLeft
+          centerLeft: centerLeft,
         };
       }
 
-      draw() {
-        let color = "#0000FF";
-        let contrast = "white";
+      get height() {
+        return this.lines.length * this.lineHeight + 2 * padding;
+      }
 
-        if (this.x > canvas.value.width || this.x < -destinationWidth || this.y < -this.totalHeight || this.y > canvas.value.height) return;
+      get toolbarY() {
+        return this.realY - toolbarHeight - 12;
+      }
+
+      getIconY(iconHeight) {
+        return this.toolbarY + toolbarHeight / 2 - iconHeight / 2;
+      }
+
+      draw() {
+        let fillColor = "#0000FF";
+        let strokeColor = "#0000FF";
+        let textColor = "#FFFFFF";
+
+        if (
+          this.x > canvas.value.width ||
+          this.x < -destinationWidth ||
+          this.y < -this.height ||
+          this.y > canvas.value.height
+        )
+          return;
 
         switch (this.type) {
-          case "Question":
-            color = "#0000FF";
-            contrast = "white";
-            break;
-          case "Video":
-            color = "#0000FF";
-            contrast = "white";
+          case 3: // Answer
+            fillColor = "#FFFFFF";
+            strokeColor = "#000000";
+            textColor = "#000000";
             break;
           default:
             break;
         }
 
-        drawBox(this.x, this.y, destinationWidth, this.lineHeight, this.lines, 2, color, color, contrast, this.lineHeight);
-      }
+        drawBox(
+          this.realX,
+          this.realY,
+          destinationWidth,
+          this.lineHeight,
+          this.lines,
+          2,
+          fillColor,
+          strokeColor,
+          textColor,
+          this.lineHeight
+        );
+        if (this.hover) {
+          const toolbarX = this.realX - 18;
 
-      checkSelected(x, y) {
-        if (x > this.x - iconSize / 3 && x < this.x + (iconSize * 2) / 3 && y > this.y - iconSize / 3 && y < this.y + (iconSize * 2) / 3)
-          return "delete";
-        if (
-          x > this.connectors.centerRight.x - iconSize / 2 &&
-          x < this.connectors.centerRight.x + iconSize / 2 &&
-          y > this.connectors.centerRight.y - iconSize / 2 &&
-          y < this.connectors.centerRight.y + iconSize / 2
-        )
-          return "add";
-        if (
-          x > this.connectors.bottomLeft.x - iconSize / 3 &&
-          x < this.connectors.bottomLeft.x + (iconSize * 2) / 3 &&
-          y > this.connectors.bottomLeft.y - (iconSize * 2) / 3 &&
-          y < this.connectors.bottomLeft.y + iconSize / 3
-        )
-          return "edit";
-        if (x > this.x && x < this.right && y > this.y && y < this.bottom) return "click";
-        return null;
-      }
-
-      static getByID(id) {
-        return destinations.find((d) => d.id == id);
-      }
-
-      delete() {
-        if (destinations.length == 1) {
-          return;
+          c.drawImage(toolbar, toolbarX, this.toolbarY);
+          c.drawImage(
+            this.type === 2 ? addIcon : disabledAddIcon,
+            toolbarX + 12 + toolbarDelta * 0.5 - addIcon.width / 2,
+            this.getIconY(addIcon.height)
+          );
+          c.drawImage(
+            editIcon,
+            toolbarX + 12 + toolbarDelta * 1.5 - editIcon.width / 2,
+            this.getIconY(addIcon.height)
+          );
+          c.drawImage(
+            this.locked
+              ? this.type === 3
+                ? disabledLockIcon
+                : lockIcon
+              : this.type === 3
+              ? disabledUnlockIcon
+              : unlockIcon,
+            toolbarX + 12 + toolbarDelta * 2.5 - lockIcon.width / 2,
+            this.getIconY(addIcon.height)
+          );
+          c.drawImage(
+            this.type === 3 ||
+              decisionTree.value?.root?.id === this.id ||
+              (this.child && this.child.type === 3)
+              ? disabledDeleteIcon
+              : deleteIcon,
+            toolbarX + 12 + toolbarDelta * 3.5 - deleteIcon.width / 2,
+            this.getIconY(addIcon.height)
+          );
         }
-
-        const destinationIndex = destinations.findIndex((d) => d.id == this.id);
-        destinations.splice(destinationIndex, 1);
-        deletedDestinationIDs.push(this.id);
-
-        const linkedOutcomes = outcomes.filter((o) => o.child.id == this.id || o.parent.id == this.id);
-        linkedOutcomes.forEach((outcome) => outcome.delete());
-        renderChart();
-      }
-    }
-
-    class Outcome {
-      constructor(id, parent, label, child, x, y) {
-        this.id = id;
-        this.parent = parent;
-        this.child = child;
-        this.label = label;
-        this.x = x;
-        this.y = y;
-        this.hover = false;
-      }
-
-      get lines() {
-        return getLines(c, this.label, outcomeWidth);
-      }
-
-      get lineHeight() {
-        return 12;
-      }
-
-      get x1() {
-        return this.parent?.connectors.bottomCenter.x;
-      }
-
-      get x2() {
-        return this.child?.connectors.topCenter.x;
-      }
-
-      get y1() {
-        return this.parent?.connectors.bottomCenter.y;
-      }
-
-      get y2() {
-        return this.child?.connectors.topCenter.y;
-      }
-
-      get labelX() {
-        return this.x1 + (this.x2 - this.x1 - outcomeWidth) / 2;
-      }
-
-      get labelY() {
-        return this.y1 + (this.y2 - this.y1 - outcomeHeight) / 2;
       }
 
       drawConnector() {
@@ -311,8 +396,8 @@ export default {
 
         const x1 = this.parent.connectors.centerRight.x;
         const y1 = this.parent.connectors.centerRight.y;
-        const x2 = this.x || this.child.connectors.centerLeft.x;
-        const y2 = this.y || this.child.connectors.centerLeft.y;
+        const x2 = this.child?.connectors?.centerLeft?.x || this.x;
+        const y2 = this.child?.connectors?.centerLeft?.y || this.y;
         c.moveTo(x1, y1);
         c.bezierCurveTo(x2 - (x2 - x1) / 2, y1, x1 + (x2 - x1) / 2, y2, x2, y2);
 
@@ -323,109 +408,164 @@ export default {
         c.setLineDash([]);
       }
 
-      drawLabel() {
-        drawBox(
-          this.labelX,
-          this.labelY,
-          outcomeWidth,
-          this.lineHeight,
-          this.lines,
-          2,
-          "white",
-          "black",
-          "#000000",
-          this.lineHeight
-        );
-      }
-
       checkSelected(x, y) {
         if (
-          x > this.labelX - iconSize / 3 &&
-          x < this.labelX + (iconSize * 2) / 3 &&
-          y > this.labelY - iconSize / 3 &&
-          y < this.labelY + (iconSize * 2) / 3
-        )
-          return "delete";
+          this.hover &&
+          y > this.toolbarY &&
+          y < this.toolbarY + toolbarHeight
+        ) {
+          if (x > this.realX - 6 && x < this.realX - 6 + toolbarDelta) {
+            return "add";
+          }
+          if (
+            x > this.realX - 6 + toolbarDelta &&
+            x < this.realX - 6 + toolbarDelta * 2
+          ) {
+            return "edit";
+          }
+          if (
+            x > this.realX - 6 + toolbarDelta * 2 &&
+            x < this.realX - 6 + toolbarDelta * 3
+          ) {
+            return "lock";
+          }
+          if (
+            x > this.realX - 6 + toolbarDelta * 3 &&
+            x < this.realX - 6 + toolbarDelta * 4
+          ) {
+            return "delete";
+          }
+        }
         if (
-          x > this.labelX &&
-          x < this.labelX + destinationWidth &&
-          y > this.labelY &&
-          y < this.labelY + this.lines.length * this.lineHeight + 2 * padding
-        )
+          x > this.realX &&
+          x < this.right &&
+          y > this.realY &&
+          y < this.bottom
+        ) {
           return "click";
+        }
+        if (
+          this.hover &&
+          x > this.realX - 6 &&
+          x < this.realX + toolbarWidth - 30 &&
+          y > this.toolbarY &&
+          y < this.bottom
+        )
+          return "hover";
+
         return null;
       }
 
+      static getByID(id) {
+        return destinations.find((d) => d.id == id);
+      }
+
       delete() {
-        deletedOutcomeIDs.push(this.id);
+        if (
+          destinations.length == 1 ||
+          decisionTree.value?.root?.id === this.id
+        ) {
+          return;
+        }
 
-        const linkedDestinations = destinations.filter((d) => d.outcomeIDs.includes(this.id));
-        linkedDestinations.forEach((d) => {
-          d.outcomeIDs.splice(
-            d.outcomeIDs.findIndex((o) => o == this.id),
-            1
+        const deletedDestinationIDs = [this.id];
+
+        const linkedOutcomes = destinations.filter(
+          (o) =>
+            o.type === 3 && (o.child?.id === this.id || o.parent?.id == this.id)
+        );
+        deletedDestinationIDs.push(...linkedOutcomes.map((o) => o.id));
+
+        destinations = destinations.filter(
+          (d) => !deletedDestinationIDs.includes(d.id)
+        );
+
+        destinations.map((d) => {
+          d.children = d.children.filter(
+            (child) => !deletedDestinationIDs.includes(child.id)
           );
+          return d;
         });
-
-        const outcomeIndex = outcomes.findIndex((o) => o.id == this.id);
-        outcomes.splice(outcomeIndex, 1);
-
         renderChart();
       }
     }
 
     const initialiseData = async () => {
-      const mappedDestinations = objectToArray(decisionTree.value?.destinations);
-      const mappedOutcomes = objectToArray(decisionTree.value?.outcomes);
-
-      for (const destination of mappedDestinations) {
-        const newDestination = new Destination(
-          destination.id,
-          destination.title,
-          destination.type,
-          destination.x,
-          destination.y,
-          destination.outcomeIDs,
-          destination.destinationID,
-          destination.locked
-        );
-        destinations.push(newDestination);
+      if (!decisionTree.value.root) {
+        const rootNode = {
+          id: crypto.randomUUID(),
+          text: "New Question",
+          xPosition: 0,
+          yPosition: 0,
+          children: [],
+          type: 2,
+        };
+        decisionTree.value.root = rootNode;
       }
+      getDestinations(decisionTree.value?.root);
+    };
 
-      if (decisionTree.value.destinations.length == 0) {
-        const newDestination = new Destination(crypto.randomUUID(), "First Question", "Question", 50, 50, [], null);
-        destinations.push(newDestination);
-        decisionTree.value.rootID = newDestination.id;
+    const getDestinations = (node, parent) => {
+      const newDestination = new Destination({
+        id: node.id,
+        text: node.text,
+        type: node.type,
+        x: node.xPosition,
+        y: node.yPosition,
+        parent: parent,
+        children: node.children,
+        article: node.article,
+        video: node.video,
+        email: node.email,
+        document: node.document,
+        phone: node.phone,
+      });
+      newDestination.x = Math.round(newDestination.x / gridSize) * gridSize;
+      newDestination.y = Math.round(newDestination.y / gridSize) * gridSize;
+      originalDestinations.push(newDestination);
+      for (const child of node.children) {
+        getDestinations(child, newDestination);
       }
-
-      for (const outcome of mappedOutcomes) {
-        const parent = Destination.getByID(outcome.parentID);
-        const child = Destination.getByID(outcome.childID);
-        const newOutcome = new Outcome(outcome.id, parent, outcome.label, child);
-        outcomes.push(newOutcome);
-      }
-
+      destinations = [...originalDestinations];
       renderChart();
+    };
+
+    const drawGrid = () => {
+      c.strokeStyle = "#d1d5db";
+      c.lineWidth = 1;
+
+      for (let x = -10000 + gridPosition.x; x <= 10000; x += gridSize) {
+        c.beginPath();
+        c.moveTo(x, -10000);
+        c.lineTo(x, 10000);
+        c.stroke();
+      }
+
+      for (let y = -10000 + gridPosition.y; y <= 10000; y += gridSize) {
+        c.beginPath();
+        c.moveTo(-10000, y);
+        c.lineTo(10000, y);
+        c.stroke();
+      }
     };
 
     const renderChart = () => {
       if (!c) return;
       c.clearRect(0, 0, canvas.value.width, canvas.value.height);
-
-      outcomes.forEach((o) => {
-        o.drawConnector();
-      });
-
-      outcomes.forEach((o) => {
-        o.drawLabel();
-      });
-
-      destinations.forEach((d) => {
-        d.draw();
-      });
-
-      if (newOutcome) {
-        newOutcome.drawConnector();
+      drawGrid();
+      destinations
+        .filter((d) => d.type === 3)
+        .forEach((d) => {
+          d.drawConnector();
+          d.draw();
+        });
+      destinations
+        .filter((d) => d.type !== 3)
+        .forEach((d) => {
+          d.draw();
+        });
+      if (newTreeNode) {
+        newTreeNode.drawConnector();
       }
     };
 
@@ -439,7 +579,20 @@ export default {
       const x = clientX - left;
       const y = clientY - top;
       destinations.forEach((destination) => {
-        if (destination.checkSelected(x, y) == "click") {
+        const destinationHover = destination.checkSelected(x, y);
+        if (
+          destinationHover === "add" ||
+          destinationHover === "edit" ||
+          destinationHover === "lock" ||
+          destinationHover === "delete"
+        ) {
+          return;
+        }
+        if (
+          destinationHover === "click" &&
+          destination.type !== 3 &&
+          !destination.lock
+        ) {
           dragDestination = destination;
         }
       });
@@ -448,19 +601,150 @@ export default {
 
     const onMouseUp = (e) => {
       if (dragDestination !== undefined && dragDestination !== null) {
-        dragDestination.x = Math.round(dragDestination.x / 60) * 60;
-        dragDestination.y = Math.round(dragDestination.y / 60) * 60;
+        dragDestination.x = Math.round(dragDestination.x / gridSize) * gridSize;
+        dragDestination.y = Math.round(dragDestination.y / gridSize) * gridSize;
       }
-
+      gridPosition.x = Math.round(gridPosition.x / gridSize) * gridSize;
+      gridPosition.y = Math.round(gridPosition.y / gridSize) * gridSize;
       for (const destination of destinations) {
         if (dragStart) {
-          destination.x = Math.round(destination.x / 60) * 60;
-          destination.y = Math.round(destination.y / 60) * 60;
+          destination.x = Math.round(destination.x / gridSize) * gridSize;
+          destination.y = Math.round(destination.y / gridSize) * gridSize;
         }
       }
 
       dragDestination = null;
       dragStart = null;
+    };
+
+    const onClick = async (e) => {
+      e.stopPropagation();
+      const top = e.target.getBoundingClientRect().top;
+      const left = e.target.getBoundingClientRect().left;
+      const x = e.clientX - left;
+      const y = e.clientY - top;
+
+      // Used to flag whether the event has been handled to prevent multiple actions
+      let eventHandled = false;
+
+      /* Iterate through all destinations to check if an event has occurred
+      within the bounds of that object or its buttons */
+      destinations.forEach(async (destination) => {
+        const action = destination.checkSelected(x, y);
+
+        if (action === "add" && destination.type === 2) {
+          // Question
+          eventHandled = true;
+          newTreeNode = new Destination({
+            id: crypto.randomUUID(),
+            text: "Answer",
+            type: 3,
+            x,
+            y,
+            parent: destination,
+            children: [],
+            article: null,
+            video: null,
+            email: null,
+            phone: null,
+            document: null,
+          });
+          editTreeNode.value = newTreeNode;
+          dirty.value = true;
+          return;
+        }
+
+        if (action == "edit") {
+          eventHandled = true;
+          editTreeNode.value = { ...destination };
+          destinationVisible.value = true;
+        }
+
+        if (action == "delete" && destination.type !== 3) {
+          eventHandled = true;
+          destination.delete();
+          dirty.value = true;
+          return;
+        }
+
+        if (action == "lock" && destination.type !== 3) {
+          eventHandled = true;
+          destination.locked = !destination.locked;
+          return;
+        }
+
+        if (action == "click" && newTreeNode) {
+          eventHandled = true;
+          if (
+            destination.type === 3 ||
+            newTreeNode.parent?.id === destination.id
+          ) {
+            return;
+          }
+          if (
+            destinations
+              .filter((destination) => destination.type === 3)
+              .some(
+                (o) =>
+                  o.parent.id === newTreeNode.parent.id &&
+                  o.child.id === destination.id
+              )
+          ) {
+            return;
+          }
+          newTreeNode.children = [{ id: destination.id }];
+          destinations.push(newTreeNode);
+          newTreeNode.parent.children = [
+            ...newTreeNode.parent.children,
+            newTreeNode,
+          ];
+          editTreeNode.value = newTreeNode;
+          newTreeNode = null;
+          dirty.value = true;
+          renderChart();
+          return;
+        }
+      });
+
+      if (eventHandled) return;
+
+      /* If click has occurred outside all destinations and outcomes, and there is a newOutcome active,
+      create a new destination and make it the target of the new outcome */
+      if (newTreeNode) {
+        // Create Destination object and push it to the destinations array
+        const newDestination = new Destination({
+          id: crypto.randomUUID(),
+          text: "New question",
+          type: 2,
+          x: x - destinationWidth / 2,
+          y,
+          parent: newTreeNode,
+          children: [],
+          article: null,
+          video: null,
+          email: null,
+          phone: null,
+          document: null,
+        });
+        newTreeNode.children = [
+          {
+            id: newDestination.id,
+          },
+        ];
+        destinations.push(newTreeNode);
+        newTreeNode.parent.children = [
+          ...newTreeNode.parent.children,
+          newTreeNode,
+        ];
+        destinations.push(newDestination);
+
+        //Make the new destination the target of the active outcome
+        newTreeNode = null;
+        renderChart();
+        editTreeNode.value = destinations[destinations.length - 1];
+        destinationVisible.value = true;
+        dirty.value = true;
+      }
     };
 
     const onDrag = (e) => {
@@ -473,9 +757,10 @@ export default {
       const x = clientX - left;
       const y = clientY - top;
 
-      if (newOutcome) {
-        newOutcome.x = x;
-        newOutcome.y = y;
+      //If user is already creating a new outcome, update the connector line
+      if (newTreeNode) {
+        newTreeNode.x = x;
+        newTreeNode.y = y;
         renderChart();
         return;
       }
@@ -489,6 +774,7 @@ export default {
           dragDestination.x = Math.round(dragDestination.x);
           dragDestination.y = Math.round(dragDestination.y);
           dirty.value = true;
+          renderChart();
         }
       } else {
         for (const destination of destinations) {
@@ -498,29 +784,39 @@ export default {
             destination.y += y - dragStart.y;
           }
         }
-        for (const outcome of outcomes) {
-          outcome.hover = outcome.checkSelected(x, y);
-        }
       }
-
-      if (dragStart) dragStart = { x: x, y: y };
-
+      if (dragStart) {
+        if (!dragDestination) {
+          gridPosition;
+          gridPosition.y = gridPosition.y + y - dragStart.y;
+          gridPosition.x = gridPosition.x + x - dragStart.x;
+        }
+        dragStart = { x: x, y: y };
+        dirty.value = true;
+      }
       renderChart();
     };
 
     const onResize = () => {
       if (canvas.value && container.value) {
-        canvas.value.height = container.value.clientHeight - 20;
-        canvas.value.width = container.value.clientWidth - 20;
+        canvas.value.height = container.value.clientHeight;
+        canvas.value.width = container.value.clientWidth;
         renderChart();
       }
     };
 
+    const onKeydown = (e) => {
+      if (e.keyCode == 27) {
+        newTreeNode = null;
+      }
+    };
+
     watch([() => decisionTree.value?.loaded, container, canvas], () => {
-      if (!(decisionTree.value?.loaded && !!container.value && !!canvas.value)) return;
+      if (!(decisionTree.value?.loaded && !!container.value && !!canvas.value))
+        return;
       setTimeout(() => {
-        canvas.value.width = container.value.clientWidth - 20;
-        canvas.value.height = container.value.clientHeight - 20;
+        canvas.value.width = container.value.clientWidth;
+        canvas.value.height = container.value.clientHeight;
 
         c = canvas.value.getContext("2d");
         canvas.value.addEventListener("mousedown", onMouseDown);
@@ -529,6 +825,8 @@ export default {
         canvas.value.addEventListener("touchstart", onMouseDown);
         canvas.value.addEventListener("touchend", onMouseUp);
         canvas.value.addEventListener("touchmove", onDrag);
+        canvas.value.addEventListener("click", onClick);
+        window.addEventListener("keydown", onKeydown);
         window.addEventListener("focus", onResize);
         window.addEventListener("resize", onResize);
         initialiseData();
@@ -551,13 +849,41 @@ export default {
       c.beginPath();
       c.moveTo(x + cornerRadius, y);
       c.lineTo(x + width - cornerRadius, y);
-      c.arc(x + width - cornerRadius, y + cornerRadius, cornerRadius, -Math.PI / 2, 0, false);
+      c.arc(
+        x + width - cornerRadius,
+        y + cornerRadius,
+        cornerRadius,
+        -Math.PI / 2,
+        0,
+        false
+      );
       c.lineTo(x + width, y + height - cornerRadius);
-      c.arc(x + width - cornerRadius, y + height - cornerRadius, cornerRadius, 0, Math.PI / 2, false);
+      c.arc(
+        x + width - cornerRadius,
+        y + height - cornerRadius,
+        cornerRadius,
+        0,
+        Math.PI / 2,
+        false
+      );
       c.lineTo(x + cornerRadius, y + height);
-      c.arc(x + cornerRadius, y + height - cornerRadius, cornerRadius, Math.PI / 2, Math.PI, false);
+      c.arc(
+        x + cornerRadius,
+        y + height - cornerRadius,
+        cornerRadius,
+        Math.PI / 2,
+        Math.PI,
+        false
+      );
       c.lineTo(x, y + cornerRadius);
-      c.arc(x + cornerRadius, y + cornerRadius, cornerRadius, Math.PI, (Math.PI * 3) / 2, false);
+      c.arc(
+        x + cornerRadius,
+        y + cornerRadius,
+        cornerRadius,
+        Math.PI,
+        (Math.PI * 3) / 2,
+        false
+      );
       c.closePath();
       c.strokeStyle = strokeStyle;
       c.lineWidth = lineWidth;
@@ -567,65 +893,91 @@ export default {
       c.textBaseline = "top";
       c.textAlign = "center";
       c.font = `${textSize - 3}px Akkurat-Regular`;
-      c.fontStyle = 'normal';
+      c.fontStyle = "normal";
       c.fontWeight = 400;
-      c.fontSize = '14px';
-      c.lineHeight = '14px';
+      c.fontSize = "14px";
+      c.lineHeight = "14px";
       c.fillStyle = textStyle;
       for (let i = 0; i < text.length; i++) {
-        c.fillText(text[i], x + width / 2, y + padding + lineHeight * i, width - 2 * padding);
+        c.fillText(
+          text[i],
+          x + width / 2,
+          y + padding + lineHeight * i,
+          width - 2 * padding
+        );
       }
     };
 
+    const getTreeNodeFromDestination = (destination) => {
+      const treeNode = {
+        id: destination.id,
+        type: destination.type,
+        text: destination.text,
+        phone: destination.phone,
+        email: destination.email,
+        articleId: destination.article?.id,
+        videoId: destination.video?.id,
+        documentId: destination.document?.id,
+        xPosition: destination.x,
+        yPosition: destination.y,
+      };
+      const children = [];
+      if (destination?.children) {
+        for (const child of destination.children) {
+          const childDestination = Destination.getByID(child.id);
+          const childNode = getTreeNodeFromDestination(childDestination);
+          children.push(childNode);
+        }
+      }
+      treeNode.children = children;
+      if (!destination.parent) {
+        const decisionTreeId = route.params.decisionTreeId;
+        organisationsStore.updateDecisionDetails(decisionTreeId, {
+          root: treeNode,
+          name: decisionTree.value?.name,
+        });
+      }
+      return treeNode;
+    };
+
     const save = async () => {
+      const rootDestination = Destination.getByID(decisionTree.value?.root?.id);
+      if (!rootDestination) return;
+      getTreeNodeFromDestination(rootDestination);
       dirty.value = false;
     };
 
     const cancel = async () => {
-      decisionTree.value = decisionTree;
+      decisionTree.value = null;
       router.back();
     };
 
-    const objectToArray = (obj) => {
-      if (!obj) return [];
-      const keys = Object.keys(obj);
-      const mapped = keys.map((k) => obj[k]);
-      return mapped;
-    };
-
     return {
+      handleClickNextOnEdit,
+      handleClickConfirm,
       canvas,
       container,
       dirty,
       decisionTree,
-      searchTerm,
-      model,
-      manufacturer,
-      assetType,
       save,
       cancel,
-      editDestination,
-      editOutcome,
-      outcomeVisible,
-      newDestinationVisible,
+      editTreeNode,
       destinationVisible,
-      infoVisible,
       closeCircle,
       informationCircle,
       create,
-      search
+      search,
     };
-  }
+  },
 };
 </script>
 
 <style scoped>
-
 .button-action {
   background-color: white;
   border-radius: 8px;
   padding: 10px 30px;
-  color: #0000FF;
+  color: #0000ff;
   margin-right: 25px;
   min-height: 50px;
   display: flex;
@@ -640,11 +992,6 @@ export default {
   margin-top: 5px;
 }
 
-.bg-blue {
-  color: #FFFFFF;
-  background-color: #0000FF !important;
-}
-
 .button-container {
   position: absolute;
   top: 27px;
@@ -653,22 +1000,23 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: 'Akkurat-Regular';
+  font-family: "Akkurat-Regular";
   font-style: normal;
   padding-left: 30px;
   padding-right: 30px;
   height: 55px;
+  z-index: 1;
 }
 
 .bg-white {
-  color: #0000FF;
-  background-color: #FFFFFF !important;
+  color: #0000ff;
+  background-color: #ffffff !important;
 }
 
 .divider {
   width: 31px;
   height: 0px;
-  border-top: 1px solid #CDCCD6;
+  border-top: 1px solid #cdccd6;
   transform: rotate(90deg);
 }
 
@@ -680,7 +1028,7 @@ export default {
   align-items: center;
   letter-spacing: 0.015em;
   color: #000000;
-  background-color: #FFFFFF !important;
+  background-color: #ffffff !important;
   margin-right: 10px;
 }
 
@@ -693,11 +1041,7 @@ export default {
 }
 
 #canvas {
-  background-image: linear-gradient(to right, #d1d5db 1px, transparent 1px),
-  linear-gradient(to bottom, #D9D9D9 1px, transparent 1px);
-  background-size: 60px 60px;
-  background-position: 0 0;
-  background-color: #EDEDEE;
+  background-color: #ededee;
   display: block;
   height: 100%;
   width: 100%;
@@ -710,20 +1054,6 @@ export default {
 
 .button-container.right {
   right: 10px;
-}
-
-ion-grid {
-  width: 100%;
-}
-
-ion-row {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-}
-
-ion-button {
-  margin: 20px 0;
 }
 
 .fixed-sidebar {
@@ -744,9 +1074,15 @@ ion-button {
   overflow: hidden;
 }
 
-ion-footer {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
+ion-modal {
+  --border-radius: 20px;
+}
+
+ion-select {
+  --padding-end: 16px;
+}
+
+ion-button.button-outline {
+  --border-width: 1px;
 }
 </style>
