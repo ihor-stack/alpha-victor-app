@@ -2,13 +2,25 @@
   <ion-page id="dashboard" class="outer-container">
     <app-header :no-background="true">
       <template #start>
-        <ion-button fill="clear" color="light" class="switch-organisation" @click="state.modalOpen = true">
-          <img src="@/theme/icons/switch-location.svg" alt="Switch Organisation">
+        <ion-button
+          fill="clear"
+          color="light"
+          class="switch-organisation"
+          @click="state.modalOpen = true"
+        >
+          <img
+            src="@/theme/icons/switch-location.svg"
+            alt="Switch Organisation"
+          />
         </ion-button>
       </template>
       <template #end>
         <ion-menu-button fill="clear">
-          <img src="@/theme/icons/nav-menu.svg" class="nav-menu" alt="Nav Menu Button" />
+          <img
+            src="@/theme/icons/nav-menu.svg"
+            class="nav-menu"
+            alt="Nav Menu Button"
+          />
         </ion-menu-button>
       </template>
     </app-header>
@@ -21,78 +33,107 @@
           <dashboard-slider title="Nearby spaces" cta-url="" :slides="spaces" />
         </div>
         <div class="dashboard-slider-container">
-          <dashboard-slider title="Recently viewed" cta-url="/recently-viewed" :slides="spaces" />
+          <dashboard-slider
+            title="Recently viewed"
+            cta-url="/recently-viewed"
+            :slides="spaces"
+          />
         </div>
       </div>
     </ion-content>
     <ion-footer class="ion-no-border">
-      <ion-button expand="block" @click="exploreSpaces">Explore Spaces</ion-button>
+      <ion-button expand="block" @click="exploreSpaces"
+        >Explore Spaces</ion-button
+      >
     </ion-footer>
-    <ion-modal :is-open="state.modalOpen" :initial-breakpoint="0.4" :breakpoints="[0, 0.4]" @willDismiss="handleDismiss">
-      <organisation-select-modal />
+    <ion-modal
+      :is-open="state.modalOpen"
+      :initial-breakpoint="0.4"
+      :breakpoints="[0, 0.4]"
+      @willDismiss="handleDismiss"
+    >
+      <organisation-select-modal :handleDismiss="handleDismiss" />
     </ion-modal>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-  import { reactive } from "vue";
-  import { IonPage, IonContent, IonFooter, IonButton, IonMenuButton, IonModal } from "@ionic/vue";
-  import AppHeader from "@/components/shared/AppHeader.vue";
-  import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
-  import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
-  import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
-  import { Space } from "@/types";
-  import { useRouter } from "vue-router";
-  const router = useRouter();
+import { reactive, onBeforeMount } from "vue";
+import {
+  IonPage,
+  IonContent,
+  IonFooter,
+  IonButton,
+  IonMenuButton,
+  IonModal,
+} from "@ionic/vue";
+import AppHeader from "@/components/shared/AppHeader.vue";
+import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
+import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
+import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
+import { Space } from "@/types";
+import { useRouter } from "vue-router";
+import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
-  interface State {
-    modalOpen: boolean;
-  }
+const router = useRouter();
+const spacesStore = useSpacesStore();
+const organisationStore = useOrganisationStore();
 
-  const state: State = reactive({
-    modalOpen: false,
-  })
+interface State {
+  modalOpen: boolean;
+}
 
-  const handleDismiss = () => {
-    state.modalOpen = false;
-  };
+const state: State = reactive({
+  modalOpen: false,
+});
 
-  const spaces: Space[] = [
-    {
-      shortCode: 1,
-      spaceType: 'Conference Room',
-      spaceName: 'The Johnson',
-      occupied: true,
-      capacity: 10,
-      imageUrl: 'space-the-johnson.jpg',
-      spaceFeatures: [],
-      issues: []
-    },
-    {
-      shortCode: 2,
-      spaceType: 'Conference Room',
-      spaceName: 'The Henderson',
-      occupied: false,
-      capacity: 10,
-      imageUrl: 'space-the-henderson.jpg',
-      spaceFeatures: [],
-      issues: []
-    },
-    {
-      shortCode: 3,
-      spaceType: 'Meeting Room',
-      spaceName: 'The Red Room',
-      occupied: true,
-      capacity: 8,
-      imageUrl: 'space-the-red-room.jpg',
-      spaceFeatures: [],
-      issues: []
-    }
-  ]
+const handleDismiss = () => {
+  state.modalOpen = false;
+};
 
-  const exploreSpaces = () => {
-    router.push({ name: 'Space' });
-  }
+const spaces: Space[] = [
+  {
+    shortCode: 1,
+    spaceType: "Conference Room",
+    spaceName: "The Johnson",
+    occupied: true,
+    capacity: 10,
+    imageUrl: "space-the-johnson.jpg",
+    spaceFeatures: [],
+    issues: [],
+  },
+  {
+    shortCode: 2,
+    spaceType: "Conference Room",
+    spaceName: "The Henderson",
+    occupied: false,
+    capacity: 10,
+    imageUrl: "space-the-henderson.jpg",
+    spaceFeatures: [],
+    issues: [],
+  },
+  {
+    shortCode: 3,
+    spaceType: "Meeting Room",
+    spaceName: "The Red Room",
+    occupied: true,
+    capacity: 8,
+    imageUrl: "space-the-red-room.jpg",
+    spaceFeatures: [],
+    issues: [],
+  },
+];
+
+const exploreSpaces = () => {
+  router.push({ name: "Space" });
+};
+
+onBeforeMount(() => {
+  spacesStore.getFavouriteSpaces();
+  spacesStore.getRecentlyViewedSpaces();
+  organisationStore.getOrganisations();
+});
 </script>
 
 <style scoped>

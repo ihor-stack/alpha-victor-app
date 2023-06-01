@@ -256,6 +256,7 @@ export interface SpecificSpace {
   spaceId: string;
 }
 export interface DetailedSpace {
+  id: string;
   spaceName: string;
   shortcode: string;
   roomTypeId: string;
