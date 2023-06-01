@@ -1,46 +1,89 @@
 <template>
-  <ion-page>
-    <div class="issues-panel">
-      <div class="issues-panel-container">
-        <ion-header>
-          <div class="issues-panel__header">
-            <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">Select Organisation</h1>
-            <p class="issues-panel__comment color-light-gray font-size-xs">Here you can select the organisation that you’d like to see spaces in.</p>
-          </div>
-        </ion-header>
-        <ion-content :scroll-y="false">
-          <div class="issues-panel__section issues-panel__select-equipment">
-            <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Select Organisation</h2>
-            
-            <ion-select interface="action-sheet" class="issues-panel__select-organisation__select" placeholder="Select organisation" v-model="state.organisation">
-              <ion-select-option value="LinkedIn">LinkedIn</ion-select-option>
-              <ion-select-option value="Google">Google</ion-select-option>
-            </ion-select>
-          </div>
-        </ion-content>
-        <ion-footer>
-          <ion-button expand="block">Confirm {{ state.organisation ? state.organisation : 'organisation' }}</ion-button>
-        </ion-footer>
-      </div>
+  <div class="issues-panel">
+    <div class="issues-panel-container">
+      <ion-header>
+        <div class="issues-panel__header">
+          <h1
+            class="issues-panel__title color-light-gray font-bold font-size-normal"
+          >
+            Select Organisation
+          </h1>
+          <p class="issues-panel__comment color-light-gray font-size-xs">
+            Here you can select the organisation that you’d like to see spaces
+            in.
+          </p>
+        </div>
+      </ion-header>
+      <ion-content :scroll-y="false">
+        <div class="issues-panel__section issues-panel__select-equipment">
+          <h2
+            class="color-light-gray font-size-xs font-bold issues-panel__heading"
+          >
+            Select Organisation
+          </h2>
+
+          <ion-select
+            interface="action-sheet"
+            class="issues-panel__select-organisation__select"
+            placeholder="Select organisation"
+            :value="state.organisation"
+            @ion-change="handleChange"
+          >
+            <ion-select-option
+              v-for="organisation in organisationStore.organisationList"
+              :key="organisation.organisationId"
+              :value="organisation.organisationId"
+            >
+              {{ organisation.name }}
+            </ion-select-option>
+          </ion-select>
+        </div>
+      </ion-content>
+      <ion-footer>
+        <ion-button expand="block" @click="handleConfirm">
+          Confirm
+          {{ state.organisation ? organisationName : "organisation" }}
+        </ion-button>
+      </ion-footer>
     </div>
-  </ion-page>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
-import { 
-  IonPage, 
-  IonContent, 
-  IonHeader, 
-  IonFooter, 
+import { reactive, computed, defineProps } from "vue";
+import {
+  IonContent,
+  IonHeader,
+  IonFooter,
   IonButton,
   IonSelect,
-  IonSelectOption
+  IonSelectOption,
 } from "@ionic/vue";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+const organisationStore = useOrganisationStore();
+
+const props = defineProps(["handleDismiss"]);
 
 const state = reactive({
-  organisation: "",
+  organisation: organisationStore.currentOrganisationId,
 });
+
+const organisationName = computed(
+  () =>
+    organisationStore.organisationList.find(
+      (org) => org.organisationId === state.organisation
+    )?.name || ""
+);
+
+const handleChange = (event: CustomEvent) => {
+  state.organisation = event.detail.value;
+  console.log(state.organisation);
+};
+
+const handleConfirm = () => {
+  organisationStore.setId(state.organisation);
+  props.handleDismiss();
+};
 </script>
 
 <style scoped>
