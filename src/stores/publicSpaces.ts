@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-import { publicAPI } from "@/axios";
+import { publicAPI, adminAPI } from "@/axios";
 import {
-  DetailedSpace,
+  Space,
+  Device,
   SelectItem,
   SingleFloor,
-  SpaceDevices,
   SpecificFloor,
   SpaceBeacon,
   SpaceWifi,
@@ -20,10 +20,11 @@ const { cookies } = useCookies();
 export const Spaces = defineStore("Spaces", {
   state: () => {
     return {
-      space: {} as DetailedSpace,
-      currentSpaceId: "" as string,
-      favouriteSpaces: [] as DetailedSpace[],
-      recentlyViewedSpaces: [] as DetailedSpace[],
+      currentSpace: {} as Space,
+      currentSpaceId: "" as string | undefined,
+      favouriteSpaces: [] as Space[],
+      recentlyViewedSpaces: [] as Space[],
+      devices: [] as Device[],
     };
   },
   actions: {
@@ -35,14 +36,15 @@ export const Spaces = defineStore("Spaces", {
     async getSpaceDetails(id: string) {
       loadingService.show("Loading...");
       publicAPI
-        .get<DetailedSpace>(
-          `/Space/${
+        .get<Space>(
+          `/Space/Space/${
             id || this.currentSpaceId || cookies.get("spaceId")
           }/Details`
         )
         .then((response) => {
-          this.space = response.data;
+          this.currentSpace = response.data;
           this.currentSpaceId = response.data.id;
+          cookies.set("spaceId", response.data.id || "");
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
@@ -55,7 +57,7 @@ export const Spaces = defineStore("Spaces", {
     async getFavouriteSpaces() {
       loadingService.show("Loading...");
       publicAPI
-        .get<DetailedSpace[]>("/Dashboard/Favourite")
+        .get<Space[]>("/Dashboard/Favourite")
         .then((response) => {
           this.favouriteSpaces = response.data;
         })
@@ -70,9 +72,28 @@ export const Spaces = defineStore("Spaces", {
     async getRecentlyViewedSpaces() {
       loadingService.show("Loading...");
       publicAPI
-        .get<DetailedSpace[]>("/Dashboard/RecentlyViewed")
+        .get<Space[]>("/Dashboard/RecentlyViewed")
         .then((response) => {
           this.recentlyViewedSpaces = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+
+    async getSpaceDevices(spaceId: string) {
+      loadingService.show("Loading...");
+      adminAPI
+        .get<Device[]>(
+          `/Space/${
+            spaceId || this.currentSpaceId || cookies.get("spaceId")
+          }/Device`
+        )
+        .then((response) => {
+          this.devices = response.data;
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

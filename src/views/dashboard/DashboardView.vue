@@ -102,6 +102,7 @@ const spaces: Space[] = [
     imageUrl: "space-the-johnson.jpg",
     spaceFeatures: [],
     issues: [],
+    id: "00000000-0000-0000-0000-000000009999",
   },
   {
     shortCode: 2,
@@ -112,6 +113,7 @@ const spaces: Space[] = [
     imageUrl: "space-the-henderson.jpg",
     spaceFeatures: [],
     issues: [],
+    id: "00000000-0000-0000-0000-000000009999",
   },
   {
     shortCode: 3,
@@ -122,6 +124,7 @@ const spaces: Space[] = [
     imageUrl: "space-the-red-room.jpg",
     spaceFeatures: [],
     issues: [],
+    id: "00000000-0000-0000-0000-000000009999",
   },
 ];
 

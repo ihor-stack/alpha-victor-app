@@ -144,7 +144,7 @@ const getDocuments = (equipmentId) => {
   if (!equipmentId) return;
   loadingService.show("Loading...");
   adminAPI
-    .get(`/Document/${equipmentId}`)
+    .get(`/Document/Equipment/${equipmentId}`)
     .then((response) => {
       state.documents = response.data;
     })

@@ -6,34 +6,64 @@
       </div>
       <ion-header>
         <div class="equipment-panel__header">
-          <h1 class="equipment-name font-bold">{{ props.selectedEquipment.name }}</h1>
-          <p class="font-size-xxs color-dark-gray font-mono device-information">device.information</p>
+          <h1 class="equipment-name font-bold">
+            {{ props.selectedEquipment.name }}
+          </h1>
+          <p class="font-size-xxs color-dark-gray font-mono device-information">
+            device.information
+          </p>
         </div>
       </ion-header>
       <ion-content>
-        <div v-if="props.selectedEquipment.technical" class="equipment-panel__info-section">
+        <div
+          v-if="props.selectedEquipment.technical"
+          class="equipment-panel__info-section"
+        >
           <h4 class="equipment-panel__info-section__heading">Technical</h4>
           <ul class="equipment-panel__info-section__list">
-            <li v-for="(value, key) in props.selectedEquipment.technical" :key="key"
-              class="equipment-panel__info-section__list__item">
-              <span class="key">{{ useDotify(key.toString()) }}</span><span class="value">{{ value }}</span>
+            <li
+              v-for="(value, key) in props.selectedEquipment.technical"
+              :key="key"
+              class="equipment-panel__info-section__list__item"
+            >
+              <span class="key">{{ useDotify(key.toString()) }}</span
+              ><span class="value">{{ value }}</span>
             </li>
           </ul>
         </div>
-        <div v-if="props.selectedEquipment.installation" class="equipment-panel__info-section">
+        <div
+          v-if="props.selectedEquipment.installation"
+          class="equipment-panel__info-section"
+        >
           <h4 class="equipment-panel__info-section__heading">Installation</h4>
           <ul class="equipment-panel__info-section__list">
-            <li v-for="(value, key) in props.selectedEquipment.installation" :key="key"
-              class="equipment-panel__info-section__list__item">
-              <span class="key">{{ useDotify(key.toString()) }}</span><span class="value">{{ value }}</span>
+            <li
+              v-for="(value, key) in props.selectedEquipment.installation"
+              :key="key"
+              class="equipment-panel__info-section__list__item"
+            >
+              <span class="key">{{ useDotify(key.toString()) }}</span
+              ><span class="value">{{ value }}</span>
             </li>
           </ul>
         </div>
+        <ion-list>
+          <ion-item
+            button
+            detail="true"
+            @click="handleDismiss"
+            :href="`/documents/${props.selectedEquipment?.equipmentId}`"
+          >
+            <ion-label>Documents</ion-label>
+          </ion-item>
+        </ion-list>
       </ion-content>
       <ion-footer>
         <div class="equipment-panel__footer">
           <ion-button expand="block" size="small">User Guide</ion-button>
-          <ion-button color="light" expand="block" size="small">Report Issue</ion-button>
+          <ion-button color="light" expand="block" size="small"
+            >Report Issue</ion-button
+          >
         </div>
       </ion-footer>
     </div>
@@ -43,9 +73,8 @@
 <script setup lang="ts">
 import { IonHeader, IonFooter, IonButton, IonContent } from "@ionic/vue";
 import { useDotify, useEquipmentIcon } from "@/composables/utilities";
-const props = defineProps(
-  ['selectedEquipment'],
-);
+
+const props = defineProps(["selectedEquipment", "handleDismiss"]);
 </script>
 
 <style scoped>
@@ -94,7 +123,7 @@ const props = defineProps(
 .equipment-name {
   font-size: 18px;
   line-height: 18px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .device-information {
@@ -119,16 +148,16 @@ ion-button {
 }
 
 .equipment-panel__info-section {
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 30px;
 }
 
 .equipment-panel__info-section__heading {
-  font-family: 'Akkurat-Bold';
+  font-family: "Akkurat-Bold";
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.015em;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 18px;
 }
 
@@ -144,5 +173,13 @@ ion-button {
   padding: 10px 0;
   border-bottom: 0.75px solid #313131;
   font-size: 10px;
+}
+
+ion-list {
+  background: transparent;
+}
+
+ion-item {
+  --background: transparent;
 }
 </style>

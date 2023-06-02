@@ -65,12 +65,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/dashboard/FavouritesView.vue"),
   },
   {
-    path: "/space",
+    path: "/space/:spaceId",
     name: "Space",
     component: () => import("@/views/space/SpaceView.vue"),
   },
   {
-    path: "/equipment",
+    path: "/equipment/:spaceId",
     name: "Equipment",
     component: () => import("@/views/space/EquipmentView.vue"),
   },
@@ -90,7 +90,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/VideoView.vue"),
   },
   {
-    path: "/documents",
+    path: "/documents/:equipmentId",
     name: "Documents",
     component: () => import("@/views/space/DocumentsView.vue"),
   },

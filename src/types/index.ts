@@ -15,13 +15,14 @@ enum DocumentTypeScope {
 }
 
 export interface Space {
+  id?: string;
   spaceName: string;
   shortCode: number;
   qrCode?: string;
   spaceType: string;
   occupied: boolean;
   capacity: number;
-  imageUrl: string;
+  photoPath: string;
   email?: string;
   phoneNumber?: string;
   article?: Article;
@@ -58,9 +59,11 @@ export interface Video {
 }
 
 export interface Photo {
+  id?: string;
   path: string;
+  name?: string;
   order: number;
-  featuredPhoto: boolean;
+  featuredPhoto?: boolean;
 }
 
 export interface Issue {
@@ -81,7 +84,15 @@ export interface SpaceFeature {
 }
 
 export interface Device {
+  id: string;
   name: string;
+  serialNumber?: string;
+  installer?: string;
+  installDate?: string;
+  warrantyExpiryDate: string;
+  description: string;
+  photos?: Photo[];
+  icon?: string;
 }
 
 export interface Document {
@@ -89,7 +100,7 @@ export interface Document {
   manufacturerId?: string | null;
   assetTypeId?: string;
   equipmentId?: string;
-  name: string;
+  title: string;
   path?: string;
   documentType?: DocumentType;
 }
@@ -266,8 +277,9 @@ export interface DetailedSpace {
   qrCode: string;
   roomTypes: SpaceDetailsRooms[];
   spaceFeatures: SpaceDetailsFeatures[];
-  photos: SpaceDetailsPhotos[];
+  photos: Photo[];
   documents: SpaceDetailsDocs[];
+  issues?: Issue[];
 }
 export interface SpaceDetailsRooms {
   name: string;
@@ -279,28 +291,11 @@ export interface SpaceDetailsFeatures {
   spaceFeatureId: string;
   icon: string;
 }
-export interface SpaceDetailsPhotos {
-  id: string;
-  name: string;
-  order: string;
-  path: string;
-}
 export interface SpaceDetailsDocs {
   id: string;
   name: string;
   documentType: string;
   path: string;
-}
-
-export interface SpaceDevices {
-  id?: string;
-  name: string;
-  serialNumber: string;
-  installer: string;
-  installDate: string;
-  warrantyExpiryDate: string;
-  description: string;
-  photos?: SpaceDetailsPhotos[];
 }
 
 export interface SpaceBeacon {
