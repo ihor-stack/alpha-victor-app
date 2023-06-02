@@ -2,12 +2,12 @@
   <div class="equipment-panel">
     <div class="equipment-panel-container">
       <div class="equipment-panel__icon">
-        <img :src="useEquipmentIcon(props.selectedEquipment.category)" />
+        <img :src="useEquipmentIcon(deviceDetails.category)" />
       </div>
       <ion-header>
         <div class="equipment-panel__header">
           <h1 class="equipment-name font-bold">
-            {{ props.selectedEquipment.name }}
+            {{ deviceDetails.name }}
           </h1>
           <p class="font-size-xxs color-dark-gray font-mono device-information">
             device.information
@@ -15,35 +15,29 @@
         </div>
       </ion-header>
       <ion-content>
-        <div
-          v-if="props.selectedEquipment.technical"
-          class="equipment-panel__info-section"
-        >
+        <div class="equipment-panel__info-section">
           <h4 class="equipment-panel__info-section__heading">Technical</h4>
           <ul class="equipment-panel__info-section__list">
             <li
-              v-for="(value, key) in props.selectedEquipment.technical"
+              v-for="(item, key) in technicalItems"
               :key="key"
               class="equipment-panel__info-section__list__item"
             >
-              <span class="key">{{ useDotify(key.toString()) }}</span
-              ><span class="value">{{ value }}</span>
+              <span class="key">{{ item.label }}</span
+              ><span class="value">{{ item.value }}</span>
             </li>
           </ul>
         </div>
-        <div
-          v-if="props.selectedEquipment.installation"
-          class="equipment-panel__info-section"
-        >
+        <div class="equipment-panel__info-section">
           <h4 class="equipment-panel__info-section__heading">Installation</h4>
           <ul class="equipment-panel__info-section__list">
             <li
-              v-for="(value, key) in props.selectedEquipment.installation"
+              v-for="(item, key) in installations"
               :key="key"
               class="equipment-panel__info-section__list__item"
             >
-              <span class="key">{{ useDotify(key.toString()) }}</span
-              ><span class="value">{{ value }}</span>
+              <span class="key">{{ item.label }}</span
+              ><span class="value">{{ item.value }}</span>
             </li>
           </ul>
         </div>
@@ -52,7 +46,7 @@
             button
             detail="true"
             @click="handleDismiss"
-            :href="`/documents/${props.selectedEquipment?.equipmentId}`"
+            :href="`/documents/${spaceId}`"
           >
             <ion-label>Documents</ion-label>
           </ion-item>
@@ -71,10 +65,62 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { IonHeader, IonFooter, IonButton, IonContent } from "@ionic/vue";
-import { useDotify, useEquipmentIcon } from "@/composables/utilities";
+import { useEquipmentIcon } from "@/composables/utilities";
 
-const props = defineProps(["selectedEquipment", "handleDismiss"]);
+const props = defineProps(["deviceDetails", "spaceId", "handleDismiss"]);
+const technicalItems = computed(() => {
+  const items: { label: string; value: string }[] = [];
+  if (props.deviceDetails?.manufacturer) {
+    items.push({
+      label: "manufacturer",
+      value: props.deviceDetails?.manufacturer,
+    });
+  }
+  if (props.deviceDetails?.model) {
+    items.push({
+      label: "model",
+      value: props.deviceDetails?.model,
+    });
+  }
+  if (props.deviceDetails?.location) {
+    items.push({
+      label: "location",
+      value: props.deviceDetails?.location,
+    });
+  }
+  if (props.deviceDetails?.serialNumber) {
+    items.push({
+      label: "serial.number",
+      value: props.deviceDetails?.serialNumber,
+    });
+  }
+  if (props.deviceDetails?.warrantyExpiryDate) {
+    items.push({
+      label: "warranty.expiry",
+      value: props.deviceDetails?.warrantyExpiryDate,
+    });
+  }
+
+  return items;
+});
+const installations = computed(() => {
+  const items: { label: string; value: string }[] = [];
+  if (props.deviceDetails?.installer) {
+    items.push({
+      label: "installer",
+      value: props.deviceDetails?.installer,
+    });
+  }
+  if (props.deviceDetails?.installDate) {
+    items.push({
+      label: "install.date",
+      value: props.deviceDetails?.installDate,
+    });
+  }
+  return items;
+});
 </script>
 
 <style scoped>

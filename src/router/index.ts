@@ -90,7 +90,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/VideoView.vue"),
   },
   {
-    path: "/documents/:equipmentId",
+    path: "/documents/:spaceId",
     name: "Documents",
     component: () => import("@/views/space/DocumentsView.vue"),
   },
