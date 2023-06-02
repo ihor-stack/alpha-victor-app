@@ -48,6 +48,7 @@ console.log(props);
 .space {
   position: relative;
   height: 200px;
+  width: 100%;
   margin-bottom: 32px;
   border-radius: 4px;
   overflow: hidden;

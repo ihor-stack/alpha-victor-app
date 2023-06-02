@@ -4,23 +4,31 @@
       <div class="locations-list">
         <h2 class="list-title font-bold color-light-gray">Popular locations</h2>
         <ul class="list list--condensed">
-          <li
+          <router-link
             v-for="(floor, index) in state.floors"
             :key="index"
-            class="list-item"
+            :to="`/find-space/floor/${floor.id}/room`"
           >
-            <div class="list-item__info">
-              <div class="list-item__details">
-                <p class="primaryText font-bold font-size-sm color-light-gray">
-                  {{ floor.shortName }}
-                </p>
-                <span class="color-dark-gray font-mono font-size-xxs">
-                  {{ floor.name }}
-                </span>
+            <li
+              v-for="(floor, index) in state.floors"
+              :key="index"
+              class="list-item"
+            >
+              <div class="list-item__info">
+                <div class="list-item__details">
+                  <p
+                    class="primaryText font-bold font-size-sm color-light-gray"
+                  >
+                    {{ floor.shortName }}
+                  </p>
+                  <span class="color-dark-gray font-mono font-size-xxs">
+                    {{ floor.name }}
+                  </span>
+                </div>
               </div>
-            </div>
-            <span class="arrow-right"></span>
-          </li>
+              <span class="arrow-right"></span>
+            </li>
+          </router-link>
         </ul>
       </div>
     </ion-content>
