@@ -52,6 +52,11 @@ const routes: Array<RouteRecordRaw> = [
         name: "FindSpaceLocation",
         component: () => import("@/views/find-space/FindSpaceLocation.vue"),
       },
+      {
+        path: "location/:locationId/floor",
+        name: "FindSpaceFloor",
+        component: () => import("@/views/find-space/FindSpaceFloor.vue"),
+      },
     ],
   },
   {

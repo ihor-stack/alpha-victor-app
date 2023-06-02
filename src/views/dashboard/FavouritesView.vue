@@ -2,13 +2,22 @@
   <ion-page id="favourites">
     <app-header title="Favourites">
       <template #start>
-        <ion-button fill="clear" color="light" @click="() => router.back()" class="back">
+        <ion-button
+          fill="clear"
+          color="light"
+          @click="() => router.back()"
+          class="back"
+        >
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
       <template #end>
         <ion-menu-button fill="clear">
-          <img src="@/theme/icons/nav-menu.svg" class="nav-menu" alt="Nav Menu Button" />
+          <img
+            src="@/theme/icons/nav-menu.svg"
+            class="nav-menu"
+            alt="Nav Menu Button"
+          />
         </ion-menu-button>
       </template>
     </app-header>
@@ -17,24 +26,34 @@
         <li v-for="favourite in spaces" :key="favourite.shortCode">
           <router-link to="/space" class="favourite">
             <div class="favourite__image">
-              <img src="@/theme/img/space-the-henderson-square.png" />
+              <img v-if="favourite.photoPath" :src="favourite.photoPath" />
+              <img v-else src="@/theme/img/space-the-henderson-square.png" />
             </div>
             <div class="favourite__info">
               <div class="favourite__info__top">
                 <h6 class="category color-dark-gray">
-                  {{ favourite.spaceType }}
+                  {{ favourite.roomType }}
                 </h6>
               </div>
               <div class="favourite__info__bottom">
                 <h5 class="name font-bold color-light-gray">
-                  {{ favourite.spaceName }}
+                  {{ favourite.name }}
                 </h5>
               </div>
             </div>
-          
+
             <div class="favourite-cta">
-              <ion-button fill="clear" size="small" class="favourite-button">
-                <img src="@/theme/icons/favourited.svg" class="nav-menu" alt="Nav Menu Button" />
+              <ion-button
+                fill="clear"
+                size="small"
+                class="favourite-button"
+                @click="setFavoriteSpace(favourite.id)"
+              >
+                <img
+                  src="@/theme/icons/favourited.svg"
+                  class="nav-menu"
+                  alt="Nav Menu Button"
+                />
               </ion-button>
             </div>
           </router-link>
@@ -48,57 +67,39 @@
 </template>
 
 <script setup lang="ts">
-  import { IonPage, IonContent, IonButton, IonMenuButton, IonFooter } from "@ionic/vue";
-  import AppHeader from "@/components/shared/AppHeader.vue";
-  import { Space } from "@/types";
-  import { useRouter } from "vue-router";
-  const router = useRouter();
+import { onBeforeMount, computed } from "vue";
+import {
+  IonPage,
+  IonContent,
+  IonButton,
+  IonMenuButton,
+  IonFooter,
+} from "@ionic/vue";
+import AppHeader from "@/components/shared/AppHeader.vue";
+import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import { useRouter } from "vue-router";
 
-  const spaces: Space[] = [
-    {
-      shortCode: 1,
-      spaceType: 'Conference Room',
-      spaceName: 'The Johnson',
-      occupied: true,
-      capacity: 10,
-      imageUrl: 'space-the-johnson.jpg',
-      spaceFeatures: [],
-      issues: []
-    },
-    {
-      shortCode: 2,
-      spaceType: 'Conference Room',
-      spaceName: 'The Henderson',
-      occupied: false,
-      capacity: 10,
-      imageUrl: 'space-the-henderson.jpg',
-      spaceFeatures: [],
-      issues: []
-    },
-    {
-      shortCode: 3,
-      spaceType: 'Meeting Room',
-      spaceName: 'The Red Room',
-      occupied: true,
-      capacity: 8,
-      imageUrl: 'space-the-red-room.jpg',
-      spaceFeatures: [],
-      issues: []
-    },
-    {
-    shortCode: 3,
-    spaceType: 'Meeting Room',
-    spaceName: 'The Red Room',
-    occupied: true,
-    capacity: 8,
-    imageUrl: 'space-the-red-room.jpg',
-    spaceFeatures: [],
-    issues: []
-    }
-  ]
+const router = useRouter();
+const spacesStore = useSpacesStore();
+
+const spaces = computed(() => spacesStore.favouriteSpaces || []);
+
+const isFavourite = (spaceId = "") =>
+  spacesStore.favouriteSpaces?.some((item) => item.id === spaceId);
+
+const setFavoriteSpace = (spaceId = "") => {
+  if (spaceId) spacesStore.setFavouriteSpace(spaceId, !isFavourite(spaceId));
+};
+
+onBeforeMount(() => {
+  spacesStore.getFavouriteSpaces();
+});
 </script>
 
 <style scoped>
+ion-content {
+  --background: #000000;
+}
 .favourites-list {
   list-style-type: none;
   margin: 0;

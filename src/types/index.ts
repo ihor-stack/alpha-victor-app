@@ -17,6 +17,8 @@ enum DocumentTypeScope {
 export interface Space {
   id?: string;
   spaceName: string;
+  name?: string;
+  roomType?: string;
   shortCode: number;
   qrCode?: string;
   spaceType: string;
@@ -36,10 +38,6 @@ export interface Space {
   beacons?: Beacon[];
   wifiDetails?: WifiDetails;
   location?: string;
-}
-
-export interface Location {
-  location: string;
 }
 
 export interface Article {
@@ -252,6 +250,7 @@ export interface SingleLocation {
 export interface SingleFloor {
   id: string;
   name: string;
+  shortName?: string;
   spaces: NavSpace[];
 }
 
