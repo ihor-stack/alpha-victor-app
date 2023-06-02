@@ -2,28 +2,26 @@
   <div class="space">
     <div class="space__image">
       <div class="space__image__gradient"></div>
-      <img src="@/theme/img/space-the-johnson.jpg" />
+      <ion-img v-if="space?.photoPath" :src="space.photoPath" />
+      <img v-else src="@/theme/img/space-the-johnson.jpg" />
     </div>
     <div class="space__info">
       <div>
         <div class="space__info__top">
           <h6 class="category color-light-gray">
-            {{ props.space.spaceType }}
+            {{ props.space.roomType }}
           </h6>
-          <occupied-status :occupied="props.space.occupied" />
+          <occupied-status :occupied="space.occupied" />
         </div>
         <div class="space__info__bottom">
           <h5 class="name font-bold color-light-gray">
-            {{ props.space.spaceName }}
+            {{ space.name }}
           </h5>
           <div class="capacity">
-            <img
-              src="@/theme/icons/capacity.svg"
-              class="capacity-icon"
-            />
+            <img src="@/theme/icons/capacity.svg" class="capacity-icon" />
             <span
               class="capacity-number color-light-gray font-size-xxs font-mono"
-              >&gt;&gt;10</span
+              >&gt;&gt;{{ space.capacity }}</span
             >
           </div>
         </div>
@@ -33,15 +31,17 @@
 </template>
 
 <script setup lang="ts">
+import { IonImg } from "@ionic/vue";
 import { Space } from "@/types";
 import { defineProps } from "vue";
 import OccupiedStatus from "../shared/OccupiedStatus.vue";
 
 interface Props {
-  space: Space
+  space: Space;
 }
 
 const props = defineProps<Props>();
+console.log(props);
 </script>
 
 <style scoped>

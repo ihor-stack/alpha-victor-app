@@ -77,7 +77,6 @@ const organisationName = computed(
 
 const handleChange = (event: CustomEvent) => {
   state.organisation = event.detail.value;
-  console.log(state.organisation);
 };
 
 const handleConfirm = () => {

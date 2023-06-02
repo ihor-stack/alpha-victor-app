@@ -33,7 +33,8 @@
                 <router-link :to="`/space/` + slide.id">
                   <div class="swiper-slide__image">
                     <div class="swiper-slide__image__gradient"></div>
-                    <img src="@/theme/img/space-the-johnson.jpg" />
+                    <img :src="slide.photoPath" v-if="slide.photoPath" />
+                    <img v-else src="@/theme/img/space-the-johnson.jpg" />
                   </div>
                   <div class="swiper-slide__info">
                     <div>

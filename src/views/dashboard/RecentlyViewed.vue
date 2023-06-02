@@ -2,79 +2,70 @@
   <ion-page id="recently-viewed">
     <app-header title="Recently Viewed">
       <template #start>
-        <ion-button fill="clear" color="light" @click="() => router.back()" class="back">
+        <ion-button
+          fill="clear"
+          color="light"
+          @click="() => router.back()"
+          class="back"
+        >
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
       <template #end>
         <ion-menu-button fill="clear">
-          <img src="@/theme/icons/nav-menu.svg" class="nav-menu" alt="Nav Menu Button" />
+          <img
+            src="@/theme/icons/nav-menu.svg"
+            class="nav-menu"
+            alt="Nav Menu Button"
+          />
         </ion-menu-button>
       </template>
     </app-header>
     <ion-content>
-      <ul class="spaces-list">
-        <li v-for="space in spaces" :key="space.shortCode" class="space">
+      <ion-list class="spaces-list">
+        <ion-item
+          v-for="space in spaces"
+          :key="space.shortCode"
+          class="space"
+          button
+          :href="`/space/${space.id}`"
+        >
           <space-card :space="space" />
-        </li>
-      </ul>
+        </ion-item>
+      </ion-list>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-  import { IonPage, IonContent, IonButton, IonMenuButton } from "@ionic/vue";
-  import AppHeader from "@/components/shared/AppHeader.vue";
-  import SpaceCard from "@/components/dashboard/SpaceCard.vue";
-  import { Space } from "@/types";
-  import { useRouter } from "vue-router";
-  const router = useRouter();
+import { onBeforeMount, computed } from "vue";
+import {
+  IonPage,
+  IonContent,
+  IonButton,
+  IonMenuButton,
+  IonList,
+  IonItem,
+} from "@ionic/vue";
+import AppHeader from "@/components/shared/AppHeader.vue";
+import SpaceCard from "@/components/dashboard/SpaceCard.vue";
+import { useRouter } from "vue-router";
+import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 
-  const spaces: Space[] = [
-    {
-      shortCode: 1,
-      spaceType: 'Conference Room',
-      spaceName: 'The Johnson',
-      occupied: true,
-      capacity: 10,
-      imageUrl: 'space-the-johnson.jpg',
-      spaceFeatures: [],
-      issues: []
-    },
-    {
-      shortCode: 2,
-      spaceType: 'Conference Room',
-      spaceName: 'The Henderson',
-      occupied: false,
-      capacity: 10,
-      imageUrl: 'space-the-henderson.jpg',
-      spaceFeatures: [],
-      issues: []
-    },
-    {
-      shortCode: 3,
-      spaceType: 'Meeting Room',
-      spaceName: 'The Red Room',
-      occupied: true,
-      capacity: 8,
-      imageUrl: 'space-the-red-room.jpg',
-      spaceFeatures: [],
-      issues: []
-    },
-    {
-    shortCode: 3,
-    spaceType: 'Meeting Room',
-    spaceName: 'The Red Room',
-    occupied: true,
-    capacity: 8,
-    imageUrl: 'space-the-red-room.jpg',
-    spaceFeatures: [],
-    issues: []
-    }
-  ]
+const spacesStore = useSpacesStore();
+const router = useRouter();
+
+const spaces = computed(() => spacesStore.recentlyViewedSpaces || []);
+
+onBeforeMount(() => {
+  spacesStore.getRecentlyViewedSpaces();
+});
 </script>
 
 <style scoped>
+ion-content {
+  --background: #000000;
+}
 .spaces-list {
   list-style-type: none;
   margin: 0;
@@ -83,6 +74,7 @@
 .space {
   position: relative;
   height: 200px;
+  width: 100%;
   margin-bottom: 32px;
   border-radius: 4px;
   overflow: hidden;
@@ -153,5 +145,13 @@
 
 .space__info .capacity-icon {
   margin-right: 4px;
+}
+
+ion-list {
+  background: transparent;
+}
+
+ion-item {
+  --background: transparent;
 }
 </style>

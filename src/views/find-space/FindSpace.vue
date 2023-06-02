@@ -2,26 +2,40 @@
   <ion-page>
     <app-header title="Find a space">
       <template #start>
-        <ion-button fill="clear" color="light" @click="() => router.back()" class="back">
+        <ion-button
+          fill="clear"
+          color="light"
+          @click="() => router.back()"
+          class="back"
+        >
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
       <template #end>
         <ion-menu-button fill="clear">
-          <img src="@/theme/icons/nav-menu.svg" class="nav-menu" alt="Nav Menu Button" />
+          <img
+            src="@/theme/icons/nav-menu.svg"
+            class="nav-menu"
+            alt="Nav Menu Button"
+          />
         </ion-menu-button>
       </template>
     </app-header>
     <div class="search-container">
       <div class="space-search">
-        <ion-input 
+        <ion-input
           type="search"
           placeholder="Search space or location"
-          class="space-search-input font-bold font-size-sm" 
-          v-model="state.searchTerm" 
+          class="space-search-input font-bold font-size-sm"
+          v-model="state.searchTerm"
           :clear-input="true"
         />
-        <ion-button fill="clear" expand="block" size="small" class="space-search-icon">
+        <ion-button
+          fill="clear"
+          expand="block"
+          size="small"
+          class="space-search-icon"
+        >
           <img src="@/theme/icons/qr-code.svg" class="qr-code-icon" />
         </ion-button>
       </div>
@@ -39,28 +53,35 @@ import {
   IonButton,
   IonMenuButton,
   IonRouterOutlet,
-  IonInput
+  IonInput,
 } from "@ionic/vue";
-import { reactive, watch } from "vue";
+import { reactive, watch, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import AppHeader from "@/components/shared/AppHeader.vue";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+
 const router = useRouter();
+const organisationStore = useOrganisationStore();
 
 interface State {
-  searchTerm: string
+  searchTerm: string;
 }
 
 const state: State = reactive({
-  searchTerm: '',
+  searchTerm: "",
 });
 
 watch(
   () => state.searchTerm,
-  (term) => term.length > 0 ? 
-    router.replace({ name: "FindSpace", query: { search: term } }) 
-    : 
-    router.replace({ name: "FindSpace", })
+  (term) =>
+    term.length > 0
+      ? router.replace({ name: "FindSpace", query: { search: term } })
+      : router.replace({ name: "FindSpace" })
 );
+
+onBeforeMount(() => {
+  organisationStore.getLocations();
+});
 </script>
 
 <style scoped>

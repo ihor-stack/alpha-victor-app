@@ -30,13 +30,17 @@
       </div>
       <div class="dashboard-sliders">
         <div class="dashboard-slider-container">
-          <dashboard-slider title="Nearby spaces" cta-url="" :slides="spaces" />
+          <dashboard-slider
+            title="Nearby spaces"
+            cta-url=""
+            :slides="recentlyViewedSpaces"
+          />
         </div>
         <div class="dashboard-slider-container">
           <dashboard-slider
             title="Recently viewed"
             cta-url="/recently-viewed"
-            :slides="spaces"
+            :slides="recentlyViewedSpaces"
           />
         </div>
       </div>
@@ -58,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onBeforeMount } from "vue";
+import { reactive, onBeforeMount, computed } from "vue";
 import {
   IonPage,
   IonContent,
@@ -71,7 +75,6 @@ import AppHeader from "@/components/shared/AppHeader.vue";
 import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
 import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
-import { Space } from "@/types";
 import { useRouter } from "vue-router";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
@@ -92,45 +95,13 @@ const handleDismiss = () => {
   state.modalOpen = false;
 };
 
-const spaces: Space[] = [
-  {
-    shortCode: 1,
-    spaceType: "Conference Room",
-    spaceName: "The Johnson",
-    occupied: true,
-    capacity: 10,
-    imageUrl: "space-the-johnson.jpg",
-    spaceFeatures: [],
-    issues: [],
-    id: "00000000-0000-0000-0000-000000009999",
-  },
-  {
-    shortCode: 2,
-    spaceType: "Conference Room",
-    spaceName: "The Henderson",
-    occupied: false,
-    capacity: 10,
-    imageUrl: "space-the-henderson.jpg",
-    spaceFeatures: [],
-    issues: [],
-    id: "00000000-0000-0000-0000-000000009999",
-  },
-  {
-    shortCode: 3,
-    spaceType: "Meeting Room",
-    spaceName: "The Red Room",
-    occupied: true,
-    capacity: 8,
-    imageUrl: "space-the-red-room.jpg",
-    spaceFeatures: [],
-    issues: [],
-    id: "00000000-0000-0000-0000-000000009999",
-  },
-];
-
 const exploreSpaces = () => {
   router.push({ name: "Space" });
 };
+
+const recentlyViewedSpaces = computed(
+  () => spacesStore.recentlyViewedSpaces || []
+);
 
 onBeforeMount(() => {
   spacesStore.getFavouriteSpaces();

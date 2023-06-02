@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { publicAPI } from "@/axios";
-import { AdminOrganisation, OrgDetails } from "@/types/index";
+import { publicAPI, adminAPI } from "@/axios";
+import { AdminOrganisation, OrgDetails, Location } from "@/types/index";
 
 import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
@@ -14,12 +14,12 @@ export const Organisations = defineStore("Organisations", {
       organisationList: [] as AdminOrganisation[],
       currentOrganisation: {} as OrgDetails,
       currentOrganisationId: "" as string,
+      locations: [] as Location[],
     };
   },
   actions: {
     setId(newId: string) {
       this.currentOrganisationId = newId;
-      cookies.set("orgId", newId);
       return true;
     },
     async getOrganisations() {
@@ -46,6 +46,7 @@ export const Organisations = defineStore("Organisations", {
         )
         .then((response) => {
           this.currentOrganisation = response.data;
+          this.currentOrganisationId = response.data.id;
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
@@ -53,6 +54,23 @@ export const Organisations = defineStore("Organisations", {
         .finally(() => {
           loadingService.close();
         });
+    },
+    async getLocations() {
+      loadingService.show("Loading...");
+      const id = this.currentOrganisationId || cookies.get("orgId");
+      if (id) {
+        adminAPI
+          .get<Location[]>(`/Location${id ? `?organisationId=${id}` : ""}`)
+          .then((response) => {
+            this.locations = response.data;
+          })
+          .catch((error) => {
+            toastService.show("Error", error, "error", "top");
+          })
+          .finally(() => {
+            loadingService.close();
+          });
+      }
     },
   },
   getters: {

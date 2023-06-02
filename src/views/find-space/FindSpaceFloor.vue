@@ -4,40 +4,19 @@
       <div class="locations-list">
         <h2 class="list-title font-bold color-light-gray">Popular locations</h2>
         <ul class="list list--condensed">
-          <router-link
-            v-for="(location, index) in popularLocations"
-            :key="index"
-            :to="`/find-space/location/${location.id}/floor`"
-          >
-            <li class="list-item">
-              <div class="list-item__info">
-                <div class="list-item__details">
-                  <p
-                    class="primaryText font-bold font-size-sm color-light-gray"
-                  >
-                    {{ location.name }}
-                  </p>
-                </div>
-              </div>
-              <span class="arrow-right"></span>
-            </li>
-          </router-link>
-        </ul>
-      </div>
-
-      <div class="locations-list">
-        <h2 class="list-title font-bold color-light-gray">Other locations</h2>
-        <ul class="list list--condensed">
           <li
-            v-for="(location, index) in otherLocations"
+            v-for="(floor, index) in state.floors"
             :key="index"
             class="list-item"
           >
             <div class="list-item__info">
               <div class="list-item__details">
                 <p class="primaryText font-bold font-size-sm color-light-gray">
-                  {{ location }}
+                  {{ floor.shortName }}
                 </p>
+                <span class="color-dark-gray font-mono font-size-xxs">
+                  {{ floor.name }}
+                </span>
               </div>
             </div>
             <span class="arrow-right"></span>
@@ -50,17 +29,44 @@
 
 <script setup lang="ts">
 import { IonPage, IonContent } from "@ionic/vue";
-import { defineProps, computed } from "vue";
-import { useRouter } from "vue-router";
-import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import { onBeforeMount, reactive } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { adminAPI } from "@/axios";
+import toastService from "@/services/toastService";
+import loadingService from "@/services/loadingService";
+import { SingleFloor } from "@/types/index";
+
+const route = useRoute();
 const router = useRouter();
-const organisationStore = useOrganisationStore();
+const locationId: string = route.params.locationId as string;
 
-const props = defineProps(["searchTerm"]);
+interface State {
+  floors: SingleFloor[];
+}
 
-const popularLocations = computed(() => organisationStore.locations);
+const state: State = reactive({
+  floors: [],
+});
 
-const otherLocations = ["Cardiff", "Glasgow"];
+const getFloors = () => {
+  loadingService.show("Loading...");
+  adminAPI
+    .get(`/Floor?locationId=${locationId}`)
+    .then((response) => {
+      state.floors = response.data;
+    })
+    .catch((error) => {
+      state.floors = [];
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
+};
+
+onBeforeMount(() => {
+  getFloors();
+});
 </script>
 
 <style scoped>
