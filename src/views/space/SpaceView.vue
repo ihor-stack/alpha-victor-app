@@ -13,11 +13,15 @@
         </ion-button>
       </template>
       <template #end>
-        <ion-button fill="clear" size="small" class="favourite">
-          <img
-            src="@/theme/icons/favourite.svg"
-            class="nav-menu"
-            alt="Nav Menu Button"
+        <ion-button
+          fill="clear"
+          size="small"
+          class="favourite"
+          @click="setFavoriteSpace"
+        >
+          <ion-icon
+            slot="icon-only"
+            :icon="isFavourite ? heart : heartOutline"
           />
         </ion-button>
       </template>
@@ -103,7 +107,8 @@
 
 <script setup lang="ts">
 import { onBeforeMount, computed } from "vue";
-import { IonPage, IonContent, IonButton, IonFooter } from "@ionic/vue";
+import { IonPage, IonContent, IonButton, IonFooter, IonIcon } from "@ionic/vue";
+import { heartOutline, heart } from "ionicons/icons";
 import { useRoute, useRouter } from "vue-router";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import OccupiedStatus from "@/components/shared/OccupiedStatus.vue";
@@ -119,10 +124,17 @@ const spacesStore = useSpacesStore();
 const spaceId: string = route.params.spaceId as string;
 
 const currentSpace = computed(() => spacesStore.currentSpace);
+const isFavourite = computed(() =>
+  spacesStore.favouriteSpaces?.some((item) => item.id === spaceId)
+);
+const setFavoriteSpace = () => {
+  spacesStore.setFavouriteSpace(spaceId, !isFavourite.value);
+};
 
 onBeforeMount(() => {
   if (spacesStore.currentSpace?.id !== spaceId)
     spacesStore.getSpaceDetails(spaceId);
+  spacesStore.setRecentlyViewedSpace(spaceId);
 });
 </script>
 

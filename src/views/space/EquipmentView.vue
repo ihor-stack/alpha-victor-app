@@ -48,7 +48,10 @@
       :handleDismiss="() => handleDismiss()"
       @willDismiss="handleDismiss"
     >
-      <room-equipment-modal :selectedEquipment="state.selectedEquipment" />
+      <room-equipment-modal
+        :deviceDetails="state.selectedEquipment"
+        :spaceId="spaceId"
+      />
     </ion-modal>
   </ion-page>
 </template>
@@ -69,14 +72,12 @@ import RoomEquipmentModal from "@/components/modals/RoomEquipmentModal.vue";
 import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useEquipmentIcon } from "@/composables/utilities";
-import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 
 const router = useRouter();
 const route = useRoute();
 const spaceId: string = route.params.spaceId as string;
 const spacesStore = useSpacesStore();
-const organisationsStore = useOrganisationsStore();
 
 interface State {
   modalOpen: boolean;
@@ -100,6 +101,9 @@ const handleClick = (item: any) => {
 };
 
 onBeforeMount(() => {
+  if (spaceId !== spacesStore.currentSpaceId) {
+    spacesStore.getSpaceDetails(spaceId);
+  }
   spacesStore.getSpaceDevices(spaceId);
 });
 </script>

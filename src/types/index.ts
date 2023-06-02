@@ -266,6 +266,7 @@ export interface SpecificSpace {
   name: string;
   spaceId: string;
 }
+
 export interface DetailedSpace {
   id: string;
   spaceName: string;
@@ -277,8 +278,11 @@ export interface DetailedSpace {
   qrCode: string;
   roomTypes: SpaceDetailsRooms[];
   spaceFeatures: SpaceDetailsFeatures[];
-  photos: Photo[];
+  photos?: Photo[];
+  photoPath?: string;
   documents: SpaceDetailsDocs[];
+  occupied: boolean;
+  location?: string;
   issues?: Issue[];
 }
 export interface SpaceDetailsRooms {

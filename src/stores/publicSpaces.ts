@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { publicAPI, adminAPI } from "@/axios";
 import {
+  DetailedSpace,
   Space,
   Device,
   SelectItem,
@@ -20,7 +21,7 @@ const { cookies } = useCookies();
 export const Spaces = defineStore("Spaces", {
   state: () => {
     return {
-      currentSpace: {} as Space,
+      currentSpace: {} as DetailedSpace,
       currentSpaceId: "" as string | undefined,
       favouriteSpaces: [] as Space[],
       recentlyViewedSpaces: [] as Space[],
@@ -36,7 +37,7 @@ export const Spaces = defineStore("Spaces", {
     async getSpaceDetails(id: string) {
       loadingService.show("Loading...");
       publicAPI
-        .get<Space>(
+        .get<DetailedSpace>(
           `/Space/Space/${
             id || this.currentSpaceId || cookies.get("spaceId")
           }/Details`
@@ -60,6 +61,38 @@ export const Spaces = defineStore("Spaces", {
         .get<Space[]>("/Dashboard/Favourite")
         .then((response) => {
           this.favouriteSpaces = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+
+    async setFavouriteSpace(spaceId: string, isFavourite: boolean) {
+      loadingService.show("Loading...");
+      publicAPI
+        .post<Space>(
+          `/Space/Space/${spaceId}/Favourite?isFavourite=${isFavourite}`
+        )
+        .then(() => {
+          this.getFavouriteSpaces();
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+
+    async setRecentlyViewedSpace(spaceId: string) {
+      loadingService.show("Loading...");
+      publicAPI
+        .post<Space>(`/Space/Space/${spaceId}/RecentlyViewed`)
+        .then(() => {
+          this.getRecentlyViewedSpaces();
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

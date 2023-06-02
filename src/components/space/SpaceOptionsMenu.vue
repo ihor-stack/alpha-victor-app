@@ -15,6 +15,7 @@
       </li>
       <li class="space-options-menu-item">
         <ion-item
+          :disabled="!currentSpace?.decisionTreeId"
           :router-link="{
             name: 'GetHelp',
             params: { decisionTreeId: currentSpace?.decisionTreeId },
@@ -47,7 +48,13 @@
         </ion-item>
       </li>
       <li class="space-options-menu-item">
-        <ion-item :router-link="{ name: 'Documents' }" router-direction="root">
+        <ion-item
+          :router-link="{
+            name: 'Documents',
+            params: { spaceId: currentSpace?.id },
+          }"
+          router-direction="root"
+        >
           <span class="link-text">Documents</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>

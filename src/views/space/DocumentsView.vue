@@ -26,7 +26,7 @@ import DocumentsList from "@/components/space/DocumentsList.vue";
 import { useRoute, useRouter } from "vue-router";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
-import { adminAPI } from "@/axios";
+import { publicAPI } from "@/axios";
 const router = useRouter();
 const route = useRoute();
 
@@ -34,11 +34,11 @@ const state = reactive({
   documents: [],
 });
 
-const getDocuments = (equipmentId: string) => {
-  if (!equipmentId) return;
+const getDocuments = (spaceId: string) => {
+  if (!spaceId) return;
   loadingService.show("Loading...");
-  adminAPI
-    .get(`/Document/Equipment/${equipmentId}`)
+  publicAPI
+    .get(`/Space/${spaceId}/Documents`)
     .then((response) => {
       state.documents = response.data;
     })
@@ -52,8 +52,8 @@ const getDocuments = (equipmentId: string) => {
 };
 
 onBeforeMount(() => {
-  const equipmentId: string = route.params.equipmentId as string;
-  getDocuments(equipmentId);
+  const spaceId: string = route.params.spaceId as string;
+  getDocuments(spaceId);
 });
 </script>
 
