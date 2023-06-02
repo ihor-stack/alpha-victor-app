@@ -8,6 +8,7 @@
   --av-red: #ff3737;
   --av-green: #37b14c;
   --av-orange: #ff9700;
+  --av-white: #ffffff;
 
   --av-font-light: "Akkurat-Light";
   --av-font-light-italic: "Akkurat-Light-Italic";
@@ -223,7 +224,7 @@ ion-modal::part(handle) {
 }
 
 .color-dark-gray {
-  color: var(--av-dark-gray);
+  color: var(--av-dark-gray) !important;
 }
 
 .color-red {
@@ -232,6 +233,10 @@ ion-modal::part(handle) {
 
 .color-green {
   color: var(--av-green);
+}
+
+.color-white {
+  color: var(--av-white) !important;
 }
 
 /* Utilities */

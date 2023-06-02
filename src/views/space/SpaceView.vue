@@ -2,13 +2,23 @@
   <ion-page>
     <app-header :no-background="true">
       <template #start>
-        <ion-button fill="clear" color="light" size="small" class="back" @click="() => router.back()">
+        <ion-button
+          fill="clear"
+          color="light"
+          size="small"
+          class="back"
+          @click="() => router.back()"
+        >
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
       <template #end>
         <ion-button fill="clear" size="small" class="favourite">
-          <img src="@/theme/icons/favourite.svg" class="nav-menu" alt="Nav Menu Button" />
+          <img
+            src="@/theme/icons/favourite.svg"
+            class="nav-menu"
+            alt="Nav Menu Button"
+          />
         </ion-button>
       </template>
     </app-header>
@@ -16,7 +26,10 @@
       <div class="outer-container">
         <div class="space-header">
           <div class="space-header__background">
-            <img src="@/theme/img/space-the-johnson-large.jpg" class="space-header__background__image" />
+            <img
+              :src="currentSpace.photoPath"
+              class="space-header__background__image"
+            />
             <div class="space-header__background__gradient"></div>
           </div>
           <div class="space-header__foreground">
@@ -24,15 +37,18 @@
               <div class="space-header__info__left">
                 <div class="capacity">
                   <img src="@/theme/icons/capacity.svg" class="capacity-icon" />
-                  <span class="capacity-number color-light-gray font-size-xxs font-mono">&gt;&gt;10</span>
+                  <span
+                    class="capacity-number color-light-gray font-size-xxs font-mono"
+                    >&gt;&gt;{{ currentSpace.capacity }}</span
+                  >
                 </div>
                 <h1 class="name font-bold color-light-gray">
-                  {{ space.spaceName }}
+                  {{ currentSpace.spaceName }}
                 </h1>
                 <div class="location">
                   <img src="@/theme/icons/location.svg" class="icon" />
                   <span class="font-mono font-size-xxs color-light-gray">{{
-                    space.location
+                    currentSpace.location
                   }}</span>
                 </div>
               </div>
@@ -40,22 +56,22 @@
                 <ion-button size="small" fill="clear" class="icon-360">
                   <img src="@/theme/icons/360.svg" />
                 </ion-button>
-                <occupied-status :occupied="space.occupied" />
+                <occupied-status :occupied="currentSpace.occupied" />
               </div>
             </div>
           </div>
         </div>
 
         <div class="space-features-slider-container">
-          <space-features-slider :features="space.spaceFeatures" />
+          <space-features-slider :features="currentSpace.spaceFeatures" />
         </div>
-        
+
         <div class="space-wifi-info-container">
           <space-wi-fi-info />
         </div>
-        
+
         <div class="space-options-menu-container">
-          <space-options-menu :issues="space.issues" />
+          <space-options-menu :currentSpace="currentSpace" />
         </div>
       </div>
     </ion-content>
@@ -63,14 +79,18 @@
       <div class="space-cta-container">
         <div class="announcement">
           <h4 class="color-light-gray">Important Announcement</h4>
-          <p class="color-light-gray">This space will be temporarily closed between the hours or 18:00 and 22:00 on Wednesday 22nd March for essential maintenance. Sorry for any inconvenience caused.</p>
+          <p class="color-light-gray">
+            This space will be temporarily closed between the hours or 18:00 and
+            22:00 on Wednesday 22nd March for essential maintenance. Sorry for
+            any inconvenience caused.
+          </p>
         </div>
 
         <div class="ctas">
           <ion-button expand="block">Give Feedback</ion-button>
-          <ion-button 
-            color="light" 
-            expand="block" 
+          <ion-button
+            color="light"
+            expand="block"
             @click="() => router.push({ name: 'ReportIssue' })"
           >
             Report Issue
@@ -82,52 +102,28 @@
 </template>
 
 <script setup lang="ts">
+import { onBeforeMount, computed } from "vue";
 import { IonPage, IonContent, IonButton, IonFooter } from "@ionic/vue";
+import { useRoute, useRouter } from "vue-router";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import OccupiedStatus from "@/components/shared/OccupiedStatus.vue";
 import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
 import SpaceWiFiInfo from "@/components/space/SpaceWiFiInfo.vue";
 import SpaceOptionsMenu from "@/components/space/SpaceOptionsMenu.vue";
-import { Space } from "@/types";
-import { useRouter } from "vue-router";
 
+import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+
+const route = useRoute();
 const router = useRouter();
+const spacesStore = useSpacesStore();
+const spaceId: string = route.params.spaceId as string;
 
-const space: Space = {
-  shortCode: 1,
-  spaceType: "Conference Room",
-  spaceName: "The Johnson",
-  occupied: true,
-  capacity: 10,
-  imageUrl: "space-the-johnson.jpg",
-  location: "2b.ground.floor",
-  spaceFeatures: [
-    {
-      name: "Smart TV",
-      category: "screen",
-    },
-    {
-      name: "WiFi",
-      category: "wifi",
-    },
-    {
-      name: "Phone",
-      category: "phone",
-    },
-    {
-      name: "Presenting",
-      category: "presenting",
-    },
-  ],
-  issues: [
-    {
-      title: "WiFi signal poor",
-      status: 1,
-      comment: "Router needs upgraded",
-      log: ["Constant drop-outs on video calls"],
-    },
-  ],
-};
+const currentSpace = computed(() => spacesStore.currentSpace);
+
+onBeforeMount(() => {
+  if (spacesStore.currentSpace?.id !== spaceId)
+    spacesStore.getSpaceDetails(spaceId);
+});
 </script>
 
 <style scoped>
@@ -262,7 +258,7 @@ const space: Space = {
   background: #181818;
   border: 0.75px solid #313131;
   border-radius: 4px;
-  color: #FFFFFF;
+  color: #ffffff;
   padding: 14px 12px;
   margin-bottom: 12px;
 }

@@ -2,23 +2,34 @@
   <div class="documents-list__container">
     <div class="documents-list">
       <div class="documents-list__header">
-        <h4 class="font-mono color-light-gray font-size-xxs">installation.guides</h4>
+        <h4 class="font-mono color-light-gray font-size-xxs">
+          installation.guides
+        </h4>
       </div>
       <ul class="documents-list__list">
         <li v-for="document in props.documents" :key="document.id">
-          <router-link :to="{ name: 'DocumentViewer' }" class="documents-list__item">
+          <router-link
+            :to="{ name: 'DocumentViewer', params: { id: document.id } }"
+            class="documents-list__item"
+          >
             <div class="documents-list__item__info">
               <div class="documents-list__item__icon">
                 <!-- PDF preview will go here -->
                 <img src="@/theme/img/example-pdf.svg" />
               </div>
               <div>
-                <p class="color-light-gray font-bold font-size-xs">{{ document.title }}</p>
-                <span class="color-dark-gray font-mono font-size-xxs">uploaded.{{ document.dateUploaded }}</span>
+                <p class="color-light-gray font-bold font-size-xs">
+                  {{ document.name }}
+                </p>
+                <span class="color-dark-gray font-mono font-size-xxs"
+                  >uploaded.{{ document.dateUploaded }}</span
+                >
               </div>
             </div>
             <div class="documents-list__item__link">
-              <span class="color-light-gray font-mono font-size-xxs">&gt;&gt; view</span>
+              <span class="color-light-gray font-mono font-size-xxs"
+                >&gt;&gt; view</span
+              >
             </div>
           </router-link>
         </li>
@@ -32,15 +43,15 @@ import { defineProps } from "vue";
 
 interface Document {
   id: number;
-  title: string;
+  name: string;
   dateUploaded: string;
 }
 
 interface Props {
-  documents: Document[]
+  documents: Document[];
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 </script>
 
 <style scoped>
@@ -69,7 +80,8 @@ const props = defineProps<Props>()
 .documents-list__item__icon {
   width: 60px;
   height: 40px;
-  background: url('@/theme/backgrounds/triangle-background.svg') no-repeat center / cover;
+  background: url("@/theme/backgrounds/triangle-background.svg") no-repeat
+    center / cover;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,5 +91,4 @@ const props = defineProps<Props>()
   display: flex;
   align-items: center;
 }
-
 </style>

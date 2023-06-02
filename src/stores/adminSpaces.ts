@@ -4,7 +4,7 @@ import {
   DetailedSpace,
   SelectItem,
   SingleFloor,
-  SpaceDevices,
+  Device,
   SpecificFloor,
   SpaceBeacon,
   SpaceWifi,
@@ -25,7 +25,7 @@ export const Spaces = defineStore("Spaces", {
       formattedSelect: [] as SelectItem[],
       roomTypeSelected: {} as SelectItem,
       qrCode: "" as string,
-      devices: [] as SpaceDevices[],
+      devices: [] as Device[],
       beacons: [] as SpaceBeacon[],
       wifi: {} as SpaceWifi,
     };
@@ -160,7 +160,7 @@ export const Spaces = defineStore("Spaces", {
 
     async getSpaceDetailsDevices() {
       adminAPI
-        .get<SpaceDevices[]>("/Space/" + cookies.get("spaceId") + "/Device")
+        .get<Device[]>("/Space/" + cookies.get("spaceId") + "/Device")
         .then((response) => {
           this.devices = response.data;
         })
@@ -211,7 +211,7 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async saveSpacesDevices(newDevice: SpaceDevices) {
+    async saveSpacesDevices(newDevice: Device[]) {
       loadingService.show("Loading...");
       adminAPI
         .post("/Space/" + cookies.get("spaceId") + "/Device/", newDevice)

@@ -30,35 +30,37 @@
               class="mySwiper"
             >
               <swiper-slide v-for="slide in slides" :key="slide.shortCode">
-                <div class="swiper-slide__image">
-                  <div class="swiper-slide__image__gradient"></div>
-                  <img src="@/theme/img/space-the-johnson.jpg" />
-                </div>
-                <div class="swiper-slide__info">
-                  <div>
-                    <div class="swiper-slide__info__top">
-                      <h6 class="category color-light-gray">
-                        {{ slide.spaceType }}
-                      </h6>
-                      <occupied-status :occupied="slide.occupied" />
-                    </div>
-                    <div class="swiper-slide__info__bottom">
-                      <h5 class="name font-bold color-light-gray">
-                        {{ slide.spaceName }}
-                      </h5>
-                      <div class="capacity">
-                        <img
-                          src="@/theme/icons/capacity.svg"
-                          class="capacity-icon"
-                        />
-                        <span
-                          class="capacity-number color-light-gray font-size-xxs font-mono"
-                          >&gt;&gt;10</span
-                        >
+                <router-link :to="`/space/` + slide.id">
+                  <div class="swiper-slide__image">
+                    <div class="swiper-slide__image__gradient"></div>
+                    <img src="@/theme/img/space-the-johnson.jpg" />
+                  </div>
+                  <div class="swiper-slide__info">
+                    <div>
+                      <div class="swiper-slide__info__top">
+                        <h6 class="category color-light-gray">
+                          {{ slide.spaceType }}
+                        </h6>
+                        <occupied-status :occupied="slide.occupied" />
+                      </div>
+                      <div class="swiper-slide__info__bottom">
+                        <h5 class="name font-bold color-light-gray">
+                          {{ slide.spaceName }}
+                        </h5>
+                        <div class="capacity">
+                          <img
+                            src="@/theme/icons/capacity.svg"
+                            class="capacity-icon"
+                          />
+                          <span
+                            class="capacity-number color-light-gray font-size-xxs font-mono"
+                            >&gt;&gt;10</span
+                          >
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </router-link>
               </swiper-slide>
               <div class="swiper-bullets"></div>
             </swiper>

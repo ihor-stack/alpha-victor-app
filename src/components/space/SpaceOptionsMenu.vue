@@ -2,7 +2,13 @@
   <div class="container">
     <ul class="space-options-menu">
       <li class="space-options-menu-item">
-        <ion-item :router-link="{ name: 'Equipment' }" router-direction="root">
+        <ion-item
+          :router-link="{
+            name: 'Equipment',
+            params: { spaceId: currentSpace?.id },
+          }"
+          router-direction="root"
+        >
           <span class="link-text">Room Equipment</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
@@ -11,7 +17,7 @@
         <ion-item
           :router-link="{
             name: 'GetHelp',
-            params: { decisionTreeId: '00000000-0000-0000-0000-000000000001' },
+            params: { decisionTreeId: currentSpace?.decisionTreeId },
           }"
           router-direction="root"
         >
@@ -28,9 +34,12 @@
             <p class="label font-bold font-size-sm color-light-gray">
               Known Issues
             </p>
-            <div v-if="issues && issues.length > 0" class="counter">
+            <div
+              v-if="currentSpace?.issues && currentSpace.issues.length > 0"
+              class="counter"
+            >
               <div>
-                <span>{{ issues.length }}</span>
+                <span>{{ currentSpace.issues.length }}</span>
               </div>
             </div>
           </div>
@@ -51,10 +60,10 @@
 import { defineProps } from "vue";
 import { IonItem, IonIcon } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
-import { Issue } from "@/types";
+import { DetailedSpace } from "@/types";
 
 interface Props {
-  issues: Issue[];
+  currentSpace: DetailedSpace;
 }
 
 defineProps<Props>();
