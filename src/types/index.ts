@@ -131,9 +131,12 @@ export interface AdminOrganisation {
   logo: string;
 }
 export interface AdminTheme {
+  darkmodeEnabled: boolean;
   primaryColour: string;
   secondaryColour: string;
-  darkmodeEnabled: boolean;
+  backgroundBase64Payload?: string;
+  backgroundFileName?: string;
+  backgroundContentType?: string;
   logoBase64Payload?: string;
   logoFileName?: string;
   logoContentType?: string;

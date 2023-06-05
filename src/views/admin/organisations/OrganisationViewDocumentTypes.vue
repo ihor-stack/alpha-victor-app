@@ -2,11 +2,11 @@
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">Document Types</h1>
     <ion-grid class="form-admin">
-      <ion-row class="form-admin--group" >
+      <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-input
             color="light"
-            placeholder="Enter New Document Type"
+            placeholder="Enter new document type"
             :value="newDocument"
             @ionInput="newDocument = $event.target.value;">
           </ion-input>
@@ -19,18 +19,24 @@
             Add new +
           </ion-button>
         </ion-col>
+      </ion-row>
+
+      <ion-row class="form-admin--group">
         <ion-col size-xs="12"  class="form-admin--group_field">
-          <h3 class="font-bold font-size-md color-light-gray">Current Document Types</h3>
+          <h3 class="font-bold font-size-md color-light-gray" v-if="documents.length">Current Document Types</h3>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <div v-for="(data, index) in documents" :key="index">
+          <div v-for="doc in documents" :key="doc.id">
             <ItemField
-              v-model="data.name"
-              :data="data"
+              :modelValue="doc.name"
+              :data="doc"
               icon=""
-              :id="data.id"
+              :id="doc.id"
               placeholder="Document Type"
-              @update:modelValue="updateTypeValue"
+              @update:modelValue="value => updateTypeValue({ ...doc, name: value })"
               @remove="removeType"
             />
           </div>
@@ -50,8 +56,9 @@ import {
   } from "@ionic/vue";
   import { onBeforeMount, ref } from "vue";
   import { adminDocuments } from '@/stores/adminDocumentTypes'
-  import { storeToRefs } from "pinia";
-  import { AdminDocument } from "@/types";
+  import { storeToRefs } from "pinia"
+  import { AdminDocument } from "@/types"
+  import ItemField from '@/components/admin/ItemField.vue'
 
   const DocTypes = adminDocuments();
   const { documents } = storeToRefs(DocTypes);
@@ -66,9 +73,8 @@ import {
     DocTypes.saveNewDocument(newDocument.value)
   }
 
-  const updateTypeValue = (value: string, data: AdminDocument) => {
-    const updatedItem = { ...data, name: value };
-    DocTypes.editDocumentType(updatedItem);
+  const updateTypeValue = (updatedDoc: AdminDocument) => {
+    DocTypes.editDocumentType(updatedDoc);
   };
 
   const removeType = (data: AdminDocument) => {

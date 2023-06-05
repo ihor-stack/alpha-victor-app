@@ -6,15 +6,15 @@
         <ion-col size-xs="6" class="form-admin--group_field">
           <SpaceTypeModal />
           <hr class="form-admin--divider" />
-          <ion-label color="light" class="font-bold">Space Types</ion-label>
+          <ion-label color="light" class="font-bold" v-if="metaData.spaceTypes">Space Types</ion-label>
           <div v-for="(data, index) in metaData.spaceTypes" :key="index">
             <ItemField
-              v-model="data.name"
+              :modelValue="data.name"
               :data="data"
               :icon="data.icon"
               :id="data.spaceTypeId"
               placeholder="Space type"
-              @update:modelValue="updateTypeValue"
+              @update:modelValue="value => updateTypeValue({ ...data, name: value })"
               @remove="removeType"
             />
           </div>
@@ -22,15 +22,15 @@
         <ion-col size-xs="6" class="form-admin--group_field">
           <SpaceFeatureModal />
           <hr class="form-admin--divider" />
-          <ion-label color="light" class="font-bold">Space Features</ion-label>
+          <ion-label color="light" class="font-bold" v-if="metaData.spaceFeatures">Space Features</ion-label>
           <div v-for="(data,index) in metaData.spaceFeatures" :key="index">
             <ItemField
-              v-model="data.name"
+              :modelValue="data.name"
               :data="data"
               :icon="data.icon"
               :id="data.spaceFeatureId"
               placeholder="Space feature"
-              @update:modelValue="updateFeatureValue"
+              @update:modelValue="value => updateFeatureValue({ ...data, name: value })"
               @remove="removeFeature"
             />
           </div>
@@ -84,5 +84,9 @@ const removeFeature = (item: spaceFeature) => {
 <style scoped>
 ion-thumbnail {
   --size: 100%;
+}
+ion-label {
+  margin-bottom: 10px;
+  display: block;
 }
 </style>

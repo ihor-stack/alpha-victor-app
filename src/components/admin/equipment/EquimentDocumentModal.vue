@@ -1,4 +1,5 @@
 <template>
+  <div>
     <ion-button  class="font-size-sm text-lowercase add-button" @click="state.modalOpen = true">
       Add new Document +
     </ion-button>
@@ -12,20 +13,20 @@
         <div class="modal-panel">
             <div class="modal-panel-container">
             <ion-header>
-                <ion-icon 
-                color='light' 
-                :icon="close" 
-                size="small" 
-                class="close-button" 
-                @click="state.modalOpen = false"/>
-                <div class="modal-panel__header">
-                <h1 class="modal-panel__title color-light-gray font-bold font-size-normal">
-                  Add new Document +
-                </h1>
-                <p class="modal-panel__comment color-light-gray font-size-sm">
-                  You can upload a document and document type using the form below.
-                </p>
-                </div>
+              <ion-icon 
+              color='light' 
+              :icon="close" 
+              size="small" 
+              class="close-button" 
+              @click="state.modalOpen = false"/>
+              <div class="modal-panel__header">
+              <h1 class="modal-panel__title color-light-gray font-bold font-size-normal">
+                Add new Document +
+              </h1>
+              <p class="modal-panel__comment color-light-gray font-size-sm">
+                You can upload a document and document type using the form below.
+              </p>
+              </div>
             </ion-header>
             <ion-content :scroll-y="false" class="form-admin--group_field">
               <p class="modal-panel__comment color-light-gray font-size-sm">
@@ -75,9 +76,10 @@
         </div>
         </ion-page>
     </ion-modal>
-  </template>
+  </div>
+</template>
   
-  <script setup lang="ts">
+<script setup lang="ts">
   import { reactive } from "vue";
   import { 
     IonPage, 
