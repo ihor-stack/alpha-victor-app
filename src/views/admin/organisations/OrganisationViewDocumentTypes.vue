@@ -64,13 +64,13 @@ import {
   const { documents } = storeToRefs(DocTypes);
 
   onBeforeMount(() => {
-    DocTypes.getDocuments()
+    DocTypes.getDocumentTypes()
   })
 
   const newDocument = ref()
 
   const newDocumentType = () => {
-    DocTypes.saveNewDocument(newDocument.value)
+    DocTypes.saveNewDocumentType(newDocument.value)
   }
 
   const updateTypeValue = (updatedDoc: AdminDocument) => {

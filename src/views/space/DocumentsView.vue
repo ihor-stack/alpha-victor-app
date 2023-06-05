@@ -34,7 +34,7 @@ const state = reactive({
   documents: [],
 });
 
-const getDocuments = (spaceId: string) => {
+const getDocumentTypes = (spaceId: string) => {
   if (!spaceId) return;
   loadingService.show("Loading...");
   publicAPI
@@ -53,7 +53,7 @@ const getDocuments = (spaceId: string) => {
 
 onBeforeMount(() => {
   const spaceId: string = route.params.spaceId as string;
-  getDocuments(spaceId);
+  getDocumentTypes(spaceId);
 });
 </script>
 
