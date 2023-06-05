@@ -121,7 +121,7 @@ const handleClickReportIssue = () => {
 };
 
 onBeforeMount(() => {
-  if (spaceId !== spacesStore.currentSpaceId) {
+  if (spaceId !== spacesStore.currentSpaceId || !spacesStore?.devices?.length) {
     spacesStore.getSpaceDetails(spaceId);
     spacesStore.getSpaceDevices(spaceId);
   }

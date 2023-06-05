@@ -70,7 +70,7 @@
           <ion-button
             expand="block"
             :disabled="!state.canSubmit"
-            @click="handleReportIssue(state)"
+            @click="handleSubmitIssue"
             >Submit Issue</ion-button
           >
         </ion-footer>
@@ -118,7 +118,7 @@ const checkForInputs = () => {
     : (state.canSubmit = false);
 };
 
-const handleReportIssue = () => {
+const handleSubmitIssue = () => {
   loadingService.show("Loading...");
   publicAPI
     .post(`/Issue/CreateIssue/${props.spaceId}`, {
@@ -127,7 +127,7 @@ const handleReportIssue = () => {
       deviceId: state.deviceId,
     })
     .then(() => {
-      handleReportIssue();
+      props.handleReportIssue();
     })
     .catch((error) => {
       toastService.show("Error", error, "error", "top");
