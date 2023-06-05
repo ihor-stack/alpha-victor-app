@@ -96,19 +96,37 @@
           <ion-button
             color="light"
             expand="block"
-            @click="() => router.push({ name: 'ReportIssue' })"
+            @click="state.reportIssueModalOpen = true"
           >
             Report Issue
           </ion-button>
         </div>
       </div>
     </ion-footer>
+    <ion-modal
+      :is-open="state.reportIssueModalOpen"
+      :initial-breakpoint="1"
+      :breakpoints="[0, 1]"
+      @willDismiss="state.reportIssueModalOpen = false"
+    >
+      <report-issue-modal
+        :spaceId="spaceId"
+        :handleReportIssue="() => (state.reportIssueModalOpen = false)"
+      />
+    </ion-modal>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, computed } from "vue";
-import { IonPage, IonContent, IonButton, IonFooter, IonIcon } from "@ionic/vue";
+import { onBeforeMount, computed, reactive } from "vue";
+import {
+  IonPage,
+  IonContent,
+  IonButton,
+  IonFooter,
+  IonIcon,
+  IonModal,
+} from "@ionic/vue";
 import { heartOutline, heart } from "ionicons/icons";
 import { useRoute, useRouter } from "vue-router";
 import AppHeader from "@/components/shared/AppHeader.vue";
@@ -117,6 +135,7 @@ import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
 import SpaceWiFiInfo from "@/components/space/SpaceWiFiInfo.vue";
 import SpaceOptionsMenu from "@/components/space/SpaceOptionsMenu.vue";
 import { storeToRefs } from "pinia";
+import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 
@@ -124,6 +143,10 @@ const route = useRoute();
 const router = useRouter();
 const spacesStore = useSpacesStore();
 const spaceId: string = route.params.spaceId as string;
+
+const state = reactive({
+  reportIssueModalOpen: false,
+});
 
 const { currentSpace } = storeToRefs(spacesStore);
 

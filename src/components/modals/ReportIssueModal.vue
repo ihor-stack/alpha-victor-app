@@ -16,18 +16,6 @@
           </div>
         </ion-header>
         <ion-content :scroll-y="false">
-          <ion-row>
-            <ion-col size="12" class="form-admin--group_field">
-              <ion-label class="font-bold font-size-xs" color="light"
-                >Add title</ion-label
-              >
-              <ion-input
-                color="light"
-                placeholder="Enter a issue title"
-                v-model="state.title"
-              ></ion-input>
-            </ion-col>
-          </ion-row>
           <div class="issues-panel__section issues-panel__select-equipment">
             <h2
               class="color-light-gray font-size-xs font-bold issues-panel__heading"
@@ -50,7 +38,19 @@
               </ion-select-option>
             </ion-select>
           </div>
-
+          <ion-row>
+            <ion-col size="12" class="form-admin--group_field">
+              <ion-label class="font-bold font-size-xs" color="light"
+                >Add title</ion-label
+              >
+              <ion-input
+                color="light"
+                class="font-size-xs"
+                placeholder="Enter title of issue"
+                v-model="state.title"
+              ></ion-input>
+            </ion-col>
+          </ion-row>
           <div class="issues-panel__section issues-panel__add-comment">
             <h2
               class="color-light-gray font-size-xs font-bold issues-panel__heading"
@@ -95,12 +95,14 @@ import {
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
-const spacesStore = useSpacesStore();
+import toastService from "@/services/toastService";
+import loadingService from "@/services/loadingService";
+import { publicAPI } from "@/axios";
 
+const spacesStore = useSpacesStore();
 const { devices } = storeToRefs(spacesStore);
 
-const props = defineProps(["handleReportIssue"]);
-console.log(props);
+const props = defineProps(["spaceId", "handleReportIssue"]);
 const state = reactive({
   title: "",
   comment: "",
@@ -114,6 +116,25 @@ const checkForInputs = () => {
     state.deviceId.length > 0
     ? (state.canSubmit = true)
     : (state.canSubmit = false);
+};
+
+const handleReportIssue = () => {
+  loadingService.show("Loading...");
+  publicAPI
+    .post(`/Issue/CreateIssue/${props.spaceId}`, {
+      title: state.title,
+      comment: state.comment,
+      deviceId: state.deviceId,
+    })
+    .then(() => {
+      handleReportIssue();
+    })
+    .catch((error) => {
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
 };
 </script>
 

@@ -50,7 +50,10 @@
       :breakpoints="[0, 1]"
       @willDismiss="state.reportIssueModalOpen = false"
     >
-      <report-issue-modal :handleReportIssue="handleReportIssue" />
+      <report-issue-modal
+        :spaceId="spaceId"
+        :handleReportIssue="handleReportIssue"
+      />
     </ion-modal>
   </ion-page>
 </template>
@@ -102,12 +105,6 @@ interface State {
   issues: IssueListItem[];
 }
 
-interface NewIssue {
-  title: string;
-  comment: string;
-  deviceId: string;
-}
-
 const props = defineProps<Props>();
 const state: State = reactive({
   issueModalOpen: false,
@@ -141,31 +138,15 @@ const hideToast = () => {
   state.toastData.toastOpen = false;
 };
 
-const handleReportIssue = (newIssue: NewIssue) => {
-  loadingService.show("Loading...");
-  publicAPI
-    .post(`/Issue/CreateIssue/${spaceId}`, {
-      title: newIssue.title,
-      comment: newIssue.comment,
-      deviceId: newIssue.deviceId,
-    })
-    .then(() => {
-      state.reportIssueModalOpen = false;
-      state.toastData = {
-        toastHeader: "Thank you",
-        toastMessage: "Your issue report has been sent",
-        toastStatus: "success",
-        toastOpen: true,
-      };
-      getIssues();
-    })
-    .catch((error) => {
-      state.issues = [];
-      toastService.show("Error", error, "error", "top");
-    })
-    .finally(() => {
-      loadingService.close();
-    });
+const handleReportIssue = () => {
+  state.reportIssueModalOpen = false;
+  state.toastData = {
+    toastHeader: "Thank you",
+    toastMessage: "Your issue report has been sent",
+    toastStatus: "success",
+    toastOpen: true,
+  };
+  getIssues();
 };
 
 const getIssues = () => {
