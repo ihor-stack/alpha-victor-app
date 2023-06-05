@@ -22,15 +22,15 @@ export const Spaces = defineStore("Spaces", {
   state: () => {
     return {
       currentSpace: {} as DetailedSpace,
-      currentSpaceId: "" as string | undefined,
+      currentId: "" as string | undefined,
       favouriteSpaces: [] as Space[],
       recentlyViewedSpaces: [] as Space[],
       devices: [] as Device[],
     };
   },
   actions: {
-    setCurrentSpaceId(newId: string) {
-      this.currentSpaceId = newId;
+    setcurrentId(newId: string) {
+      this.currentId = newId;
       cookies.set("spaceId", newId);
       return true;
     },
@@ -38,13 +38,11 @@ export const Spaces = defineStore("Spaces", {
       loadingService.show("Loading...");
       publicAPI
         .get<DetailedSpace>(
-          `/Space/${
-            id || this.currentSpaceId || cookies.get("spaceId")
-          }/Details`
+          `/Space/${id || this.currentId || cookies.get("spaceId")}/Details`
         )
         .then((response) => {
           this.currentSpace = response.data;
-          this.currentSpaceId = response.data.id;
+          this.currentId = response.data.id;
           cookies.set("spaceId", response.data.id || "");
         })
         .catch((error) => {
@@ -120,7 +118,7 @@ export const Spaces = defineStore("Spaces", {
       publicAPI
         .get<Device[]>(
           `/Space/${
-            spaceId || this.currentSpaceId || cookies.get("spaceId")
+            spaceId || this.currentId || cookies.get("spaceId")
           }/Devices`
         )
         .then((response) => {
@@ -133,5 +131,8 @@ export const Spaces = defineStore("Spaces", {
           loadingService.close();
         });
     },
+  },
+  getters: {
+    currentSpaceId: (state) => state.currentId || cookies.get("spaceId"),
   },
 });

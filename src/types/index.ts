@@ -257,7 +257,7 @@ export interface Space {
   spaceType: string;
   occupied: boolean;
   capacity: number;
-  photoPath: string;
+  imagePath: string;
   email?: string;
   phoneNumber?: string;
   article?: Article;
@@ -284,11 +284,11 @@ export interface DetailedSpace {
   roomTypes: SpaceDetailsRooms[];
   spaceFeatures: SpaceDetailsFeatures[];
   photos?: Photo[];
-  photoPath?: string;
+  imagePath?: string;
   documents: SpaceDetailsDocs[];
   occupied: boolean;
   location?: string;
-  issues?: Issue[];
+  issueCount?: number;
   announcementTitle?: string[];
   announcementText?: string[];
   wifiPassword?: string;

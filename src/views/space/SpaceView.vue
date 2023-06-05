@@ -31,7 +31,7 @@
         <div class="space-header">
           <div class="space-header__background">
             <img
-              :src="currentSpace.photoPath"
+              :src="currentSpace.imagePath"
               class="space-header__background__image"
             />
             <div class="space-header__background__gradient"></div>
