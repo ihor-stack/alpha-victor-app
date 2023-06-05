@@ -5,11 +5,11 @@
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label color="light">Logo</ion-label>
-          <CustomIonUploadInput :buttonText="'Select file'" :disabled="theme.logo ? true : false" @file-selected="onLogoSelected" />
+          <CustomIonUploadInput :buttonText="'Select file'" :disabled="theme.logo ? true : false" :selectedImage="theme.logo" @file-selected="onLogoSelected" @remove="onLogoRemoved"/>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Background image</ion-label>
-          <CustomIonUploadInput :buttonText="'Select file'" @file-selected="onBackgroundSelected" />
+          <ion-label color="light">Background image</ion-label> 
+          <CustomIonUploadInput :buttonText="'Select file'" :disabled="theme.backgroundImage ? true : false" :selectedImage="theme.backgroundImage" @file-selected="onBackgroundSelected" @remove="onBackgroundRemoved"/>
         </ion-col>
       </ion-row>
 
@@ -87,21 +87,27 @@ async function onFileSelected(file: File, isLogo: boolean) {
     const base64Payload = base64String.split(",")[1];
 
     if (isLogo) {
-      theme.value.logo = file.name;
       theme.value.logoFileName = file.name;
       theme.value.logoContentType = file.type;
       theme.value.logoBase64Payload = base64Payload;
     } else {
-      theme.value.backgroundImage = file.name;
-      // theme.value.backgroundFileName = file.name;
-      // theme.value.backgroundContentType = file.type;
-      // theme.value.backgroundBase64Payload = base64Payload;
+      theme.value.backgroundFileName = file.name;
+      theme.value.backgroundContentType = file.type;
+      theme.value.backgroundBase64Payload = base64Payload;
     }
   };
 }
 
 const onLogoSelected = (file: File) => onFileSelected(file, true);
 const onBackgroundSelected = (file: File) => onFileSelected(file, false);
+
+const onLogoRemoved = () => {
+  organisation.removeLogo()
+};
+
+const onBackgroundRemoved = () => {
+  organisation.removeBackgroundImage()
+};
 
 onBeforeMount(() => {
   organisation.getThemes()

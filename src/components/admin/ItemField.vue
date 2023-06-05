@@ -35,9 +35,8 @@
   </ion-item>
 </template>
 
-
 <script setup lang="ts">
-import { ref, defineProps, defineEmits, onBeforeMount, watch } from "vue";
+import { ref, defineProps, defineEmits, watch } from "vue";
 
 interface Props {
   modelValue: string;
@@ -63,8 +62,7 @@ const cancelEdit = () => {
 };
 
 const saveField = () => {
-  localData.value.name = currentField.value; 
-  emit("update:modelValue", localData.value); 
+  emit("update:modelValue", currentField.value);
   editMode.value = false;
 };
 
@@ -72,12 +70,12 @@ const removeField = () => {
   emit("remove", localData.value);
 };
 
-onBeforeMount(() => {
-  currentField.value = props.modelValue;
-});
-
-watch(props.data, (newVal) => {
-  localData.value = {...newVal};
+// This watcher updates the localData and currentField when props.data changes.
+watch(props.data, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    localData.value = {...newVal};
+    currentField.value = newVal.name;
+  }
 });
 </script>
 
@@ -86,6 +84,9 @@ watch(props.data, (newVal) => {
     border: 1px solid #313131;
     border-radius: 5px;
     margin: 20px 0;
+  }
+  ion-item:first-of-type {
+    margin-top: 0;
   }
   ion-input {
     background: var(--av-black);

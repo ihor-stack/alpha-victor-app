@@ -6,7 +6,7 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="Enter new Document Type"
+            placeholder="Enter new document type"
             :value="newDocument"
             @ionInput="newDocument = $event.target.value;">
           </ion-input>

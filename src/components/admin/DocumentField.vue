@@ -76,14 +76,14 @@ import {
 } from "@ionic/vue";
 import {adminDocuments} from '@/stores/adminDocumentTypes'
 import {createOutline, close} from 'ionicons/icons'
-import { ref } from "vue";
+import { ref } from "vue"
 
 const store = adminDocuments()
 interface Props {
   id: string;
   modelValue: string;
 }
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 defineEmits(['update:modelValue'])
 
 const active = ref(false)

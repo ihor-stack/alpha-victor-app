@@ -5,7 +5,7 @@
         <div class="button-container left bg-white">
           <button class="back-button" @click="cancel()">&#60;&#60; back</button>
           <div class="divider"></div>
-          <h1 class="title">Teams Room Decision Tree</h1>
+          <h1 class="title">{{ decisionTree.name }}</h1>
         </div>
         <div class="button-container right">
           <button class="button-action bg-white">

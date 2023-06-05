@@ -2,26 +2,33 @@
   <div>
     <ion-input :disabled="disabled" class="custom-ion-input">
       <div class="input">
-        <label for="file-upload">
+        <label :for="uniqueId">
           <img src="@/theme/icons/upload-blue.svg" class="file-upload--icon" />
           <span>{{ buttonText }}</span>
         </label>
         <input
-          id="file-upload"
+          :id="uniqueId"
           type="file"
           @change="handleFileUpload"
         />
       </div>
     </ion-input>
-    <div v-if="uploadedImage" class="uploaded-image">
+    <div v-if="uploadedImage" class="preview-image">
       <img :src="uploadedImage" :alt="imageName" />
+    </div>
+    <div v-if="selectedImage" class="preview-image">
+      <img :src="selectedImage" />
+      <div class="remove" @click="removeImage"><span>x</span></div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { IonInput } from "@ionic/vue";
-import { defineComponent, ref, PropType } from "vue";
+import { IonInput, IonIcon } from "@ionic/vue"
+import { defineComponent, ref, PropType } from "vue"
+import { close } from 'ionicons/icons'
+
+let idCounter = 0;
 
 export default defineComponent({
   name: "CustomIonUploadInput",
@@ -32,6 +39,9 @@ export default defineComponent({
     disabled: {
       type: Boolean
     },
+    selectedImage: {
+      type: String
+    },
     buttonText: {
       type: String,
       default: "Select file",
@@ -40,6 +50,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const uploadedImage = ref<string | null>(null);
     const imageName = ref<string | null>(null);
+    const uniqueId = 'file-upload-' + idCounter++;
 
     function handleFileUpload(event: Event) {
       const file = (event.target as HTMLInputElement).files?.[0];
@@ -50,17 +61,22 @@ export default defineComponent({
       }
     }
 
+    function removeImage() {
+      emit('remove');
+    }
+
     return {
       uploadedImage,
       imageName,
       handleFileUpload,
+      uniqueId,
+      removeImage
     };
   },
 });
 </script>
 
 <style scoped>
-
 .custom-ion-input {
   border: none;
   padding: 0;
@@ -83,7 +99,7 @@ ion-input input[type="file"] {
 }
 
 /* Style the custom button */
-ion-input label[for="file-upload"] {
+ion-input label {
   display: flex !important;
   align-items: center;
   padding: 12px 16px;
@@ -95,7 +111,7 @@ ion-input label[for="file-upload"] {
 }
 
 /* Optional: Style the custom button when hovering */
-ion-input label[for="file-upload"]:hover {
+ion-input label:hover {
   background-color: var(--av-black);
 }
 
@@ -110,16 +126,37 @@ ion-input label[for="file-upload"]:hover {
   margin-right: 20px;
 }
 
-.uploaded-image {
+.preview-image {
   border-radius: 10px;
   overflow: hidden;
   margin: 20px 0;
   width: 160px;
-  height: 160px;
+  height: 140px;
+  position: relative;
 }
 
-.uploaded-image img {
-  width: 200px;
-  height: auto;
+.preview-image img {
+  position: relative;
+  height: 100%;
+  object-fit: cover
+}
+
+.preview-image .remove {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: var(--av-red);
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.preview-image .remove:hover {
+  opacity: .5;
 }
 </style>

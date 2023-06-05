@@ -11,7 +11,7 @@
           :router-link="redirect(org.organisationId)"
           router-direction="root"
         >
-          <img v-if="org.logo" :src="org.logo" :alt="org.name" />
+          <div class="organisations-list-menu--logo"><img v-if="org.logo" :src="org.logo" :alt="org.name" /></div>
           <span class="link-text">{{ org.name }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
@@ -52,6 +52,17 @@ onBeforeMount(() => {
   padding: 0;
   margin: 0;
   list-style-type: none;
+}
+
+.organisations-list-menu--logo {
+  max-width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-right: 20px;
+}
+.organisations-list-menu--logo img {
+  object-fit: cover;
 }
 
 .organisations-list-menu-item ion-item {
