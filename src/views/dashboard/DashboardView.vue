@@ -45,9 +45,9 @@
       </ion-item>
     </ion-content>
     <ion-footer class="ion-no-border">
-      <ion-button expand="block" @click="exploreSpaces"
-        >Explore Spaces</ion-button
-      >
+      <router-link to="/find-space">
+        <ion-button expand="block">Explore Spaces</ion-button>
+      </router-link>
     </ion-footer>
     <ion-modal
       :is-open="state.modalOpen"
@@ -76,11 +76,9 @@ import AppHeader from "@/components/shared/AppHeader.vue";
 import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
 import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
-import { useRouter } from "vue-router";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
-const router = useRouter();
 const spacesStore = useSpacesStore();
 const organisationStore = useOrganisationStore();
 
@@ -94,10 +92,6 @@ const state: State = reactive({
 
 const handleDismiss = () => {
   state.modalOpen = false;
-};
-
-const exploreSpaces = () => {
-  router.push({ name: "FindSpace" });
 };
 
 const recentlyViewedSpaces = computed(

@@ -20,6 +20,7 @@ export const Organisations = defineStore("Organisations", {
   actions: {
     setId(newId: string) {
       this.currentOrganisationId = newId;
+      cookies.set("orgId", newId);
       return true;
     },
     async getOrganisations() {
