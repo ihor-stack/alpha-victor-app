@@ -1,7 +1,7 @@
 <template>
   <ion-content>
     <div class="locations-list">
-      <h2 class="list-title font-bold color-light-gray">Popular locations</h2>
+      <h2 class="list-title font-bold color-light-gray">Locations</h2>
       <ul class="list list--condensed">
         <router-link
           v-for="(location, index) in locations"
@@ -14,6 +14,9 @@
                 <p class="primaryText font-bold font-size-sm color-light-gray">
                   {{ location.name }}
                 </p>
+                <p class="font-mono font-size-xxs color-dark-gray">
+                  {{ location.city }}
+                </p>
               </div>
             </div>
             <span class="arrow-right"></span>
@@ -21,31 +24,11 @@
         </router-link>
       </ul>
     </div>
-
-    <div class="locations-list">
-      <h2 class="list-title font-bold color-light-gray">Other locations</h2>
-      <ul class="list list--condensed">
-        <li
-          v-for="(location, index) in otherLocations"
-          :key="index"
-          class="list-item"
-        >
-          <div class="list-item__info">
-            <div class="list-item__details">
-              <p class="primaryText font-bold font-size-sm color-light-gray">
-                {{ location }}
-              </p>
-            </div>
-          </div>
-          <span class="arrow-right"></span>
-        </li>
-      </ul>
-    </div>
   </ion-content>
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonContent, onIonViewDidEnter } from "@ionic/vue";
+import { IonContent } from "@ionic/vue";
 import { defineProps } from "vue";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { storeToRefs } from "pinia";
@@ -56,10 +39,6 @@ const props = defineProps(["searchTerm"]);
 const { locations } = storeToRefs(organisationStore);
 
 const otherLocations = ["Cardiff", "Glasgow"];
-
-onIonViewDidEnter(() => {
-  console.log("=======>", locations);
-});
 </script>
 
 <style scoped>

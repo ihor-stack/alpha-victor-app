@@ -65,7 +65,7 @@ const organisationStore = useOrganisationStore();
 const props = defineProps(["handleDismiss"]);
 
 const state = reactive({
-  organisation: organisationStore.currentOrganisationId,
+  organisation: organisationStore.getId,
 });
 
 const organisationName = computed(
