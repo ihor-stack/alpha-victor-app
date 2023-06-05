@@ -41,15 +41,15 @@ export interface Photo {
 export interface Issue {
   title: string;
   status: Status;
-  comment: string;
-  log: string[];
+  comments: { comment: string }[];
+  description: string;
+  actionHistory: { issueAction: number; updated: string }[];
 }
 
 export interface IssueListItem {
   title: string;
   status: Status;
-  issueId: string;
-  comment: string;
+  id: string;
 }
 
 export interface Typeform {

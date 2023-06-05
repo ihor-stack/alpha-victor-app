@@ -42,7 +42,7 @@
       :breakpoints="[0, 1]"
       @willDismiss="handleDismissIssueModal"
     >
-      <issues-modal :issue="state.selectedIssue" />
+      <issues-modal :spaceId="spaceId" :issueId="state.selectedIssue?.id" />
     </ion-modal>
     <ion-modal
       :is-open="state.reportIssueModalOpen"

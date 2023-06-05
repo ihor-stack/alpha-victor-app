@@ -4,44 +4,90 @@
       <div class="issues-panel-container">
         <ion-header>
           <div class="issues-panel__header">
-            <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">{{ props.issue.title }}</h1>
-            <p class="issues-panel__comment color-light-gray font-size-xs">{{ props.issue.comment }}</p>
+            <h1
+              class="issues-panel__title color-light-gray font-bold font-size-normal"
+            >
+              {{ state.issue.title }}
+            </h1>
+            <p class="issues-panel__comment color-light-gray font-size-xs">
+              {{ state.issue.description }}
+            </p>
           </div>
         </ion-header>
         <ion-content>
           <div class="issues-panel__section issues-panel__add-comment">
-            <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Add Comment</h2>
-            <ion-textarea class="issues-panel__add-comment__textarea" placeholder="Enter a comment here"></ion-textarea>
+            <h2
+              class="color-light-gray font-size-xs font-bold issues-panel__heading"
+            >
+              Add Comment
+            </h2>
+            <ion-textarea
+              class="issues-panel__add-comment__textarea"
+              placeholder="Enter a comment here"
+              v-model="state.comment"
+            ></ion-textarea>
           </div>
+          <ion-button
+            expand="block"
+            :disabled="state.comment?.length < 1"
+            @click="handleAddComment"
+            >Add comment</ion-button
+          >
 
-          <div class="issues-panel__section issues-panel__select-equipment">
-            <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Select Equipment</h2>
-            <ion-select interface="action-sheet" class="issues-panel__select-equipment__select" placeholder="Select equipment">
-              <ion-select-option value="wifi">WiFi</ion-select-option>
-              <ion-select-option value="computer">Computer</ion-select-option>
-            </ion-select>
-          </div>
-
-          <div class="issues-panel__section issues-panel__set-status">
-            <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Select Status</h2>
+          <div
+            class="issues-panel__section issues-panel__set-status"
+            v-if="false"
+          >
+            <h2
+              class="color-light-gray font-size-xs font-bold issues-panel__heading"
+            >
+              Select Status
+            </h2>
             <div class="issues-panel__status">
               <div class="issues-panel__status__radio">
-                <input type="radio" name="status" id="low-impact" :value="0" v-model="state.issue.status" />
-                <label for="low-impact" class="issues-panel__status__radio__label">
+                <input
+                  type="radio"
+                  name="status"
+                  id="low-impact"
+                  :value="0"
+                  v-model="state.issue.status"
+                />
+                <label
+                  for="low-impact"
+                  class="issues-panel__status__radio__label"
+                >
                   <span class="dot dot--low-impact"></span>
                   low.impact
                 </label>
               </div>
               <div class="issues-panel__status__radio">
-                <input type="radio" name="status" id="high-impact" :value="1" v-model="state.issue.status" />
-                <label for="high-impact" class="issues-panel__status__radio__label">
+                <input
+                  type="radio"
+                  name="status"
+                  id="high-impact"
+                  :value="1"
+                  v-model="state.issue.status"
+                />
+                <label
+                  for="high-impact"
+                  class="issues-panel__status__radio__label"
+                >
                   <span class="dot dot--high-impact"></span>
                   high.impact
                 </label>
               </div>
               <div class="issues-panel__status__radio">
-                <input type="radio" name="status" id="resolved" :value="2" v-model="state.issue.status" />
-                <label for="resolved" class="issues-panel__status__radio__label">
+                <input
+                  type="radio"
+                  name="status"
+                  id="resolved"
+                  :value="2"
+                  v-model="state.issue.status"
+                />
+                <label
+                  for="resolved"
+                  class="issues-panel__status__radio__label"
+                >
                   <span class="dot dot--resolved"></span>
                   resolved
                 </label>
@@ -50,41 +96,102 @@
           </div>
 
           <div class="issues-panel__log">
-            <h3 class="issues-panel__log__heading font-mono color-light-gray font-size-xxs">status</h3>
+            <h3
+              class="issues-panel__log__heading font-mono color-light-gray font-size-xxs"
+            >
+              status
+            </h3>
 
             <ul class="issues-panel__log__list">
-              <li class="issues-panel__log__list__item" v-for="(log, index) in state.issue.log" :key="index">
-                <p class="issues-panel__log__list__item__text color-light-gray font-size-xs font-regular">{{ log }}</p>
-                <p class="issues-panel__log__list__item__logged color-dark-gray font-mono font-size-xxs">14.minutes.ago</p>
+              <li
+                class="issues-panel__log__list__item"
+                v-for="(log, index) in state.issue.actionHistory"
+                :key="index"
+              >
+                <p
+                  class="issues-panel__log__list__item__text color-light-gray font-size-xs font-regular"
+                >
+                  {{ log.issueAction }}
+                </p>
+                <p
+                  class="issues-panel__log__list__item__logged color-dark-gray font-mono font-size-xxs"
+                >
+                  {{ getAgoTime(log.updated) }}
+                </p>
               </li>
             </ul>
           </div>
         </ion-content>
-        <ion-footer>
-          <ion-button expand="block">Submit Issue</ion-button>
-        </ion-footer>
+        <ion-footer> </ion-footer>
       </div>
     </div>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { reactive, defineProps } from "vue";
-import { 
-  IonPage, 
+import { reactive, defineProps, onBeforeMount } from "vue";
+import moment from "moment";
+import {
+  IonPage,
   IonContent,
   IonHeader,
   IonFooter,
-  IonSelect, 
-  IonSelectOption, 
-  IonTextarea, 
-  IonButton 
+  IonTextarea,
+  IonButton,
 } from "@ionic/vue";
-const props = defineProps(
-  ['issue'],
-);
-const state = reactive({
-  issue: props.issue
+import toastService from "@/services/toastService";
+import loadingService from "@/services/loadingService";
+import { publicAPI } from "@/axios";
+import { Issue } from "@/types";
+
+interface State {
+  issue: Issue;
+  comment: string;
+}
+
+const props = defineProps(["issueId", "spaceId"]);
+const state: State = reactive({
+  issue: {} as Issue,
+  comment: "",
+});
+
+const getAgoTime = (date: string) => {
+  return moment(date).fromNow();
+};
+
+const handleAddComment = () => {
+  loadingService.show("Loading...");
+  publicAPI
+    .post(`/Issue/AddIssueComment/${props.issueId}`, {
+      comment: state.comment,
+    })
+    .then(() => {
+      getIssueDetails();
+    })
+    .catch((error) => {
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
+};
+
+const getIssueDetails = () => {
+  loadingService.show("Loading...");
+  publicAPI
+    .get(`/Issue/${props.spaceId}/Issue/${props.issueId}`)
+    .then((res) => {
+      state.issue = res.data;
+    })
+    .catch((error) => {
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
+};
+onBeforeMount(() => {
+  getIssueDetails();
 });
 </script>
 
@@ -173,7 +280,7 @@ ion-content::part(background) {
   border: 0.75px solid #313131;
   border-radius: 100px;
   padding: 4px;
-  font-family: 'Akkurat-Mono';
+  font-family: "Akkurat-Mono";
   font-size: 10px;
   line-height: 10px;
   letter-spacing: 0.015em;
@@ -185,8 +292,12 @@ ion-content::part(background) {
 }
 
 .issues-panel__status__radio input:checked ~ label {
-  border: 0.75px solid #FFFFFF;
-  color: #FFFFFF;
+  border: 0.75px solid #ffffff;
+  color: #ffffff;
+}
+
+.issues-panel__log {
+  margin-top: 20px;
 }
 
 .issues-panel__log__heading {
