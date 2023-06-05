@@ -52,7 +52,7 @@
             </ion-content>
             <ion-footer>
                 <ion-button 
-                class="font-size-sm text-lowercase"
+                class="font-size-sm"
                 expand="block"
                 @click="saveNewLocation()">
                 Add new location +

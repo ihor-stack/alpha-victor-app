@@ -71,6 +71,15 @@
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
       </li>
+      <li class="organisation-options-menu-item">
+        <ion-item
+          v-if="locations.length < 1"
+          router-direction="root"
+        >
+          <NewLocationModal />
+          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+        </ion-item>
+      </li>
     </ul>
     <div class="delete-div">
       <DeleteOrganisationModal />
@@ -88,6 +97,7 @@ import { storeToRefs } from "pinia";
 import { useCookies } from "vue3-cookies";
 import { useRoute } from "vue-router";
 import DeleteOrganisationModal from '@/components/modals/DeleteOrganisationModal.vue'
+import NewLocationModal from '@/components/modals/NewLocationModal.vue'
 
 const { cookies } = useCookies();
 const route = useRoute();

@@ -25,7 +25,6 @@
                 <ion-button class="button-wide" @click="Floor.updateFloor(floor.id)">
                     Save floor
                 </ion-button>
-                <NewFloorModal />
             </ion-col>
             
             <hr class="form-admin--divider" />
@@ -72,7 +71,6 @@ import { storeToRefs } from "pinia";
 import { onBeforeMount } from "vue";
 import { chevronForwardOutline } from 'ionicons/icons';
 import { useCookies } from "vue3-cookies";
-import NewFloorModal from '@/components/modals/NewFloorModal.vue'
 import NewSpaceModal from '@/components/modals/NewSpaceModal.vue'
 
 const { cookies } = useCookies();
