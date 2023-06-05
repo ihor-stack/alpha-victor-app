@@ -73,9 +73,7 @@
       </li>
     </ul>
     <div class="delete-div">
-      <ion-button class="delete-button font-size-sm text-lowercase" color="red">
-        Delete organisation
-      </ion-button>
+      <DeleteOrganisationModal />
     </div>
   </div>
 </template>
@@ -89,6 +87,7 @@ import { Locations } from "@/stores/adminLocations";
 import { storeToRefs } from "pinia";
 import { useCookies } from "vue3-cookies";
 import { useRoute } from "vue-router";
+import DeleteOrganisationModal from '@/components/modals/DeleteOrganisationModal.vue'
 
 const { cookies } = useCookies();
 const route = useRoute();
@@ -119,13 +118,6 @@ onBeforeMount(() => {
 <style scoped>
 /* check why the button can only change color to red 
 if both back ground color on style and color="red" are used together */
-.delete-button {
-  background-color: var(--av-red);
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  border-radius: 8px;
-}
 .delete-div {
   height: 322px;
   position: relative;

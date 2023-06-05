@@ -1,6 +1,6 @@
 <template>
     <ion-grid class="form-admin">
-        <h1 class="title-admin font-bold font-size-lg color-light-gray">First Floor</h1>
+        <h1 class="title-admin font-bold font-size-lg color-light-gray">{{ floor.name }}</h1>
         <ion-row class="form-admin--group">
             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                 <ion-label color="light">Floor name</ion-label>
@@ -22,9 +22,10 @@
             </ion-col>
 
             <ion-col size-xs="12" class="button-pair">
-                <ion-button class="button-wide" @click="Floor.saveFloor(floor.id)">
+                <ion-button class="button-wide" @click="Floor.updateFloor(floor.id)">
                     Save floor
                 </ion-button>
+                <NewFloorModal />
             </ion-col>
             
             <hr class="form-admin--divider" />
@@ -46,11 +47,9 @@
                 </ion-item>
             </ion-col>
             
-            <!-- <ion-col size-xs="12" class="button-pair">
-                <ion-button class="button-wide">
-                    Add new space +
-                </ion-button>
-            </ion-col> -->
+            <ion-col size-xs="12" class="button-pair">
+                <NewSpaceModal />
+            </ion-col>
         </ion-row>
     </ion-grid>
     
@@ -68,11 +67,13 @@ import {
     IonButton
 } from "@ionic/vue";
 //import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
-import {Floors} from '@/stores/adminFloors'
+import { Floors } from '@/stores/adminFloors'
 import { storeToRefs } from "pinia";
 import { onBeforeMount } from "vue";
 import { chevronForwardOutline } from 'ionicons/icons';
 import { useCookies } from "vue3-cookies";
+import NewFloorModal from '@/components/modals/NewFloorModal.vue'
+import NewSpaceModal from '@/components/modals/NewSpaceModal.vue'
 
 const { cookies } = useCookies();
 const Floor = Floors()

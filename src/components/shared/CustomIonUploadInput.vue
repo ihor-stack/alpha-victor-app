@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ion-input class="custom-ion-input">
+    <ion-input :disabled="disabled" class="custom-ion-input">
       <div class="input">
         <label for="file-upload">
           <img src="@/theme/icons/upload-blue.svg" class="file-upload--icon" />
@@ -23,22 +23,21 @@
 import { IonInput } from "@ionic/vue";
 import { defineComponent, ref, PropType } from "vue";
 
-interface CustomIonInputProps {
-  buttonText?: string;
-}
-
 export default defineComponent({
   name: "CustomIonUploadInput",
   components: {
     IonInput,
   },
   props: {
+    disabled: {
+      type: Boolean
+    },
     buttonText: {
       type: String,
       default: "Select file",
     }
   },
-  setup(props: CustomIonInputProps) {
+  setup(props, { emit }) {
     const uploadedImage = ref<string | null>(null);
     const imageName = ref<string | null>(null);
 
@@ -47,6 +46,7 @@ export default defineComponent({
       if (file) {
         uploadedImage.value = URL.createObjectURL(file);
         imageName.value = file.name;
+        emit('file-selected', file); // Emitting event to parent
       }
     }
 

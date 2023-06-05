@@ -10,8 +10,8 @@
     :initial-breakpoint="0.8" 
     :breakpoints="[0, 0.8]">
       <ion-page>
-        <div class="issues-panel">
-          <div class="issues-panel-container">
+        <div class="modal-panel">
+          <div class="modal-panel-container">
             <ion-header>
               <ion-icon 
               color='light' 
@@ -19,38 +19,22 @@
               size="small" 
               class="close-button" 
               @click="modalOpen = false"/>
-              <div class="issues-panel__header">
-                <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
+              <div class="modal-panel__header">
+                <h1 class="modal-panel__title color-light-gray font-bold font-size-normal">
                   Add New Photo
                 </h1>
               </div>
             </ion-header>
             <ion-content :scroll-y="false" class="form-admin--group_field">
-              <div class="issues-panel__section issues-panel__select-equipment">
-                <ion-input
-                  class="font-size-sm"
-                  color="light"
-                  :disabled="true"
-                >
-                <div>
-                  <input
-                    class="file-input"
-                    type="file"
-                    accept="*/"
-                    :v-model="image"
-                    @change="uploadFile" 
-                  />
-                </div>
-                </ion-input>
-                <ion-label color="light">Featured Photo</ion-label>
-                <ion-toggle :checked="featured" />
-              </div>
+              <CustomIonUploadInput :buttonText="'Select file'" @file-selected="onFileSelected" />
+              <ion-label color="light">Featured Photo</ion-label>
+              <ion-toggle :checked="featured" />
             </ion-content>
             <ion-footer>
               <ion-button 
-              class="font-size-sm text-lowercase"
+              class="font-size-sm"
               expand="block"
-              @click="saveNewPhoto()">
+              @click="Space.addSpacesPhoto()">
                 Save
               </ion-button>
             </ion-footer>
@@ -76,8 +60,9 @@ import {
   IonLabel
 } from "@ionic/vue";
 import {close} from 'ionicons/icons'
-import {Organisations} from '@/stores/adminOrganisations'
-import {Spaces} from '@/stores/adminSpaces'
+import { Organisations } from '@/stores/adminOrganisations'
+import { Spaces } from '@/stores/adminSpaces'
+import CustomIonUploadInput from "@/components/shared/CustomIonUploadInput.vue";
 
 import {addOutline} from 'ionicons/icons'
 import { storeToRefs } from "pinia";
@@ -85,48 +70,28 @@ import { SelectItem } from "@/types";
 
 const Org = Organisations()
 const Space = Spaces()
-const selectedDocType = ref({} as SelectItem) 
+const { photo } = storeToRefs(Space)
 
 const modalOpen = ref(false)
+
 const handleDismiss = () => {
   modalOpen.value = false;
 };
-const featured = ref(false as boolean )
-const image = ref()
-const uploadedPhoto = ref()
-const fileName = computed(() => uploadedPhoto.value?.name);
-const fileExtension = computed(() => fileName.value?.substr(fileName.value?.lastIndexOf(".") + 0));
-const fileMimeType = computed(() => uploadedPhoto.value?.type);
-const uploadFile = (event: any) => {
-  uploadedPhoto.value = event.target.files[0];
-};
-const saveNewPhoto = () => {
-  const reader = new FileReader();
-  reader.readAsDataURL(uploadedPhoto.value);
-  reader.onload = async () => {
-    if (typeof reader.result === 'string') {
-      const encodedFile = reader.result?.split(",")[1];
-      uploadedPhoto.value.logo = fileName.value
-      uploadedPhoto.value.logoFileName = fileName.value
-      uploadedPhoto.value.logoContentType = fileExtension.value
-      uploadedPhoto.value.logoBase64Payload = encodedFile
 
-      const data = {
-        base64Payload: encodedFile,
-        fileName: fileName.value,
-        contentType: fileMimeType.value,
-        order: '0',
-        featuredPhoto: featured.value
-      }
-      try {
-        Space.addSpacesPhoto(data)
-        return data;
-      }
-      catch (error) {
-        console.error(error);
-      }
-    }
-  }
+const featured = ref(false as boolean )
+
+async function onFileSelected(file: File, isLogo: boolean) {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => {
+    const base64String = reader.result as string;
+    const base64Payload = base64String.split(",")[1];
+
+    photo.value.fileName = file.name;
+    photo.value.contentType = file.type;
+    photo.value.base64Payload = base64Payload;
+    photo.value.order = 0;
+  };
 }
 
 onBeforeMount(()=>{
@@ -146,7 +111,7 @@ width: 20px;
 margin-left: 95%;
 cursor: pointer;
 }
-.issues-panel {
+.modal-panel {
 height: 60%;
 width: 60%;
 margin-left: 20%;
@@ -158,7 +123,7 @@ justify-content: flex-start;
 background-color: #181818;
 }
 
-.issues-panel-container {
+.modal-panel-container {
 position: relative;
 height: 100%;
 background-color: #181818;
@@ -168,15 +133,15 @@ flex-direction: column;
 padding: 45px 32px 32px;
 }
 
-.issues-panel__header {
+.modal-panel__header {
 margin-bottom: 20px;
 }
 
-.issues-panel__title {
+.modal-panel__title {
 margin-bottom: 12px;
 }
 
-.issues-panel__section {
+.modal-panel__section {
 margin-bottom: 20px;
 }
 

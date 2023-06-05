@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import { adminAPI } from "@/axios";
 import { publicAPI } from "@/axios";
+import router from '@/router';
+
 import {
   AdminOrganisation,
   OrgDetails,
@@ -23,6 +25,7 @@ export const Organisations = defineStore("Organisations", {
   state: () => {
     return {
       organisationList: [] as AdminOrganisation[],
+      newOrganisationDetails: {} as NewOrgDetails,
       organisationDetails: {} as OrgDetails,
       currentOrg: "" as string,
       formattedOrgSelect: [] as SelectItem[],
@@ -41,18 +44,48 @@ export const Organisations = defineStore("Organisations", {
       cookies.set("orgId", newId);
       return true;
     },
+
+    async saveOrganisation() {
+      const newOrg = this.newOrganisationDetails;
+      loadingService.show("Loading...");
+      adminAPI
+        .post("/Organisation/Details", {
+          name: newOrg.name
+        }
+      )
+      .then(() => {
+        loadingService.close();
+        toastService.show(
+          "Success",
+          "New organisation added",
+          "success",
+          "top"
+        );
+        this.getOrganisations()
+      })
+      .catch((error) => {
+        toastService.show("Error", error, "error", "top");
+      });
+    },
+
     async getOrganisations() {
       loadingService.show("Loading...");
       publicAPI
         .get<AdminOrganisation[]>("/Organisation/")
         .then((response) => {
-          this.organisationList = response.data;
+          if (response.data) {
+            if (Array.isArray(response.data)) {
+                response.data.sort((a, b) => a.name.localeCompare(b.name));
+            }
+            this.organisationList = response.data;
+          }
           loadingService.close();
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
+
     async getOrgDetails(id = cookies.get("orgId")) {
       loadingService.show("Loading...");
       adminAPI
@@ -67,6 +100,7 @@ export const Organisations = defineStore("Organisations", {
           loadingService.close();
         });
     },
+
     async updateOrgDetails(languageIndex: number) {
       const editedOrg = this.organisationDetails;
       loadingService.show("Loading...");
@@ -99,13 +133,24 @@ export const Organisations = defineStore("Organisations", {
           toastService.show("Error", error, "error", "top");
         });
     },
-    async removeOrganisation() {
+
+    async deleteOrganisation() {
       adminAPI
         .delete("/Organisation/" + cookies.get("orgId"))
+        .then(() => {
+          toastService.show(
+            "Success",
+            "Organisation deleted successfully",
+            "success",
+            "top"
+          );
+          router.push('/admin/organisations');
+        })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
+
     async getOrgsSelectItem() {
       adminAPI
         .get<AdminOrganisation[]>("/Organisation")
@@ -125,9 +170,9 @@ export const Organisations = defineStore("Organisations", {
           toastService.show("Error", error, "error", "top");
         });
     },
+
     async getOrgDocumentTypes() {
       loadingService.show("Loading...");
-
       adminAPI
         .get<AdminDocument[]>(
           "/Organisation/" + cookies.get("orgId") + "/DocumentTypes"
@@ -148,6 +193,7 @@ export const Organisations = defineStore("Organisations", {
           toastService.show("Error", error, "error", "top");
         });
     },
+
     async getDecisionDetails(decisionTreeId: string) {
       loadingService.show("Loading...");
       adminAPI

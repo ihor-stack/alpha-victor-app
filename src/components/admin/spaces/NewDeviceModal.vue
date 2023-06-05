@@ -10,8 +10,8 @@
       :breakpoints="[0, 1]"
     >
       <ion-page>
-        <div class="issues-panel">
-          <div class="issues-panel-container">
+        <div class="modal-panel">
+          <div class="modal-panel-container">
             <ion-header>
               <ion-icon
                 color="light"
@@ -20,9 +20,9 @@
                 class="close-button"
                 @click="modalOpen = false"
               />
-              <div class="issues-panel__header">
+              <div class="modal-panel__header">
                 <h1
-                  class="issues-panel__title color-light-gray font-bold font-size-normal"
+                  class="modal-panel__title color-light-gray font-bold font-size-normal"
                 >
                   Add New Device
                 </h1>
@@ -193,7 +193,7 @@ ion-button {
   margin-left: 95%;
   cursor: pointer;
 }
-.issues-panel {
+.modal-panel {
   height: 90%;
   border-radius: 40px 40px 40px 40px;
   overflow: hidden;
@@ -203,7 +203,7 @@ ion-button {
   background-color: #181818;
 }
 
-.issues-panel-container {
+.modal-panel-container {
   position: relative;
   height: 100%;
   background-color: #181818;
@@ -213,15 +213,15 @@ ion-button {
   padding: 45px 32px 32px;
 }
 
-.issues-panel__header {
+.modal-panel__header {
   margin-bottom: 20px;
 }
 
-.issues-panel__title {
+.modal-panel__title {
   margin-bottom: 12px;
 }
 
-.issues-panel__section {
+.modal-panel__section {
   margin-bottom: 20px;
 }
 </style>

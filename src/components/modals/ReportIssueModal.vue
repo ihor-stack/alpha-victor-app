@@ -1,25 +1,25 @@
 <template>
   <ion-page>
-    <div class="issues-panel">
-      <div class="issues-panel-container">
+    <div class="modal-panel">
+      <div class="modal-panel-container">
         <ion-header>
-          <div class="issues-panel__header">
-            <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">Report Issue</h1>
-            <p class="issues-panel__comment color-light-gray font-size-xs">Please provide details on the issue you're facing, and which equipment</p>
+          <div class="modal-panel__header">
+            <h1 class="modal-panel__title color-light-gray font-bold font-size-normal">Report Issue</h1>
+            <p class="modal-panel__comment color-light-gray font-size-sm">Please provide details on the issue you're facing, and which equipment</p>
           </div>
         </ion-header>
         <ion-content :scroll-y="false">
-          <div class="issues-panel__section issues-panel__select-equipment">
-            <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Select Equipment</h2>
-            <ion-select interface="action-sheet" class="issues-panel__select-equipment__select" placeholder="Select equipment" v-model="state.equipment" @ion-change="checkForInputs">
+          <div class="modal-panel__section modal-panel__select-equipment">
+            <h2 class="color-light-gray font-size-xs font-bold modal-panel__heading">Select Equipment</h2>
+            <ion-select interface="action-sheet" class="modal-panel__select-equipment__select" placeholder="Select equipment" v-model="state.equipment" @ion-change="checkForInputs">
               <ion-select-option value="wifi">WiFi</ion-select-option>
               <ion-select-option value="computer">Computer</ion-select-option>
             </ion-select>
           </div>
 
-          <div class="issues-panel__section issues-panel__add-comment">
-            <h2 class="color-light-gray font-size-xs font-bold issues-panel__heading">Add Comment</h2>
-            <ion-textarea class="issues-panel__add-comment__textarea" placeholder="Enter a comment here" v-model="state.comment" helper-text="Helper Text" @ion-change="checkForInputs"></ion-textarea>
+          <div class="modal-panel__section modal-panel__add-comment">
+            <h2 class="color-light-gray font-size-xs font-bold modal-panel__heading">Add Comment</h2>
+            <ion-textarea class="modal-panel__add-comment__textarea" placeholder="Enter a comment here" v-model="state.comment" helper-text="Helper Text" @ion-change="checkForInputs"></ion-textarea>
           </div>
         </ion-content>
         <ion-footer>
@@ -63,7 +63,7 @@ ion-content::part(background) {
   background: #181818;
 }
 
-.issues-panel {
+.modal-panel {
   height: 100%;
   border-radius: 40px 40px 0px 0px;
   overflow: hidden;
@@ -73,7 +73,7 @@ ion-content::part(background) {
   background-color: #181818;
 }
 
-.issues-panel-container {
+.modal-panel-container {
   position: relative;
   height: 100%;
   background-color: #181818;
@@ -83,23 +83,23 @@ ion-content::part(background) {
   padding: 45px 32px 32px;
 }
 
-.issues-panel__header {
+.modal-panel__header {
   margin-bottom: 20px;
 }
 
-.issues-panel__title {
+.modal-panel__title {
   margin-bottom: 12px;
 }
 
-.issues-panel__section {
+.modal-panel__section {
   margin-bottom: 20px;
 }
 
-.issues-panel__heading {
+.modal-panel__heading {
   margin-bottom: 5px;
 }
 
-.issues-panel__add-comment__textarea {
+.modal-panel__add-comment__textarea {
   appearance: none;
   resize: none;
   background: none;
@@ -113,7 +113,7 @@ ion-content::part(background) {
   line-height: 16px;
 }
 
-.issues-panel__select-equipment__select {
+.modal-panel__select-equipment__select {
   appearance: none;
   background: none;
   border: 0.75px solid #313131;
@@ -125,16 +125,16 @@ ion-content::part(background) {
   line-height: 16px;
 }
 
-.issues-panel__status {
+.modal-panel__status {
   display: flex;
   justify-content: space-between;
 }
 
-.issues-panel__status__radio input {
+.modal-panel__status__radio input {
   appearance: none;
 }
 
-.issues-panel__status__radio label {
+.modal-panel__status__radio label {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -150,32 +150,32 @@ ion-content::part(background) {
   color: #313131;
 }
 
-.issues-panel__status__radio label .dot {
+.modal-panel__status__radio label .dot {
   margin-right: 4px;
 }
 
-.issues-panel__status__radio input:checked ~ label {
+.modal-panel__status__radio input:checked ~ label {
   border: 0.75px solid #FFFFFF;
   color: #FFFFFF;
 }
 
-.issues-panel__log__heading {
+.modal-panel__log__heading {
   padding-bottom: 8px;
   border-bottom: 0.75px solid #313131;
   margin-bottom: 18px;
 }
 
-.issues-panel__log__list {
+.modal-panel__log__list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.issues-panel__log__list__item {
+.modal-panel__log__list__item {
   margin-bottom: 20px;
 }
 
-.issues-panel__log__list__item p:last-of-type {
+.modal-panel__log__list__item p:last-of-type {
   margin-left: 6px;
 }
 </style>

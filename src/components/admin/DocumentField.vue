@@ -19,8 +19,8 @@
     :initial-breakpoint="0.8" 
     :breakpoints="[0, 0.9]">
       <ion-page>
-      <div class="issues-panel">
-          <div class="issues-panel-container">
+      <div class="modal-panel">
+          <div class="modal-panel-container">
           <ion-header>
               <ion-icon 
               color='light' 
@@ -28,8 +28,8 @@
               size="small" 
               class="close-button" 
               @click="active = false"/>
-              <div class="issues-panel__header">
-              <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
+              <div class="modal-panel__header">
+              <h1 class="modal-panel__title color-light-gray font-bold font-size-normal">
                 Edit Document Type
               </h1>
               <ion-input
@@ -124,7 +124,7 @@ ion-content::part(background) {
     margin-left: 95%;
     cursor: pointer;
 }
-.issues-panel {
+.modal-panel {
   height: 40%;
   width: 70%;
   margin-left: 15%;
@@ -136,7 +136,7 @@ ion-content::part(background) {
   background-color: #181818;
 }
 
-.issues-panel-container {
+.modal-panel-container {
   position: relative;
   height: 100%;
   background-color: #181818;
@@ -146,11 +146,11 @@ ion-content::part(background) {
   padding: 45px 32px 32px;
 }
 
-.issues-panel__header {
+.modal-panel__header {
   margin-bottom: 20px;
 }
 
-.issues-panel__title {
+.modal-panel__title {
   margin-bottom: 12px;
 }
 

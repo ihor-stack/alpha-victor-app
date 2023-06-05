@@ -3,6 +3,7 @@ import { adminAPI } from "@/axios";
 import {
   Location,
   NavLocation,
+  NewLocDetails,
   Navigation,
   SingleLocation,
 } from "@/types/index";
@@ -17,6 +18,7 @@ export const Locations = defineStore("Locations", {
     return {
       locations: [] as NavLocation[],
       navigationTree: [{}] as Navigation[],
+      newLocationDetails: {} as NewLocDetails,
       location: {
         id: "",
         name: "",
@@ -45,27 +47,50 @@ export const Locations = defineStore("Locations", {
         });
     },
 
-    async saveLocation(edit: Location) {
+    // async saveLocation(edit: Location) {
+    //   adminAPI
+    //     .post("/Location/" + cookies.get("orgId"), {
+    //       name: "string",
+    //       prefix: "string",
+    //       mainContactName: "string",
+    //       email: "string",
+    //       phone: "string",
+    //       sosNumber: "string",
+    //       wifiSsid: "string",
+    //       wifiPassword: "string",
+    //       postcode: "string",
+    //       city: "string",
+    //       addressLines: ["string"],
+    //     })
+    //     .then(() => {
+    //       this.getLocations();
+    //     })
+    //     .catch((error) => {
+    //       toastService.show("Error", error, "error", "top");
+    //     });
+    // },
+
+    async saveLocation() {
+      const newLocation = this.newLocationDetails;
+      loadingService.show("Loading...");
       adminAPI
-        .post("/Location/" + cookies.get("orgId"), {
-          name: "string",
-          prefix: "string",
-          mainContactName: "string",
-          email: "string",
-          phone: "string",
-          sosNumber: "string",
-          wifiSsid: "string",
-          wifiPassword: "string",
-          postcode: "string",
-          city: "string",
-          addressLines: ["string"],
-        })
-        .then(() => {
-          this.getLocations();
-        })
-        .catch((error) => {
-          toastService.show("Error", error, "error", "top");
-        });
+        .post("/Location?organisationId=" + cookies.get("orgId"), {
+          name: newLocation.name,
+          prefix: newLocation.prefix,
+        }
+      )
+      .then(() => {
+        loadingService.close();
+        toastService.show(
+          "Success",
+          "New location added",
+          "success",
+          "top"
+        );
+      })
+      .catch((error) => {
+        toastService.show("Error", error, "error", "top");
+      });
     },
 
     async removeLocation(id: string) {
@@ -102,6 +127,7 @@ export const Locations = defineStore("Locations", {
             "success",
             "top"
           );
+          this.getNavigationTree()
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
