@@ -5,6 +5,7 @@ import {
   SelectItem,
   SingleFloor,
   Device,
+  NewSpaceDetails,
   SpecificFloor,
   SpaceBeacon,
   SpaceWifi,
@@ -15,6 +16,8 @@ import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 
+import { Locations } from './adminLocations';
+
 const { cookies } = useCookies();
 
 export const Spaces = defineStore("Spaces", {
@@ -24,8 +27,10 @@ export const Spaces = defineStore("Spaces", {
       currentSpace: "" as string,
       formattedSelect: [] as SelectItem[],
       roomTypeSelected: {} as SelectItem,
+      newSpaceDetails: {} as NewSpaceDetails,
       qrCode: "" as string,
       devices: [] as Device[],
+      photo: {} as NewPhoto,
       beacons: [] as SpaceBeacon[],
       wifi: {} as SpaceWifi,
     };
@@ -68,6 +73,31 @@ export const Spaces = defineStore("Spaces", {
     },
 
     async saveSpace() {
+      const newSpace = this.newSpaceDetails;
+      loadingService.show("Loading...");
+      adminAPI
+        .post('/Space?floorId=' + cookies.get('floorId'), {
+          spaceName: newSpace.spaceName,
+          shortCode: newSpace.shortCode,
+        }
+      )
+      .then(() => {
+        loadingService.close();
+        toastService.show(
+          "Success",
+          "New space added",
+          "success",
+          "top"
+        );
+        const locationsStore = Locations();
+        locationsStore.getNavigationTree();
+      })
+      .catch((error) => {
+        toastService.show("Error", error, "error", "top");
+      });
+    },
+
+    async updateSpace() {
       loadingService.show("Loading...");
       adminAPI
         .post("/Space/" + cookies.get("spaceId"), {
@@ -298,7 +328,15 @@ export const Spaces = defineStore("Spaces", {
       const photoQuery = `?photoId=${photoId}`;
       adminAPI
         .delete("/Photo" + photoQuery)
-        .then((response) => this.getSpaceDetails())
+        .then(() => {
+          toastService.show(
+            "Success",
+            "Photo deleted successfully",
+            "success",
+            "top"
+          );
+          this.getSpaceDetails()
+        })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
@@ -324,7 +362,15 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async addSpacesPhoto(newPhoto: NewPhoto) {
+    async addSpacesPhoto() {
+      const newPhoto = {
+        base64Payload: this.photo.base64Payload,
+        contentType: this.photo.contentType,
+        fileName: this.photo.fileName,
+        order: this.photo.order,
+        featuredPhoto: this.photo.featuredPhoto,
+      };
+
       adminAPI
         .post("/Photo?spaceId=" + cookies.get("spaceId"), newPhoto)
         .then(() => this.getSpaceDetails())

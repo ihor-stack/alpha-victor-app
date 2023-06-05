@@ -117,37 +117,8 @@
           <PhotoModal />
         </ion-col>
       </ion-row>
-
-      <ion-row class="form-admin--group_field">
-        <ion-col
-          size-xs="12"
-          size-md="6"
-          class="form-admin--group_field"
-          v-for="photo in space.photos"
-          v-bind:key="photo.id"
-        >
-          <ion-item
-            button
-            class="form-admin--group_field-item rev-margin ion-no-padding"
-          >
-            <ion-thumbnail slot="start">
-              <img alt="Photo" :src="photo.path" />
-            </ion-thumbnail>
-            <ion-label color="light">
-              {{ photo.name }}
-            </ion-label>
-            <ion-button
-              class="button-red text-lowercase"
-              slot="end"
-              fill="clear"
-              size="small"
-              @click="removePhoto(photo.id)"
-            >
-              &gt;&gt; remove
-            </ion-button>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+ 
+      <ImageGallery :images="space.photos" @image-removed="handleImageRemoved" />
 
       <!-- <hr class="form-admin--divider" />
 
@@ -198,7 +169,7 @@
       </ul>
     </ion-grid>
     <div class="button-pair">
-      <ion-button class="button-wide" @click="Space.saveSpace()">
+      <ion-button class="button-wide" @click="Space.updateSpace()">
         Save changes
       </ion-button>
       <ion-button class="button-wide button-red button-outline" color="red">
@@ -234,6 +205,7 @@ import { onBeforeMount, ref } from "vue";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import DocumentModal from "@/components/admin/spaces/DocumentModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
+import ImageGallery from "@/components/shared/ImageGallery.vue";
 
 const { cookies } = useCookies();
 const Space = Spaces();
@@ -258,7 +230,7 @@ const redirect = (route: string) => {
   }
 };
 
-const removePhoto = (photoId: string) => {
+const handleImageRemoved = (photoId: string) => {
   Space.deleteSpacesPhoto(photoId);
 };
 

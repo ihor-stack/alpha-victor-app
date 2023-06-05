@@ -1,0 +1,107 @@
+<template>
+  <div>
+    <ion-button 
+      class="delete-button font-size-sm" color="red" @click="modalOpen = true">
+      Delete organisation
+    </ion-button>
+    
+    <ion-modal 
+    :is-open="modalOpen"  
+    @willDismiss="handleDismiss"
+    :initial-breakpoint="0.8" 
+    :breakpoints="[0, 0.8]">
+      <ion-page>
+        <div class="modal-panel">
+          <div class="modal-panel-container">
+          <ion-header>
+              <ion-icon 
+              color='light' 
+              :icon="close" 
+              size="small" 
+              class="close-button" 
+              @click="modalOpen = false"/>
+              <div class="modal-panel__header">
+              <h1 class="modal-panel__title color-light-gray font-bold font-size-normal">
+                  Delete organisation
+              </h1>
+              <p class="modal-panel__comment color-light-gray font-size-sm">
+                Are you sure you wish to delete this organisation, this action cannot be undone
+              </p>
+              </div>
+          </ion-header>
+          <ion-footer>
+            <ion-row class="form-admin--group_field">
+              <ion-col size-xs="6">
+                <ion-button 
+                class="button-wide button-red button-outline"
+                fill="outline" 
+                color="--av-red"
+                @click="confirmDeleteOrganisation()">
+                Yes, delete
+                </ion-button>
+              </ion-col>
+
+              <ion-col size-xs="6">
+                <ion-button 
+                  class="button-wide button-outline"
+                  fill="outline" 
+                  color="--av-light-gray"
+                  @click="modalOpen = false">
+                  No, cancel
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-footer>
+          </div>
+        </div>
+      </ion-page>
+    </ion-modal>
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { ref } from "vue"
+  import { 
+    IonPage, 
+    IonContent, 
+    IonHeader, 
+    IonFooter, 
+    IonButton,
+    IonInput,
+    IonModal,
+    IonIcon
+  } from "@ionic/vue";
+  import {close} from 'ionicons/icons'
+  import { Organisations } from '@/stores/adminOrganisations'
+
+  const organisation = Organisations()
+  const modalOpen = ref(false)
+
+  const handleDismiss = () => {
+    modalOpen.value = false
+  };
+
+  const confirmDeleteOrganisation = () => {
+    organisation.deleteOrganisation()
+    modalOpen.value = false
+  }
+</script>
+  
+<style scoped>
+ion-content::part(background) {
+  background: #181818;
+}
+.close-button{
+  width: 20px;
+  margin-left: 95%;
+  cursor: pointer;
+}
+
+.delete-button {
+  background-color: var(--av-red);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 8px;
+}
+</style>

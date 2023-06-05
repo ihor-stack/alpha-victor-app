@@ -1,6 +1,6 @@
 <template>
-  <div class="issues-panel">
-    <div class="issues-panel-container">
+  <div class="modal-panel">
+    <div class="modal-panel-container">
       <ion-header>
         <ion-icon
           color="light"
@@ -9,13 +9,13 @@
           class="close-button"
           @click="handleDismiss"
         />
-        <div class="issues-panel__header">
+        <div class="modal-panel__header">
           <h1
-            class="issues-panel__title color-light-gray font-bold font-size-lg"
+            class="modal-panel__title color-light-gray font-bold font-size-lg"
           >
             {{ title }}
           </h1>
-          <p class="issues-panel__comment color-light-gray font-size-normal">
+          <p class="modal-panel__comment color-light-gray font-size-normal">
             {{ description }}
           </p>
         </div>
@@ -55,7 +55,7 @@ ion-popover::part(backdrop) {
   right: -16px;
 }
 
-.issues-panel {
+.modal-panel {
   height: 100%;
   width: 100%;
   border-radius: 20px;
@@ -65,7 +65,7 @@ ion-popover::part(backdrop) {
   justify-content: flex-start;
   background-color: #181818;
 }
-.issues-panel-container {
+.modal-panel-container {
   position: relative;
   height: 100%;
   background-color: #181818;
@@ -74,13 +74,13 @@ ion-popover::part(backdrop) {
   flex-direction: column;
   padding: 45px 30px 10px;
 }
-.issues-panel__header {
+.modal-panel__header {
   margin-bottom: 20px;
 }
-.issues-panel__title {
+.modal-panel__title {
   margin-bottom: 12px;
 }
-.issues-panel__section {
+.modal-panel__section {
   margin-bottom: 20px;
   border-style: dotted;
   cursor: pointer;

@@ -8,8 +8,8 @@
     :initial-breakpoint="0.8" 
     :breakpoints="[0, 0.8]">
         <ion-page>
-        <div class="issues-panel">
-            <div class="issues-panel-container">
+        <div class="modal-panel">
+            <div class="modal-panel-container">
             <ion-header>
                 <ion-icon 
                 color='light' 
@@ -17,17 +17,17 @@
                 size="small" 
                 class="close-button" 
                 @click="state.modalOpen = false"/>
-                <div class="issues-panel__header">
-                <h1 class="issues-panel__title color-light-gray font-bold font-size-normal">
+                <div class="modal-panel__header">
+                <h1 class="modal-panel__title color-light-gray font-bold font-size-normal">
                   Add New Manufacturer
                 </h1>
-                <p class="issues-panel__comment color-light-gray font-size-xs">
+                <p class="modal-panel__comment color-light-gray font-size-sm">
                     You can create a new manufacturer via the form below.
                 </p>
                 </div>
             </ion-header>
             <ion-content :scroll-y="false" class="form-admin--group_field">
-                <div class="issues-panel__section issues-panel__select-equipment">
+                <div class="modal-panel__section modal-panel__select-equipment">
                     <ion-input color="light" placeholder="e.g. meeting room"/>
                 </div>
             </ion-content>
@@ -82,7 +82,7 @@
         margin-left: 95%;
         cursor: pointer;
     }
-  .issues-panel {
+  .modal-panel {
     height: 70%;
     width: 60%;
     margin-left: 20%;
@@ -94,7 +94,7 @@
     background-color: #181818;
   }
   
-  .issues-panel {
+  .modal-panel {
   height: 70%;
   width: 60%;
   border-radius: 40px 40px 40px 40px;
@@ -105,7 +105,7 @@
   background-color: #181818;
 }
 
-.issues-panel-container {
+.modal-panel-container {
   position: relative;
   height: 100%;
   background-color: #181818;
@@ -115,15 +115,15 @@
   padding: 45px 32px 32px;
 }
 
-.issues-panel__header {
+.modal-panel__header {
   margin-bottom: 20px;
 }
 
-.issues-panel__title {
+.modal-panel__title {
   margin-bottom: 12px;
 }
 
-.issues-panel__section {
+.modal-panel__section {
   margin-bottom: 20px;
 }
 

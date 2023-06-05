@@ -15,7 +15,7 @@
           v-for="(option) in props.options" :key="option.id"
           @click="$emit('update:modelValue', option)"
         >
-        {{option.title}}
+        {{ option.title }}
         </li>
       </ul>
     </ion-popover>

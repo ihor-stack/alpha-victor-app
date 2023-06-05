@@ -23,8 +23,19 @@ export const Theme = defineStore('Themes', {
         toastService.show('Error', error, 'error', 'top');
       })
     },
-    async saveThemes() {
-      adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Theme', this.theme)
+
+    saveThemes() {
+      const themeToSave = {
+        darkmodeEnabled: this.theme.darkmodeEnabled,
+        primaryColour: this.theme.primaryColour,
+        secondaryColour: this.theme.secondaryColour,
+        logo: this.theme.logoBase64Payload,
+        logoFileName: this.theme.logoFileName,
+        logoContentType: this.theme.logoContentType,
+        backgroundImage: this.theme.backgroundImage,
+      };
+
+      adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Theme', themeToSave)
       .then(() => 
         {
           toastService.show('Success', 'Theme information updated', 'success', 'top');
