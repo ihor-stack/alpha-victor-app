@@ -15,8 +15,8 @@
     <ion-content :fullscreen="true">
       <div class="container">
         <known-issues-list
-          :open-issues="openIssues"
-          :closed-issues="closedIssues"
+          :open-issues="state.issues"
+          :closed-issues="[]"
           :click-handler="handleIssueClick"
         />
       </div>
@@ -48,16 +48,16 @@
       :is-open="state.reportIssueModalOpen"
       :initial-breakpoint="1"
       :breakpoints="[0, 1]"
-      @willDismiss="handleDismissReportIssueModal"
+      @willDismiss="state.reportIssueModalOpen = false"
     >
-      <report-issue-modal />
+      <report-issue-modal :handleReportIssue="handleReportIssue" />
     </ion-modal>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive } from "vue";
-import { useRouter } from "vue-router";
+import { defineProps, onBeforeMount, reactive } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import {
   IonContent,
   IonFooter,
@@ -70,9 +70,17 @@ import IssuesModal from "@/components/modals/IssuesModal.vue";
 import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 import KnownIssuesList from "@/components/space/KnownIssuesList.vue";
 import CustomToast from "@/components/shared/CustomToast.vue";
-import { Issue, ToastStatus } from "@/types";
+import { IssueListItem, ToastStatus } from "@/types";
+import toastService from "@/services/toastService";
+import loadingService from "@/services/loadingService";
+import { publicAPI } from "@/axios";
+import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 
 const router = useRouter();
+const route = useRoute();
+
+const spaceId: string = route.params.spaceId as string;
+const spacesStore = useSpacesStore();
 
 interface Props {
   reportIssueModalOpen: boolean;
@@ -86,15 +94,21 @@ interface ToastData {
   toastDuration?: number;
 }
 
-const props = defineProps<Props>();
-
 interface State {
   issueModalOpen: boolean;
   reportIssueModalOpen: boolean;
-  selectedIssue: Issue | null;
+  selectedIssue: IssueListItem | null;
   toastData: ToastData;
+  issues: IssueListItem[];
 }
 
+interface NewIssue {
+  title: string;
+  comment: string;
+  deviceId: string;
+}
+
+const props = defineProps<Props>();
 const state: State = reactive({
   issueModalOpen: false,
   reportIssueModalOpen: props.reportIssueModalOpen,
@@ -105,23 +119,14 @@ const state: State = reactive({
     toastMessage: "",
     toastStatus: "generic",
   },
+  issues: [],
 });
 
 const handleDismissIssueModal = () => {
   state.issueModalOpen = false;
 };
 
-const handleDismissReportIssueModal = () => {
-  state.reportIssueModalOpen = false;
-  state.toastData = {
-    toastHeader: "Thank you",
-    toastMessage: "Your issue report has been sent",
-    toastStatus: "success",
-    toastOpen: true,
-  };
-};
-
-const handleIssueClick = (item: any) => {
+const handleIssueClick = (item: IssueListItem) => {
   state.selectedIssue = item;
   state.issueModalOpen = !state.issueModalOpen;
 };
@@ -136,35 +141,54 @@ const hideToast = () => {
   state.toastData.toastOpen = false;
 };
 
-const closedIssues = [
-  {
-    title: "WiFi network password doesn't work",
-    comment: "The WiFi password we were given isn't working",
-    status: 2,
-    log: [
-      "Issue created by jp@uncoded.com",
-      "Status changed from low to resolved",
-      "Status changed from low to resolved",
-      "Status changed from low to resolved",
-    ],
-  },
-];
+const handleReportIssue = (newIssue: NewIssue) => {
+  loadingService.show("Loading...");
+  publicAPI
+    .post(`/Issue/CreateIssue/${spaceId}`, {
+      title: newIssue.title,
+      comment: newIssue.comment,
+      deviceId: newIssue.deviceId,
+    })
+    .then(() => {
+      state.reportIssueModalOpen = false;
+      state.toastData = {
+        toastHeader: "Thank you",
+        toastMessage: "Your issue report has been sent",
+        toastStatus: "success",
+        toastOpen: true,
+      };
+      getIssues();
+    })
+    .catch((error) => {
+      state.issues = [];
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
+};
 
-const openIssues = [
-  {
-    title: "Podium lighting broken",
-    comment:
-      "The lighting above the podium desk isn’t working. When turned on it flickers non stop.",
-    status: 1,
-    log: ["Issue created by jp@uncoded.com", "Status changed from low to high"],
-  },
-  {
-    title: "Computer OS needs update",
-    comment: "Our presentation software won't work with current OS version",
-    status: 0,
-    log: ["Issue created by jp@uncoded.com", "Status set to low"],
-  },
-];
+const getIssues = () => {
+  loadingService.show("Loading...");
+  publicAPI
+    .get(`/Issue/${spaceId}/IssueList`)
+    .then((response) => {
+      state.issues = response.data;
+    })
+    .catch((error) => {
+      state.issues = [];
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
+};
+
+onBeforeMount(() => {
+  if (spacesStore.currentSpace?.id !== spaceId)
+    spacesStore.getSpaceDevices(spaceId);
+  getIssues();
+});
 </script>
 
 <style scoped>

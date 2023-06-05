@@ -52,7 +52,7 @@
                 <div class="location">
                   <img src="@/theme/icons/location.svg" class="icon" />
                   <span class="font-mono font-size-xxs color-light-gray">{{
-                    currentSpace.location
+                    currentSpace.roomTypes
                   }}</span>
                 </div>
               </div>
@@ -71,7 +71,10 @@
         </div>
 
         <div class="space-wifi-info-container">
-          <space-wi-fi-info />
+          <space-wi-fi-info
+            :wifiNetwork="currentSpace.wifiNetwork"
+            :wifiPassword="currentSpace.wifiPassword"
+          />
         </div>
 
         <div class="space-options-menu-container">
@@ -82,11 +85,9 @@
     <ion-footer>
       <div class="space-cta-container">
         <div class="announcement">
-          <h4 class="color-light-gray">Important Announcement</h4>
+          <h4 class="color-light-gray">{{ currentSpace.announcementTitle }}</h4>
           <p class="color-light-gray">
-            This space will be temporarily closed between the hours or 18:00 and
-            22:00 on Wednesday 22nd March for essential maintenance. Sorry for
-            any inconvenience caused.
+            {{ currentSpace.announcementText }}
           </p>
         </div>
 
@@ -115,6 +116,7 @@ import OccupiedStatus from "@/components/shared/OccupiedStatus.vue";
 import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
 import SpaceWiFiInfo from "@/components/space/SpaceWiFiInfo.vue";
 import SpaceOptionsMenu from "@/components/space/SpaceOptionsMenu.vue";
+import { storeToRefs } from "pinia";
 
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 
@@ -123,7 +125,8 @@ const router = useRouter();
 const spacesStore = useSpacesStore();
 const spaceId: string = route.params.spaceId as string;
 
-const currentSpace = computed(() => spacesStore.currentSpace);
+const { currentSpace } = storeToRefs(spacesStore);
+
 const isFavourite = computed(() =>
   spacesStore.favouriteSpaces?.some((item) => item.id === spaceId)
 );
@@ -132,8 +135,10 @@ const setFavoriteSpace = () => {
 };
 
 onBeforeMount(() => {
-  if (spacesStore.currentSpace?.id !== spaceId)
+  if (spacesStore.currentSpace?.id !== spaceId) {
     spacesStore.getSpaceDetails(spaceId);
+    spacesStore.getSpaceDevices(spaceId);
+  }
   spacesStore.setRecentlyViewedSpace(spaceId);
 });
 </script>

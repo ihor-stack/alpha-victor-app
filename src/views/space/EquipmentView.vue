@@ -103,8 +103,8 @@ const handleClick = (item: any) => {
 onBeforeMount(() => {
   if (spaceId !== spacesStore.currentSpaceId) {
     spacesStore.getSpaceDetails(spaceId);
+    spacesStore.getSpaceDevices(spaceId);
   }
-  spacesStore.getSpaceDevices(spaceId);
 });
 </script>
 

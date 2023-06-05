@@ -38,7 +38,7 @@ export const Spaces = defineStore("Spaces", {
       loadingService.show("Loading...");
       publicAPI
         .get<DetailedSpace>(
-          `/Space/Space/${
+          `/Space/${
             id || this.currentSpaceId || cookies.get("spaceId")
           }/Details`
         )
@@ -73,9 +73,7 @@ export const Spaces = defineStore("Spaces", {
     async setFavouriteSpace(spaceId: string, isFavourite: boolean) {
       loadingService.show("Loading...");
       publicAPI
-        .post<Space>(
-          `/Space/Space/${spaceId}/Favourite?isFavourite=${isFavourite}`
-        )
+        .post<Space>(`/Space/${spaceId}/Favourite?isFavourite=${isFavourite}`)
         .then(() => {
           this.getFavouriteSpaces();
         })
@@ -90,7 +88,7 @@ export const Spaces = defineStore("Spaces", {
     async setRecentlyViewedSpace(spaceId: string) {
       loadingService.show("Loading...");
       publicAPI
-        .post<Space>(`/Space/Space/${spaceId}/RecentlyViewed`)
+        .post<Space>(`/Space/${spaceId}/RecentlyViewed`)
         .then(() => {
           this.getRecentlyViewedSpaces();
         })
