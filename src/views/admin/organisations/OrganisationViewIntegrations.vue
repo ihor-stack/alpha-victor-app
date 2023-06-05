@@ -67,7 +67,7 @@ const SaveEdit = () =>{
   const newEdit: Integration = {
     clientId: integration.integration.value.clientId,
     clientSecret: integration.integration.value.clientSecret,
-    selectedOrgnisation: String(selectedOrg.value.aditionalInfo)
+    selectedOrgnisation: String(selectedOrg.value.additionalInfo)
   }
   store.editIntegration(newEdit)
 }

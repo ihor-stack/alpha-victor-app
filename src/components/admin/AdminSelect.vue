@@ -2,18 +2,19 @@
   <div>
     <ion-label v-if="label" color="light">
       {{ label }}
-    </ion-label >
-    <ion-input 
-    id="click-trigger" 
-    :disabled="true"
-    :value="modelValue.title"
+    </ion-label>
+    <ion-input
+      :id="`${props.idPrefix}-click-trigger`"
+      readonly
+      :value="props.modelValue ? props.modelValue.title : ''"
+      @click="presentPopover($event)"
     />
-    <ion-popover trigger="click-trigger" trigger-action="click" size="cover" :dismiss-on-select="true" v-if="props.options">
+    <ion-popover :trigger="`${props.idPrefix}-click-trigger`" trigger-action="click" size="cover" :dismiss-on-select="true" v-if="props.options.length > 0">
       <ul class="admin-select">  
         <li 
           class="admin-select--item"
           v-for="(option) in props.options" :key="option.id"
-          @click="$emit('update:modelValue', option)"
+          @click="onOptionClick(option)"
         >
         {{ option.title }}
         </li>
@@ -21,7 +22,7 @@
     </ion-popover>
   </div>
 </template>
-  
+
 <script setup lang="ts">
   import { 
     IonLabel,
@@ -29,16 +30,34 @@
     IonPopover
   } from "@ionic/vue";
   import {SelectItem} from '@/types/index'
+  import { defineProps, withDefaults, defineEmits } from 'vue'
 
   interface Props {
     label?: string,
-    modelValue: SelectItem,
+    idPrefix: string,
+    modelValue?: SelectItem,
     options: SelectItem[]
-    }
+  }
 
-    const props = defineProps<Props>();
+  const props = withDefaults(defineProps<Props>(), { 
+    options: () => []
+  })
+
+  const emit = defineEmits(['update:modelValue'])
+
+  function onOptionClick(option: SelectItem) {
+    emit('update:modelValue', option)
+  }
+
+  function presentPopover(event: Event) {
+  const popover = document.querySelector(`#${props.idPrefix}-popover`)
+    if(popover) {
+      popover.present(event)
+    } else {
+      console.warn(`No element found with id '${props.idPrefix}-popover'`)
+    }
+  }
 </script>
-  
 <style scoped>
   ion-popover {
     --background: #ffffff;

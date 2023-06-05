@@ -33,7 +33,7 @@
                                 <ion-input
                                 class="font-size-sm"
                                 color="light"
-                                ></ion-input>
+                                ></ion-input> 
                             </ion-col>
                             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                                 <ion-label color="light">Warranty expiry date</ion-label>

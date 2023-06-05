@@ -29,8 +29,9 @@
               </div>
             </ion-header>
             <ion-content :scroll-y="false" class="form-admin--group_field">
+              
               <ion-row class="form-admin--group">
-                <ion-col size-xs="11" class="form-admin--group_field">
+                <ion-col size-xs="12" class="form-admin--group_field">
                   <ion-label color="light">Serial number</ion-label>
                   <ion-input
                     class="font-size-sm"
@@ -41,6 +42,9 @@
                     "
                   ></ion-input>
                 </ion-col>
+              </ion-row>
+
+              <ion-row class="form-admin--group">
                 <ion-col
                   size-xs="12"
                   size-sm="6"
@@ -81,6 +85,7 @@
                   <ion-modal :keep-contents-mounted="true">
                     <ion-datetime
                       id="newDocInstallDate"
+                      presentation="date"
                       display-format="DD/MM/YYYY HH:mm:ss"
                       picker-format="DD MMM YYYY HH:mm:ss"
                       :value="newDevice.installDate"
@@ -105,6 +110,7 @@
                   <ion-modal :keep-contents-mounted="true">
                     <ion-datetime
                       id="newDocWarrantyDate"
+                      presentation="date"
                       display-format="DD/MM/YYYY HH:mm:ss"
                       picker-format="DD MMM YYYY HH:mm:ss"
                       :value="newDevice.warrantyExpiryDate"
@@ -192,36 +198,5 @@ ion-button {
   width: 20px;
   margin-left: 95%;
   cursor: pointer;
-}
-.modal-panel {
-  height: 90%;
-  border-radius: 40px 40px 40px 40px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #181818;
-}
-
-.modal-panel-container {
-  position: relative;
-  height: 100%;
-  background-color: #181818;
-  border-radius: 40px 40px 0px 0px;
-  display: flex;
-  flex-direction: column;
-  padding: 45px 32px 32px;
-}
-
-.modal-panel__header {
-  margin-bottom: 20px;
-}
-
-.modal-panel__title {
-  margin-bottom: 12px;
-}
-
-.modal-panel__section {
-  margin-bottom: 20px;
 }
 </style>

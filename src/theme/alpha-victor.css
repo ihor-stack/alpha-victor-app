@@ -386,7 +386,7 @@ ion-button.button-red {
 }
 
 .form-toggle {
-  background: var(--av-black);
+  /* background: var(--av-black); */
   padding: 0 15px !important;
 }
 
@@ -544,6 +544,10 @@ ion-button.button-red {
   display: flex;
   flex-direction: column;
   padding: 45px 32px 32px;
+}
+
+.modal-panel-container .form-admin--group {
+  background-color: #181818;
 }
 
 .modal-panel__header {

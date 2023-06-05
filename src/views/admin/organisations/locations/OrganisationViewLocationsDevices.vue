@@ -43,11 +43,12 @@
                                 </ion-col>
                                 <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
                                     <ion-label color="light">Install date</ion-label>
-                                    <ion-datetime-button :datetime="`installDate${device.id}`"></ion-datetime-button>
+                                    <ion-datetime-button :datetime="`installDate${device.id}`" class="date-button"></ion-datetime-button>
                                     <ion-modal :keep-contents-mounted="true">
                                         <ion-datetime 
                                         :id="`installDate${device.id}`"
                                         :value="device.installDate.split('.',1)[0]"
+                                        presentation="date"
                                         @ion-change="(e)=>{(device.installDate = String(e.target.value))}"
                                         />
                                     </ion-modal>
@@ -59,6 +60,7 @@
                                         <ion-datetime 
                                         :id="`warrantyDate${device.id}`"
                                         :value="device.warrantyExpiryDate.split('.',1)[0]"
+                                        presentation="date"
                                         @ion-change="(e)=>{(device.warrantyExpiryDate = String(e.target.value))}"
                                         />
                                     </ion-modal>
