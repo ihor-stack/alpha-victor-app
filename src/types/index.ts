@@ -14,32 +14,6 @@ enum DocumentTypeScope {
   space,
 }
 
-export interface Space {
-  id?: string;
-  spaceName: string;
-  name?: string;
-  roomType?: string;
-  shortCode: number;
-  qrCode?: string;
-  spaceType: string;
-  occupied: boolean;
-  capacity: number;
-  photoPath: string;
-  email?: string;
-  phoneNumber?: string;
-  article?: Article;
-  video?: Video;
-  issues: Issue[];
-  typeformId?: Typeform;
-  spaceFeatures: SpaceFeature[];
-  decisionTree?: DecisionTree[];
-  devices?: Device[];
-  photos?: Photo[];
-  beacons?: Beacon[];
-  wifiDetails?: WifiDetails;
-  location?: string;
-}
-
 export interface Article {
   id: string;
   title: string;
@@ -69,6 +43,13 @@ export interface Issue {
   status: Status;
   comment: string;
   log: string[];
+}
+
+export interface IssueListItem {
+  title: string;
+  status: Status;
+  issueId: string;
+  comment: string;
 }
 
 export interface Typeform {
@@ -266,6 +247,31 @@ export interface SpecificSpace {
   spaceId: string;
 }
 
+export interface Space {
+  id?: string;
+  spaceName: string;
+  name?: string;
+  roomType?: string;
+  shortCode: number;
+  qrCode?: string;
+  spaceType: string;
+  occupied: boolean;
+  capacity: number;
+  photoPath: string;
+  email?: string;
+  phoneNumber?: string;
+  article?: Article;
+  video?: Video;
+  issues: Issue[];
+  typeformId?: Typeform;
+  spaceFeatures: SpaceFeature[];
+  decisionTree?: DecisionTree[];
+  devices?: Device[];
+  photos?: Photo[];
+  beacons?: Beacon[];
+  wifiDetails?: WifiDetails;
+  location?: string;
+}
 export interface DetailedSpace {
   id: string;
   spaceName: string;
@@ -283,6 +289,10 @@ export interface DetailedSpace {
   occupied: boolean;
   location?: string;
   issues?: Issue[];
+  announcementTitle?: string[];
+  announcementText?: string[];
+  wifiPassword?: string;
+  wifiNetwork?: string;
 }
 export interface SpaceDetailsRooms {
   name: string;

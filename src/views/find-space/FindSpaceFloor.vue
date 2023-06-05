@@ -38,14 +38,13 @@
 <script setup lang="ts">
 import { IonPage, IonContent } from "@ionic/vue";
 import { onBeforeMount, reactive } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { adminAPI } from "@/axios";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import { SingleFloor } from "@/types/index";
 
 const route = useRoute();
-const router = useRouter();
 const locationId: string = route.params.locationId as string;
 
 interface State {

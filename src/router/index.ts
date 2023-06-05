@@ -110,7 +110,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/DocumentView.vue"),
   },
   {
-    path: "/known-issues",
+    path: "/known-issues/:spaceId",
     name: "KnownIssues",
     component: () => import("@/views/space/KnownIssuesView.vue"),
     props: { reportIssueModalOpen: false },

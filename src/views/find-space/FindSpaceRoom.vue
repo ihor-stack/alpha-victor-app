@@ -21,7 +21,7 @@ import { onBeforeMount, reactive } from "vue";
 import { IonPage, IonContent, IonList, IonItem } from "@ionic/vue";
 import SpaceCard from "@/components/dashboard/SpaceCard.vue";
 import { useRoute } from "vue-router";
-import { adminAPI } from "@/axios";
+import { publicAPI } from "@/axios";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import { SingleFloor } from "@/types/index";
@@ -39,8 +39,8 @@ const state: State = reactive({
 
 const getFloors = () => {
   loadingService.show("Loading...");
-  adminAPI
-    .get(`/Floor/${floorId}`)
+  publicAPI
+    .get(`/Floor/${floorId}/Spaces`)
     .then((response) => {
       state.floor = response.data;
     })

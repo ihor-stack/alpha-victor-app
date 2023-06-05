@@ -28,7 +28,10 @@
       </li>
       <li class="space-options-menu-item">
         <ion-item
-          :router-link="{ name: 'KnownIssues' }"
+          :router-link="{
+            name: 'KnownIssues',
+            params: { decisionTreeId: currentSpace?.id },
+          }"
           router-direction="root"
         >
           <div class="with-counter">

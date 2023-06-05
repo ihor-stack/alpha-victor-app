@@ -28,14 +28,7 @@
       <div class="dashboard-search-container">
         <dashboard-search />
       </div>
-      <div class="dashboard-sliders">
-        <div class="dashboard-slider-container">
-          <dashboard-slider
-            title="Nearby spaces"
-            cta-url=""
-            :slides="recentlyViewedSpaces"
-          />
-        </div>
+      <div class="dashboard-sliders" v-if="recentlyViewedSpaces?.length">
         <div class="dashboard-slider-container">
           <dashboard-slider
             title="Recently viewed"
@@ -44,6 +37,12 @@
           />
         </div>
       </div>
+      <ion-item v-else lines="none">
+        <ion-label>
+          <h1>no.spaces.found</h1>
+          <p>Please enter a short code or explore spaces.</p>
+        </ion-label>
+      </ion-item>
     </ion-content>
     <ion-footer class="ion-no-border">
       <ion-button expand="block" @click="exploreSpaces"
@@ -70,6 +69,8 @@ import {
   IonButton,
   IonMenuButton,
   IonModal,
+  IonItem,
+  IonLabel,
 } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
@@ -96,7 +97,7 @@ const handleDismiss = () => {
 };
 
 const exploreSpaces = () => {
-  router.push({ name: "Space" });
+  router.push({ name: "FindSpace" });
 };
 
 const recentlyViewedSpaces = computed(
@@ -135,5 +136,9 @@ ion-content {
 
 ion-footer {
   padding: 20px 32px;
+}
+ion-item {
+  --background: transparent;
+  text-align: center;
 }
 </style>
