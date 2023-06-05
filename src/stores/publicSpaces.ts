@@ -117,11 +117,11 @@ export const Spaces = defineStore("Spaces", {
 
     async getSpaceDevices(spaceId: string) {
       loadingService.show("Loading...");
-      adminAPI
+      publicAPI
         .get<Device[]>(
           `/Space/${
             spaceId || this.currentSpaceId || cookies.get("spaceId")
-          }/Device`
+          }/Devices`
         )
         .then((response) => {
           this.devices = response.data;
