@@ -1,73 +1,75 @@
 <template>
-  <h1 class="title-admin font-bold font-size-lg color-light-gray">
-    Decision Trees
-  </h1>
+  <div>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">
+      Decision Trees
+    </h1>
 
-  <ion-grid class="form-admin">
-    <ion-row class="form-admin--group">
-      <ion-col
-        size-xs="12"
-        size-md="8"
-        size-lg="6"
-        size-xl="4"
-        class="form-admin--group_field"
-      >
-        <ion-input
-          class="font-size-sm"
-          color="light"
-          placeholder="Add new decision tree"
-          v-model="state.newDecisionTreeName"
-        ></ion-input>
-      </ion-col>
-      <ion-col
-        size-xs="12"
-        size-md="4"
-        size-lg="4"
-        size-xl="2"
-        class="form-admin--group_field"
-      >
-        <ion-button
-          expand="block"
-          @click="addNewDecisionTree"
-          :disabled="!state.newDecisionTreeName"
-          >Add new +</ion-button
+    <ion-grid class="form-admin">
+      <ion-row class="form-admin--group">
+        <ion-col
+          size-xs="12"
+          size-md="8"
+          size-lg="6"
+          size-xl="4"
+          class="form-admin--group_field"
         >
-      </ion-col>
-    </ion-row>
-    <ion-row v-if="organisationDetails.decisionTrees?.length > 0">
-      <ion-col
-        class="form-admin--group_field"
-        size-xs="12"
-        size-md="8"
-        size-lg="6"
-        size-xl="4"
-      >
-        <ion-list class="decision-tree-list" lines="none">
-          <ion-list-header class="bold-text">
-            <ion-label>Current decisions trees</ion-label>
-          </ion-list-header>
-          <ion-item
-            v-for="decisionTree in organisationDetails.decisionTrees"
-            :key="decisionTree.id"
-            class="decision-tree-item"
-            button
-            :router-link="{
-              name: 'OrganisationViewDecisionTreeDetails',
-              params: {
-                organisationId: organisationDetails.id,
-                decisionTreeId: decisionTree.id,
-              },
-            }"
+          <ion-input
+            class="font-size-sm"
+            color="light"
+            placeholder="Add new decision tree"
+            v-model="state.newDecisionTreeName"
+          ></ion-input>
+        </ion-col>
+        <ion-col
+          size-xs="12"
+          size-md="4"
+          size-lg="4"
+          size-xl="2"
+          class="form-admin--group_field"
+        >
+          <ion-button
+            expand="block"
+            @click="addNewDecisionTree"
+            :disabled="!state.newDecisionTreeName"
+            >Add new +</ion-button
           >
-            <ion-label>
-              {{ decisionTree.name }}
-            </ion-label>
-            <ion-label slot="end" class="decision-view-icon">>> view</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        </ion-col>
+      </ion-row>
+      <ion-row v-if="organisationDetails.decisionTrees?.length > 0">
+        <ion-col
+          class="form-admin--group_field"
+          size-xs="12"
+          size-md="8"
+          size-lg="6"
+          size-xl="4"
+        >
+          <ion-list class="decision-tree-list" lines="none">
+            <ion-list-header class="bold-text">
+              <ion-label>Current decisions trees</ion-label>
+            </ion-list-header>
+            <ion-item
+              v-for="decisionTree in organisationDetails.decisionTrees"
+              :key="decisionTree.id"
+              class="decision-tree-item"
+              button
+              :router-link="{
+                name: 'OrganisationViewDecisionTreeDetails',
+                params: {
+                  organisationId: organisationDetails.id,
+                  decisionTreeId: decisionTree.id,
+                },
+              }"
+            >
+              <ion-label>
+                {{ decisionTree.name }}
+              </ion-label>
+              <ion-label slot="end" class="decision-view-icon">>> view</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </template>
 
 <script setup lang="ts">

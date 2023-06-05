@@ -16,7 +16,7 @@
           class="form-admin--group_field header-left"
         >
           <h1 class="font-bold font-size-lg color-light-gray">
-            {{ currentSpace }}
+            {{ space.spaceName }}
           </h1>
           <span
             class="font-size-xs font-mono color-light-gray header-left--label"
@@ -76,7 +76,8 @@
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label color="light">Room type</ion-label>
-          <AdminSelect v-model="roomTypeSelected" :options="formattedSelect" />
+          <AdminSelect v-model="roomTypeSelected" :options="formattedSelect" idPrefix="room-type-select" />
+          
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label color="light">Capacity</ion-label>
@@ -98,12 +99,7 @@
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label color="light">Decision Tree</ion-label>
-          <ion-input
-            class="font-size-sm"
-            color="light"
-            :value="space.decisionTreeId"
-            @ion-input="space.decisionTreeId = String($event.target.value)"
-          ></ion-input>
+          <AdminSelect v-model="decisionTreeSelected" :options="decisionTreeList" idPrefix="decision-tree-select" />
         </ion-col>
       </ion-row>
 
@@ -203,14 +199,17 @@ import { Spaces } from "@/stores/adminSpaces";
 import { useCookies } from "vue3-cookies";
 import { onBeforeMount, ref } from "vue";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
+import { Organisations } from '@/stores/adminOrganisations'
 import DocumentModal from "@/components/admin/spaces/DocumentModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
 import ImageGallery from "@/components/shared/ImageGallery.vue";
 
 const { cookies } = useCookies();
 const Space = Spaces();
-const { space, currentSpace, formattedSelect, roomTypeSelected } =
-  storeToRefs(Space);
+  
+const organisation = Organisations()
+const { space, currentSpace, formattedSelect, roomTypeSelected } = storeToRefs(Space);
+const { decisionTreeList, decisionTreeSelected } = storeToRefs(organisation);
 
 const redirect = (route: string) => {
   if (
@@ -231,7 +230,7 @@ const redirect = (route: string) => {
 };
 
 const handleImageRemoved = (photoId: string) => {
-  Space.deleteSpacesPhoto(photoId);
+  Space.deleteSpacesPhoto(photoId)
 };
 
 // const removeSpacesDocument = (data: Spaces) => {
@@ -248,6 +247,7 @@ const spaceRoutes = [
 
 onBeforeMount(() => {
   Space.getSpaceDetails();
+  organisation.getDecisionTrees()
 });
 </script>
 

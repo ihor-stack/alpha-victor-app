@@ -27,8 +27,15 @@
             </ion-header>
             <ion-content :scroll-y="false" class="form-admin--group_field">
               <CustomIonUploadInput :buttonText="'Select file'" @file-selected="onFileSelected" />
-              <ion-label color="light">Featured Photo</ion-label>
-              <ion-toggle :checked="featured" />
+
+              <ion-input
+              color="light"
+              class="form-toggle"
+              :disabled="true"
+              >
+                  <ion-label color="light">Featured Photo</ion-label>
+                  <ion-toggle color="primary" :value="featured" @ion-input="featured = $event.target.value" />
+              </ion-input>
             </ion-content>
             <ion-footer>
               <ion-button 

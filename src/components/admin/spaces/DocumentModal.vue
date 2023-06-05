@@ -120,7 +120,7 @@ const saveNewDocument = () => {
       const data = {
         base64Payload: encodedFile,
         fileName: fileName.value,
-        documentTypeId: selectedDocType.value.aditionalInfo,
+        documentTypeId: selectedDocType.value.additionalInfo,
         contentType: fileMimeType.value,
       }
       try {

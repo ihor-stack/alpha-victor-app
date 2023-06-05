@@ -44,11 +44,12 @@ export const Spaces = defineStore("Spaces", {
           this.space = response.data;
           this.currentSpace = response.data.spaceName;
           const formattedList: SelectItem[] = [];
+          
           response.data.roomTypes.forEach((element, index) => {
             formattedList.push({
               id: index,
               title: element.name,
-              aditionalInfo: element.spaceTypeId,
+              additionalInfo: element.spaceTypeId,
             });
           });
           const selectedRoomType = response.data.roomTypes.find(
@@ -58,10 +59,10 @@ export const Spaces = defineStore("Spaces", {
             this.roomTypeSelected = {
               id: formattedList.findIndex(
                 (option) =>
-                  option.aditionalInfo === selectedRoomType.spaceTypeId
+                  option.additionalInfo === selectedRoomType.spaceTypeId
               ),
               title: selectedRoomType.name,
-              aditionalInfo: selectedRoomType.spaceTypeId,
+              additionalInfo: selectedRoomType.spaceTypeId,
             };
           }
           this.formattedSelect = formattedList;
@@ -100,7 +101,7 @@ export const Spaces = defineStore("Spaces", {
     async updateSpace() {
       loadingService.show("Loading...");
       adminAPI
-        .post("/Space/" + cookies.get("spaceId"), {
+        .patch("/Space/" + cookies.get("spaceId"), {
           spaceName: this.space.spaceName,
           shortcode: this.space.shortcode,
           roomTypeId: "00000000-0000-0000-0000-000000000199",

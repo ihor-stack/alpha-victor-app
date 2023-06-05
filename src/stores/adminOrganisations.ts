@@ -10,6 +10,7 @@ import {
   SelectItem,
   AdminDocument,
   DecisionTree,
+  DecisionTreeList,
   Article,
   Video,
   EquipmentList,
@@ -31,6 +32,8 @@ export const Organisations = defineStore("Organisations", {
       formattedOrgSelect: [] as SelectItem[],
       documentTypes: [] as SelectItem[],
       decisionTree: {} as DecisionTree,
+      decisionTreeList: [] as SelectItem[],
+      decisionTreeSelected: {} as SelectItem,
       equipmentList: {
         manufacturers: [],
         assetTypes: [],
@@ -160,7 +163,7 @@ export const Organisations = defineStore("Organisations", {
             formattedList.push({
               id: index,
               title: element.name,
-              aditionalInfo: element.id,
+              additionalInfo: element.id,
             });
           });
           this.formattedOrgSelect = formattedList;
@@ -183,7 +186,7 @@ export const Organisations = defineStore("Organisations", {
             formattedList.push({
               id: index,
               title: element.name,
-              aditionalInfo: element.id,
+              additionalInfo: element.id,
             });
           });
           this.documentTypes = formattedList;
@@ -228,9 +231,18 @@ export const Organisations = defineStore("Organisations", {
     async getDecisionTrees() {
       loadingService.show("Loading...");
       adminAPI
-        .get<DecisionTree>(`/DecisionTree`)
+        .get<DecisionTreeList[]>(`/DecisionTree`)
         .then((response) => {
-          // this.decisionTree = response.data;
+          const formattedList: SelectItem[] = [];
+          response.data.forEach((element, index) => {
+            formattedList.push({
+              id: index,
+              title: element.name,
+              additionalInfo: element.id,
+            });
+          });
+          this.decisionTreeList = formattedList;
+          loadingService.close();
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

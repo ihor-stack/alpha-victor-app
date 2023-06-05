@@ -233,7 +233,7 @@ export interface Location {
 export interface SelectItem {
   id: number;
   title: string;
-  aditionalInfo?: any;
+  additionalInfo?: any;
 }
 
 export interface SingleLocation {
