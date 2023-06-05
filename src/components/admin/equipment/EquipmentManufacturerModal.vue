@@ -1,5 +1,5 @@
 <template>
-    <ion-button  class="font-size-sm text-lowercase add-button" @click="state.modalOpen = true">
+    <ion-button class="button-wide" @click="state.modalOpen = true">
         Add New Manufacturer +
     </ion-button>
     <ion-modal 

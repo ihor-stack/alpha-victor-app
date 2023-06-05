@@ -14,7 +14,7 @@ export const adminDocuments = defineStore('adminDocuments', {
     }
   },
   actions: {
-    async getDocuments() {
+    async getDocumentTypes() {
       loadingService.show("Loading...")
       adminAPI.get<AdminDocument[]>('/Organisation/' + cookies.get('orgId') + '/DocumentTypes')
       .then((response) => {
@@ -30,12 +30,12 @@ export const adminDocuments = defineStore('adminDocuments', {
       })
     },
 
-    async saveNewDocument(documentName: string) {
+    async saveNewDocumentTypeType(documentName: string) {
       adminAPI.post<AdminDocument>('/Organisation/' + cookies.get('orgId') + '/DocumentType', {
         name: documentName
       }).then(() => {
         toastService.show('Success', 'Document type added', 'success', 'top');
-        this.getDocuments()
+        this.getDocumentTypes()
       }).catch(error =>{
         toastService.show('Error', error, 'error', 'top');
       })
@@ -46,7 +46,7 @@ export const adminDocuments = defineStore('adminDocuments', {
         {
           "name": document.name,
         }).then(() => {
-          this.getDocuments()
+          this.getDocumentTypes()
         }).catch(error =>{
           toastService.show('Error', error, 'error', 'top');
         })
@@ -55,7 +55,7 @@ export const adminDocuments = defineStore('adminDocuments', {
     async removeDocumentType(id: string) {
       adminAPI.delete('/Organisation/' + cookies.get('orgId') + '/DocumentType/' + id)
       .then(() => {
-        this.getDocuments()
+        this.getDocumentTypes()
       }).catch(error =>{
         toastService.show('Error', error, 'error', 'top')
       })

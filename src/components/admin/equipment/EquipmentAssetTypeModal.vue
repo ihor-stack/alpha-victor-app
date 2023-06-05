@@ -1,8 +1,7 @@
 <template>
-    <ion-button  class="font-size-sm text-lowercase add-button" @click="state.modalOpen = true">
+    <ion-button class="button-wide" @click="state.modalOpen = true">
       Add new Asset Type +
     </ion-button>
-
     <ion-modal 
     :is-open="state.modalOpen"  
     @willDismiss="handleDismiss"

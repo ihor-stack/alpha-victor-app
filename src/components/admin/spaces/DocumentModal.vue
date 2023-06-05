@@ -54,7 +54,7 @@
                 <ion-button 
                 class="font-size-sm text-lowercase"
                 expand="block"
-                @click="saveNewDocument()">
+                @click="saveNewDocumentType()">
                   Save
                 </ion-button>
             </ion-footer>
@@ -106,7 +106,7 @@ const fileMimeType = computed(() => uploadedDoc.value?.type);
 const uploadFile = (event: any) => {
   uploadedDoc.value = event.target.files[0];
 };
-const saveNewDocument = () => {
+const saveNewDocumentType = () => {
   const reader = new FileReader();
   reader.readAsDataURL(uploadedDoc.value);
   reader.onload = async () => {

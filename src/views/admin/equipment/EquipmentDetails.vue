@@ -24,7 +24,7 @@
           <DocumentField />
         </ion-col>
         <ion-col size-xs="12" class="form-admin--group_field">
-          <EquimentDocumentModal />
+          <EquipmentDocumentModal />
         </ion-col>
         <ion-col size-xs="12" >
           <ion-button 
@@ -46,7 +46,7 @@
     IonGrid
   } from "@ionic/vue";
   import DocumentField from '@/components/admin/DocumentField.vue'
-  import EquimentDocumentModal from '@/components/admin/equipment/EquimentDocumentModal.vue'
+  import EquipmentDocumentModal from '@/components/admin/equipment/EquipmentDocumentModal.vue'
 
 </script>
   
