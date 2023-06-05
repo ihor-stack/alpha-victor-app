@@ -108,6 +108,10 @@ ion-button {
   margin-bottom: 30px;
 }
 
+.nav-menu > li > ul > li {
+  margin-bottom: 15px;
+}
+
 .nav-menu > li > ul > li > ul a {
   color: var(--av-dark-gray);
 }

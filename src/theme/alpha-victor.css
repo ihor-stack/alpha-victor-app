@@ -417,6 +417,15 @@ ion-button.button-red {
   width: 100%;
 }
 
+.list-item a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+
 .list-item:not(:first-of-type) {
   border-top: 0.75px solid #313131;
 }

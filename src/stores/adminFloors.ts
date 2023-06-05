@@ -47,6 +47,7 @@ export const Floors = defineStore('Floors', {
           "top"
         );
         const locationsStore = Locations();
+        this.getFloors();
         locationsStore.getNavigationTree();
       })
       .catch((error) => {
