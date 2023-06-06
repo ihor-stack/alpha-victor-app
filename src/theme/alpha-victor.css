@@ -364,20 +364,29 @@ h1.title-admin {
   margin-right: 20px;
 }
 
+.text-button {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.text-button:hover {
+  opacity: 0.5;
+}
+
 ion-button.button-wide {
   min-width: 250px;
 }
 
 ion-button.button-outline {
-  color: var(--av-light-gray);
+  color: var(--av-light-gray) !important;
 }
 
 ion-button.button-red {
-  color: var(--av-red);
+  color: var(--av-red) !important;
 }
 
 .form-toggle {
-  background: var(--av-black);
+  /* background: var(--av-black); */
   padding: 0 15px !important;
 }
 
@@ -407,6 +416,15 @@ ion-button.button-red {
   cursor: pointer;
   width: 100%;
 }
+
+.list-item a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+}
+
 
 .list-item:not(:first-of-type) {
   border-top: 0.75px solid #313131;
@@ -516,6 +534,42 @@ ion-button.button-red {
 }
 
 /* Settings modal styles */
+
+.modal-panel {
+  height: 70%;
+  border-radius: 40px 40px 40px 40px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #181818;
+}
+
+.modal-panel-container {
+  position: relative;
+  height: 100%;
+  background-color: #181818;
+  border-radius: 40px 40px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 45px 32px 32px;
+}
+
+.modal-panel-container .form-admin--group {
+  background-color: #181818;
+}
+
+.modal-panel__header {
+  margin-bottom: 20px;
+}
+
+.modal-panel__title {
+  margin-bottom: 12px;
+}
+
+.modal-panel__section {
+  margin-bottom: 20px;
+}
 
 .settings-panel {
   height: 100%;
@@ -752,4 +806,17 @@ ion-toast.customToast::part(message) {
 
 .form-admin--group_field-item:hover {
   border: 1px solid var(--av-dark-gray);
+}
+
+.form-admin--group_field .chips-field {
+  position: relative;
+}
+
+.form-admin--group_field .chips-field .chips-field--label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  color: var(--av-light-gray);
+  z-index: 999;
 }

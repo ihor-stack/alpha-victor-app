@@ -26,8 +26,15 @@ export const MetaData = defineStore('MetaData', {
       adminAPI.get<AdminMetaData>('/Organisation/' + cookies.get('orgId') + '/Metadata')
       .then(response => 
         {
-          this.metaData = response.data
-          loadingService.close();
+          if (response.data) {
+            if (Array.isArray(response.data.spaceTypes)) {
+                response.data.spaceTypes.sort((a, b) => a.name.localeCompare(b.name));
+            }
+            if (Array.isArray(response.data.spaceFeatures)) {
+                response.data.spaceFeatures.sort((a, b) => a.name.localeCompare(b.name));
+            }
+            this.metaData = response.data;
+          }
         }
       ).catch(error =>{
         toastService.show('Error', error, 'error', 'top');

@@ -1,7 +1,7 @@
 <template>
   <ion-page>
-    <div class="issues-panel">
-      <div class="issues-panel-container">
+    <div class="modal-panel">
+      <div class="modal-panel-container">
         <ion-header>
           <div class="issues-panel__header">
             <h1
@@ -200,7 +200,7 @@ ion-content::part(background) {
   background: #181818;
 }
 
-.issues-panel {
+.modal-panel {
   height: 100%;
   border-radius: 40px 40px 0px 0px;
   overflow: hidden;
@@ -210,7 +210,7 @@ ion-content::part(background) {
   background-color: #181818;
 }
 
-.issues-panel-container {
+.modal-panel-container {
   position: relative;
   height: 100%;
   background-color: #181818;
@@ -220,23 +220,23 @@ ion-content::part(background) {
   padding: 45px 32px 32px;
 }
 
-.issues-panel__header {
+.modal-panel__header {
   margin-bottom: 20px;
 }
 
-.issues-panel__title {
+.modal-panel__title {
   margin-bottom: 12px;
 }
 
-.issues-panel__section {
+.modal-panel__section {
   margin-bottom: 20px;
 }
 
-.issues-panel__heading {
+.modal-panel__heading {
   margin-bottom: 5px;
 }
 
-.issues-panel__add-comment__textarea {
+.modal-panel__add-comment__textarea {
   appearance: none;
   resize: none;
   background: none;
@@ -250,7 +250,7 @@ ion-content::part(background) {
   line-height: 16px;
 }
 
-.issues-panel__select-equipment__select {
+.modal-panel__select-equipment__select {
   appearance: none;
   background: none;
   border: 0.75px solid #313131;
@@ -262,16 +262,16 @@ ion-content::part(background) {
   line-height: 16px;
 }
 
-.issues-panel__status {
+.modal-panel__status {
   display: flex;
   justify-content: space-between;
 }
 
-.issues-panel__status__radio input {
+.modal-panel__status__radio input {
   appearance: none;
 }
 
-.issues-panel__status__radio label {
+.modal-panel__status__radio label {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -287,7 +287,7 @@ ion-content::part(background) {
   color: #313131;
 }
 
-.issues-panel__status__radio label .dot {
+.modal-panel__status__radio label .dot {
   margin-right: 4px;
 }
 
@@ -300,23 +300,23 @@ ion-content::part(background) {
   margin-top: 20px;
 }
 
-.issues-panel__log__heading {
+.modal-panel__log__heading {
   padding-bottom: 8px;
   border-bottom: 0.75px solid #313131;
   margin-bottom: 18px;
 }
 
-.issues-panel__log__list {
+.modal-panel__log__list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.issues-panel__log__list__item {
+.modal-panel__log__list__item {
   margin-bottom: 20px;
 }
 
-.issues-panel__log__list__item p:last-of-type {
+.modal-panel__log__list__item p:last-of-type {
   margin-left: 6px;
 }
 </style>

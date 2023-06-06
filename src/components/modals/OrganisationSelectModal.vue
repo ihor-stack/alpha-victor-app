@@ -1,30 +1,30 @@
 <template>
-  <div class="issues-panel">
-    <div class="issues-panel-container">
+  <div class="modal-panel">
+    <div class="modal-panel-container">
       <ion-header>
-        <div class="issues-panel__header">
+        <div class="modal-panel__header">
           <h1
-            class="issues-panel__title color-light-gray font-bold font-size-normal"
+            class="modal-panel__title color-light-gray font-bold font-size-normal"
           >
             Select Organisation
           </h1>
-          <p class="issues-panel__comment color-light-gray font-size-xs">
+          <p class="modal-panel__comment color-light-gray font-size-sm">
             Here you can select the organisation that you’d like to see spaces
             in.
           </p>
         </div>
       </ion-header>
       <ion-content :scroll-y="false">
-        <div class="issues-panel__section issues-panel__select-equipment">
+        <div class="modal-panel__section modal-panel__select-equipment">
           <h2
-            class="color-light-gray font-size-xs font-bold issues-panel__heading"
+            class="color-light-gray font-size-xs font-bold modal-panel__heading"
           >
             Select Organisation
           </h2>
 
           <ion-select
             interface="action-sheet"
-            class="issues-panel__select-organisation__select"
+            class="modal-panel__select-organisation__select"
             placeholder="Select organisation"
             :value="state.organisation"
             @ion-change="handleChange"
@@ -90,7 +90,7 @@ ion-content::part(background) {
   background: #181818;
 }
 
-.issues-panel {
+.modal-panel {
   height: 40%;
   border-radius: 40px 40px 0px 0px;
   overflow: hidden;
@@ -100,7 +100,7 @@ ion-content::part(background) {
   background-color: #181818;
 }
 
-.issues-panel-container {
+.modal-panel-container {
   position: relative;
   height: 100%;
   background-color: #181818;
@@ -110,23 +110,23 @@ ion-content::part(background) {
   padding: 45px 32px 32px;
 }
 
-.issues-panel__header {
+.modal-panel__header {
   margin-bottom: 20px;
 }
 
-.issues-panel__title {
+.modal-panel__title {
   margin-bottom: 12px;
 }
 
-.issues-panel__section {
+.modal-panel__section {
   margin-bottom: 20px;
 }
 
-.issues-panel__heading {
+.modal-panel__heading {
   margin-bottom: 5px;
 }
 
-.issues-panel__select-organisation__select {
+.modal-panel__select-organisation__select {
   appearance: none;
   background: none;
   border: 0.75px solid #313131;

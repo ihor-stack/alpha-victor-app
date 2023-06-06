@@ -5,29 +5,15 @@
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label color="light">Logo</ion-label>
-          <CustomIonUploadInput :buttonText="'Select file'" @upload="uploadFile" />
+          <CustomIonUploadInput :buttonText="'Select file'" :disabled="theme.logo ? true : false" :selectedImage="theme.logo" @file-selected="onLogoSelected" @remove="onLogoRemoved"/>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Background image</ion-label>
-          <CustomIonUploadInput :buttonText="'Select file'" @upload="uploadFile2" />
+          <ion-label color="light">Background image</ion-label> 
+          <CustomIonUploadInput :buttonText="'Select file'" :disabled="theme.backgroundImage ? true : false" :selectedImage="theme.backgroundImage" @file-selected="onBackgroundSelected" @remove="onBackgroundRemoved"/>
         </ion-col>
       </ion-row>
 
-      <!-- <ion-row class="form-admin--group">
-        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-            <ion-label color="light">Dark mode</ion-label>
-            <ion-input
-              color="light"
-              class="form-toggle"
-              :disabled="true"
-            >
-              <ion-label color="light">Enable dark mode</ion-label>
-              <ion-toggle color="primary" v-model="theme.darkmodeEnabled"/>
-            </ion-input>
-        </ion-col>
-      </ion-row> -->
-
-      <hr class="form-admin--divider" />
+      <hr class="form-admin--divider" /> 
 
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -77,92 +63,52 @@
 
 <script setup lang="ts">
 import {
-    IonButton,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonInput,
-    IonLabel,
-    IonToggle,
-  } from "@ionic/vue";
-import {computed, onBeforeMount, ref} from 'vue'
-import {Theme} from '@/stores/adminThemes'
-import { storeToRefs } from 'pinia'
+  IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonInput,
+  IonLabel,
+  IonToggle,
+} from "@ionic/vue";
+import { ref, onBeforeMount } from "vue";
+import { Theme } from "@/stores/adminThemes";
+import { storeToRefs } from "pinia";
 import CustomIonUploadInput from "@/components/shared/CustomIonUploadInput.vue";
 
 const organisation = Theme()
 const { theme } = storeToRefs(organisation)
 
-const image = ref()
-const fileLogo = ref()
-const fileName1 = computed(() => fileLogo.value?.name)
-const fileExtension1 = computed(() => fileName1.value?.substr(fileName1.value?.lastIndexOf(".") + 1))
-// const fileMimeType1 = computed(() => fileLogo.value?.type);
+async function onFileSelected(file: File, isLogo: boolean) {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => {
+    const base64String = reader.result as string;
+    const base64Payload = base64String.split(",")[1];
 
-const image2 = ref()
-const fileBackGround = ref();
-const fileName2 = computed(() => fileBackGround.value?.name);
-// const fileExtension2 = computed(() => fileName2.value?.substr(fileName2.value?.lastIndexOf(".") + 1));
-// const fileMimeType2 = computed(() => fileBackGround.value?.type);
-const uploadFile = (event: any) => {
-  fileLogo.value = event.target.files[0];
-  updateLogoState()
-};
-const uploadFile2 = (event: any) => {
-  fileBackGround.value = event.target.files[0];
-  updateBackgroundState()
-};
-const updateLogoState = () => {
-  const reader1 = new FileReader();
-  reader1.readAsDataURL(fileLogo.value);
-  reader1.onload = async () => {
-    if (typeof reader1.result === 'string') {
-      const encodedFile = reader1.result?.split(",")[1];
-      theme.value.logo = fileName1.value
-      theme.value.logoFileName = fileName1.value
-      theme.value.logoContentType = fileExtension1.value
-      theme.value.logoBase64Payload = encodedFile
+    if (isLogo) {
+      theme.value.logoFileName = file.name;
+      theme.value.logoContentType = file.type;
+      theme.value.logoBase64Payload = base64Payload;
+    } else {
+      theme.value.backgroundFileName = file.name;
+      theme.value.backgroundContentType = file.type;
+      theme.value.backgroundBase64Payload = base64Payload;
+    }
+  };
+}
 
-      // const data = {
-      //   file: encodedFile,
-      //   fileName: fileName1.value,
-      //   fileExtension: fileExtension1.value,
-      //   fileMimeType: fileMimeType1.value,
-      // }
-      // try {
-      //   console.log(data)
-      //   return data;
-      // }
-      // catch (error) {
-      //   console.error(error);
-      // }
-    }
-  }
-}
-const updateBackgroundState = () => {
-  const reader2 = new FileReader();
-  reader2.readAsDataURL(fileBackGround.value);
-  reader2.onload = async () => {
-    if (typeof reader2.result === 'string') {
-      const encodedFile = reader2.result?.split(",")[1];
-      theme.value.backgroundImage = fileName2.value
-      // theme.value.logoContentType = fileExtension1.value
-      // theme.value.logoBase64Payload = encodedFile
-      // const data = {
-      //   file: encodedFile,
-      //   fileName: fileName2.value,
-      //   fileExtension: fileExtension2.value,
-      //   fileMimeType: fileMimeType2.value,
-      // }
-      // try {
-      //   return data;
-      // }
-      // catch (error) {
-      //   console.error(error);
-      // }
-    }
-  } 
-}
+const onLogoSelected = (file: File) => onFileSelected(file, true);
+const onBackgroundSelected = (file: File) => onFileSelected(file, false);
+
+const onLogoRemoved = () => {
+  organisation.removeLogo()
+};
+
+const onBackgroundRemoved = () => {
+  organisation.removeBackgroundImage()
+};
+
 onBeforeMount(() => {
   organisation.getThemes()
 })

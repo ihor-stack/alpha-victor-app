@@ -1,37 +1,9 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">Equipment</h1>
+
     <ion-row class="form-admin">
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-select 
-        placeholder="Select organisation" 
-        class="custom-select"
-        interface="popover"
-        >
-          <ion-select-option 
-            value="english" v-for="(manufature, id) in manufacturers" 
-            :key="id">
-            {{manufature.name}}
-          </ion-select-option>
-        </ion-select>
-        <EquimentManufacutrerModal />
-      </ion-col>
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-select 
-        placeholder="Select organisation" 
-        class="custom-select"
-        interface="popover"
-        >
-          <ion-select-option 
-            value="english" v-for="(asset, id) in assets" 
-            :key="id">
-            {{asset.name}}
-          </ion-select-option>
-        </ion-select>
-        <EquimentAssetTypeModal />
-      </ion-col>
       <ion-col size-xs="12" class="form-admin--group_field">
-        <h1 class="font-bold font-size-md color-light-gray">Equipment</h1>
         <ion-item 
         v-for="equipment in equipments" 
         v-bind:key="equipment.id" 
@@ -44,6 +16,41 @@
           </ion-label>
           <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
         </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="form-admin">
+      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+        <EquipmentManufacturerModal />
+
+        <h3 class="font-bold font-size-md color-light-gray">Manufacturers</h3>
+        <div v-for="manufacturer in manufacturers" :key="manufacturer.id">
+          <ItemField
+            :modelValue="manufacturer.name"
+            :data="manufacturer"
+            icon=""
+            :id="manufacturer.id"
+            placeholder="Document Type"
+            @update:modelValue="value => updateManufacturerValue({ ...manufacturer, name: value })"
+            @remove="removeManufacturer"
+          />
+        </div>
+      </ion-col>
+      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+        <EquipmentAssetTypeModal />
+
+        <h3 class="font-bold font-size-md color-light-gray">Asset Types</h3>
+        <div v-for="asset in assets" :key="asset.id">
+          <ItemField
+            :modelValue="asset.name"
+            :data="asset"
+            icon=""
+            :id="asset.id"
+            placeholder="Document Type"
+            @update:modelValue="value => updateAssetValue({ ...asset, name: value })"
+            @remove="removeAsset"
+          />
+        </div>
       </ion-col>
     </ion-row>
   </div>
@@ -60,9 +67,10 @@
     IonSelectOption,
   } from "@ionic/vue";
   import { ref } from "vue";
-  import { chevronForwardOutline } from "ionicons/icons";
-  import EquimentAssetTypeModal from "@/components/admin/equipment/EquimentAssetTypeModal.vue"
-  import EquimentManufacutrerModal from "@/components/admin/equipment/EquimentManufacutrerModal.vue"
+  import { chevronForwardOutline } from "ionicons/icons"
+  import EquipmentAssetTypeModal from "@/components/admin/equipment/EquipmentAssetTypeModal.vue"
+  import EquipmentManufacturerModal from "@/components/admin/equipment/EquipmentManufacturerModal.vue"
+  import ItemField from '@/components/admin/ItemField.vue'
 
   const manufacturers = ref([
     { id: 1, name: 'opt 1' },
@@ -86,6 +94,11 @@
 h1 {
   margin-bottom: 3%;
 }
+
+h3 {
+  margin: 30px 0 10px;
+}
+
 p {
   margin-left: 2%;
   font-family: "Akkurat-Mono";

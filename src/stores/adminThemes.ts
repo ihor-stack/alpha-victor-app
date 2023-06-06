@@ -23,15 +23,62 @@ export const Theme = defineStore('Themes', {
         toastService.show('Error', error, 'error', 'top');
       })
     },
-    async saveThemes() {
-      adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Theme', this.theme)
+
+    saveThemes() {
+      loadingService.show("Loading...");
+
+      const themeToSave = {
+        darkmodeEnabled: this.theme.darkmodeEnabled,
+        primaryColour: this.theme.primaryColour,
+        secondaryColour: this.theme.secondaryColour,
+        logoBase64Payload: this.theme.logoBase64Payload,
+        logoFileName: this.theme.logoFileName,
+        logoContentType: this.theme.logoContentType,
+        backgroundBase64Payload: this.theme.backgroundBase64Payload,
+        backgroundFileName: this.theme.backgroundFileName,
+        backgroundContentType: this.theme.backgroundContentType,
+      };
+
+      adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Theme', themeToSave)
       .then(() => 
         {
           toastService.show('Success', 'Theme information updated', 'success', 'top');
         }
       ).catch(error =>{
         toastService.show('Error', error, 'error', 'top');
-      })
+      }).finally(() => {
+        loadingService.close();
+      });
+    },
+
+    removeLogo() {
+      loadingService.show("Loading...");
+      adminAPI.delete('/Organisation/' + cookies.get('orgId') + '/ClearLogo')
+      .then(() => 
+        {
+          toastService.show('Success', 'Logo removed successfully', 'success', 'top')
+          this.getThemes()
+        }
+      ).catch(error =>{
+        toastService.show('Error', error, 'error', 'top')
+      }).finally(() => {
+        loadingService.close()
+      });
+    },
+
+    removeBackgroundImage() {
+      loadingService.show("Loading...");
+      adminAPI.delete('/Organisation/' + cookies.get('orgId') + '/ClearBackground')
+      .then(() => 
+        {
+          toastService.show('Success', 'Logo removed successfully', 'success', 'top')
+          this.getThemes()
+        }
+      ).catch(error =>{
+        toastService.show('Error', error, 'error', 'top')
+      }).finally(() => {
+        loadingService.close()
+      });
     },
  },
  getters: {

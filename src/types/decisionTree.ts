@@ -30,7 +30,11 @@ export interface DecisionTree {
   root: IDecisionTreeNode;
   loaded?: boolean;
 }
-
+export interface DecisionTreeList {
+  root: number;
+  id: string;
+  name: string;
+}
 export class DecisionTreeNode {
   id: string;
   x: number;

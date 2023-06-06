@@ -113,9 +113,12 @@ export interface AdminOrganisation {
   logo: string;
 }
 export interface AdminTheme {
+  darkmodeEnabled: boolean;
   primaryColour: string;
   secondaryColour: string;
-  darkmodeEnabled: boolean;
+  backgroundBase64Payload?: string;
+  backgroundFileName?: string;
+  backgroundContentType?: string;
   logoBase64Payload?: string;
   logoFileName?: string;
   logoContentType?: string;
@@ -187,6 +190,10 @@ export interface NavLocation {
   locationName: string;
   floors: NavFloor[];
 }
+export interface NewLocDetails {
+  name: string;
+  prefix: string;
+}
 export interface Navigation {
   organisationId: string;
   organisationName: string;
@@ -211,7 +218,7 @@ export interface Location {
 export interface SelectItem {
   id: number;
   title: string;
-  aditionalInfo?: any;
+  additionalInfo?: any;
 }
 
 export interface SingleLocation {
@@ -236,11 +243,20 @@ export interface SingleFloor {
   spaces: NavSpace[];
 }
 
+export interface NewFloorDetails {
+  longName: string;
+  shortName: string;
+}
+
 export interface SpecificFloor {
   id: string;
   name: string;
   shortName: string;
   spaces: SpecificSpace[];
+}
+export interface NewSpaceDetails {
+  spaceName: string;
+  shortCode: string;
 }
 export interface SpecificSpace {
   image?: string;
@@ -345,6 +361,6 @@ export interface NewPhoto {
   base64Payload: string;
   fileName: string;
   contentType: string;
-  order: string;
+  order: number;
   featuredPhoto: boolean;
 }
