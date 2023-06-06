@@ -45,7 +45,7 @@
       </ion-item>
     </ion-content>
     <ion-footer class="ion-no-border">
-      <router-link to="/find-space">
+      <router-link to="/find-space/location">
         <ion-button expand="block">Explore Spaces</ion-button>
       </router-link>
     </ion-footer>

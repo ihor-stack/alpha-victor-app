@@ -1,6 +1,11 @@
 import { defineStore } from "pinia";
 import { publicAPI } from "@/axios";
-import { AdminOrganisation, OrgDetails, Location } from "@/types/index";
+import {
+  AdminOrganisation,
+  OrgDetails,
+  Location,
+  SearchNavigationTree,
+} from "@/types/index";
 
 import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
@@ -14,7 +19,7 @@ export const Organisations = defineStore("Organisations", {
       organisationList: [] as AdminOrganisation[],
       currentOrganisation: {} as OrgDetails,
       currentOrganisationId: "" as string,
-      locations: [] as Location[],
+      searchNavigationTree: {} as SearchNavigationTree,
     };
   },
   actions: {
@@ -56,14 +61,14 @@ export const Organisations = defineStore("Organisations", {
           loadingService.close();
         });
     },
-    async getLocations() {
+    async getSearchNavigationTree() {
       loadingService.show("Loading...");
       const id = this.currentOrganisationId || cookies.get("orgId");
       if (id) {
         publicAPI
-          .get<Location[]>(`/Organisation/${id}/SearchNavigationTree`)
+          .get<SearchNavigationTree>(`/Organisation/${id}/SearchNavigationTree`)
           .then((response) => {
-            this.locations = response.data;
+            this.searchNavigationTree = response.data;
           })
           .catch((error) => {
             toastService.show("Error", error, "error", "top");

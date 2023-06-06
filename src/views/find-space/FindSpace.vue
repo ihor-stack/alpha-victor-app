@@ -80,7 +80,7 @@ watch(
 );
 
 onBeforeMount(() => {
-  organisationStore.getLocations();
+  organisationStore.getSearchNavigationTree();
 });
 </script>
 
