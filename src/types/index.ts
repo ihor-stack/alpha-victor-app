@@ -248,6 +248,17 @@ export interface SpecificSpace {
   spaceId: string;
 }
 
+export interface SearchNavigationTree {
+  locations: {
+    locationId: string;
+    locationName: string;
+    floors: {
+      floorId: string;
+      floorName: string;
+    }[];
+  }[];
+}
+
 export interface Space {
   id?: string;
   spaceName: string;

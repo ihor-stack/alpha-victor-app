@@ -4,18 +4,18 @@
       <h2 class="list-title font-bold color-light-gray">Locations</h2>
       <ul class="list list--condensed">
         <router-link
-          v-for="(location, index) in locations"
+          v-for="(location, index) in searchNavigationTree?.locations"
           :key="index"
-          :to="`/find-space/location/${location.id}/floor`"
+          :to="`/find-space/location/${location.locationId}/floor`"
         >
           <li class="list-item">
             <div class="list-item__info">
               <div class="list-item__details">
                 <p class="primaryText font-bold font-size-sm color-light-gray">
-                  {{ location.name }}
+                  {{ location.locationName }}
                 </p>
                 <p class="font-mono font-size-xxs color-dark-gray">
-                  {{ location.city }}
+                  {{ "location.city" }}
                 </p>
               </div>
             </div>
@@ -36,9 +36,7 @@ const organisationStore = useOrganisationStore();
 
 const props = defineProps(["searchTerm"]);
 
-const { locations } = storeToRefs(organisationStore);
-
-const otherLocations = ["Cardiff", "Glasgow"];
+const { searchNavigationTree } = storeToRefs(organisationStore);
 </script>
 
 <style scoped>
