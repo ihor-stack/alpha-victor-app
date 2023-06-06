@@ -138,6 +138,22 @@
                     </ion-button>
                 </ion-col>
             </ion-row>
+
+            <hr class="form-admin--divider" />
+
+            <h1 class="title-admin font-bold font-size-lg color-light-gray">Floors</h1>
+
+            <ul class="list" v-if="floors.length > 0">
+                <li class="list-item" slot="header" color="--av-darkest-gray" v-for="floor in floors" v-bind:key="floor.id">
+                    <router-link :to="getFloorRoute(floor.id)">
+                        <span class="primaryText font-bold font-size-sm color-light-gray">{{ floor.name }}</span>
+                        <span class="arrow-right"></span>
+                    </router-link>
+                </li>
+            </ul>
+
+            <NewFloorModal />
+
         </ion-grid>
     </div>
 </template>
@@ -153,19 +169,35 @@ import {
     IonItem
 } from "@ionic/vue";
 import {Locations} from '@/stores/adminLocations'
+import { Floors } from '@/stores/adminFloors'
 import { storeToRefs } from "pinia"
 import { onBeforeMount } from "vue"
 import { useCookies } from "vue3-cookies"
+import NewFloorModal from '@/components/modals/NewFloorModal.vue'
 
 const { cookies } = useCookies();
 const Location = Locations()
 const { location } = storeToRefs(Location);
+const Floor = Floors()
+const { floors } = storeToRefs(Floor);
 
 const saveChanges = (id: string) => {
     Location.updateLocation(id)
 }
 
+const getFloorRoute = (floorId: string) => {
+  cookies.set('floorId', floorId);
+  const locationId = cookies.get("locationId");
+  if (locationId && cookies.get("orgId")) {
+    return {
+      name: "OrganisationViewLocationsFloors",
+      params: { id: cookies.get("orgId"), locationId, floorId },
+    };
+  }
+};
+
 onBeforeMount(() =>{
+    Floor.getFloors()
     Location.getLocation()
 })
 </script>
@@ -173,5 +205,8 @@ onBeforeMount(() =>{
 <style scoped>
 ion-content{
     margin: 0%;
+}
+.list {
+    margin-bottom: 30px;
 }
 </style>

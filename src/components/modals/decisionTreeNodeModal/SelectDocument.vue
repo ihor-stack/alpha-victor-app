@@ -140,7 +140,7 @@ const models = computed(() => {
   );
 });
 
-const getDocuments = (equipmentId) => {
+const getDocumentTypes = (equipmentId) => {
   if (!equipmentId) return;
   loadingService.show("Loading...");
   adminAPI
@@ -158,11 +158,11 @@ const getDocuments = (equipmentId) => {
 };
 
 onBeforeMount(() => {
-  getDocuments(props.editTreeNode?.document?.equipmentId);
+  getDocumentTypes(props.editTreeNode?.document?.equipmentId);
 });
 
 watch([() => state.equipmentId], (value) => {
-  getDocuments(value);
+  getDocumentTypes(value);
 });
 </script>
 

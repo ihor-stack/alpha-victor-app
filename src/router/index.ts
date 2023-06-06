@@ -252,8 +252,9 @@ const routes: Array<RouteRecordRaw> = [
               ),
           },
           {
-            path: "organisation/id/document-types",
+            path: "organisation/:id/document-types",
             name: "OrganisationViewDocumentTypes",
+            props: true,
             component: () =>
               import(
                 "@/views/admin/organisations/OrganisationViewDocumentTypes.vue"

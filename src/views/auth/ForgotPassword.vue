@@ -18,11 +18,9 @@
                   <div class="login-form-fields">
                     <ion-input type="email" class="custom-input" placeholder="Email" name="email" />
                   </div>
-                  
                 </div>
                 <ion-footer>
                   <ion-button expand="block">Sent password reset link</ion-button>
-                    
                   <div class="link-container text-center">
                     <p class="color-mid-gray font-md">
                       Don't have an account?

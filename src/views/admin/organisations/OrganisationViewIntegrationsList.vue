@@ -1,17 +1,19 @@
 <template>
-  <h1 class="title-admin font-bold font-size-lg color-light-gray">Integration</h1>
-  <ion-item 
-  v-for="item in integrations.integrations.value" 
-  :key="item.id" 
-  button
-  :router-link="redirect(String(item.id))"
-  router-direction="root">
-    <ion-label color="light" >
-      <h2>{{item.name}}</h2>
-      <p>Integration</p>
-    </ion-label>
-    <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
-  </ion-item>
+  <div>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">Integration</h1>
+    <ion-item 
+    v-for="item in integrations.integrations.value" 
+    :key="item.id" 
+    button
+    :router-link="redirect(String(item.id))"
+    router-direction="root">
+      <ion-label color="light" >
+        <h2>{{item.name}}</h2>
+        <p>Integration</p>
+      </ion-label>
+      <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
+    </ion-item>
+  </div>
 </template>
   
 <script setup lang="ts">

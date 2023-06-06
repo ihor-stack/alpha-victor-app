@@ -103,14 +103,16 @@
         </ion-col>
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
           <ion-label color="light">Website / email domain(s)</ion-label>
-          <ion-input
-            class="font-size-sm"
-            color="light"
-            placeholder="ex: website.com"
-            :value="newDomain"
-            @ion-input="newDomain=String($event.target.value)"
-            @keyup.enter="organisationDetails.website.push(newDomain)"
-          />
+          <div class="chips-field">
+            <ion-input
+              class="font-size-sm"
+              color="light"
+              placeholder="ex: website.com"
+              v-model="newDomain"
+              @keyup.enter="addDomain()"
+            />
+            <p v-if="newDomain.length" class="color-light-gray chips-field--label font-mono font-size-sm">Press enter to add</p>
+          </div>
           <ion-chip v-for="(domain, index) in organisationDetails.website" :key="index">
             <ion-label>{{ domain }}</ion-label>
             <ion-icon :icon="closeCircle" @click="removeDomain(index)"></ion-icon>
@@ -139,31 +141,47 @@ import {
   from "@ionic/vue";
   import {Organisations} from '@/stores/adminOrganisations'
   import { storeToRefs } from 'pinia'
-  import { onBeforeMount, ref } from "vue";
+  import { onBeforeMount, ref, watchEffect } from "vue";
   import AdminSelect from  '@/components/admin/AdminSelect.vue'
   import {closeCircle} from 'ionicons/icons'
   import {SelectItem} from '@/types/index'
+  import toastService from '@/services/toastService'
 
   const organisation = Organisations()
   const { organisationDetails } = storeToRefs(organisation);
   const languageOptions = [
     {id:0, title:'English'},
-    {id:1, title:'Welsh'},
-    {id:2, title:'French'},
-    {id:3, title:'Spanish'},
-    {id:4, title:'German'},
-    {id:5, title:'Polish'}
+    {id:1, title:'Welsh'}
   ]
   const selectedLanguage = ref({} as SelectItem)
-  const newDomain = ref()
-  const saveChanges = () => {
-    organisation.updateOrgDetails(selectedLanguage.value.id)
+  const newDomain = ref('')
+
+  const addDomain = () => {
+    const regex = new RegExp(/^((?:www\.)?[^./]+(?:\.[^./]+)+(?:\/.*)?)$/);
+
+    if (!regex.test(newDomain.value)) {
+      toastService.show('Error', 'Please enter a valid website address', 'error', 'top');
+      return;
+    }
+
+    if (organisationDetails.value.website) {
+      organisationDetails.value.website.push(newDomain.value);
+    } else {
+      organisationDetails.value.website = [newDomain.value];
+    }
+    newDomain.value = '';
   }
+
   const removeDomain = (index: number) => {
     if (index > -1) {
       organisationDetails.value.website.splice(index, 1);
     }
   }
+
+  const saveChanges = () => {
+    organisation.updateOrgDetails(selectedLanguage.value.id)
+  }
+
   onBeforeMount(() =>{
     organisation.getOrgDetails()
   })
