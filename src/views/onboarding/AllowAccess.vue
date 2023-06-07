@@ -16,7 +16,11 @@
               </div>
               <div class="allow-access-container">
                 <div class="allow-access-item">
-                  <img class="allow-access-icon" src="@/theme/icons/location.svg" alt="Icon of a map pin marker" />
+                  <img
+                    class="allow-access-icon"
+                    src="@/theme/icons/location.svg"
+                    alt="Icon of a map pin marker"
+                  />
                   <div class="allow-access-info">
                     <h4 class="font-mono font-size-normal color-light-gray">
                       Location
@@ -27,7 +31,11 @@
                   </div>
                 </div>
                 <div class="allow-access-item">
-                  <img class="allow-access-icon" src="@/theme/icons/bluetooth.svg" alt="Bluetooth icon" />
+                  <img
+                    class="allow-access-icon"
+                    src="@/theme/icons/bluetooth.svg"
+                    alt="Bluetooth icon"
+                  />
                   <div class="allow-access-info">
                     <h4 class="font-mono font-size-normal color-light-gray">
                       Bluetooth
@@ -38,7 +46,11 @@
                   </div>
                 </div>
                 <div class="allow-access-item">
-                  <img class="allow-access-icon" src="@/theme/icons/notifications.svg" alt="Icon of a bell" />
+                  <img
+                    class="allow-access-icon"
+                    src="@/theme/icons/notifications.svg"
+                    alt="Icon of a bell"
+                  />
                   <div class="allow-access-info">
                     <h4 class="font-mono font-size-normal color-light-gray">
                       Notifications
@@ -55,27 +67,38 @@
               <div class="link-container text-center">
                 <p class="color-mid-gray font-md">
                   Already have an account?
-                  <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link>
+                  <router-link
+                    :to="{ name: 'Login' }"
+                    class="color-light-gray link"
+                    >Login</router-link
+                  >
                 </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <ion-modal :is-open="state.modalOpen" :initial-breakpoint="0.75" :breakpoints="[0, 0.3, 0.75]"
-        @willDismiss="handleDismiss">
+      <ion-modal
+        :is-open="state.modalOpen"
+        :initial-breakpoint="0.75"
+        :breakpoints="[0, 0.3, 0.75]"
+        @willDismiss="handleDismiss"
+      >
         <!-- Modal content to be conditionally shown here based on which permissions are still to be provided; this is just an example -->
-        <onboarding-access-panel dotText="location.access" :ctaFunc="setOpen">
+        <onboarding-access-panel
+          :dotText="`${permissions[state.currentPermission]}.access`"
+          :ctaFunc="requestPermission"
+        >
           <template v-slot:image>
             <img src="@/theme/img/onboarding-access-location.svg" />
           </template>
           <template v-slot:heading>
             Enable<br />
-            location.
+            {{ permissions[state.currentPermission] }}.
           </template>
           <template v-slot:info-text>
-            Please allow location access to allow us to see which room you’re
-            in.
+            Please allow {{ permissions[state.currentPermission] }} when
+            prompted on the next screen for a better app experience
           </template>
         </onboarding-access-panel>
       </ion-modal>
@@ -86,16 +109,40 @@
 <script setup lang="ts">
 import { IonContent, IonPage, IonButton, IonModal } from "@ionic/vue";
 import { reactive } from "vue";
+import { Diagnostic } from "@awesome-cordova-plugins/diagnostic";
 import DotText from "@/components/shared/DotText.vue";
 import OnboardingAccessPanel from "@/components/onboarding/OnboardingAccessPanel.vue";
 
-const state = reactive({ modalOpen: false });
+const permissions = ["location", "bluetooth", "notification"];
+
+const state = reactive({
+  modalOpen: false,
+  currentPermission: 0,
+});
 const setOpen = () => {
   state.modalOpen = !state.modalOpen;
 };
 const handleDismiss = () => {
-  console.log("dismissing modal");
   state.modalOpen = false;
+};
+
+const requestPermission = async () => {
+  try {
+    if (state.currentPermission === 0) {
+      await Diagnostic.requestLocationAuthorization();
+    } else if (state.currentPermission === 1) {
+      await Diagnostic.requestBluetoothAuthorization();
+    } else if (state.currentPermission === 2) {
+      await Diagnostic.requestRemoteNotificationsAuthorization();
+    }
+    state.currentPermission < 2
+      ? (state.currentPermission = state.currentPermission + 1)
+      : null;
+  } catch {
+    state.currentPermission < 2
+      ? (state.currentPermission = state.currentPermission + 1)
+      : null;
+  }
 };
 </script>
 
