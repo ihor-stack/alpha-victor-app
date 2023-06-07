@@ -29,19 +29,13 @@
           class="space-search-input font-bold font-size-sm"
           v-model="state.searchTerm"
           :clear-input="true"
+          :debounce="700"
         />
-        <ion-button
-          fill="clear"
-          expand="block"
-          size="small"
-          class="space-search-icon"
-        >
-          <img src="@/theme/icons/qr-code.svg" class="qr-code-icon" />
-        </ion-button>
       </div>
     </div>
     <ion-content>
-      <ion-router-outlet></ion-router-outlet>
+      <SearchSpace v-if="state.searchTerm" :spaces="state.spaces" />
+      <router-view v-else></router-view>
     </ion-content>
   </ion-page>
 </template>
@@ -52,32 +46,57 @@ import {
   IonContent,
   IonButton,
   IonMenuButton,
-  IonRouterOutlet,
   IonInput,
 } from "@ionic/vue";
 import { reactive, watch, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import { publicAPI } from "@/axios";
+import toastService from "@/services/toastService";
+import loadingService from "@/services/loadingService";
+import { Space } from "@/types/index";
+import SearchSpace from "@/components/findSpace/SearchSpace.vue";
 
 const router = useRouter();
 const organisationStore = useOrganisationStore();
 
 interface State {
   searchTerm: string;
+  spaces: Space[];
 }
 
 const state: State = reactive({
   searchTerm: "",
+  spaces: [],
 });
 
 watch(
   () => state.searchTerm,
-  (term) =>
-    term.length > 0
-      ? router.replace({ name: "FindSpace", query: { search: term } })
-      : router.replace({ name: "FindSpace" })
+  (term) => {
+    if (term.length > 0) {
+      searchSpace(term);
+    } else {
+      state.spaces = [];
+    }
+  }
 );
+
+const searchSpace = (term: string) => {
+  loadingService.show("Loading...");
+  publicAPI
+    .get(`/Dashboard/Find?request=${term}`)
+    .then((response) => {
+      state.spaces = response.data;
+    })
+    .catch((error) => {
+      state.spaces = [];
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
+};
 
 onBeforeMount(() => {
   organisationStore.getSearchNavigationTree();

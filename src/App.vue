@@ -1,7 +1,7 @@
 <template>
   <ion-app>
     <app-menu />
-    <ion-router-outlet id="content" />
+    <router-view id="content" />
     <LoadingIndicator
       v-if="loadingService.loading.value.isLoading"
       :message="loadingService.loading.value.message"
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonApp, IonRouterOutlet } from "@ionic/vue";
+import { IonApp } from "@ionic/vue";
 import AppMenu from "./components/shared/AppMenu.vue";
 import CustomToast from "@/components/shared/CustomToast.vue";
 import LoadingIndicator from "@/components/shared/LoadingIndicator.vue";
