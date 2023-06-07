@@ -48,6 +48,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/find-space/FindSpace.vue"),
     children: [
       {
+        path: "",
+        name: "FindSpaceRoot",
+        component: () => import("@/views/find-space/FindSpaceLocation.vue"),
+      },
+      {
         path: "location",
         name: "FindSpaceLocation",
         component: () => import("@/views/find-space/FindSpaceLocation.vue"),

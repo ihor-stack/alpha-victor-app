@@ -213,6 +213,7 @@ export interface Location {
   addressLines: string[];
   city: string;
   postcode: string;
+  floors?: SingleFloor[];
 }
 
 export interface SelectItem {
@@ -241,6 +242,7 @@ export interface SingleFloor {
   name: string;
   shortName?: string;
   spaces: NavSpace[];
+  spaceCount?: number;
 }
 
 export interface NewFloorDetails {
@@ -263,18 +265,6 @@ export interface SpecificSpace {
   name: string;
   spaceId: string;
 }
-
-export interface SearchNavigationTree {
-  locations: {
-    locationId: string;
-    locationName: string;
-    floors: {
-      floorId: string;
-      floorName: string;
-    }[];
-  }[];
-}
-
 export interface Space {
   id?: string;
   spaceName: string;
@@ -299,6 +289,7 @@ export interface Space {
   beacons?: Beacon[];
   wifiDetails?: WifiDetails;
   location?: string;
+  floorName?: string;
 }
 export interface DetailedSpace {
   id: string;

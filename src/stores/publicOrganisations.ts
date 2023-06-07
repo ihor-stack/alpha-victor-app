@@ -1,11 +1,6 @@
 import { defineStore } from "pinia";
 import { publicAPI } from "@/axios";
-import {
-  AdminOrganisation,
-  OrgDetails,
-  Location,
-  SearchNavigationTree,
-} from "@/types/index";
+import { AdminOrganisation, OrgDetails, Location } from "@/types/index";
 
 import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
@@ -19,7 +14,7 @@ export const Organisations = defineStore("Organisations", {
       organisationList: [] as AdminOrganisation[],
       currentOrganisation: {} as OrgDetails,
       currentOrganisationId: "" as string,
-      searchNavigationTree: {} as SearchNavigationTree,
+      searchNavigationTree: [] as Location[],
     };
   },
   actions: {
@@ -66,7 +61,7 @@ export const Organisations = defineStore("Organisations", {
       const id = this.currentOrganisationId || cookies.get("orgId");
       if (id) {
         publicAPI
-          .get<SearchNavigationTree>(`/Organisation/${id}/SearchNavigationTree`)
+          .get<Location[]>(`/Organisation/${id}/SearchNavigationTree`)
           .then((response) => {
             this.searchNavigationTree = response.data;
           })
