@@ -74,7 +74,7 @@
       :breakpoints="[0, 1]"
       @willDismiss="handleDismiss"
     >
-      <ion-router-outlet id="settings-modal"></ion-router-outlet>
+      <router-view id="settings-modal"></router-view>
     </ion-modal>
   </ion-page>
 </template>
@@ -82,7 +82,6 @@
 <script setup lang="ts">
 import {
   IonPage,
-  IonRouterOutlet,
   IonContent,
   IonButton,
   IonMenuButton,

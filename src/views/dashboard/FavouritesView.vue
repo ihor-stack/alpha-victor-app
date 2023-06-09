@@ -24,9 +24,9 @@
     <ion-content>
       <ul class="favourites-list">
         <li v-for="favourite in spaces" :key="favourite.shortCode">
-          <router-link to="/space" class="favourite">
+          <router-link :to="`/space/${favourite.id}`" class="favourite">
             <div class="favourite__image">
-              <img v-if="favourite.photoPath" :src="favourite.photoPath" />
+              <img v-if="favourite.imagePath" :src="favourite.imagePath" />
               <img v-else src="@/theme/img/space-the-henderson-square.png" />
             </div>
             <div class="favourite__info">
@@ -61,7 +61,9 @@
       </ul>
     </ion-content>
     <ion-footer class="ion-padding">
-      <ion-button expand="block">Explore Spaces</ion-button>
+      <router-link to="/find-space/location">
+        <ion-button expand="block">Explore Spaces</ion-button>
+      </router-link>
     </ion-footer>
   </ion-page>
 </template>

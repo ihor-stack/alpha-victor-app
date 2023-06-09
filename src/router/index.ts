@@ -49,6 +49,11 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: "",
+        name: "FindSpaceRoot",
+        component: () => import("@/views/find-space/FindSpaceLocation.vue"),
+      },
+      {
+        path: "location",
         name: "FindSpaceLocation",
         component: () => import("@/views/find-space/FindSpaceLocation.vue"),
       },
@@ -110,7 +115,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/DocumentView.vue"),
   },
   {
-    path: "/known-issues",
+    path: "/known-issues/:spaceId",
     name: "KnownIssues",
     component: () => import("@/views/space/KnownIssuesView.vue"),
     props: { reportIssueModalOpen: false },

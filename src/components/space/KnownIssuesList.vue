@@ -1,34 +1,54 @@
 <template>
   <div v-if="openIssues" class="issues-list">
     <div class="issues-list__header">
-      <h4 class="font-mono color-light-gray font-size-xxs">{{ useDotify("Open Issues") }}</h4>
+      <h4 class="font-mono color-light-gray font-size-xxs">
+        {{ useDotify("Open Issues") }}
+      </h4>
     </div>
     <ul class="issues-list__list">
-      <li v-for="(issue, index) in props.openIssues" :key="index" class="issues-list__item"
-        @click="props.clickHandler(issue)">
+      <li
+        v-for="(issue, index) in props.openIssues"
+        :key="index"
+        class="issues-list__item"
+        @click="props.clickHandler(issue)"
+      >
         <div class="issues-list__item__info">
-          <p class="color-light-gray font-bold font-size-xs">{{ issue.title }}</p>
+          <p class="color-light-gray font-bold font-size-xs">
+            {{ issue.title }}
+          </p>
           <status-dot :status="issue.status" />
         </div>
         <div class="issues-list__item__link">
-          <span class="color-light-gray font-mono font-size-xxs">&gt;&gt; view</span>
+          <span class="color-light-gray font-mono font-size-xxs"
+            >&gt;&gt; view</span
+          >
         </div>
       </li>
     </ul>
   </div>
-  <div v-if="closedIssues" class="issues-list">
+  <div v-if="closedIssues?.length" class="issues-list">
     <div class="issues-list__header">
-      <h4 class="font-mono color-light-gray font-size-xxs">{{ useDotify("Closed Issues") }}</h4>
+      <h4 class="font-mono color-light-gray font-size-xxs">
+        {{ useDotify("Closed Issues") }}
+      </h4>
     </div>
     <ul class="issues-list__list">
-      <li v-for="(issue, index) in props.closedIssues" :key="index" class="issues-list__item"
-        @click="props.clickHandler(issue)">
+      <li
+        v-for="(issue, index) in props.closedIssues"
+        :key="index"
+        class="issues-list__item"
+        @click="props.clickHandler(issue)"
+      >
         <div class="issues-list__item__info">
-          <p class="color-light-gray font-bold font-size-xs">{{ issue.title }}</p>
+          <p class="color-light-gray font-bold font-size-xs">
+            {{ issue.title }}
+          </p>
           <status-dot :status="issue.status" />
         </div>
         <div class="issues-list__item__link">
-          <span class="color-light-gray font-mono font-size-xxs">&gt;&gt; view</span>
+          <span class="color-light-gray font-mono font-size-xxs"
+            >&gt;&gt; view</span
+          >
         </div>
       </li>
     </ul>
@@ -36,17 +56,16 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from "vue";
 import StatusDot from "@/components/shared/StatusDot.vue";
 import { useDotify } from "@/composables/utilities";
 import { Issue } from "@/types";
-import { defineProps } from "vue";
 
 interface Props {
   openIssues: Issue[];
   closedIssues: Issue[];
   clickHandler: (issue: Issue) => void;
 }
-
 const props = defineProps<Props>();
 </script>
 

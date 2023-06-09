@@ -28,19 +28,19 @@
       </li>
       <li class="space-options-menu-item">
         <ion-item
-          :router-link="{ name: 'KnownIssues' }"
+          :router-link="{
+            name: 'KnownIssues',
+            params: { decisionTreeId: currentSpace?.id },
+          }"
           router-direction="root"
         >
           <div class="with-counter">
             <p class="label font-bold font-size-sm color-light-gray">
               Known Issues
             </p>
-            <div
-              v-if="currentSpace?.issues && currentSpace.issues.length > 0"
-              class="counter"
-            >
+            <div v-if="currentSpace?.issueCount" class="counter">
               <div>
-                <span>{{ currentSpace.issues.length }}</span>
+                <span>{{ currentSpace.issueCount }}</span>
               </div>
             </div>
           </div>

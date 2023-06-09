@@ -2,128 +2,76 @@
   <ion-page>
     <ion-content>
       <div class="locations-list">
-        <h2 class="list-title font-bold color-light-gray">Popular locations</h2>
-        <ul class="list list--condensed">
-          <router-link
-            v-for="(floor, index) in state.floors"
+        <h2 class="list-title font-bold color-light-gray">
+          {{ location?.name }}
+        </h2>
+        <ion-list>
+          <ion-item
+            :detail="true"
+            button
+            lines="full"
+            v-for="(floor, index) in location?.floors || []"
             :key="index"
-            :to="`/find-space/floor/${floor.id}/room`"
           >
-            <li
-              v-for="(floor, index) in state.floors"
-              :key="index"
-              class="list-item"
+            <router-link
+              :to="`/find-space/floor/${floor.id}/room`"
+              class="list-item__info"
             >
-              <div class="list-item__info">
+              <div>
                 <div class="list-item__details">
                   <p
                     class="primaryText font-bold font-size-sm color-light-gray"
                   >
-                    {{ floor.shortName }}
+                    {{ floor.name }}
                   </p>
                   <span class="color-dark-gray font-mono font-size-xxs">
-                    {{ floor.name }}
+                    {{ `${floor.spaces?.length || 0}.spaces` }}
                   </span>
                 </div>
               </div>
-              <span class="arrow-right"></span>
-            </li>
-          </router-link>
-        </ul>
+            </router-link>
+          </ion-item>
+        </ion-list>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonContent } from "@ionic/vue";
-import { onBeforeMount, reactive } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { adminAPI } from "@/axios";
-import toastService from "@/services/toastService";
-import loadingService from "@/services/loadingService";
-import { SingleFloor } from "@/types/index";
+import { IonPage, IonContent, IonList, IonItem } from "@ionic/vue";
+import { onBeforeMount, computed } from "vue";
+import { useRoute } from "vue-router";
+import { storeToRefs } from "pinia";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
+const organisationStore = useOrganisationStore();
 const route = useRoute();
-const router = useRouter();
 const locationId: string = route.params.locationId as string;
+const { searchNavigationTree } = storeToRefs(organisationStore);
 
-interface State {
-  floors: SingleFloor[];
-}
-
-const state: State = reactive({
-  floors: [],
-});
-
-const getFloors = () => {
-  loadingService.show("Loading...");
-  adminAPI
-    .get(`/Floor?locationId=${locationId}`)
-    .then((response) => {
-      state.floors = response.data;
-    })
-    .catch((error) => {
-      state.floors = [];
-      toastService.show("Error", error, "error", "top");
-    })
-    .finally(() => {
-      loadingService.close();
-    });
-};
+const location = computed(() =>
+  searchNavigationTree.value?.find((location) => location.id === locationId)
+);
 
 onBeforeMount(() => {
-  getFloors();
+  if (searchNavigationTree.value?.length < 1) {
+    organisationStore.getSearchNavigationTree();
+  }
 });
 </script>
 
 <style scoped>
-.search-container {
-  padding: 0 30px 30px;
+ion-list {
+  background: transparent;
 }
-.space-search {
-  background: #fff;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  overflow: hidden;
-}
-
-.space-search-input {
-  flex: 1;
-  --padding-start: 18px;
-  --padding-end: 18px;
-  --padding-top: 18px;
-  --padding-bottom: 18px;
-  border: 0;
-  color: #000;
-  background: #fff;
-}
-
-.space-search-input::placeholder {
-  color: #000;
-}
-
-.space-search-input:focus-visible {
-  outline: 0;
-}
-
-.space-search-icon {
-  padding: 0 10px;
-}
-
-.space-search ion-button {
-  --padding-start: 0px;
-  --padding-top: 0px;
-  --padding-bottom: 0px;
-  --padding-end: 0px;
+ion-item {
+  --background: transparent;
 }
 .locations-list {
   padding: 0 30px;
   margin-bottom: 30px;
 }
-.list-title {
-  font-size: 18px;
+.list-item__info {
+  width: 100%;
 }
 </style>

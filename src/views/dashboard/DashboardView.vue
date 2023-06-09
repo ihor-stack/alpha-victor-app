@@ -28,14 +28,7 @@
       <div class="dashboard-search-container">
         <dashboard-search />
       </div>
-      <div class="dashboard-sliders">
-        <div class="dashboard-slider-container">
-          <dashboard-slider
-            title="Nearby spaces"
-            cta-url=""
-            :slides="recentlyViewedSpaces"
-          />
-        </div>
+      <div class="dashboard-sliders" v-if="recentlyViewedSpaces?.length">
         <div class="dashboard-slider-container">
           <dashboard-slider
             title="Recently viewed"
@@ -44,11 +37,17 @@
           />
         </div>
       </div>
+      <ion-item v-else lines="none">
+        <ion-label>
+          <h1>no.spaces.found</h1>
+          <p>Please enter a short code or explore spaces.</p>
+        </ion-label>
+      </ion-item>
     </ion-content>
     <ion-footer class="ion-no-border">
-      <ion-button expand="block" @click="exploreSpaces"
-        >Explore Spaces</ion-button
-      >
+      <router-link to="/find-space/location">
+        <ion-button expand="block">Explore Spaces</ion-button>
+      </router-link>
     </ion-footer>
     <ion-modal
       :is-open="state.modalOpen"
@@ -70,16 +69,16 @@ import {
   IonButton,
   IonMenuButton,
   IonModal,
+  IonItem,
+  IonLabel,
 } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
 import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
-import { useRouter } from "vue-router";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
-const router = useRouter();
 const spacesStore = useSpacesStore();
 const organisationStore = useOrganisationStore();
 
@@ -93,10 +92,6 @@ const state: State = reactive({
 
 const handleDismiss = () => {
   state.modalOpen = false;
-};
-
-const exploreSpaces = () => {
-  router.push({ name: "Space" });
 };
 
 const recentlyViewedSpaces = computed(
@@ -135,5 +130,9 @@ ion-content {
 
 ion-footer {
   padding: 20px 32px;
+}
+ion-item {
+  --background: transparent;
+  text-align: center;
 }
 </style>
