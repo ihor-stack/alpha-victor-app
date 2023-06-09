@@ -31,7 +31,7 @@
         <div class="space-header">
           <div class="space-header__background">
             <img
-              :src="currentSpace.photoPath"
+              :src="currentSpace.imagePath"
               class="space-header__background__image"
             />
             <div class="space-header__background__gradient"></div>
@@ -52,7 +52,7 @@
                 <div class="location">
                   <img src="@/theme/icons/location.svg" class="icon" />
                   <span class="font-mono font-size-xxs color-light-gray">{{
-                    currentSpace.location
+                    currentSpace.roomTypes
                   }}</span>
                 </div>
               </div>
@@ -71,7 +71,10 @@
         </div>
 
         <div class="space-wifi-info-container">
-          <space-wi-fi-info />
+          <space-wi-fi-info
+            :wifiNetwork="currentSpace.wifiNetwork"
+            :wifiPassword="currentSpace.wifiPassword"
+          />
         </div>
 
         <div class="space-options-menu-container">
@@ -82,11 +85,9 @@
     <ion-footer>
       <div class="space-cta-container">
         <div class="announcement">
-          <h4 class="color-light-gray">Important Announcement</h4>
+          <h4 class="color-light-gray">{{ currentSpace.announcementTitle }}</h4>
           <p class="color-light-gray">
-            This space will be temporarily closed between the hours or 18:00 and
-            22:00 on Wednesday 22nd March for essential maintenance. Sorry for
-            any inconvenience caused.
+            {{ currentSpace.announcementText }}
           </p>
         </div>
 
@@ -95,19 +96,37 @@
           <ion-button
             color="light"
             expand="block"
-            @click="() => router.push({ name: 'ReportIssue' })"
+            @click="state.reportIssueModalOpen = true"
           >
             Report Issue
           </ion-button>
         </div>
       </div>
     </ion-footer>
+    <ion-modal
+      :is-open="state.reportIssueModalOpen"
+      :initial-breakpoint="1"
+      :breakpoints="[0, 1]"
+      @willDismiss="state.reportIssueModalOpen = false"
+    >
+      <report-issue-modal
+        :spaceId="spaceId"
+        :handleReportIssue="() => (state.reportIssueModalOpen = false)"
+      />
+    </ion-modal>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, computed } from "vue";
-import { IonPage, IonContent, IonButton, IonFooter, IonIcon } from "@ionic/vue";
+import { onBeforeMount, computed, reactive } from "vue";
+import {
+  IonPage,
+  IonContent,
+  IonButton,
+  IonFooter,
+  IonIcon,
+  IonModal,
+} from "@ionic/vue";
 import { heartOutline, heart } from "ionicons/icons";
 import { useRoute, useRouter } from "vue-router";
 import AppHeader from "@/components/shared/AppHeader.vue";
@@ -115,6 +134,8 @@ import OccupiedStatus from "@/components/shared/OccupiedStatus.vue";
 import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
 import SpaceWiFiInfo from "@/components/space/SpaceWiFiInfo.vue";
 import SpaceOptionsMenu from "@/components/space/SpaceOptionsMenu.vue";
+import { storeToRefs } from "pinia";
+import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 
@@ -123,7 +144,12 @@ const router = useRouter();
 const spacesStore = useSpacesStore();
 const spaceId: string = route.params.spaceId as string;
 
-const currentSpace = computed(() => spacesStore.currentSpace);
+const state = reactive({
+  reportIssueModalOpen: false,
+});
+
+const { currentSpace } = storeToRefs(spacesStore);
+
 const isFavourite = computed(() =>
   spacesStore.favouriteSpaces?.some((item) => item.id === spaceId)
 );
@@ -132,8 +158,10 @@ const setFavoriteSpace = () => {
 };
 
 onBeforeMount(() => {
-  if (spacesStore.currentSpace?.id !== spaceId)
+  if (spacesStore.currentSpace?.id !== spaceId) {
     spacesStore.getSpaceDetails(spaceId);
+    spacesStore.getSpaceDevices(spaceId);
+  }
   spacesStore.setRecentlyViewedSpace(spaceId);
 });
 </script>

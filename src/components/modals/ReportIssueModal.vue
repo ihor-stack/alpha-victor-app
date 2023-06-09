@@ -3,27 +3,76 @@
     <div class="modal-panel">
       <div class="modal-panel-container">
         <ion-header>
-          <div class="modal-panel__header">
-            <h1 class="modal-panel__title color-light-gray font-bold font-size-normal">Report Issue</h1>
-            <p class="modal-panel__comment color-light-gray font-size-sm">Please provide details on the issue you're facing, and which equipment</p>
+          <div class="issues-panel__header">
+            <h1
+              class="issues-panel__title color-light-gray font-bold font-size-normal"
+            >
+              Report Issue
+            </h1>
+            <p class="issues-panel__comment color-light-gray font-size-xs">
+              Please provide details on the issue you're facing, and which
+              equipment
+            </p>
           </div>
         </ion-header>
         <ion-content :scroll-y="false">
-          <div class="modal-panel__section modal-panel__select-equipment">
-            <h2 class="color-light-gray font-size-xs font-bold modal-panel__heading">Select Equipment</h2>
-            <ion-select interface="action-sheet" class="modal-panel__select-equipment__select" placeholder="Select equipment" v-model="state.equipment" @ion-change="checkForInputs">
-              <ion-select-option value="wifi">WiFi</ion-select-option>
-              <ion-select-option value="computer">Computer</ion-select-option>
+          <div class="issues-panel__section issues-panel__select-equipment">
+            <h2
+              class="color-light-gray font-size-xs font-bold issues-panel__heading"
+            >
+              Select Equipment
+            </h2>
+            <ion-select
+              interface="action-sheet"
+              class="issues-panel__select-equipment__select"
+              placeholder="Select equipment"
+              v-model="state.deviceId"
+              @ion-change="checkForInputs"
+            >
+              <ion-select-option
+                v-for="device in devices"
+                :key="device.id"
+                :value="device.id"
+              >
+                {{ device.name }}
+              </ion-select-option>
             </ion-select>
           </div>
-
-          <div class="modal-panel__section modal-panel__add-comment">
-            <h2 class="color-light-gray font-size-xs font-bold modal-panel__heading">Add Comment</h2>
-            <ion-textarea class="modal-panel__add-comment__textarea" placeholder="Enter a comment here" v-model="state.comment" helper-text="Helper Text" @ion-change="checkForInputs"></ion-textarea>
+          <ion-row>
+            <ion-col size="12" class="form-admin--group_field">
+              <ion-label class="font-bold font-size-xs" color="light"
+                >Add title</ion-label
+              >
+              <ion-input
+                color="light"
+                class="font-size-xs"
+                placeholder="Enter title of issue"
+                v-model="state.title"
+              ></ion-input>
+            </ion-col>
+          </ion-row>
+          <div class="issues-panel__section issues-panel__add-comment">
+            <h2
+              class="color-light-gray font-size-xs font-bold issues-panel__heading"
+            >
+              Add Comment
+            </h2>
+            <ion-textarea
+              class="issues-panel__add-comment__textarea"
+              placeholder="Enter a comment here"
+              v-model="state.comment"
+              helper-text="Helper Text"
+              @ion-change="checkForInputs"
+            ></ion-textarea>
           </div>
         </ion-content>
         <ion-footer>
-          <ion-button expand="block" :disabled="!state.canSubmit" @click="submitIssue">Submit Issue</ion-button>
+          <ion-button
+            expand="block"
+            :disabled="!state.canSubmit"
+            @click="handleSubmitIssue"
+            >Submit Issue</ion-button
+          >
         </ion-footer>
       </div>
     </div>
@@ -31,31 +80,62 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
-import { 
-  IonPage, 
-  IonContent, 
-  IonHeader, 
-  IonFooter, 
-  IonButton, 
-  IonSelect, 
-  IonSelectOption, 
-  IonTextarea 
+import { reactive, defineProps } from "vue";
+import {
+  IonPage,
+  IonContent,
+  IonHeader,
+  IonFooter,
+  IonButton,
+  IonSelect,
+  IonSelectOption,
+  IonTextarea,
+  IonLabel,
+  IonInput,
 } from "@ionic/vue";
+import { storeToRefs } from "pinia";
+import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import toastService from "@/services/toastService";
+import loadingService from "@/services/loadingService";
+import { publicAPI } from "@/axios";
 
+const spacesStore = useSpacesStore();
+const { devices } = storeToRefs(spacesStore);
+
+const props = defineProps(["spaceId", "handleReportIssue"]);
 const state = reactive({
+  title: "",
   comment: "",
-  equipment: "",
-  canSubmit: false
+  deviceId: "",
+  canSubmit: false,
 });
 
-const submitIssue = () => {
-  console.log('submitting issue with comment: ' + state.comment);
-}
-
 const checkForInputs = () => {
-  return state.comment.length > 0 && state.equipment.length > 0 ? state.canSubmit = true : state.canSubmit = false;
-}
+  return state.title.length > 0 &&
+    state.comment.length > 0 &&
+    state.deviceId.length > 0
+    ? (state.canSubmit = true)
+    : (state.canSubmit = false);
+};
+
+const handleSubmitIssue = () => {
+  loadingService.show("Loading...");
+  publicAPI
+    .post(`/Issue/CreateIssue/${props.spaceId}`, {
+      title: state.title,
+      comment: state.comment,
+      deviceId: state.deviceId,
+    })
+    .then(() => {
+      props.handleReportIssue();
+    })
+    .catch((error) => {
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
+};
 </script>
 
 <style scoped>
@@ -143,7 +223,7 @@ ion-content::part(background) {
   border: 0.75px solid #313131;
   border-radius: 100px;
   padding: 4px;
-  font-family: 'Akkurat-Mono';
+  font-family: "Akkurat-Mono";
   font-size: 10px;
   line-height: 10px;
   letter-spacing: 0.015em;
@@ -154,9 +234,9 @@ ion-content::part(background) {
   margin-right: 4px;
 }
 
-.modal-panel__status__radio input:checked ~ label {
-  border: 0.75px solid #FFFFFF;
-  color: #FFFFFF;
+.issues-panel__status__radio input:checked ~ label {
+  border: 0.75px solid #ffffff;
+  color: #ffffff;
 }
 
 .modal-panel__log__heading {
@@ -177,5 +257,10 @@ ion-content::part(background) {
 
 .modal-panel__log__list__item p:last-of-type {
   margin-left: 6px;
+}
+
+.form-admin--group_field {
+  padding-right: 0;
+  margin-bottom: 20px;
 }
 </style>

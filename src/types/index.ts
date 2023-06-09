@@ -14,32 +14,6 @@ enum DocumentTypeScope {
   space,
 }
 
-export interface Space {
-  id?: string;
-  spaceName: string;
-  name?: string;
-  roomType?: string;
-  shortCode: number;
-  qrCode?: string;
-  spaceType: string;
-  occupied: boolean;
-  capacity: number;
-  photoPath: string;
-  email?: string;
-  phoneNumber?: string;
-  article?: Article;
-  video?: Video;
-  issues: Issue[];
-  typeformId?: Typeform;
-  spaceFeatures: SpaceFeature[];
-  decisionTree?: DecisionTree[];
-  devices?: Device[];
-  photos?: Photo[];
-  beacons?: Beacon[];
-  wifiDetails?: WifiDetails;
-  location?: string;
-}
-
 export interface Article {
   id: string;
   title: string;
@@ -67,8 +41,15 @@ export interface Photo {
 export interface Issue {
   title: string;
   status: Status;
-  comment: string;
-  log: string[];
+  comments: { comment: string }[];
+  description: string;
+  actionHistory: { issueAction: number; updated: string }[];
+}
+
+export interface IssueListItem {
+  title: string;
+  status: Status;
+  id: string;
 }
 
 export interface Typeform {
@@ -84,6 +65,7 @@ export interface SpaceFeature {
 export interface Device {
   id: string;
   name: string;
+  manufacturer?: string;
   serialNumber?: string;
   installer?: string;
   installDate?: string;
@@ -231,6 +213,7 @@ export interface Location {
   addressLines: string[];
   city: string;
   postcode: string;
+  floors?: SingleFloor[];
 }
 
 export interface SelectItem {
@@ -259,6 +242,7 @@ export interface SingleFloor {
   name: string;
   shortName?: string;
   spaces: NavSpace[];
+  spaceCount?: number;
 }
 
 export interface NewFloorDetails {
@@ -281,7 +265,32 @@ export interface SpecificSpace {
   name: string;
   spaceId: string;
 }
-
+export interface Space {
+  id?: string;
+  spaceName: string;
+  name?: string;
+  roomType?: string;
+  shortCode: number;
+  qrCode?: string;
+  spaceType: string;
+  occupied: boolean;
+  capacity: number;
+  imagePath: string;
+  email?: string;
+  phoneNumber?: string;
+  article?: Article;
+  video?: Video;
+  issues: Issue[];
+  typeformId?: Typeform;
+  spaceFeatures: SpaceFeature[];
+  decisionTree?: DecisionTree[];
+  devices?: Device[];
+  photos?: Photo[];
+  beacons?: Beacon[];
+  wifiDetails?: WifiDetails;
+  location?: string;
+  floorName?: string;
+}
 export interface DetailedSpace {
   id: string;
   spaceName: string;
@@ -294,11 +303,15 @@ export interface DetailedSpace {
   roomTypes: SpaceDetailsRooms[];
   spaceFeatures: SpaceDetailsFeatures[];
   photos?: Photo[];
-  photoPath?: string;
+  imagePath?: string;
   documents: SpaceDetailsDocs[];
   occupied: boolean;
   location?: string;
-  issues?: Issue[];
+  issueCount?: number;
+  announcementTitle?: string[];
+  announcementText?: string[];
+  wifiPassword?: string;
+  wifiNetwork?: string;
 }
 export interface SpaceDetailsRooms {
   name: string;

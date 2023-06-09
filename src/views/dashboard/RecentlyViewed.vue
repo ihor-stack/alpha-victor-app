@@ -24,7 +24,7 @@
     <ion-content>
       <ion-list class="spaces-list">
         <ion-item
-          v-for="space in spaces"
+          v-for="space in recentlyViewedSpaces"
           :key="space.shortCode"
           class="space"
           button
@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, computed } from "vue";
+import { onBeforeMount } from "vue";
 import {
   IonPage,
   IonContent,
@@ -51,11 +51,12 @@ import AppHeader from "@/components/shared/AppHeader.vue";
 import SpaceCard from "@/components/dashboard/SpaceCard.vue";
 import { useRouter } from "vue-router";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import { storeToRefs } from "pinia";
 
 const spacesStore = useSpacesStore();
 const router = useRouter();
 
-const spaces = computed(() => spacesStore.recentlyViewedSpaces || []);
+const { recentlyViewedSpaces } = storeToRefs(spacesStore);
 
 onBeforeMount(() => {
   spacesStore.getRecentlyViewedSpaces();

@@ -1,51 +1,41 @@
 <template>
   <ion-page id="recently-viewed">
     <ion-content>
-      <ion-list class="spaces-list" lines="none">
-        <ion-item
-          v-for="space in state.floor?.spaces"
-          :key="space.spaceId"
-          class="space"
-          button
-          :href="`/space/${space.spaceId}`"
-        >
-          <space-card :space="space" />
-        </ion-item>
-      </ion-list>
+      <SearchSpace :spaces="state.spaces" />
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
 import { onBeforeMount, reactive } from "vue";
-import { IonPage, IonContent, IonList, IonItem } from "@ionic/vue";
-import SpaceCard from "@/components/dashboard/SpaceCard.vue";
+import { IonPage, IonContent } from "@ionic/vue";
 import { useRoute } from "vue-router";
-import { adminAPI } from "@/axios";
+import { publicAPI } from "@/axios";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
-import { SingleFloor } from "@/types/index";
+import { Space } from "@/types/index";
+import SearchSpace from "@/components/findSpace/SearchSpace.vue";
 
 const route = useRoute();
 const floorId = route.params.floorId;
 
 interface State {
-  floor: SingleFloor;
+  spaces: Space[];
 }
 
 const state: State = reactive({
-  floor: {} as SingleFloor,
+  spaces: [],
 });
 
-const getFloors = () => {
+const getFloor = () => {
   loadingService.show("Loading...");
-  adminAPI
-    .get(`/Floor/${floorId}`)
+  publicAPI
+    .get(`/Floor/${floorId}/Spaces`)
     .then((response) => {
-      state.floor = response.data;
+      state.spaces = response.data;
     })
     .catch((error) => {
-      state.floor = {} as SingleFloor;
+      state.spaces = [];
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
@@ -54,7 +44,7 @@ const getFloors = () => {
 };
 
 onBeforeMount(() => {
-  getFloors();
+  getFloor();
 });
 </script>
 

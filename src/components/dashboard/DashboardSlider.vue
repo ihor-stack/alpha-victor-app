@@ -31,36 +31,7 @@
             >
               <swiper-slide v-for="slide in slides" :key="slide.shortCode">
                 <router-link :to="`/space/` + slide.id">
-                  <div class="swiper-slide__image">
-                    <div class="swiper-slide__image__gradient"></div>
-                    <img :src="slide.photoPath" v-if="slide.photoPath" />
-                    <img v-else src="@/theme/img/space-the-johnson.jpg" />
-                  </div>
-                  <div class="swiper-slide__info">
-                    <div>
-                      <div class="swiper-slide__info__top">
-                        <h6 class="category color-light-gray">
-                          {{ slide.spaceType }}
-                        </h6>
-                        <occupied-status :occupied="slide.occupied" />
-                      </div>
-                      <div class="swiper-slide__info__bottom">
-                        <h5 class="name font-bold color-light-gray">
-                          {{ slide.spaceName }}
-                        </h5>
-                        <div class="capacity">
-                          <img
-                            src="@/theme/icons/capacity.svg"
-                            class="capacity-icon"
-                          />
-                          <span
-                            class="capacity-number color-light-gray font-size-xxs font-mono"
-                            >&gt;&gt;10</span
-                          >
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <space-card :space="slide" />
                 </router-link>
               </swiper-slide>
               <div class="swiper-bullets"></div>
@@ -81,7 +52,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
 import { Space } from "@/types";
-import OccupiedStatus from "../shared/OccupiedStatus.vue";
+import SpaceCard from "@/components/dashboard/SpaceCard.vue";
 
 const router = useRouter();
 
@@ -126,7 +97,6 @@ const handleCta = () => {
 
 .swiper-slide {
   width: 260px;
-  height: 160px;
   border-radius: 8px;
   position: relative;
   overflow: hidden;

@@ -31,10 +31,10 @@
                 {{ item.name }}
               </p>
               <p
-                v-if="item.description"
+                v-if="item.manufacturer"
                 class="manufacturer font-mono font-size-xxs color-dark-gray text-lowercase"
               >
-                {{ item.description }}
+                {{ item.manufacturer }}
               </p>
             </ion-label>
           </ion-item>
@@ -51,6 +51,18 @@
       <room-equipment-modal
         :deviceDetails="state.selectedEquipment"
         :spaceId="spaceId"
+        :handleClickReportIssue="handleClickReportIssue"
+      />
+    </ion-modal>
+    <ion-modal
+      :is-open="state.reportIssueModalOpen"
+      :initial-breakpoint="1"
+      :breakpoints="[0, 1]"
+      @willDismiss="state.reportIssueModalOpen = false"
+    >
+      <report-issue-modal
+        :spaceId="spaceId"
+        :handleReportIssue="() => (state.reportIssueModalOpen = false)"
       />
     </ion-modal>
   </ion-page>
@@ -69,6 +81,7 @@ import {
 } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import RoomEquipmentModal from "@/components/modals/RoomEquipmentModal.vue";
+import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useEquipmentIcon } from "@/composables/utilities";
@@ -82,11 +95,13 @@ const spacesStore = useSpacesStore();
 interface State {
   modalOpen: boolean;
   selectedEquipment: { [key: string]: any } | null;
+  reportIssueModalOpen: boolean;
 }
 
 const state: State = reactive({
   modalOpen: false,
   selectedEquipment: null,
+  reportIssueModalOpen: false,
 });
 
 const devices = computed(() => spacesStore?.devices || []);
@@ -100,11 +115,16 @@ const handleClick = (item: any) => {
   state.modalOpen = !state.modalOpen;
 };
 
+const handleClickReportIssue = () => {
+  state.modalOpen = false;
+  state.reportIssueModalOpen = true;
+};
+
 onBeforeMount(() => {
-  if (spaceId !== spacesStore.currentSpaceId) {
+  if (spaceId !== spacesStore.currentSpaceId || !spacesStore?.devices?.length) {
     spacesStore.getSpaceDetails(spaceId);
+    spacesStore.getSpaceDevices(spaceId);
   }
-  spacesStore.getSpaceDevices(spaceId);
 });
 </script>
 

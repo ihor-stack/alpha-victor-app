@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { publicAPI, adminAPI } from "@/axios";
+import { publicAPI } from "@/axios";
 import { AdminOrganisation, OrgDetails, Location } from "@/types/index";
 
 import { useCookies } from "vue3-cookies";
@@ -14,12 +14,13 @@ export const Organisations = defineStore("Organisations", {
       organisationList: [] as AdminOrganisation[],
       currentOrganisation: {} as OrgDetails,
       currentOrganisationId: "" as string,
-      locations: [] as Location[],
+      searchNavigationTree: [] as Location[],
     };
   },
   actions: {
     setId(newId: string) {
       this.currentOrganisationId = newId;
+      cookies.set("orgId", newId);
       return true;
     },
     async getOrganisations() {
@@ -55,14 +56,14 @@ export const Organisations = defineStore("Organisations", {
           loadingService.close();
         });
     },
-    async getLocations() {
+    async getSearchNavigationTree() {
       loadingService.show("Loading...");
       const id = this.currentOrganisationId || cookies.get("orgId");
       if (id) {
-        adminAPI
-          .get<Location[]>(`/Location${id ? `?organisationId=${id}` : ""}`)
+        publicAPI
+          .get<Location[]>(`/Organisation/${id}/SearchNavigationTree`)
           .then((response) => {
-            this.locations = response.data;
+            this.searchNavigationTree = response.data;
           })
           .catch((error) => {
             toastService.show("Error", error, "error", "top");
@@ -75,7 +76,7 @@ export const Organisations = defineStore("Organisations", {
   },
   getters: {
     getList: (state) => state.organisationList,
-    getId: (state) => state.currentOrganisationId,
+    getId: (state) => state.currentOrganisationId || cookies.get("orgId"),
     currentOrganisationDetails: (state) => state.currentOrganisation,
   },
 });

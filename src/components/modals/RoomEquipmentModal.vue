@@ -55,7 +55,11 @@
       <ion-footer>
         <div class="equipment-panel__footer">
           <ion-button expand="block" size="small">User Guide</ion-button>
-          <ion-button color="light" expand="block" size="small"
+          <ion-button
+            color="light"
+            expand="block"
+            size="small"
+            @click="handleClickReportIssue"
             >Report Issue</ion-button
           >
         </div>
@@ -69,7 +73,12 @@ import { computed } from "vue";
 import { IonHeader, IonFooter, IonButton, IonContent } from "@ionic/vue";
 import { useEquipmentIcon } from "@/composables/utilities";
 
-const props = defineProps(["deviceDetails", "spaceId", "handleDismiss"]);
+const props = defineProps([
+  "deviceDetails",
+  "spaceId",
+  "handleDismiss",
+  "handleClickReportIssue",
+]);
 const technicalItems = computed(() => {
   const items: { label: string; value: string }[] = [];
   if (props.deviceDetails?.manufacturer) {

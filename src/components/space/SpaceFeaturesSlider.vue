@@ -4,7 +4,12 @@
       <swiper-slide v-for="feature in features" :key="feature.name">
         <router-link :to="{}">
           <div class="feature">
-            <p class="font-size-xxs font-bold color-light-gray">{{ feature.name }}</p>
+            <div class="space-equipment-menu__item__icon">
+              <img :src="useEquipmentIcon(feature.icon || '')" />
+            </div>
+            <p class="font-size-xxs font-bold color-light-gray">
+              {{ feature.name }}
+            </p>
           </div>
         </router-link>
       </swiper-slide>
@@ -20,7 +25,7 @@ import { SpaceFeature } from "@/types";
 import { useEquipmentIcon } from "@/composables/utilities";
 
 interface Props {
-  features: SpaceFeature[]
+  features: SpaceFeature[];
 }
 
 defineProps<Props>();
