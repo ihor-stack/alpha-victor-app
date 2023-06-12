@@ -25,6 +25,7 @@ export const Spaces = defineStore("Spaces", {
       currentId: "" as string | undefined,
       favouriteSpaces: [] as Space[],
       recentlyViewedSpaces: [] as Space[],
+      nearbySpaces: [] as Space[],
       devices: [] as Device[],
     };
   },
@@ -104,6 +105,21 @@ export const Spaces = defineStore("Spaces", {
         .get<Space[]>("/Dashboard/RecentlyViewed")
         .then((response) => {
           this.recentlyViewedSpaces = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+
+    async getNearbySpace(uuid : string, major : number, minor : number) {
+      loadingService.show("Loading...");
+      publicAPI
+        .get<Space>(`/Dashboard/ByBeacon/${uuid}/${major}/${minor}`)
+        .then((response) => {
+          this.nearbySpaces.push(response.data);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
