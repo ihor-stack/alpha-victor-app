@@ -4,10 +4,9 @@
     <string name="title_activity_main">alpha-victor</string>
     <string name="package_name">com.mythdigital.alphavictor</string>
     <string name="custom_url_scheme">com.mythdigital.alphavictor</string>
-    <string name="custom_host">alphavictor</string>
+
+    <string name="custom_host">alphavictor</string><!-- any value is fine -->
     <string name="azure_b2c_scheme">msauth</string>
-    <!-- TODO: Populate this from directory --> 
-    <!-- The leading slash is required. Copied from Azure Portal Android Config "Signature hash" field -->
-    <string name="azure_b2c_signature_hash">/your-signature-hash</string>
+    <string name="azure_b2c_signature_hash">/lvGC0B4SWYU8tNPHg/bdMjQinZQ=</string><!-- The leading slash is required. Copied from Azure Portal Android Config "Signature hash" field -->
 
 </resources>

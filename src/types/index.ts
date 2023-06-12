@@ -310,8 +310,10 @@ export interface DetailedSpace {
   issueCount?: number;
   announcementTitle?: string[];
   announcementText?: string[];
+  showWifi: boolean;
   wifiPassword?: string;
   wifiNetwork?: string;
+  wifiSecurityType?: number
 }
 export interface SpaceDetailsRooms {
   name: string;
