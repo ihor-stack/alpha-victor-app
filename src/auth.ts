@@ -4,8 +4,7 @@ import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 // Secure Storage Constants.
 const SECURE_STORE_ACCESS_TOKEN = 'SECURE_STORE_ACCESS_TOKEN';
 const SECURE_STORE_REFRESH_TOKEN = 'SECURE_STORE_REFRESH_TOKEN';
-const SECURE_STORE_EXPIRES_IN = 'SECURE_STORE_EXPIRES_IN';
-const SECURE_STORE_ISSUED_AT = 'SECURE_STORE_ISSUED_AT';
+const SECURE_STORE_EXPIRES_AT = 'SECURE_STORE_EXPIRES_AT';
 
 export default class Auth {
 
@@ -32,7 +31,7 @@ export default class Auth {
           windowOptions: "height=600,left=0,top=0",
       },
       android: {
-          redirectUrl: "msauth://{package-name}/{url-encoded-signature-hash}"
+          redirectUrl: "msauth://com.mythdigital.alphavictor/lvGC0B4SWYU8tNPHg%2FbdMjQinZQ%3D"
       },
       ios: {
           pkceEnabled: true,
@@ -49,11 +48,14 @@ export default class Auth {
   }
 
   static getOidcRefreshOptions(refreshToken : string) : OAuth2RefreshTokenOptions {
+
+    const policy = process.env.VUE_APP_AUTH_SIGNIN_POLICY_NAME;
+
     return {
       refreshToken: refreshToken,
       appId: process.env.VUE_APP_AUTH_CLIENT_ID,
       scope: `openid offline_access https://${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/${process.env.VUE_APP_AUTH_CLIENT_ID}/alphavictor`,
-      accessTokenEndpoint: `https://${process.env.VUE_APP_AUTH_TENANT_NAME}.b2clogin.com/${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/${process.env.VUE_APP_AUTH_POLICY_NAME}/oauth2/v2.0/token`,
+      accessTokenEndpoint: `https://${process.env.VUE_APP_AUTH_TENANT_NAME}.b2clogin.com/${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/B2C_1_SignUpSignIn/oauth2/v2.0/token`,
     };
   }
 
@@ -62,20 +64,17 @@ export default class Auth {
   async isTokenFresh(secondsMargin: number = 60 * 10 * -1): Promise<boolean> {
   
     const accessToken = await SecureStoragePlugin.get({key: SECURE_STORE_ACCESS_TOKEN});
-    const expiresIn = await SecureStoragePlugin.get({key: SECURE_STORE_EXPIRES_IN})
-    const issuedAt = await SecureStoragePlugin.get({key: SECURE_STORE_ISSUED_AT});
+    const expiresAt = await SecureStoragePlugin.get({key: SECURE_STORE_EXPIRES_AT})
   
-    if (!accessToken || !expiresIn || !issuedAt) {
+    if (!accessToken || !expiresAt) {
       return false;
     }
   
-    const accessTokenVal = accessToken.value;
-    const expiresInVal = Number.parseInt(expiresIn.value);
-    const issuedAtVal = Number.parseInt(issuedAt.value);
+    const expiresAtVal = Number.parseInt(expiresAt.value);
   
-    if (expiresIn) {
+    if (expiresAt) {
       const now = Auth.getCurrentTimeInSeconds();
-      return now < (issuedAtVal + expiresInVal + secondsMargin);
+      return now < (expiresAtVal + secondsMargin);
     }
   
     // if there is no expiration time but we have an access token, it is assumed to never expire
@@ -92,22 +91,23 @@ export default class Auth {
   
       const accessToken = resp["access_token"];
       const refreshToken = resp['access_token_response']["refresh_token"];
-      const expiresIn = resp['access_token_response']["expires_in"];
-      const issuedAt = Auth.getCurrentTimeInSeconds().toString();
+      const expiresAt = resp['access_token_response']["expires_at"];
   
       await SecureStoragePlugin.set( {key: SECURE_STORE_ACCESS_TOKEN, value: accessToken });
       await SecureStoragePlugin.set( {key: SECURE_STORE_REFRESH_TOKEN, value: refreshToken });
-      await SecureStoragePlugin.set( {key: SECURE_STORE_EXPIRES_IN, value: expiresIn });
-      await SecureStoragePlugin.set( {key: SECURE_STORE_ISSUED_AT, value: issuedAt });
+      await SecureStoragePlugin.set( {key: SECURE_STORE_EXPIRES_AT, value: expiresAt });
   
       return true;
     }
-    catch {
+    catch (e) {
+      console.log(e);
       return false;
     }
   }
 
   async refresh() : Promise<boolean> {
+
+    console.log("Refreshing token");
 
     const refreshToken = await SecureStoragePlugin.get({key: SECURE_STORE_REFRESH_TOKEN});
 
@@ -122,19 +122,18 @@ export default class Auth {
       const resp = await OAuth2Client.refreshToken(oidcRefreshOptions);
 
       const accessToken = resp["access_token"];
-      const refreshToken = resp['access_token_response']["refresh_token"];
-      const expiresIn = resp['access_token_response']["expires_in"];
-      const issuedAt = Auth.getCurrentTimeInSeconds().toString();
+      const refreshToken = resp["refresh_token"];
+      const expiresAt = resp['expires_at'];
 
       await SecureStoragePlugin.set( {key: SECURE_STORE_ACCESS_TOKEN, value: accessToken });
       await SecureStoragePlugin.set( {key: SECURE_STORE_REFRESH_TOKEN, value: refreshToken });
-      await SecureStoragePlugin.set( {key: SECURE_STORE_EXPIRES_IN, value: expiresIn });
-      await SecureStoragePlugin.set( {key: SECURE_STORE_ISSUED_AT, value: issuedAt });
+      await SecureStoragePlugin.set( {key: SECURE_STORE_EXPIRES_AT, value: expiresAt });
   
       return true;
 
     }
-    catch {
+    catch (e) {
+      console.log(e);
       return false;
     }
   }

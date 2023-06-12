@@ -6,6 +6,8 @@
   "scripts": {
     "serve": "vue-cli-service serve --hot",
     "build": "vue-cli-service build",
+    "ionic:build": "vue-cli-service build",
+    "ionic:serve": "vue-cli-service serve --hot",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
@@ -30,6 +32,7 @@
     "@pdftron/pdfjs-express-viewer": "^8.7.0",
     "@pdftron/webviewer": "^8.12.0",
     "@tinymce/tinymce-vue": "^4.0.7",
+    "@uncoded-limited/connect": "github:myth-digital/uncoded-connect#1.2.0",
     "@vimeo/player": "^2.17.1",
     "@vue-flow/background": "^1.2.0",
     "@vue-flow/controls": "^1.0.6",

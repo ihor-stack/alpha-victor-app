@@ -70,10 +70,11 @@
           <space-features-slider :features="currentSpace.spaceFeatures" />
         </div>
 
-        <div class="space-wifi-info-container">
+        <div v-if="currentSpace.showWifi" class="space-wifi-info-container">
           <space-wi-fi-info
             :wifiNetwork="currentSpace.wifiNetwork"
             :wifiPassword="currentSpace.wifiPassword"
+            :wifiSecurityType="currentSpace.wifiSecurityType"
           />
         </div>
 

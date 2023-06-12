@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.mythdigital.alphavictor;
 
 import com.getcapacitor.BridgeActivity;
 

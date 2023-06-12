@@ -3,7 +3,7 @@ import { KeyboardResize, KeyboardStyle } from '@capacitor/keyboard';
 // import { displayStrings } from '@capacitor-community/bluetooth-le';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.mythdigital.alphavictor',
   appName: 'alpha-victor',
   webDir: 'dist',
   bundledWebRuntime: false,
@@ -21,6 +21,10 @@ const config: CapacitorConfig = {
         noDeviceFound: "No device found"
       }
     }
+  },
+  server: {
+    cleartext: true,
+    url: "http://192.168.1.76:8100"
   }
 };
 
