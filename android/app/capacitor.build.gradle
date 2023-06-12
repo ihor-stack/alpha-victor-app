@@ -18,9 +18,9 @@ dependencies {
     implementation project(':capacitor-status-bar')
     implementation project(':uncoded-limited-connect')
     implementation project(':capacitor-secure-storage-plugin')
-
+    implementation "com.android.support:support-core-utils:26+"
 }
-
+apply from: "../../node_modules/com.unarin.cordova.beacon/src/android/cordova-plugin-ibeacon.gradle"
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()

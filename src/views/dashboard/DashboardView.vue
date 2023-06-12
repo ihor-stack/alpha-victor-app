@@ -37,7 +37,15 @@
           />
         </div>
       </div>
-      <ion-item v-else lines="none">
+      <div class="dashboard-sliders" v-if="nearbySpaces?.length">
+        <div class="dashboard-slider-container">
+          <dashboard-slider
+            title="Nearby spaces"
+            :slides="nearbySpaces"
+          />
+        </div>
+      </div>
+      <ion-item v-if="!nearbySpaces.length && !recentlyViewedSpaces.length" lines="none">
         <ion-label>
           <h1>no.spaces.found</h1>
           <p>Please enter a short code or explore spaces.</p>
@@ -61,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onBeforeMount, computed } from "vue";
+import { reactive, onBeforeMount, onBeforeUnmount, computed } from "vue";
 import {
   IonPage,
   IonContent,
@@ -78,16 +86,21 @@ import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import { IBeacon, Beacon } from "@ionic-native/ibeacon";
 
 const spacesStore = useSpacesStore();
 const organisationStore = useOrganisationStore();
 
+
+
 interface State {
   modalOpen: boolean;
+  observedBeacons: Beacon[]
 }
 
 const state: State = reactive({
   modalOpen: false,
+  observedBeacons: []
 });
 
 const handleDismiss = () => {
@@ -98,11 +111,53 @@ const recentlyViewedSpaces = computed(
   () => spacesStore.recentlyViewedSpaces || []
 );
 
+const nearbySpaces = computed(
+  () => spacesStore.nearbySpaces || []
+);
+
+let beaconRegion : any = null;
+
+const startRangingBeacons = async () => {
+
+  await IBeacon.requestAlwaysAuthorization();
+  const delegate = IBeacon.Delegate();
+
+  delegate.didRangeBeaconsInRegion().subscribe(data => {
+
+    if (data.beacons.length > 0) {
+      
+      data.beacons.forEach(b => {
+
+        if (state.observedBeacons.filter(ob => ob.minor == b.minor && ob.major == b.major).length == 0) {
+          state.observedBeacons.push(b);
+          spacesStore.getNearbySpace(b.uuid, b.major, b.minor);
+        }
+      })
+
+    }
+  });
+  
+  beaconRegion = IBeacon.BeaconRegion('spaceBeacon', 'f7826da6-4fa2-4e98-8024-bc5b71e0893e');
+
+  await IBeacon.startRangingBeaconsInRegion(beaconRegion);
+};
+
 onBeforeMount(() => {
   spacesStore.getFavouriteSpaces();
   spacesStore.getRecentlyViewedSpaces();
   organisationStore.getOrganisations();
+
+  startRangingBeacons();
 });
+
+onBeforeUnmount(() => {
+
+  if (beaconRegion !== null) {
+    IBeacon.stopRangingBeaconsInRegion(beaconRegion);
+  }
+
+});
+
 </script>
 
 <style scoped>
