@@ -4,10 +4,7 @@
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="2" class="form-admin--group_field">
           <div class="img-container">
-            <img
-              src="https://imageio.forbes.com/specials-images/imageserve/61b8b4834a7373c7800e631a/Business-people-video-conferencing-in-meeting-room/960x0.jpg?format=jpg&width=960"
-              alt=""
-            />
+            <img :src="space.imagePath || space.photos?.[0]?.path" alt="" />
           </div>
         </ion-col>
         <ion-col
@@ -52,7 +49,10 @@
           </div>
         </ion-col>
         <ion-col size-xs="12">
-          <space-features-slider :features="space.spaceFeatures" />
+          <space-features-slider
+            :features="space.spaceFeatures"
+            :allFeatures="space.spaceFeatures"
+          />
         </ion-col>
       </ion-row>
       <ion-row class="form-admin--group">
@@ -76,8 +76,11 @@
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label color="light">Room type</ion-label>
-          <AdminSelect v-model="roomTypeSelected" :options="formattedSelect" idPrefix="room-type-select" />
-          
+          <AdminSelect
+            v-model="roomTypeSelected"
+            :options="formattedSelect"
+            idPrefix="room-type-select"
+          />
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label color="light">Capacity</ion-label>
@@ -99,49 +102,63 @@
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label color="light">Decision Tree</ion-label>
-          <AdminSelect v-model="decisionTreeSelected" :options="decisionTreeList" idPrefix="decision-tree-select" />
+          <AdminSelect
+            v-model="decisionTreeSelected"
+            :options="decisionTreeList"
+            idPrefix="decision-tree-select"
+          />
         </ion-col>
       </ion-row>
 
       <hr class="form-admin--divider" />
+      <ion-item lines="none">
+        <ion-label color="light">Photos</ion-label>
+        <PhotoModal
+          :isFistPhoto="isFistPhoto"
+          :queryParams="`spaceId=${spaceId}`"
+          :callback="() => Space.getSpaceDetails(spaceId)"
+        />
+      </ion-item>
+      <ImageGallery
+        :images="space.photos"
+        @image-removed="handleImageRemoved"
+      />
+      <hr class="form-admin--divider" />
+      <ion-item lines="none">
+        <ion-label color="light">Documents</ion-label>
+        <DocumentModal />
+      </ion-item>
 
-      <ion-row>
-        <ion-col size-xs="6">
-          <ion-label color="light">Photos</ion-label>
-        </ion-col>
-        <ion-col size-xs="6">
-          <PhotoModal />
+      <ion-row class="form-admin--group_field component_container">
+        <ion-col
+          size-xs="12"
+          size-md="6"
+          class="form-admin--group_field"
+          v-for="document in space.documents"
+          :key="document.id"
+        >
+          <ion-item
+            button
+            class="form-admin--group_field-item rev-margin"
+            lines="none"
+          >
+            <ion-label color="light">
+              {{ document.name }}
+            </ion-label>
+            <ion-button
+              class="button-red text-lowercase"
+              slot="end"
+              fill="clear"
+              size="small"
+              @click="removeSpacesDocument(document.id)"
+            >
+              &gt;&gt; remove
+            </ion-button>
+          </ion-item>
         </ion-col>
       </ion-row>
- 
-      <ImageGallery :images="space.photos" @image-removed="handleImageRemoved" />
 
-      <!-- <hr class="form-admin--divider" />
-
-            <ion-row>
-                <ion-col size-xs="6">
-                    <ion-label color="light">Documents</ion-label>
-                </ion-col>
-                <ion-col size-xs="6">
-                    <DocumentModal />
-                </ion-col>
-            </ion-row>
-
-            <ion-row class="form-admin--group_field component_container">
-                <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                    <div v-for="document in space.documents" :key="document.id">
-                        <ItemField
-                        v-model="document.name"
-                        :data="document"
-                        icon=""
-                        :id="document.id"
-                        placeholder="Document Type"
-                        />
-                    </div>
-                </ion-col>
-            </ion-row>
-
-            <hr class="form-admin--divider" /> -->
+      <hr class="form-admin--divider" />
 
       <ul class="list">
         <li
@@ -165,7 +182,7 @@
       </ul>
     </ion-grid>
     <div class="button-pair">
-      <ion-button class="button-wide" @click="Space.updateSpace()">
+      <ion-button class="button-wide" @click="Space.updateSpace(spaceId)">
         Save changes
       </ion-button>
       <ion-button class="button-wide button-red button-outline" color="red">
@@ -185,7 +202,6 @@ import {
   IonInput,
   IonIcon,
   IonButton,
-  IonThumbnail,
 } from "@ionic/vue";
 import {
   locationOutline,
@@ -193,61 +209,73 @@ import {
   qrCodeOutline,
   scanOutline,
 } from "ionicons/icons";
-import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
+import SpaceFeaturesSlider from "@/components/admin/spaces/SpaceFeaturesSlider.vue";
 import { storeToRefs } from "pinia";
 import { Spaces } from "@/stores/adminSpaces";
-import { useCookies } from "vue3-cookies";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, watch, computed } from "vue";
+import { useRoute } from "vue-router";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
-import { Organisations } from '@/stores/adminOrganisations'
+import { Organisations } from "@/stores/adminOrganisations";
 import DocumentModal from "@/components/admin/spaces/DocumentModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
 import ImageGallery from "@/components/shared/ImageGallery.vue";
 
-const { cookies } = useCookies();
+const route = useRoute();
+
+const organisationId = route.params.id as string;
+const locationId = route.params.locationId as string;
+const floorId = route.params.floorId as string;
+const spaceId = route.params.spaceId as string;
+
 const Space = Spaces();
-  
-const organisation = Organisations()
-const { space, currentSpace, formattedSelect, roomTypeSelected } = storeToRefs(Space);
+
+const organisation = Organisations();
+const { space, formattedSelect, roomTypeSelected } = storeToRefs(Space);
 const { decisionTreeList, decisionTreeSelected } = storeToRefs(organisation);
 
+const isFistPhoto = computed(() => !space.value.photos?.length);
 const redirect = (route: string) => {
-  if (
-    cookies.get("floorId") &&
-    cookies.get("orgId") &&
-    cookies.get("spaceId")
-  ) {
-    return {
-      name: route,
-      params: {
-        id: cookies.get("orgId"),
-        locationId: cookies.get("locationId"),
-        floorId: cookies.get("floorId"),
-        spaceId: cookies.get("spaceId"),
-      },
-    };
-  }
+  return {
+    name: route,
+    params: {
+      id: organisationId,
+      locationId,
+      floorId,
+      spaceId,
+    },
+  };
 };
 
 const handleImageRemoved = (photoId: string) => {
-  Space.deleteSpacesPhoto(photoId)
+  Space.deletePhoto(photoId).then(() => {
+    Space.getSpaceDetails(spaceId);
+  });
 };
 
-// const removeSpacesDocument = (data: Spaces) => {
-//     Space.deleteSpacesDocument(data.id);
-// };
+const removeSpacesDocument = (documentId: string) => {
+  Space.deleteSpacesDocument(documentId, spaceId);
+};
 
 const spaceRoutes = [
-  { title: "Panorama", route: "" },
+  { title: "Panorama", route: "OrganisationViewLocationsPanorama" },
   { title: "Devices", route: "OrganisationViewLocationsDevices" },
   { title: "Beacon", route: "OrganisationViewLocationsBeacon" },
   { title: "Integrations", route: "OrganisationViewLocationsIntegrations" },
   { title: "Wifi Password", route: "OrganisationViewLocationsWifi" },
 ];
 
+watch(
+  () => route.params?.spaceId,
+  (newValue) => {
+    if (newValue) {
+      Space.getSpaceDetails(newValue as string);
+    }
+  }
+);
+
 onBeforeMount(() => {
-  Space.getSpaceDetails();
-  organisation.getDecisionTrees()
+  Space.getSpaceDetails(spaceId);
+  organisation.getDecisionTrees();
 });
 </script>
 
@@ -287,5 +315,9 @@ onBeforeMount(() => {
   height: 50px;
   border-right: 1px solid var(--av-dark-grey);
   margin: 0 25px;
+}
+
+ion-item {
+  --background: transparent;
 }
 </style>

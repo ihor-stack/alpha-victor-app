@@ -10,7 +10,7 @@ import {
 import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
-import router from '@/router';
+import router from "@/router";
 
 const { cookies } = useCookies();
 
@@ -71,30 +71,25 @@ export const Locations = defineStore("Locations", {
     //     });
     // },
 
-    async saveLocation() {
+    async saveLocation(organisationId: string) {
       const newLocation = this.newLocationDetails;
       loadingService.show("Loading...");
       adminAPI
         .post("/Location?organisationId=" + cookies.get("orgId"), {
           name: newLocation.name,
           prefix: newLocation.prefix,
-        }
-      )
-      .then((response) => {
-        loadingService.close();
-        cookies.set('locationId', response.data.id);
-        toastService.show(
-          "Success",
-          "New location added",
-          "success",
-          "top"
-        );
-        this.getNavigationTree();
-        router.push('/admin/organisation/' + cookies.get("orgId") + '/location/' + response.data.id);
-      })
-      .catch((error) => {
-        toastService.show("Error", error, "error", "top");
-      });
+        })
+        .then((response) => {
+          loadingService.close();
+          toastService.show("Success", "New location added", "success", "top");
+          this.getNavigationTree(organisationId);
+          router.push(
+            `/admin/organisation/${organisationId}/location/${response.data.id}`
+          );
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
     },
 
     async removeLocation(id: string) {
@@ -108,20 +103,22 @@ export const Locations = defineStore("Locations", {
         });
     },
 
-    async getLocation() {
+    async getLocation(locationId: string) {
       loadingService.show("Loading...");
       adminAPI
-        .get("/Location/Location/" + cookies.get("locationId"))
+        .get(`/Location/Location/${locationId}`)
         .then((response) => {
           this.location = response.data;
-          loadingService.close();
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
         });
     },
 
-    async updateLocation(id: string) {
+    async updateLocation(organisationId: string, id: string) {
       adminAPI
         .patch("/Location/" + id, this.location)
         .then(() => {
@@ -131,24 +128,24 @@ export const Locations = defineStore("Locations", {
             "success",
             "top"
           );
-          this.getNavigationTree()
+          this.getNavigationTree(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
 
-    async getNavigationTree() {
+    async getNavigationTree(organisationId: string) {
       loadingService.show("Loading...");
       adminAPI
-        .get<Navigation[]>(
-          "/Organisation/" + cookies.get("orgId") + "/NavigationTree"
-        )
+        .get<Navigation[]>(`/Organisation/${organisationId}/NavigationTree`)
         .then((response) => {
           if (response.data) {
-            response.data.forEach(navigation => {
+            response.data.forEach((navigation) => {
               if (Array.isArray(navigation.locations)) {
-                navigation.locations.sort((a, b) => a.locationName.localeCompare(b.locationName));
+                navigation.locations.sort((a, b) =>
+                  a.locationName.localeCompare(b.locationName)
+                );
               }
             });
             this.navigationTree = response.data;

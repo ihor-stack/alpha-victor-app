@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      {{ organisationDetails.name }}
+      {{ organisationDetails?.name }}
     </h1>
     <ul class="organisation-options-menu">
       <li class="organisation-options-menu-item">
@@ -44,7 +44,7 @@
         <ion-item
           :router-link="{
             name: 'OrganisationViewDecisionTrees',
-            params: { id: organisationDetails.id },
+            params: { id: organisationDetails?.id },
           }"
           router-direction="root"
         >
@@ -72,10 +72,7 @@
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
-        <ion-item
-          v-if="locations.length < 1"
-          router-direction="root"
-        >
+        <ion-item v-if="locations.length < 1" router-direction="root">
           <NewLocationModal />
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
@@ -88,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonItem, IonIcon, IonButton } from "@ionic/vue";
+import { IonItem, IonIcon } from "@ionic/vue";
 import { onBeforeMount } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
@@ -96,8 +93,8 @@ import { Locations } from "@/stores/adminLocations";
 import { storeToRefs } from "pinia";
 import { useCookies } from "vue3-cookies";
 import { useRoute } from "vue-router";
-import DeleteOrganisationModal from '@/components/modals/DeleteOrganisationModal.vue'
-import NewLocationModal from '@/components/modals/NewLocationModal.vue'
+import DeleteOrganisationModal from "@/components/modals/DeleteOrganisationModal.vue";
+import NewLocationModal from "@/components/modals/NewLocationModal.vue";
 
 const { cookies } = useCookies();
 const route = useRoute();
@@ -117,6 +114,7 @@ const redirectToLocation = (id: string) => {
 
 onBeforeMount(() => {
   const organisationId = route.params.id as string;
+  console.log(organisation.organisationDetails, organisationId);
   if (organisation.organisationDetails?.id !== organisationId) {
     organisation.setId(organisationId);
     organisation.getOrgDetails();

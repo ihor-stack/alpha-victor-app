@@ -11,7 +11,9 @@
           :router-link="redirect(org.organisationId)"
           router-direction="root"
         >
-          <div class="organisations-list-menu--logo"><img v-if="org.logo" :src="org.logo" :alt="org.name" /></div>
+          <div class="organisations-list-menu--logo">
+            <img v-if="org.logo" :src="org.logo" :alt="org.name" />
+          </div>
           <span class="link-text">{{ org.name }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
         </ion-item>
@@ -29,7 +31,7 @@ import { chevronForwardOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
 import { useCookies } from "vue3-cookies";
 
-import NewOrganisationModal from '@/components/modals/NewOrganisationModal.vue'
+import NewOrganisationModal from "@/components/modals/NewOrganisationModal.vue";
 
 const { cookies } = useCookies();
 
