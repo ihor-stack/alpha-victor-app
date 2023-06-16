@@ -20,7 +20,7 @@ export const Organisations = defineStore("Organisations", {
   actions: {
     setId(newId: string) {
       this.currentOrganisationId = newId;
-      cookies.set("orgId", newId);
+      cookies.set("publicOrgId", newId);
       return true;
     },
     async getOrganisations() {
@@ -42,7 +42,7 @@ export const Organisations = defineStore("Organisations", {
       publicAPI
         .get<OrgDetails>(
           `/Organisation/${
-            id || this.currentOrganisationId || cookies.get("orgId")
+            id || this.currentOrganisationId || cookies.get("publicOrgId")
           }/Details`
         )
         .then((response) => {
@@ -58,7 +58,7 @@ export const Organisations = defineStore("Organisations", {
     },
     async getSearchNavigationTree() {
       loadingService.show("Loading...");
-      const id = this.currentOrganisationId || cookies.get("orgId");
+      const id = this.currentOrganisationId || cookies.get("publicOrgId");
       if (id) {
         publicAPI
           .get<Location[]>(`/Organisation/${id}/SearchNavigationTree`)
@@ -76,7 +76,7 @@ export const Organisations = defineStore("Organisations", {
   },
   getters: {
     getList: (state) => state.organisationList,
-    getId: (state) => state.currentOrganisationId || cookies.get("orgId"),
+    getId: (state) => state.currentOrganisationId || cookies.get("publicOrgId"),
     currentOrganisationDetails: (state) => state.currentOrganisation,
   },
 });

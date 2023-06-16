@@ -1,1 +1,2 @@
-declare module 'pdfvuer';
+declare module "pdfvuer";
+declare module "marzipano";

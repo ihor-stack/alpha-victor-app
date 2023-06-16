@@ -9,7 +9,7 @@ import {
   SpecificFloor,
   SpaceBeacon,
   SpaceWifi,
-  SpaceNewDocument,
+  NewDocument,
   NewPhoto,
 } from "@/types/index";
 import { useCookies } from "vue3-cookies";

@@ -46,6 +46,7 @@
     "core-js": "^3.6.5",
     "install": "^0.13.0",
     "ionicons": "^6.0.3",
+    "marzipano": "^0.10.2",
     "moment": "^2.29.4",
     "npm": "^9.6.7",
     "pdfvuer": "^2.0.1",

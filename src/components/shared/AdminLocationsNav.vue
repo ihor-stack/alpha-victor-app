@@ -1,146 +1,175 @@
 <template>
   <div>
-    <h1 class="title-admin font-bold font-size-lg color-light-gray">Locations</h1>
-    <ul class="nav-menu">
-      <li class="nav-menu-link" v-for="(location, index) in navigationTree[0].locations" :key="index">
-        <div class="nav-menu-link-title">
-          <router-link :to="getLocationRoute(location.locationId)">
-            {{ location.locationName }}
-            <ion-icon :icon="chevronForwardOutline" slot="end" color="light"></ion-icon>
-          </router-link>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">
+      Locations
+    </h1>
+    <ion-accordion-group
+      class="locations-tree-wrapper"
+      accessKey="locationGroup"
+    >
+      <ion-accordion
+        class="location-wrapper"
+        :value="location.locationId"
+        v-for="(location, index) in navigationTree[0].locations"
+        :key="index"
+      >
+        <ion-item
+          slot="header"
+          @click="router.push(getLocationRoute(location.locationId))"
+        >
+          <ion-label>{{ location.locationName }}</ion-label>
+        </ion-item>
+        <div slot="content">
+          <ion-accordion-group
+            accessKey="floorGroup"
+            class="floors-tree-wrapper"
+            v-if="location.floors.length"
+          >
+            <ion-accordion
+              v-for="(floor, floorIndex) in location.floors"
+              :key="floorIndex"
+              :value="`floor-${floor.floorId}`"
+            >
+              <ion-item
+                slot="header"
+                class="floor-header"
+                :class="{ active: floorId === floor.floorId }"
+                lines="none"
+                @click="router.push(getFloorRoute(floor.floorId))"
+              >
+                <ion-label>{{ floor.floorName }}</ion-label>
+              </ion-item>
+              <div slot="content">
+                <ul class="space-wrapper" v-if="floor.spaces.length">
+                  <li
+                    v-for="(space, spaceIndex) in floor.spaces"
+                    :key="spaceIndex"
+                  >
+                    <router-link
+                      :to="getSpaceRoute(floor.floorId, space.spaceId)"
+                      :class="{ active: spaceId === space.spaceId }"
+                      >{{ space.spaceName }}</router-link
+                    >
+                  </li>
+                </ul>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
         </div>
-        <ul v-if="location.floors.length">
-          <li v-for="(floor, floorIndex) in location.floors" :key="floorIndex">
-            <router-link :to="getFloorRoute(floor.floorId)">{{ floor.floorName }}</router-link>
-            <ul v-if="floor.spaces.length">
-              <li v-for="(space, spaceIndex) in floor.spaces" :key="spaceIndex">
-                <router-link :to="getSpaceRoute(space.spaceId)">{{ space.spaceName }}</router-link>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
+      </ion-accordion>
+    </ion-accordion-group>
     <NewLocationModal />
   </div>
 </template>
-<script setup lang="ts"> 
-import {
-IonLabel,
-IonItem,
-IonIcon,
-} from "@ionic/vue";
-import { chevronForwardOutline } from 'ionicons/icons';
-import { onBeforeMount, ref } from "vue";
-import { Locations } from '@/stores/adminLocations'
-import { Floors } from '@/stores/adminFloors'
-import { storeToRefs } from 'pinia'
-import { useCookies } from "vue3-cookies"
-import NewLocationModal from '@/components/modals/NewLocationModal.vue'
+<script setup lang="ts">
+import { IonLabel, IonItem, IonAccordionGroup, IonAccordion } from "@ionic/vue";
+import { onBeforeMount, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { Locations } from "@/stores/adminLocations";
+import { Floors } from "@/stores/adminFloors";
+import { storeToRefs } from "pinia";
+import NewLocationModal from "@/components/modals/NewLocationModal.vue";
 
-const { cookies } = useCookies();
+const router = useRouter();
+const route = useRoute();
+
+const organisationId = route.params.id as string;
+const locationId = route.params.locationId as string;
+const floorId = computed(() => route.params.floorId as string);
+const spaceId = computed(() => route.params.spaceId as string);
 const Location = Locations();
 const Floor = Floors();
 const { navigationTree } = storeToRefs(Location);
-const { floors } = storeToRefs(Floor);
 
-const getLocationRoute = (locationId: string) => {
-  cookies.set('locationId', locationId);
-  if (cookies.get("locationId") && cookies.get("orgId")) {
-    return {
-      name: "OrganisationViewLocations",
-      params: { id: cookies.get("orgId"), locationId: cookies.get("locationId") },
-    };
-  }
+const getLocationRoute = (id: string) => {
+  return {
+    name: "OrganisationViewLocations",
+    params: {
+      id: organisationId,
+      locationId: id,
+    },
+  };
 };
 
 const getFloorRoute = (floorId: string) => {
-  cookies.set('floorId', floorId);
-  const locationId = cookies.get("locationId");
-  if (locationId && cookies.get("orgId")) {
-    return {
-      name: "OrganisationViewLocationsFloors",
-      params: { id: cookies.get("orgId"), locationId, floorId },
-    };
-  }
+  return {
+    name: "OrganisationViewLocationsFloors",
+    params: { id: organisationId, locationId, floorId },
+  };
 };
 
-const getSpaceRoute = (spaceId: string) => {
-  const locationId = cookies.get("locationId");
-  const floorId = cookies.get("floorId");
-  if (locationId && floorId && cookies.get("orgId")) {
-    return {
-      name: "OrganisationViewLocationsSpaces",
-      params: { id: cookies.get("orgId"), locationId, floorId, spaceId },
-    };
-  }
+const getSpaceRoute = (floorId: string, spaceId: string) => {
+  return {
+    name: "OrganisationViewLocationsSpaces",
+    params: { id: organisationId, locationId, floorId, spaceId },
+  };
 };
 
 onBeforeMount(() => {
-  Location.getNavigationTree();
-  Floor.getFloors();
+  Location.getNavigationTree(organisationId);
+  Floor.getFloors(locationId);
 });
 </script>
-    
+
 <style scoped>
-ion-content{
-    margin: 0%;
+ion-content {
+  margin: 0%;
 }
 ion-button {
-    width: 246px
+  width: 246px;
 }
 
-.nav-menu {
+.locations-tree-wrapper {
   list-style-type: none;
   margin: 20px 0 0;
   padding: 0;
 }
 
-.nav-menu li ul {
-  list-style: none;
-  padding-left: 25px;
+.floors-tree-wrapper {
   margin: 10px 0 10px 10px;
+  padding-left: 25px;
   border-left: 1px solid #353535;
   border-bottom-left-radius: 10px;
 }
 
-.nav-menu > li > ul:last-of-type {
-  margin-bottom: 30px;
+.floors-tree-wrapper ion-accordion ion-item[slot="header"] {
+  --background: transparent;
+  --background-hover-opacity: 0;
+  --background-focused-opacity: 0;
+  font-size: 12px;
+  color: var(--av-dark-gray);
+  --min-height: unset;
 }
 
-.nav-menu > li > ul > li {
+.floor-header.active {
+  color: #ffffff !important;
+}
+
+.space-wrapper {
+  list-style: none;
+  margin: 0;
+  border-left: 1px solid #353535;
+  border-bottom-left-radius: 10px;
+}
+
+.space-wrapper li {
   margin-bottom: 15px;
 }
 
-.nav-menu > li > ul > li > ul a {
+.space-wrapper li a {
   color: var(--av-dark-gray);
 }
 
-.nav-menu-link-title a {
-  font-size: 14px;
-  padding: 15px 10px;
-  width: 100%;
-  display: block;
-  border-top: 1px solid #353535;
+.space-wrapper li a.active {
+  color: #ffffff !important;
 }
 
-.nav-menu-link-title a.router-link-active {
-  background: #353535;
-  border-radius: 5px;
-  border-top: none;
-  border-bottom: none;
-}
-
-.nav-menu-link:last-of-type .nav-menu-link-title a {
-  border-bottom: 1px solid #353535;
-}
-
-.nav-menu-link a {
+.location-wrapper a {
   color: #fff;
   font-size: 12px;
 }
 
-.nav-menu-link ion-icon {
-  float: right;
+ion-accordion {
+  background: transparent;
 }
 </style>
