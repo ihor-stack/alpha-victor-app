@@ -47,7 +47,7 @@
       </div>
       <ion-item v-if="!nearbySpaces.length && !recentlyViewedSpaces.length" lines="none">
         <ion-label>
-          <h1>no.spaces.found</h1>
+          <h1 class="">no.spaces.found</h1>
           <p>Please enter a short code or explore spaces.</p>
         </ion-label>
       </ion-item>
@@ -84,13 +84,13 @@ import AppHeader from "@/components/shared/AppHeader.vue";
 import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
 import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
+import { Capacitor } from '@capacitor/core';
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { IBeacon, Beacon } from "@ionic-native/ibeacon";
 
 const spacesStore = useSpacesStore();
 const organisationStore = useOrganisationStore();
-
 
 
 interface State {
@@ -146,8 +146,9 @@ onBeforeMount(() => {
   spacesStore.getFavouriteSpaces();
   spacesStore.getRecentlyViewedSpaces();
   organisationStore.getOrganisations();
-
-  startRangingBeacons();
+  if (Capacitor.getPlatform() !== 'web') {
+    startRangingBeacons();
+  }
 });
 
 onBeforeUnmount(() => {
