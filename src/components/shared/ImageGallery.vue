@@ -57,5 +57,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+ion-thumbnail {
+  margin-top: 0;
+  margin-bottom: 0;
+}
 </style>

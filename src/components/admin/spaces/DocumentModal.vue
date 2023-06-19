@@ -2,6 +2,7 @@
   <div>
     <ion-chip
       class="font-size-xs font-mono"
+      color="light"
       :outline="true"
       @click="modalOpen = true"
     >
@@ -49,9 +50,9 @@
                       :v-model="file"
                       @change="uploadFile"
                     />
-                  </div>
+                  </div> 
                 </ion-input>
-                <AdminList v-model="selectedDocType" :options="documentTypes" />
+                <AdminSelect v-model="selectedDocType" :options="documentTypeOptions"/>
               </div>
             </ion-content>
             <ion-footer>
@@ -91,7 +92,7 @@ import { Organisations } from "@/stores/adminOrganisations";
 import { Spaces } from "@/stores/adminSpaces";
 
 import { storeToRefs } from "pinia";
-import AdminList from "@/components/admin/AdminList.vue";
+import AdminSelect from  '@/components/admin/AdminSelect.vue'
 import { SelectItem } from "@/types";
 
 const route = useRoute();
@@ -100,6 +101,14 @@ const spaceId = route.params.spaceId as string;
 const Org = Organisations();
 const Space = Spaces();
 const { documentTypes } = storeToRefs(Org);
+
+const documentTypeOptions = computed(() => {
+  return documentTypes.value.map(documentType => ({ 
+    ...documentType, 
+    title: documentType.title 
+  }));
+});
+
 const selectedDocType = ref({} as SelectItem);
 
 const modalOpen = ref(false);

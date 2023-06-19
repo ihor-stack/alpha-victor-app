@@ -1,13 +1,13 @@
 <template>
   <div class="documents-list__container">
-    <div class="documents-list">
+    <div class="documents-list" v-for="(documents, documentTypeName) in groupedDocuments" :key="documentTypeName">
       <div class="documents-list__header">
         <h4 class="font-mono color-light-gray font-size-xxs">
-          installation.guides
+          {{ documentTypeName }}
         </h4>
       </div>
       <ul class="documents-list__list">
-        <li v-for="document in props.documents" :key="document.id">
+        <li v-for="document in documents" :key="document.id">
           <router-link
             :to="{ name: 'DocumentViewer', params: { id: document.id } }"
             class="documents-list__item"
@@ -39,12 +39,18 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, computed } from "vue";
+
+interface DocumentType {
+  id: string;
+  name: string;
+}
 
 interface Document {
   id: number;
   name: string;
   dateUploaded: string;
+  documentType: DocumentType;
 }
 
 interface Props {
@@ -52,6 +58,17 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+const groupedDocuments = computed(() => {
+  return props.documents.reduce((grouped: Record<string, Document[]>, document: Document) => {
+    const key = document.documentType.name;
+    if (!grouped[key]) {
+      grouped[key] = [];
+    }
+    grouped[key].push(document);
+    return grouped;
+  }, {} as Record<string, Document[]>);
+});
 </script>
 
 <style scoped>

@@ -47,7 +47,7 @@
                   >
                 </div>
                 <h1 class="name font-bold color-light-gray">
-                  {{ currentSpace.spaceName }}
+                  {{ currentSpace.name }}
                 </h1>
                 <div class="location">
                   <img src="@/theme/icons/location.svg" class="icon" />
@@ -93,7 +93,6 @@
         </div>
 
         <div class="ctas">
-          <ion-button expand="block">Give Feedback</ion-button>
           <ion-button
             color="light"
             expand="block"
@@ -101,6 +100,7 @@
           >
             Report Issue
           </ion-button>
+          <ion-button expand="block">Give Feedback</ion-button>
         </div>
       </div>
     </ion-footer>
