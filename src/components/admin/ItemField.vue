@@ -50,7 +50,7 @@ const emit = defineEmits(["update:modelValue", "remove"]);
 
 const currentField = ref(props.modelValue);
 const editMode = ref(false);
-const localData = ref({...props.data});
+const localData = ref({ ...props.data });
 
 const onInputFocus = () => {
   editMode.value = true;
@@ -73,39 +73,40 @@ const removeField = () => {
 // This watcher updates the localData and currentField when props.data changes.
 watch(props.data, (newVal, oldVal) => {
   if (newVal !== oldVal) {
-    localData.value = {...newVal};
+    localData.value = { ...newVal };
     currentField.value = newVal.name;
   }
 });
 </script>
 
 <style scoped>
-  ion-item {
-    border: 1px solid #313131;
-    border-radius: 5px;
-    margin: 20px 0;
-  }
-  ion-item:first-of-type {
-    margin-top: 0;
-  }
-  ion-input {
-    background: var(--av-black);
-    padding: 0;
-    margin: 0;
-    border: none;
-  }
-  ion-button {
-    position: absolute;
-    z-index: 9999;
-    right: 20px;
-  }
-  .item-icon {
-    width: 20px;
-    height: 20px;
-    overflow: hidden;
-  }
-  .item-icon img {
-    width: 20px;
-    height: 20px;
-  }
+ion-item {
+  border: 1px solid #313131;
+  border-radius: 5px;
+  margin: 20px 0;
+  --background: transparent;
+}
+ion-item:first-of-type {
+  margin-top: 0;
+}
+ion-input {
+  padding: 0;
+  margin: 0;
+  border: none;
+  --background: transparent;
+}
+ion-button {
+  position: absolute;
+  z-index: 9999;
+  right: 20px;
+}
+.item-icon {
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+}
+.item-icon img {
+  width: 20px;
+  height: 20px;
+}
 </style>

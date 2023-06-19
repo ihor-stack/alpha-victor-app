@@ -59,7 +59,8 @@ export interface Typeform {
 export interface SpaceFeature {
   name: string;
   icon: string;
-  spaceFeatureId: string;
+  id: string;
+  selected: boolean;
 }
 
 export interface Device {
@@ -81,6 +82,7 @@ export interface Document {
   assetTypeId?: string;
   equipmentId?: string;
   title: string;
+  name?: string;
   path?: string;
   documentType?: DocumentType;
 }
@@ -313,7 +315,8 @@ export interface DetailedSpace {
   showWifi: boolean;
   wifiPassword?: string;
   wifiNetwork?: string;
-  wifiSecurityType?: number
+  panorama?: Panorama;
+  wifiSecurityType?: number;
 }
 export interface SpaceDetailsRooms {
   name: string;
@@ -343,7 +346,7 @@ export interface SpaceWifi {
   wifiPassword: string;
 }
 
-export interface SpaceNewDocument {
+export interface NewDocument {
   base64Payload: string;
   contentType: string;
   fileName: string;
@@ -356,4 +359,31 @@ export interface NewPhoto {
   contentType: string;
   order: number;
   featuredPhoto: boolean;
+}
+
+export interface Panorama {
+  spaceId: string;
+  path: string;
+  initialViewHfov: number;
+  initialViewPitch: number;
+  initialViewYaw: number;
+  hotspots: Hotspot[];
+}
+
+export interface Hotspot {
+  hotspotId: string;
+  text: string;
+  pitch: number;
+  yaw: number;
+  type?: string;
+  deviceId?: string;
+}
+
+export interface NewPanorama {
+  fileName: string;
+  contentType: string;
+  base64ImagePayload: string;
+  initialViewPitch: number;
+  initialViewYaw: number;
+  initialViewHfov: number;
 }

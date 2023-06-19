@@ -1,89 +1,89 @@
 import { defineStore } from "pinia";
-import {adminAPI} from '@/axios'
-import {SingleFloor, SpecificFloor, NewFloorDetails} from '@/types/index'
-import { useCookies } from "vue3-cookies";
-import loadingService from '@/services/loadingService';
-import toastService from '@/services/toastService';
+import { adminAPI } from "@/axios";
+import { SingleFloor, SpecificFloor, NewFloorDetails } from "@/types/index";
+import loadingService from "@/services/loadingService";
+import toastService from "@/services/toastService";
 
-import { Locations } from './adminLocations';
- 
-const { cookies } = useCookies();
-  
-export const Floors = defineStore('Floors', {
+import { Locations } from "./adminLocations";
+
+export const Floors = defineStore("Floors", {
   state: () => {
     return {
       floors: [] as SingleFloor[],
       newFloorDetails: {} as NewFloorDetails,
-      floor: {} as SpecificFloor
-    }
+      floor: {} as SpecificFloor,
+    };
   },
   actions: {
-    async getFloors() {
-      adminAPI.get<SingleFloor[]>('/Floor?locationId=' + cookies.get('locationId'))
-      .then(response => 
-        {
-          this.floors = response.data
-        }
-      ).catch(error =>{
-        toastService.show('Error', error, 'error', 'top');
-      })
+    async getFloors(locationId: string) {
+      adminAPI
+        .get<SingleFloor[]>(`/Floor?locationId=${locationId}`)
+        .then((response) => {
+          this.floors = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
     },
 
-    async saveFloor() {
+    async saveFloor(organisationId: string, locationId: string) {
       const newFloor = this.newFloorDetails;
       loadingService.show("Loading...");
       adminAPI
-        .post('/Floor?locationId=' + cookies.get('locationId'), {
+        .post(`/Floor?locationId=${locationId}`, {
           longName: newFloor.longName,
           shortName: newFloor.shortName,
-        }
-      )
-      .then(() => {
-        loadingService.close();
-        toastService.show(
-          "Success",
-          "New floor added",
-          "success",
-          "top"
-        );
-        const locationsStore = Locations();
-        this.getFloors();
-        locationsStore.getNavigationTree();
-      })
-      .catch((error) => {
-        toastService.show("Error", error, "error", "top");
-      });
-    },
-
-    async updateFloor(id: string) {
-      adminAPI.patch('/Floor/' + id,
-        {
-          longName: this.floor.name,
-          shortName: this.floor.shortName
         })
         .then(() => {
-          toastService.show('Success', 'Floor updated successfully', 'success', 'top');
+          loadingService.close();
+          toastService.show("Success", "New floor added", "success", "top");
           const locationsStore = Locations();
-          locationsStore.getNavigationTree();
-        }
-        ).catch(error =>{
-          toastService.show('Error', error, 'error', 'top');
+          this.getFloors(locationId);
+          locationsStore.getNavigationTree(organisationId);
         })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
     },
 
-    async getFloorDetails() {
-      adminAPI.get<SpecificFloor>('/Floor/' + cookies.get('floorId'))
-      .then(response => 
-        {
-          this.floor = response.data
-        }
-      ).catch(error =>{
-          toastService.show('Error', error, 'error', 'top');
+    async updateFloor(organisationId: string, id: string) {
+      adminAPI
+        .patch("/Floor/" + id, {
+          longName: this.floor.name,
+          shortName: this.floor.shortName,
         })
+        .then(() => {
+          toastService.show(
+            "Success",
+            "Floor updated successfully",
+            "success",
+            "top"
+          );
+          const locationsStore = Locations();
+          locationsStore.getNavigationTree(organisationId);
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+
+    async getFloorDetails(id: string) {
+      loadingService.show("Loading...");
+      adminAPI
+        .get<SpecificFloor>(`/Floor/${id}`)
+        .then((response) => {
+          this.floor = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
     },
   },
   getters: {
     Floors: (state) => state.floors,
-    Floor: (state) => state.floor
+    Floor: (state) => state.floor,
   },
 });

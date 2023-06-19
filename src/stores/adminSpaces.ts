@@ -9,14 +9,18 @@ import {
   SpecificFloor,
   SpaceBeacon,
   SpaceWifi,
-  SpaceNewDocument,
+  NewDocument,
   NewPhoto,
+  Panorama,
+  NewPanorama,
+  Hotspot,
 } from "@/types/index";
 import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
+import router from "@/router";
 
-import { Locations } from './adminLocations';
+import { Locations } from "./adminLocations";
 
 const { cookies } = useCookies();
 
@@ -33,18 +37,19 @@ export const Spaces = defineStore("Spaces", {
       photo: {} as NewPhoto,
       beacons: [] as SpaceBeacon[],
       wifi: {} as SpaceWifi,
+      currentPanorama: {} as Panorama,
     };
   },
   actions: {
-    async getSpaceDetails() {
+    async getSpaceDetails(spaceId = cookies.get("spaceId")) {
       loadingService.show("Loading...");
       adminAPI
-        .get<DetailedSpace>("/Space/" + cookies.get("spaceId") + "/Details")
+        .get<DetailedSpace>(`/Space/${spaceId}/Details`)
         .then((response) => {
           this.space = response.data;
           this.currentSpace = response.data.spaceName;
           const formattedList: SelectItem[] = [];
-          
+
           response.data.roomTypes.forEach((element, index) => {
             formattedList.push({
               id: index,
@@ -73,35 +78,42 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async saveSpace() {
+    async saveSpace(
+      organisationId: string,
+      locationId: string,
+      floorId: string
+    ) {
       const newSpace = this.newSpaceDetails;
       loadingService.show("Loading...");
       adminAPI
-        .post('/Space?floorId=' + cookies.get('floorId'), {
+        .post(`/Space?floorId=${floorId}`, {
           spaceName: newSpace.spaceName,
           shortCode: newSpace.shortCode,
-        }
-      )
-      .then(() => {
-        loadingService.close();
-        toastService.show(
-          "Success",
-          "New space added",
-          "success",
-          "top"
-        );
-        const locationsStore = Locations();
-        locationsStore.getNavigationTree();
-      })
-      .catch((error) => {
-        toastService.show("Error", error, "error", "top");
-      });
+        })
+        .then((res) => {
+          loadingService.close();
+          toastService.show("Success", "New space added", "success", "top");
+          const locationsStore = Locations();
+          locationsStore.getNavigationTree(organisationId);
+          router.push({
+            name: "OrganisationViewLocationsSpaces",
+            params: {
+              id: organisationId,
+              locationId,
+              floorId,
+              spaceId: res.data.id,
+            },
+          });
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
     },
 
-    async updateSpace() {
+    async updateSpace(spaceId: string) {
       loadingService.show("Loading...");
       adminAPI
-        .patch("/Space/" + cookies.get("spaceId"), {
+        .patch(`/Space/${spaceId}`, {
           spaceName: this.space.spaceName,
           shortcode: this.space.shortcode,
           roomTypeId: "00000000-0000-0000-0000-000000000199",
@@ -189,9 +201,9 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async getSpaceDetailsDevices() {
+    async getSpaceDetailsDevices(spaceId = cookies.get("spaceId")) {
       adminAPI
-        .get<Device[]>("/Space/" + cookies.get("spaceId") + "/Device")
+        .get<Device[]>(`/Space/${spaceId}/Device`)
         .then((response) => {
           this.devices = response.data;
         })
@@ -318,16 +330,10 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async saveSpacesPhoto() {
-      const photoQuery = `?spaceId=${cookies.get("spaceId")}`;
-      adminAPI.post("/Photo" + photoQuery).catch((error) => {
-        toastService.show("Error", error, "error", "top");
-      });
-    },
-
-    async deleteSpacesPhoto(photoId: string) {
+    async deletePhoto(photoId: string) {
       const photoQuery = `?photoId=${photoId}`;
-      adminAPI
+      loadingService.show("Loading...");
+      return adminAPI
         .delete("/Photo" + photoQuery)
         .then(() => {
           toastService.show(
@@ -336,48 +342,156 @@ export const Spaces = defineStore("Spaces", {
             "success",
             "top"
           );
-          this.getSpaceDetails()
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
-        });
+        })
+        .finally(() => loadingService.close());
     },
-
-    async addSpacesDocument(newDocument: SpaceNewDocument) {
-      adminAPI
-        .post("/Document/" + cookies.get("spaceId") + "/Document", newDocument)
-        .then(() => this.getSpaceDetails())
-        .catch((error) => {
-          toastService.show("Error", error, "error", "top");
-        });
-    },
-
-    async deleteSpacesDocument(documentId: string) {
-      adminAPI
-        .delete(
-          "/Document/" + cookies.get("spaceId") + "/Document/" + documentId
-        )
-        .then(() => this.getSpaceDetails())
-        .catch((error) => {
-          toastService.show("Error", error, "error", "top");
-        });
-    },
-
-    async addSpacesPhoto() {
+    async addPhoto(photo: NewPhoto, queryParams: string) {
+      loadingService.show("Loading...");
       const newPhoto = {
-        base64Payload: this.photo.base64Payload,
-        contentType: this.photo.contentType,
-        fileName: this.photo.fileName,
-        order: this.photo.order,
-        featuredPhoto: this.photo.featuredPhoto,
+        base64Payload: photo.base64Payload,
+        contentType: photo.contentType,
+        fileName: photo.fileName,
+        order: photo.order,
+        featuredPhoto: photo.featuredPhoto,
       };
 
-      adminAPI
-        .post("/Photo?spaceId=" + cookies.get("spaceId"), newPhoto)
-        .then(() => this.getSpaceDetails())
+      return adminAPI
+        .post(`/Photo?${queryParams}`, newPhoto)
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => loadingService.close());
+    },
+
+    async addSpacesDocument(newDocument: NewDocument, spaceId: string) {
+      return adminAPI
+        .post(`/Document/${spaceId}/Document`, newDocument)
+        .then(() => this.getSpaceDetails(spaceId))
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
+    },
+
+    async deleteSpacesDocument(documentId: string, spaceId: string) {
+      adminAPI
+        .delete(`/Document/${spaceId}/Document/${documentId}`)
+        .then(() => this.getSpaceDetails(spaceId))
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+
+    async getPanorama(spaceId: string) {
+      loadingService.show("Loading...");
+      adminAPI
+        .get<Panorama>(`/Panorama/${spaceId}`)
+        .then((response) => {
+          this.currentPanorama = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+    async addPanorama(spaceId: string, panorama: NewPanorama) {
+      adminAPI
+        .post(`/Panorama/${spaceId}`, panorama)
+        .then(() => this.getPanorama(spaceId))
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+    async updatePanorama(spaceId: string, panorama: NewPanorama) {
+      adminAPI
+        .put(`/Panorama/${spaceId}`, panorama)
+        .then(() => this.getPanorama(spaceId))
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+    async deletePanorama(spaceId: string) {
+      adminAPI
+        .delete(`/Panorama/${spaceId}`)
+        .then(() => this.getPanorama(spaceId))
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+    async addHotspot(
+      spaceId: string,
+      hotspot: { pitch: number; yaw: number; text: string; deviceId?: string }
+    ) {
+      loadingService.show("Loading...");
+      return adminAPI
+        .post(`/Panorama/${spaceId}/Hotspots`, hotspot)
+        .then((res) => {
+          this.currentPanorama.hotspots = [
+            ...this.currentPanorama.hotspots,
+            res.data,
+          ];
+          return res.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => loadingService.close());
+    },
+    async updateHotspot(
+      spaceId: string,
+      hotspotId: string,
+      newHotspot: Hotspot
+    ) {
+      loadingService.show("Loading...");
+      return adminAPI
+        .put(`/Panorama/${spaceId}/Hotspots/${hotspotId}`, newHotspot)
+        .then(() => {
+          this.currentPanorama.hotspots = this.currentPanorama.hotspots.map(
+            (hotspot) => {
+              if (hotspot.hotspotId === hotspotId) {
+                return {
+                  ...hotspot,
+                  text: newHotspot.text,
+                  deviceId: newHotspot.deviceId,
+                };
+              } else {
+                return hotspot;
+              }
+            }
+          );
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => loadingService.close());
+    },
+    async deleteHotspot(spaceId: string, hotspotId: string) {
+      loadingService.show("Loading...");
+      return adminAPI
+        .delete(`/Panorama/${spaceId}/Hotspots/${hotspotId}`)
+        .then(() => {
+          this.currentPanorama.hotspots = this.currentPanorama.hotspots.filter(
+            (hotspot) => hotspot.hotspotId !== hotspotId
+          );
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => loadingService.close());
+    },
+    async updateSpaceFeature(queryParams: string, spaceId: string) {
+      loadingService.show("Loading...");
+      adminAPI
+        .patch(`/Space/SpaceFeature?${queryParams}`)
+        .then(() => this.getSpaceDetails(spaceId))
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => loadingService.close());
     },
   },
 });
