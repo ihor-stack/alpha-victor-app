@@ -209,7 +209,7 @@ const routes: Array<RouteRecordRaw> = [
               import("@/views/admin/equipment/EquipmentView.vue"),
           },
           {
-            path: "equipment/details",
+            path: "equipment/:equipmentId",
             name: "EquipmentDetails",
             component: () =>
               import("@/views/admin/equipment/EquipmentDetails.vue"),
@@ -368,6 +368,15 @@ const routes: Array<RouteRecordRaw> = [
             component: () =>
               import(
                 "@/views/admin/organisations/locations/OrganisationViewLocationsWifi.vue"
+              ),
+          },
+          {
+            path: ":locationId/floor/:floorId/space/:spaceId/panorama",
+            name: "OrganisationViewLocationsPanorama",
+            props: true,
+            component: () =>
+              import(
+                "@/views/admin/organisations/locations/OrganisationViewLocationsPanorama.vue"
               ),
           },
         ],
