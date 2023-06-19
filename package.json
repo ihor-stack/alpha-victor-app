@@ -26,6 +26,7 @@
     "@capacitor/ios": "4.8.0",
     "@capacitor/keyboard": "4.1.1",
     "@capacitor/status-bar": "4.1.1",
+    "@ionic-native/core": "^5.36.0",
     "@ionic-native/ibeacon": "^5.36.0",
     "@ionic/pwa-elements": "^3.1.1",
     "@ionic/vue": "^6.0.0",
