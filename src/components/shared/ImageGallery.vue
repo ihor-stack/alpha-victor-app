@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, SetupContext } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "ImageGallery",
@@ -41,8 +41,10 @@ export default defineComponent({
       type: Array
     }
   },
-  emits: ['image-removed'],
-  setup(_, { emit }: SetupContext) {
+  emits: {
+    'image-removed': (payload: string) => typeof payload === 'string'
+  },
+  setup(props, { emit }) {
     const removeImage = (id: string) => {
       emit('image-removed', id);
     }
