@@ -2,7 +2,7 @@
   <div class="panorama-wrapper">
     <div>
       <ion-row class="form-admin--group">
-        <ion-col size-xs="12" size-sm="2" class="form-admin--group_field">
+        <ion-col v-if="space.imagePath" size-xs="12" size-sm="2" class="form-admin--group_field">
           <div class="img-container">
             <img :src="space.imagePath || space.photos?.[0]?.path" alt="" />
           </div>

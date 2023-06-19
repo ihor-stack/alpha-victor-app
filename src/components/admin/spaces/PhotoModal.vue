@@ -1,6 +1,7 @@
 <template>
   <ion-chip
     class="font-size-xs font-mono"
+    color="light"
     :outline="true"
     @click="modalOpen = true"
   >

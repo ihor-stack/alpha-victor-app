@@ -73,6 +73,7 @@ ion-popover::part(backdrop) {
   background-color: var(--av-darkest-gray);
 }
 ion-popover .admin-select {
+  background-color: white;
   padding: 0 20px;
   list-style: none;
 }

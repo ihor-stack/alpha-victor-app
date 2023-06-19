@@ -1,7 +1,7 @@
 <template>
   <div class="equipment-panel">
     <div class="equipment-panel-container">
-      <div class="equipment-panel__icon">
+      <div class="equipment-panel__icon" v-if="deviceDetails.category">
         <img :src="useEquipmentIcon(deviceDetails.category)" />
       </div>
       <ion-header>
@@ -14,7 +14,7 @@
           </p>
         </div>
       </ion-header>
-      <ion-content>
+      <div>
         <div class="equipment-panel__info-section">
           <h4 class="equipment-panel__info-section__heading">Technical</h4>
           <ul class="equipment-panel__info-section__list">
@@ -41,24 +41,27 @@
             </li>
           </ul>
         </div>
-        <ion-list>
-          <ion-item
-            button
-            detail="true"
-            @click="handleDismiss"
-            :href="`/documents/${spaceId}`"
-          >
-            <ion-label>Documents</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
+        <ul class="list-options-menu">
+          <li class="list-options-menu-item">
+            <ion-item
+              :router-link="{
+                name: 'Documents',
+                params: { spaceId: spaceId },
+              }"
+              router-direction="root"
+            >
+              <span class="link-text">Documents</span>
+              <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+            </ion-item>
+          </li>
+        </ul>
+      </div>
       <ion-footer>
         <div class="equipment-panel__footer">
-          <ion-button expand="block" size="small">User Guide</ion-button>
+          <ion-button expand="block">User Guide</ion-button>
           <ion-button
             color="light"
             expand="block"
-            size="small"
             @click="handleClickReportIssue"
             >Report Issue</ion-button
           >
@@ -71,6 +74,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { IonHeader, IonFooter, IonButton, IonContent } from "@ionic/vue";
+import { chevronForwardOutline } from "ionicons/icons";
 import { useEquipmentIcon } from "@/composables/utilities";
 
 const props = defineProps([
@@ -229,6 +233,67 @@ ion-button {
   border-bottom: 0.75px solid #313131;
   font-size: 10px;
 }
+
+
+.list-options-menu {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.list-options-menu-item ion-item {
+  --background: none;
+  --color: #ffffff;
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+  --inner-padding-top: 8px;
+  --inner-padding-bottom: 8px;
+}
+
+.list-options-menu-item ion-item ion-icon {
+  margin-right: 0;
+}
+
+.list-options-menu-item .link-text {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.list-options-menu-item .arrow-right {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url("@/theme/icons/arrow-right.svg");
+  background-repeat: no-repeat;
+  background-size: 8px 12px;
+  background-position: center;
+}
+
+.list-options-menu-item .with-counter {
+  display: flex;
+  align-items: center;
+}
+
+.list-options-menu-item .counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: #37b14c;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.list-options-menu-item .counter span {
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 11px;
+  color: #ffffff;
+}
+
 
 ion-list {
   background: transparent;

@@ -15,6 +15,8 @@
       >
         <ion-item
           slot="header"
+          size="small"
+          color="dark"
           @click="router.push(getLocationRoute(location.locationId))"
         >
           <ion-label>{{ location.locationName }}</ion-label>
@@ -171,5 +173,17 @@ ion-button {
 
 ion-accordion {
   background: transparent;
+}
+
+ion-accordion ion-item {
+  padding: 0;
+}
+
+ion-accordion.accordion-expanded > ion-item {
+  background: var(--av-darker-gray);
+}
+
+ion-accordion > ion-item ion-label {
+  color: #fff;
 }
 </style>

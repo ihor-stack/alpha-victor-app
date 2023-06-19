@@ -5,20 +5,11 @@
   <ion-grid class="form-admin">
     <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Manufacturer</ion-label>
-        <ion-select
-          interface="action-sheet"
-          placeholder="Select manufacturer"
+        <AdminSelect
+          label="Manufacturer"
           v-model="state.manufacturerId"
-        >
-          <ion-select-option
-            v-for="option in equipmentList.manufacturers"
-            :key="option.manufacturerId"
-            :value="option.manufacturerId"
-          >
-            {{ option.name }}
-          </ion-select-option>
-        </ion-select>
+          :options="manufacturerOptions"
+        />
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label color="light">Model</ion-label>
@@ -35,20 +26,11 @@
         ></ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Asset type</ion-label>
-        <ion-select
-          interface="action-sheet"
-          placeholder="Select asset type"
+        <AdminSelect
+          label="Asset Type"
           v-model="state.assetTypeId"
-        >
-          <ion-select-option
-            v-for="option in equipmentList.assetTypes"
-            :key="option.assetId"
-            :value="option.assetId"
-          >
-            {{ option.name }}
-          </ion-select-option>
-        </ion-select>
+          :options="assetTypeOptions"
+        />
       </ion-col>
     </ion-row>
     <ion-row class="form-admin--group_field component_container">
@@ -103,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, reactive, watch } from "vue";
+import { computed, onBeforeMount, reactive, watch } from "vue";
 import {
   IonLabel,
   IonInput,
@@ -118,6 +100,7 @@ import {
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import EquipmentDocumentModal from "@/components/admin/equipment/EquipmentDocumentModal.vue";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { Equipment as useEquipment } from "@/stores/adminEquipment";
 
 const EquipmentStore = useEquipment();
@@ -125,6 +108,21 @@ const route = useRoute();
 
 const equipmentId = route.params.equipmentId as string;
 const { equipmentList, currentEquipment } = storeToRefs(EquipmentStore);
+
+const manufacturerOptions = computed(() => {
+  return equipmentList.value.manufacturers.map(manufacturer => ({ 
+    id: manufacturer.manufacturerId, // map manufacturerId to id
+    title: manufacturer.name  // map name to title
+  }));
+});
+
+const assetTypeOptions = computed(() => {
+  return equipmentList.value.assetTypes.map(assetType => ({ 
+    id: assetType.assetId, // map assetId to id
+    title: assetType.name  // map name to title
+  }));
+});
+
 const state = reactive({
   name: currentEquipment.value?.name,
   serialNumber: currentEquipment.value?.serialNumber,

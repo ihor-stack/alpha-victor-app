@@ -6,7 +6,7 @@
       color="--av-light-gray"
       @click="state.modalOpen = true"
     >
-      Add new Document +
+      Add new document +
     </ion-button>
     <ion-modal
       :is-open="state.modalOpen"
@@ -29,7 +29,7 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-normal"
                 >
-                  Add new Document +
+                  Add new document +
                 </h1>
                 <p class="modal-panel__comment color-light-gray font-size-sm">
                   You can upload a document and document type using the form
