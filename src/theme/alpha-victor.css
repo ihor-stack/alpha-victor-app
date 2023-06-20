@@ -827,3 +827,8 @@ ion-toast.customToast::part(message) {
 .flex {
   display: flex;
 }
+
+.pnlm-hotspot {
+  background-image: url("@/theme/icons/hotspot.svg") !important;
+  background-position: center;
+}
