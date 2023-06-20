@@ -127,6 +127,11 @@ const routes: Array<RouteRecordRaw> = [
     props: { reportIssueModalOpen: true },
   },
   {
+    path: "/panorama/:spaceId",
+    name: "SpacePanorama",
+    component: () => import("@/views/space/PanoramaView.vue"),
+  },
+  {
     path: "/settings",
     name: "AccountSettings",
     component: () => import("@/views/settings/AccountSettings.vue"),
