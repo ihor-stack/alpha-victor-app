@@ -8,7 +8,7 @@ import toastService from "@/services/toastService";
 
 const { cookies } = useCookies();
 
-export const Organisations = defineStore("Organisations", {
+export const Organisations = defineStore("PublicOrganisations", {
   state: () => {
     return {
       organisationList: [] as AdminOrganisation[],
