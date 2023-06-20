@@ -19,7 +19,7 @@
           color="dark"
           @click="router.push(getLocationRoute(location.locationId))"
         >
-          <ion-label>{{ location.locationName }}</ion-label>
+          <ion-label color="light">{{ location.locationName }}</ion-label>
         </ion-item>
         <div slot="content">
           <ion-accordion-group

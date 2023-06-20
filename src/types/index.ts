@@ -224,6 +224,7 @@ export interface Location {
 }
 
 export interface SelectItem {
+  [key: string]: any;
   id: number;
   title: string;
   additionalInfo?: any;
@@ -320,7 +321,7 @@ export interface DetailedSpace {
   issueCount?: number;
   announcementTitle?: string[];
   announcementText?: string[];
-  showWifi: boolean;
+  showWifiPassword: boolean;
   wifiPassword?: string;
   wifiNetwork?: string;
   panorama?: Panorama;
@@ -349,8 +350,13 @@ export interface SpaceBeacon {
   uuiDs: string;
 }
 
+export interface SpaceAnnouncement {
+  announcementTitle: string;
+  announcementContent: string;
+}
+
 export interface SpaceWifi {
-  showWifiPassword: string;
+  showWifiPassword: boolean;
   wifiName: string;
   wifiPassword: string;
 }

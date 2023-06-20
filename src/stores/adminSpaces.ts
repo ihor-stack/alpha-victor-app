@@ -9,6 +9,7 @@ import {
   SpecificFloor,
   SpaceBeacon,
   SpaceWifi,
+  SpaceAnnouncement,
   NewDocument,
   NewPhoto,
   Panorama,
@@ -31,7 +32,9 @@ export const Spaces = defineStore("Spaces", {
       currentSpace: "" as string,
       formattedSelect: [] as SelectItem[],
       roomTypeSelected: {} as SelectItem,
+      decisionTreeSelected: {} as SelectItem,
       newSpaceDetails: {} as NewSpaceDetails,
+      announcement: {} as SpaceAnnouncement,
       qrCode: "" as string,
       devices: [] as Device[],
       photo: {} as NewPhoto,
@@ -112,14 +115,15 @@ export const Spaces = defineStore("Spaces", {
 
     async updateSpace(spaceId: string) {
       loadingService.show("Loading...");
+    
       adminAPI
         .patch(`/Space/${spaceId}`, {
           spaceName: this.space.spaceName,
           shortcode: this.space.shortcode,
-          roomTypeId: "00000000-0000-0000-0000-000000000199",
+          roomTypeId: this.roomTypeSelected.additionalInfo,
           capacity: this.space.capacity,
           typeformId: this.space.typeformId,
-          decisionTreeId: null,
+          decisionTreeId: this.decisionTreeSelected.additionalInfo,
         })
         .then(() => {
           loadingService.close();
@@ -285,6 +289,42 @@ export const Spaces = defineStore("Spaces", {
         )
         .then((response) => {
           this.beacons = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+
+    async getSpaceDetailsAnnouncement() {
+      adminAPI
+        .get<SpaceAnnouncement>("/Space/" + cookies.get("spaceId") + "/Announcement")
+        .then((response) => {
+          this.announcement = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+
+    async editSpacesAnnouncement() {
+      loadingService.show("Loading");
+      adminAPI
+        .patch(
+          "/Space/" +
+            cookies.get("spaceId") +
+            "/Announcement?Title=" +
+            this.announcement.announcementTitle +
+            "&Text=" +
+            this.announcement.announcementContent
+        )
+        .then(() => {
+          loadingService.close();
+          toastService.show(
+            "Success",
+            "Space announcement updated",
+            "success",
+            "top"
+          );
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

@@ -111,8 +111,8 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label color="light">Decision Tree</ion-label>
           <AdminSelect
-            v-model="decisionTreeSelected"
             :options="decisionTreeList"
+            v-model="decisionTreeSelected"
             idPrefix="decision-tree-select"
           />
         </ion-col>
@@ -236,10 +236,10 @@ const floorId = route.params.floorId as string;
 const spaceId = route.params.spaceId as string;
 
 const Space = Spaces();
-
 const organisation = Organisations();
-const { space, formattedSelect, roomTypeSelected } = storeToRefs(Space);
-const { decisionTreeList, decisionTreeSelected } = storeToRefs(organisation);
+
+const { space, formattedSelect, roomTypeSelected, decisionTreeSelected } = storeToRefs(Space);
+const { decisionTreeList } = storeToRefs(organisation);
 
 const isFirstPhoto = computed(() => !space.value.photos?.length);
 const redirect = (route: string) => {
@@ -267,6 +267,7 @@ const removeSpacesDocument = (documentId: string) => {
 const spaceRoutes = [
   { title: "Panorama", route: "OrganisationViewLocationsPanorama" },
   { title: "Devices", route: "OrganisationViewLocationsDevices" },
+  { title: "Announcement", route: "OrganisationViewLocationsAnnouncement" },
   { title: "Beacon", route: "OrganisationViewLocationsBeacon" },
   { title: "Integrations", route: "OrganisationViewLocationsIntegrations" },
   { title: "Wifi Password", route: "OrganisationViewLocationsWifi" },

@@ -23,8 +23,8 @@
               </div>
               <div class="link-container text-center">
                 <p class="color-mid-gray font-md">
-                  Already have an account?
-                  <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link>
+                  Already have an account? 
+                  <span @click="signIn" class="color-light-gray link">Login</span>
                 </p>
               </div>
             </div>
@@ -39,8 +39,23 @@
 import { IonContent, IonPage, IonButton } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import DotText from "@/components/shared/DotText.vue";
+import Auth from "@/auth";
 
 const router = useRouter();
+const authService = new Auth();
+
+
+const signIn = async () => {
+  // Sign in logic here
+  const authRes = await authService.authenticate(false);
+
+  if (authRes) {
+    return router.replace({ name: "Dashboard" });
+  } else {
+    return router.replace({ name: "Login" });
+  }
+};
+
 const signup = () => {
   router.push({ name: "Signup" });
 };
