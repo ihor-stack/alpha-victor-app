@@ -82,7 +82,7 @@
                 "
                 @click="saveNewDocument"
               >
-                Add new Asset Type +
+                Add new asset type +
               </ion-button>
             </ion-footer>
           </div>

@@ -23,7 +23,7 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-normal"
               >
-                Add new Equipment
+                Add new equipment
               </h1>
               <p class="modal-panel__comment color-light-gray font-size-sm">
                 You can create a new equipment the form below.
@@ -53,34 +53,7 @@
                     </ion-select-option>
                   </ion-select>
                 </ion-col>
-                <ion-col
-                  size-xs="12"
-                  size-sm="6"
-                  class="form-admin--group_field"
-                >
-                  <ion-label color="light">Model</ion-label>
-                  <ion-input
-                    color="light"
-                    v-model="state.name"
-                    label="Model"
-                    placeholder="Input Model"
-                  ></ion-input>
-                </ion-col>
-              </ion-row>
-              <ion-row class="form-admin--group">
-                <ion-col
-                  size-xs="12"
-                  size-sm="6"
-                  class="form-admin--group_field"
-                >
-                  <ion-label color="light">Serial number</ion-label>
-                  <ion-input
-                    color="light"
-                    v-model="state.serialNumber"
-                    label="Model"
-                    placeholder="Input Serial number"
-                  ></ion-input>
-                </ion-col>
+                
                 <ion-col
                   size-xs="12"
                   size-sm="6"
@@ -102,6 +75,34 @@
                   </ion-select>
                 </ion-col>
               </ion-row>
+              <ion-row class="form-admin--group">
+                <ion-col
+                  size-xs="12"
+                  size-sm="6"
+                  class="form-admin--group_field"
+                >
+                  <ion-label color="light">Model</ion-label>
+                  <ion-input
+                    color="light"
+                    v-model="state.name"
+                    label="Model"
+                    placeholder="Input Model"
+                  ></ion-input>
+                </ion-col>
+                <ion-col
+                  size-xs="12"
+                  size-sm="6"
+                  class="form-admin--group_field"
+                >
+                  <ion-label color="light">Serial number</ion-label>
+                  <ion-input
+                    color="light"
+                    v-model="state.serialNumber"
+                    label="Model"
+                    placeholder="Input Serial number"
+                  ></ion-input>
+                </ion-col>
+              </ion-row>
             </ion-grid>
           </ion-content>
           <ion-footer>
@@ -116,7 +117,7 @@
               "
               @click="handleAddEquipment"
             >
-              Add new Equipment +
+              Add new equipment +
             </ion-button>
           </ion-footer>
         </div>

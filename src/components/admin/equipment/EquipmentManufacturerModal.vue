@@ -1,6 +1,6 @@
 <template>
   <ion-button class="button-wide" @click="state.modalOpen = true">
-    Add New Manufacturer +
+    Add new manufacturer +
   </ion-button>
   <ion-modal
     :is-open="state.modalOpen"
@@ -23,7 +23,7 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-normal"
               >
-                Add New Manufacturer
+                Add new manufacturer
               </h1>
               <p class="modal-panel__comment color-light-gray font-size-sm">
                 You can create a new manufacturer via the form below.
@@ -46,7 +46,7 @@
               :disabled="!state.name"
               @click="handleAddName"
             >
-              Add New Manufacturer +
+              Add new manufacturer +
             </ion-button>
           </ion-footer>
         </div>

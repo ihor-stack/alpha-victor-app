@@ -68,8 +68,8 @@
             class="font-size-sm"
             color="light"
             placeholder="LinkedIn"
-            :value="organisationDetails.addressLines ? organisationDetails.addressLines[0] : ''"
-            @ion-input="organisationDetails.addressLines[0]=String($event.target.value)"
+            :value="organisationDetails.addressLine0 ? organisationDetails.addressLine0 : ''"
+            @ion-input="organisationDetails.addressLine0=String($event.target.value)"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -78,8 +78,8 @@
             class="font-size-sm"
             color="light"
             placeholder="Joe Bloggs"
-            :value="organisationDetails.addressLines ? organisationDetails.addressLines[1] : ''"
-            @ion-input="organisationDetails.addressLines[1]=String($event.target.value)"
+            :value="organisationDetails.addressLine1 ? organisationDetails.addressLine1 : ''"
+            @ion-input="organisationDetails.addressLine1=String($event.target.value)"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -89,6 +89,7 @@
             color="light"
             placeholder="07762522515"
             :value="organisationDetails.city"
+            @ion-input="organisationDetails.city=String($event.target.value)"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">

@@ -97,8 +97,8 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            :value="location.addressLines[0]"
-            @ion-input="location.addressLines[0] = String($event.target.value)"
+            :value="location.addressLine0"
+            @ion-input="location.addressLine0 = String($event.target.value)"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -106,8 +106,8 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            :value="location.addressLines[1]"
-            @ion-input="location.addressLines[1] = String($event.target.value)"
+            :value="location.addressLine1"
+            @ion-input="location.addressLine1 = String($event.target.value)"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
