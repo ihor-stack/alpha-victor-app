@@ -56,6 +56,7 @@
     "marzipano": "^0.10.2",
     "moment": "^2.29.4",
     "npm": "^9.6.7",
+    "pannellum": "^2.5.6",
     "pdfvuer": "^2.0.1",
     "pinia": "^2.0.29",
     "register-service-worker": "^1.7.2",

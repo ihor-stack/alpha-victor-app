@@ -384,6 +384,18 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
+    async setInitialView(
+      initialViewPitch: number,
+      initialViewYaw: number,
+      initialViewHfov: number
+    ) {
+      this.currentPanorama = {
+        ...this.currentPanorama,
+        initialViewPitch,
+        initialViewYaw,
+        initialViewHfov,
+      };
+    },
     async getPanorama(spaceId: string) {
       loadingService.show("Loading...");
       adminAPI
@@ -392,18 +404,24 @@ export const Spaces = defineStore("Spaces", {
           this.currentPanorama = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          if (error.response.status === 404) {
+            this.currentPanorama = {} as Panorama;
+          } else {
+            toastService.show("Error", error, "error", "top");
+          }
         })
         .finally(() => {
           loadingService.close();
         });
     },
     async addPanorama(spaceId: string, panorama: NewPanorama) {
+      loadingService.show("Loading...");
       adminAPI
         .post(`/Panorama/${spaceId}`, panorama)
         .then(() => this.getPanorama(spaceId))
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+          loadingService.close();
         });
     },
     async updatePanorama(spaceId: string, panorama: NewPanorama) {
@@ -415,11 +433,15 @@ export const Spaces = defineStore("Spaces", {
         });
     },
     async deletePanorama(spaceId: string) {
-      adminAPI
+      loadingService.show("Loading...");
+      return adminAPI
         .delete(`/Panorama/${spaceId}`)
-        .then(() => this.getPanorama(spaceId))
+        .then(() => (this.currentPanorama = {} as Panorama))
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
         });
     },
     async addHotspot(
