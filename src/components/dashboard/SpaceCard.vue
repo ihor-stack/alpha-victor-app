@@ -2,8 +2,7 @@
   <div class="space">
     <div class="space__image">
       <div class="space__image__gradient"></div>
-      <ion-img v-if="space?.imagePath" :src="space.imagePath" />
-      <img v-else src="@/theme/img/space-the-johnson.jpg" />
+      <img v-if="space?.imagePath" :src="space.imagePath" />
     </div>
     <div class="space__info">
       <div>

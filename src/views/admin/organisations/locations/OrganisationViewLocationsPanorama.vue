@@ -2,7 +2,12 @@
   <div class="panorama-wrapper">
     <div>
       <ion-row class="form-admin--group">
-        <ion-col v-if="space.imagePath" size-xs="12" size-sm="2" class="form-admin--group_field">
+        <ion-col
+          v-if="space.imagePath"
+          size-xs="12"
+          size-sm="2"
+          class="form-admin--group_field"
+        >
           <div class="img-container">
             <img :src="space.imagePath || space.photos?.[0]?.path" alt="" />
           </div>
@@ -31,39 +36,15 @@
       </ion-row>
     </div>
     <div class="panorama-content">
-      <div id="pano" ref="panorama"></div>
+      <div id="pano"></div>
       <ion-row>
         <ion-col>
-          <ion-chip class="font-size-xs font-mono">
+          <ion-chip class="font-size-xs font-mono" @click="setInitialView">
             <ion-icon :icon="locate" color="secondaryContrast" />
             <ion-label>Set starting view</ion-label>
           </ion-chip>
         </ion-col>
       </ion-row>
-      <div
-        v-for="hotspot in currentPanorama?.hotspots"
-        :key="hotspot.hotspotId"
-        :id="hotspot.hotspotId"
-        class="hotspot"
-        :style="{
-          display: state.panoramaRendered ? 'block' : 'none',
-        }"
-      >
-        <div class="hotspotContent">
-          <div class="dotContainer">
-            <div class="dot" @mouseup="hotspotClicked(hotspot, $event)">
-              <img src="img/av.svg" />
-            </div>
-          </div>
-          <div class="label" v-if="hotspot.type == 'annotation'">
-            {{ hotspot.text }}
-          </div>
-          <div
-            class="label"
-            v-if="hotspot.type == 'device' && hotspot.deviceId"
-          ></div>
-        </div>
-      </div>
       <ion-row class="ion-justify-content-center">
         <ion-button color="primary">
           <label for="panormaSelect">
@@ -99,6 +80,8 @@
         state.selectedHotspot = {} as Hotspot;
       }
     "
+    :deleteHotspotFromViewer="(hotspotId: string) => viewer.removeHotSpot(hotspotId)"
+    :drawHotspot="drawHotspot"
   />
 </template>
 
@@ -112,10 +95,11 @@ import {
   IonIcon,
 } from "@ionic/vue";
 import { locationOutline, peopleOutline, locate } from "ionicons/icons";
-import * as Marzipano from "marzipano";
+import "pannellum";
+import "pannellum/build/pannellum.css";
 import { storeToRefs } from "pinia";
 import { Spaces } from "@/stores/adminSpaces";
-import { onBeforeMount, computed, watch, nextTick, reactive } from "vue";
+import { onBeforeMount, watch, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { Hotspot } from "@/types";
 import PanoramaModal from "@/components/admin/spaces/PanoramaModal.vue";
@@ -123,7 +107,6 @@ import PanoramaModal from "@/components/admin/spaces/PanoramaModal.vue";
 const route = useRoute();
 
 const spaceId = route.params.spaceId as string;
-
 const Space = Spaces();
 const { space, currentPanorama, devices } = storeToRefs(Space);
 
@@ -138,79 +121,99 @@ const state = reactive({
   },
   editModalOpen: false,
   selectedHotspot: {} as Hotspot,
-  panoramaRendered: false,
 });
-const options = {
-  controls: {
-    mouseViewMode: "drag",
-  },
-};
-const deg2rad = (degrees: number) => {
-  return (Math.PI / 180) * degrees;
-};
 
-const viewer = computed(
-  () => new Marzipano.Viewer(document.getElementById("pano"), options)
-);
-const source = computed(() =>
-  Marzipano.ImageUrlSource.fromString(currentPanorama?.value?.path)
-);
-
-const limiter = Marzipano.RectilinearView.limit.hfov(deg2rad(60), deg2rad(100));
-const geometry = new Marzipano.EquirectGeometry([{ width: 1000 }]);
-
-let scene: any;
-let view: any;
-let clickedX = 0;
-let clickedY = 0;
+let viewer: any;
+let click: any;
+let panoramaRendered = false;
 
 watch(currentPanorama, (newValue) => {
   if (newValue?.path) setupPanorama();
 });
 
-const setupPanorama = () => {
-  view = new Marzipano.RectilinearView(
-    {
-      yaw: currentPanorama?.value?.initialViewYaw,
-      pitch: currentPanorama?.value?.initialViewPitch,
-      fov: currentPanorama?.value?.initialViewHfov,
-    },
-    limiter
+const hotspotClicked = (event: MouseEvent, args: { id: string }) => {
+  const selectedHotspot = currentPanorama.value.hotspots.find(
+    (h) => h.hotspotId === args.id
   );
+  if (selectedHotspot) {
+    state.selectedHotspot = selectedHotspot;
+    viewer.setPitch(selectedHotspot?.pitch);
+    viewer.setYaw(selectedHotspot?.yaw);
+    state.editModalOpen = true;
+  }
+};
 
-  scene = viewer.value.createScene({
-    source: source.value,
-    geometry: geometry,
-    view: view,
-  });
+const drawHotspot = (hotspot: Hotspot) => {
+  const newHotspot = {
+    ...hotspot,
+    id: hotspot.hotspotId,
+    clickHandlerFunc: hotspotClicked,
+    clickHandlerArgs: { id: hotspot.hotspotId },
+  };
+  viewer.addHotSpot(newHotspot);
+};
 
-  if (currentPanorama?.value?.path) scene.switchTo();
-  setTimeout(() => {
-    window.dispatchEvent(new Event("resize"));
-  }, 10);
-
-  const layer = scene.layer();
-  const store = layer.textureStore();
-
-  const drawHotspot = (hotspot: Hotspot, isDegs = false) => {
-    scene
-      .hotspotContainer()
-      .createHotspot(document.getElementById(hotspot.hotspotId), {
-        yaw: isDegs ? deg2rad(hotspot.yaw) : hotspot.yaw,
-        pitch: isDegs ? deg2rad(hotspot.pitch) : hotspot.pitch,
-      });
-    state.panoramaRendered = true;
+const setupPanorama = () => {
+  if (!currentPanorama.value?.path || panoramaRendered) return;
+  panoramaRendered = true;
+  const options = {
+    type: "equirectangular",
+    panorama: currentPanorama?.value?.path,
+    // panorama: "img/admin/mockPanorama.jpeg",
+    autoLoad: true,
+    autoRotate: -10,
+    autoRotateStopDelay: 1,
+    orientationOnByDefault: true,
+    draggable: true,
+    mouseZoom: true,
+    doubleClickZoom: true,
+    compass: false,
+    hfov: 90,
+    yaw: 0,
+    pitch: 0,
+    minHfov: 30,
+    maxHfov: 120,
+  };
+  if (!viewer) viewer = (window as any).pannellum.viewer("pano", options);
+  const drawHotspots = () => {
+    currentPanorama.value?.hotspots?.forEach((hotspot) => {
+      drawHotspot(hotspot);
+    });
   };
 
-  const panoClicked = async (x: number, y: number) => {
-    const loc = view.screenToCoordinates({
-      x: x,
-      y: y,
-    });
+  const startClick = (e: MouseEvent) => {
+    click = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+  };
+
+  const endClick = (e: MouseEvent) => {
+    const movement = {
+      x: Math.abs(click.x - e.clientX),
+      y: Math.abs(click.y - e.clientY),
+    };
+    if (movement.x == 0 && movement.y == 0) addHotspot(e);
+    click = null;
+  };
+
+  viewer.on("mousedown", startClick);
+  viewer.on("mouseup", endClick);
+  viewer.on("load", drawHotspots);
+  if (currentPanorama?.value?.initialViewPitch)
+    viewer.setPitch(currentPanorama.value.initialViewPitch);
+  if (currentPanorama?.value?.initialViewYaw)
+    viewer.setPitch(currentPanorama.value.initialViewYaw);
+  if (currentPanorama?.value?.initialViewHfov)
+    viewer.setPitch(currentPanorama.value.initialViewHfov);
+
+  const addHotspot = (event: MouseEvent) => {
+    if (event.movementX > 0 || event.movementY > 0) return;
+    const location = viewer.mouseEventToCoords(event);
     const newHotspot: Hotspot = {
       hotspotId: crypto.randomUUID(),
-      pitch: loc.pitch,
-      yaw: loc.yaw,
+      pitch: location[0],
+      yaw: location[1],
       text: "New hotspot",
       type: "device",
     };
@@ -218,39 +221,6 @@ const setupPanorama = () => {
       drawHotspot(res);
     });
   };
-
-  store.addEventListener("textureLoad", () => {
-    nextTick(() => {
-      currentPanorama?.value?.hotspots?.forEach((hotspot) => {
-        drawHotspot(hotspot);
-      });
-    });
-  });
-
-  const mouseDown = (e: MouseEvent) => {
-    e.stopPropagation();
-    clickedX = e.offsetX;
-    clickedY = e.offsetY;
-  };
-
-  const mouseUp = (e: MouseEvent) => {
-    if (
-      Math.abs(e.offsetX - clickedX) < 6 &&
-      Math.abs(e.offsetY - clickedY) < 6
-    ) {
-      panoClicked(e.offsetX, e.offsetY);
-      return;
-    }
-  };
-
-  const pano = document.getElementById("pano");
-  if (pano) {
-    pano.addEventListener("mousedown", mouseDown);
-    pano.addEventListener("mouseup", mouseUp);
-    pano.addEventListener("click", (e) => {
-      e.stopPropagation();
-    });
-  }
 };
 
 async function onFileSelected(event: Event) {
@@ -273,15 +243,14 @@ async function onFileSelected(event: Event) {
 }
 
 const deletePanorama = async () => {
-  Space.deletePanorama(spaceId);
-  setupPanorama();
-  viewer.value.destroyAllScenes();
+  Space.deletePanorama(spaceId).then(() => {
+    panoramaRendered = false;
+    location.reload();
+  });
 };
 
-const hotspotClicked = (hostpot: Hotspot, event: Event) => {
-  event.stopPropagation();
-  state.selectedHotspot = hostpot;
-  state.editModalOpen = true;
+const setInitialView = () => {
+  Space.setInitialView(viewer.getPitch(), viewer.getYaw(), viewer.getHfov());
 };
 
 onBeforeMount(() => {
@@ -344,66 +313,5 @@ onBeforeMount(() => {
 ion-chip {
   --background: #ffffff;
   --color: var(--av-primary);
-}
-.hotspot {
-  width: 80px;
-  margin-left: -40px;
-  margin-top: -15px;
-  transition: margin-top 0s 0.1s;
-  position: relative;
-}
-.hotspot:hover {
-  margin-top: -20px;
-  transition: margin-top 0.3s 0s;
-}
-
-.hotspotContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.hotspotContent .dot {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  transition: width 0s 0.1s, height 0s 0.1s;
-  border: none;
-  display: block;
-}
-.hotspotContent .dot img {
-  width: 100%;
-}
-.hotspot:hover .dot {
-  width: 30px;
-  height: 30px;
-  transition: width 0.3s 0s, height 0.3s 0s;
-}
-
-.hotspotContent .label {
-  margin-top: 5px;
-  background: rgba(var(--ion-color-secondary-contrast-rgb), 0.9);
-  padding: 3px;
-  border-radius: 3px;
-  color: var(--ion-color-secondary);
-  text-align: center;
-  text-transform: uppercase;
-  font-family: Bold;
-  font-size: 0.6em;
-  line-height: 0.9em;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.hotspot .label.error {
-  opacity: 1;
-  background: rgba(var(--ion-color-warning-rgb), 0.9);
-  color: var(--ion-color-warning-contrast);
-}
-
-.hotspot:hover .label {
-  opacity: 1;
-  transition: opacity 0.3s 0.3s;
 }
 </style>
