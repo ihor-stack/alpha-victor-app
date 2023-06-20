@@ -179,7 +179,9 @@ export interface Integration {
 export interface NavSpace {
   spaceId: string;
   spaceName: string;
+  name: string;
   image?: string;
+  shortCode: string
 }
 export interface NavFloor {
   floorId: string;
