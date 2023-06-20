@@ -23,6 +23,7 @@
       <h1 class="title-admin font-bold font-size-lg color-light-gray">
         {{ props.title }}
       </h1>
+      <slot></slot>
     </div>
   </ion-header>
 </template>
@@ -50,9 +51,13 @@ ion-header {
 }
 .title {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0 12px 24px;
+}
+.title .title-admin {
+  margin-bottom: 8px;
 }
 
 ion-buttons {

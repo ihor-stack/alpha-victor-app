@@ -1,17 +1,6 @@
 import { defineStore } from "pinia";
 import { publicAPI, adminAPI } from "@/axios";
-import {
-  DetailedSpace,
-  Space,
-  Device,
-  SelectItem,
-  SingleFloor,
-  SpecificFloor,
-  SpaceBeacon,
-  SpaceWifi,
-  NewDocument,
-  NewPhoto,
-} from "@/types/index";
+import { DetailedSpace, Space, Device, Panorama } from "@/types/index";
 import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
@@ -27,6 +16,7 @@ export const Spaces = defineStore("PublicSpaces", {
       recentlyViewedSpaces: [] as Space[],
       nearbySpaces: [] as Space[],
       devices: [] as Device[],
+      currentPanorama: {} as Panorama,
     };
   },
   actions: {
@@ -142,6 +132,38 @@ export const Spaces = defineStore("PublicSpaces", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+
+    async setInitialView(
+      initialViewPitch: number,
+      initialViewYaw: number,
+      initialViewHfov: number
+    ) {
+      this.currentPanorama = {
+        ...this.currentPanorama,
+        initialViewPitch,
+        initialViewYaw,
+        initialViewHfov,
+      };
+    },
+
+    async getPanorama(spaceId: string) {
+      loadingService.show("Loading...");
+      publicAPI
+        .get<Panorama>(`/Panorama/${spaceId}`)
+        .then((response) => {
+          this.currentPanorama = response.data;
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.currentPanorama = {} as Panorama;
+          } else {
+            toastService.show("Error", error, "error", "top");
+          }
         })
         .finally(() => {
           loadingService.close();

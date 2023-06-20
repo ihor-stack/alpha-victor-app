@@ -235,6 +235,7 @@ export const Organisations = defineStore("Organisations", {
         .get<DecisionTreeList[]>(`/DecisionTree`)
         .then((response) => {
           const formattedList: SelectItem[] = [];
+          
           response.data.forEach((element, index) => {
             formattedList.push({
               id: index,
