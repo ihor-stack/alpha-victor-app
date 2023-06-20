@@ -2,9 +2,17 @@
   <div>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
-        <ion-col v-if="space.featuredImagePath" size-xs="12" size-sm="2" class="form-admin--group_field">
+        <ion-col
+          v-if="space.featuredImagePath || space.photos?.[0]?.path"
+          size-xs="12"
+          size-sm="2"
+          class="form-admin--group_field"
+        >
           <div class="img-container">
-            <img :src="space.featuredImagePath || space.photos?.[0]?.path" alt="" />
+            <img
+              :src="space.featuredImagePath || space.photos?.[0]?.path"
+              alt=""
+            />
           </div>
         </ion-col>
         <ion-col

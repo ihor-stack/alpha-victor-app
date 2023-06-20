@@ -3,13 +3,13 @@
     <div>
       <ion-row class="form-admin--group">
         <ion-col
-          v-if="space.imagePath"
+          v-if="space.featuredImagePath || space.photos?.[0]?.path"
           size-xs="12"
           size-sm="2"
           class="form-admin--group_field"
         >
           <div class="img-container">
-            <img :src="space.imagePath || space.photos?.[0]?.path" alt="" />
+            <img :src="space.featuredImagePath" alt="" />
           </div>
         </ion-col>
         <ion-col

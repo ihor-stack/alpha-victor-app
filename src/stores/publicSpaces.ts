@@ -18,7 +18,7 @@ import toastService from "@/services/toastService";
 
 const { cookies } = useCookies();
 
-export const Spaces = defineStore("Spaces", {
+export const Spaces = defineStore("PublicSpaces", {
   state: () => {
     return {
       currentSpace: {} as DetailedSpace,
@@ -114,7 +114,7 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async getNearbySpace(uuid : string, major : number, minor : number) {
+    async getNearbySpace(uuid: string, major: number, minor: number) {
       loadingService.show("Loading...");
       publicAPI
         .get<Space>(`/Dashboard/ByBeacon/${uuid}/${major}/${minor}`)
