@@ -120,6 +120,8 @@ const props = defineProps([
   "modalOpen",
   "selectedHotspot",
   "handleDismiss",
+  "deleteHotspotFromViewer",
+  "drawHotspot",
 ]);
 const state = reactive({
   deviceId: props.selectedHotspot.deviceId,
@@ -131,12 +133,24 @@ const save = () => {
     ...props.selectedHotspot,
     deviceId: state.deviceId,
     text: state.text,
-  }).then(() => props.handleDismiss());
+  }).then(() => {
+    props.deleteHotspotFromViewer(props.selectedHotspot.hotspotId);
+    const updatedHotspot = {
+      ...props.selectedHotspot,
+      text: state.text,
+      deviceId: state.deviceId,
+    };
+    props.drawHotspot(updatedHotspot);
+    props.handleDismiss();
+  });
 };
 
 const deleteHotspot = () => {
-  Space.deleteHotspot(props.spaceId, props.selectedHotspot.hotspotId).then(() =>
-    props.handleDismiss()
+  Space.deleteHotspot(props.spaceId, props.selectedHotspot.hotspotId).then(
+    () => {
+      props.deleteHotspotFromViewer(props.selectedHotspot.hotspotId);
+      props.handleDismiss();
+    }
   );
 };
 </script>
