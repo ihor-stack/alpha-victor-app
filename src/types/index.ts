@@ -304,9 +304,10 @@ export interface DetailedSpace {
   decisionTreeId: string;
   qrCode: string;
   roomTypes: SpaceDetailsRooms[];
-  spaceFeatures: SpaceDetailsFeatures[];
+  spaceFeatures: SpaceFeature[];
   photos?: Photo[];
   imagePath?: string;
+  featuredImagePath?: string;
   documents: SpaceDetailsDocs[];
   occupied: boolean;
   location?: string;
@@ -326,7 +327,8 @@ export interface SpaceDetailsRooms {
 }
 export interface SpaceDetailsFeatures {
   name: string;
-  spaceFeatureId: string;
+  spaceFeatureId?: string;
+  id?: string;
   icon: string;
 }
 export interface SpaceDetailsDocs {

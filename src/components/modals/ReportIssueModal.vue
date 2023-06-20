@@ -5,7 +5,7 @@
         <ion-header>
           <div class="issues-panel__header">
             <h1
-              class="issues-panel__title color-light-gray font-bold font-size-normal"
+              class="modal-panel__title color-light-gray font-bold font-size-normal"
             >
               Report Issue
             </h1>
@@ -16,28 +16,28 @@
           </div>
         </ion-header>
         <ion-content :scroll-y="false">
-          <div class="issues-panel__section issues-panel__select-equipment">
-            <h2
-              class="color-light-gray font-size-xs font-bold issues-panel__heading"
-            >
-              Select Equipment
-            </h2>
-            <ion-select
-              interface="action-sheet"
-              class="issues-panel__select-equipment__select"
-              placeholder="Select equipment"
-              v-model="state.deviceId"
-              @ion-change="checkForInputs"
-            >
-              <ion-select-option
-                v-for="device in devices"
-                :key="device.id"
-                :value="device.id"
+          <ion-row class="form-admin--group">
+            <ion-col size-xs="12" class="form-admin--group_field">
+              <ion-label class="font-bold font-size-xs" color="light">
+                Select Equipment
+              </ion-label>
+              <ion-select
+                interface="action-sheet"
+                class="issues-panel__select-equipment__select"
+                placeholder="Select equipment"
+                v-model="state.deviceId"
+                @ion-change="checkForInputs"
               >
-                {{ device.name }}
-              </ion-select-option>
-            </ion-select>
-          </div>
+                <ion-select-option
+                  v-for="device in devices"
+                  :key="device.id"
+                  :value="device.id"
+                >
+                  {{ device.name }}
+                </ion-select-option>
+              </ion-select>
+            </ion-col>
+          </ion-row>
           <ion-row>
             <ion-col size="12" class="form-admin--group_field">
               <ion-label class="font-bold font-size-xs" color="light"
@@ -51,20 +51,20 @@
               ></ion-input>
             </ion-col>
           </ion-row>
-          <div class="issues-panel__section issues-panel__add-comment">
-            <h2
-              class="color-light-gray font-size-xs font-bold issues-panel__heading"
-            >
-              Add Comment
-            </h2>
-            <ion-textarea
-              class="issues-panel__add-comment__textarea"
-              placeholder="Enter a comment here"
-              v-model="state.comment"
-              helper-text="Helper Text"
-              @ion-change="checkForInputs"
-            ></ion-textarea>
-          </div>
+          <ion-row class="form-admin--group">
+            <ion-col size-xs="12" class="form-admin--group_field">
+              <ion-label class="font-size-xs font-bold">
+                Add Comment
+              </ion-label>
+              <ion-textarea
+                class="issues-panel__add-comment__textarea"
+                placeholder="Enter a comment here"
+                v-model="state.comment"
+                helper-text="Helper Text"
+                @ion-change="checkForInputs"
+              ></ion-textarea>
+            </ion-col>
+          </ion-row>
         </ion-content>
         <ion-footer>
           <ion-button
@@ -92,6 +92,8 @@ import {
   IonTextarea,
   IonLabel,
   IonInput,
+  IonRow,
+  IonCol,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
