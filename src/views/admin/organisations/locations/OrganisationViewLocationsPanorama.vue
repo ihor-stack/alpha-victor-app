@@ -2,7 +2,12 @@
   <div class="panorama-wrapper">
     <div>
       <ion-row class="form-admin--group">
-        <ion-col v-if="space.imagePath" size-xs="12" size-sm="2" class="form-admin--group_field">
+        <ion-col
+          v-if="space.imagePath"
+          size-xs="12"
+          size-sm="2"
+          class="form-admin--group_field"
+        >
           <div class="img-container">
             <img :src="space.imagePath || space.photos?.[0]?.path" alt="" />
           </div>
@@ -153,8 +158,8 @@ const setupPanorama = () => {
   panoramaRendered = true;
   const options = {
     type: "equirectangular",
-    // panorama: currentPanorama?.value?.path,
-    panorama: "img/admin/mockPanorama.jpeg",
+    panorama: currentPanorama?.value?.path,
+    // panorama: "img/admin/mockPanorama.jpeg",
     autoLoad: true,
     autoRotate: -10,
     autoRotateStopDelay: 1,
