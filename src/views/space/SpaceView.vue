@@ -57,7 +57,12 @@
                 </div>
               </div>
               <div class="space-header__info__right">
-                <ion-button size="small" fill="clear" class="icon-360">
+                <ion-button
+                  size="small"
+                  fill="clear"
+                  class="icon-360"
+                  :href="`/panorama/${spaceId}`"
+                >
                   <img src="@/theme/icons/360.svg" />
                 </ion-button>
                 <occupied-status :occupied="currentSpace.occupied" />
