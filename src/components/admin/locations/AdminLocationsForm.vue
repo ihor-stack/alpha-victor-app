@@ -224,8 +224,8 @@ const exportQrCodes = async () => {
     for (let j = 0; j < f.spaces.length; j++) {
       const s = f.spaces[j];
 
-      const qr = getQR(`${process.env.VUE_APP_DOMAIN}/qr/${s.shortCode}`);
-      const pngData = await getPNG(canvas, qr.display, 400, 300);
+      const qr = getQR(`${s.shortCode}`);
+      const pngData = await getPNG(qr.display, 400, 400);
 
       floorFolder?.file(`${s.name}.png`, pngData, { binary: true });
 
