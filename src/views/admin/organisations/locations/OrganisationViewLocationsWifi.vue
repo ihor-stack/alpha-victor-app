@@ -30,7 +30,7 @@
                     :disabled="true"
                     >
                         <ion-label color="light">Show wifi password within space</ion-label>
-                        <ion-toggle color="primary" :value="wifi.showWifiPassword" @ion-input="wifi.showWifiPassword = $event.target.value" />
+                        <ion-toggle color="primary" :checked="wifi.showWifiPassword" @ionChange="wifi.showWifiPassword = $event.detail.checked" />
                     </ion-input>
                 </ion-col>
 
@@ -59,7 +59,7 @@ import {
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import {Spaces} from '@/stores/adminSpaces'
-import { onBeforeMount } from "vue";
+import { onBeforeMount, ref } from "vue"
 
 const Space = Spaces()
 const { wifi } = storeToRefs(Space);

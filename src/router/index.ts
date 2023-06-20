@@ -8,11 +8,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/HomePage.vue"),
   },
   {
-    path: "/login",
-    name: "Login",
-    component: () => import("@/views/auth/LogIn.vue"),
-  },
-  {
     path: "/email-link-login",
     name: "EmailLinkLogin",
     component: () => import("@/views/auth/EmailLinkLogin.vue"),
@@ -350,6 +345,15 @@ const routes: Array<RouteRecordRaw> = [
             component: () =>
               import(
                 "@/views/admin/organisations/locations/OrganisationViewLocationsBeacon.vue"
+              ),
+          },
+          {
+            path: ":locationId/floor/:floorId/space/:spaceId/announcement",
+            name: "OrganisationViewLocationsAnnouncement",
+            props: true,
+            component: () =>
+              import(
+                "@/views/admin/organisations/locations/OrganisationViewLocationsAnnouncement.vue"
               ),
           },
           {
