@@ -1,6 +1,6 @@
 <template>
   <ion-button class="button-wide" @click="state.modalOpen = true">
-    Add new Asset Type +
+    Add new asset type +
   </ion-button>
   <ion-modal
     :is-open="state.modalOpen"
@@ -23,7 +23,7 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-normal"
               >
-                Add new Asset Type
+                Add new asset type
               </h1>
               <p class="modal-panel__comment color-light-gray font-size-sm">
                 You can create a new asset type via the form below.
@@ -46,7 +46,7 @@
               :disabled="!state.name"
               @click="handleAddAssetType"
             >
-              Add new Asset Type +
+              Add new asset type +
             </ion-button>
           </ion-footer>
         </div>

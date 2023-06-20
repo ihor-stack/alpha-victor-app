@@ -152,7 +152,8 @@ export interface OrgDetails {
   selectedLanguage: 0;
   postCode: string;
   city: string;
-  addressLines: string[];
+  addressLine0: string;
+  addressLine1: string;
   website: string[];
   decisionTrees: DecisionTree[];
 }
@@ -165,7 +166,8 @@ export interface NewOrgDetails {
   selectedLanguage: 0;
   postCode: string;
   city: string;
-  addressLines: string[];
+  addressLine0: string;
+  addressLine1: string;
   website: string[];
   language: number;
 }
@@ -214,7 +216,8 @@ export interface Location {
   sosNumber: string;
   wifiSsid: string;
   wifiPassword: string;
-  addressLines: string[];
+  addressLine0: string;
+  addressLine1: string;
   city: string;
   postcode: string;
   floors?: SingleFloor[];
@@ -236,7 +239,8 @@ export interface SingleLocation {
   sosNumber: string;
   wifiSsid: string;
   wifiPassword: string;
-  addressLines: string[];
+  addressLine0: string;
+  addressLine1: string;
   city: string;
   postcode: string;
 }

@@ -18,7 +18,7 @@ export const adminDocuments = defineStore("adminDocuments", {
       loadingService.show("Loading...");
       adminAPI
         .get<AdminDocument[]>(
-          "/Organisation/" + cookies.get("orgId") + "/DocumentTypes"
+          "/Document/DocumentType"
         )
         .then((response) => {
           if (response.data) {
@@ -37,7 +37,7 @@ export const adminDocuments = defineStore("adminDocuments", {
     async saveNewDocumentType(documentName: string) {
       adminAPI
         .post<AdminDocument>(
-          "/Organisation/" + cookies.get("orgId") + "/DocumentType",
+          "/Document/DocumentType",
           {
             name: documentName,
           }
@@ -72,7 +72,7 @@ export const adminDocuments = defineStore("adminDocuments", {
 
     async removeDocumentType(id: string) {
       adminAPI
-        .delete("/Organisation/" + cookies.get("orgId") + "/DocumentType/" + id)
+        .delete("/Document/DocumentType/" + id)
         .then(() => {
           this.getDocumentTypes();
         })

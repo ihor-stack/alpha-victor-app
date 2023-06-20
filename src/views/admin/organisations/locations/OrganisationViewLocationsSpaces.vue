@@ -122,7 +122,7 @@
       <ion-item lines="none">
         <ion-label color="light">Photos</ion-label>
         <PhotoModal
-          :isFistPhoto="isFistPhoto"
+          :isFirstPhoto="isFirstPhoto"
           :queryParams="`spaceId=${spaceId}`"
           :callback="() => Space.getSpaceDetails(spaceId)"
         />
@@ -241,7 +241,7 @@ const organisation = Organisations();
 const { space, formattedSelect, roomTypeSelected } = storeToRefs(Space);
 const { decisionTreeList, decisionTreeSelected } = storeToRefs(organisation);
 
-const isFistPhoto = computed(() => !space.value.photos?.length);
+const isFirstPhoto = computed(() => !space.value.photos?.length);
 const redirect = (route: string) => {
   return {
     name: route,

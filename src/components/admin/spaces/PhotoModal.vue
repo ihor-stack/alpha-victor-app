@@ -84,7 +84,7 @@ const Org = Organisations();
 const Space = Spaces();
 const modalOpen = ref(false);
 const props = defineProps([
-  "isFistPhoto",
+  "isFirstPhoto",
   "queryParams",
   "callback",
   "hiddenFeatureImageToggle",
@@ -95,9 +95,9 @@ const state = reactive({
     contentType: "",
     base64Payload: "",
     order: 0,
-    featuredPhoto: props.isFistPhoto,
+    featuredPhoto: props.isFirstPhoto,
   },
-  featuredPhoto: props.isFistPhoto,
+  featuredPhoto: props.isFirstPhoto,
 });
 
 const handleDismiss = () => {

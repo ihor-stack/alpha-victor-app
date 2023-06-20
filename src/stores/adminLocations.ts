@@ -30,7 +30,8 @@ export const Locations = defineStore("Locations", {
         sosNumber: "",
         wifiSsid: "",
         wifiPassword: "",
-        addressLines: ["", ""],
+        addressLine0: "",
+        addressLine1: "",
         city: "",
         postcode: "",
       } as SingleLocation,
@@ -61,7 +62,6 @@ export const Locations = defineStore("Locations", {
     //       wifiPassword: "string",
     //       postcode: "string",
     //       city: "string",
-    //       addressLines: ["string"],
     //     })
     //     .then(() => {
     //       this.getLocations();
