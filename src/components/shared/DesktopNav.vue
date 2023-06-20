@@ -52,7 +52,7 @@
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/space" class="font-size-sm color-light-gray"
+          <router-link to="/find-space" class="font-size-sm color-light-gray"
             >Find a space</router-link
           >
           <ion-icon
@@ -104,7 +104,9 @@
         <div class="spacer-line"></div>
         <li class="sub-title font-size-xxs color-light-gray">administration</li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/admin/organisations" class="font-size-sm color-light-gray"
+          <router-link
+            to="/admin/organisations"
+            class="font-size-sm color-light-gray"
             >Organisations</router-link
           >
           <ion-icon
@@ -114,7 +116,9 @@
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/admin/equipment" class="font-size-sm color-light-gray"
+          <router-link
+            to="/admin/equipment"
+            class="font-size-sm color-light-gray"
             >Equipment</router-link
           >
           <ion-icon
@@ -124,7 +128,9 @@
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/admin/documents" class="font-size-sm color-light-gray"
+          <router-link
+            to="/admin/documents"
+            class="font-size-sm color-light-gray"
             >Document Types</router-link
           >
           <ion-icon
