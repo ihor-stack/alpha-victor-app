@@ -136,6 +136,7 @@
             class="button-wide button-outline"
             fill="outline"
             color="--av-light-gray"
+            @click="exportQrCodes()"
           >
             Export QR Codes
           </ion-button>
@@ -165,6 +166,8 @@
         </li>
       </ul>
 
+      <canvas ref="canvas" width="100" height="100" hidden></canvas>
+
       <NewFloorModal />
     </ion-grid>
   </div>
@@ -183,10 +186,15 @@ import {
 
 import { Locations } from "@/stores/adminLocations";
 import { Floors } from "@/stores/adminFloors";
+import { getQR } from "@/composables/qr";
+import { getPNG } from "@/composables/png";
 import { storeToRefs } from "pinia";
-import { onBeforeMount, watch } from "vue";
+import { onBeforeMount, ref, watch } from "vue";
 import NewFloorModal from "@/components/modals/NewFloorModal.vue";
 import { useRoute } from "vue-router";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
+import { flowerOutline } from "ionicons/icons";
 const route = useRoute();
 
 const organisationId = route.params.id as string;
@@ -196,9 +204,38 @@ const Location = Locations();
 const { location } = storeToRefs(Location);
 const Floor = Floors();
 const { floors } = storeToRefs(Floor);
+const canvas = ref();
 
 const saveChanges = (id: string) => {
   Location.updateLocation(organisationId, id);
+};
+
+const exportQrCodes = async () => {
+
+  const zip = new JSZip();
+
+  const locationFolder = zip.folder(location.value.name);
+  const qrFolder = locationFolder?.folder('QR Codes');
+
+  for (let i = 0; i < floors.value.length; i++) {
+    const f = floors.value[i];
+    const floorFolder = qrFolder?.folder(f.name);
+
+    for (let j = 0; j < f.spaces.length; j++) {
+      const s = f.spaces[j];
+
+      const qr = getQR(`${process.env.VUE_APP_DOMAIN}/qr/${s.shortCode}`);
+      const pngData = await getPNG(canvas, qr.display, 400, 300);
+
+      floorFolder?.file(`${s.name}.png`, pngData, { binary: true });
+
+    }
+  }
+
+  const content = await zip.generateAsync({ type: "blob" });
+
+  const zipName = location.value.name;
+  saveAs(content, zipName);
 };
 
 const getFloorRoute = (floorId: string) => {
