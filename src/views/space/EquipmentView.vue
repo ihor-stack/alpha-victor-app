@@ -20,7 +20,7 @@
             :key="item.id"
             class="space-equipment-menu__item"
             button
-            detail="true"
+            :detail="true"
             @click="handleClick(item)"
           >
             <div class="space-equipment-menu__item__icon">
@@ -45,12 +45,12 @@
       :is-open="state.modalOpen"
       :initial-breakpoint="1"
       :breakpoints="[0, 1]"
-      :handleDismiss="() => handleDismiss()"
       @willDismiss="handleDismiss"
     >
       <room-equipment-modal
         :deviceDetails="state.selectedEquipment"
         :spaceId="spaceId"
+        :handleDismiss="() => handleDismiss()"
         :handleClickReportIssue="handleClickReportIssue"
       />
     </ion-modal>
