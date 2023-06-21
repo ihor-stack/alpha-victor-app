@@ -36,26 +36,6 @@
             &gt;&gt; {{ space.capacity }}
           </span>
         </ion-col>
-        <ion-col
-          size-xs="12"
-          size-sm="4"
-          class="form-admin--group_field header-right"
-        >
-          <div class="header-right--icon">
-            <ion-icon
-              :icon="qrCodeOutline"
-              color="light"
-              class="large_icons"
-            ></ion-icon>
-          </div>
-          <div class="header-right--icon">
-            <ion-icon
-              :icon="scanOutline"
-              color="light"
-              class="large_icons"
-            ></ion-icon>
-          </div>
-        </ion-col>
         <ion-col size-xs="12">
           <space-features-slider
             :features="space.spaceFeatures"
