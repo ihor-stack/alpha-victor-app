@@ -1,10 +1,14 @@
 import { defineStore } from "pinia";
 import { adminAPI } from "@/axios";
+import router from '@/router';
 import { SingleFloor, SpecificFloor, NewFloorDetails } from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 
 import { Locations } from "./adminLocations";
+
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
 
 export const Floors = defineStore("Floors", {
   state: () => {
@@ -61,6 +65,23 @@ export const Floors = defineStore("Floors", {
           );
           const locationsStore = Locations();
           locationsStore.getNavigationTree(organisationId);
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+ 
+    async deleteFloor(id: string) {
+      adminAPI
+        .delete("/floor/?floorId=" + id)
+        .then(() => {
+          toastService.show(
+            "Success",
+            "Floor deleted successfully",
+            "success",
+            "top"
+          );
+          router.push('/admin/organisations');
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

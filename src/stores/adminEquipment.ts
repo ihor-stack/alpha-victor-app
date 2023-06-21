@@ -3,6 +3,7 @@ import { adminAPI } from "@/axios";
 import {
   EquipmentList,
   NewEquipment,
+  SelectItem,
   EquipmentDetails,
   NewDocument,
 } from "@/types/index";
@@ -18,6 +19,8 @@ export const Equipment = defineStore("Equipment", {
         equipments: [],
       } as EquipmentList,
       currentEquipment: {} as EquipmentDetails,
+      manufacturerSelected: {} as SelectItem,
+      assetTypeSelected: {} as SelectItem,
     };
   },
   actions: {
@@ -61,10 +64,15 @@ export const Equipment = defineStore("Equipment", {
           loadingService.close();
         });
     },
-    async updateEquipment(id: string, equipment: NewEquipment) {
+    async updateEquipment(id: string, state: any) {
       loadingService.show("Loading...");
       adminAPI
-        .patch(`/Equipment/${id}`, equipment)
+        .patch(`/Equipment/${id}`, {
+          name: state.name,
+          serialNumber: state.serialNumber,
+          manufacturerId: state.manufacturerId,
+          assetTypeId: state.assetTypeId,
+        })
         .then(() => {
           this.getEquipments();
         })
