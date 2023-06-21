@@ -127,6 +127,13 @@ export interface AdminTheme {
   logo?: string;
   backgroundImage?: string;
 }
+export interface PublicAccount {
+  name: string;
+  email: string;
+  phone: string;
+  dob: string;
+  gender: string;
+}
 export interface AdminMetaData {
   spaceTypes: spaceType[];
   spaceFeatures: spaceFeature[];

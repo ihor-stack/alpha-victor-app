@@ -25,20 +25,14 @@
 
     <div class="profile" @click="handleUrlChange('/settings/profile')">
       <div class="profile-info">
-        <div class="profile-image">
-          <img
-            src="@/theme/img/example-profile-img@2x.png"
-            alt="Current user's profile image"
-          />
-        </div>
         <div class="profile-details">
           <h2 class="name font-bold font-size-sm color-light-gray">
-            Joe Bloggs
+            {{ accountDetails.name ? accountDetails.name : 'No name set' }} 
           </h2>
           <p
             class="email font-mono font-size-xxs color-dark-gray text-lowercase"
           >
-            joebloggs@email.com
+            {{ accountDetails.email ? accountDetails.email : 'No email set' }} 
           </p>
         </div>
       </div>
@@ -87,10 +81,16 @@ import {
   IonMenuButton,
   IonModal,
 } from "@ionic/vue";
-import { reactive, watch } from "vue";
+import { ref, reactive, onBeforeMount, watch } from "vue";
+import { Account } from "@/stores/publicAccount";
+import { storeToRefs } from "pinia";
+
 import AppHeader from "@/components/shared/AppHeader.vue";
 import { useRouter } from "vue-router";
 import { useDotify } from "@/composables/utilities";
+
+const publicAccount = Account()
+const { accountDetails } = storeToRefs(publicAccount)
 
 const router = useRouter();
 
@@ -154,6 +154,10 @@ watch(
     }
   }
 );
+
+onBeforeMount(() => {
+  publicAccount.getAccount()
+})
 </script>
 
 <style scoped>
@@ -177,9 +181,6 @@ ion-modal {
 .profile-image {
   width: 50px;
   height: 50px;
-}
-.profile-details {
-  margin-left: 12px;
 }
 
 .name {

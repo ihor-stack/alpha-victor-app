@@ -5,30 +5,51 @@
         <ion-header>
           <div class="settings-panel__header">
             <div class="profile-info">
-              <div class="profile-image">
-                <img src="@/theme/img/example-profile-img@2x.png" alt="Current user's profile image" />
-              </div>
               <div class="profile-details">
-                <h2 class="name font-bold font-size-sm color-light-gray">Joe Bloggs</h2>
-                <p class="email font-mono font-size-xxs color-dark-gray text-lowercase">joebloggs@email.com</p>
+                <h2 class="name font-bold font-size-sm color-light-gray">{{ accountDetails.name ? accountDetails.name : 'No name set' }}</h2>
+                <p class="email font-mono font-size-xxs color-dark-gray text-lowercase">{{ accountDetails.email ? accountDetails.email : 'No email set' }} </p>
               </div>
             </div>
           </div>
         </ion-header>
-        <ion-content :scroll-y="false">
-          <ion-input type="text" class="custom-input" v-model="state.name" placeholder="Name" name="name" />
-          <ion-input type="email" class="custom-input" v-model="state.email" placeholder="Email" name="email" />
-          <ion-input type="tel" class="custom-input" v-model="state.phoneNumber" placeholder="Telephone Number" name="phone" />
-          <ion-input type="text" class="custom-input" v-model="state.dob" placeholder="DOB" name="dob" />
+        <ion-content :scroll-y="false"> 
+          <ion-input
+            class="font-size-sm custom-input"
+            color="light"
+            placeholder="Name"
+            :value="accountDetails.name"
+            @ion-input="accountDetails.name=String($event.target.value)"
+          ></ion-input>
+          <ion-input
+            class="font-size-sm custom-input"
+            color="light"
+            placeholder="Email"
+            :value="accountDetails.email"
+            @ion-input="accountDetails.email=String($event.target.value)"
+          ></ion-input>
+          <ion-input
+            class="font-size-sm custom-input"
+            color="light"
+            placeholder="Phone"
+            :value="accountDetails.phone"
+            @ion-input="accountDetails.phone=String($event.target.value)"
+          ></ion-input>
+          <ion-input
+            class="font-size-sm custom-input"
+            color="light"
+            placeholder="DOB"
+            :value="accountDetails.dob"
+            @ion-input="accountDetails.dob=String($event.target.value)"
+          ></ion-input>
           <ion-select 
               interface="action-sheet" 
               placeholder="Gender" 
               class="custom-select"
-              v-model="state.gender"
+              v-model="accountDetails.gender"
             >
-              <ion-select-option value="male">Male</ion-select-option>
-              <ion-select-option value="female">Female</ion-select-option>
-              <ion-select-option value="prefer-not-to-say">Prefer not to say</ion-select-option>
+              <ion-select-option value="0">Male</ion-select-option>
+              <ion-select-option value="1">Female</ion-select-option>
+              <ion-select-option value="2">Prefer not to say</ion-select-option>
             </ion-select>
         </ion-content>
         <ion-footer>
@@ -51,27 +72,20 @@ import {
   IonButton, 
   modalController 
 } from "@ionic/vue";
-import { reactive } from "vue";
+import { ref, reactive, onBeforeMount, watch } from "vue";
+import { Account } from "@/stores/publicAccount";
+import { storeToRefs } from "pinia";
 
-interface State {
-  name: string
-  email: string
-  phoneNumber: string
-  dob: string
-  gender: string
-}
-
-const state: State = reactive({
-  name: "Joe Bloggs",
-  email: "joebloggs@email.com",
-  phoneNumber: "07736464671",
-  dob: "01/01/1979",
-  gender: "male"
-});
+const publicAccount = Account()
+const { accountDetails } = storeToRefs(publicAccount)
 
 function confirm() {
   return modalController.dismiss();
 }
+
+onBeforeMount(() => {
+  publicAccount.getAccount()
+})
 </script>
 
 <style scoped>
