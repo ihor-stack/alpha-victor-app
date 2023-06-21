@@ -40,6 +40,7 @@ export const Spaces = defineStore("Spaces", {
       photo: {} as NewPhoto,
       beacons: [] as SpaceBeacon[],
       wifi: {} as SpaceWifi,
+      securityTypeSelected: {} as SelectItem,
       currentPanorama: {} as Panorama,
     };
   },
@@ -313,9 +314,9 @@ export const Spaces = defineStore("Spaces", {
           "/Space/" +
             cookies.get("spaceId") +
             "/Announcement?Title=" +
-            this.announcement.announcementTitle +
+            this.announcement.title +
             "&Text=" +
-            this.announcement.announcementContent
+            this.announcement.text
         )
         .then(() => {
           loadingService.close();
@@ -353,7 +354,9 @@ export const Spaces = defineStore("Spaces", {
             "&WifiName=" +
             this.wifi.wifiName +
             "&WifiPassword=" +
-            this.wifi.wifiPassword
+            this.wifi.wifiPassword +
+            "&WifiSecurityType=" +
+            this.securityTypeSelected.id
         )
         .then(() => {
           this.getSpaceDetailsDevices();

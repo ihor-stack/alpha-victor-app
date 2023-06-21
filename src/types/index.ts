@@ -286,6 +286,7 @@ export interface Space {
   capacity: number;
   imagePath: string;
   email?: string;
+  floorName?: string;
   phoneNumber?: string;
   article?: Article;
   video?: Video;
@@ -298,7 +299,6 @@ export interface Space {
   beacons?: Beacon[];
   wifiDetails?: WifiDetails;
   location?: string;
-  floorName?: string;
 }
 export interface DetailedSpace {
   id: string;
@@ -309,6 +309,7 @@ export interface DetailedSpace {
   capacity: string;
   typeformId: string;
   decisionTreeId: string;
+  floorName: string;
   qrCode: string;
   roomTypes: SpaceDetailsRooms[];
   spaceFeatures: SpaceFeature[];
@@ -319,7 +320,7 @@ export interface DetailedSpace {
   occupied: boolean;
   location?: string;
   issueCount?: number;
-  announcementTitle?: string[];
+  title?: string[];
   announcementText?: string[];
   showWifiPassword: boolean;
   wifiPassword?: string;
@@ -351,14 +352,15 @@ export interface SpaceBeacon {
 }
 
 export interface SpaceAnnouncement {
-  announcementTitle: string;
-  announcementContent: string;
+  title: string;
+  text: string;
 }
 
 export interface SpaceWifi {
   showWifiPassword: boolean;
   wifiName: string;
   wifiPassword: string;
+  wifiSecurityType: string;
 }
 
 export interface NewDocument {

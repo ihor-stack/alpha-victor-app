@@ -14,7 +14,7 @@
       <div class="location">
         <img src="@/theme/icons/location.svg" class="icon" />
         <span class="font-mono font-size-xxs color-light-gray">{{
-          currentSpace.roomTypes
+          currentSpace.floorName
         }}</span>
       </div>
     </app-header>
