@@ -28,7 +28,6 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="Joe Bloggs"
             :value="organisationDetails.contactName"
             @ion-input="organisationDetails.contactName=String($event.target.value)"
           ></ion-input>
@@ -77,7 +76,6 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="Joe Bloggs"
             :value="organisationDetails.addressLine1 ? organisationDetails.addressLine1 : ''"
             @ion-input="organisationDetails.addressLine1=String($event.target.value)"
           ></ion-input>
