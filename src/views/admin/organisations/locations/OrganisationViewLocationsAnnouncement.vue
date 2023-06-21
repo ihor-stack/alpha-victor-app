@@ -2,26 +2,26 @@
     <div>
         <h1 class="title-admin font-bold font-size-lg color-light-gray">Announcement</h1>
         <ion-grid class="form-admin">
-            <ion-row class="form-admin--group">
-                <ion-col size-xs="12" class="form-admin--group_field">
+            <ion-row class="form-admin--group form-admin--group-full">
+                <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
                     <ion-label color="light">Title</ion-label>
                     <ion-input
                     class="font-size-sm"
                     color="light"
                     type="text"
-                    :value="announcement.announcementTitle"
-                    @ion-input="announcement.announcementTitle = String($event.target.value)"
+                    :value="announcement.title"
+                    @ion-input="announcement.title = String($event.target.value)"
                     ></ion-input>
                 </ion-col>
-                <ion-col size-xs="12" class="form-admin--group_field">                
+                <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">                
                     <ion-label color="light">Content</ion-label>
-                    <ion-input
+                    <ion-textarea
                     class="font-size-sm"
                     color="light"
                     type="text"
-                    :value="announcement.announcementContent"
-                    @ion-input="announcement.announcementContent = String($event.target.value)"
-                    ></ion-input>
+                    :value="announcement.text"
+                    @ion-input="announcement.text = String($event.target.value)"
+                    ></ion-textarea>
                 </ion-col>
             </ion-row>
             <ion-row class="form-admin--group">

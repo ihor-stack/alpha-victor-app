@@ -23,6 +23,15 @@
                 </ion-col>
 
                 <ion-col size-xs="12" class="form-admin--group_field">
+                    <AdminSelect
+                        label="Wifi security type"
+                        v-model="securityTypeSelected"
+                        :options="securityTypesList"
+                        idPrefix="security-type-select"
+                    />
+                </ion-col>
+ 
+                <ion-col size-xs="12" class="form-admin--group_field">
                     <ion-label color="light">Show wifi password</ion-label>
                     <ion-input
                     color="light"
@@ -35,7 +44,7 @@
                 </ion-col>
 
                 <ion-col size-xs="12">
-                    <ion-button class="button-wide" @click="Space.editSpacesWifi()">
+                    <ion-button class="button-wide" @click="saveChanges">
                         Save changes
                     </ion-button>
                 </ion-col>
@@ -59,10 +68,30 @@ import {
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import {Spaces} from '@/stores/adminSpaces'
+import AdminSelect from "@/components/admin/AdminSelect.vue"
 import { onBeforeMount, ref } from "vue"
 
 const Space = Spaces()
-const { wifi } = storeToRefs(Space);
+
+enum SecurityTypes {
+  None = 0,
+  WEP = 1,
+  WPA = 2,
+  WPA2 = 3,
+  WPA3 = 4
+}
+
+const securityTypesList = Object.keys(SecurityTypes)
+  .filter(key => isNaN(Number(key)))
+  .map(key => ({ id: SecurityTypes[key as any], title: key }));
+
+const { wifi, securityTypeSelected, editSpacesWifi } = storeToRefs(Space);
+securityTypeSelected.value = securityTypesList.find(item => item.id === wifi.value.wifiSecurityType);
+
+async function saveChanges() {
+  wifi.value.wifiSecurityType = securityTypeSelected.value.id;
+  await Space.editSpacesWifi();
+}
 
 onBeforeMount(() => {
     Space.getSpaceDetailsWifi()

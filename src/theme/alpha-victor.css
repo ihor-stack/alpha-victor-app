@@ -825,6 +825,14 @@ ion-toast.customToast::part(message) {
   z-index: 999;
 }
 
+.form-admin--group-full {
+  width: 100%;
+}
+
+.form-admin--group-full .form-admin--group_field:nth-child(2n-1) {
+  padding: auto;
+}
+
 .position-relative {
   position: relative;
 }
