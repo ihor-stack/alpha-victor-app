@@ -7,8 +7,9 @@
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <AdminSelect
           label="Manufacturer"
-          v-model="state.manufacturerId"
+          v-model="manufacturerSelected"
           :options="manufacturerOptions"
+          idPrefix="manufacturer-select"
         />
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -28,8 +29,9 @@
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <AdminSelect
           label="Asset Type"
-          v-model="state.assetTypeId"
+          v-model="assetTypeSelected"
           :options="assetTypeOptions"
+          idPrefix="asset-type-select"
         />
       </ion-col>
     </ion-row>
@@ -62,13 +64,13 @@
         </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row class="form-admin--group_field component_container">
+    <ion-row>
       <ion-col size-xs="12" class="form-admin--group_field">
         <EquipmentDocumentModal />
       </ion-col>
       <ion-col size-xs="12">
         <ion-button
-          class="font-size-xs text-lowercase save-button"
+          class="button-wide"
           :disabled="
             !state.name ||
             !state.manufacturerId ||
@@ -107,7 +109,7 @@ const EquipmentStore = useEquipment();
 const route = useRoute();
 
 const equipmentId = route.params.equipmentId as string;
-const { equipmentList, currentEquipment } = storeToRefs(EquipmentStore);
+const { equipmentList, currentEquipment, manufacturerSelected, assetTypeSelected } = storeToRefs(EquipmentStore);
 
 const manufacturerOptions = computed(() => {
   return equipmentList.value.manufacturers.map(manufacturer => ({ 
@@ -118,8 +120,8 @@ const manufacturerOptions = computed(() => {
 
 const assetTypeOptions = computed(() => {
   return equipmentList.value.assetTypes.map(assetType => ({ 
-    id: assetType.assetId, // map assetId to id
-    title: assetType.name  // map name to title
+    id: assetType.assetId,
+    title: assetType.name
   }));
 });
 
@@ -141,8 +143,16 @@ const save = () => {
 watch(currentEquipment, (newValue) => {
   state.name = newValue.name;
   state.serialNumber = newValue.serialNumber;
-  state.manufacturerId = newValue.manufacturerId;
-  state.assetTypeId = newValue.assetTypeId;
+  state.manufacturerId = newValue.manufacturerId.toString();
+  state.assetTypeId = newValue.assetTypeId.toString();
+});
+
+watch(manufacturerSelected, (newValue) => {
+  state.manufacturerId = newValue.id;
+});
+
+watch(assetTypeSelected, (newValue) => {
+  state.assetTypeId = newValue.id;
 });
 
 onBeforeMount(() => {

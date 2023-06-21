@@ -30,6 +30,7 @@
         >
           Save floor
         </ion-button>
+        <DeleteFloorModal :floorId="floor.id" />
       </ion-col>
 
       <hr class="form-admin--divider" />
@@ -83,6 +84,7 @@ import { onBeforeMount, watch } from "vue";
 import { useRoute } from "vue-router";
 import { chevronForwardOutline } from "ionicons/icons";
 import NewSpaceModal from "@/components/modals/NewSpaceModal.vue";
+import DeleteFloorModal from "@/components/modals/DeleteFloorModal.vue";
 
 const route = useRoute();
 

@@ -74,7 +74,7 @@
           </ion-content>
           <ion-footer>
             <ion-button
-              class="font-size-sm text-lowercase"
+              class="button-wide"
               expand="block"
               @click="saveNewFloor()"
             >
