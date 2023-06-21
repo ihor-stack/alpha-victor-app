@@ -44,14 +44,16 @@
         <ul class="list-options-menu">
           <li class="list-options-menu-item">
             <ion-item
-              :router-link="{
-                name: 'Documents',
-                params: { spaceId: spaceId },
-              }"
-              router-direction="root"
+              :href="`/documents/${spaceId}`"
+              @click="handleDismiss"
+              button
             >
               <span class="link-text">Documents</span>
-              <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+              <ion-icon
+                slot="end"
+                :icon="chevronForwardOutline"
+                color="light"
+              />
             </ion-item>
           </li>
         </ul>
@@ -73,7 +75,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { IonHeader, IonFooter, IonButton, IonContent } from "@ionic/vue";
+import { IonHeader, IonFooter, IonButton, IonItem } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import { useEquipmentIcon } from "@/composables/utilities";
 
@@ -83,6 +85,7 @@ const props = defineProps([
   "handleDismiss",
   "handleClickReportIssue",
 ]);
+
 const technicalItems = computed(() => {
   const items: { label: string; value: string }[] = [];
   if (props.deviceDetails?.manufacturer) {
@@ -234,7 +237,6 @@ ion-button {
   font-size: 10px;
 }
 
-
 .list-options-menu {
   padding: 0;
   margin: 0;
@@ -293,7 +295,6 @@ ion-button {
   line-height: 11px;
   color: #ffffff;
 }
-
 
 ion-list {
   background: transparent;

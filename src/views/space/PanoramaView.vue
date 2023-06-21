@@ -26,12 +26,24 @@
     :is-open="state.modalOpen"
     :initial-breakpoint="1"
     :breakpoints="[0, 1]"
-    :handleDismiss="() => handleDismiss()"
     @willDismiss="handleDismiss"
   >
     <room-equipment-modal
       :deviceDetails="state.selectedEquipment"
       :spaceId="spaceId"
+      :handleDismiss="() => handleDismiss()"
+      :handleClickReportIssue="handleClickReportIssue"
+    />
+  </ion-modal>
+  <ion-modal
+    :is-open="state.reportIssueModalOpen"
+    :initial-breakpoint="1"
+    :breakpoints="[0, 1]"
+    @willDismiss="state.reportIssueModalOpen = false"
+  >
+    <report-issue-modal
+      :spaceId="spaceId"
+      :handleReportIssue="() => (state.reportIssueModalOpen = false)"
     />
   </ion-modal>
 </template>
@@ -44,6 +56,7 @@ import "pannellum/build/pannellum.css";
 import { storeToRefs } from "pinia";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import RoomEquipmentModal from "@/components/modals/RoomEquipmentModal.vue";
+import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 import { useRoute, useRouter } from "vue-router";
 import { Hotspot, Device } from "@/types";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
@@ -57,6 +70,7 @@ const spaceId: string = route.params.spaceId as string;
 
 const state = reactive({
   modalOpen: false,
+  reportIssueModalOpen: false,
   selectedEquipment: null as any,
 });
 
@@ -65,6 +79,11 @@ let panoramaRendered = false;
 
 const handleDismiss = () => {
   state.modalOpen = false;
+};
+
+const handleClickReportIssue = () => {
+  state.modalOpen = false;
+  state.reportIssueModalOpen = true;
 };
 
 const hotspotClicked = (event: MouseEvent, args: { id: string }) => {
