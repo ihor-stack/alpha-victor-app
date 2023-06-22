@@ -43,6 +43,7 @@
               icon=""
               :id="doc.id"
               placeholder="Document Type"
+              :hideRemove="false"
               @update:modelValue="
                 (value: string) => updateTypeValue({ ...doc, name: value })
               "
