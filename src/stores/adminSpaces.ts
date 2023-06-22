@@ -296,9 +296,9 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async getSpaceDetailsAnnouncement() {
+    async getSpaceDetailsAnnouncement(spaceId: string) {
       adminAPI
-        .get<SpaceAnnouncement>("/Space/" + cookies.get("spaceId") + "/Announcement")
+        .get<SpaceAnnouncement>("/Space/" + spaceId + "/Announcement")
         .then((response) => {
           this.announcement = response.data;
         })
@@ -307,12 +307,12 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async editSpacesAnnouncement() {
+    async editSpacesAnnouncement(spaceId: string) {
       loadingService.show("Loading");
       adminAPI
         .patch(
           "/Space/" +
-            cookies.get("spaceId") +
+            spaceId +
             "/Announcement?Title=" +
             this.announcement.title +
             "&Text=" +

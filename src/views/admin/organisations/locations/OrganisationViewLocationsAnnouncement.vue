@@ -28,7 +28,7 @@
                 <ion-col size-xs="12" >
                     <ion-button 
                     class="button-wide"
-                    @click="Space.editSpacesAnnouncement()">
+                    @click="submitAnnouncement()">
                         Save announcement
                     </ion-button>
                 </ion-col>
@@ -49,12 +49,20 @@
     } from "@ionic/vue";
     import { storeToRefs } from "pinia";
     import {Spaces} from '@/stores/adminSpaces'
+    import { useRoute } from "vue-router";
     import { onBeforeMount, ref } from "vue"
+   
+    const route = useRoute();
 
     const Space = Spaces()
     const { announcement } = storeToRefs(Space);
+    const spaceId = route.params.spaceId as string;
+
+    const submitAnnouncement = () => {
+        Space.editSpacesAnnouncement(spaceId)
+    }
 
     onBeforeMount(() => {
-        Space.getSpaceDetailsAnnouncement()
+        Space.getSpaceDetailsAnnouncement(spaceId)
     })
 </script>
