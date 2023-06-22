@@ -106,6 +106,7 @@ export type ToastStatus = "generic" | "success" | "problem" | "error";
 export interface AdminDocument {
   id: string;
   name: string;
+  global: boolean;
 }
 export interface AdminOrganisation {
   id: string;

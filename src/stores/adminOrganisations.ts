@@ -31,6 +31,7 @@ export const Organisations = defineStore("Organisations", {
       currentOrg: "" as string,
       formattedOrgSelect: [] as SelectItem[],
       documentTypes: [] as SelectItem[],
+      documents: [] as AdminDocument[],
       decisionTree: {} as DecisionTree,
       decisionTreeList: [] as SelectItem[],
       decisionTreeSelected: {} as SelectItem,
@@ -176,22 +177,63 @@ export const Organisations = defineStore("Organisations", {
     },
 
     async getOrgDocumentTypes() {
-      loadingService.show("Loading...");
+      loadingService.show("Loading..."); 
       adminAPI
         .get<AdminDocument[]>(
           "/Organisation/" + cookies.get("orgId") + "/DocumentTypes"
         )
         .then((response) => {
-          const formattedList: SelectItem[] = [];
-          response.data.forEach((element, index) => {
-            formattedList.push({
-              id: index,
-              title: element.name,
-              additionalInfo: element.id,
-            });
-          });
-          this.documentTypes = formattedList;
+          if (response.data) {
+            if (Array.isArray(response.data)) {
+              response.data.sort((a, b) => a.name.localeCompare(b.name));
+            }
+            this.documents = [...response.data];
+          }
           loadingService.close();
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+
+    async saveNewOrgDocumentType(documentName: string) {
+      adminAPI
+        .post<AdminDocument>(
+          "/Organisation/" + cookies.get("orgId") + "/DocumentType",
+          {
+            name: documentName,
+          }
+        )
+        .then(() => {
+          toastService.show("Success", "Document type added", "success", "top");
+          this.getOrgDocumentTypes();
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+
+    async editOrgDocumentType(document: AdminDocument) {
+      adminAPI
+        .patch(
+          "/Organisation/" + cookies.get("orgId") + "/DocumentType/" + document.id,
+          {
+            name: document.name,
+          }
+        )
+        .then(() => {
+          this.getOrgDocumentTypes();
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+
+    async removeOrgDocumentType(id: string) {
+      adminAPI
+        .delete("/Organisation/" + cookies.get("orgId") + "/DocumentType/" + id)
+        .then(() => {
+          this.getOrgDocumentTypes();
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
