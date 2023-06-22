@@ -206,7 +206,7 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async getSpaceDetailsDevices(spaceId = cookies.get("spaceId")) {
+    async getSpaceDetailsDevices(spaceId: string) {
       adminAPI
         .get<Device[]>(`/Space/${spaceId}/Device`)
         .then((response) => {
@@ -243,7 +243,7 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async deleteSpacesDevices(deviceIndex: number) {
+    async deleteSpacesDevices(spaceId: string, deviceIndex: number) {
       adminAPI
         .delete(
           "/Space/" +
@@ -252,19 +252,19 @@ export const Spaces = defineStore("Spaces", {
             this.devices[deviceIndex].id
         )
         .then(() => {
-          this.getSpaceDetailsDevices();
+          this.getSpaceDetailsDevices(spaceId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
 
-    async saveSpacesDevices(newDevice: Device[]) {
+    async saveSpacesDevices(spaceId: string, newDevice: Device[]) {
       loadingService.show("Loading...");
       adminAPI
-        .post("/Space/" + cookies.get("spaceId") + "/Device/", newDevice)
+        .post("/Space/" + spaceId + "/Device/", newDevice)
         .then(() => {
-          this.getSpaceDetailsDevices();
+          this.getSpaceDetailsDevices(spaceId);
           loadingService.close();
           toastService.show(
             "Success",
@@ -332,9 +332,9 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async getSpaceDetailsWifi() {
+    async getSpaceDetailsWifi(spaceId: string) {
       adminAPI
-        .get<SpaceWifi>("/Space/" + cookies.get("spaceId") + "/Wifi")
+        .get<SpaceWifi>("/Space/" + spaceId + "/Wifi")
         .then((response) => {
           this.wifi = response.data;
         })
@@ -343,12 +343,12 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async editSpacesWifi() {
+    async editSpacesWifi(spaceId: string) {
       loadingService.show("Loading");
       adminAPI
         .patch(
           "/Space/" +
-            cookies.get("spaceId") +
+            spaceId +
             "/Wifi?ShowWifiPassword=" +
             this.wifi.showWifiPassword +
             "&WifiName=" +
@@ -359,7 +359,7 @@ export const Spaces = defineStore("Spaces", {
             this.securityTypeSelected.id
         )
         .then(() => {
-          this.getSpaceDetailsDevices();
+          this.getSpaceDetailsDevices(spaceId);
           loadingService.close();
           toastService.show(
             "Success",

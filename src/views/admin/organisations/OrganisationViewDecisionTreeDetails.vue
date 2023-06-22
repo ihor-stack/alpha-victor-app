@@ -8,7 +8,7 @@
           <h1 class="title">{{ decisionTree?.name }}</h1>
         </div>
         <div class="button-container right">
-          <button class="button-action bg-white">
+          <!-- <button class="button-action bg-white">
             <svg
               width="22"
               height="22"
@@ -22,7 +22,7 @@
               />
             </svg>
             <span>Auto layout</span>
-          </button>
+          </button> -->
           <ion-button :disabled="!dirty" @click="save">
             Save decision tree
           </ion-button>

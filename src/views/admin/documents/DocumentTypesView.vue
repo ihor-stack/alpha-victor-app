@@ -77,6 +77,7 @@ const state = reactive({
 
 const newDocumentType = () => {
   DocTypes.saveNewDocumentType(state.newDocumentType);
+  state.newDocumentType = "";
 };
 
 const updateTypeValue = (updatedDoc: AdminDocument) => {

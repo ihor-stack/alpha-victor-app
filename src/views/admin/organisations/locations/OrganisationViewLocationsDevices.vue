@@ -180,7 +180,7 @@ const editDevice = () => {
   Space.editSpacesDevices(currentIndex.value);
 };
 const deleteDevice = () => {
-  Space.deleteSpacesDevices(currentIndex.value);
+  Space.deleteSpacesDevices(spaceId, currentIndex.value);
 };
 
 const handleImageRemoved = (photoId: string) => {

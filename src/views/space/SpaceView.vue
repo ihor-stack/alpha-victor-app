@@ -84,13 +84,13 @@
         </div>
 
         <div class="space-options-menu-container">
-          <space-options-menu :currentSpace="currentSpace" />
+          <space-options-menu :currentSpace="currentSpace" :showDevices="devices.length" />
         </div>
       </div>
     </ion-content>
     <ion-footer>
       <div class="space-cta-container">
-        <div class="announcement">
+        <div class="announcement" v-if="currentSpace.announcementTitle">
           <h4 class="color-light-gray">{{ currentSpace.announcementTitle }}</h4>
           <p class="color-light-gray">
             {{ currentSpace.announcementText }}
@@ -155,6 +155,7 @@ const state = reactive({
 });
 
 const { currentSpace } = storeToRefs(spacesStore);
+const { devices } = storeToRefs(spacesStore);
 
 const isFavourite = computed(() =>
   spacesStore.favouriteSpaces?.some((item) => item.id === spaceId)

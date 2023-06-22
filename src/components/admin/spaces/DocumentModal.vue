@@ -52,7 +52,12 @@
                     />
                   </div> 
                 </ion-input>
-                <AdminSelect v-model="selectedDocType" :options="documentTypeOptions"/>
+                <AdminSelect
+                  label="Select a type"
+                  v-model="selectedDocType"
+                  :options="documentTypeOptions"
+                  idPrefix="doc-type-select"
+                />
               </div>
             </ion-content>
             <ion-footer>
@@ -100,14 +105,14 @@ const spaceId = route.params.spaceId as string;
 
 const Org = Organisations();
 const Space = Spaces();
-const { documentTypes } = storeToRefs(Org);
+const { documents } = storeToRefs(Org);
 
 const documentTypeOptions = computed(() => {
-  return documentTypes.value.map(documentType => ({ 
+  return documents.value.map(documentType => ({ 
     ...documentType, 
-    title: documentType.title 
+    title: documentType.name 
   }));
-});
+}); 
 
 const selectedDocType = ref({} as SelectItem);
 
