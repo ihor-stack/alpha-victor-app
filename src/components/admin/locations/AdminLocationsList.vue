@@ -46,8 +46,8 @@
           class="form-admin--group_field-item ion-no-padding"
         >
           <img
-            src="https://imageio.forbes.com/specials-images/imageserve/61b8b4834a7373c7800e631a/Business-people-video-conferencing-in-meeting-room/960x0.jpg?format=jpg&width=960"
-            alt=""
+            :src="space.image"
+            :alt="space.name"
           />
           <ion-label color="light">
             {{ space.name }}
