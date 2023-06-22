@@ -36,9 +36,17 @@ export const Integrations = defineStore('Integrations', {
         toastService.show('Error', error, 'error', 'top');
       })
     },
-    async editIntegration(edit: Integration) {
-      console.log(edit)
-      adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Integration/' + cookies.get('integrationId'), edit)
+    async editIntegration(orgId: string, edit: Integration) {
+      adminAPI.patch('/Organisation/' + orgId + '/Integration/' + cookies.get('integrationId'), edit)
+      .then(() => {
+        loadingService.close();
+        toastService.show(
+          "Success",
+          "Integration updated",
+          "success",
+          "top"
+        );
+      })
       .catch(error =>{
           toastService.show('Error', error, 'error', 'top');
         })
