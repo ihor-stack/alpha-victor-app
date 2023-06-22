@@ -84,7 +84,7 @@
         </div>
 
         <div class="space-options-menu-container">
-          <space-options-menu :currentSpace="currentSpace" :showDevices="devices.length" />
+          <space-options-menu :currentSpace="currentSpace" :showDevices="devices.length ? true : false" />
         </div>
       </div>
     </ion-content>
