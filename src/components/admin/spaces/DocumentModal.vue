@@ -50,7 +50,7 @@
                       :v-model="file"
                       @change="uploadFile"
                     />
-                  </div> 
+                  </div>
                 </ion-input>
                 <AdminSelect
                   label="Select a type"
@@ -97,7 +97,7 @@ import { Organisations } from "@/stores/adminOrganisations";
 import { Spaces } from "@/stores/adminSpaces";
 
 import { storeToRefs } from "pinia";
-import AdminSelect from  '@/components/admin/AdminSelect.vue'
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { SelectItem } from "@/types";
 
 const route = useRoute();
@@ -108,11 +108,13 @@ const Space = Spaces();
 const { documents } = storeToRefs(Org);
 
 const documentTypeOptions = computed(() => {
-  return documents.value.map(documentType => ({ 
-    ...documentType, 
-    title: documentType.name 
+  return documents.value.map((documentType, index) => ({
+    ...documentType,
+    id: index,
+    title: documentType.name,
+    additionalInfo: documentType.id,
   }));
-}); 
+});
 
 const selectedDocType = ref({} as SelectItem);
 
