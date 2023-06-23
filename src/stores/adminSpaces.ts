@@ -116,7 +116,7 @@ export const Spaces = defineStore("Spaces", {
 
     async updateSpace(spaceId: string) {
       loadingService.show("Loading...");
-    
+
       adminAPI
         .patch(`/Space/${spaceId}`, {
           spaceName: this.space.spaceName,
@@ -206,7 +206,7 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async getSpaceDetailsDevices(spaceId = cookies.get("spaceId")) {
+    async getSpaceDetailsDevices(spaceId: string) {
       adminAPI
         .get<Device[]>(`/Space/${spaceId}/Device`)
         .then((response) => {
@@ -217,16 +217,13 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async editSpacesDevices(deviceIndex: number) {
+    async editSpacesDevices(deviceIndex: number, spaceId: string) {
       loadingService.show("Loading...");
       const deviceEdit = Object.assign({}, this.devices[deviceIndex]);
       delete deviceEdit.photos;
       adminAPI
         .patch(
-          "/Space/" +
-            cookies.get("spaceId") +
-            "/Device/" +
-            this.devices[deviceIndex].id,
+          `/Space/${spaceId}/Device/${this.devices[deviceIndex].id}`,
           deviceEdit
         )
         .then(() => {
@@ -243,28 +240,23 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async deleteSpacesDevices(deviceIndex: number) {
+    async deleteSpacesDevices(deviceIndex: number, spaceId: string) {
       adminAPI
-        .delete(
-          "/Space/" +
-            cookies.get("spaceId") +
-            "/Device/" +
-            this.devices[deviceIndex].id
-        )
+        .delete(`/Space/${spaceId}/Device/${this.devices[deviceIndex].id}`)
         .then(() => {
-          this.getSpaceDetailsDevices();
+          this.getSpaceDetailsDevices(spaceId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
 
-    async saveSpacesDevices(newDevice: Device[]) {
+    async saveSpacesDevices(spaceId: string, newDevice: Device) {
       loadingService.show("Loading...");
       adminAPI
-        .post("/Space/" + cookies.get("spaceId") + "/Device/", newDevice)
+        .post(`/Space/${spaceId}/Device/`, newDevice)
         .then(() => {
-          this.getSpaceDetailsDevices();
+          this.getSpaceDetailsDevices(spaceId);
           loadingService.close();
           toastService.show(
             "Success",
@@ -298,7 +290,9 @@ export const Spaces = defineStore("Spaces", {
 
     async getSpaceDetailsAnnouncement() {
       adminAPI
-        .get<SpaceAnnouncement>("/Space/" + cookies.get("spaceId") + "/Announcement")
+        .get<SpaceAnnouncement>(
+          "/Space/" + cookies.get("spaceId") + "/Announcement"
+        )
         .then((response) => {
           this.announcement = response.data;
         })
@@ -359,7 +353,7 @@ export const Spaces = defineStore("Spaces", {
             this.securityTypeSelected.id
         )
         .then(() => {
-          this.getSpaceDetailsDevices();
+          this.getSpaceDetailsDevices(cookies.get("spaceId"));
           loadingService.close();
           toastService.show(
             "Success",
