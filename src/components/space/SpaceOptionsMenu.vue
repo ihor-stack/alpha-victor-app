@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ul class="space-options-menu">
-      <li class="space-options-menu-item">
+      <li class="space-options-menu-item" v-if="showDevices">
         <ion-item
           :router-link="{
             name: 'Equipment',
@@ -71,6 +71,7 @@ import { DetailedSpace } from "@/types";
 
 interface Props {
   currentSpace: DetailedSpace;
+  showDevices: boolean
 }
 
 defineProps<Props>();

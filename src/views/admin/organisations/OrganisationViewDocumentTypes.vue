@@ -36,6 +36,7 @@
               icon=""
               :id="doc.id"
               placeholder="Document Type"
+              :hideRemove="doc.global ? doc.global : false"
               @update:modelValue="value => updateTypeValue({ ...doc, name: value })"
               @remove="removeType"
             />
@@ -53,31 +54,31 @@ import {
     IonRow,
     IonCol,
     IonInput
-  } from "@ionic/vue";
-  import { onBeforeMount, ref } from "vue";
-  import { adminDocuments } from '@/stores/adminDocumentTypes'
+  } from "@ionic/vue"
+  import { onBeforeMount, ref } from "vue"
+  import { Organisations } from "@/stores/adminOrganisations"
   import { storeToRefs } from "pinia"
   import { AdminDocument } from "@/types"
   import ItemField from '@/components/admin/ItemField.vue'
 
-  const DocTypes = adminDocuments();
-  const { documents } = storeToRefs(DocTypes);
+  const organisation = Organisations();
+  const { documents } = storeToRefs(organisation);
 
   onBeforeMount(() => {
-    DocTypes.getDocumentTypes()
+    organisation.getOrgDocumentTypes()
   })
 
   const newDocument = ref()
 
   const newDocumentType = () => {
-    DocTypes.saveNewDocumentType(newDocument.value)
+    organisation.saveNewOrgDocumentType(newDocument.value)
   }
 
   const updateTypeValue = (updatedDoc: AdminDocument) => {
-    DocTypes.editDocumentType(updatedDoc);
+    organisation.editOrgDocumentType(updatedDoc);
   };
 
   const removeType = (data: AdminDocument) => {
-    DocTypes.removeDocumentType(data.id);
+    organisation.removeOrgDocumentType(data.id);
   };
 </script>

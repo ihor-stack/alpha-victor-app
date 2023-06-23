@@ -32,7 +32,7 @@
                 <div class="modal-panel__section modal-panel__select-equipment">
                     <ion-input 
                     color="light" 
-                    placeholder="e.g. meeting room"
+                    placeholder="e.g. wifi"
                     :value="newFeature"
                     @input="newFeature=$event.target.value" />
                 </div>

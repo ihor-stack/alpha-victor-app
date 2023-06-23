@@ -42,7 +42,7 @@
         </li>
 
         <li class="nav-menu-link arrow-align">
-          <router-link to="/space" class="font-size-sm color-light-gray"
+          <router-link to="/favourites" class="font-size-sm color-light-gray"
             >Favourites</router-link
           >
           <ion-icon
@@ -52,7 +52,7 @@
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/find-space" class="font-size-sm color-light-gray"
+          <router-link to="/find-space/location" class="font-size-sm color-light-gray"
             >Find a space</router-link
           >
           <ion-icon
@@ -62,7 +62,7 @@
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/space" class="font-size-sm color-light-gray"
+          <router-link to="/recently-viewed" class="font-size-sm color-light-gray"
             >Recently viewed</router-link
           >
           <ion-icon
@@ -72,7 +72,7 @@
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/admin" class="font-size-sm color-light-gray"
+          <router-link to="/settings" class="font-size-sm color-light-gray"
             >Account settings</router-link
           >
           <ion-icon
@@ -92,7 +92,7 @@
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/admin" class="font-size-sm color-light-gray"
+          <router-link to="/terms-and-conditions" class="font-size-sm color-light-gray"
             >Terms & conditions</router-link
           >
           <ion-icon

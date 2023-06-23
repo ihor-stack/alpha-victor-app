@@ -70,8 +70,11 @@ import { storeToRefs } from "pinia";
 import {Spaces} from '@/stores/adminSpaces'
 import AdminSelect from "@/components/admin/AdminSelect.vue"
 import { onBeforeMount, ref } from "vue"
+import { useRoute } from "vue-router"
 
 const Space = Spaces()
+const route = useRoute()
+const spaceId = route.params.spaceId as string;
 
 enum SecurityTypes {
   None = 0,
@@ -90,11 +93,11 @@ securityTypeSelected.value = securityTypesList.find(item => item.id === wifi.val
 
 async function saveChanges() {
   wifi.value.wifiSecurityType = securityTypeSelected.value.id;
-  await Space.editSpacesWifi();
+  await Space.editSpacesWifi(spaceId);
 }
 
 onBeforeMount(() => {
-    Space.getSpaceDetailsWifi()
+    Space.getSpaceDetailsWifi(spaceId)
 })
 </script>
 
