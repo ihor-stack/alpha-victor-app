@@ -8,7 +8,7 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="Organisation Name"
+            placeholder="Organisation"
             :value="organisationDetails.name"
             @ion-input="organisationDetails.name=String($event.target.value)"
           ></ion-input>
@@ -18,7 +18,7 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="LIN"
+            placeholder="APL"
             :value="organisationDetails.prefix"
             @ion-input="organisationDetails.prefix=String($event.target.value)"
           ></ion-input>
@@ -37,7 +37,7 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="joebloggs@email.com"
+            placeholder="youremail@domain.com"
             :value="organisationDetails.email"
             @ion-input="organisationDetails.email=String($event.target.value)"
           ></ion-input>
@@ -47,7 +47,7 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="07762522515"
+            placeholder="01245 000000"
             :value="organisationDetails.phone"
             @ion-input="organisationDetails.phone=String($event.target.value) "
           ></ion-input>
@@ -66,7 +66,7 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="LinkedIn"
+            placeholder="123 Main Street"
             :value="organisationDetails.addressLine0 ? organisationDetails.addressLine0 : ''"
             @ion-input="organisationDetails.addressLine0=String($event.target.value)"
           ></ion-input>
@@ -76,6 +76,7 @@
           <ion-input
             class="font-size-sm"
             color="light"
+            placeholder=""
             :value="organisationDetails.addressLine1 ? organisationDetails.addressLine1 : ''"
             @ion-input="organisationDetails.addressLine1=String($event.target.value)"
           ></ion-input>
@@ -85,7 +86,7 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="07762522515"
+            placeholder="London"
             :value="organisationDetails.city"
             @ion-input="organisationDetails.city=String($event.target.value)"
           ></ion-input>
@@ -95,7 +96,7 @@
           <ion-input
             class="font-size-sm"
             color="light"
-            placeholder="LIN"
+            placeholder="S1 3LL"
             :value="organisationDetails.postCode"
             @ion-input="organisationDetails.postCode=String($event.target.value)"
           ></ion-input>

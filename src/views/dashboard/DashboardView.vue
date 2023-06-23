@@ -47,7 +47,7 @@
       </div>
       <ion-item v-if="!nearbySpaces.length && !recentlyViewedSpaces.length" lines="none">
         <ion-label>
-          <h1 class="">no.spaces.found</h1>
+          <h1 class="color-white">no.spaces.found</h1>
           <p>Please enter a short code or explore spaces.</p>
         </ion-label>
       </ion-item>

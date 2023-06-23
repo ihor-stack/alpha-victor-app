@@ -43,6 +43,7 @@
               icon=""
               :id="doc.id"
               placeholder="Document Type"
+              :hideRemove="false"
               @update:modelValue="
                 (value: string) => updateTypeValue({ ...doc, name: value })
               "
@@ -76,6 +77,7 @@ const state = reactive({
 
 const newDocumentType = () => {
   DocTypes.saveNewDocumentType(state.newDocumentType);
+  state.newDocumentType = "";
 };
 
 const updateTypeValue = (updatedDoc: AdminDocument) => {

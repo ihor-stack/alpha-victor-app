@@ -28,7 +28,7 @@
       slot="end"
       fill="clear"
       size="small"
-      v-else
+      v-if="!hideRemove && !editMode"
     >
       &gt;&gt; remove
     </ion-button>
@@ -43,6 +43,7 @@ interface Props {
   icon?: string;
   placeholder: string;
   data: any;
+  hideRemove?: boolean;
 }
 
 const props = defineProps<Props>();

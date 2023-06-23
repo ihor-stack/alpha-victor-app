@@ -44,7 +44,7 @@
             :data="manufacturer"
             icon=""
             :id="manufacturer.manufacturerId"
-            placeholder="Document Type"
+            placeholder="Manufacturer"
             @update:modelValue="
               (value: string) =>
                 updateManufacturer(manufacturer.manufacturerId, value)
@@ -62,7 +62,7 @@
             :data="asset"
             icon=""
             :id="asset.assetId"
-            placeholder="Document Type"
+            placeholder="Asset Type"
             @update:modelValue="
               (value: string) => updateAssetType(asset.assetId, value)
             "

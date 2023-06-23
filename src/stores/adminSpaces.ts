@@ -288,7 +288,7 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async getSpaceDetailsAnnouncement() {
+    async getSpaceDetailsAnnouncement(spaceId: string) {
       adminAPI
         .get<SpaceAnnouncement>(
           "/Space/" + cookies.get("spaceId") + "/Announcement"
@@ -301,12 +301,12 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async editSpacesAnnouncement() {
+    async editSpacesAnnouncement(spaceId: string) {
       loadingService.show("Loading");
       adminAPI
         .patch(
           "/Space/" +
-            cookies.get("spaceId") +
+            spaceId +
             "/Announcement?Title=" +
             this.announcement.title +
             "&Text=" +
@@ -326,9 +326,9 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async getSpaceDetailsWifi() {
+    async getSpaceDetailsWifi(spaceId: string) {
       adminAPI
-        .get<SpaceWifi>("/Space/" + cookies.get("spaceId") + "/Wifi")
+        .get<SpaceWifi>("/Space/" + spaceId + "/Wifi")
         .then((response) => {
           this.wifi = response.data;
         })
@@ -337,12 +337,12 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async editSpacesWifi() {
+    async editSpacesWifi(spaceId: string) {
       loadingService.show("Loading");
       adminAPI
         .patch(
           "/Space/" +
-            cookies.get("spaceId") +
+            spaceId +
             "/Wifi?ShowWifiPassword=" +
             this.wifi.showWifiPassword +
             "&WifiName=" +
@@ -353,7 +353,7 @@ export const Spaces = defineStore("Spaces", {
             this.securityTypeSelected.id
         )
         .then(() => {
-          this.getSpaceDetailsDevices(cookies.get("spaceId"));
+          this.getSpaceDetailsDevices(spaceId);
           loadingService.close();
           toastService.show(
             "Success",

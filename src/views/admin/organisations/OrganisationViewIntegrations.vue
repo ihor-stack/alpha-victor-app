@@ -24,15 +24,9 @@
           @ion-input="integration.integration.value.clientSecret = String($event.target.value)">
         </ion-input>
       </ion-col>
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">
-          Select organisation
-        </ion-label>
-        <AdminSelect v-model="selectedOrg" :options="organisations.formattedOrgSelect.value"/>
-      </ion-col>
     </ion-row> 
   </ion-grid>
-  <ion-button class="font-size-xs text-lowercase" @click="SaveEdit">
+  <ion-button class="button-wide" @click="SaveEdit">
     Save Changes
   </ion-button>
 </template>
@@ -56,20 +50,24 @@ import { Organisations } from "@/stores/adminOrganisations";
 
 import AdminSelect from '@/components/admin/AdminSelect.vue'
 import { SelectItem, Integration } from "@/types";
+import { useRoute } from "vue-router";
 
 const store = Integrations()
 const orgStore = Organisations()
 const integration = storeToRefs(store)
 const organisations = storeToRefs(orgStore)
 const selectedOrg = ref({} as SelectItem)
+const route = useRoute()
+
+const orgId = String(route.params.id);
 
 const SaveEdit = () =>{
   const newEdit: Integration = {
     clientId: integration.integration.value.clientId,
     clientSecret: integration.integration.value.clientSecret,
-    selectedOrgnisation: String(selectedOrg.value.additionalInfo)
+    selectedOrgnisation: orgId
   }
-  store.editIntegration(newEdit)
+  store.editIntegration(orgId, newEdit)
 }
 
 onBeforeMount(() =>{
