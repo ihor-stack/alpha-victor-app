@@ -75,6 +75,7 @@ export interface Device {
   photos?: Photo[];
   icon?: string;
   equipmentId?: string;
+  documents?: Document[];
 }
 
 export interface Document {
