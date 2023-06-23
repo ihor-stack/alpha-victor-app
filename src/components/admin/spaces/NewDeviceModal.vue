@@ -226,6 +226,9 @@ const handleDismiss = () => {
 const saveNewDevice = () => {
   Space.saveSpacesDevices(spaceId, {
     ...newDevice.value,
+    installDate: newDevice.value.installDate ?? new Date().toISOString(),
+    warrantyExpiryDate:
+      newDevice.value.warrantyExpiryDate ?? new Date().toISOString(),
     equipmentId: selectedEquipment.value.additionalInfo,
   });
 };
