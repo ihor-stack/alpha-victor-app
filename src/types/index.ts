@@ -74,6 +74,7 @@ export interface Device {
   description: string;
   photos?: Photo[];
   icon?: string;
+  equipmentId?: string;
 }
 
 export interface Document {
@@ -191,7 +192,7 @@ export interface NavSpace {
   spaceName: string;
   name: string;
   image?: string;
-  shortCode: string
+  shortCode: string;
 }
 export interface NavFloor {
   floorId: string;

@@ -116,7 +116,7 @@ export const Spaces = defineStore("Spaces", {
 
     async updateSpace(spaceId: string) {
       loadingService.show("Loading...");
-    
+
       adminAPI
         .patch(`/Space/${spaceId}`, {
           spaceName: this.space.spaceName,
@@ -217,16 +217,13 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async editSpacesDevices(deviceIndex: number) {
+    async editSpacesDevices(deviceIndex: number, spaceId: string) {
       loadingService.show("Loading...");
       const deviceEdit = Object.assign({}, this.devices[deviceIndex]);
       delete deviceEdit.photos;
       adminAPI
         .patch(
-          "/Space/" +
-            cookies.get("spaceId") +
-            "/Device/" +
-            this.devices[deviceIndex].id,
+          `/Space/${spaceId}/Device/${this.devices[deviceIndex].id}`,
           deviceEdit
         )
         .then(() => {
@@ -243,14 +240,9 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async deleteSpacesDevices(spaceId: string, deviceIndex: number) {
+    async deleteSpacesDevices(deviceIndex: number, spaceId: string) {
       adminAPI
-        .delete(
-          "/Space/" +
-            cookies.get("spaceId") +
-            "/Device/" +
-            this.devices[deviceIndex].id
-        )
+        .delete(`/Space/${spaceId}/Device/${this.devices[deviceIndex].id}`)
         .then(() => {
           this.getSpaceDetailsDevices(spaceId);
         })
@@ -259,10 +251,10 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async saveSpacesDevices(spaceId: string, newDevice: Device[]) {
+    async saveSpacesDevices(spaceId: string, newDevice: Device) {
       loadingService.show("Loading...");
       adminAPI
-        .post("/Space/" + spaceId + "/Device/", newDevice)
+        .post(`/Space/${spaceId}/Device/`, newDevice)
         .then(() => {
           this.getSpaceDetailsDevices(spaceId);
           loadingService.close();
@@ -298,7 +290,9 @@ export const Spaces = defineStore("Spaces", {
 
     async getSpaceDetailsAnnouncement(spaceId: string) {
       adminAPI
-        .get<SpaceAnnouncement>("/Space/" + spaceId + "/Announcement")
+        .get<SpaceAnnouncement>(
+          "/Space/" + cookies.get("spaceId") + "/Announcement"
+        )
         .then((response) => {
           this.announcement = response.data;
         })

@@ -4,22 +4,27 @@
       {{ label }}
     </ion-label>
     <ion-input
-      :id="`${props.idPrefix}-click-trigger`"
+      :id="`${props.idPrefix}-popover`"
       readonly
       :value="props.modelValue ? props.modelValue.title : ''"
-      @click="presentPopover($event)"
+      @click="openPopover($event)"
     />
     <ion-popover
-      :trigger="`${props.idPrefix}-click-trigger`"
-      trigger-action="click"
+      :is-open="state.popoverOpen"
+      :event="state.event"
+      @didDismiss="state.popoverOpen = false"
       size="cover"
-      :dismiss-on-select="true"
       v-if="props.options.length > 0"
     >
+      <ion-searchbar
+        :debounce="1000"
+        @ionInput="handleSearch($event)"
+        v-if="isSearchable"
+      ></ion-searchbar>
       <ul class="admin-select">
         <li
           class="admin-select--item"
-          v-for="option in props.options"
+          v-for="option in state.options"
           :key="option.id"
           @click="onOptionClick(option)"
         >
@@ -31,34 +36,45 @@
 </template>
 
 <script setup lang="ts">
-import { IonLabel, IonInput, IonPopover } from "@ionic/vue";
+import { IonLabel, IonInput, IonPopover, IonSearchbar } from "@ionic/vue";
 import { SelectItem } from "@/types/index";
-import { defineProps, withDefaults, defineEmits } from "vue";
+import { reactive } from "vue";
 
 interface Props {
   label?: string;
   idPrefix: string;
   modelValue?: SelectItem;
   options: SelectItem[];
+  isSearchable?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  options: () => []
+  options: () => [],
+});
+
+const state = reactive({
+  options: props.options,
+  popoverOpen: false,
+  event: {} as Event,
 });
 
 const emit = defineEmits(["update:modelValue"]);
 
+function openPopover(e: Event) {
+  state.event = e;
+  state.popoverOpen = true;
+}
+
 function onOptionClick(option: SelectItem) {
+  state.popoverOpen = false;
   emit("update:modelValue", option);
 }
 
-function presentPopover(event: Event) {
-  const popover = document.querySelector(`#${props.idPrefix}-popover`);
-  if (popover) {
-    popover.present(event);
-  } else {
-    console.warn(`No element found with id '${props.idPrefix}-popover'`);
-  }
+function handleSearch(event: any) {
+  const query = event.target?.value?.toLowerCase();
+  state.options = props.options.filter((option) =>
+    option.title.toLowerCase().includes(query)
+  );
 }
 </script>
 <style scoped>

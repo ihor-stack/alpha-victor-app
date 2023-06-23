@@ -21,6 +21,7 @@ export const Equipment = defineStore("Equipment", {
       currentEquipment: {} as EquipmentDetails,
       manufacturerSelected: {} as SelectItem,
       assetTypeSelected: {} as SelectItem,
+      equipmentDropdownList: [] as { id: string; name: string }[],
     };
   },
   actions: {
@@ -36,6 +37,16 @@ export const Equipment = defineStore("Equipment", {
         })
         .finally(() => {
           loadingService.close();
+        });
+    },
+    async getEquipmentDropdownList() {
+      return adminAPI
+        .get<{ id: string; name: string }[]>(`/Equipment/EquipmentDropdown`)
+        .then((response) => {
+          this.equipmentDropdownList = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
         });
     },
     async getEquipmentDetails(id: string) {
