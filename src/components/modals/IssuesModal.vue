@@ -3,7 +3,7 @@
     <div class="modal-panel">
       <div class="modal-panel-container">
         <ion-header>
-          <div class="issues-panel__header">
+          <div class="modal-panel__header">
             <h1
               class="modal-panel__title color-light-gray font-bold font-size-normal"
             >
@@ -21,7 +21,7 @@
                 Add Comment
               </ion-label>
               <ion-textarea
-                class="issues-panel__add-comment__textarea"
+                class="modal-panel__add-comment__textarea"
                 placeholder="Enter a comment here"
                 v-model="state.comment"
               ></ion-textarea>
@@ -37,59 +37,59 @@
           </ion-row>
 
           <div
-            class="issues-panel__section issues-panel__set-status"
+            class="modal-panel__section modal-panel__set-status"
             v-if="false"
           >
             <h2
-              class="color-light-gray font-size-xs font-bold issues-panel__heading"
+              class="color-light-gray font-size-xs font-bold modal-panel__heading"
             >
               Select Status
             </h2>
-            <div class="issues-panel__status">
-              <div class="issues-panel__status__radio">
+            <div class="modal-panel__status">
+              <div class="modal-panel__status__radio">
                 <input
                   type="radio"
                   name="status"
                   id="low-impact"
                   :value="0"
                   v-model="state.issue.status"
+                  @change="handleChangeStatus(0)"
                 />
                 <label
                   for="low-impact"
-                  class="issues-panel__status__radio__label"
+                  class="modal-panel__status__radio__label"
                 >
                   <span class="dot dot--low-impact"></span>
                   low.impact
                 </label>
               </div>
-              <div class="issues-panel__status__radio">
+              <div class="modal-panel__status__radio">
                 <input
                   type="radio"
                   name="status"
                   id="high-impact"
                   :value="1"
                   v-model="state.issue.status"
+                  @change="handleChangeStatus(1)"
                 />
                 <label
                   for="high-impact"
-                  class="issues-panel__status__radio__label"
+                  class="modal-panel__status__radio__label"
                 >
                   <span class="dot dot--high-impact"></span>
                   high.impact
                 </label>
               </div>
-              <div class="issues-panel__status__radio">
+              <div class="modal-panel__status__radio">
                 <input
                   type="radio"
                   name="status"
                   id="resolved"
                   :value="2"
                   v-model="state.issue.status"
+                  @change="handleChangeStatus(2)"
                 />
-                <label
-                  for="resolved"
-                  class="issues-panel__status__radio__label"
-                >
+                <label for="resolved" class="modal-panel__status__radio__label">
                   <span class="dot dot--resolved"></span>
                   resolved
                 </label>
@@ -97,26 +97,26 @@
             </div>
           </div>
 
-          <div class="issues-panel__log">
+          <div class="modal-panel__log">
             <h3
-              class="issues-panel__log__heading font-mono color-light-gray font-size-xxs"
+              class="modal-panel__log__heading font-mono color-light-gray font-size-xxs"
             >
               status
             </h3>
 
-            <ul class="issues-panel__log__list">
+            <ul class="modal-panel__log__list">
               <li
-                class="issues-panel__log__list__item"
+                class="modal-panel__log__list__item"
                 v-for="(log, index) in state.issue.actionHistory"
                 :key="index"
               >
                 <p
-                  class="issues-panel__log__list__item__text color-light-gray font-size-xs font-regular"
+                  class="modal-panel__log__list__item__text color-light-gray font-size-xs font-regular"
                 >
-                  {{ log.issueAction }}
+                  {{ log.comment }}
                 </p>
                 <p
-                  class="issues-panel__log__list__item__logged color-dark-gray font-mono font-size-xxs"
+                  class="modal-panel__log__list__item__logged color-dark-gray font-mono font-size-xxs"
                 >
                   {{ getAgoTime(log.updated) }}
                 </p>
@@ -168,6 +168,23 @@ const handleAddComment = () => {
   publicAPI
     .post(`/Issue/AddIssueComment/${props.issueId}`, {
       comment: state.comment,
+    })
+    .then(() => {
+      getIssueDetails();
+    })
+    .catch((error) => {
+      toastService.show("Error", error, "error", "top");
+    })
+    .finally(() => {
+      loadingService.close();
+    });
+};
+
+const handleChangeStatus = (status: number) => {
+  loadingService.show("Loading...");
+  publicAPI
+    .post(`/Issue/ChangeIssueStatus/${props.issueId}`, {
+      status,
     })
     .then(() => {
       getIssueDetails();
@@ -295,12 +312,12 @@ ion-content::part(background) {
   margin-right: 4px;
 }
 
-.issues-panel__status__radio input:checked ~ label {
+.modal-panel__status__radio input:checked ~ label {
   border: 0.75px solid #ffffff;
   color: #ffffff;
 }
 
-.issues-panel__log {
+.modal-panel__log {
   margin-top: 20px;
 }
 
