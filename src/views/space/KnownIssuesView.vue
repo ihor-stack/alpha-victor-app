@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, onBeforeMount, reactive } from "vue";
+import { onBeforeMount, reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
   IonContent,

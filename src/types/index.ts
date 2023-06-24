@@ -43,7 +43,7 @@ export interface Issue {
   status: Status;
   comments: { comment: string }[];
   description: string;
-  actionHistory: { issueAction: number; updated: string }[];
+  actionHistory: { comment: string; updated: string }[];
 }
 
 export interface IssueListItem {
