@@ -29,7 +29,17 @@
               </div>
             </ion-header>
             <ion-content :scroll-y="false" class="form-admin--group_field">
-              
+              <ion-row class="form-admin--group">
+                <ion-col size-xs="12" class="form-admin--group_field">
+                  <AdminSelect
+                    label="Equipment"
+                    v-model="selectedEquipment"
+                    :options="equipmentList"
+                    idPrefix="equipment-select"
+                    :isSearchable="true"
+                  />
+                </ion-col>
+              </ion-row>
               <ion-row class="form-admin--group">
                 <ion-col size-xs="12" class="form-admin--group_field">
                   <ion-label color="light">Serial number</ion-label>
@@ -79,9 +89,11 @@
                   class="form-admin--group_field"
                 >
                   <ion-label color="light">Install date</ion-label>
-                  <ion-datetime-button
-                    datetime="newDocInstallDate"
-                  ></ion-datetime-button>
+                  <div class="custom-input date-wrapper">
+                    <ion-datetime-button
+                      datetime="newDocInstallDate"
+                    ></ion-datetime-button>
+                  </div>
                   <ion-modal :keep-contents-mounted="true">
                     <ion-datetime
                       id="newDocInstallDate"
@@ -104,9 +116,11 @@
                   class="form-admin--group_field"
                 >
                   <ion-label color="light">Warranty expiry date</ion-label>
-                  <ion-datetime-button
-                    datetime="newDocWarrantyDate"
-                  ></ion-datetime-button>
+                  <div class="custom-input date-wrapper">
+                    <ion-datetime-button
+                      datetime="newDocWarrantyDate"
+                    ></ion-datetime-button>
+                  </div>
                   <ion-modal :keep-contents-mounted="true">
                     <ion-datetime
                       id="newDocWarrantyDate"
@@ -138,6 +152,12 @@
                 <ion-col size-xs="12" class="form-admin--group_field">
                   <ion-button
                     class="font-size-sm text-lowercase"
+                    :disabled="
+                      !newDevice.name ||
+                      !newDevice.serialNumber ||
+                      !newDevice.installer ||
+                      !newDevice.description
+                    "
                     @click="saveNewDevice()"
                   >
                     Save
@@ -153,7 +173,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onBeforeMount, computed } from "vue";
 import {
   IonPage,
   IonContent,
@@ -170,27 +190,60 @@ import {
   IonDatetimeButton,
 } from "@ionic/vue";
 import { close } from "ionicons/icons";
+import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
 import { Spaces } from "@/stores/adminSpaces";
-import { Device } from "@/types";
+import { Device, SelectItem } from "@/types";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
+import { Equipment as useEquipment } from "@/stores/adminEquipment";
+
+const EquipmentStore = useEquipment();
+const route = useRoute();
+
+const spaceId = route.params.spaceId as string;
+const { equipmentDropdownList } = storeToRefs(EquipmentStore);
 
 const Space = Spaces();
 const newDevice = ref({} as Device);
+const selectedEquipment = ref({} as SelectItem);
 
 const modalOpen = ref(false);
+const equipmentList = computed(() =>
+  equipmentDropdownList.value?.map((item, index) => {
+    const selectItem: SelectItem = {
+      id: index,
+      additionalInfo: item.id,
+      title: item.name,
+    };
+    return selectItem;
+  })
+);
 
 const handleDismiss = () => {
   modalOpen.value = false;
 };
-const check = (value: any) => {
-  console.log(value);
-};
+
 const saveNewDevice = () => {
-  console.log(newDevice.value);
-  //Space.saveSpacesDevices(newDevice.value)
+  Space.saveSpacesDevices(spaceId, {
+    ...newDevice.value,
+    installDate: newDevice.value.installDate ?? new Date().toISOString(),
+    warrantyExpiryDate:
+      newDevice.value.warrantyExpiryDate ?? new Date().toISOString(),
+    equipmentId: selectedEquipment.value.additionalInfo,
+  });
 };
+
+onBeforeMount(() => {
+  if (equipmentDropdownList.value?.length < 1) {
+    EquipmentStore.getEquipmentDropdownList();
+  }
+});
 </script>
 
 <style scoped>
+.modal-panel {
+  height: 85%;
+}
 ion-button {
   margin-top: 40px;
 }
@@ -198,5 +251,16 @@ ion-button {
   width: 20px;
   margin-left: 95%;
   cursor: pointer;
+}
+.date-wrapper {
+  padding: 12px;
+  margin-top: 5px;
+}
+
+.date-wrapper ion-datetime-button {
+  width: fit-content;
+}
+.date-wrapper ion-datetime-button::part(native) {
+  background: transparent;
 }
 </style>

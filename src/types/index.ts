@@ -43,7 +43,7 @@ export interface Issue {
   status: Status;
   comments: { comment: string }[];
   description: string;
-  actionHistory: { issueAction: number; updated: string }[];
+  actionHistory: { comment: string; updated: string }[];
 }
 
 export interface IssueListItem {
@@ -74,6 +74,8 @@ export interface Device {
   description: string;
   photos?: Photo[];
   icon?: string;
+  equipmentId?: string;
+  documents?: Document[];
 }
 
 export interface Document {
@@ -191,7 +193,7 @@ export interface NavSpace {
   spaceName: string;
   name: string;
   image?: string;
-  shortCode: string
+  shortCode: string;
 }
 export interface NavFloor {
   floorId: string;

@@ -177,10 +177,10 @@ const Space = Spaces();
 const { devices } = storeToRefs(Space);
 const currentIndex = ref<number>(0);
 const editDevice = () => {
-  Space.editSpacesDevices(currentIndex.value);
+  Space.editSpacesDevices(currentIndex.value, spaceId);
 };
 const deleteDevice = () => {
-  Space.deleteSpacesDevices(spaceId, currentIndex.value);
+  Space.deleteSpacesDevices(currentIndex.value, spaceId);
 };
 
 const handleImageRemoved = (photoId: string) => {

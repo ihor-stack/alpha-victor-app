@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import {} from "vue";
 import StatusDot from "@/components/shared/StatusDot.vue";
 import { useDotify } from "@/composables/utilities";
 import { Issue } from "@/types";

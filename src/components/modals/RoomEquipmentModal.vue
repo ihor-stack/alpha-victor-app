@@ -44,7 +44,7 @@
         <ul class="list-options-menu">
           <li class="list-options-menu-item">
             <ion-item
-              :href="`/documents/${spaceId}`"
+              :href="`/equipment/${spaceId}/documents/${deviceDetails.id}`"
               @click="handleDismiss"
               button
             >
@@ -60,7 +60,11 @@
       </div>
       <ion-footer>
         <div class="equipment-panel__footer">
-          <ion-button expand="block">User Guide</ion-button>
+          <ion-button
+            expand="block"
+            :href="`/equipment/${spaceId}/documents/${deviceDetails.id}?documentType=User Guide`"
+            >User Guide</ion-button
+          >
           <ion-button
             color="light"
             expand="block"
