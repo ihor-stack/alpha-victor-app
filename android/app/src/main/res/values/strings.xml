@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">alpha-victor</string>
     <string name="title_activity_main">alpha-victor</string>
-    <string name="package_name">com.mythdigital.alphavictor</string>
-    <string name="custom_url_scheme">com.mythdigital.alphavictor</string>
+    <string name="package_name">com.alphavictorapp.app</string>
+    <string name="custom_url_scheme">com.alphavictorapp.app</string>
 
     <string name="custom_host">alphavictor</string><!-- any value is fine -->
     <string name="azure_b2c_scheme">msauth</string>
