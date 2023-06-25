@@ -13,29 +13,48 @@
       </template>
     </app-header>
     <ion-content>
-      <documents-list :documents="state.documents" />
+      <documents-list :documents="documents" />
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, reactive } from "vue";
+import { onBeforeMount, reactive, computed } from "vue";
 import { IonContent, IonPage, IonButton } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import DocumentsList from "@/components/space/DocumentsList.vue";
 import { useRoute, useRouter } from "vue-router";
+import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import { publicAPI } from "@/axios";
 const router = useRouter();
 const route = useRoute();
+const spacesStore = useSpacesStore();
+
+const spaceId: string = route.params.spaceId as string;
+const equipmentId: string = route.params.equipmentId as string;
+const documentType = route.query.documentType;
 
 const state = reactive({
   documents: [],
 });
 
-const getDocumentTypes = (spaceId: string) => {
-  if (!spaceId) return;
+const documents = computed(() => {
+  const documents: any = equipmentId
+    ? spacesStore.devices.find((device) => device.id === equipmentId)?.documents
+    : state.documents;
+  if (documentType) {
+    return (
+      documents?.filter(
+        (document: any) => document.documentType.name === documentType
+      ) || []
+    );
+  }
+  return documents || [];
+});
+
+const getDocuments = () => {
   loadingService.show("Loading...");
   publicAPI
     .get(`/Space/${spaceId}/Documents`)
@@ -52,8 +71,10 @@ const getDocumentTypes = (spaceId: string) => {
 };
 
 onBeforeMount(() => {
-  const spaceId: string = route.params.spaceId as string;
-  getDocumentTypes(spaceId);
+  getDocuments();
+  if (spaceId !== spacesStore.currentSpace?.id && equipmentId) {
+    spacesStore.getSpaceDevices(spaceId);
+  }
 });
 </script>
 

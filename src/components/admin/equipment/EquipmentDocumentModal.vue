@@ -68,8 +68,9 @@
               <div class="modal-panel__select-equipment form-admin">
                 <AdminSelect
                   label="Document Type"
+                  idPrefix="documentTypeToEquipment"
                   v-model="state.selectedDocType"
-                  :options="documentTypes"
+                  :options="documentTypeOptions"
                 />
               </div>
             </ion-content>
@@ -93,7 +94,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onBeforeMount } from "vue";
+import { reactive, onBeforeMount, computed } from "vue";
 import {
   IonPage,
   IonContent,
@@ -117,12 +118,21 @@ const Org = Organisations();
 const route = useRoute();
 
 const equipmentId = route.params.equipmentId as string;
-const { documentTypes } = storeToRefs(Org);
+const { documents } = storeToRefs(Org);
 const state = reactive({
   organisation: "",
   modalOpen: false,
   selectedDocType: {} as SelectItem,
   uploadedDoc: {} as File,
+});
+
+const documentTypeOptions = computed(() => {
+  return documents.value.map((documentType, index) => ({
+    ...documentType,
+    id: index,
+    title: documentType.name,
+    additionalInfo: documentType.id,
+  }));
 });
 
 const handleDismiss = () => {

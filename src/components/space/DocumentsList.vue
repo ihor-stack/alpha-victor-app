@@ -1,6 +1,10 @@
 <template>
   <div class="documents-list__container">
-    <div class="documents-list" v-for="(documents, documentTypeName) in groupedDocuments" :key="documentTypeName">
+    <div
+      class="documents-list"
+      v-for="(documents, documentTypeName) in groupedDocuments"
+      :key="documentTypeName"
+    >
       <div class="documents-list__header">
         <h4 class="font-mono color-light-gray font-size-xxs">
           {{ documentTypeName }}
@@ -39,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed } from "vue";
+import { computed } from "vue";
 
 interface DocumentType {
   id: string;
@@ -49,7 +53,7 @@ interface DocumentType {
 interface Document {
   id: number;
   name: string;
-  dateUploaded: string;
+  dateUploaded?: string;
   documentType: DocumentType;
 }
 
@@ -60,14 +64,17 @@ interface Props {
 const props = defineProps<Props>();
 
 const groupedDocuments = computed(() => {
-  return props.documents.reduce((grouped: Record<string, Document[]>, document: Document) => {
-    const key = document.documentType.name;
-    if (!grouped[key]) {
-      grouped[key] = [];
-    }
-    grouped[key].push(document);
-    return grouped;
-  }, {} as Record<string, Document[]>);
+  return props.documents.reduce(
+    (grouped: Record<string, Document[]>, document: Document) => {
+      const key = document.documentType.name;
+      if (!grouped[key]) {
+        grouped[key] = [];
+      }
+      grouped[key].push(document);
+      return grouped;
+    },
+    {} as Record<string, Document[]>
+  );
 });
 </script>
 
