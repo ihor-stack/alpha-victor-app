@@ -1,4 +1,4 @@
-package com.mythdigital.alphavictor;
+package com.alphavictorapp.app;
 
 import com.getcapacitor.BridgeActivity;
 

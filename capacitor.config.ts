@@ -3,7 +3,7 @@ import { KeyboardResize, KeyboardStyle } from '@capacitor/keyboard';
 // import { displayStrings } from '@capacitor-community/bluetooth-le';
 
 const config: CapacitorConfig = {
-  appId: 'com.mythdigital.alphavictor',
+  appId: 'com.alphavictorapp.app',
   appName: 'alpha-victor',
   webDir: 'dist',
   bundledWebRuntime: false,
