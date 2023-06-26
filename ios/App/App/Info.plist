@@ -22,6 +22,14 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to allow you to scan QR codes.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need access to your location for viewing nearby spaces.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need access to your location for viewing nearby spaces.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>We need access to Bluetooth to connect to beacons.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
