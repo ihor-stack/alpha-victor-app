@@ -2,24 +2,15 @@
   <ion-menu content-id="content">
     <app-header class="no-background">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          class="logout-button"
-          @click="logout"
-        >
-          <ion-icon
-            :icon="logOutOutline"
-            color="light"
-            class="logout"
-          ></ion-icon>
+        <ion-button fill="clear" class="logout-button" @click="logout">
+          <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
           <span class="font-mono font-size-xs logout-text">logout</span>
         </ion-button>
       </template>
 
       <template #end>
         <ion-menu-toggle>
-          <ion-icon :icon="closeOutline" color="light" size="large"></ion-icon>
+          <ion-icon :icon="closeOutline" size="large"></ion-icon>
         </ion-menu-toggle>
       </template>
     </app-header>
@@ -33,11 +24,7 @@
               router-direction="root"
             >
               <span class="link-text">Dashboard</span>
-              <ion-icon
-                slot="end"
-                :icon="chevronForwardOutline"
-                color="light"
-              />
+              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -49,11 +36,7 @@
               router-direction="root"
             >
               <span class="link-text">Favourites</span>
-              <ion-icon
-                slot="end"
-                :icon="chevronForwardOutline"
-                color="light"
-              />
+              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -65,11 +48,7 @@
               router-direction="root"
             >
               <span class="link-text">Find a space</span>
-              <ion-icon
-                slot="end"
-                :icon="chevronForwardOutline"
-                color="light"
-              />
+              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -81,11 +60,7 @@
               router-direction="root"
             >
               <span class="link-text">Recently viewed</span>
-              <ion-icon
-                slot="end"
-                :icon="chevronForwardOutline"
-                color="light"
-              />
+              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -97,11 +72,7 @@
               router-direction="root"
             >
               <span class="link-text">Account settings</span>
-              <ion-icon
-                slot="end"
-                :icon="chevronForwardOutline"
-                color="light"
-              />
+              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -109,11 +80,7 @@
           <ion-menu-toggle>
             <ion-item router-link="/about" lines="none" router-direction="root">
               <span class="link-text">About Alpha Victor</span>
-              <ion-icon
-                slot="end"
-                :icon="chevronForwardOutline"
-                color="light"
-              />
+              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -125,11 +92,7 @@
               router-direction="root"
             >
               <span class="link-text">Terms &amp; conditions</span>
-              <ion-icon
-                slot="end"
-                :icon="chevronForwardOutline"
-                color="light"
-              />
+              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -142,11 +105,7 @@
               router-direction="root"
             >
               <span class="link-text">Admin</span>
-              <ion-icon
-                slot="end"
-                :icon="chevronForwardOutline"
-                color="light"
-              />
+              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>

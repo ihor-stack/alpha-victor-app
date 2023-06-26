@@ -39,13 +39,13 @@
       </div>
       <div class="dashboard-sliders" v-if="nearbySpaces?.length">
         <div class="dashboard-slider-container">
-          <dashboard-slider
-            title="Nearby spaces"
-            :slides="nearbySpaces"
-          />
+          <dashboard-slider title="Nearby spaces" :slides="nearbySpaces" />
         </div>
       </div>
-      <ion-item v-if="!nearbySpaces.length && !recentlyViewedSpaces.length" lines="none">
+      <ion-item
+        v-if="!nearbySpaces.length && !recentlyViewedSpaces.length"
+        lines="none"
+      >
         <ion-label>
           <h1 class="color-white">no.spaces.found</h1>
           <p>Please enter a short code or explore spaces.</p>
@@ -84,23 +84,20 @@ import AppHeader from "@/components/shared/AppHeader.vue";
 import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
 import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
-import { Capacitor } from '@capacitor/core';
+import { Capacitor } from "@capacitor/core";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
-import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { IBeacon, Beacon } from "@ionic-native/ibeacon";
 
 const spacesStore = useSpacesStore();
-const organisationStore = useOrganisationStore();
-
 
 interface State {
   modalOpen: boolean;
-  observedBeacons: Beacon[]
+  observedBeacons: Beacon[];
 }
 
 const state: State = reactive({
   modalOpen: false,
-  observedBeacons: []
+  observedBeacons: [],
 });
 
 const handleDismiss = () => {
@@ -111,33 +108,33 @@ const recentlyViewedSpaces = computed(
   () => spacesStore.recentlyViewedSpaces || []
 );
 
-const nearbySpaces = computed(
-  () => spacesStore.nearbySpaces || []
-);
+const nearbySpaces = computed(() => spacesStore.nearbySpaces || []);
 
-let beaconRegion : any = null;
+let beaconRegion: any = null;
 
 const startRangingBeacons = async () => {
-
   await IBeacon.requestAlwaysAuthorization();
   const delegate = IBeacon.Delegate();
 
-  delegate.didRangeBeaconsInRegion().subscribe(data => {
-
+  delegate.didRangeBeaconsInRegion().subscribe((data) => {
     if (data.beacons.length > 0) {
-      
-      data.beacons.forEach(b => {
-
-        if (state.observedBeacons.filter(ob => ob.minor == b.minor && ob.major == b.major).length == 0) {
+      data.beacons.forEach((b) => {
+        if (
+          state.observedBeacons.filter(
+            (ob) => ob.minor == b.minor && ob.major == b.major
+          ).length == 0
+        ) {
           state.observedBeacons.push(b);
           spacesStore.getNearbySpace(b.uuid, b.major, b.minor);
         }
-      })
-
+      });
     }
   });
-  
-  beaconRegion = IBeacon.BeaconRegion('spaceBeacon', 'f7826da6-4fa2-4e98-8024-bc5b71e0893e');
+
+  beaconRegion = IBeacon.BeaconRegion(
+    "spaceBeacon",
+    "f7826da6-4fa2-4e98-8024-bc5b71e0893e"
+  );
 
   await IBeacon.startRangingBeaconsInRegion(beaconRegion);
 };
@@ -145,20 +142,16 @@ const startRangingBeacons = async () => {
 onBeforeMount(() => {
   spacesStore.getFavouriteSpaces();
   spacesStore.getRecentlyViewedSpaces();
-  organisationStore.getOrganisations();
-  if (Capacitor.getPlatform() !== 'web') {
+  if (Capacitor.getPlatform() !== "web") {
     startRangingBeacons();
   }
 });
 
 onBeforeUnmount(() => {
-
   if (beaconRegion !== null) {
     IBeacon.stopRangingBeaconsInRegion(beaconRegion);
   }
-
 });
-
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { publicAPI } from "@/axios";
-import { AdminOrganisation, OrgDetails, Location } from "@/types/index";
+import { AdminOrganisation, OrgDetails, Location, Theme } from "@/types/index";
 
 import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
@@ -15,6 +15,9 @@ export const Organisations = defineStore("PublicOrganisations", {
       currentOrganisation: {} as OrgDetails,
       currentOrganisationId: "" as string,
       searchNavigationTree: [] as Location[],
+      theme: {
+        logo: require("@/theme/img/logo/logo-without-name.svg"),
+      } as Theme,
     };
   },
   actions: {
@@ -29,6 +32,7 @@ export const Organisations = defineStore("PublicOrganisations", {
         .get<AdminOrganisation[]>("/Organisation/")
         .then((response) => {
           this.organisationList = response.data;
+          this.currentOrganisationId = response.data[0].organisationId;
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
@@ -72,6 +76,27 @@ export const Organisations = defineStore("PublicOrganisations", {
             loadingService.close();
           });
       }
+    },
+    async getOrgTheme(id: string) {
+      loadingService.show("Loading...");
+      publicAPI
+        .get<Theme>(
+          `/Organisation/${
+            id || this.currentOrganisationId || cookies.get("publicOrgId")
+          }/Theme`
+        )
+        .then((response) => {
+          this.theme = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
+    },
+    async setOrgTheme(theme: Theme) {
+      this.theme = theme;
     },
   },
   getters: {

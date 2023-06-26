@@ -12,12 +12,8 @@
               />
             </router-link>
           </ion-title>
-          <ion-button fill="clear" color="light" @click="logout">
-            <ion-icon
-              :icon="logOutOutline"
-              color="light"
-              class="logout"
-            ></ion-icon>
+          <ion-button fill="clear" @click="logout">
+            <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
             <span class="font-mono font-size-xs low-caps">logout</span>
           </ion-button>
         </div>
@@ -36,7 +32,6 @@
           >
           <ion-icon
             :icon="chevronForwardOutline"
-            color="light"
             class="arrow-right"
           ></ion-icon>
         </li>
@@ -47,27 +42,28 @@
           >
           <ion-icon
             :icon="chevronForwardOutline"
-            color="light"
             class="arrow-right"
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/find-space/location" class="font-size-sm color-light-gray"
+          <router-link
+            to="/find-space/location"
+            class="font-size-sm color-light-gray"
             >Find a space</router-link
           >
           <ion-icon
             :icon="chevronForwardOutline"
-            color="light"
             class="arrow-right"
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/recently-viewed" class="font-size-sm color-light-gray"
+          <router-link
+            to="/recently-viewed"
+            class="font-size-sm color-light-gray"
             >Recently viewed</router-link
           >
           <ion-icon
             :icon="chevronForwardOutline"
-            color="light"
             class="arrow-right"
           ></ion-icon>
         </li>
@@ -77,7 +73,6 @@
           >
           <ion-icon
             :icon="chevronForwardOutline"
-            color="light"
             class="arrow-right"
           ></ion-icon>
         </li>
@@ -87,17 +82,17 @@
           >
           <ion-icon
             :icon="chevronForwardOutline"
-            color="light"
             class="arrow-right"
           ></ion-icon>
         </li>
         <li class="nav-menu-link arrow-align">
-          <router-link to="/terms-and-conditions" class="font-size-sm color-light-gray"
+          <router-link
+            to="/terms-and-conditions"
+            class="font-size-sm color-light-gray"
             >Terms & conditions</router-link
           >
           <ion-icon
             :icon="chevronForwardOutline"
-            color="light"
             class="arrow-right"
           ></ion-icon>
         </li>
@@ -111,7 +106,6 @@
           >
           <ion-icon
             :icon="chevronForwardOutline"
-            color="light"
             class="arrow-right"
           ></ion-icon>
         </li>
@@ -123,7 +117,6 @@
           >
           <ion-icon
             :icon="chevronForwardOutline"
-            color="light"
             class="arrow-right"
           ></ion-icon>
         </li>
@@ -135,7 +128,6 @@
           >
           <ion-icon
             :icon="chevronForwardOutline"
-            color="light"
             class="arrow-right"
           ></ion-icon>
         </li>
@@ -145,10 +137,10 @@
   <!-- <ion-menu>
     <app-header class="no-background">
       <template #start>
-        <ion-button fill="clear" color="light" @click="logout">
+        <ion-button fill="clear"  @click="logout">
           <ion-icon
             :icon="logOutOutline"
-            color="light"
+            
             class="logout"
           ></ion-icon>
           <span class="font-mono font-size-xs">logout</span>
@@ -157,7 +149,7 @@
 
       <template #end>
         <ion-menu-toggle>
-          <ion-icon :icon="closeOutline" color="light" size="large"></ion-icon>
+          <ion-icon :icon="closeOutline"  size="large"></ion-icon>
         </ion-menu-toggle>
       </template>
     </app-header>
