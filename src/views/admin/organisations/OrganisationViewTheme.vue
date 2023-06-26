@@ -4,7 +4,7 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Logo</ion-label>
+          <ion-label>Logo</ion-label>
           <CustomIonUploadInput
             :buttonText="'Select file'"
             :disabled="theme.logo ? true : false"
@@ -14,7 +14,7 @@
           />
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Background image</ion-label>
+          <ion-label>Background image</ion-label>
           <CustomIonUploadInput
             :buttonText="'Select file'"
             :disabled="theme.backgroundImage ? true : false"
@@ -26,7 +26,7 @@
       </ion-row>
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Dark mode</ion-label>
+          <ion-label>Dark mode</ion-label>
           <ion-item justify="space-between" lines="full">
             <ion-label>Enable dark mode</ion-label>
             <ion-toggle v-model="theme.darkmodeEnabled"></ion-toggle>
@@ -37,14 +37,10 @@
 
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Primary colour</ion-label>
+          <ion-label>Primary colour</ion-label>
           <ion-row>
             <ion-col size-sm="12">
-              <ion-input
-                class="form-colorpick"
-                color="light"
-                v-model="theme.primaryColour"
-              >
+              <ion-input class="form-colorpick" v-model="theme.primaryColour">
                 <input
                   class="color-input"
                   type="color"
@@ -55,14 +51,10 @@
           </ion-row>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Secondary colour</ion-label>
+          <ion-label>Secondary colour</ion-label>
           <ion-row>
             <ion-col size-sm="12">
-              <ion-input
-                class="form-colorpick"
-                color="light"
-                v-model="theme.secondaryColour"
-              >
+              <ion-input class="form-colorpick" v-model="theme.secondaryColour">
                 <input
                   class="color-input"
                   type="color"
