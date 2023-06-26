@@ -213,13 +213,4 @@ const requestPermission = async () => {
   flex-direction: column;
   justify-content: center;
 }
-
-ion-modal {
-  --background: none;
-  --backdrop-opacity: 0.75;
-}
-
-ion-modal::part(handle) {
-  top: 10px;
-}
 </style>

@@ -191,11 +191,6 @@ ion-toggle {
   --background: rgba(171, 187, 194, 0.26);
 }
 
-ion-modal {
-  --background: none;
-  --backdrop-opacity: 0.85;
-}
-
 ion-modal::part(handle) {
   top: 10px;
   background-color: rgba(255, 255, 255, 0.2);

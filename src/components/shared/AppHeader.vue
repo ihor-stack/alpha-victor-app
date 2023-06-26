@@ -46,9 +46,6 @@ const props = defineProps({
 </script>
 
 <style scoped>
-ion-header {
-  background: #000000;
-}
 .title {
   display: flex;
   flex-direction: column;
