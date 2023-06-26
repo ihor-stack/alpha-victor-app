@@ -193,7 +193,6 @@ ion-toggle {
 
 ion-modal::part(handle) {
   top: 10px;
-  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .form-admin--group_field ion-item ion-label {
@@ -523,7 +522,9 @@ ion-button.button-red {
 }
 
 /* Settings modal styles */
-
+ion-modal {
+  --border-radius: 40px 40px 0px 0px;
+}
 .modal-panel {
   height: 70%;
   border-radius: 40px 40px 40px 40px;
@@ -531,21 +532,15 @@ ion-button.button-red {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
 }
 
 .modal-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
   padding: 45px 32px 32px;
-}
-
-.modal-panel-container .form-admin--group {
-  background-color: #181818;
 }
 
 .modal-panel__header {
@@ -647,19 +642,11 @@ ion-action-sheet .action-sheet-selected::after {
 }
 
 ion-action-sheet .action-sheet-selected .action-sheet-button-inner {
-  color: #fff !important;
   font-size: 18px;
 }
 
 ion-select-option::part(text) {
-  color: #ffffff !important;
   background-color: #ffffff !important;
-}
-
-@media (any-hover: hover) {
-  ion-action-sheet .action-popover-button:hover {
-    color: #000000;
-  }
 }
 
 /* Toast Styling */
@@ -829,4 +816,8 @@ ion-toast.customToast::part(message) {
 .pnlm-hotspot {
   background-image: url("@/theme/icons/hotspot.svg") !important;
   background-position: center;
+}
+
+ion-item {
+  --background: transparent;
 }
