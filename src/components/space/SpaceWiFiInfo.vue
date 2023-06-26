@@ -9,7 +9,12 @@
       <p class="font-size-xs color-light-gray font-bold">{{ wifiPassword }}</p>
     </div>
     <div class="wifi-connect" v-if="showConnectButton">
-      <ion-button @click="$event => doWifiConnect()" expand="block" size="small">Connect</ion-button>
+      <ion-button
+        @click="($event) => doWifiConnect()"
+        expand="block"
+        size="small"
+        >Connect</ion-button
+      >
     </div>
   </div>
 </template>
@@ -17,23 +22,25 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 import { IonButton } from "@ionic/vue";
-import { isPlatform } from '@ionic/vue';
-import { Wifi } from '@uncoded-limited/connect'
+import { isPlatform } from "@ionic/vue";
+import { Wifi } from "@uncoded-limited/connect";
 
 const props = defineProps(["wifiNetwork", "wifiPassword", "wifiSecurityType"]);
 
-const showConnectButton = isPlatform('ios') || isPlatform('android');
+const showConnectButton = isPlatform("ios") || isPlatform("android");
 
 const doWifiConnect = async () => {
+  let wifiSecurityTypeStr = "";
 
-  let wifiSecurityTypeStr = '';
+  if (props.wifiSecurityType == 3) wifiSecurityTypeStr = "WPA2";
+  if (props.wifiSecurityType == 4) wifiSecurityTypeStr = "WPA3";
 
-  if (props.wifiSecurityType == 3) wifiSecurityTypeStr = 'WPA2';
-  if (props.wifiSecurityType == 4) wifiSecurityTypeStr = 'WPA3';
-
-  await Wifi.connect({ ssid: props.wifiNetwork, password: props.wifiPassword, passwordType: wifiSecurityTypeStr  });
-}
-
+  await Wifi.connect({
+    ssid: props.wifiNetwork,
+    password: props.wifiPassword,
+    passwordType: wifiSecurityTypeStr,
+  });
+};
 </script>
 
 <style scoped>

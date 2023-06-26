@@ -10,7 +10,7 @@
           router-direction="root"
         >
           <span class="link-text">Room Equipment</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
       <li class="space-options-menu-item">
@@ -23,7 +23,7 @@
           router-direction="root"
         >
           <span class="link-text">Get Help</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
       <li class="space-options-menu-item">
@@ -35,16 +35,14 @@
           router-direction="root"
         >
           <div class="with-counter">
-            <p class="label font-bold font-size-sm color-light-gray">
-              Known Issues
-            </p>
+            <p class="label font-bold font-size-sm">Known Issues</p>
             <div v-if="currentSpace?.issueCount" class="counter">
               <div>
                 <span>{{ currentSpace.issueCount }}</span>
               </div>
             </div>
           </div>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
       <li class="space-options-menu-item">
@@ -56,7 +54,7 @@
           router-direction="root"
         >
           <span class="link-text">Documents</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
     </ul>
@@ -71,7 +69,7 @@ import { DetailedSpace } from "@/types";
 
 interface Props {
   currentSpace: DetailedSpace;
-  showDevices: boolean
+  showDevices: boolean;
 }
 
 defineProps<Props>();
@@ -86,7 +84,6 @@ defineProps<Props>();
 
 .space-options-menu-item ion-item {
   --background: none;
-  --color: #ffffff;
   --padding-start: 0;
   --padding-end: 0;
   --inner-padding-end: 0;
