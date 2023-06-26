@@ -32,11 +32,13 @@ import { Theme } from "@/types";
 /* Services */
 import toastService from "./services/toastService";
 import loadingService from "./services/loadingService";
+import Auth from "@/auth";
 
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
 const organisationStore = useOrganisationStore();
 const { currentOrganisationId, theme } = storeToRefs(organisationStore);
+const authService = new Auth();
 
 const updateTheme = (theme: Theme) => {
   document.body.classList.toggle("dark", theme.darkmodeEnabled);
@@ -74,6 +76,10 @@ onBeforeMount(async () => {
     } catch (err) {
       console.log(err);
     }
+  }
+  const accessToken = await authService.fetchCurrentAccessToken();
+  if (accessToken) {
+    organisationStore.getOrganisations();
   }
 });
 </script>
