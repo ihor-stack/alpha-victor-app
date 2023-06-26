@@ -6,9 +6,9 @@
       </div>
       <ion-header>
         <div class="equipment-panel__header">
-          <h1 class="equipment-name font-bold">
+          <ion-label class="equipment-name font-bold">
             {{ deviceDetails.name }}
-          </h1>
+          </ion-label>
           <p class="font-size-xxs color-dark-gray font-mono device-information">
             device.information
           </p>
@@ -79,7 +79,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { IonHeader, IonFooter, IonButton, IonItem } from "@ionic/vue";
+import { IonHeader, IonFooter, IonButton, IonItem, IonLabel } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import { useEquipmentIcon } from "@/composables/utilities";
 
@@ -151,13 +151,12 @@ const installations = computed(() => {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
+  color: var(--color);
 }
 
 .equipment-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
@@ -189,18 +188,11 @@ const installations = computed(() => {
 .equipment-name {
   font-size: 18px;
   line-height: 18px;
-  color: #ffffff;
 }
 
 .device-information {
   margin-top: 12px;
   margin-left: 12px;
-}
-
-ion-content {
-  --background: #181818;
-  --padding-top: 20px;
-  --padding-bottom: 20px;
 }
 
 .equipment-panel__footer {
@@ -214,7 +206,6 @@ ion-button {
 }
 
 .equipment-panel__info-section {
-  color: #ffffff;
   margin-bottom: 30px;
 }
 
@@ -223,7 +214,6 @@ ion-button {
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.015em;
-  color: #ffffff;
   margin-bottom: 18px;
 }
 
@@ -249,7 +239,6 @@ ion-button {
 
 .list-options-menu-item ion-item {
   --background: none;
-  --color: #ffffff;
   --padding-start: 0;
   --padding-end: 0;
   --inner-padding-end: 0;
@@ -297,7 +286,6 @@ ion-button {
   font-weight: 700;
   font-size: 11px;
   line-height: 11px;
-  color: #ffffff;
 }
 
 ion-list {

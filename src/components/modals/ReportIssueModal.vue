@@ -18,7 +18,7 @@
         <ion-content :scroll-y="false">
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
-              <ion-label class="font-bold font-size-xs" color="light">
+              <ion-label class="font-bold font-size-xs">
                 Select Equipment
               </ion-label>
               <ion-select
@@ -152,13 +152,11 @@ ion-content::part(background) {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
 }
 
 .modal-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;

@@ -2,12 +2,7 @@
   <ion-page>
     <app-header title="Room Equipment">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
@@ -27,7 +22,7 @@
               <img :src="useEquipmentIcon(item.icon || '')" />
             </div>
             <ion-label>
-              <p class="label font-bold font-size-sm color-white">
+              <p class="label font-bold font-size-sm">
                 {{ item.name }}
               </p>
               <p
@@ -134,9 +129,6 @@ onBeforeMount(() => {
 <style scoped>
 .space-equipment-container {
   padding: 0px 30px 20px;
-}
-ion-content {
-  --background: #000000;
 }
 ion-list {
   background: transparent;
