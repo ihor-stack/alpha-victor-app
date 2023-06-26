@@ -2,27 +2,16 @@
   <ion-page id="recently-viewed">
     <app-header title="Recently Viewed">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
       <template #end>
-        <ion-menu-button fill="clear">
-          <img
-            src="@/theme/icons/nav-menu.svg"
-            class="nav-menu"
-            alt="Nav Menu Button"
-          />
-        </ion-menu-button>
+        <ion-menu-button fill="clear"> </ion-menu-button>
       </template>
     </app-header>
-    <ion-content>
-      <ion-list class="spaces-list">
+    <ion-content :fullscreen="true">
+      <ion-list class="spaces-list" :inset="true">
         <ion-item
           v-for="space in recentlyViewedSpaces"
           :key="space.shortCode"
@@ -64,14 +53,12 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-ion-content {
-  --background: #000000;
-}
 .spaces-list {
   list-style-type: none;
   margin: 0;
   padding: 20px 30px;
 }
+
 .space {
   position: relative;
   height: 200px;

@@ -821,3 +821,6 @@ ion-toast.customToast::part(message) {
 ion-item {
   --background: transparent;
 }
+ion-list {
+  background: transparent !important;
+}
