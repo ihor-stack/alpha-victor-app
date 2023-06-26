@@ -130,6 +130,14 @@ export interface AdminTheme {
   logo?: string;
   backgroundImage?: string;
 }
+
+export interface Theme {
+  backgroundImage: string;
+  darkmodeEnabled: boolean;
+  logo: string;
+  primaryColour: string;
+  secondaryColour: string;
+}
 export interface PublicAccount {
   name: string;
   email: string;

@@ -7,11 +7,7 @@
 
       <ion-title>
         <router-link to="/dashboard">
-          <img
-            src="@/theme/img/logo/logo-without-name.svg"
-            class="logo"
-            alt="AlphaVictor logo"
-          />
+          <img :src="theme?.logo" class="logo" alt="AlphaVictor logo" />
         </router-link>
       </ion-title>
 
@@ -29,8 +25,12 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
 import { IonHeader, IonToolbar, IonTitle, IonButtons } from "@ionic/vue";
+import { storeToRefs } from "pinia";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+
+const organisationStore = useOrganisationStore();
+const { theme } = storeToRefs(organisationStore);
 
 const props = defineProps({
   title: {
@@ -66,5 +66,8 @@ ion-buttons {
 
 .no-background {
   background: none;
+}
+.logo {
+  height: 50px;
 }
 </style>
