@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onBeforeMount, onBeforeUnmount, computed } from "vue";
+import { reactive, onBeforeMount, onBeforeUnmount, computed, watch } from "vue";
 import {
   IonPage,
   IonContent,
@@ -86,9 +86,11 @@ import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
 import { Capacitor } from "@capacitor/core";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { IBeacon, Beacon } from "@ionic-native/ibeacon";
 
 const spacesStore = useSpacesStore();
+const organisationStore = useOrganisationStore();
 
 interface State {
   modalOpen: boolean;
@@ -142,6 +144,7 @@ const startRangingBeacons = async () => {
 onBeforeMount(() => {
   spacesStore.getFavouriteSpaces();
   spacesStore.getRecentlyViewedSpaces();
+  organisationStore.getOrganisations();
   if (Capacitor.getPlatform() !== "web") {
     startRangingBeacons();
   }

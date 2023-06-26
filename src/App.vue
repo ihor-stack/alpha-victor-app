@@ -64,7 +64,7 @@ watch(theme, (newValue) => {
   updateTheme(newValue);
 });
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
   const themeString = localStorage.getItem("theme");
   if (themeString) {
     try {
@@ -75,7 +75,6 @@ onBeforeMount(() => {
       console.log(err);
     }
   }
-  organisationStore.getOrganisations();
 });
 </script>
 
