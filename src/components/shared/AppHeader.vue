@@ -16,16 +16,24 @@
       </ion-buttons>
     </ion-toolbar>
     <div class="title" v-if="props.title">
-      <h1 class="title-admin font-bold font-size-lg color-light-gray">
-        {{ props.title }}
-      </h1>
+      <ion-item lines="none">
+        <h1 class="title-admin font-bold font-size-lg">
+          {{ props.title }}
+        </h1>
+      </ion-item>
       <slot></slot>
     </div>
   </ion-header>
 </template>
 
 <script setup lang="ts">
-import { IonHeader, IonToolbar, IonTitle, IonButtons } from "@ionic/vue";
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonItem,
+} from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
@@ -55,6 +63,9 @@ const props = defineProps({
 }
 .title .title-admin {
   margin-bottom: 8px;
+}
+.title ion-item {
+  --background: transparent;
 }
 
 ion-buttons {

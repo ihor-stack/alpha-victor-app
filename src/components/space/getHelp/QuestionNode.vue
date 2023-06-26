@@ -1,11 +1,7 @@
 <template>
   <div class="decision-wrapper">
     <div class="logo-wrapper">
-      <img
-        src="@/theme/img/logo/logo-without-name.svg"
-        class="logo"
-        alt="AlphaVictor logo"
-      />
+      <img :src="theme?.logo" class="logo" alt="AlphaVictor logo" />
     </div>
     <div class="answers-list-wrapper">
       <IonList class="answers-list" lines="none">
@@ -78,8 +74,12 @@
 <script setup lang="ts">
 import { IonList, IonItem, IonListHeader, IonIcon } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
-
 import { IDecisionTreeNode, DecisionTreeNodeType } from "@/types/decisionTree";
+import { storeToRefs } from "pinia";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+
+const organisationStore = useOrganisationStore();
+const { theme } = storeToRefs(organisationStore);
 
 interface Props {
   nodeData: IDecisionTreeNode;

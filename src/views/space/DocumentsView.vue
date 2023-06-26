@@ -1,13 +1,13 @@
 <template>
   <ion-page>
-    <ion-content>
-      <app-header title="Documents">
-        <template #start>
-          <ion-button fill="clear" @click="() => router.back()" class="back">
-            <span class="font-mono font-size-xs">&lt;&lt; back</span>
-          </ion-button>
-        </template>
-      </app-header>
+    <app-header title="Documents">
+      <template #start>
+        <ion-button fill="clear" @click="() => router.back()" class="back">
+          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+        </ion-button>
+      </template>
+    </app-header>
+    <ion-content :fullscreen="true">
       <documents-list :documents="documents" />
     </ion-content>
   </ion-page>

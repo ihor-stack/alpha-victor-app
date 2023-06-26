@@ -1,24 +1,20 @@
 <template>
   <div class="modal-panel">
     <div class="modal-panel-container">
-      <ion-header>
-        <div class="modal-panel__header">
-          <h1
-            class="modal-panel__title color-light-gray font-bold font-size-normal"
-          >
-            Select Organisation
-          </h1>
-          <p class="modal-panel__comment color-light-gray font-size-sm">
-            Here you can select the organisation that you’d like to see spaces
-            in.
-          </p>
-        </div>
+      <ion-header class="ion-no-border">
+        <ion-item class="modal-panel__header" lines="none">
+          <ion-label>
+            <h2 class="modal-panel__title font-bold">Select Organisation</h2>
+            <p class="modal-panel__comment color-light-gray font-size-sm">
+              Here you can select the organisation that you’d like to see spaces
+              in.
+            </p>
+          </ion-label>
+        </ion-item>
       </ion-header>
-      <ion-content :scroll-y="false">
+      <ion-content>
         <div class="modal-panel__section modal-panel__select-equipment">
-          <h2
-            class="color-light-gray font-size-xs font-bold modal-panel__heading"
-          >
+          <h2 class="font-size-xs font-bold modal-panel__heading">
             Select Organisation
           </h2>
 
@@ -50,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, defineProps } from "vue";
+import { reactive, computed } from "vue";
 import {
   IonContent,
   IonHeader,
@@ -58,6 +54,8 @@ import {
   IonButton,
   IonSelect,
   IonSelectOption,
+  IonItem,
+  IonLabel,
 } from "@ionic/vue";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 const organisationStore = useOrganisationStore();
@@ -86,40 +84,8 @@ const handleConfirm = () => {
 </script>
 
 <style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
-
 .modal-panel {
   height: 40%;
-  border-radius: 40px 40px 0px 0px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #181818;
-}
-
-.modal-panel-container {
-  position: relative;
-  height: 100%;
-  background-color: #181818;
-  border-radius: 40px 40px 0px 0px;
-  display: flex;
-  flex-direction: column;
-  padding: 45px 32px 32px;
-}
-
-.modal-panel__header {
-  margin-bottom: 20px;
-}
-
-.modal-panel__title {
-  margin-bottom: 12px;
-}
-
-.modal-panel__section {
-  margin-bottom: 20px;
 }
 
 .modal-panel__heading {
@@ -133,8 +99,11 @@ ion-content::part(background) {
   border-radius: 8px;
   width: 100%;
   padding: 12px;
-  color: var(--av-light-gray);
   font-size: 12px;
   line-height: 16px;
+}
+
+ion-item::part(native) {
+  padding-left: 0px;
 }
 </style>
