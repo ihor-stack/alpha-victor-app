@@ -101,7 +101,7 @@
 
         <div class="ctas">
           <ion-button
-            color="light"
+            color="dark"
             expand="block"
             @click="state.reportIssueModalOpen = true"
           >
