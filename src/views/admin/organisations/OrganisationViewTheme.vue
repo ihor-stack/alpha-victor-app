@@ -4,57 +4,69 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Logo</ion-label>
-          <CustomIonUploadInput :buttonText="'Select file'" :disabled="theme.logo ? true : false" :selectedImage="theme.logo" @file-selected="onLogoSelected" @remove="onLogoRemoved"/>
+          <ion-label>Logo</ion-label>
+          <CustomIonUploadInput
+            :buttonText="'Select file'"
+            :disabled="theme.logo ? true : false"
+            :selectedImage="theme.logo"
+            @file-selected="onLogoSelected"
+            @remove="onLogoRemoved"
+          />
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Background image</ion-label> 
-          <CustomIonUploadInput :buttonText="'Select file'" :disabled="theme.backgroundImage ? true : false" :selectedImage="theme.backgroundImage" @file-selected="onBackgroundSelected" @remove="onBackgroundRemoved"/>
+          <ion-label>Background image</ion-label>
+          <CustomIonUploadInput
+            :buttonText="'Select file'"
+            :disabled="theme.backgroundImage ? true : false"
+            :selectedImage="theme.backgroundImage"
+            @file-selected="onBackgroundSelected"
+            @remove="onBackgroundRemoved"
+          />
         </ion-col>
       </ion-row>
-
-      <hr class="form-admin--divider" /> 
+      <ion-row class="form-admin--group">
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <ion-label>Dark mode</ion-label>
+          <ion-item justify="space-between" lines="full">
+            <ion-label>Enable dark mode</ion-label>
+            <ion-toggle v-model="theme.darkmodeEnabled"></ion-toggle>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <hr class="form-admin--divider" />
 
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Primary colour</ion-label>
-            <ion-row>
+          <ion-label>Primary colour</ion-label>
+          <ion-row>
             <ion-col size-sm="12">
-              <ion-input
-                class="form-colorpick"
-                color="light"
-                v-model="theme.primaryColour"
-              >
-              <input
-                class="color-input"
-                type="color"
-                v-model="theme.primaryColour"
+              <ion-input class="form-colorpick" v-model="theme.primaryColour">
+                <input
+                  class="color-input"
+                  type="color"
+                  v-model="theme.primaryColour"
                 />
               </ion-input>
             </ion-col>
           </ion-row>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Secondary colour</ion-label>
+          <ion-label>Secondary colour</ion-label>
           <ion-row>
             <ion-col size-sm="12">
-              <ion-input
-                class="form-colorpick"
-                color="light"
-                v-model="theme.secondaryColour"
-              >
-              <input
-                class="color-input"
-                type="color"
-                v-model="theme.secondaryColour"
-              />
-            </ion-input>
+              <ion-input class="form-colorpick" v-model="theme.secondaryColour">
+                <input
+                  class="color-input"
+                  type="color"
+                  v-model="theme.secondaryColour"
+                />
+              </ion-input>
             </ion-col>
           </ion-row>
         </ion-col>
       </ion-row>
     </ion-grid>
- 
+
     <ion-button class="button-wide" @click="organisation.saveThemes()">
       Save changes
     </ion-button>
@@ -70,14 +82,15 @@ import {
   IonInput,
   IonLabel,
   IonToggle,
+  IonItem,
 } from "@ionic/vue";
 import { ref, onBeforeMount } from "vue";
 import { Theme } from "@/stores/adminThemes";
 import { storeToRefs } from "pinia";
 import CustomIonUploadInput from "@/components/shared/CustomIonUploadInput.vue";
 
-const organisation = Theme()
-const { theme } = storeToRefs(organisation)
+const organisation = Theme();
+const { theme } = storeToRefs(organisation);
 
 async function onFileSelected(file: File, isLogo: boolean) {
   const reader = new FileReader();
@@ -102,16 +115,16 @@ const onLogoSelected = (file: File) => onFileSelected(file, true);
 const onBackgroundSelected = (file: File) => onFileSelected(file, false);
 
 const onLogoRemoved = () => {
-  organisation.removeLogo()
+  organisation.removeLogo();
 };
 
 const onBackgroundRemoved = () => {
-  organisation.removeBackgroundImage()
+  organisation.removeBackgroundImage();
 };
 
 onBeforeMount(() => {
-  organisation.getThemes()
-})
+  organisation.getThemes();
+});
 </script>
 
 <style scoped>
@@ -122,5 +135,10 @@ onBeforeMount(() => {
   width: 30px;
   height: 30px;
   border-radius: 5px;
+}
+ion-item {
+  --background: transparent;
+  --border-width: 2px;
+  --border-radius: 5px;
 }
 </style>

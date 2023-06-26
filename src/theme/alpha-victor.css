@@ -30,19 +30,9 @@
   --ion-color-light: var(--av-light-gray);
   --ion-color-dark: var(--av-dark-gray);
   --ion-color-danger: var(--av-red);
-  --ion-background-color: #000000;
-
   --ion-padding: 32px;
 
   --ion-font-family: "Akkurat-Regular";
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    --ion-color-primary: var(--av-primary);
-    --ion-color-light: var(--av-light-gray);
-    --ion-color-light-contrast: #000000;
-  }
 }
 
 /* Fonts */
@@ -510,7 +500,7 @@ ion-button.button-red {
   right: 0;
   bottom: 0;
   top: 0;
-  background-image: url("@/theme/backgrounds/lines-no-logo.svg");
+  background-image: var(--theme-image);
   background-size: 100%;
   background-position: center;
 }

@@ -4,7 +4,6 @@
       <template #start>
         <ion-button
           fill="clear"
-          color="light"
           size="small"
           class="back"
           @click="() => router.back()"
@@ -84,7 +83,10 @@
         </div>
 
         <div class="space-options-menu-container">
-          <space-options-menu :currentSpace="currentSpace" :showDevices="devices.length ? true : false" />
+          <space-options-menu
+            :currentSpace="currentSpace"
+            :showDevices="devices.length ? true : false"
+          />
         </div>
       </div>
     </ion-content>
@@ -99,7 +101,7 @@
 
         <div class="ctas">
           <ion-button
-            color="light"
+            color="dark"
             expand="block"
             @click="state.reportIssueModalOpen = true"
           >
