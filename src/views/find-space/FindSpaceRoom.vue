@@ -48,15 +48,4 @@ onBeforeMount(() => {
 });
 </script>
 
-<style scoped>
-ion-content {
-  --background: #000000;
-}
-ion-list {
-  background: transparent;
-}
-
-ion-item {
-  --background: transparent;
-}
-</style>
+<style scoped></style>

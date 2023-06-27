@@ -299,7 +299,7 @@ ion-modal::part(handle) {
 
 .font-size-xxs {
   /* 10px */
-  font-size: var(--av-font-xxs);
+  font-size: var(--av-font-xxs) !important;
 }
 
 .font-size-xs {
