@@ -2,21 +2,16 @@
   <ion-page>
     <app-header :title="currentSpace.name">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
-      <div class="location">
-        <img src="@/theme/icons/location.svg" class="icon" />
-        <span class="font-mono font-size-xxs color-light-gray">{{
+      <ion-item lines="none">
+        <ion-icon :icon="locationOutline" size="small" slot="start" />
+        <ion-label class="font-mono font-size-xxs">{{
           currentSpace.floorName
-        }}</span>
-      </div>
+        }}</ion-label>
+      </ion-item>
     </app-header>
     <ion-content>
       <div id="pano"></div>
@@ -50,7 +45,16 @@
 
 <script setup lang="ts">
 import { onBeforeMount, reactive, watch } from "vue";
-import { IonContent, IonPage, IonButton, IonModal } from "@ionic/vue";
+import {
+  IonContent,
+  IonPage,
+  IonButton,
+  IonModal,
+  IonItem,
+  IonLabel,
+  IonIcon,
+} from "@ionic/vue";
+import { locationOutline } from "ionicons/icons";
 import "pannellum";
 import "pannellum/build/pannellum.css";
 import { storeToRefs } from "pinia";
@@ -175,5 +179,9 @@ ion-modal {
   width: 14px;
   height: 14px;
   margin-right: 4px;
+}
+
+ion-icon {
+  margin-right: 8px;
 }
 </style>

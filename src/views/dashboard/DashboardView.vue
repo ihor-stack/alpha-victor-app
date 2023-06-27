@@ -15,13 +15,7 @@
         </ion-button>
       </template>
       <template #end>
-        <ion-menu-button fill="clear">
-          <img
-            src="@/theme/icons/nav-menu.svg"
-            class="nav-menu"
-            alt="Nav Menu Button"
-          />
-        </ion-menu-button>
+        <ion-menu-button fill="clear"> </ion-menu-button>
       </template>
     </app-header>
     <ion-content :scroll-y="false">

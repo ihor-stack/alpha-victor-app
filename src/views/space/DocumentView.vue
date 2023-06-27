@@ -1,18 +1,13 @@
 <template>
   <ion-page>
-    <ion-content :scroll-y="false">
-      <app-header>
-        <template #start>
-          <ion-button
-            fill="clear"
-            color="light"
-            @click="() => router.back()"
-            class="back"
-          >
-            <span class="font-mono font-size-xs">&lt;&lt; back</span>
-          </ion-button>
-        </template>
-      </app-header>
+    <app-header>
+      <template #start>
+        <ion-button fill="clear" @click="() => router.back()" class="back">
+          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+        </ion-button>
+      </template>
+    </app-header>
+    <ion-content :scroll-y="false" :fullscreen="true">
       <PdfViewer
         :url="state.documentData.path"
         v-if="state.documentData.path"

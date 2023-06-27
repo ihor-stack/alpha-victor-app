@@ -2,63 +2,43 @@
   <ion-page id="favourites">
     <app-header title="Favourites">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
       <template #end>
-        <ion-menu-button fill="clear">
-          <img
-            src="@/theme/icons/nav-menu.svg"
-            class="nav-menu"
-            alt="Nav Menu Button"
-          />
-        </ion-menu-button>
+        <ion-menu-button fill="clear"> </ion-menu-button>
       </template>
     </app-header>
-    <ion-content>
-      <ul class="favourites-list">
-        <li v-for="favourite in spaces" :key="favourite.shortCode">
-          <router-link :to="`/space/${favourite.id}`" class="favourite">
-            <div class="favourite__image">
-              <img v-if="favourite.imagePath" :src="favourite.imagePath" />
-              <img v-else src="@/theme/img/space-the-henderson-square.png" />
-            </div>
-            <div class="favourite__info">
-              <div class="favourite__info__top">
-                <h6 class="category color-dark-gray">
-                  {{ favourite.roomType }}
-                </h6>
-              </div>
-              <div class="favourite__info__bottom">
-                <h5 class="name font-bold color-light-gray">
-                  {{ favourite.name }}
-                </h5>
-              </div>
-            </div>
-
-            <div class="favourite-cta">
-              <ion-button
-                fill="clear"
-                size="small"
-                class="favourite-button"
-                @click="setFavoriteSpace(favourite.id)"
-              >
-                <img
-                  src="@/theme/icons/favourited.svg"
-                  class="nav-menu"
-                  alt="Nav Menu Button"
-                />
-              </ion-button>
-            </div>
-          </router-link>
-        </li>
-      </ul>
+    <ion-content :fullscreen="true">
+      <ion-list :inset="true">
+        <ion-item
+          v-for="favourite in spaces"
+          :key="favourite.shortCode"
+          :href="`/space/${favourite.id}`"
+          lines="none"
+          :detail="false"
+        >
+          <ion-thumbnail slot="start">
+            <img v-if="favourite.imagePath" :src="favourite.imagePath" />
+            <img v-else src="@/theme/img/space-the-henderson-square.png" />
+          </ion-thumbnail>
+          <ion-label>
+            <p class="category">{{ favourite.roomType }}</p>
+            <h3 class="name font-bold">{{ favourite.name }}</h3>
+          </ion-label>
+          <ion-button
+            fill="solid"
+            size="small"
+            slot="end"
+            color="light"
+            shape="round"
+            @click="setFavoriteSpace(favourite.id)"
+          >
+            <ion-icon :icon="heart" />
+          </ion-button>
+        </ion-item>
+      </ion-list>
     </ion-content>
     <ion-footer class="ion-padding">
       <router-link to="/find-space/location">
@@ -76,7 +56,13 @@ import {
   IonButton,
   IonMenuButton,
   IonFooter,
+  IonList,
+  IonItem,
+  IonThumbnail,
+  IonLabel,
+  IonIcon,
 } from "@ionic/vue";
+import { heart } from "ionicons/icons";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { useRouter } from "vue-router";
@@ -99,46 +85,34 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-ion-content {
-  --background: #000000;
-}
 .favourites-list {
   list-style-type: none;
   margin: 0;
   padding: 20px 30px;
 }
-.favourite {
-  height: 80px;
-  width: 100%;
-  margin-bottom: 32px;
-  background: #181818;
-  border: 0.75px solid #313131;
+ion-item::part(native) {
+  border-style: solid;
+  border-width: 1px;
   border-radius: 4px;
-  display: flex;
-}
-.favourite__image {
-  width: 80px;
   height: 80px;
+  padding-left: 0;
+  gap: 12px;
+  margin-bottom: 20px;
 }
-.favourite__image img {
-  display: inline-block;
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
+ion-thumbnail {
+  width: 80px;
+  height: 100%;
+  margin: 0 !important;
 }
-.favourite__info {
-  flex: 1;
+ion-button::part(native) {
   padding: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
-.favourite__info .name {
+.name {
   font-size: 18px;
   margin-left: 10px;
 }
 
-.favourite__info .category {
+.category {
   font-size: 10px;
   margin-bottom: 4px;
 }

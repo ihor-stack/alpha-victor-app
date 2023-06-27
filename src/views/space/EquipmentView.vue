@@ -2,12 +2,7 @@
   <ion-page>
     <app-header title="Room Equipment">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
@@ -27,12 +22,12 @@
               <img :src="useEquipmentIcon(item.icon || '')" />
             </div>
             <ion-label>
-              <p class="label font-bold font-size-sm color-white">
+              <h3 class="label font-bold font-size-sm">
                 {{ item.name }}
-              </p>
+              </h3>
               <p
                 v-if="item.manufacturer"
-                class="manufacturer font-mono font-size-xxs color-dark-gray text-lowercase"
+                class="manufacturer font-mono font-size-xxs text-lowercase"
               >
                 {{ item.manufacturer }}
               </p>
@@ -135,17 +130,9 @@ onBeforeMount(() => {
 .space-equipment-container {
   padding: 0px 30px 20px;
 }
-ion-content {
-  --background: #000000;
+ion-item::part(detail-icon) {
+  opacity: 1;
 }
-ion-list {
-  background: transparent;
-}
-
-ion-item {
-  --background: transparent;
-}
-
 ion-modal {
   --max-height: 80vh;
 }

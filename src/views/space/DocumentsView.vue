@@ -2,17 +2,12 @@
   <ion-page>
     <app-header title="Documents">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
     </app-header>
-    <ion-content>
+    <ion-content :fullscreen="true">
       <documents-list :documents="documents" />
     </ion-content>
   </ion-page>
@@ -78,8 +73,4 @@ onBeforeMount(() => {
 });
 </script>
 
-<style scoped>
-ion-content {
-  --background: #000000;
-}
-</style>
+<style scoped></style>

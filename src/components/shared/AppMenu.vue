@@ -2,7 +2,11 @@
   <ion-menu content-id="content">
     <app-header class="no-background">
       <template #start>
-        <ion-button fill="clear" class="logout-button" @click="logout">
+        <ion-button
+          fill="clear"
+          class="logout-button color-light-gray"
+          @click="logout"
+        >
           <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
           <span class="font-mono font-size-xs logout-text">logout</span>
         </ion-button>
@@ -10,7 +14,11 @@
 
       <template #end>
         <ion-menu-toggle>
-          <ion-icon :icon="closeOutline" size="large"></ion-icon>
+          <ion-icon
+            class="color-light-gray"
+            :icon="closeOutline"
+            size="large"
+          ></ion-icon>
         </ion-menu-toggle>
       </template>
     </app-header>
@@ -22,9 +30,9 @@
               router-link="/dashboard"
               lines="none"
               router-direction="root"
+              :detail="true"
             >
               <span class="link-text">Dashboard</span>
-              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -34,9 +42,9 @@
               router-link="/favourites"
               lines="none"
               router-direction="root"
+              :detail="true"
             >
               <span class="link-text">Favourites</span>
-              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -46,9 +54,9 @@
               router-link="/find-space/location"
               lines="none"
               router-direction="root"
+              :detail="true"
             >
               <span class="link-text">Find a space</span>
-              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -58,9 +66,9 @@
               router-link="/recently-viewed"
               lines="none"
               router-direction="root"
+              :detail="true"
             >
               <span class="link-text">Recently viewed</span>
-              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -70,17 +78,21 @@
               router-link="/settings"
               lines="none"
               router-direction="root"
+              :detail="true"
             >
               <span class="link-text">Account settings</span>
-              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
         <li class="nav-menu-link">
           <ion-menu-toggle>
-            <ion-item router-link="/about" lines="none" router-direction="root">
+            <ion-item
+              router-link="/about"
+              lines="none"
+              router-direction="root"
+              :detail="true"
+            >
               <span class="link-text">About Alpha Victor</span>
-              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -90,9 +102,9 @@
               router-link="/terms-and-conditions"
               lines="none"
               router-direction="root"
+              :detail="true"
             >
               <span class="link-text">Terms &amp; conditions</span>
-              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -103,9 +115,9 @@
               router-link="/admin/organisations"
               lines="none"
               router-direction="root"
+              :detail="true"
             >
               <span class="link-text">Admin</span>
-              <ion-icon slot="end" :icon="chevronForwardOutline" />
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -184,6 +196,10 @@ ion-menu {
 
 ion-content {
   --background: none;
+}
+
+ion-item::part(detail-icon) {
+  opacity: 1;
 }
 
 .logout-button {

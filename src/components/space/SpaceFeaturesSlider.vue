@@ -2,23 +2,21 @@
   <div>
     <swiper :slidesPerView="'auto'" :spaceBetween="10" class="space-features">
       <swiper-slide v-for="feature in features" :key="feature.name">
-        <router-link :to="{}">
-          <div class="feature">
-            <div class="space-equipment-menu__item__icon">
-              <img :src="useEquipmentIcon(feature.icon || '')" />
-            </div>
-            <p class="font-size-xxs font-bold color-light-gray">
-              {{ feature.name }}
-            </p>
+        <ion-item :href="''" lines="none" :detail="false">
+          <div class="space-equipment-menu__item__icon">
+            <img :src="useEquipmentIcon(feature.icon || '')" />
           </div>
-        </router-link>
+          <ion-label class="font-size-xxs font-bold">
+            {{ feature.name }}
+          </ion-label>
+        </ion-item>
       </swiper-slide>
     </swiper>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { IonLabel, IonItem } from "@ionic/vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import { SpaceFeature } from "@/types";
@@ -47,16 +45,11 @@ defineProps<Props>();
   border-radius: 4px;
   position: relative;
   overflow: hidden;
-  background: #181818;
+  background: var(--ion-color-light);
   border: 0.75px solid #313131;
 }
 
-.feature {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 6px 12px;
+ion-item {
+  --min-height: 37px;
 }
 </style>

@@ -6,18 +6,24 @@
     :duration="props.duration || 3000"
     :position="props.position || 'top'"
     :icon="
-      props.status === 'success' ? checkmarkCircle :
-      props.status === 'problem' ? alertCircle :
-      props.status === 'error' ? closeCircle :
-      null"
-    :cssClass="
-      [
-        'customToast', 
-        props.status === 'success' ? 'customToastSuccess' :
-        props.status === 'problem' ? 'customToastProblem' :
-        props.status === 'error' ? 'customToastError' :
-        'customToastGeneric'
-      ]"
+      props.status === 'success'
+        ? checkmarkCircle
+        : props.status === 'problem'
+        ? alertCircle
+        : props.status === 'error'
+        ? closeCircle
+        : null
+    "
+    :cssClass="[
+      'customToast',
+      props.status === 'success'
+        ? 'customToastSuccess'
+        : props.status === 'problem'
+        ? 'customToastProblem'
+        : props.status === 'error'
+        ? 'customToastError'
+        : 'customToastGeneric',
+    ]"
   ></ion-toast>
 </template>
 
@@ -27,16 +33,15 @@ import { IonToast } from "@ionic/vue";
 import { alertCircle, checkmarkCircle, closeCircle } from "ionicons/icons";
 
 interface Props {
-  status: 'generic' | 'success' | 'problem' | 'error';
+  status: "generic" | "success" | "problem" | "error";
   header?: string;
   duration?: number;
   message: string;
-  position: string;
+  position?: string;
   isOpen: boolean;
 }
 
 const props = defineProps<Props>();
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

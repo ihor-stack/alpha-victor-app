@@ -30,9 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonImg } from "@ionic/vue";
 import { Space } from "@/types";
-import { defineProps } from "vue";
 import OccupiedStatus from "../shared/OccupiedStatus.vue";
 
 interface Props {

@@ -2,29 +2,19 @@
   <ion-page>
     <app-header title="Find a space">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
       <template #end>
-        <ion-menu-button fill="clear">
-          <img
-            src="@/theme/icons/nav-menu.svg"
-            class="nav-menu"
-            alt="Nav Menu Button"
-          />
-        </ion-menu-button>
+        <ion-menu-button fill="clear"> </ion-menu-button>
       </template>
     </app-header>
     <div class="search-container">
       <div class="space-search">
         <ion-input
           type="search"
+          fill="outline"
           placeholder="Search space or location"
           class="space-search-input font-bold font-size-sm"
           v-model="state.searchTerm"
@@ -123,9 +113,10 @@ onBeforeMount(() => {
   --padding-end: 18px;
   --padding-top: 18px;
   --padding-bottom: 18px;
-  border: 0;
   color: #000;
   background: #fff;
+  border: solid 1px;
+  border-radius: 8px;
 }
 
 .space-search-input::placeholder {

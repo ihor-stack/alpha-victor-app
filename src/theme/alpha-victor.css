@@ -125,8 +125,6 @@ ion-button {
   --padding-bottom: 18px;
   --padding-start: 24px;
   --padding-end: 24px;
-  --background: #181818;
-  --color: #f4f7ff;
   --placeholder-color: #9ca0a6;
   --placeholder-opacity: 0.8;
   border-radius: 8px;
@@ -148,13 +146,8 @@ ion-button {
   border: 1px solid #313131;
   border-radius: 8px;
   width: 100%;
-  color: var(--av-light-gray);
   font-size: 16px;
   line-height: 16px;
-}
-
-.custom-select::part(icon) {
-  content: url("@/theme/icons/arrow-down.svg");
 }
 
 .custom-textarea {
@@ -192,13 +185,17 @@ ion-toggle {
 }
 
 ion-modal {
-  --background: none;
-  --backdrop-opacity: 0.85;
+  --border-radius: 40px 40px 0px 0px !important;
+}
+
+ion-modal::part(content) {
+  --border-radius: 40px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
 ion-modal::part(handle) {
   top: 10px;
-  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .form-admin--group_field ion-item ion-label {
@@ -305,18 +302,18 @@ ion-modal::part(handle) {
 
 .font-size-xxs {
   /* 10px */
-  font-size: var(--av-font-xxs);
+  font-size: var(--av-font-xxs) !important;
 }
 
 .font-size-xs {
   /* 12px */
-  font-size: var(--av-font-xs);
+  font-size: var(--av-font-xs) !important;
   line-height: var(--av-font-reg);
 }
 
 .font-size-sm {
   /* 14px */
-  font-size: var(--av-font-sm);
+  font-size: var(--av-font-sm) !important;
   line-height: var(--av-font-sm);
 }
 
@@ -332,9 +329,12 @@ ion-modal::part(handle) {
   line-height: var(--av-font-reg);
 }
 
+.font-size-medium {
+  font-size: 18px !important;
+}
 .font-size-lg {
   /* 28px */
-  font-size: var(--av-font-lg);
+  font-size: var(--av-font-lg) !important;
 }
 
 .font-size-xl {
@@ -536,21 +536,15 @@ ion-button.button-red {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
 }
 
 .modal-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 32px 32px;
-}
-
-.modal-panel-container .form-admin--group {
-  background-color: #181818;
+  padding: 45px 30px 32px;
 }
 
 .modal-panel__header {
@@ -572,17 +566,19 @@ ion-button.button-red {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
 }
 
 .settings-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
   padding: 45px 32px 32px;
+}
+
+.settings-panel-container ion-item::part(native) {
+  padding-left: 0px;
 }
 
 .settings-panel__header {
@@ -635,12 +631,13 @@ ion-action-sheet .action-sheet-title {
 }
 
 ion-action-sheet .action-sheet-button {
-  /* color: #000000 !important; */
   font-size: 15.597px !important;
 }
-
+.action-sheet-button.sc-ion-action-sheet-ios {
+  color: var(--ion-color-dark) !important;
+}
 ion-action-sheet .action-sheet-cancel {
-  color: #ffffff !important;
+  font-weight: bold;
 }
 
 ion-action-sheet .action-sheet-cancel::after {
@@ -652,19 +649,11 @@ ion-action-sheet .action-sheet-selected::after {
 }
 
 ion-action-sheet .action-sheet-selected .action-sheet-button-inner {
-  color: #fff !important;
   font-size: 18px;
 }
 
 ion-select-option::part(text) {
-  color: #ffffff !important;
   background-color: #ffffff !important;
-}
-
-@media (any-hover: hover) {
-  ion-action-sheet .action-popover-button:hover {
-    color: #000000;
-  }
 }
 
 /* Toast Styling */
@@ -834,4 +823,11 @@ ion-toast.customToast::part(message) {
 .pnlm-hotspot {
   background-image: url("@/theme/icons/hotspot.svg") !important;
   background-position: center;
+}
+
+ion-item {
+  --background: transparent;
+}
+ion-list {
+  background: transparent !important;
 }
