@@ -2,26 +2,26 @@
   <ion-page>
     <div class="modal-panel">
       <div class="modal-panel-container">
-        <ion-header>
-          <div class="modal-panel__header">
-            <h1
-              class="modal-panel__title color-light-gray font-bold font-size-normal"
-            >
-              {{ state.issue.title }}
-            </h1>
-            <p class="modal-panel__section color-light-gray font-size-xs">
-              {{ state.issue.description }}
-            </p>
-          </div>
+        <ion-header class="ion-no-border">
+          <ion-item class="modal-panel__header" lines="none">
+            <ion-label>
+              <h2 class="font-bold font-size-medium">
+                {{ state.issue.title }}
+              </h2>
+              <p class="font-size-xs">
+                {{ state.issue.description }}
+              </p>
+            </ion-label>
+          </ion-item>
         </ion-header>
-        <ion-content>
+        <ion-content :scroll-y="false">
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label class="font-size-xs font-bold">
                 Add Comment
               </ion-label>
               <ion-textarea
-                class="modal-panel__add-comment__textarea"
+                class="font-size-xs"
                 placeholder="Enter a comment here"
                 v-model="state.comment"
               ></ion-textarea>
@@ -40,9 +40,7 @@
             class="modal-panel__section modal-panel__set-status"
             v-if="false"
           >
-            <h2
-              class="color-light-gray font-size-xs font-bold modal-panel__heading"
-            >
+            <h2 class="font-size-xs font-bold modal-panel__heading">
               Select Status
             </h2>
             <div class="modal-panel__status">
@@ -98,9 +96,7 @@
           </div>
 
           <div class="modal-panel__log">
-            <h3
-              class="modal-panel__log__heading font-mono color-light-gray font-size-xxs"
-            >
+            <h3 class="modal-panel__log__heading font-mono font-size-xxs">
               status
             </h3>
 
@@ -111,7 +107,7 @@
                 :key="index"
               >
                 <p
-                  class="modal-panel__log__list__item__text color-light-gray font-size-xs font-regular"
+                  class="modal-panel__log__list__item__text font-size-xs font-regular"
                 >
                   {{ log.comment }}
                 </p>
@@ -142,6 +138,8 @@ import {
   IonButton,
   IonRow,
   IonCol,
+  IonLabel,
+  IonItem,
 } from "@ionic/vue";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
@@ -170,6 +168,7 @@ const handleAddComment = () => {
       comment: state.comment,
     })
     .then(() => {
+      state.comment = "";
       getIssueDetails();
     })
     .catch((error) => {
@@ -217,10 +216,9 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-ion-content::part(background) {
-  background: #181818;
+ion-item::part(native) {
+  padding-left: 0px;
 }
-
 .modal-panel {
   height: 100%;
   border-radius: 40px 40px 0px 0px;
@@ -228,17 +226,14 @@ ion-content::part(background) {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
 }
 
 .modal-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 32px 32px;
 }
 
 .modal-panel__header {

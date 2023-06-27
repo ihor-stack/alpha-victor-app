@@ -1,7 +1,7 @@
 <template>
   <ion-header :class="['ion-no-border', noBackground ? 'no-background' : '']">
     <ion-toolbar>
-      <ion-buttons slot="start">
+      <ion-buttons slot="start" mode="md">
         <slot name="start"></slot>
       </ion-buttons>
 
@@ -11,21 +11,29 @@
         </router-link>
       </ion-title>
 
-      <ion-buttons slot="end">
+      <ion-buttons slot="end" mode="md">
         <slot name="end"></slot>
       </ion-buttons>
     </ion-toolbar>
     <div class="title" v-if="props.title">
-      <h1 class="title-admin font-bold font-size-lg color-light-gray">
-        {{ props.title }}
-      </h1>
+      <ion-item lines="none">
+        <h1 class="title-admin font-bold font-size-lg">
+          {{ props.title }}
+        </h1>
+      </ion-item>
       <slot></slot>
     </div>
   </ion-header>
 </template>
 
 <script setup lang="ts">
-import { IonHeader, IonToolbar, IonTitle, IonButtons } from "@ionic/vue";
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonItem,
+} from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
@@ -46,9 +54,6 @@ const props = defineProps({
 </script>
 
 <style scoped>
-ion-header {
-  background: #000000;
-}
 .title {
   display: flex;
   flex-direction: column;
@@ -58,6 +63,9 @@ ion-header {
 }
 .title .title-admin {
   margin-bottom: 8px;
+}
+.title ion-item {
+  --background: transparent;
 }
 
 ion-buttons {

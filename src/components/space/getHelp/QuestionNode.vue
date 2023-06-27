@@ -1,11 +1,7 @@
 <template>
   <div class="decision-wrapper">
     <div class="logo-wrapper">
-      <img
-        src="@/theme/img/logo/logo-without-name.svg"
-        class="logo"
-        alt="AlphaVictor logo"
-      />
+      <img :src="theme?.logo" class="logo" alt="AlphaVictor logo" />
     </div>
     <div class="answers-list-wrapper">
       <IonList class="answers-list" lines="none">
@@ -37,24 +33,20 @@
             :key="node.id"
             button
             :disabled="!isAvailable"
+            :detail="true"
             @click="selectAnswerHandler(node)"
           >
             <span>{{ node.text }}</span>
-            <ion-icon
-              slot="end"
-              :icon="chevronForwardOutline"
-              color="#000000"
-            />
           </IonItem>
         </template>
         <IonItem
           class="answer-item-wrapper"
           v-else
           button
+          :detail="true"
           @click="handleClickDestination"
         >
           <span>{{ nodeData.text }}</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="#000000" />
         </IonItem>
       </IonList>
       <span class="question-bubble">
@@ -78,8 +70,12 @@
 <script setup lang="ts">
 import { IonList, IonItem, IonListHeader, IonIcon } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
-
 import { IDecisionTreeNode, DecisionTreeNodeType } from "@/types/decisionTree";
+import { storeToRefs } from "pinia";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+
+const organisationStore = useOrganisationStore();
+const { theme } = storeToRefs(organisationStore);
 
 interface Props {
   nodeData: IDecisionTreeNode;
@@ -98,6 +94,9 @@ const handleClickDestination = () => {
 </script>
 
 <style scoped>
+ion-item::part(detail-icon) {
+  opacity: 1;
+}
 .logo-wrapper {
   background: #181818;
   border: 0.75px solid #313131;
@@ -122,7 +121,7 @@ const handleClickDestination = () => {
   max-width: 350px;
 }
 .answers-list {
-  background: #f7fbff;
+  background: #f7fbff !important;
   border-radius: 20px;
   padding: 15px 12px;
 }
@@ -136,7 +135,7 @@ const handleClickDestination = () => {
 }
 
 .answer-item-wrapper {
-  --background: #ffffff;
+  --background: #ffffff !important;
   --color: #000000;
   box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.06);
   border-radius: 8px;

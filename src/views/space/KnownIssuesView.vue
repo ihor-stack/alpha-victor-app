@@ -2,12 +2,7 @@
   <ion-page>
     <app-header title="Known Issues">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
@@ -24,7 +19,7 @@
         :status="state.toastData.toastStatus"
         :header="state.toastData.toastHeader"
         :message="state.toastData.toastMessage"
-        :is-open="true"
+        :is-open="state.toastData.toastOpen"
         :duration="state.toastData.toastDuration"
         v-on:did-dismiss="hideToast"
       />
@@ -175,10 +170,6 @@ onBeforeMount(() => {
 <style scoped>
 ion-modal {
   --max-height: 80vh;
-}
-
-ion-footer {
-  background: #000000;
 }
 
 .known-issues__container {

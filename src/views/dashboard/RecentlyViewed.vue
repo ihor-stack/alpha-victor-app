@@ -2,33 +2,23 @@
   <ion-page id="recently-viewed">
     <app-header title="Recently Viewed">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
       <template #end>
-        <ion-menu-button fill="clear">
-          <img
-            src="@/theme/icons/nav-menu.svg"
-            class="nav-menu"
-            alt="Nav Menu Button"
-          />
-        </ion-menu-button>
+        <ion-menu-button fill="clear"> </ion-menu-button>
       </template>
     </app-header>
     <ion-content>
-      <ion-list class="spaces-list">
+      <ion-list :inset="true">
         <ion-item
           v-for="space in recentlyViewedSpaces"
           :key="space.shortCode"
           class="space"
           button
           :href="`/space/${space.id}`"
+          :detail="false"
         >
           <space-card :space="space" />
         </ion-item>
@@ -64,14 +54,13 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-ion-content {
-  --background: #000000;
+ion-item::part(native) {
+  padding-left: 0px;
 }
-.spaces-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 20px 30px;
+ion-item {
+  --inner-padding-end: 0;
 }
+
 .space {
   position: relative;
   height: 200px;
@@ -146,13 +135,5 @@ ion-content {
 
 .space__info .capacity-icon {
   margin-right: 4px;
-}
-
-ion-list {
-  background: transparent;
-}
-
-ion-item {
-  --background: transparent;
 }
 </style>

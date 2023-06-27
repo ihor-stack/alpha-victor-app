@@ -1,7 +1,7 @@
 <template>
   <div class="answer-wrapper">
     <div>
-      <div class="answer-content">
+      <div class="answer-content color-light-gray">
         {{ nodeData.text }}
         <span class="answer-bubble">
           <svg

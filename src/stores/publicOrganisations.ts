@@ -16,6 +16,7 @@ export const Organisations = defineStore("PublicOrganisations", {
       currentOrganisationId: "" as string,
       searchNavigationTree: [] as Location[],
       theme: {
+        darkmodeEnabled: true,
         logo: require("@/theme/img/logo/logo-without-name.svg"),
       } as Theme,
     };

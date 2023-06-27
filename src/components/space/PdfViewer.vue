@@ -224,8 +224,4 @@ ion-input {
 .download-panel__controls__download__icon {
   margin-right: 24px;
 }
-
-.document-panel__pdf {
-  margin-bottom: 250px;
-}
 </style>

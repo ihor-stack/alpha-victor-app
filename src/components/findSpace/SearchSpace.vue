@@ -1,6 +1,6 @@
 <template>
   <div v-for="group in spacesGroup" :key="group.floor">
-    <ion-list class="spaces-list" lines="none">
+    <ion-list :inset="true" lines="none">
       <ion-list-header v-if="group.floor">
         <ion-label class="font-size-lg font-bold">{{ group.floor }}</ion-label>
       </ion-list-header>
@@ -9,6 +9,7 @@
         :key="space.id"
         class="space"
         button
+        :detail="false"
         :href="`/space/${space.id}`"
       >
         <space-card :space="space" />
@@ -18,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, computed } from "vue";
+import { computed } from "vue";
 import { IonList, IonItem, IonListHeader, IonLabel } from "@ionic/vue";
 import SpaceCard from "@/components/dashboard/SpaceCard.vue";
 
@@ -40,14 +41,10 @@ const spacesGroup = computed(() => {
 </script>
 
 <style scoped>
-ion-content {
-  --background: #000000;
+ion-item::part(native) {
+  padding-left: 0px;
 }
-ion-list {
-  background: transparent;
-}
-
 ion-item {
-  --background: transparent;
+  --inner-padding-end: 0;
 }
 </style>

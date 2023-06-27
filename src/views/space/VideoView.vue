@@ -2,12 +2,7 @@
   <ion-page>
     <app-header>
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
@@ -195,9 +190,6 @@ onBeforeMount(() => getVideo());
 </script>
 
 <style scoped>
-ion-content {
-  --background: #000000;
-}
 .video-content {
   display: flex;
   flex-direction: column;
@@ -206,11 +198,6 @@ ion-content {
 ion-list {
   padding-left: 30px;
   padding-right: 30px;
-  background: transparent;
-}
-
-ion-item {
-  --background: transparent;
 }
 
 ion-badge.chapter-duration-badge {

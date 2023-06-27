@@ -2,25 +2,21 @@
   <ion-page>
     <div class="settings-panel">
       <div class="settings-panel-container">
-        <ion-header>
-          <div class="settings-panel__header">
-            <h1
-              class="settings-panel__title color-light-gray font-bold font-size-normal"
-            >
-              Bluetooth
-            </h1>
-            <p class="settings-panel__comment color-light-gray font-size-xs">
-              We use bluetooth to ping beacons for a more accurate location.
-              Update your bluetooth settings below.
-            </p>
-          </div>
+        <ion-header class="ion-no-border">
+          <ion-item class="modal-panel__header" lines="none">
+            <ion-label>
+              <h2 class="font-size-medium font-bold">Bluetooth</h2>
+              <p class="font-size-xs">
+                We use bluetooth to ping beacons for a more accurate location.
+                Update your bluetooth settings below.
+              </p>
+            </ion-label>
+          </ion-item>
         </ion-header>
         <ion-content :scroll-y="false">
           <div class="setting">
             <div class="setting__label">
-              <p class="label font-size-xs font-bold color-light-gray">
-                Allow Bluetooth
-              </p>
+              <p class="label font-size-xs font-bold">Allow Bluetooth</p>
               <span class="sublabel font-mono font-size-xxs color-dark-gray">{{
                 useDotify("Ping Beacons")
               }}</span>
@@ -39,7 +35,14 @@
 <script setup lang="ts">
 import { Diagnostic } from "@awesome-cordova-plugins/diagnostic";
 import { useDotify } from "@/composables/utilities";
-import { IonPage, IonHeader, IonContent, IonToggle } from "@ionic/vue";
+import {
+  IonPage,
+  IonHeader,
+  IonContent,
+  IonToggle,
+  IonItem,
+  IonLabel,
+} from "@ionic/vue";
 import { reactive, onBeforeMount } from "vue";
 
 interface State {
@@ -70,8 +73,4 @@ onBeforeMount(() => {
 });
 </script>
 
-<style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
-</style>
+<style scoped></style>

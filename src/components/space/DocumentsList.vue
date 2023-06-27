@@ -6,7 +6,7 @@
       :key="documentTypeName"
     >
       <div class="documents-list__header">
-        <h4 class="font-mono color-light-gray font-size-xxs">
+        <h4 class="font-mono font-size-xxs">
           {{ documentTypeName }}
         </h4>
       </div>
@@ -22,7 +22,7 @@
                 <img src="@/theme/img/example-pdf.svg" />
               </div>
               <div>
-                <p class="color-light-gray font-bold font-size-xs">
+                <p class="font-bold font-size-xs">
                   {{ document.name }}
                 </p>
                 <span class="color-dark-gray font-mono font-size-xxs"
@@ -31,9 +31,7 @@
               </div>
             </div>
             <div class="documents-list__item__link">
-              <span class="color-light-gray font-mono font-size-xxs"
-                >&gt;&gt; view</span
-              >
+              <span class="font-mono font-size-xxs">&gt;&gt; view</span>
             </div>
           </router-link>
         </li>
@@ -114,5 +112,10 @@ const groupedDocuments = computed(() => {
 .documents-list__item__info {
   display: flex;
   align-items: center;
+  color: var(--color);
+}
+
+.documents-list__item__link {
+  color: var(--color);
 }
 </style>
