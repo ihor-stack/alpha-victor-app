@@ -53,5 +53,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!-- msauth.BUNDLE_ID -->
+				<string>msauth.com.alphavictorapp.app</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
