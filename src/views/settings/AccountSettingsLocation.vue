@@ -2,25 +2,21 @@
   <ion-page>
     <div class="settings-panel">
       <div class="settings-panel-container">
-        <ion-header>
-          <div class="settings-panel__header">
-            <h1
-              class="settings-panel__title color-light-gray font-bold font-size-normal"
-            >
-              Location
-            </h1>
-            <p class="settings-panel__comment color-light-gray font-size-xs">
-              We use your location to check spaces near you. Update your
-              location settings below.
-            </p>
-          </div>
+        <ion-header class="ion-no-border">
+          <ion-item class="modal-panel__header" lines="none">
+            <ion-label>
+              <h2 class="font-size-medium font-bold">Location</h2>
+              <p class="font-size-xs">
+                We use your location to check spaces near you. Update your
+                location settings below.
+              </p>
+            </ion-label>
+          </ion-item>
         </ion-header>
-        <ion-content :scroll-y="false">
+        <ion-content>
           <div class="setting">
             <div class="setting__label">
-              <p class="label font-size-xs font-bold color-light-gray">
-                Allow location
-              </p>
+              <p class="label font-size-xs font-bold">Allow location</p>
               <span class="sublabel font-mono font-size-xxs color-dark-gray">{{
                 useDotify("Accurate Location")
               }}</span>
@@ -39,7 +35,14 @@
 <script setup lang="ts">
 import { Diagnostic } from "@awesome-cordova-plugins/diagnostic";
 import { useDotify } from "@/composables/utilities";
-import { IonPage, IonHeader, IonContent, IonToggle } from "@ionic/vue";
+import {
+  IonPage,
+  IonHeader,
+  IonContent,
+  IonToggle,
+  IonLabel,
+  IonItem,
+} from "@ionic/vue";
 import { reactive, onBeforeMount } from "vue";
 
 interface State {
@@ -70,8 +73,4 @@ onBeforeMount(() => {
 });
 </script>
 
-<style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
-</style>
+<style scoped></style>

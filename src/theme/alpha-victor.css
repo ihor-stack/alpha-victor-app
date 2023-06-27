@@ -125,8 +125,6 @@ ion-button {
   --padding-bottom: 18px;
   --padding-start: 24px;
   --padding-end: 24px;
-  --background: #181818;
-  --color: #f4f7ff;
   --placeholder-color: #9ca0a6;
   --placeholder-opacity: 0.8;
   border-radius: 8px;
@@ -148,13 +146,8 @@ ion-button {
   border: 1px solid #313131;
   border-radius: 8px;
   width: 100%;
-  color: var(--av-light-gray);
   font-size: 16px;
   line-height: 16px;
-}
-
-.custom-select::part(icon) {
-  content: url("@/theme/icons/arrow-down.svg");
 }
 
 .custom-textarea {
@@ -304,13 +297,13 @@ ion-modal::part(handle) {
 
 .font-size-xs {
   /* 12px */
-  font-size: var(--av-font-xs);
+  font-size: var(--av-font-xs) !important;
   line-height: var(--av-font-reg);
 }
 
 .font-size-sm {
   /* 14px */
-  font-size: var(--av-font-sm);
+  font-size: var(--av-font-sm) !important;
   line-height: var(--av-font-sm);
 }
 
@@ -326,9 +319,12 @@ ion-modal::part(handle) {
   line-height: var(--av-font-reg);
 }
 
+.font-size-medium {
+  font-size: 18px !important;
+}
 .font-size-lg {
   /* 28px */
-  font-size: var(--av-font-lg);
+  font-size: var(--av-font-lg) !important;
 }
 
 .font-size-xl {
@@ -562,17 +558,19 @@ ion-modal {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
 }
 
 .settings-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
   padding: 45px 32px 32px;
+}
+
+.settings-panel-container ion-item::part(native) {
+  padding-left: 0px;
 }
 
 .settings-panel__header {
@@ -630,7 +628,7 @@ ion-action-sheet .action-sheet-button {
 }
 
 ion-action-sheet .action-sheet-cancel {
-  color: #ffffff !important;
+  font-weight: bold;
 }
 
 ion-action-sheet .action-sheet-cancel::after {

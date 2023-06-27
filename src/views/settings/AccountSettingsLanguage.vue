@@ -2,16 +2,20 @@
   <ion-page>
     <div class="settings-panel">
       <div class="settings-panel-container">
-        <ion-header>
-          <div class="settings-panel__header">
-            <h1 class="settings-panel__title color-light-gray font-bold font-size-normal">Language</h1>
-            <p class="settings-panel__comment color-light-gray font-size-xs">You can switch between languages via the drop down below.</p>
-          </div>
+        <ion-header class="ion-no-border">
+          <ion-item class="modal-panel__header" lines="none">
+            <ion-label>
+              <h2 class="font-size-medium font-bold">Language</h2>
+              <p class="font-size-xs">
+                You can switch between languages via the drop down below.
+              </p>
+            </ion-label>
+          </ion-item>
         </ion-header>
-        <ion-content :scroll-y="false">
-          <ion-select 
-            interface="action-sheet" 
-            placeholder="Select language" 
+        <ion-content>
+          <ion-select
+            interface="action-sheet"
+            placeholder="Select language"
             class="custom-select"
             v-model="state.language"
           >
@@ -21,7 +25,9 @@
           </ion-select>
         </ion-content>
         <ion-footer>
-          <ion-button expand="block" @click="confirm">Update language settings</ion-button>
+          <ion-button expand="block" @click="confirm"
+            >Update language settings</ion-button
+          >
         </ion-footer>
       </div>
     </div>
@@ -29,24 +35,26 @@
 </template>
 
 <script setup lang="ts">
-import { 
-  IonPage, 
-  IonHeader, 
-  IonFooter, 
-  IonContent, 
-  IonSelect, 
-  IonSelectOption, 
-  IonButton, 
-  modalController 
+import {
+  IonPage,
+  IonHeader,
+  IonFooter,
+  IonContent,
+  IonSelect,
+  IonSelectOption,
+  IonButton,
+  modalController,
+  IonItem,
+  IonLabel,
 } from "@ionic/vue";
 import { reactive } from "vue";
 
 interface State {
-  language: string
+  language: string;
 }
 
 const state: State = reactive({
-  language: "english"
+  language: "english",
 });
 
 function confirm() {
@@ -54,8 +62,4 @@ function confirm() {
 }
 </script>
 
-<style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
-</style>
+<style scoped></style>

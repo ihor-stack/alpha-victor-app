@@ -337,8 +337,4 @@ onBeforeMount(() => {
 .ctas ion-button:not(:last-of-type) {
   margin-right: 12px;
 }
-
-ion-item::part(detail-icon) {
-  opacity: 1;
-}
 </style>

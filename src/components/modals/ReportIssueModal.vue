@@ -2,20 +2,18 @@
   <ion-page>
     <div class="modal-panel">
       <div class="modal-panel-container">
-        <ion-header>
-          <div class="issues-panel__header">
-            <h1
-              class="modal-panel__title color-light-gray font-bold font-size-normal"
-            >
-              Report Issue
-            </h1>
-            <p class="issues-panel__comment color-light-gray font-size-xs">
-              Please provide details on the issue you're facing, and which
-              equipment
-            </p>
-          </div>
+        <ion-header class="ion-no-border">
+          <ion-item class="modal-panel__header" lines="none">
+            <ion-label>
+              <h2 class="font-size-medium font-bold">Report Issue</h2>
+              <p class="font-size-xs">
+                Please provide details on the issue you're facing, and which
+                equipment
+              </p>
+            </ion-label>
+          </ion-item>
         </ion-header>
-        <ion-content :scroll-y="false">
+        <ion-content>
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label class="font-bold font-size-xs">
@@ -23,7 +21,6 @@
               </ion-label>
               <ion-select
                 interface="action-sheet"
-                class="issues-panel__select-equipment__select"
                 placeholder="Select equipment"
                 v-model="state.deviceId"
                 @ion-change="checkForInputs"
@@ -40,11 +37,8 @@
           </ion-row>
           <ion-row>
             <ion-col size="12" class="form-admin--group_field">
-              <ion-label class="font-bold font-size-xs" color="light"
-                >Add title</ion-label
-              >
+              <ion-label class="font-bold font-size-xs">Add title</ion-label>
               <ion-input
-                color="light"
                 class="font-size-xs"
                 placeholder="Enter title of issue"
                 v-model="state.title"
@@ -94,6 +88,7 @@ import {
   IonInput,
   IonRow,
   IonCol,
+  IonItem,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
@@ -141,10 +136,9 @@ const handleSubmitIssue = () => {
 </script>
 
 <style scoped>
-ion-content::part(background) {
-  background: #181818;
+ion-item::part(native) {
+  padding-left: 0px;
 }
-
 .modal-panel {
   height: 100%;
   border-radius: 40px 40px 0px 0px;

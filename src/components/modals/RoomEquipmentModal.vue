@@ -1,63 +1,59 @@
 <template>
-  <div class="equipment-panel">
-    <div class="equipment-panel-container">
+  <div class="modal-panel">
+    <div class="modal-panel-container">
       <div class="equipment-panel__icon" v-if="deviceDetails.category">
         <img :src="useEquipmentIcon(deviceDetails.category)" />
       </div>
-      <ion-header>
-        <div class="equipment-panel__header">
-          <ion-label class="equipment-name font-bold">
-            {{ deviceDetails.name }}
+      <ion-header class="ion-no-border">
+        <ion-item class="modal-panel__header" lines="none">
+          <ion-label>
+            <h2 class="font-bold font-size-lg">
+              {{ deviceDetails.name }}
+            </h2>
+            <p class="font-size-xxs font-mono">device.information</p>
           </ion-label>
-          <p class="font-size-xxs color-dark-gray font-mono device-information">
-            device.information
-          </p>
-        </div>
+        </ion-item>
       </ion-header>
-      <div>
-        <div class="equipment-panel__info-section">
-          <h4 class="equipment-panel__info-section__heading">Technical</h4>
-          <ul class="equipment-panel__info-section__list">
-            <li
-              v-for="(item, key) in technicalItems"
-              :key="key"
-              class="equipment-panel__info-section__list__item"
-            >
-              <span class="key">{{ item.label }}</span
-              ><span class="value">{{ item.value }}</span>
-            </li>
-          </ul>
-        </div>
-        <div class="equipment-panel__info-section">
-          <h4 class="equipment-panel__info-section__heading">Installation</h4>
-          <ul class="equipment-panel__info-section__list">
-            <li
-              v-for="(item, key) in installations"
-              :key="key"
-              class="equipment-panel__info-section__list__item"
-            >
-              <span class="key">{{ item.label }}</span
-              ><span class="value">{{ item.value }}</span>
-            </li>
-          </ul>
-        </div>
-        <ul class="list-options-menu">
-          <li class="list-options-menu-item">
-            <ion-item
-              :href="`/equipment/${spaceId}/documents/${deviceDetails.id}`"
-              @click="handleDismiss"
-              button
-            >
-              <span class="link-text">Documents</span>
-              <ion-icon
-                slot="end"
-                :icon="chevronForwardOutline"
-                color="light"
-              />
-            </ion-item>
-          </li>
-        </ul>
-      </div>
+      <ion-content>
+        <ion-list>
+          <ion-list-header class="ion-no-padding font-bold">
+            <ion-label>Technical</ion-label>
+          </ion-list-header>
+          <ion-item
+            v-for="(item, key) in technicalItems"
+            :key="key"
+            class="font-size-xs"
+          >
+            <ion-label>{{ item.label }}</ion-label>
+            <span class="value">{{ item.value }}</span>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-list-header class="ion-no-padding font-bold">
+            <ion-label>Installation</ion-label>
+          </ion-list-header>
+          <ion-item
+            v-for="(item, key) in installations"
+            :key="key"
+            class="font-size-xs"
+          >
+            <ion-label>{{ item.label }}</ion-label>
+            <span class="value">{{ item.value }}</span>
+          </ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item
+            :href="`/equipment/${spaceId}/documents/${deviceDetails.id}`"
+            @click="handleDismiss"
+            button
+            :detail="true"
+          >
+            <ion-label>
+              <h3 class="font-bold font-size-xs">Documents</h3>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
       <ion-footer>
         <div class="equipment-panel__footer">
           <ion-button
@@ -79,8 +75,16 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { IonHeader, IonFooter, IonButton, IonItem, IonLabel } from "@ionic/vue";
-import { chevronForwardOutline } from "ionicons/icons";
+import {
+  IonContent,
+  IonHeader,
+  IonFooter,
+  IonButton,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+} from "@ionic/vue";
 import { useEquipmentIcon } from "@/composables/utilities";
 
 const props = defineProps([
@@ -144,24 +148,15 @@ const installations = computed(() => {
 </script>
 
 <style scoped>
-.equipment-panel {
-  height: 100%;
-  border-radius: 40px 40px 0px 0px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  color: var(--color);
+ion-item::part(native) {
+  padding-left: 0px;
+}
+ion-item::part(detail-icon) {
+  opacity: 1;
 }
 
-.equipment-panel-container {
-  position: relative;
+.modal-panel {
   height: 100%;
-  border-radius: 40px 40px 0px 0px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 32px;
 }
 
 .equipment-panel__icon {
@@ -286,13 +281,5 @@ ion-button {
   font-weight: 700;
   font-size: 11px;
   line-height: 11px;
-}
-
-ion-list {
-  background: transparent;
-}
-
-ion-item {
-  --background: transparent;
 }
 </style>

@@ -1,32 +1,35 @@
 <template>
   <div class="password-input-container">
-    <ion-input 
+    <ion-input
       :type="state.showPassword ? 'text' : 'password'"
       class="password-input"
-      :placeholder="props.placeholder" 
+      :placeholder="props.placeholder"
       :name="props.name"
       :value="modelValue"
       @ion-change="$emit('update:modelValue', $event.target.value)"
     />
-    <ion-icon :icon="!state.showPassword ? eyeOutline : eyeOffOutline" @click="handleShowPassword" />
+    <ion-icon
+      :icon="!state.showPassword ? eyeOutline : eyeOffOutline"
+      @click="handleShowPassword"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { IonInput, IonIcon } from "@ionic/vue";
 import { eyeOutline, eyeOffOutline } from "ionicons/icons";
-import { defineProps, reactive, defineEmits } from "vue";
+import { reactive } from "vue";
 
-defineEmits(['update:modelValue']);
+defineEmits(["update:modelValue"]);
 
 interface Props {
-  modelValue: string
-  placeholder: string
-  name: string,
+  modelValue: string;
+  placeholder: string;
+  name: string;
 }
 
 interface State {
-  showPassword: boolean
+  showPassword: boolean;
 }
 
 const props = defineProps<Props>();
@@ -37,7 +40,7 @@ const state: State = reactive({
 
 const handleShowPassword = () => {
   state.showPassword = !state.showPassword;
-}
+};
 </script>
 
 <style scoped>
@@ -52,7 +55,6 @@ const handleShowPassword = () => {
 }
 
 .password-input {
-  --color: #f4f7ff;
   --placeholder-color: #9ca0a6;
   --placeholder-opacity: 0.8;
   --padding-start: 24px;
@@ -63,7 +65,6 @@ const handleShowPassword = () => {
 }
 
 ion-icon {
-  color: var(--av-light-gray);
   font-size: 20px;
 }
 </style>
