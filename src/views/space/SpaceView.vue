@@ -5,7 +5,7 @@
         <ion-button
           fill="clear"
           size="small"
-          class="back"
+          class="back color-light-gray"
           @click="() => router.back()"
         >
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
@@ -15,8 +15,7 @@
         <ion-button
           fill="clear"
           size="small"
-          class="favourite"
-          color="dark"
+          class="favourite color-light-gray"
           @click="setFavoriteSpace"
         >
           <ion-icon

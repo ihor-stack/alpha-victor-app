@@ -184,6 +184,16 @@ ion-toggle {
   --background: rgba(171, 187, 194, 0.26);
 }
 
+ion-modal {
+  --border-radius: 40px 40px 0px 0px !important;
+}
+
+ion-modal::part(content) {
+  --border-radius: 40px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
 ion-modal::part(handle) {
   top: 10px;
 }
@@ -518,9 +528,7 @@ ion-button.button-red {
 }
 
 /* Settings modal styles */
-ion-modal {
-  --border-radius: 40px 40px 0px 0px;
-}
+
 .modal-panel {
   height: 70%;
   border-radius: 40px 40px 40px 40px;
@@ -536,7 +544,7 @@ ion-modal {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 32px 32px;
+  padding: 45px 30px 32px;
 }
 
 .modal-panel__header {
@@ -623,10 +631,11 @@ ion-action-sheet .action-sheet-title {
 }
 
 ion-action-sheet .action-sheet-button {
-  /* color: #000000 !important; */
   font-size: 15.597px !important;
 }
-
+.action-sheet-button.sc-ion-action-sheet-ios {
+  color: var(--ion-color-dark) !important;
+}
 ion-action-sheet .action-sheet-cancel {
   font-weight: bold;
 }

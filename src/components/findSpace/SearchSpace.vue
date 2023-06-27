@@ -1,6 +1,6 @@
 <template>
   <div v-for="group in spacesGroup" :key="group.floor">
-    <ion-list class="spaces-list" :inset="true" lines="none">
+    <ion-list :inset="true" lines="none">
       <ion-list-header v-if="group.floor">
         <ion-label class="font-size-lg font-bold">{{ group.floor }}</ion-label>
       </ion-list-header>
@@ -9,6 +9,7 @@
         :key="space.id"
         class="space"
         button
+        :detail="false"
         :href="`/space/${space.id}`"
       >
         <space-card :space="space" />
@@ -39,4 +40,11 @@ const spacesGroup = computed(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+ion-item::part(native) {
+  padding-left: 0px;
+}
+ion-item {
+  --inner-padding-end: 0;
+}
+</style>

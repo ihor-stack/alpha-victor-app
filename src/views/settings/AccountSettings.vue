@@ -13,7 +13,7 @@
     </app-header>
 
     <ion-content>
-      <ion-list lines="inset">
+      <ion-list lines="full" :inset="true">
         <ion-item
           :detail="true"
           button

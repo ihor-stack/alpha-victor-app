@@ -10,14 +10,15 @@
         <ion-menu-button fill="clear"> </ion-menu-button>
       </template>
     </app-header>
-    <ion-content :fullscreen="true">
-      <ion-list class="spaces-list" :inset="true">
+    <ion-content>
+      <ion-list :inset="true">
         <ion-item
           v-for="space in recentlyViewedSpaces"
           :key="space.shortCode"
           class="space"
           button
           :href="`/space/${space.id}`"
+          :detail="false"
         >
           <space-card :space="space" />
         </ion-item>
@@ -53,10 +54,11 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-.spaces-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 20px 30px;
+ion-item::part(native) {
+  padding-left: 0px;
+}
+ion-item {
+  --inner-padding-end: 0;
 }
 
 .space {
@@ -133,13 +135,5 @@ onBeforeMount(() => {
 
 .space__info .capacity-icon {
   margin-right: 4px;
-}
-
-ion-list {
-  background: transparent;
-}
-
-ion-item {
-  --background: transparent;
 }
 </style>

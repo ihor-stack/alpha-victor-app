@@ -13,7 +13,7 @@
             </ion-label>
           </ion-item>
         </ion-header>
-        <ion-content>
+        <ion-content :scroll-y="false">
           <div class="setting">
             <div class="setting__label">
               <p class="label font-size-xs font-bold">Allow Bluetooth</p>
