@@ -27,7 +27,7 @@
             </ion-label>
           </ion-item>
         </ion-header>
-        <ion-content></ion-content>
+        <ion-content :scroll-y="false"></ion-content>
         <ion-footer>
           <ion-button
             v-if="state.accountDeleted"

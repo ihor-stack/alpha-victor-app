@@ -16,7 +16,7 @@
             </ion-label>
           </ion-item>
         </ion-header>
-        <ion-content>
+        <ion-content :scroll-y="false">
           <ion-input
             class="font-size-sm custom-input"
             placeholder="Name"

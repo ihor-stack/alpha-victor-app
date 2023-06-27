@@ -14,7 +14,7 @@
             </ion-label>
           </ion-item>
         </ion-header>
-        <ion-content>
+        <ion-content :scroll-y="false">
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label class="font-size-xs font-bold">
@@ -234,7 +234,6 @@ ion-item::part(native) {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 32px 32px;
 }
 
 .modal-panel__header {

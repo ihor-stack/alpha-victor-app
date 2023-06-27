@@ -1,7 +1,7 @@
 <template>
   <ion-header :class="['ion-no-border', noBackground ? 'no-background' : '']">
     <ion-toolbar>
-      <ion-buttons slot="start">
+      <ion-buttons slot="start" mode="md">
         <slot name="start"></slot>
       </ion-buttons>
 
@@ -11,7 +11,7 @@
         </router-link>
       </ion-title>
 
-      <ion-buttons slot="end">
+      <ion-buttons slot="end" mode="md">
         <slot name="end"></slot>
       </ion-buttons>
     </ion-toolbar>

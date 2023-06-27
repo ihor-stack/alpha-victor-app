@@ -12,7 +12,7 @@
             </ion-label>
           </ion-item>
         </ion-header>
-        <ion-content>
+        <ion-content :scroll-y="false">
           <ion-select
             interface="action-sheet"
             placeholder="Select language"

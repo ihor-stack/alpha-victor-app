@@ -14,7 +14,7 @@
           </ion-label>
         </ion-item>
       </ion-header>
-      <ion-content>
+      <ion-content :scroll-y="false">
         <ion-list>
           <ion-list-header class="ion-no-padding font-bold">
             <ion-label>Technical</ion-label>

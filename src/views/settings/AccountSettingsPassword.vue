@@ -12,7 +12,7 @@
             </ion-label>
           </ion-item>
         </ion-header>
-        <ion-content>
+        <ion-content :scroll-y="false">
           <password-input
             name="current-password"
             placeholder="Current Password"
