@@ -16,6 +16,7 @@
           fill="clear"
           size="small"
           class="favourite"
+          color="dark"
           @click="setFavoriteSpace"
         >
           <ion-icon
@@ -335,5 +336,9 @@ onBeforeMount(() => {
 
 .ctas ion-button:not(:last-of-type) {
   margin-right: 12px;
+}
+
+ion-item::part(detail-icon) {
+  opacity: 1;
 }
 </style>

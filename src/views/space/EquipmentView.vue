@@ -22,12 +22,12 @@
               <img :src="useEquipmentIcon(item.icon || '')" />
             </div>
             <ion-label>
-              <p class="label font-bold font-size-sm">
+              <h3 class="label font-bold font-size-sm">
                 {{ item.name }}
-              </p>
+              </h3>
               <p
                 v-if="item.manufacturer"
-                class="manufacturer font-mono font-size-xxs color-dark-gray text-lowercase"
+                class="manufacturer font-mono font-size-xxs text-lowercase"
               >
                 {{ item.manufacturer }}
               </p>
@@ -130,14 +130,9 @@ onBeforeMount(() => {
 .space-equipment-container {
   padding: 0px 30px 20px;
 }
-ion-list {
-  background: transparent;
+ion-item::part(detail-icon) {
+  opacity: 1;
 }
-
-ion-item {
-  --background: transparent;
-}
-
 ion-modal {
   --max-height: 80vh;
 }

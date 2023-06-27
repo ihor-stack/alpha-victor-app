@@ -122,7 +122,7 @@ const handleClickDestination = () => {
   max-width: 350px;
 }
 .answers-list {
-  background: #f7fbff;
+  background: #f7fbff !important;
   border-radius: 20px;
   padding: 15px 12px;
 }
@@ -136,7 +136,7 @@ const handleClickDestination = () => {
 }
 
 .answer-item-wrapper {
-  --background: #ffffff;
+  --background: #ffffff !important;
   --color: #000000;
   box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.06);
   border-radius: 8px;

@@ -2,12 +2,7 @@
   <ion-page>
     <app-header title="Article">
       <template #start>
-        <ion-button
-          fill="clear"
-          color="light"
-          @click="() => router.back()"
-          class="back"
-        >
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
@@ -81,17 +76,8 @@ onBeforeMount(() => getArticle());
 </script>
 
 <style scoped>
-ion-content {
-  --background: #000000;
-}
-
 ion-list {
-  background: transparent;
   padding: 0 16px;
-}
-
-ion-item {
-  --background: transparent;
 }
 
 ion-list-header {

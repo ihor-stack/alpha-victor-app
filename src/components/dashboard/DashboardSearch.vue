@@ -25,7 +25,7 @@ import { useRouter } from "vue-router";
 import { publicAPI } from "@/axios";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
-import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
 
 const router = useRouter();
 
@@ -41,7 +41,6 @@ const searchByQrCode = async () => {
 
   // if the result has content
   if (result.hasContent) {
-
     console.log(result.content); // log the raw scanned content
 
     loadingService.show("Loading...");
@@ -59,12 +58,10 @@ const searchByQrCode = async () => {
       .finally(() => {
         loadingService.close();
       });
-
   }
 };
 
 const searchByShortcode = () => {
-
   if (state.shortcode?.length < 1) return;
 
   loadingService.show("Loading...");
@@ -89,6 +86,7 @@ const searchByShortcode = () => {
 .container {
   background: #fff;
   border-radius: 8px;
+  border: 1px solid;
   display: flex;
   justify-content: space-between;
   overflow: hidden;
