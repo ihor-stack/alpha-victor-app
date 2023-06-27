@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div class="wifi-network">
-      <p class="label font-mono color-light-gray text-spaced">wifi.network</p>
-      <p class="font-size-xs color-light-gray font-bold">{{ wifiNetwork }}</p>
+      <p class="label font-mono text-spaced">wifi.network</p>
+      <p class="font-size-xs font-bold">{{ wifiNetwork }}</p>
     </div>
     <div class="wifi-password">
-      <p class="label font-mono color-light-gray text-spaced">wifi.password</p>
-      <p class="font-size-xs color-light-gray font-bold">{{ wifiPassword }}</p>
+      <p class="label font-mono text-spaced">wifi.password</p>
+      <p class="font-size-xs font-bold">{{ wifiPassword }}</p>
     </div>
     <div class="wifi-connect" v-if="showConnectButton">
       <ion-button
@@ -47,7 +47,8 @@ const doWifiConnect = async () => {
 .container {
   display: flex;
   justify-content: space-between;
-  background: #181818;
+  background: var(--ion-color-light);
+
   border: 0.75px solid #313131;
   border-radius: 4px;
   padding: 12px 0;
