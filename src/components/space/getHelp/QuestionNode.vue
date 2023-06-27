@@ -33,24 +33,20 @@
             :key="node.id"
             button
             :disabled="!isAvailable"
+            :detail="true"
             @click="selectAnswerHandler(node)"
           >
             <span>{{ node.text }}</span>
-            <ion-icon
-              slot="end"
-              :icon="chevronForwardOutline"
-              color="#000000"
-            />
           </IonItem>
         </template>
         <IonItem
           class="answer-item-wrapper"
           v-else
           button
+          :detail="true"
           @click="handleClickDestination"
         >
           <span>{{ nodeData.text }}</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="#000000" />
         </IonItem>
       </IonList>
       <span class="question-bubble">
@@ -98,6 +94,9 @@ const handleClickDestination = () => {
 </script>
 
 <style scoped>
+ion-item::part(detail-icon) {
+  opacity: 1;
+}
 .logo-wrapper {
   background: #181818;
   border: 0.75px solid #313131;
