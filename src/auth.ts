@@ -32,11 +32,11 @@ export default class Auth {
           windowOptions: "height=600,left=0,top=0",
       },
       android: {
-          redirectUrl: "msauth://{package-name}/{url-encoded-signature-hash}"
+        redirectUrl: "msauth://com.alphavictorapp.app/lvGC0B4SWYU8tNPHg%2FbdMjQinZQ%3D"
       },
       ios: {
           pkceEnabled: true,
-          redirectUrl: "msauth.{package-name}://auth"
+          redirectUrl: "msauth.com.alphavictorapp.app://auth"
       },
       additionalParameters: {}
     };
