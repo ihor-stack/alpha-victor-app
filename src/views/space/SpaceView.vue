@@ -92,12 +92,18 @@
     </ion-content>
     <ion-footer>
       <div class="space-cta-container">
-        <div class="announcement" v-if="currentSpace.announcementTitle">
-          <h4 class="color-light-gray">{{ currentSpace.announcementTitle }}</h4>
-          <p class="color-light-gray">
-            {{ currentSpace.announcementText }}
-          </p>
-        </div>
+        <ion-item
+          class="announcement"
+          lines="none"
+          v-if="currentSpace.announcementTitle"
+        >
+          <ion-label>
+            <h4>{{ currentSpace.announcementTitle }}</h4>
+            <p>
+              {{ currentSpace.announcementText }}
+            </p>
+          </ion-label>
+        </ion-item>
 
         <div class="ctas">
           <ion-button
@@ -304,11 +310,10 @@ onBeforeMount(() => {
 }
 
 .announcement {
-  background: #181818;
+  background: var(--ion-color-light);
   border: 0.75px solid #313131;
   border-radius: 4px;
-  color: #ffffff;
-  padding: 14px 12px;
+  padding: 4px 12px;
   margin-bottom: 12px;
 }
 
