@@ -15,10 +15,30 @@
                 </h1>
               </div>
               <div class="form-container">
-                <ion-input class="custom-input" type="text" placeholder="Full name" name="full-name" />
-                <ion-input class="custom-input" type="email" placeholder="Email" name="email" />
-                <ion-input class="custom-input" type="password" placeholder="Password" name="password" />
-                <ion-input class="custom-input" type="password" placeholder="Confirm Password" name="confirm-password" />
+                <ion-input
+                  class="custom-input"
+                  type="text"
+                  placeholder="Full name"
+                  name="full-name"
+                />
+                <ion-input
+                  class="custom-input"
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                />
+                <ion-input
+                  class="custom-input"
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                />
+                <ion-input
+                  class="custom-input"
+                  type="password"
+                  placeholder="Confirm Password"
+                  name="confirm-password"
+                />
               </div>
               <ion-footer>
                 <ion-button expand="block">Sign up</ion-button>
@@ -26,7 +46,11 @@
                 <div class="link-container text-center">
                   <p class="color-mid-gray font-md">
                     Already signed up?
-                    <router-link :to="{ name: 'AllowAccess' }" class="color-light-gray link">Allow Access</router-link>
+                    <router-link
+                      :to="{ name: 'AllowAccess' }"
+                      class="color-light-gray link"
+                      >Allow Access</router-link
+                    >
                   </p>
                 </div>
               </ion-footer>
@@ -39,7 +63,13 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonFooter, IonPage, IonButton, IonInput } from "@ionic/vue";
+import {
+  IonContent,
+  IonFooter,
+  IonPage,
+  IonButton,
+  IonInput,
+} from "@ionic/vue";
 import DotText from "@/components/shared/DotText.vue";
 </script>
 

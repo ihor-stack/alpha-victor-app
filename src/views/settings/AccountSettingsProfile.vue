@@ -2,44 +2,35 @@
   <ion-page>
     <div class="settings-panel">
       <div class="settings-panel-container">
-        <ion-header>
-          <div class="settings-panel__header">
-            <div class="profile-info">
-              <div class="profile-details">
-                <h2 class="name font-bold font-size-sm color-light-gray">
-                  {{
-                    accountDetails.name ? accountDetails.name : "No name set"
-                  }}
-                </h2>
-                <p
-                  class="email font-mono font-size-xxs color-dark-gray text-lowercase"
-                >
-                  {{
-                    accountDetails.email ? accountDetails.email : "No email set"
-                  }}
-                </p>
-              </div>
-            </div>
-          </div>
+        <ion-header class="ion-no-border">
+          <ion-item class="modal-panel__header" lines="none">
+            <ion-label>
+              <h2 class="font-size-medium font-bold">
+                {{ accountDetails.name ? accountDetails.name : "No name set" }}
+              </h2>
+              <p class="font-size-xs">
+                {{
+                  accountDetails.email ? accountDetails.email : "No email set"
+                }}
+              </p>
+            </ion-label>
+          </ion-item>
         </ion-header>
-        <ion-content :scroll-y="false">
+        <ion-content>
           <ion-input
             class="font-size-sm custom-input"
-            color="light"
             placeholder="Name"
             :value="accountDetails.name"
             @ion-input="accountDetails.name = String($event.target.value)"
           ></ion-input>
           <ion-input
             class="font-size-sm custom-input"
-            color="light"
             placeholder="Email"
             :value="accountDetails.email"
             @ion-input="accountDetails.email = String($event.target.value)"
           ></ion-input>
           <ion-input
             class="font-size-sm custom-input"
-            color="light"
             placeholder="Phone"
             :value="accountDetails.phone"
             @ion-input="accountDetails.phone = String($event.target.value)"
@@ -104,6 +95,8 @@ import {
   IonDatetime,
   IonDatetimeButton,
   IonModal,
+  IonItem,
+  IonLabel,
 } from "@ionic/vue";
 import { onBeforeMount } from "vue";
 import { Account } from "@/stores/publicAccount";
@@ -124,10 +117,6 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
-
 .settings-panel {
   height: 100%;
   border-radius: 40px 40px 0px 0px;
@@ -135,13 +124,11 @@ ion-content::part(background) {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
 }
 
 .settings-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
