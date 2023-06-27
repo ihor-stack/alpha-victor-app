@@ -17,6 +17,7 @@
           :key="favourite.shortCode"
           :href="`/space/${favourite.id}`"
           lines="none"
+          :detail="false"
         >
           <ion-thumbnail slot="start">
             <img v-if="favourite.imagePath" :src="favourite.imagePath" />
