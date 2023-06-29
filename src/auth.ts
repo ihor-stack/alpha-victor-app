@@ -3,7 +3,6 @@ import {
   OAuth2AuthenticateOptions,
   OAuth2RefreshTokenOptions,
 } from "@byteowls/capacitor-oauth2";
-import { SecureStoragePlugin } from "capacitor-secure-storage-plugin";
 
 // Secure Storage Constants.
 const SECURE_STORE_ACCESS_TOKEN = "SECURE_STORE_ACCESS_TOKEN";
@@ -70,48 +69,24 @@ export default class Auth {
   // Methods
 
   async isTokenFresh(secondsMargin: number = 60 * 10 * -1): Promise<boolean> {
-    try {
-      const accessToken = await SecureStoragePlugin.get({
-        key: SECURE_STORE_ACCESS_TOKEN,
-      });
-      const expiresIn = await SecureStoragePlugin.get({
-        key: SECURE_STORE_EXPIRES_IN,
-      });
-      const issuedAt = await SecureStoragePlugin.get({
-        key: SECURE_STORE_ISSUED_AT,
-      });
+    const accessToken = localStorage.getItem(SECURE_STORE_ACCESS_TOKEN);
+    const expiresIn = localStorage.getItem(SECURE_STORE_EXPIRES_IN);
+    const issuedAt = localStorage.getItem(SECURE_STORE_ISSUED_AT);
 
-      if (!accessToken || !expiresIn || !issuedAt) {
-        return false;
-      }
-
-      const accessTokenVal = accessToken.value;
-      const expiresInVal = Number.parseInt(expiresIn.value);
-      const issuedAtVal = Number.parseInt(issuedAt.value);
-
-      if (expiresIn) {
-        const now = Auth.getCurrentTimeInSeconds();
-        return now < issuedAtVal + expiresInVal + secondsMargin;
-      }
-
-      // if there is no expiration time but we have an access token, it is assumed to never expire
-      return true;
-    } catch {
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_ACCESS_TOKEN,
-        value: "",
-      });
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_REFRESH_TOKEN,
-        value: "",
-      });
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_EXPIRES_IN,
-        value: "",
-      });
-      await SecureStoragePlugin.set({ key: SECURE_STORE_ISSUED_AT, value: "" });
+    if (!accessToken || !expiresIn || !issuedAt) {
       return false;
     }
+
+    const expiresInVal = Number.parseInt(expiresIn);
+    const issuedAtVal = Number.parseInt(issuedAt);
+
+    if (expiresIn) {
+      const now = Auth.getCurrentTimeInSeconds();
+      return now < issuedAtVal + expiresInVal + secondsMargin;
+    }
+
+    // if there is no expiration time but we have an access token, it is assumed to never expire
+    return true;
   }
 
   async authenticate(
@@ -123,27 +98,14 @@ export default class Auth {
     try {
       const resp = await OAuth2Client.authenticate(oidcOptions);
 
-      const accessToken = resp["access_token"];
+      const accessToken = resp["access_token_response"]["access_token"];
       const refreshToken = resp["access_token_response"]["refresh_token"];
       const expiresIn = resp["access_token_response"]["expires_in"];
       const issuedAt = Auth.getCurrentTimeInSeconds().toString();
-
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_ACCESS_TOKEN,
-        value: accessToken,
-      });
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_REFRESH_TOKEN,
-        value: refreshToken,
-      });
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_EXPIRES_IN,
-        value: expiresIn,
-      });
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_ISSUED_AT,
-        value: issuedAt,
-      });
+      localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
+      localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken);
+      localStorage.setItem(SECURE_STORE_EXPIRES_IN, expiresIn);
+      localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
 
       return true;
     } catch {
@@ -152,40 +114,24 @@ export default class Auth {
   }
 
   async refresh(): Promise<boolean> {
-    const refreshToken = await SecureStoragePlugin.get({
-      key: SECURE_STORE_REFRESH_TOKEN,
-    });
+    let refreshToken = localStorage.getItem(SECURE_STORE_REFRESH_TOKEN);
 
-    if (!refreshToken) return false;
-
-    const refreshTokenVal = refreshToken.value;
+    if (!refreshToken || refreshToken === "undefined") return false;
 
     try {
-      const oidcRefreshOptions = Auth.getOidcRefreshOptions(refreshTokenVal);
+      const oidcRefreshOptions = Auth.getOidcRefreshOptions(refreshToken);
 
       const resp = await OAuth2Client.refreshToken(oidcRefreshOptions);
 
-      const accessToken = resp["access_token"];
-      const refreshToken = resp["access_token_response"]["refresh_token"];
+      const accessToken = resp["access_token_response"]["access_token"];
+      refreshToken = resp["access_token_response"]["refresh_token"];
       const expiresIn = resp["access_token_response"]["expires_in"];
       const issuedAt = Auth.getCurrentTimeInSeconds().toString();
 
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_ACCESS_TOKEN,
-        value: accessToken,
-      });
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_REFRESH_TOKEN,
-        value: refreshToken,
-      });
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_EXPIRES_IN,
-        value: expiresIn,
-      });
-      await SecureStoragePlugin.set({
-        key: SECURE_STORE_ISSUED_AT,
-        value: issuedAt,
-      });
+      localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
+      localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken as string);
+      localStorage.setItem(SECURE_STORE_EXPIRES_IN, expiresIn);
+      localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
 
       return true;
     } catch {
@@ -204,13 +150,11 @@ export default class Auth {
     }
 
     // If we're here, we should have an access token.
-    const accessToken = await SecureStoragePlugin.get({
-      key: SECURE_STORE_ACCESS_TOKEN,
-    });
+    const accessToken = localStorage.getItem(SECURE_STORE_ACCESS_TOKEN);
 
     if (!accessToken) return null;
 
-    const accessTokenVal = accessToken.value;
+    const accessTokenVal = accessToken;
 
     return accessTokenVal;
   }
