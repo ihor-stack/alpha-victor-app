@@ -34,7 +34,7 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/vue";
-import { onBeforeMount, computed } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
@@ -47,12 +47,6 @@ const { searchNavigationTree } = storeToRefs(organisationStore);
 const location = computed(() =>
   searchNavigationTree.value?.find((location) => location.id === locationId)
 );
-
-onBeforeMount(() => {
-  if (searchNavigationTree.value?.length < 1) {
-    organisationStore.getSearchNavigationTree();
-  }
-});
 </script>
 
 <style scoped>

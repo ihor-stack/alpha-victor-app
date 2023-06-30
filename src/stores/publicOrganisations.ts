@@ -61,9 +61,8 @@ export const Organisations = defineStore("PublicOrganisations", {
           loadingService.close();
         });
     },
-    async getSearchNavigationTree() {
+    async getSearchNavigationTree(id: string) {
       loadingService.show("Loading...");
-      const id = this.currentOrganisationId || cookies.get("publicOrgId");
       if (id) {
         publicAPI
           .get<Location[]>(`/Organisation/${id}/SearchNavigationTree`)

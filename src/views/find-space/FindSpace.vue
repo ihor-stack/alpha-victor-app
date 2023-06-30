@@ -38,8 +38,9 @@ import {
   IonMenuButton,
   IonInput,
 } from "@ionic/vue";
-import { reactive, watch, onBeforeMount } from "vue";
+import { reactive, watch } from "vue";
 import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { publicAPI } from "@/axios";
@@ -50,6 +51,7 @@ import SearchSpace from "@/components/findSpace/SearchSpace.vue";
 
 const router = useRouter();
 const organisationStore = useOrganisationStore();
+const { currentOrganisationId } = storeToRefs(organisationStore);
 
 interface State {
   searchTerm: string;
@@ -72,6 +74,10 @@ watch(
   }
 );
 
+watch(currentOrganisationId, (newValue) => {
+  organisationStore.getSearchNavigationTree(newValue);
+});
+
 const searchSpace = (term: string) => {
   loadingService.show("Loading...");
   publicAPI
@@ -87,10 +93,6 @@ const searchSpace = (term: string) => {
       loadingService.close();
     });
 };
-
-onBeforeMount(() => {
-  organisationStore.getSearchNavigationTree();
-});
 </script>
 
 <style scoped>
