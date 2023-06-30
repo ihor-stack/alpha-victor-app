@@ -13,7 +13,6 @@
         <div class="modal-panel-container">
           <ion-header>
             <ion-icon
-              color="light"
               :icon="close"
               size="small"
               class="close-button"
@@ -32,11 +31,7 @@
           </ion-header>
           <ion-content :scroll-y="false" class="form-admin--group_field">
             <div class="modal-panel__section modal-panel__select-equipment">
-              <ion-input
-                color="light"
-                v-model="state.name"
-                placeholder="e.g. camera"
-              />
+              <ion-input v-model="state.name" placeholder="e.g. camera" />
             </div>
           </ion-content>
           <ion-footer>

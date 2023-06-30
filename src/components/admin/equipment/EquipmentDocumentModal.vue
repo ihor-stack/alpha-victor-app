@@ -19,7 +19,6 @@
           <div class="modal-panel-container">
             <ion-header>
               <ion-icon
-                color="light"
                 :icon="close"
                 size="small"
                 class="close-button"
@@ -56,7 +55,6 @@
                 <ion-icon
                   :icon="cloudDownloadOutline"
                   size="small"
-                  color="light"
                   class="align-icon"
                 />
                 <span

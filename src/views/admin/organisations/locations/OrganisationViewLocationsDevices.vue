@@ -30,10 +30,9 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Serial number</ion-label>
+                  <ion-label>Serial number</ion-label>
                   <ion-input
                     class="font-size-sm"
-                    color="light"
                     :value="device.serialNumber"
                     @ion-input="
                       device.serialNumber = String($event.target.value)
@@ -45,10 +44,9 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Installer</ion-label>
+                  <ion-label>Installer</ion-label>
                   <ion-input
                     class="font-size-sm"
-                    color="light"
                     :value="device.installer"
                     @ion-input="device.installer = String($event.target.value)"
                   ></ion-input>
@@ -58,7 +56,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Install date</ion-label>
+                  <ion-label>Install date</ion-label>
                   <ion-datetime-button
                     :datetime="`installDate${device.id}`"
                     class="date-button"
@@ -81,7 +79,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Warranty expiry date</ion-label>
+                  <ion-label>Warranty expiry date</ion-label>
                   <ion-datetime-button
                     :datetime="`warrantyDate${device.id}`"
                   ></ion-datetime-button>
@@ -99,17 +97,16 @@
                   </ion-modal>
                 </ion-col>
                 <ion-col size-xs="12" class="form-admin--group_field">
-                  <ion-label color="light">Description</ion-label>
+                  <ion-label>Description</ion-label>
                   <ion-textarea
                     class="font-size-sm"
-                    color="light"
                     :value="device.description"
                     @ion-input="
                       device.description = String($event.target.value)
                     "
                   ></ion-textarea>
                   <ion-item lines="none">
-                    <ion-label color="light">Photos</ion-label>
+                    <ion-label>Photos</ion-label>
                     <PhotoModal
                       :queryParams="`deviceId=${device.id}`"
                       :hiddenFeatureImageToggle="true"

@@ -1,7 +1,6 @@
 <template>
   <ion-chip
     class="font-size-xs font-mono"
-    color="light"
     :outline="true"
     @click="modalOpen = true"
   >
@@ -19,7 +18,6 @@
         <div class="modal-panel-container">
           <ion-header>
             <ion-icon
-              color="light"
               :icon="close"
               size="small"
               class="close-button"
@@ -40,12 +38,11 @@
             />
 
             <ion-input
-              color="light"
               class="form-toggle"
               :disabled="true"
               v-if="!hiddenFeatureImageToggle"
             >
-              <ion-label color="light">Featured Photo</ion-label>
+              <ion-label>Featured Photo</ion-label>
               <ion-toggle color="primary" v-model="state.featuredPhoto" />
             </ion-input>
           </ion-content>

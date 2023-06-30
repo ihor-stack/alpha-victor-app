@@ -13,15 +13,14 @@
         />
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Model</ion-label>
-        <ion-input color="light" v-model="state.name" label="Model"></ion-input>
+        <ion-label>Model</ion-label>
+        <ion-input v-model="state.name" label="Model"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Serial number</ion-label>
+        <ion-label>Serial number</ion-label>
         <ion-input
-          color="light"
           v-model="state.serialNumber"
           label="Serial number"
         ></ion-input>
@@ -49,7 +48,7 @@
           lines="none"
           v-if="document.id"
         >
-          <ion-label color="light">
+          <ion-label>
             {{ document.name }}
           </ion-label>
           <ion-button
@@ -109,19 +108,24 @@ const EquipmentStore = useEquipment();
 const route = useRoute();
 
 const equipmentId = route.params.equipmentId as string;
-const { equipmentList, currentEquipment, manufacturerSelected, assetTypeSelected } = storeToRefs(EquipmentStore);
+const {
+  equipmentList,
+  currentEquipment,
+  manufacturerSelected,
+  assetTypeSelected,
+} = storeToRefs(EquipmentStore);
 
 const manufacturerOptions = computed(() => {
-  return equipmentList.value.manufacturers.map(manufacturer => ({ 
+  return equipmentList.value.manufacturers.map((manufacturer) => ({
     id: manufacturer.manufacturerId, // map manufacturerId to id
-    title: manufacturer.name  // map name to title
+    title: manufacturer.name, // map name to title
   }));
 });
 
 const assetTypeOptions = computed(() => {
-  return equipmentList.value.assetTypes.map(assetType => ({ 
+  return equipmentList.value.assetTypes.map((assetType) => ({
     id: assetType.assetId,
-    title: assetType.name
+    title: assetType.name,
   }));
 });
 

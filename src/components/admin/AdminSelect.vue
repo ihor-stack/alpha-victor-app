@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ion-label v-if="label" color="light">
+    <ion-label v-if="label">
       {{ label }}
     </ion-label>
     <ion-input

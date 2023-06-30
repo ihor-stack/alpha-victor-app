@@ -13,7 +13,6 @@
         <div class="modal-panel-container">
           <ion-header>
             <ion-icon
-              color="light"
               :icon="close"
               size="small"
               class="close-button"
@@ -38,7 +37,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Manufacturer</ion-label>
+                  <ion-label>Manufacturer</ion-label>
                   <ion-select
                     interface="action-sheet"
                     placeholder="Select manufacturer"
@@ -53,13 +52,13 @@
                     </ion-select-option>
                   </ion-select>
                 </ion-col>
-                
+
                 <ion-col
                   size-xs="12"
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Asset type</ion-label>
+                  <ion-label>Asset type</ion-label>
                   <ion-select
                     interface="action-sheet"
                     placeholder="Select asset type"
@@ -81,9 +80,8 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Model</ion-label>
+                  <ion-label>Model</ion-label>
                   <ion-input
-                    color="light"
                     v-model="state.name"
                     label="Model"
                     placeholder="Input Model"
@@ -94,9 +92,8 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Serial number</ion-label>
+                  <ion-label>Serial number</ion-label>
                   <ion-input
-                    color="light"
                     v-model="state.serialNumber"
                     label="Model"
                     placeholder="Input Serial number"

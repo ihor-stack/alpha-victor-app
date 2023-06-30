@@ -5,19 +5,17 @@
     </h1>
     <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Floor name</ion-label>
+        <ion-label>Floor name</ion-label>
         <ion-input
           class="font-size-sm"
-          color="light"
           :value="floor.name"
           @ion-input="floor.name = String($event.target.value)"
         ></ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">Short name</ion-label>
+        <ion-label>Short name</ion-label>
         <ion-input
           class="font-size-sm"
-          color="light"
           :value="floor.shortName"
           @ion-input="floor.shortName = String($event.target.value)"
         ></ion-input>
@@ -45,18 +43,11 @@
           router-direction="root"
           class="form-admin--group_field-item ion-no-padding"
         >
-          <img
-            :src="space.image"
-            :alt="space.name"
-          />
-          <ion-label color="light">
+          <img :src="space.image" :alt="space.name" />
+          <ion-label>
             {{ space.name }}
           </ion-label>
-          <ion-icon
-            :icon="chevronForwardOutline"
-            slot="end"
-            color="light"
-          ></ion-icon>
+          <ion-icon :icon="chevronForwardOutline" slot="end"></ion-icon>
         </ion-item>
       </ion-col>
 

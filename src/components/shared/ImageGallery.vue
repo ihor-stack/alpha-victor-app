@@ -14,7 +14,7 @@
         <ion-thumbnail slot="start">
           <img alt="image" :src="image.path" />
         </ion-thumbnail>
-        <ion-label color="light">
+        <ion-label>
           {{ image.name }}
         </ion-label>
         <ion-button
@@ -38,21 +38,21 @@ export default defineComponent({
   name: "ImageGallery",
   props: {
     images: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   emits: {
-    'image-removed': (payload: string) => typeof payload === 'string'
+    "image-removed": (payload: string) => typeof payload === "string",
   },
   setup(props, { emit }) {
     const removeImage = (id: string) => {
-      emit('image-removed', id);
-    }
+      emit("image-removed", id);
+    };
 
     return {
       removeImage,
-    }
-  }
+    };
+  },
 });
 </script>
 
