@@ -19,7 +19,7 @@
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label class="font-size-xs font-bold">
                 Add Comment
-              </ion-label>
+              </ion-label> 
               <ion-textarea
                 class="font-size-xs"
                 placeholder="Enter a comment here"

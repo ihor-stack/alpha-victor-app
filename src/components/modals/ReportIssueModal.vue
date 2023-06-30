@@ -51,7 +51,6 @@
                 Add Comment
               </ion-label>
               <ion-textarea
-                class="issues-panel__add-comment__textarea"
                 placeholder="Enter a comment here"
                 v-model="state.comment"
                 helper-text="Helper Text"

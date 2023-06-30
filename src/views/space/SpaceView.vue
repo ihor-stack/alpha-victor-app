@@ -306,7 +306,7 @@ onBeforeMount(() => {
 
 .space-cta-container {
   flex: 0 0 20vh;
-  padding: 0 20px 20px;
+  padding: 15px;
 }
 
 .announcement {
