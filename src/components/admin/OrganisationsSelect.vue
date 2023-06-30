@@ -102,7 +102,7 @@ const handleCta = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 32px 12px;
+  margin: 0 22px 12px;
 }
 
 .dashboard-slider-header ion-button {
@@ -113,7 +113,7 @@ const handleCta = () => {
 }
 
 .swiper-container {
-  padding: 0 0 0 32px;
+  padding: 0 0 0 20px;
 }
 
 .swiper {

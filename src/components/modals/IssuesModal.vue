@@ -5,7 +5,7 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-bold font-size-medium">
+              <h2 class="font-bold font-size-md">
                 {{ state.issue.title }}
               </h2>
               <p class="font-size-xs">

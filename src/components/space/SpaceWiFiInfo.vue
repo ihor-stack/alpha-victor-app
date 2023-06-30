@@ -32,6 +32,8 @@ const showConnectButton = isPlatform("ios") || isPlatform("android");
 const doWifiConnect = async () => {
   let wifiSecurityTypeStr = "";
 
+  if (props.wifiSecurityType == 1) wifiSecurityTypeStr = "WEP";
+  if (props.wifiSecurityType == 2) wifiSecurityTypeStr = "WPA";
   if (props.wifiSecurityType == 3) wifiSecurityTypeStr = "WPA2";
   if (props.wifiSecurityType == 4) wifiSecurityTypeStr = "WPA3";
 

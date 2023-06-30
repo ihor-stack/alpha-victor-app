@@ -5,7 +5,7 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-size-medium font-bold">
+              <h2 class="font-size-md font-bold">
                 {{ accountDetails.name ? accountDetails.name : "No name set" }}
               </h2>
               <p class="font-size-xs">
@@ -132,7 +132,7 @@ onBeforeMount(() => {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 32px 32px;
+  padding: 45px 22px 32px;
 }
 
 .settings-panel__header {

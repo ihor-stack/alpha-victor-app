@@ -253,7 +253,7 @@ hr {
 
 ion-footer {
   height: 140px;
-  padding: 0 30px 40px 30px;
+  padding: 0 20px 40px 20px;
   display: flex;
   align-items: stretch;
 }

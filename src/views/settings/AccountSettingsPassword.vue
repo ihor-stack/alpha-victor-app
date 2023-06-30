@@ -5,7 +5,7 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-size-medium font-bold">Update password</h2>
+              <h2 class="font-size-md font-bold">Update password</h2>
               <p class="font-size-xs">
                 Use the form below to update/change your password.
               </p>

@@ -2,7 +2,7 @@
   <div>
     <swiper :slidesPerView="'auto'" :spaceBetween="10" class="space-features">
       <swiper-slide v-for="feature in features" :key="feature.name">
-        <ion-item :href="''" lines="none" :detail="false">
+        <ion-item lines="none" :detail="false">
           <div class="space-equipment-menu__item__icon">
             <img :src="useEquipmentIcon(feature.icon || '')" />
           </div>

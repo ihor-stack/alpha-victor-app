@@ -5,7 +5,7 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-size-medium font-bold">Location</h2>
+              <h2 class="font-size-md font-bold">Location</h2>
               <p class="font-size-xs">
                 We use your location to check spaces near you. Update your
                 location settings below.

@@ -18,19 +18,20 @@
   --av-font-bold: "Akkurat-Bold";
   --av-font-bold-italic: "Akkurat-Bold-Italic";
   --av-font-mono: "Akkurat-Mono";
-  --av-font-xxs: 0.625rem;
-  --av-font-xs: 0.75rem;
-  --av-font-sm: 0.875rem;
-  --av-font-md: 0.9375rem;
+  --av-font-xxs: 0.65rem;
+  --av-font-xs: 0.85rem;
+  --av-font-sm: 0.9rem;
+  --av-font-md: 0.95rem;
   --av-font-reg: 1rem;
-  --av-font-lg: 1.75rem;
+  --av-font-title: 1.25rem;
+  --av-font-lg: 1.65rem;
   --av-font-xl: 2.375rem;
 
   --ion-color-primary: var(--av-primary);
   --ion-color-light: var(--av-light-gray);
   --ion-color-dark: var(--av-dark-gray);
   --ion-color-danger: var(--av-red);
-  --ion-padding: 32px;
+  --ion-padding: 25px;
 
   --ion-font-family: "Akkurat-Regular";
 }
@@ -167,8 +168,8 @@ ion-button {
 ion-toolbar {
   --background: none;
   --min-height: 90px;
-  --padding-start: 30px;
-  --padding-end: 30px;
+  --padding-start: 20px;
+  --padding-end: 20px;
   --border-style: none;
 }
 
@@ -329,9 +330,12 @@ ion-modal::part(handle) {
   line-height: var(--av-font-reg);
 }
 
-.font-size-medium {
-  font-size: 18px !important;
+.font-size-title {
+  /* 20px */
+  font-size: var(--av-font-title);
 }
+
+
 .font-size-lg {
   /* 28px */
   font-size: var(--av-font-lg) !important;
@@ -524,7 +528,7 @@ ion-button.button-red {
   flex-direction: column;
   justify-content: flex-end;
   flex: 1;
-  padding: 32px;
+  padding: 25px;
 }
 
 /* Settings modal styles */
@@ -544,7 +548,7 @@ ion-button.button-red {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 30px 32px;
+  padding: 45px 22px 32px;
 }
 
 .modal-panel__header {
@@ -574,7 +578,7 @@ ion-button.button-red {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 32px 32px;
+  padding: 45px 22px 32px;
 }
 
 .settings-panel-container ion-item::part(native) {
@@ -698,7 +702,7 @@ ion-toast.customToast.customToastGeneric::part(container)::after {
 }
 
 ion-toast.customToast::part(icon) {
-  margin-left: 32px;
+  margin-left: 22px;
   width: 24px;
   height: 24px;
 }

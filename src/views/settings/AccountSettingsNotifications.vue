@@ -5,7 +5,7 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-size-medium font-bold">Notifications</h2>
+              <h2 class="font-size-md font-bold">Notifications</h2>
               <p class="font-size-xs">
                 We use notifications to keep you in the loop. Update your
                 notifications settings below.
