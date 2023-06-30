@@ -10,7 +10,7 @@
           router-direction="root"
         >
           <span class="link-text">Details</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
@@ -19,7 +19,7 @@
           router-direction="root"
         >
           <span class="link-text">Theme</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
@@ -28,7 +28,7 @@
           router-direction="root"
         >
           <span class="link-text">Space Metadata</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
@@ -37,7 +37,7 @@
           router-direction="root"
         >
           <span class="link-text">Document Types</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
@@ -49,7 +49,7 @@
           router-direction="root"
         >
           <span class="link-text">Decision Trees</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
@@ -58,7 +58,7 @@
           router-direction="root"
         >
           <span class="link-text">Integrations</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
@@ -68,13 +68,13 @@
           router-direction="root"
         >
           <span class="link-text">Locations</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
       <li class="organisation-options-menu-item">
         <ion-item v-if="locations.length < 1" router-direction="root">
           <NewLocationModal />
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
     </ul>
