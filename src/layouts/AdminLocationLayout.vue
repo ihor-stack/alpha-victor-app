@@ -13,7 +13,7 @@
                   <ion-button
                     class="ion-no-padding"
                     fill="clear"
-                    color="light"
+                    color="dark"
                     @click="() => router.back()"
                   >
                     <span class="font-mono font-size-xs">&lt;&lt; back</span>

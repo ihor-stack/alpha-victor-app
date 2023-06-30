@@ -2,7 +2,6 @@
   <div>
     <ion-chip
       class="font-size-xs font-mono"
-      color="light"
       :outline="true"
       @click="modalOpen = true"
     >
@@ -19,7 +18,6 @@
           <div class="modal-panel-container">
             <ion-header>
               <ion-icon
-                color="light"
                 :icon="close"
                 size="small"
                 class="close-button"
@@ -36,12 +34,11 @@
             <ion-content :scroll-y="false" class="form-admin--group_field">
               <div class="modal-panel__section modal-panel__select-equipment">
                 <ion-input
-                  color="light"
                   placeholder="Document Name"
                   :value="newDocument"
                   @input="newDocument = $event.target.value"
                 />
-                <ion-input class="font-size-sm" color="light" :disabled="true">
+                <ion-input class="font-size-sm" :disabled="true">
                   <div>
                     <input
                       class="file-input"

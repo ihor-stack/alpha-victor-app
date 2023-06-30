@@ -1,27 +1,35 @@
 <template>
   <div>
-    <h1 class="title-admin font-bold font-size-lg color-light-gray">Document Types</h1>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">
+      Document Types
+    </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-input
-            color="light"
             placeholder="Add new decision tree"
-            v-model="state.newDecisionTreeName">
+            v-model="state.newDecisionTreeName"
+          >
           </ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-button 
-          @click="addNewDecisionTree"
-          :disabled="!state.newDecisionTreeName">
+          <ion-button
+            @click="addNewDecisionTree"
+            :disabled="!state.newDecisionTreeName"
+          >
             Add new +
           </ion-button>
         </ion-col>
       </ion-row>
 
       <ion-row class="form-admin--group">
-        <ion-col size-xs="12"  class="form-admin--group_field">
-          <h3 class="font-bold font-size-md color-light-gray" v-if="organisationDetails.decisionTrees?.length > 0">Current Decision Trees</h3>
+        <ion-col size-xs="12" class="form-admin--group_field">
+          <h3
+            class="font-bold font-size-md color-light-gray"
+            v-if="organisationDetails.decisionTrees?.length > 0"
+          >
+            Current Decision Trees
+          </h3>
         </ion-col>
       </ion-row>
 
@@ -40,13 +48,17 @@
               },
             }"
           >
-            <ion-label color="light">
+            <ion-label>
               {{ decisionTree.name }}
             </ion-label>
-            <ion-label color="light" slot="end" class="decision-view-icon font-size-xs font-mono">>> view</ion-label>
+            <ion-label
+              slot="end"
+              class="decision-view-icon font-size-xs font-mono"
+              >>> view</ion-label
+            >
           </ion-item>
         </ion-col>
-      </ion-row> 
+      </ion-row>
     </ion-grid>
   </div>
 </template>

@@ -7,7 +7,6 @@
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-input
-            color="light"
             placeholder="Enter new document type"
             v-model="state.newDocumentType"
           ></ion-input>

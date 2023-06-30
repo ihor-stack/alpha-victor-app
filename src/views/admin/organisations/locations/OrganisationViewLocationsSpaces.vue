@@ -26,13 +26,13 @@
           <span
             class="font-size-xs font-mono color-light-gray header-left--label"
           >
-            <ion-icon :icon="locationOutline" color="light"></ion-icon>
+            <ion-icon :icon="locationOutline"></ion-icon>
             Howard Street Belfast
           </span>
           <span
             class="font-size-xs font-mono color-light-gray header-left--label"
           >
-            <ion-icon :icon="peopleOutline" color="light"></ion-icon>
+            <ion-icon :icon="peopleOutline"></ion-icon>
             &gt;&gt; {{ space.capacity }}
           </span>
         </ion-col>
@@ -45,25 +45,23 @@
       </ion-row>
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Space name</ion-label>
+          <ion-label>Space name</ion-label>
           <ion-input
             class="font-size-sm"
-            color="light"
             :value="space.spaceName"
             @ion-input="space.spaceName = String($event.target.value)"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Space shortcode</ion-label>
+          <ion-label>Space shortcode</ion-label>
           <ion-input
             class="font-size-sm"
-            color="light"
             :value="space.shortcode"
             @ion-input="space.shortcode = String($event.target.value)"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Room type</ion-label>
+          <ion-label>Room type</ion-label>
           <AdminSelect
             v-model="roomTypeSelected"
             :options="formattedSelect"
@@ -71,25 +69,23 @@
           />
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Capacity</ion-label>
+          <ion-label>Capacity</ion-label>
           <ion-input
             class="font-size-sm"
-            color="light"
             :value="space.capacity"
             @ion-input="space.capacity = String($event.target.value)"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Typeform ID</ion-label>
+          <ion-label>Typeform ID</ion-label>
           <ion-input
             class="font-size-sm"
-            color="light"
             :value="space.typeformId"
             @ion-input="space.typeformId = String($event.target.value)"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label color="light">Decision Tree</ion-label>
+          <ion-label>Decision Tree</ion-label>
           <AdminSelect
             :options="decisionTreeList"
             v-model="decisionTreeSelected"
@@ -100,7 +96,7 @@
 
       <hr class="form-admin--divider" />
       <ion-item lines="none">
-        <ion-label color="light">Photos</ion-label>
+        <ion-label>Photos</ion-label>
         <PhotoModal
           :isFirstPhoto="isFirstPhoto"
           :queryParams="`spaceId=${spaceId}`"
@@ -113,7 +109,7 @@
       />
       <hr class="form-admin--divider" />
       <ion-item lines="none">
-        <ion-label color="light">Documents</ion-label>
+        <ion-label>Documents</ion-label>
         <DocumentModal />
       </ion-item>
 
@@ -130,7 +126,7 @@
             class="form-admin--group_field-item rev-margin"
             lines="none"
           >
-            <ion-label color="light">
+            <ion-label>
               {{ document.name }}
             </ion-label>
             <ion-button
@@ -218,7 +214,8 @@ const spaceId = route.params.spaceId as string;
 const Space = Spaces();
 const organisation = Organisations();
 
-const { space, formattedSelect, roomTypeSelected, decisionTreeSelected } = storeToRefs(Space);
+const { space, formattedSelect, roomTypeSelected, decisionTreeSelected } =
+  storeToRefs(Space);
 const { decisionTreeList } = storeToRefs(organisation);
 
 const isFirstPhoto = computed(() => !space.value.photos?.length);

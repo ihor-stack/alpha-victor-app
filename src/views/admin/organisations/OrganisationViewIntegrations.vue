@@ -1,38 +1,41 @@
 <template>
-  <h1 class="title-admin font-bold font-size-lg color-light-gray">Ubiquisense</h1>
+  <h1 class="title-admin font-bold font-size-lg color-light-gray">
+    Ubiquisense
+  </h1>
   <ion-grid class="form-admin">
-    <ion-row class="form-admin--group" >
+    <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">
-          Client ID
-        </ion-label>
+        <ion-label> Client ID </ion-label>
         <ion-input
           class="font-size-sm"
           type="password"
           :value="integration.integration.value.clientId"
-          @ion-input="integration.integration.value.clientId = String($event.target.value)">
+          @ion-input="
+            integration.integration.value.clientId = String($event.target.value)
+          "
+        >
         </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label color="light">
-          Client Secret
-        </ion-label>
+        <ion-label> Client Secret </ion-label>
         <ion-input
           class="font-size-sm"
           type="password"
           :value="integration.integration.value.clientSecret"
-          @ion-input="integration.integration.value.clientSecret = String($event.target.value)">
+          @ion-input="
+            integration.integration.value.clientSecret = String(
+              $event.target.value
+            )
+          "
+        >
         </ion-input>
       </ion-col>
-    </ion-row> 
+    </ion-row>
   </ion-grid>
-  <ion-button class="button-wide" @click="SaveEdit">
-    Save Changes
-  </ion-button>
+  <ion-button class="button-wide" @click="SaveEdit"> Save Changes </ion-button>
 </template>
-  
-<script setup lang="ts">
 
+<script setup lang="ts">
 import {
   IonButton,
   IonGrid,
@@ -40,7 +43,7 @@ import {
   IonCol,
   IonLabel,
   IonInput,
-  IonSelect, 
+  IonSelect,
   IonSelectOption,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
@@ -48,37 +51,36 @@ import { onBeforeMount, ref } from "vue";
 import { Integrations } from "@/stores/adminIntegrations";
 import { Organisations } from "@/stores/adminOrganisations";
 
-import AdminSelect from '@/components/admin/AdminSelect.vue'
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { SelectItem, Integration } from "@/types";
 import { useRoute } from "vue-router";
 
-const store = Integrations()
-const orgStore = Organisations()
-const integration = storeToRefs(store)
-const organisations = storeToRefs(orgStore)
-const selectedOrg = ref({} as SelectItem)
-const route = useRoute()
+const store = Integrations();
+const orgStore = Organisations();
+const integration = storeToRefs(store);
+const organisations = storeToRefs(orgStore);
+const selectedOrg = ref({} as SelectItem);
+const route = useRoute();
 
 const orgId = String(route.params.id);
 
-const SaveEdit = () =>{
+const SaveEdit = () => {
   const newEdit: Integration = {
     clientId: integration.integration.value.clientId,
     clientSecret: integration.integration.value.clientSecret,
-    selectedOrgnisation: orgId
-  }
-  store.editIntegration(orgId, newEdit)
-}
+    selectedOrgnisation: orgId,
+  };
+  store.editIntegration(orgId, newEdit);
+};
 
-onBeforeMount(() =>{
-  store.getSingleIntegration()
-  orgStore.getOrgsSelectItem()
-})
+onBeforeMount(() => {
+  store.getSingleIntegration();
+  orgStore.getOrgsSelectItem();
+});
 </script>
-  
+
 <style scoped>
-h1{
+h1 {
   margin-bottom: 38px;
 }
 </style>
-  

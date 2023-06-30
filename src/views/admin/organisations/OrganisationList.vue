@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      Organisations
-    </h1>
+    <h1 class="title-admin font-bold font-size-lg">Organisations</h1>
     <ul class="organisations-list-menu">
       <li class="organisations-list-menu-item">
         <ion-item
@@ -15,7 +13,7 @@
             <img v-if="org.logo" :src="org.logo" :alt="org.name" />
           </div>
           <span class="link-text">{{ org.name }}</span>
-          <ion-icon slot="end" :icon="chevronForwardOutline" color="light" />
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
     </ul>

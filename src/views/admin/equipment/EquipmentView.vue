@@ -17,15 +17,11 @@
             }"
             router-direction="root"
           >
-            <ion-label color="light">
+            <ion-label>
               <h2>{{ equipment.equipmentName }}</h2>
               <p>{{ equipment.typeName }}</p>
             </ion-label>
-            <ion-icon
-              :icon="chevronForwardOutline"
-              slot="end"
-              color="light"
-            ></ion-icon>
+            <ion-icon :icon="chevronForwardOutline" slot="end"></ion-icon>
           </ion-item>
         </ion-list>
         <EquipmentModal />

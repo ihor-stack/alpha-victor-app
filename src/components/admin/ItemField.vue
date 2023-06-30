@@ -4,7 +4,6 @@
       <img :src="props.icon" :alt="props.modelValue" />
     </div>
     <ion-input
-      color="light"
       :placeholder="props.placeholder"
       :value="currentField"
       @ion-input="currentField = $event.target.value"
