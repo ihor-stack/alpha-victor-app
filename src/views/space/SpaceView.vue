@@ -248,7 +248,7 @@ onBeforeMount(() => {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 0 30px;
+  padding: 0 20px;
 }
 
 .space-header__info__right {
@@ -292,21 +292,21 @@ onBeforeMount(() => {
 }
 
 .space-features-slider-container {
-  padding-left: 30px;
+  padding-left: 20px;
 }
 
 .space-wifi-info-container {
-  padding: 24px 30px 0px;
+  padding: 24px 20px 0px;
 }
 
 .space-options-menu-container {
   flex: 1;
-  padding: 10px 30px 0;
+  padding: 10px 20px 0;
 }
 
 .space-cta-container {
   flex: 0 0 20vh;
-  padding: 0 30px 20px;
+  padding: 0 20px 20px;
 }
 
 .announcement {

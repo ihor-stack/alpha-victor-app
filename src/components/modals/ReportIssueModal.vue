@@ -5,7 +5,7 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-size-medium font-bold">Report Issue</h2>
+              <h2 class="font-size-md font-bold">Report Issue</h2>
               <p class="font-size-xs">
                 Please provide details on the issue you're facing, and which
                 equipment
@@ -154,7 +154,7 @@ ion-item::part(native) {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 32px 32px;
+  padding: 45px 22px 32px;
 }
 .modal-panel__title {
   margin-bottom: 12px;

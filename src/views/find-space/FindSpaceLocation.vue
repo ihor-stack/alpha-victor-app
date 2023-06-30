@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list lines="inset" :inset="true">
       <ion-list-header>
-        <ion-label class="font-bold font-size-lg">Locations</ion-label>
+        <ion-label class="font-bold font-size-title">Locations</ion-label>
       </ion-list-header>
       <ion-item
         v-for="(location, index) in searchNavigationTree"

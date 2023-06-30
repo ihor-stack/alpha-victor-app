@@ -59,7 +59,7 @@ defineProps<{
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 42px 32px;
+  padding: 42px 22px;
 }
 
 .image {

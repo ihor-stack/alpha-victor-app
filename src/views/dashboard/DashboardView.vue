@@ -157,7 +157,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
 }
 .dashboard-search-container {
-  padding: 0 32px 32px;
+  padding: 0 20px 32px;
   background: 0;
 }
 .dashboard-sliders {
@@ -175,7 +175,7 @@ ion-content {
 }
 
 ion-footer {
-  padding: 20px 32px;
+  padding: 20px 22px;
 }
 ion-item {
   --background: transparent;
