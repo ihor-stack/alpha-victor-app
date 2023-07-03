@@ -60,7 +60,7 @@ export const MetaData = defineStore("MetaData", {
           this.getMetaData();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error.response.data, "error", "top");
         });
     },
 
@@ -81,7 +81,7 @@ export const MetaData = defineStore("MetaData", {
           this.getMetaData();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error.response.data, "error", "top");
         });
     },
 
@@ -119,7 +119,7 @@ export const MetaData = defineStore("MetaData", {
           this.getMetaData();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error.response.data, "error", "top");
         });
     },
 
@@ -140,7 +140,7 @@ export const MetaData = defineStore("MetaData", {
           this.getMetaData();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error.response.data, "error", "top");
         });
     },
     async removeSpaceFeature(edit: spaceFeature) {

@@ -29,7 +29,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const selectedFeatures = computed(() => props.features.filter(feature => feature.selected));
+const selectedFeatures = computed(() => props.features ? props.features.filter(feature => feature.selected) : []);
 
 </script>
 
