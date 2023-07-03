@@ -847,7 +847,7 @@ ion-list {
 
 ion-menu-button {
   --background: var(--ion-color-primary);
-  --color: #fff;
+  --color: var(--av-light-gray);
 }
 
 body.dark ion-menu-button {
