@@ -844,3 +844,12 @@ ion-item {
 ion-list {
   background: transparent !important;
 }
+
+ion-menu-button {
+  --background: var(--ion-color-primary);
+  --color: #fff;
+}
+
+body.dark ion-menu-button {
+  --background: rgba(255, 255, 255, 0.1);
+}
