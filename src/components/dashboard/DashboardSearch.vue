@@ -73,8 +73,8 @@ const searchByShortcode = () => {
         router.push(`/space/${response.data.id}`);
       }
     })
-    .catch((error) => {
-      toastService.show("Error", error, "error", "top");
+    .catch(() => {
+      toastService.show("Error", "We couldn't find any spaces by that shortcode", "error", "top");
     })
     .finally(() => {
       loadingService.close();
