@@ -100,7 +100,8 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error.response.data, "error", "top");
+          console.log(error);
           loadingService.close();
         });
     },
@@ -114,7 +115,7 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error.response.data, "error", "top");
           loadingService.close();
         });
     },
@@ -138,7 +139,7 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error.response.data, "error", "top");
           loadingService.close();
         });
     },
@@ -150,7 +151,7 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error.response.data, "error", "top");
           loadingService.close();
         });
     },
