@@ -21,8 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, watch } from "vue";
+import { onBeforeMount, watch, computed } from "vue";
 import { IonApp } from "@ionic/vue";
+import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import AppMenu from "./components/shared/AppMenu.vue";
 import CustomToast from "@/components/shared/CustomToast.vue";
@@ -34,14 +35,21 @@ import toastService from "./services/toastService";
 import loadingService from "./services/loadingService";
 import Auth from "@/auth";
 
+const route = useRoute();
+
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
 const organisationStore = useOrganisationStore();
 const { currentOrganisationId, theme } = storeToRefs(organisationStore);
 const authService = new Auth();
 
+const path = computed(() => route.path);
+
 const updateTheme = (theme: Theme) => {
-  document.body.classList.toggle("dark", theme.darkmodeEnabled);
+  document.body.classList.toggle(
+    "dark",
+    path.value?.includes("/admin") ? true : theme.darkmodeEnabled
+  );
   const root = document.querySelector(":root") as HTMLElement;
   if (root && theme.backgroundImage) {
     root.style.setProperty("--theme-image", `url('${theme.backgroundImage}')`);
@@ -57,16 +65,7 @@ const updateTheme = (theme: Theme) => {
   }
 };
 
-watch(currentOrganisationId, (newValue) => {
-  organisationStore.getOrgTheme(newValue);
-});
-
-watch(theme, (newValue) => {
-  localStorage.setItem("theme", JSON.stringify(newValue));
-  updateTheme(newValue);
-});
-
-onBeforeMount(async () => {
+const updateThemeFromStorage = () => {
   const themeString = localStorage.getItem("theme");
   if (themeString) {
     try {
@@ -77,6 +76,27 @@ onBeforeMount(async () => {
       console.log(err);
     }
   }
+};
+
+watch(currentOrganisationId, (newValue) => {
+  organisationStore.getOrgTheme(newValue);
+});
+
+watch(theme, (newValue) => {
+  localStorage.setItem("theme", JSON.stringify(newValue));
+  updateTheme(newValue);
+});
+
+watch(path, (newValue, oldValue) => {
+  if (!oldValue.includes("/admin") && newValue.includes("/admin")) {
+    document.body.classList.toggle("dark", true);
+  } else if (oldValue.includes("/admin") && !newValue.includes("/admin")) {
+    updateThemeFromStorage();
+  }
+});
+
+onBeforeMount(async () => {
+  updateThemeFromStorage();
   const accessToken = await authService.fetchCurrentAccessToken();
   if (accessToken) {
     organisationStore.getOrganisations();
