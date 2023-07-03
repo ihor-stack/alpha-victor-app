@@ -10,10 +10,20 @@
     <ion-content :fullscreen="true">
       <div class="container">
         <known-issues-list
+          v-if="state.issues.length"
           :open-issues="state.issues"
           :closed-issues="[]"
           :click-handler="handleIssueClick"
         />
+
+        <ion-item
+          v-else
+          lines="none"
+        >
+          <ion-label>
+            <h2 class="color-dark-gray">no.issues.reported</h2>
+          </ion-label>
+        </ion-item>
       </div>
       <custom-toast
         :status="state.toastData.toastStatus"
@@ -190,5 +200,9 @@ ion-modal {
 
 .known-issues__report-issue {
   padding: 20px 30px;
+}
+
+ion-item {
+  text-align: center;
 }
 </style>

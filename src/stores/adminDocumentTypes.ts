@@ -39,7 +39,7 @@ export const adminDocuments = defineStore("adminDocuments", {
           this.getDocumentTypes();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error.response.data, "error", "top");
         });
     },
 
