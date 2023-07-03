@@ -23,28 +23,28 @@
 import { IonIcon, IonLabel, IonItem } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import { storeToRefs } from "pinia";
-import { onBeforeMount, ref } from "vue";
-import { useCookies } from "vue3-cookies";
+import { onBeforeMount } from "vue";
+import { useRoute } from "vue-router";
+
 import { Integrations } from "@/stores/adminIntegrations";
 
 const store = Integrations();
 const integrations = storeToRefs(store);
-const { cookies } = useCookies();
+const route = useRoute();
+
+const organisationId = route.params.id as string;
 //store.getSingleIntegration()
 const redirect = (id: string) => {
-  cookies.set("integrationId", id);
-  if (cookies.get("integrationId") && cookies.get("orgId")) {
-    return {
-      name: "OrganisationViewIntegrations",
-      params: {
-        id: cookies.get("orgId"),
-        integrationId: cookies.get("integrationId"),
-      },
-    };
-  }
+  return {
+    name: "OrganisationViewIntegrations",
+    params: {
+      id: organisationId,
+      integrationId: id,
+    },
+  };
 };
 onBeforeMount(() => {
-  store.getIntegrations();
+  store.getIntegrations(organisationId);
 });
 </script>
 

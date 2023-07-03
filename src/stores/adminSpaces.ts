@@ -3,10 +3,8 @@ import { adminAPI } from "@/axios";
 import {
   DetailedSpace,
   SelectItem,
-  SingleFloor,
   Device,
   NewSpaceDetails,
-  SpecificFloor,
   SpaceBeacon,
   SpaceWifi,
   SpaceAnnouncement,
@@ -16,14 +14,12 @@ import {
   NewPanorama,
   Hotspot,
 } from "@/types/index";
-import { useCookies } from "vue3-cookies";
+
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 import router from "@/router";
 
 import { Locations } from "./adminLocations";
-
-const { cookies } = useCookies();
 
 export const Spaces = defineStore("Spaces", {
   state: () => {
@@ -45,7 +41,7 @@ export const Spaces = defineStore("Spaces", {
     };
   },
   actions: {
-    async getSpaceDetails(spaceId = cookies.get("spaceId")) {
+    async getSpaceDetails(spaceId: string) {
       loadingService.show("Loading...");
       adminAPI
         .get<DetailedSpace>(`/Space/${spaceId}/Details`)
@@ -140,72 +136,6 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async saveSpaceDocument() {
-      loadingService.show("Loading...");
-      adminAPI
-        .post("/Space/" + cookies.get("spaceId") + "/Document", {
-          base64Payload: "string",
-          contentType: "string",
-          fileName: "string",
-          documentTypeId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        })
-        .then(() => {
-          loadingService.close();
-          toastService.show(
-            "Success",
-            "Document uploaded successfully",
-            "success",
-            "top"
-          );
-        })
-        .catch((error) => {
-          toastService.show("Error", error, "error", "top");
-        });
-    },
-
-    async deleteSpaceDocument(documentId: string) {
-      adminAPI
-        .delete("/Space/" + cookies.get("spaceId") + "/Document/" + documentId)
-        .then(() => {
-          this.getSpaceDetails();
-          toastService.show(
-            "Success",
-            "Document removed successfully",
-            "success",
-            "top"
-          );
-        })
-        .catch((error) => {
-          toastService.show("Error", error, "error", "top");
-        });
-    },
-
-    async getSearchBeacons(minor: string, major: string) {
-      adminAPI
-        .get(
-          "/Space/" +
-            cookies.get("spaceId") +
-            "/Beacon?Minor=" +
-            minor +
-            "&Major=" +
-            major
-        )
-        .catch((error) => {
-          toastService.show("Error", error, "error", "top");
-        });
-    },
-
-    async getSpaceQRCode() {
-      adminAPI
-        .get<string>("/Space/" + cookies.get("spaceId") + "/Qr")
-        .then((response) => {
-          this.qrCode = response.data;
-        })
-        .catch((error) => {
-          toastService.show("Error", error, "error", "top");
-        });
-    },
-
     async getSpaceDetailsDevices(spaceId: string) {
       adminAPI
         .get<Device[]>(`/Space/${spaceId}/Device`)
@@ -270,29 +200,9 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async getSpaceDetailsBeacon(minor: string, major: string) {
-      adminAPI
-        .get<SpaceBeacon[]>(
-          "/Space/" +
-            cookies.get("spaceId") +
-            "/Beacon?Minor=" +
-            minor +
-            "&Major=" +
-            major
-        )
-        .then((response) => {
-          this.beacons = response.data;
-        })
-        .catch((error) => {
-          toastService.show("Error", error, "error", "top");
-        });
-    },
-
     async getSpaceDetailsAnnouncement(spaceId: string) {
       adminAPI
-        .get<SpaceAnnouncement>(
-          "/Space/" + cookies.get("spaceId") + "/Announcement"
-        )
+        .get<SpaceAnnouncement>(`/Space/${spaceId}/Announcement`)
         .then((response) => {
           this.announcement = response.data;
         })

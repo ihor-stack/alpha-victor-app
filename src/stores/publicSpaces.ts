@@ -1,11 +1,8 @@
 import { defineStore } from "pinia";
-import { publicAPI, adminAPI } from "@/axios";
+import { publicAPI } from "@/axios";
 import { DetailedSpace, Space, Device, Panorama } from "@/types/index";
-import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
-
-const { cookies } = useCookies();
 
 export const Spaces = defineStore("PublicSpaces", {
   state: () => {
@@ -22,19 +19,15 @@ export const Spaces = defineStore("PublicSpaces", {
   actions: {
     setcurrentId(newId: string) {
       this.currentId = newId;
-      cookies.set("spaceId", newId);
       return true;
     },
     async getSpaceDetails(id: string) {
       loadingService.show("Loading...");
       publicAPI
-        .get<DetailedSpace>(
-          `/Space/${id || this.currentId || cookies.get("spaceId")}/Details`
-        )
+        .get<DetailedSpace>(`/Space/${id || this.currentId}/Details`)
         .then((response) => {
           this.currentSpace = response.data;
           this.currentId = response.data.id;
-          cookies.set("spaceId", response.data.id || "");
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
@@ -122,11 +115,7 @@ export const Spaces = defineStore("PublicSpaces", {
     async getSpaceDevices(spaceId: string) {
       loadingService.show("Loading...");
       publicAPI
-        .get<Device[]>(
-          `/Space/${
-            spaceId || this.currentId || cookies.get("spaceId")
-          }/Devices`
-        )
+        .get<Device[]>(`/Space/${spaceId || this.currentId}/Devices`)
         .then((response) => {
           this.devices = response.data;
         })
@@ -171,6 +160,6 @@ export const Spaces = defineStore("PublicSpaces", {
     },
   },
   getters: {
-    currentSpaceId: (state) => state.currentId || cookies.get("spaceId"),
+    currentSpaceId: (state) => state.currentId,
   },
 });

@@ -15,7 +15,6 @@
           <div class="modal-panel-container">
             <ion-header>
               <ion-icon
-               
                 :icon="close"
                 size="small"
                 class="close-button"
@@ -72,14 +71,15 @@ import {
 import { close } from "ionicons/icons";
 import { MetaData } from "@/stores/adminMetaData";
 
-const Spaces = MetaData();
+const metaDataStore = MetaData();
 const modalOpen = ref(false);
 const newFeature = ref("");
+const props = defineProps(["organisationId"]);
 const handleDismiss = () => {
   modalOpen.value = false;
 };
 const saveNewFeature = () => {
-  Spaces.saveSpaceFeature(newFeature.value);
+  metaDataStore.saveSpaceFeature(props.organisationId, newFeature.value);
   newFeature.value = "";
   modalOpen.value = false;
 };

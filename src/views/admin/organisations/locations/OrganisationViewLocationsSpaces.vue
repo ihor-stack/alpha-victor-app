@@ -94,7 +94,9 @@
             v-model="decisionTreeSelected"
             idPrefix="decision-tree-select"
           />
-          <ion-label class="empty-state" v-else>No decision trees exist</ion-label>
+          <ion-label class="empty-state" v-else
+            >No decision trees exist</ion-label
+          >
         </ion-col>
       </ion-row>
 
@@ -114,7 +116,7 @@
       <hr class="form-admin--divider" />
       <ion-item lines="none">
         <ion-label>Documents</ion-label>
-        <DocumentModal />
+        <DocumentModal :organisationId="organisationId" />
       </ion-item>
 
       <ion-row class="form-admin--group_field component_container">

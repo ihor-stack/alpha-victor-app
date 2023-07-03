@@ -67,7 +67,10 @@
       </ion-row>
     </ion-grid>
 
-    <ion-button class="button-wide" @click="organisation.saveThemes()">
+    <ion-button
+      class="button-wide"
+      @click="organisation.saveThemes(organisationId)"
+    >
       Save changes
     </ion-button>
   </div>
@@ -84,13 +87,17 @@ import {
   IonToggle,
   IonItem,
 } from "@ionic/vue";
-import { ref, onBeforeMount } from "vue";
-import { Theme } from "@/stores/adminThemes";
+import { onBeforeMount } from "vue";
+import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
+
+import { Theme } from "@/stores/adminThemes";
 import CustomIonUploadInput from "@/components/shared/CustomIonUploadInput.vue";
 
 const organisation = Theme();
 const { theme } = storeToRefs(organisation);
+const route = useRoute();
+const organisationId = route.params.id as string;
 
 async function onFileSelected(file: File, isLogo: boolean) {
   const reader = new FileReader();
@@ -115,15 +122,15 @@ const onLogoSelected = (file: File) => onFileSelected(file, true);
 const onBackgroundSelected = (file: File) => onFileSelected(file, false);
 
 const onLogoRemoved = () => {
-  organisation.removeLogo();
+  organisation.removeLogo(organisationId);
 };
 
 const onBackgroundRemoved = () => {
-  organisation.removeBackgroundImage();
+  organisation.removeBackgroundImage(organisationId);
 };
 
 onBeforeMount(() => {
-  organisation.getThemes();
+  organisation.getThemes(organisationId);
 });
 </script>
 

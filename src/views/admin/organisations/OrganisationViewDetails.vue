@@ -161,14 +161,18 @@ import {
 } from "@ionic/vue";
 import { Organisations } from "@/stores/adminOrganisations";
 import { storeToRefs } from "pinia";
-import { onBeforeMount, ref, watchEffect } from "vue";
+import { onBeforeMount, ref } from "vue";
+import { useRoute } from "vue-router";
+
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { closeCircle } from "ionicons/icons";
 import { SelectItem } from "@/types/index";
 import toastService from "@/services/toastService";
 
+const route = useRoute();
 const organisation = Organisations();
 const { organisationDetails } = storeToRefs(organisation);
+const organisationId = route.params.id as string;
 const languageOptions = [
   { id: 0, title: "English" },
   { id: 1, title: "Welsh" },
@@ -204,11 +208,11 @@ const removeDomain = (index: number) => {
 };
 
 const saveChanges = () => {
-  organisation.updateOrgDetails(selectedLanguage.value.id);
+  organisation.updateOrgDetails(organisationId, selectedLanguage.value.id);
 };
 
 onBeforeMount(() => {
-  organisation.getOrgDetails();
+  organisation.getOrgDetails(organisationId);
 });
 </script>
 

@@ -6,7 +6,10 @@
         <ion-item
           v-for="org in organisation.getList"
           v-bind:key="org.id"
-          :router-link="redirect(org.organisationId)"
+          :router-link="{
+            name: 'OrganisationView',
+            params: { id: org.organisationId },
+          }"
           router-direction="root"
         >
           <div class="organisations-list-menu--logo">
@@ -27,20 +30,10 @@ import { IonItem, IonIcon } from "@ionic/vue";
 import { onBeforeMount, ref } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
-import { useCookies } from "vue3-cookies";
 
 import NewOrganisationModal from "@/components/modals/NewOrganisationModal.vue";
 
-const { cookies } = useCookies();
-
 const organisation = Organisations();
-
-const redirect = (id: string) => {
-  cookies.set("orgId", id);
-  if (cookies.get("orgId")) {
-    return { name: "OrganisationView", params: { id: cookies.get("orgId") } };
-  }
-};
 
 onBeforeMount(() => {
   organisation.getOrganisations();

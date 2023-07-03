@@ -47,22 +47,22 @@ import {
   IonSelectOption,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount } from "vue";
+import { useRoute } from "vue-router";
 import { Integrations } from "@/stores/adminIntegrations";
 import { Organisations } from "@/stores/adminOrganisations";
 
 import AdminSelect from "@/components/admin/AdminSelect.vue";
-import { SelectItem, Integration } from "@/types";
-import { useRoute } from "vue-router";
+import { Integration } from "@/types";
 
 const store = Integrations();
 const orgStore = Organisations();
 const integration = storeToRefs(store);
-const organisations = storeToRefs(orgStore);
-const selectedOrg = ref({} as SelectItem);
+
 const route = useRoute();
 
 const orgId = String(route.params.id);
+const integrationId = String(route.params.integrationId);
 
 const SaveEdit = () => {
   const newEdit: Integration = {
@@ -70,11 +70,11 @@ const SaveEdit = () => {
     clientSecret: integration.integration.value.clientSecret,
     selectedOrgnisation: orgId,
   };
-  store.editIntegration(orgId, newEdit);
+  store.editIntegration(integrationId, newEdit);
 };
 
 onBeforeMount(() => {
-  store.getSingleIntegration();
+  store.getSingleIntegration(orgId, integrationId);
   orgStore.getOrgsSelectItem();
 });
 </script>
