@@ -75,7 +75,6 @@
       >
       <ion-button
         class="ion-text-capitalize"
-       
         fill="clear"
         expand="block"
         @click="handleClickBack"
@@ -166,8 +165,4 @@ watch([() => state.equipmentId], (value) => {
 });
 </script>
 
-<style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
-</style>
+<style scoped></style>

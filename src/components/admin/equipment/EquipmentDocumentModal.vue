@@ -171,9 +171,6 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
 ion-popover {
   --background: var(--av-light-gray);
   --backdrop-opacity: 0.6;
@@ -194,17 +191,7 @@ ion-popover::part(backdrop) {
   margin-left: 95%;
   cursor: pointer;
 }
-.modal-panel {
-  height: 80%;
-  width: 60%;
-  margin-left: 20%;
-  border-radius: 40px 40px 40px 40px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #181818;
-}
+
 .modal-panel {
   height: 80%;
   width: 100%;
@@ -214,7 +201,6 @@ ion-popover::part(backdrop) {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
 }
 ion-content {
   --padding-top: 16px;
@@ -222,7 +208,6 @@ ion-content {
 .modal-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;

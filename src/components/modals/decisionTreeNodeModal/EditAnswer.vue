@@ -9,7 +9,6 @@
         <ion-col size="12" class="form-admin--group_field">
           <ion-label>Answer</ion-label>
           <ion-input
-           
             placeholder="Enter Answer"
             v-model="state.text"
           ></ion-input>
@@ -48,8 +47,4 @@ const state = reactive({
 });
 </script>
 
-<style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
-</style>
+<style scoped></style>

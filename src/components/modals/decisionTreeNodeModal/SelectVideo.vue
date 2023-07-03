@@ -9,7 +9,6 @@
         <ion-col size="12">
           <input-with-icon
             iconPosition="start"
-           
             type="search"
             placeholder="Search for a video"
             v-model="state.searchTerm"
@@ -31,7 +30,6 @@
           <ion-label>Add new video</ion-label>
           <ion-row>
             <ion-input
-             
               placeholder="Enter Vimeo or YouTube URL"
               v-model="state.newVideoUrl.value"
             ></ion-input>
@@ -45,7 +43,6 @@
         <ion-col size="12" class="form-admin--group_field">
           <ion-label>Add video title</ion-label>
           <ion-input
-           
             placeholder="New video added"
             v-model="state.newVideoTitle.value"
           ></ion-input>
@@ -62,7 +59,6 @@
       </ion-button>
       <ion-button
         class="ion-text-capitalize"
-       
         fill="clear"
         expand="block"
         @click="handleClickBack"
@@ -136,9 +132,6 @@ const onAddVideo = () => {
 </script>
 
 <style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
 .divider {
   position: relative;
   padding: 32px 0;

@@ -10,7 +10,6 @@
           <ion-col size="12" class="form-admin--group_field">
             <ion-label>Article title</ion-label>
             <ion-input
-             
               placeholder="Enter title"
               v-model="state.newArticleTitle.value"
             ></ion-input>
@@ -43,7 +42,6 @@
           <ion-col size="12">
             <input-with-icon
               iconPosition="start"
-             
               type="search"
               placeholder="Search for an article"
               v-model="state.searchTerm"
@@ -71,7 +69,6 @@
           class="ion-text-capitalize ion-margin-top"
           fill="outline"
           expand="block"
-         
           @click="state.isAddingArticle = false"
         >
           Cancel
@@ -82,7 +79,6 @@
           class="ion-text-capitalize"
           fill="outline"
           expand="block"
-         
           @click="state.isAddingArticle = true"
         >
           Add new article +</ion-button
@@ -97,7 +93,6 @@
       </template>
       <ion-button
         class="ion-text-capitalize"
-       
         fill="clear"
         expand="block"
         @click="handleClickBack"
@@ -173,9 +168,6 @@ const onAddArticle = () => {
 </script>
 
 <style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
 .editor-wrapper {
   padding: 0 10px 10px;
 }

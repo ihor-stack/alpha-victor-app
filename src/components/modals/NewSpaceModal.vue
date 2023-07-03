@@ -18,7 +18,6 @@
         <div class="modal-panel-container">
           <ion-header>
             <ion-icon
-             
               :icon="close"
               size="small"
               class="close-button"
@@ -45,7 +44,6 @@
                 >
                   <ion-input
                     class="font-size-sm"
-                   
                     placeholder="Space Name"
                     :value="newSpaceDetails.spaceName"
                     @ion-input="
@@ -61,7 +59,6 @@
                 >
                   <ion-input
                     class="font-size-sm"
-                   
                     placeholder="Space Shortcode"
                     :value="newSpaceDetails.shortCode"
                     @ion-input="
@@ -126,9 +123,6 @@ const saveNewSpace = () => {
 </script>
 
 <style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
 .close-button {
   width: 20px;
   margin-left: 95%;

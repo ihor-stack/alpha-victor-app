@@ -3,7 +3,6 @@
     <div class="modal-panel-container">
       <ion-header>
         <ion-icon
-         
           :icon="close"
           size="small"
           class="close-button"
@@ -33,9 +32,6 @@ const props = defineProps(["title", "description", "handleDismiss"]);
 </script>
 
 <style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
 ion-popover {
   --background: var(--av-light-gray);
   --backdrop-opacity: 0.6;
@@ -63,12 +59,10 @@ ion-popover::part(backdrop) {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
 }
 .modal-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;

@@ -9,7 +9,6 @@
         <ion-col size="12" class="form-admin--group_field">
           <ion-label>Phone Number</ion-label>
           <ion-input
-           
             placeholder="Enter phone number"
             v-model="state.phone"
           ></ion-input>
@@ -24,7 +23,6 @@
       >
       <ion-button
         class="ion-text-capitalize"
-       
         fill="clear"
         expand="block"
         @click="handleClickBack"
@@ -58,8 +56,4 @@ const state = reactive({
 });
 </script>
 
-<style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
-</style>
+<style scoped></style>

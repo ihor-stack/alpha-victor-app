@@ -1,67 +1,68 @@
 <template>
   <ion-item>
-    <ion-label 
-      class="font-size-lg"
-     >{{modelValue}}
-    </ion-label>
+    <ion-label class="font-size-lg">{{ modelValue }} </ion-label>
     <ion-icon
       class="reset-button text-lowercase"
-      :icon="createOutline" 
+      :icon="createOutline"
       slot="end"
       fill="clear"
       size="small"
       @click="openModal()"
-      />
+    />
   </ion-item>
   <ion-modal
-    :is-open="active"  
+    :is-open="active"
     @willDismiss="active = false"
-    :initial-breakpoint="0.8" 
-    :breakpoints="[0, 0.9]">
-      <ion-page>
+    :initial-breakpoint="0.8"
+    :breakpoints="[0, 0.9]"
+  >
+    <ion-page>
       <div class="modal-panel">
-          <div class="modal-panel-container">
+        <div class="modal-panel-container">
           <ion-header>
-              <ion-icon 
-              color='light' 
-              :icon="close" 
-              size="small" 
-              class="close-button" 
-              @click="active = false"/>
-              <div class="modal-panel__header">
-              <h1 class="modal-panel__title color-light-gray font-bold font-size-normal">
+            <ion-icon
+              color="light"
+              :icon="close"
+              size="small"
+              class="close-button"
+              @click="active = false"
+            />
+            <div class="modal-panel__header">
+              <h1
+                class="modal-panel__title color-light-gray font-bold font-size-normal"
+              >
                 Edit Document Type
               </h1>
               <ion-input
                 class="font-size-sm"
-               
                 placeholder="Document Type"
                 :value="newDocument"
                 @ion-input="newDocument = $event.target.value"
               ></ion-input>
-              </div>
+            </div>
           </ion-header>
           <ion-footer>
             <ion-button
-              @click="$emit('save', newDocument), active = false"
+              @click="$emit('save', newDocument), (active = false)"
               class="save-button text-lowercase"
               fill="clear"
               size="small"
-              > &gt;&gt; save
+            >
+              &gt;&gt; save
             </ion-button>
             <ion-button
-              @click="$emit('remove'), active = false"
+              @click="$emit('remove'), (active = false)"
               class="remove-button text-lowercase"
               fill="clear"
               size="small"
-              >
+            >
               &gt;&gt; remove
-          </ion-button>
+            </ion-button>
           </ion-footer>
-          </div>
+        </div>
       </div>
-      </ion-page>
-    </ion-modal>
+    </ion-page>
+  </ion-modal>
 </template>
 
 <script setup lang="ts">
@@ -72,28 +73,27 @@ import {
   IonIcon,
   IonModal,
   IonFooter,
-  IonPage
+  IonPage,
 } from "@ionic/vue";
-import {adminDocuments} from '@/stores/adminDocumentTypes'
-import {createOutline, close} from 'ionicons/icons'
-import { ref } from "vue"
+import { adminDocuments } from "@/stores/adminDocumentTypes";
+import { createOutline, close } from "ionicons/icons";
+import { ref } from "vue";
 
-const store = adminDocuments()
+const store = adminDocuments();
 interface Props {
   id: string;
   modelValue: string;
 }
-const props = defineProps<Props>()
-defineEmits(['update:modelValue'])
+const props = defineProps<Props>();
+defineEmits(["update:modelValue"]);
 
-const active = ref(false)
-const newDocument = ref()
+const active = ref(false);
+const newDocument = ref();
 
 const openModal = () => {
-  active.value = true
-  newDocument.value = props.modelValue
-}
-
+  active.value = true;
+  newDocument.value = props.modelValue;
+};
 </script>
 
 <style scoped>
@@ -104,7 +104,7 @@ const openModal = () => {
 .reset-button {
   color: var(--av-orange);
   font-family: "Akkurat-Mono";
-  cursor: pointer
+  cursor: pointer;
 }
 .save-button {
   color: var(--av-green);
@@ -116,30 +116,24 @@ ion-item {
 ion-icon {
   cursor: pointer;
 }
-ion-content::part(background) {
-  background: #181818;
-}
-.close-button{
-    width: 20px;
-    margin-left: 95%;
-    cursor: pointer;
+.close-button {
+  width: 20px;
+  margin-left: 95%;
+  cursor: pointer;
 }
 .modal-panel {
   height: 40%;
-  width: 70%;
-  margin-left: 15%;
+  width: 100%;
   border-radius: 40px 40px 40px 40px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: #181818;
 }
 
 .modal-panel-container {
   position: relative;
   height: 100%;
-  background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
@@ -153,6 +147,4 @@ ion-content::part(background) {
 .modal-panel__title {
   margin-bottom: 12px;
 }
-
-
 </style>
