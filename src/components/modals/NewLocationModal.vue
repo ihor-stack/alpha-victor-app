@@ -14,7 +14,7 @@
           <div class="modal-panel-container">
             <ion-header>
               <ion-icon
-                color="light"
+               
                 :icon="close"
                 size="small"
                 class="close-button"
@@ -41,7 +41,6 @@
                   >
                     <ion-input
                       class="font-size-sm"
-                      color="light"
                       placeholder="Location Name"
                       :value="newLocationDetails.name"
                       @ion-input="
@@ -54,10 +53,9 @@
                     size-xs="12"
                     size-sm="6"
                     class="form-admin--group_field"
-                  >
+                  > 
                     <ion-input
                       class="font-size-sm"
-                      color="light"
                       placeholder="Location Prefix"
                       :value="newLocationDetails.prefix"
                       @ion-input="

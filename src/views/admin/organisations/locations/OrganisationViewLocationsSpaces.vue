@@ -63,10 +63,12 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label>Room type</ion-label>
           <AdminSelect
+            v-if="formattedSelect.length"
             v-model="roomTypeSelected"
             :options="formattedSelect"
             idPrefix="room-type-select"
           />
+          <ion-label class="empty-state" v-else>No room types exist</ion-label>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label>Capacity</ion-label>
@@ -87,10 +89,12 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label>Decision Tree</ion-label>
           <AdminSelect
+            v-if="decisionTreeList.length"
             :options="decisionTreeList"
             v-model="decisionTreeSelected"
             idPrefix="decision-tree-select"
           />
+          <ion-label class="empty-state" v-else>No decision trees exist</ion-label>
         </ion-col>
       </ion-row>
 

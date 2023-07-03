@@ -17,7 +17,7 @@
         <ion-item
           :detail="true"
           button
-          color="light"
+         
           @click="handleUrlChange('/settings/profile')"
         >
           <ion-label>

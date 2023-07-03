@@ -3,7 +3,7 @@
     <div class="modal-panel-container">
       <ion-header>
         <ion-icon
-          color="light"
+         
           :icon="close"
           size="small"
           class="close-button"

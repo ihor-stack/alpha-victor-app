@@ -7,7 +7,13 @@
 
       <ion-title>
         <router-link to="/dashboard">
-          <img :src="theme?.logo" class="logo" alt="AlphaVictor logo" />
+          <img v-if="theme.logo" :src="theme?.logo" class="logo" />
+          <img
+            v-else
+            src="@/theme/img/logo/logo-without-name.svg"
+            class="logo"
+            alt="AlphaVictor"
+          />
         </router-link>
       </ion-title>
 

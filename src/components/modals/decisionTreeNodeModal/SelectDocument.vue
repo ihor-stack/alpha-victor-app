@@ -7,7 +7,7 @@
     <ion-content>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label color="light">Manufacturer</ion-label>
+          <ion-label>Manufacturer</ion-label>
           <ion-select
             interface="action-sheet"
             placeholder="Select manufacturer"
@@ -25,7 +25,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label color="light">Type</ion-label>
+          <ion-label>Type</ion-label>
           <ion-select
             interface="action-sheet"
             placeholder="Select type"
@@ -43,7 +43,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label color="light">Model</ion-label>
+          <ion-label>Model</ion-label>
           <ion-select
             interface="action-sheet"
             placeholder="Select model"
@@ -75,7 +75,7 @@
       >
       <ion-button
         class="ion-text-capitalize"
-        color="light"
+       
         fill="clear"
         expand="block"
         @click="handleClickBack"

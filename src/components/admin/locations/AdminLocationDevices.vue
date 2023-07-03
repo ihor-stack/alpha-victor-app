@@ -10,48 +10,48 @@
                     :value="index"
                 >
                     <ion-item slot="header" color="--av-darkest-gray">
-                    <ion-label color="light">{{item.title}}</ion-label>
+                    <ion-label>{{item.title}}</ion-label>
                     </ion-item>
                     <div class="ion-padding" slot="content">
                         <ion-row class="form-admin--group">
                             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                                <ion-label color="light">Serial number</ion-label>
+                                <ion-label>Serial number</ion-label>
                                 <ion-input
                                 class="font-size-sm"
-                                color="light"
+                               
                                 ></ion-input>
                             </ion-col>
                             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                                <ion-label color="light">Installer</ion-label>
+                                <ion-label>Installer</ion-label>
                                 <ion-input
                                 class="font-size-sm"
-                                color="light"
+                               
                                 ></ion-input>
                             </ion-col>
                             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                                <ion-label color="light">Install date</ion-label>
+                                <ion-label>Install date</ion-label>
                                 <ion-input
                                 class="font-size-sm"
-                                color="light"
+                               
                                 ></ion-input> 
                             </ion-col>
                             <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-                                <ion-label color="light">Warranty expiry date</ion-label>
+                                <ion-label>Warranty expiry date</ion-label>
                                 <ion-input
                                 class="font-size-sm"
-                                color="light"
+                               
                                 ></ion-input>
                             </ion-col>
                             <ion-col size-xs="12" class="form-admin--group_field">
-                                <ion-label color="light">Description</ion-label>
+                                <ion-label>Description</ion-label>
                                 <ion-textarea
                                 class="font-size-sm"
-                                color="light"
+                               
                                 fill="solid"
                                 ></ion-textarea>
                             </ion-col>
                             <ion-col size-xs="12" class="form-admin--group_field">
-                                <ion-label color="light">Photos</ion-label>
+                                <ion-label>Photos</ion-label>
                                 <AdminFloorsField />
                             </ion-col>
                             <ion-col size-xs="12" class="form-admin--group_field">

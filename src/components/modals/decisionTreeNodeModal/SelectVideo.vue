@@ -9,7 +9,7 @@
         <ion-col size="12">
           <input-with-icon
             iconPosition="start"
-            color="light"
+           
             type="search"
             placeholder="Search for a video"
             v-model="state.searchTerm"
@@ -28,10 +28,10 @@
       </div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label color="light">Add new video</ion-label>
+          <ion-label>Add new video</ion-label>
           <ion-row>
             <ion-input
-              color="light"
+             
               placeholder="Enter Vimeo or YouTube URL"
               v-model="state.newVideoUrl.value"
             ></ion-input>
@@ -43,9 +43,9 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label color="light">Add video title</ion-label>
+          <ion-label>Add video title</ion-label>
           <ion-input
-            color="light"
+           
             placeholder="New video added"
             v-model="state.newVideoTitle.value"
           ></ion-input>
@@ -62,7 +62,7 @@
       </ion-button>
       <ion-button
         class="ion-text-capitalize"
-        color="light"
+       
         fill="clear"
         expand="block"
         @click="handleClickBack"
