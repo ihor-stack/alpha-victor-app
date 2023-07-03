@@ -42,10 +42,19 @@
               </ion-row>
               <ion-row class="form-admin--group">
                 <ion-col size-xs="12" class="form-admin--group_field">
+                  <ion-label>Name</ion-label>
+                  <ion-input
+                    class="font-size-sm"
+                    :value="newDevice.name"
+                    @ion-input="newDevice.name = String($event.target.value)"
+                  ></ion-input>
+                </ion-col>
+              </ion-row>
+              <ion-row class="form-admin--group">
+                <ion-col size-xs="12" class="form-admin--group_field">
                   <ion-label>Serial number</ion-label>
                   <ion-input
                     class="font-size-sm"
-                   
                     :value="newDevice.serialNumber"
                     @ion-input="
                       newDevice.serialNumber = String($event.target.value)
@@ -55,32 +64,14 @@
               </ion-row>
 
               <ion-row class="form-admin--group">
-                <ion-col
-                  size-xs="12"
-                  size-sm="6"
-                  class="form-admin--group_field"
-                >
+                <ion-col size-xs="12" class="form-admin--group_field">
                   <ion-label>Installer</ion-label>
                   <ion-input
                     class="font-size-sm"
-                   
                     :value="newDevice.installer"
                     @ion-input="
                       newDevice.installer = String($event.target.value)
                     "
-                  ></ion-input>
-                </ion-col>
-                <ion-col
-                  size-xs="12"
-                  size-sm="6"
-                  class="form-admin--group_field"
-                >
-                  <ion-label>Name</ion-label>
-                  <ion-input
-                    class="font-size-sm"
-                   
-                    :value="newDevice.name"
-                    @ion-input="newDevice.name = String($event.target.value)"
                   ></ion-input>
                 </ion-col>
                 <ion-col
