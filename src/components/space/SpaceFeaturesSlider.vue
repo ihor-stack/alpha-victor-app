@@ -1,7 +1,7 @@
 <template>
   <div>
     <swiper :slidesPerView="'auto'" :spaceBetween="10" class="space-features">
-      <swiper-slide v-for="feature in features" :key="feature.name">
+      <swiper-slide v-for="feature in selectedFeatures" :key="feature.name">
         <ion-item lines="none" :detail="false">
           <div class="space-equipment-menu__item__icon">
             <img :src="useEquipmentIcon(feature.icon || '')" />
@@ -21,12 +21,16 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import { SpaceFeature } from "@/types";
 import { useEquipmentIcon } from "@/composables/utilities";
+import { computed } from 'vue';
 
 interface Props {
   features: SpaceFeature[];
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const selectedFeatures = computed(() => props.features ? props.features.filter(feature => feature.selected) : []);
+
 </script>
 
 <style scoped>
