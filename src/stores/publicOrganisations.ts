@@ -1,12 +1,8 @@
 import { defineStore } from "pinia";
 import { publicAPI } from "@/axios";
 import { AdminOrganisation, OrgDetails, Location, Theme } from "@/types/index";
-
-import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
-
-const { cookies } = useCookies();
 
 export const Organisations = defineStore("PublicOrganisations", {
   state: () => {
@@ -24,7 +20,6 @@ export const Organisations = defineStore("PublicOrganisations", {
   actions: {
     setId(newId: string) {
       this.currentOrganisationId = newId;
-      cookies.set("publicOrgId", newId);
       return true;
     },
     async getOrganisations() {
@@ -46,9 +41,7 @@ export const Organisations = defineStore("PublicOrganisations", {
       loadingService.show("Loading...");
       publicAPI
         .get<OrgDetails>(
-          `/Organisation/${
-            id || this.currentOrganisationId || cookies.get("publicOrgId")
-          }/Details`
+          `/Organisation/${id || this.currentOrganisationId}/Details`
         )
         .then((response) => {
           this.currentOrganisation = response.data;
@@ -80,11 +73,7 @@ export const Organisations = defineStore("PublicOrganisations", {
     async getOrgTheme(id: string) {
       loadingService.show("Loading...");
       publicAPI
-        .get<Theme>(
-          `/Organisation/${
-            id || this.currentOrganisationId || cookies.get("publicOrgId")
-          }/Theme`
-        )
+        .get<Theme>(`/Organisation/${id || this.currentOrganisationId}/Theme`)
         .then((response) => {
           this.theme = response.data;
         })
@@ -101,7 +90,7 @@ export const Organisations = defineStore("PublicOrganisations", {
   },
   getters: {
     getList: (state) => state.organisationList,
-    getId: (state) => state.currentOrganisationId || cookies.get("publicOrgId"),
+    getId: (state) => state.currentOrganisationId,
     currentOrganisationDetails: (state) => state.currentOrganisation,
   },
 });

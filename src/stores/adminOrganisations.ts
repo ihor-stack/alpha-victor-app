@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { adminAPI } from "@/axios";
 import { publicAPI } from "@/axios";
-import router from '@/router';
+import router from "@/router";
 
 import {
   AdminOrganisation,
@@ -16,11 +16,8 @@ import {
   EquipmentList,
 } from "@/types/index";
 
-import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
-
-const { cookies } = useCookies();
 
 export const Organisations = defineStore("Organisations", {
   state: () => {
@@ -45,7 +42,6 @@ export const Organisations = defineStore("Organisations", {
   actions: {
     setId(newId: string) {
       this.currentOrg = newId;
-      cookies.set("orgId", newId);
       return true;
     },
 
@@ -54,22 +50,21 @@ export const Organisations = defineStore("Organisations", {
       loadingService.show("Loading...");
       adminAPI
         .post("/Organisation/Details", {
-          name: newOrg.name
-        }
-      )
-      .then(() => {
-        loadingService.close();
-        toastService.show(
-          "Success",
-          "New organisation added",
-          "success",
-          "top"
-        );
-        this.getOrganisations()
-      })
-      .catch((error) => {
-        toastService.show("Error", error, "error", "top");
-      });
+          name: newOrg.name,
+        })
+        .then(() => {
+          loadingService.close();
+          toastService.show(
+            "Success",
+            "New organisation added",
+            "success",
+            "top"
+          );
+          this.getOrganisations();
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
     },
 
     async getOrganisations() {
@@ -79,7 +74,7 @@ export const Organisations = defineStore("Organisations", {
         .then((response) => {
           if (response.data) {
             if (Array.isArray(response.data)) {
-                response.data.sort((a, b) => a.name.localeCompare(b.name));
+              response.data.sort((a, b) => a.name.localeCompare(b.name));
             }
             this.organisationList = response.data;
           }
@@ -90,7 +85,7 @@ export const Organisations = defineStore("Organisations", {
         });
     },
 
-    async getOrgDetails(id = cookies.get("orgId")) {
+    async getOrgDetails(id: string) {
       loadingService.show("Loading...");
       adminAPI
         .get<OrgDetails>(`/Organisation/${id}/Details`)
@@ -105,26 +100,23 @@ export const Organisations = defineStore("Organisations", {
         });
     },
 
-    async updateOrgDetails(languageIndex: number) {
+    async updateOrgDetails(organisationId: string, languageIndex: number) {
       const editedOrg = this.organisationDetails;
       loadingService.show("Loading...");
       adminAPI
-        .patch<OrgDetails>(
-          "/Organisation/" + cookies.get("orgId") + "/Details",
-          {
-            name: editedOrg.name,
-            prefix: editedOrg.prefix,
-            contactName: editedOrg.contactName,
-            email: editedOrg.email,
-            phone: editedOrg.phone,
-            addressLine0: editedOrg.addressLine0,
-            addressLine1: editedOrg.addressLine1,
-            city: editedOrg.city,
-            postcode: editedOrg.postCode,
-            website: editedOrg.website,
-            language: languageIndex,
-          }
-        )
+        .patch<OrgDetails>(`/Organisation/${organisationId}/Details`, {
+          name: editedOrg.name,
+          prefix: editedOrg.prefix,
+          contactName: editedOrg.contactName,
+          email: editedOrg.email,
+          phone: editedOrg.phone,
+          addressLine0: editedOrg.addressLine0,
+          addressLine1: editedOrg.addressLine1,
+          city: editedOrg.city,
+          postcode: editedOrg.postCode,
+          website: editedOrg.website,
+          language: languageIndex,
+        })
         .then(() => {
           loadingService.close();
           toastService.show(
@@ -139,9 +131,9 @@ export const Organisations = defineStore("Organisations", {
         });
     },
 
-    async deleteOrganisation() {
+    async deleteOrganisation(organisationId: string) {
       adminAPI
-        .delete("/Organisation/" + cookies.get("orgId"))
+        .delete(`/Organisation/${organisationId}`)
         .then(() => {
           toastService.show(
             "Success",
@@ -149,7 +141,7 @@ export const Organisations = defineStore("Organisations", {
             "success",
             "top"
           );
-          router.push('/admin/organisations');
+          router.push("/admin/organisations");
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
@@ -176,12 +168,10 @@ export const Organisations = defineStore("Organisations", {
         });
     },
 
-    async getOrgDocumentTypes() {
-      loadingService.show("Loading..."); 
+    async getOrgDocumentTypes(organisationId: string) {
+      loadingService.show("Loading...");
       adminAPI
-        .get<AdminDocument[]>(
-          "/Organisation/" + cookies.get("orgId") + "/DocumentTypes"
-        )
+        .get<AdminDocument[]>(`/Organisation/${organisationId}/DocumentTypes`)
         .then((response) => {
           if (response.data) {
             if (Array.isArray(response.data)) {
@@ -196,44 +186,38 @@ export const Organisations = defineStore("Organisations", {
         });
     },
 
-    async saveNewOrgDocumentType(documentName: string) {
+    async saveNewOrgDocumentType(organisationId: string, documentName: string) {
       adminAPI
-        .post<AdminDocument>(
-          "/Organisation/" + cookies.get("orgId") + "/DocumentType",
-          {
-            name: documentName,
-          }
-        )
+        .post<AdminDocument>(`/Organisation/${organisationId}/DocumentType`, {
+          name: documentName,
+        })
         .then(() => {
           toastService.show("Success", "Document type added", "success", "top");
-          this.getOrgDocumentTypes();
+          this.getOrgDocumentTypes(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
 
-    async editOrgDocumentType(document: AdminDocument) {
+    async editOrgDocumentType(organisationId: string, document: AdminDocument) {
       adminAPI
-        .patch(
-          "/Organisation/" + cookies.get("orgId") + "/DocumentType/" + document.id,
-          {
-            name: document.name,
-          }
-        )
+        .patch(`/Organisation/${organisationId}/DocumentType/${document.id}`, {
+          name: document.name,
+        })
         .then(() => {
-          this.getOrgDocumentTypes();
+          this.getOrgDocumentTypes(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
 
-    async removeOrgDocumentType(id: string) {
+    async removeOrgDocumentType(organisationId: string, id: string) {
       adminAPI
-        .delete("/Organisation/" + cookies.get("orgId") + "/DocumentType/" + id)
+        .delete(`/Organisation/${organisationId}/DocumentType/${id}`)
         .then(() => {
-          this.getOrgDocumentTypes();
+          this.getOrgDocumentTypes(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
@@ -277,7 +261,7 @@ export const Organisations = defineStore("Organisations", {
         .get<DecisionTreeList[]>(`/DecisionTree`)
         .then((response) => {
           const formattedList: SelectItem[] = [];
-          
+
           response.data.forEach((element, index) => {
             formattedList.push({
               id: index,
@@ -321,7 +305,7 @@ export const Organisations = defineStore("Organisations", {
       adminAPI
         .post(`/article?organisationId=${this.currentOrg}`, article)
         .then((res) => {
-          this.getOrgDetails();
+          this.getOrgDetails(this.currentOrg);
           callback ? callback(res.data) : null;
         })
         .catch((error) => {
@@ -337,7 +321,7 @@ export const Organisations = defineStore("Organisations", {
       adminAPI
         .post(`/video?organisationId=${this.currentOrg}`, video)
         .then((res) => {
-          this.getOrgDetails();
+          this.getOrgDetails(this.currentOrg);
           callback ? callback(res.data) : null;
         })
         .catch((error) => {

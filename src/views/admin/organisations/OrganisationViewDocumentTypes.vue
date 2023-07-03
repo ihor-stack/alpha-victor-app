@@ -60,29 +60,33 @@
 <script setup lang="ts">
 import { IonButton, IonGrid, IonRow, IonCol, IonInput } from "@ionic/vue";
 import { onBeforeMount, ref } from "vue";
-import { Organisations } from "@/stores/adminOrganisations";
+import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
+
+import { Organisations } from "@/stores/adminOrganisations";
 import { AdminDocument } from "@/types";
 import ItemField from "@/components/admin/ItemField.vue";
 
+const route = useRoute();
+const organisationId = route.params.id as string;
 const organisation = Organisations();
 const { documents } = storeToRefs(organisation);
 
 onBeforeMount(() => {
-  organisation.getOrgDocumentTypes();
+  organisation.getOrgDocumentTypes(organisationId);
 });
 
 const newDocument = ref();
 
 const newDocumentType = () => {
-  organisation.saveNewOrgDocumentType(newDocument.value);
+  organisation.saveNewOrgDocumentType(organisationId, newDocument.value);
 };
 
 const updateTypeValue = (updatedDoc: AdminDocument) => {
-  organisation.editOrgDocumentType(updatedDoc);
+  organisation.editOrgDocumentType(organisationId, updatedDoc);
 };
 
 const removeType = (data: AdminDocument) => {
-  organisation.removeOrgDocumentType(data.id);
+  organisation.removeOrgDocumentType(organisationId, data.id);
 };
 </script>

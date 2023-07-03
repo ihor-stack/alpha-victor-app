@@ -6,7 +6,7 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="6" class="form-admin--group_field">
-          <SpaceTypeModal />
+          <SpaceTypeModal :organisationId="organisationId" />
           <hr class="form-admin--divider" />
           <ion-label class="font-bold" v-if="metaData.spaceTypes"
             >Space Types</ion-label
@@ -26,7 +26,7 @@
           </div>
         </ion-col>
         <ion-col size-xs="6" class="form-admin--group_field">
-          <SpaceFeatureModal />
+          <SpaceFeatureModal :organisationId="organisationId" />
           <hr class="form-admin--divider" />
           <ion-label class="font-bold" v-if="metaData.spaceFeatures"
             >Space Features</ion-label
@@ -52,37 +52,40 @@
 
 <script setup lang="ts">
 import { IonLabel, IonCol, IonGrid, IonRow } from "@ionic/vue";
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
+
 import ItemField from "@/components/admin/ItemField.vue";
 import SpaceTypeModal from "@/components/admin/space-metadata/SpaceTypeModal.vue";
 import SpaceFeatureModal from "@/components/admin/space-metadata/SpaceFeatureModal.vue";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount } from "vue";
 import { MetaData } from "@/stores/adminMetaData";
 import { storeToRefs } from "pinia";
 import { spaceType } from "@/types";
 import { spaceFeature } from "@/types";
 
+const route = useRoute();
 const Spaces = MetaData();
 const { metaData } = storeToRefs(Spaces);
+const organisationId = route.params.id as string;
 
 onBeforeMount(() => {
-  Spaces.getMetaData();
+  Spaces.getMetaData(organisationId);
 });
 
 const updateTypeValue = (updatedItem: spaceType) => {
-  Spaces.editSpaceType(updatedItem);
+  Spaces.editSpaceType(organisationId, updatedItem);
 };
 
 const removeType = (item: spaceType) => {
-  Spaces.removeSpaceType(item);
+  Spaces.removeSpaceType(organisationId, item);
 };
 
 const updateFeatureValue = (updatedItem: spaceFeature) => {
-  Spaces.editSpaceFeature(updatedItem);
+  Spaces.editSpaceFeature(organisationId, updatedItem);
 };
 
 const removeFeature = (item: spaceFeature) => {
-  Spaces.removeSpaceFeature(item);
+  Spaces.removeSpaceFeature(organisationId, item);
 };
 </script>
 

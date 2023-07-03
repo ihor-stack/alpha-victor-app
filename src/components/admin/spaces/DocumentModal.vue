@@ -103,6 +103,7 @@ const spaceId = route.params.spaceId as string;
 const Org = Organisations();
 const Space = Spaces();
 const { documents } = storeToRefs(Org);
+const props = defineProps(["organisationId"]);
 
 const documentTypeOptions = computed(() => {
   return documents.value.map((documentType, index) => ({
@@ -159,7 +160,7 @@ const saveNewDocumentType = () => {
 };
 
 onBeforeMount(() => {
-  Org.getOrgDocumentTypes();
+  Org.getOrgDocumentTypes(props.organisationId);
 });
 </script>
 

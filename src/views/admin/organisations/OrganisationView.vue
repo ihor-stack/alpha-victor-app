@@ -64,7 +64,10 @@
       <li class="organisation-options-menu-item">
         <ion-item
           v-if="locations.length > 0"
-          :router-link="redirectToLocation(locations[0].id)"
+          :router-link="{
+            name: 'OrganisationViewLocations',
+            params: { locationId: locations[0].id },
+          }"
           router-direction="root"
         >
           <span class="link-text">Locations</span>
@@ -79,7 +82,7 @@
       </li>
     </ul>
     <div class="delete-div">
-      <DeleteOrganisationModal />
+      <DeleteOrganisationModal :organisationId="organisationId" />
     </div>
   </div>
 </template>
@@ -91,12 +94,10 @@ import { chevronForwardOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
 import { Locations } from "@/stores/adminLocations";
 import { storeToRefs } from "pinia";
-import { useCookies } from "vue3-cookies";
 import { useRoute } from "vue-router";
 import DeleteOrganisationModal from "@/components/modals/DeleteOrganisationModal.vue";
 import NewLocationModal from "@/components/modals/NewLocationModal.vue";
 
-const { cookies } = useCookies();
 const route = useRoute();
 
 const organisation = Organisations();
@@ -104,21 +105,13 @@ const location = Locations();
 
 const { organisationDetails } = storeToRefs(organisation);
 const { locations } = storeToRefs(location);
-
-const redirectToLocation = (id: string) => {
-  cookies.set("locationId", id);
-  if (cookies.get("locationId")) {
-    return { name: "OrganisationViewLocations", params: { locationId: id } };
-  }
-};
+const organisationId = route.params.id as string;
 
 onBeforeMount(() => {
-  const organisationId = route.params.id as string;
-  console.log(organisation.organisationDetails, organisationId);
   if (organisation.organisationDetails?.id !== organisationId) {
     organisation.setId(organisationId);
-    organisation.getOrgDetails();
-    location.getLocations();
+    organisation.getOrgDetails(organisationId);
+    location.getLocations(organisationId);
   }
 });
 </script>

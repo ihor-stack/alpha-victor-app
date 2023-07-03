@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref, reactive, defineProps } from "vue";
+import { ref, reactive } from "vue";
 import {
   IonPage,
   IonContent,
@@ -73,11 +73,9 @@ import {
   IonLabel,
 } from "@ionic/vue";
 import { close } from "ionicons/icons";
-import { Organisations } from "@/stores/adminOrganisations";
 import { Spaces } from "@/stores/adminSpaces";
 import CustomIonUploadInput from "@/components/shared/CustomIonUploadInput.vue";
 
-const Org = Organisations();
 const Space = Spaces();
 const modalOpen = ref(false);
 const props = defineProps([
@@ -123,10 +121,6 @@ const save = () => {
     modalOpen.value = false;
   });
 };
-
-onBeforeMount(() => {
-  Org.getOrgDocumentTypes();
-});
 </script>
 
 <style scoped>

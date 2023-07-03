@@ -1,18 +1,14 @@
 import { defineStore } from "pinia";
 import { adminAPI } from "@/axios";
 import {
-  Location,
   NavLocation,
   NewLocDetails,
   Navigation,
   SingleLocation,
 } from "@/types/index";
-import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 import router from "@/router";
-
-const { cookies } = useCookies();
 
 export const Locations = defineStore("Locations", {
   state: () => {
@@ -38,9 +34,9 @@ export const Locations = defineStore("Locations", {
     };
   },
   actions: {
-    async getLocations() {
+    async getLocations(organisationId: string) {
       adminAPI
-        .get<NavLocation[]>("/Location?organisationId=" + cookies.get("orgId"))
+        .get<NavLocation[]>(`/Location?organisationId=${organisationId}`)
         .then((response) => {
           this.locations = response.data;
         })
@@ -49,33 +45,11 @@ export const Locations = defineStore("Locations", {
         });
     },
 
-    // async saveLocation(edit: Location) {
-    //   adminAPI
-    //     .post("/Location/" + cookies.get("orgId"), {
-    //       name: "string",
-    //       prefix: "string",
-    //       mainContactName: "string",
-    //       email: "string",
-    //       phone: "string",
-    //       sosNumber: "string",
-    //       wifiSsid: "string",
-    //       wifiPassword: "string",
-    //       postcode: "string",
-    //       city: "string",
-    //     })
-    //     .then(() => {
-    //       this.getLocations();
-    //     })
-    //     .catch((error) => {
-    //       toastService.show("Error", error, "error", "top");
-    //     });
-    // },
-
     async saveLocation(organisationId: string) {
       const newLocation = this.newLocationDetails;
       loadingService.show("Loading...");
       adminAPI
-        .post("/Location?organisationId=" + cookies.get("orgId"), {
+        .post(`/Location?organisationId=${organisationId}`, {
           name: newLocation.name,
           prefix: newLocation.prefix,
         })
@@ -92,11 +66,11 @@ export const Locations = defineStore("Locations", {
         });
     },
 
-    async removeLocation(id: string) {
+    async removeLocation(organisationId: string, id: string) {
       adminAPI
-        .delete("/Location/" + cookies.get("orgId") + "/" + id)
+        .delete(`/Location/${organisationId}/${id}`)
         .then(() => {
-          this.getLocations();
+          this.getLocations(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

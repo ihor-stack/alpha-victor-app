@@ -1,30 +1,28 @@
 import { defineStore } from "pinia";
-import {adminAPI} from '@/axios'
-import {AdminTheme} from '@/types/index'
-import { useCookies } from "vue3-cookies";
-import loadingService from '@/services/loadingService';
-import toastService from '@/services/toastService';
+import { adminAPI } from "@/axios";
+import { AdminTheme } from "@/types/index";
+import loadingService from "@/services/loadingService";
+import toastService from "@/services/toastService";
 
-const { cookies } = useCookies();
-  
-export const Theme = defineStore('Themes', {
+export const Theme = defineStore("Themes", {
   state: () => {
     return {
       theme: {} as AdminTheme,
-    }
+    };
   },
   actions: {
-   async getThemes() {
-      adminAPI.get<AdminTheme>('/Organisation/' + cookies.get('orgId') + '/Theme').then(response => 
-        {
-          this.theme = response.data
-        }
-      ).catch(error =>{
-        toastService.show('Error', error, 'error', 'top');
-      })
+    async getThemes(organisationId: string) {
+      adminAPI
+        .get<AdminTheme>(`/Organisation/${organisationId}/Theme`)
+        .then((response) => {
+          this.theme = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
     },
 
-    saveThemes() {
+    saveThemes(organisationId: string) {
       loadingService.show("Loading...");
 
       const themeToSave = {
@@ -39,49 +37,67 @@ export const Theme = defineStore('Themes', {
         backgroundContentType: this.theme.backgroundContentType,
       };
 
-      adminAPI.patch('/Organisation/' + cookies.get('orgId') + '/Theme', themeToSave)
-      .then(() => 
-        {
-          toastService.show('Success', 'Theme information updated', 'success', 'top');
-        }
-      ).catch(error =>{
-        toastService.show('Error', error, 'error', 'top');
-      }).finally(() => {
-        loadingService.close();
-      });
+      adminAPI
+        .patch(`/Organisation/${organisationId}/Theme`, themeToSave)
+        .then(() => {
+          toastService.show(
+            "Success",
+            "Theme information updated",
+            "success",
+            "top"
+          );
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
     },
 
-    removeLogo() {
+    removeLogo(organisationId: string) {
       loadingService.show("Loading...");
-      adminAPI.delete('/Organisation/' + cookies.get('orgId') + '/ClearLogo')
-      .then(() => 
-        {
-          toastService.show('Success', 'Logo removed successfully', 'success', 'top')
-          this.getThemes()
-        }
-      ).catch(error =>{
-        toastService.show('Error', error, 'error', 'top')
-      }).finally(() => {
-        loadingService.close()
-      });
+      adminAPI
+        .delete(`/Organisation/${organisationId}/ClearLogo`)
+        .then(() => {
+          toastService.show(
+            "Success",
+            "Logo removed successfully",
+            "success",
+            "top"
+          );
+          this.getThemes(organisationId);
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
     },
 
-    removeBackgroundImage() {
+    removeBackgroundImage(organisationId: string) {
       loadingService.show("Loading...");
-      adminAPI.delete('/Organisation/' + cookies.get('orgId') + '/ClearBackground')
-      .then(() => 
-        {
-          toastService.show('Success', 'Logo removed successfully', 'success', 'top')
-          this.getThemes()
-        }
-      ).catch(error =>{
-        toastService.show('Error', error, 'error', 'top')
-      }).finally(() => {
-        loadingService.close()
-      });
+      adminAPI
+        .delete(`/Organisation/${organisationId}/ClearBackground`)
+        .then(() => {
+          toastService.show(
+            "Success",
+            "Logo removed successfully",
+            "success",
+            "top"
+          );
+          this.getThemes(organisationId);
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close();
+        });
     },
- },
- getters: {
-  getTheme: (state) => state.theme,
-},
+  },
+  getters: {
+    getTheme: (state) => state.theme,
+  },
 });

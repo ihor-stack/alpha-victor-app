@@ -73,9 +73,7 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonList,
   IonLabel,
-  IonListHeader,
 } from "@ionic/vue";
 import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
 import { DecisionTree, DecisionTreeNodeType } from "@/types/decisionTree";

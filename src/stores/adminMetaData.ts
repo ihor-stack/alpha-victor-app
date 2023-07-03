@@ -1,11 +1,8 @@
 import { defineStore } from "pinia";
 import { adminAPI } from "@/axios";
 import { AdminMetaData, spaceFeature, spaceType } from "@/types/index";
-import { useCookies } from "vue3-cookies";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
-
-const { cookies } = useCookies();
 
 export const MetaData = defineStore("MetaData", {
   state: () => {
@@ -18,12 +15,10 @@ export const MetaData = defineStore("MetaData", {
       this.metaData.spaceTypes[index] = data;
     },
 
-    async getMetaData() {
+    async getMetaData(organisationId: string) {
       loadingService.show("Loading...");
       adminAPI
-        .get<AdminMetaData>(
-          "/Organisation/" + cookies.get("orgId") + "/Metadata"
-        )
+        .get<AdminMetaData>(`/Organisation/${organisationId}/Metadata`)
         .then((response) => {
           if (response.data) {
             if (Array.isArray(response.data.spaceTypes)) {
@@ -44,9 +39,9 @@ export const MetaData = defineStore("MetaData", {
         });
     },
 
-    async saveSpaceType(name: string) {
+    async saveSpaceType(organisationId: string, name: string) {
       adminAPI
-        .post("/Organisation/" + cookies.get("orgId") + "/SpaceType/", {
+        .post(`/Organisation/${organisationId}/SpaceType/`, {
           name: name,
           icon: "string",
         })
@@ -57,20 +52,17 @@ export const MetaData = defineStore("MetaData", {
             "success",
             "top"
           );
-          this.getMetaData();
+          this.getMetaData(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
 
-    async editSpaceType(edit: spaceType) {
+    async editSpaceType(organisationId: string, edit: spaceType) {
       adminAPI
         .patch(
-          "/Organisation/" +
-            cookies.get("orgId") +
-            "/SpaceType/" +
-            edit.spaceTypeId,
+          `/Organisation/${organisationId}/SpaceType/${edit.spaceTypeId}`,
           {
             name: edit.name,
             icon: "string",
@@ -78,33 +70,28 @@ export const MetaData = defineStore("MetaData", {
         )
         .then(() => {
           this.metaData = {} as AdminMetaData;
-          this.getMetaData();
+          this.getMetaData(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
 
-    async removeSpaceType(edit: spaceType) {
+    async removeSpaceType(organisationId: string, edit: spaceType) {
       adminAPI
-        .delete(
-          "/Organisation/" +
-            cookies.get("orgId") +
-            "/SpaceType/" +
-            edit.spaceTypeId
-        )
+        .delete(`/Organisation/${organisationId}/SpaceType/${edit.spaceTypeId}`)
         .then(() => {
           this.metaData = {} as AdminMetaData;
-          this.getMetaData();
+          this.getMetaData(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
 
-    async saveSpaceFeature(name: string) {
+    async saveSpaceFeature(organisationId: string, name: string) {
       adminAPI
-        .post("/Organisation/" + cookies.get("orgId") + "/SpaceFeature/", {
+        .post(`/Organisation/${organisationId}/SpaceFeature/`, {
           name: name,
           icon: "string",
         })
@@ -116,17 +103,14 @@ export const MetaData = defineStore("MetaData", {
             "top"
           );
           this.metaData = {} as AdminMetaData;
-          this.getMetaData();
+          this.getMetaData(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
 
-    async editSpaceFeature(
-      edit: spaceFeature,
-      organisationId = cookies.get("orgId")
-    ) {
+    async editSpaceFeature(organisationId: string, edit: spaceFeature) {
       return adminAPI
         .patch(
           `/Organisation/${organisationId}/SpaceFeature/${edit.spaceFeatureId}`,
@@ -137,23 +121,20 @@ export const MetaData = defineStore("MetaData", {
         )
         .then(() => {
           this.metaData = {} as AdminMetaData;
-          this.getMetaData();
+          this.getMetaData(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         });
     },
-    async removeSpaceFeature(edit: spaceFeature) {
+    async removeSpaceFeature(organisationId: string, edit: spaceFeature) {
       adminAPI
         .delete(
-          "/Organisation/" +
-            cookies.get("orgId") +
-            "/SpaceFeature/" +
-            edit.spaceFeatureId
+          `/Organisation/${organisationId}/SpaceFeature/${edit.spaceFeatureId}`
         )
         .then(() => {
           this.metaData = {} as AdminMetaData;
-          this.getMetaData();
+          this.getMetaData(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
