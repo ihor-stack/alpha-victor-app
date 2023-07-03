@@ -3,9 +3,8 @@
     <app-header :no-background="true">
       <template #start>
         <ion-button
-          fill="clear"
-         
           class="switch-organisation"
+          shape="round"
           @click="state.modalOpen = true"
         >
           <img
@@ -15,7 +14,7 @@
         </ion-button>
       </template>
       <template #end>
-        <ion-menu-button fill="clear"> </ion-menu-button>
+        <ion-menu-button fill="solid"> </ion-menu-button>
       </template>
     </app-header>
     <ion-content :scroll-y="false">
@@ -38,7 +37,7 @@
           />
         </div>
       </div>
-      
+
       <ion-item
         v-if="!nearbySpaces.length && !recentlyViewedSpaces.length"
         lines="none"
@@ -171,7 +170,14 @@ onBeforeUnmount(() => {
   margin-bottom: 32px;
 }
 .switch-organisation {
+  width: 50px;
   height: 50px;
+  --background: var(--ion-color-primary);
+  --border-radius: 50% !important;
+}
+
+body.dark .switch-organisation {
+  --background: rgba(255, 255, 255, 0.1);
 }
 
 ion-content {
