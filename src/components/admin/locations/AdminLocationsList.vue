@@ -43,7 +43,7 @@
           router-direction="root"
           class="form-admin--group_field-item ion-no-padding"
         >
-          <img :src="space.image" :alt="space.name" />
+          <img v-if="space.image" :src="space.image" :alt="space.name" />
           <ion-label>
             {{ space.name }}
           </ion-label>
