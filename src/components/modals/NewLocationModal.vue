@@ -14,7 +14,6 @@
           <div class="modal-panel-container">
             <ion-header>
               <ion-icon
-               
                 :icon="close"
                 size="small"
                 class="close-button"
@@ -53,7 +52,7 @@
                     size-xs="12"
                     size-sm="6"
                     class="form-admin--group_field"
-                  > 
+                  >
                     <ion-input
                       class="font-size-sm"
                       placeholder="Location Prefix"
@@ -121,9 +120,6 @@ const saveNewLocation = () => {
 .text-button {
   margin-top: 20px;
   display: block;
-}
-ion-content::part(background) {
-  background: #181818;
 }
 .close-button {
   width: 20px;

@@ -103,9 +103,7 @@ const saveNewOrganisation = () => {
 .button-wide {
   margin-top: 30px;
 }
-ion-content::part(background) {
-  background: #181818;
-}
+
 .close-button {
   width: 20px;
   margin-left: 95%;

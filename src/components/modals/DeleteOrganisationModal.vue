@@ -99,9 +99,6 @@ const confirmDeleteOrganisation = () => {
 </script>
 
 <style scoped>
-ion-content::part(background) {
-  background: #181818;
-}
 .close-button {
   width: 20px;
   margin-left: 95%;
