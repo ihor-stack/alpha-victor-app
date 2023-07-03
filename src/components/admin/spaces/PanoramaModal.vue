@@ -22,9 +22,6 @@
                 Edit hotspot
               </h1>
             </div>
-            <div class="modal-panel__description">
-              Here you can edit the hotspot information using the form below.
-            </div>
           </ion-header>
           <ion-content :scroll-y="false" class="form-admin--group_field">
             <ion-row>

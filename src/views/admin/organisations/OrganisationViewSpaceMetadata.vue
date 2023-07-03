@@ -8,9 +8,7 @@
         <ion-col size-xs="6" class="form-admin--group_field">
           <SpaceTypeModal />
           <hr class="form-admin--divider" />
-          <ion-label class="font-bold" v-if="metaData.spaceTypes"
-            >Space Types</ion-label
-          >
+          <ion-label class="font-bold" v-if="metaData.spaceTypes.length">Space Types</ion-label>
           <div v-for="(data, index) in metaData.spaceTypes" :key="index">
             <ItemField
               :modelValue="data.name"
@@ -28,9 +26,7 @@
         <ion-col size-xs="6" class="form-admin--group_field">
           <SpaceFeatureModal />
           <hr class="form-admin--divider" />
-          <ion-label class="font-bold" v-if="metaData.spaceFeatures"
-            >Space Features</ion-label
-          >
+          <ion-label class="font-bold" v-if="metaData.spaceFeatures.length">Space Features</ion-label>
           <div v-for="(data, index) in metaData.spaceFeatures" :key="index">
             <ItemField
               :modelValue="data.name"

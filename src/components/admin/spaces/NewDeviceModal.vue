@@ -118,6 +118,7 @@
                       presentation="date"
                       display-format="DD/MM/YYYY HH:mm:ss"
                       picker-format="DD MMM YYYY HH:mm:ss"
+                      max="2099-10-31"
                       :value="newDevice.warrantyExpiryDate"
                       :show-default-buttons="true"
                       @ion-change="
