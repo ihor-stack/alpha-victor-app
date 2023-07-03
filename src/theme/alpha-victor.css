@@ -29,7 +29,6 @@
 
   --ion-color-primary: var(--av-primary);
   --ion-color-light: var(--av-light-gray);
-  --ion-color-dark: var(--av-dark-gray);
   --ion-color-danger: var(--av-red);
   --ion-padding: 25px;
 
@@ -206,7 +205,7 @@ ion-modal::part(handle) {
 .form-admin--group_field ion-label.empty-state {
   display: block;
   margin-top: 20px;
-  opacity: .25;
+  opacity: 0.25;
 }
 
 /* Colors */
@@ -340,7 +339,6 @@ ion-modal::part(handle) {
   /* 20px */
   font-size: var(--av-font-title);
 }
-
 
 .font-size-lg {
   /* 28px */

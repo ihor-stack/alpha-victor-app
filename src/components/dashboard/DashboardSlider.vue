@@ -2,15 +2,16 @@
   <div class="dashboard-slider-container">
     <div class="dashboard-slider">
       <div class="dashboard-slider-header">
-        <h2 class="title font-bold color-light-gray font-size-sm">
+        <h2 class="title font-bold font-size-sm">
           {{ title }}
         </h2>
         <ion-button
           v-if="props.ctaUrl"
           fill="clear"
           size="small"
+          color="dark"
           @click="handleCta"
-          ><span class="color-light-gray font-mono font-size-xs text-spaced"
+          ><span class="font-mono font-size-xs text-spaced"
             >&gt;&gt; view.all</span
           ></ion-button
         >
