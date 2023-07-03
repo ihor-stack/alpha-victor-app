@@ -31,7 +31,7 @@
             fill="solid"
             size="small"
             slot="end"
-            color="light"
+           
             shape="round"
             @click="setFavoriteSpace(favourite.id)"
           >

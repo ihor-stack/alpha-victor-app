@@ -14,7 +14,7 @@
           <div class="modal-panel-container">
             <ion-header>
               <ion-icon
-                color="light"
+               
                 :icon="close"
                 size="small"
                 class="close-button"
@@ -42,10 +42,10 @@
               </ion-row>
               <ion-row class="form-admin--group">
                 <ion-col size-xs="12" class="form-admin--group_field">
-                  <ion-label color="light">Serial number</ion-label>
+                  <ion-label>Serial number</ion-label>
                   <ion-input
                     class="font-size-sm"
-                    color="light"
+                   
                     :value="newDevice.serialNumber"
                     @ion-input="
                       newDevice.serialNumber = String($event.target.value)
@@ -60,10 +60,10 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Installer</ion-label>
+                  <ion-label>Installer</ion-label>
                   <ion-input
                     class="font-size-sm"
-                    color="light"
+                   
                     :value="newDevice.installer"
                     @ion-input="
                       newDevice.installer = String($event.target.value)
@@ -75,10 +75,10 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Name</ion-label>
+                  <ion-label>Name</ion-label>
                   <ion-input
                     class="font-size-sm"
-                    color="light"
+                   
                     :value="newDevice.name"
                     @ion-input="newDevice.name = String($event.target.value)"
                   ></ion-input>
@@ -88,7 +88,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Install date</ion-label>
+                  <ion-label>Install date</ion-label>
                   <div class="custom-input date-wrapper">
                     <ion-datetime-button
                       datetime="newDocInstallDate"
@@ -115,7 +115,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label color="light">Warranty expiry date</ion-label>
+                  <ion-label>Warranty expiry date</ion-label>
                   <div class="custom-input date-wrapper">
                     <ion-datetime-button
                       datetime="newDocWarrantyDate"
@@ -138,10 +138,10 @@
                   </ion-modal>
                 </ion-col>
                 <ion-col size-xs="12" class="form-admin--group_field">
-                  <ion-label color="light">Description</ion-label>
+                  <ion-label>Description</ion-label>
                   <ion-textarea
                     class="font-size-sm"
-                    color="light"
+                   
                     fill="solid"
                     :value="newDevice.description"
                     @ion-input="

@@ -7,9 +7,9 @@
     <ion-content :scroll-y="false">
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label color="light">Phone Number</ion-label>
+          <ion-label>Phone Number</ion-label>
           <ion-input
-            color="light"
+           
             placeholder="Enter phone number"
             v-model="state.phone"
           ></ion-input>
@@ -24,7 +24,7 @@
       >
       <ion-button
         class="ion-text-capitalize"
-        color="light"
+       
         fill="clear"
         expand="block"
         @click="handleClickBack"

@@ -18,7 +18,7 @@
         <div class="modal-panel-container">
           <ion-header>
             <ion-icon
-              color="light"
+             
               :icon="close"
               size="small"
               class="close-button"
@@ -45,7 +45,7 @@
                 >
                   <ion-input
                     class="font-size-sm"
-                    color="light"
+                   
                     placeholder="Floor Name"
                     :value="newFloorDetails.longName"
                     @ion-input="
@@ -61,7 +61,7 @@
                 >
                   <ion-input
                     class="font-size-sm"
-                    color="light"
+                   
                     placeholder="Floor Short Name"
                     :value="newFloorDetails.shortName"
                     @ion-input="

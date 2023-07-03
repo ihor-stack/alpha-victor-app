@@ -62,7 +62,7 @@
             >User Guide</ion-button
           >
           <ion-button
-            color="light"
+           
             expand="block"
             @click="handleClickReportIssue"
             >Report Issue</ion-button

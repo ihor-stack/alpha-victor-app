@@ -37,7 +37,7 @@
           ></ion-input>
           <!-- <ion-input
             class="font-size-sm custom-input"
-            color="light"
+           
             placeholder="DOB"
             :value="accountDetails.dob"
             @ion-input="accountDetails.dob = String($event.target.value)"

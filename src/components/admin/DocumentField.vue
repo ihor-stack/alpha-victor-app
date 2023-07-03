@@ -2,7 +2,7 @@
   <ion-item>
     <ion-label 
       class="font-size-lg"
-      color="light">{{modelValue}}
+     >{{modelValue}}
     </ion-label>
     <ion-icon
       class="reset-button text-lowercase"
@@ -34,7 +34,7 @@
               </h1>
               <ion-input
                 class="font-size-sm"
-                color="light"
+               
                 placeholder="Document Type"
                 :value="newDocument"
                 @ion-input="newDocument = $event.target.value"

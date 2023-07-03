@@ -4,7 +4,7 @@
       <template #start>
         <ion-button
           fill="clear"
-          color="light"
+         
           class="switch-organisation"
           @click="state.modalOpen = true"
         >
@@ -22,6 +22,13 @@
       <div class="dashboard-search-container">
         <dashboard-search />
       </div>
+
+      <div class="dashboard-sliders" v-if="nearbySpaces?.length">
+        <div class="dashboard-slider-container">
+          <dashboard-slider title="Nearby spaces" :slides="nearbySpaces" />
+        </div>
+      </div>
+
       <div class="dashboard-sliders" v-if="recentlyViewedSpaces?.length">
         <div class="dashboard-slider-container">
           <dashboard-slider
@@ -31,11 +38,7 @@
           />
         </div>
       </div>
-      <div class="dashboard-sliders" v-if="nearbySpaces?.length">
-        <div class="dashboard-slider-container">
-          <dashboard-slider title="Nearby spaces" :slides="nearbySpaces" />
-        </div>
-      </div>
+      
       <ion-item
         v-if="!nearbySpaces.length && !recentlyViewedSpaces.length"
         lines="none"
@@ -162,6 +165,7 @@ onBeforeUnmount(() => {
 }
 .dashboard-sliders {
   flex: 1;
+  margin-bottom: 32px;
 }
 .dashboard-slider-container:not(:last-of-type) {
   margin-bottom: 32px;

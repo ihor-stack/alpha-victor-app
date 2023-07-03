@@ -10,7 +10,6 @@
         <div class="modal-panel-container">
           <ion-header>
             <ion-icon
-              color="light"
               :icon="close"
               size="small"
               class="close-button"
@@ -30,7 +29,7 @@
           <ion-content :scroll-y="false" class="form-admin--group_field">
             <ion-row>
               <ion-col size="12" class="form-admin--group_field">
-                <ion-label color="light">Select device</ion-label>
+                <ion-label>Select device</ion-label>
                 <ion-select
                   interface="action-sheet"
                   placeholder="Select"
@@ -54,9 +53,8 @@
             </ion-row>
             <ion-row>
               <ion-col size="12" class="form-admin--group_field">
-                <ion-label color="light">Add label</ion-label>
+                <ion-label>Add label</ion-label>
                 <ion-input
-                  color="light"
                   placeholder="Hotspot label"
                   v-model="state.text"
                 ></ion-input>

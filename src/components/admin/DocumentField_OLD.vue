@@ -3,7 +3,7 @@
   <ion-item v-for="doc in store.documentsArray" v-bind:key="doc.id">
     <ion-input
       class="font-size-sm"
-      color="light"
+     
       placeholder="Document Type"
       :value="doc.title"
       @ionInput="editedDocument = $event.target.value;"

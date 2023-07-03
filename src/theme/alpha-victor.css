@@ -203,6 +203,12 @@ ion-modal::part(handle) {
   font-size: 14px !important;
 }
 
+.form-admin--group_field ion-label.empty-state {
+  display: block;
+  margin-top: 20px;
+  opacity: .25;
+}
+
 /* Colors */
 .color-primary {
   color: var(--av-primary);

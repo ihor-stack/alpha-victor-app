@@ -8,9 +8,9 @@
       <template v-if="state.isAddingArticle">
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
-            <ion-label color="light">Article title</ion-label>
+            <ion-label>Article title</ion-label>
             <ion-input
-              color="light"
+             
               placeholder="Enter title"
               v-model="state.newArticleTitle.value"
             ></ion-input>
@@ -43,7 +43,7 @@
           <ion-col size="12">
             <input-with-icon
               iconPosition="start"
-              color="light"
+             
               type="search"
               placeholder="Search for an article"
               v-model="state.searchTerm"
@@ -71,7 +71,7 @@
           class="ion-text-capitalize ion-margin-top"
           fill="outline"
           expand="block"
-          color="light"
+         
           @click="state.isAddingArticle = false"
         >
           Cancel
@@ -82,7 +82,7 @@
           class="ion-text-capitalize"
           fill="outline"
           expand="block"
-          color="light"
+         
           @click="state.isAddingArticle = true"
         >
           Add new article +</ion-button
@@ -97,7 +97,7 @@
       </template>
       <ion-button
         class="ion-text-capitalize"
-        color="light"
+       
         fill="clear"
         expand="block"
         @click="handleClickBack"

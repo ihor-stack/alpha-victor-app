@@ -7,9 +7,9 @@
     <ion-content :scroll-y="false">
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label color="light">Question title</ion-label>
+          <ion-label>Question title</ion-label>
           <ion-input
-            color="light"
+           
             placeholder="Enter new question"
             v-model="state.text"
           ></ion-input>
@@ -17,9 +17,9 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label color="light">Outcome label</ion-label>
+          <ion-label>Outcome label</ion-label>
           <ion-input
-            color="light"
+           
             placeholder="Enter new outcome"
             v-model="state.outcomeLabel"
           ></ion-input>
@@ -27,7 +27,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label color="light">Outcome type</ion-label>
+          <ion-label>Outcome type</ion-label>
           <ion-select
             interface="action-sheet"
             placeholder="Select type"

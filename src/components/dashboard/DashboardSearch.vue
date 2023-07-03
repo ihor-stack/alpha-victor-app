@@ -4,7 +4,7 @@
       type="search"
       placeholder="Enter shortcode"
       v-model="state.shortcode"
-      class="search-input font-bold font-size-sm"
+      class="search-input font-size-sm"
     />
     <ion-button
       fill="clear"

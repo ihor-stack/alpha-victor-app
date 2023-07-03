@@ -7,9 +7,9 @@
     <ion-content :scroll-y="false">
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label color="light">Answer</ion-label>
+          <ion-label>Answer</ion-label>
           <ion-input
-            color="light"
+           
             placeholder="Enter Answer"
             v-model="state.text"
           ></ion-input>

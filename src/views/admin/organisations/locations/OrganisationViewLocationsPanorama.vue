@@ -23,13 +23,13 @@
           <span
             class="font-size-xs font-mono color-light-gray header-left--label"
           >
-            <ion-icon :icon="locationOutline" color="light"></ion-icon>
+            <ion-icon :icon="locationOutline"></ion-icon>
             Howard Street Belfast
           </span>
           <span
             class="font-size-xs font-mono color-light-gray header-left--label"
           >
-            <ion-icon :icon="peopleOutline" color="light"></ion-icon>
+            <ion-icon :icon="peopleOutline"></ion-icon>
             &gt;&gt; {{ space.capacity }}
           </span>
         </ion-col>

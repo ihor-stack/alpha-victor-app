@@ -1,12 +1,12 @@
 <template>
-    <ion-label v-if="label" color="light">
+    <ion-label v-if="label">
       {{ label }}
     </ion-label >
     <ion-content>
-      <ion-list color="light" :value="modelValue.title">
+      <ion-list :value="modelValue.title">
         <IonRadioGroup>
           <ion-item 
-          color="light" 
+          
           v-for="(option) in props.options" 
           :key="option.id" 
           @click="$emit('update:modelValue', option)"

@@ -2,7 +2,7 @@
   <ion-page>
     <app-header title="Terms & Conditions">
       <template #start>
-        <ion-button fill="clear" color="light" @click="() => router.back()" class="back">
+        <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>
         </ion-button>
       </template>
