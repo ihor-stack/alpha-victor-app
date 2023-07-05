@@ -158,4 +158,21 @@ export default class Auth {
 
     return accessTokenVal;
   }
+
+  async logout(): Promise<boolean> {
+    const oidcOptions = Auth.getOidcOptions(false, null);
+    const accessToken =
+      localStorage.getItem(SECURE_STORE_ACCESS_TOKEN) || undefined;
+    try {
+      await OAuth2Client.logout(oidcOptions, accessToken);
+      localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, "");
+      localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, "");
+      localStorage.setItem(SECURE_STORE_EXPIRES_IN, "");
+      localStorage.setItem(SECURE_STORE_ISSUED_AT, "");
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 }
