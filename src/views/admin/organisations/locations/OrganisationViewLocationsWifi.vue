@@ -18,7 +18,7 @@
           <ion-input
             class="font-size-sm"
             :value="wifi.wifiPassword"
-            @ion-input="wifi.wifiPassword = String($event.target.value)"
+            @ion-input="wifi.wifiPassword = $event.target.value ? String($event.target.value) : undefined"
           ></ion-input>
         </ion-col>
 

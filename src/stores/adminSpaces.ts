@@ -13,6 +13,7 @@ import {
   Panorama,
   NewPanorama,
   Hotspot,
+  SpaceBeaconAvailableResponse,
 } from "@/types/index";
 
 import loadingService from "@/services/loadingService";
@@ -34,7 +35,7 @@ export const Spaces = defineStore("Spaces", {
       qrCode: "" as string,
       devices: [] as Device[],
       photo: {} as NewPhoto,
-      beacons: [] as SpaceBeacon[],
+      beacon: {} as SpaceBeacon,
       wifi: {} as SpaceWifi,
       securityTypeSelected: {} as SelectItem,
       currentPanorama: {} as Panorama,
@@ -249,6 +250,9 @@ export const Spaces = defineStore("Spaces", {
 
     async editSpacesWifi(spaceId: string) {
       loadingService.show("Loading");
+
+      const wifiPass = this.wifi.wifiPassword ? `&WifiPassword=${this.wifi.wifiPassword}` : ''
+
       adminAPI
         .patch(
           "/Space/" +
@@ -257,8 +261,7 @@ export const Spaces = defineStore("Spaces", {
             this.wifi.showWifiPassword +
             "&WifiName=" +
             this.wifi.wifiName +
-            "&WifiPassword=" +
-            this.wifi.wifiPassword +
+            wifiPass +
             "&WifiSecurityType=" +
             this.securityTypeSelected.id
         )
@@ -268,6 +271,55 @@ export const Spaces = defineStore("Spaces", {
           toastService.show(
             "Success",
             "Space wifi details updated",
+            "success",
+            "top"
+          );
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+
+    async getSpaceDetailsBeacon(spaceId: string) {
+      adminAPI
+        .get<SpaceBeacon>("/Space/" + spaceId + "/Beacon")
+        .then((response) => {
+          this.beacon = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+
+    async getSpaceDetailsBeaconAvailable(spaceId: string, minor: number, major: number) {
+      try {
+        const resp = await adminAPI.get<SpaceBeaconAvailableResponse>("/Space/" + spaceId + "/BeaconAvailable/" + minor + "/" + major);
+
+        return resp.data;
+      }
+      catch {
+        toastService.show("Error", "Could not check beacon available status", "error", "top");
+      }
+    },
+
+    async editSpaceDetailsBeacon(spaceId: string, minor : number, major : number) {
+      loadingService.show("Loading");
+
+      adminAPI
+        .patch(
+          "/Space/" +
+            spaceId +
+            "/Beacon?Minor=" +
+            minor +
+            "&Major=" +
+            major
+        )
+        .then(() => {
+          this.getSpaceDetailsBeacon(spaceId);
+          loadingService.close();
+          toastService.show(
+            "Success",
+            "Space beacon details updated",
             "success",
             "top"
           );

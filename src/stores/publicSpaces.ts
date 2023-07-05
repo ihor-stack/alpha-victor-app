@@ -102,7 +102,9 @@ export const Spaces = defineStore("PublicSpaces", {
       publicAPI
         .get<Space>(`/Dashboard/ByBeacon/${uuid}/${major}/${minor}`)
         .then((response) => {
-          this.nearbySpaces.push(response.data);
+          if (response.data) {
+            this.nearbySpaces.push(response.data);
+          }
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

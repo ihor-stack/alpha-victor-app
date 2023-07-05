@@ -365,8 +365,16 @@ export interface SpaceDetailsDocs {
 }
 
 export interface SpaceBeacon {
-  beaconId: string;
-  uuiDs: string;
+  beaconId?: string;
+  minor?: number;
+  major?: number;
+}
+
+export interface SpaceBeaconAvailableResponse {
+  available: boolean;
+  current: boolean;
+  minor: number;
+  major: number
 }
 
 export interface SpaceAnnouncement {
@@ -377,7 +385,7 @@ export interface SpaceAnnouncement {
 export interface SpaceWifi {
   showWifiPassword: boolean;
   wifiName: string;
-  wifiPassword: string;
+  wifiPassword?: string;
   wifiSecurityType: string;
 }
 

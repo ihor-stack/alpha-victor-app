@@ -7,7 +7,7 @@ import {
 // Secure Storage Constants.
 const SECURE_STORE_ACCESS_TOKEN = "SECURE_STORE_ACCESS_TOKEN";
 const SECURE_STORE_REFRESH_TOKEN = "SECURE_STORE_REFRESH_TOKEN";
-const SECURE_STORE_EXPIRES_IN = "SECURE_STORE_EXPIRES_IN";
+const SECURE_STORE_EXPIRES_AT = "SECURE_STORE_EXPIRES_AT";
 const SECURE_STORE_ISSUED_AT = "SECURE_STORE_ISSUED_AT";
 
 export default class Auth {
@@ -62,7 +62,7 @@ export default class Auth {
       refreshToken: refreshToken,
       appId: process.env.VUE_APP_AUTH_CLIENT_ID,
       scope: `openid offline_access https://${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/${process.env.VUE_APP_AUTH_CLIENT_ID}/alphavictor`,
-      accessTokenEndpoint: `https://${process.env.VUE_APP_AUTH_TENANT_NAME}.b2clogin.com/${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/${process.env.VUE_APP_AUTH_POLICY_NAME}/oauth2/v2.0/token`,
+      accessTokenEndpoint: `https://${process.env.VUE_APP_AUTH_TENANT_NAME}.b2clogin.com/${process.env.VUE_APP_AUTH_TENANT_NAME}.onmicrosoft.com/${process.env.VUE_APP_AUTH_SIGNIN_POLICY_NAME}/oauth2/v2.0/token`,
     };
   }
 
@@ -70,19 +70,17 @@ export default class Auth {
 
   async isTokenFresh(secondsMargin: number = 60 * 10 * -1): Promise<boolean> {
     const accessToken = localStorage.getItem(SECURE_STORE_ACCESS_TOKEN);
-    const expiresIn = localStorage.getItem(SECURE_STORE_EXPIRES_IN);
-    const issuedAt = localStorage.getItem(SECURE_STORE_ISSUED_AT);
+    const expiresAt = localStorage.getItem(SECURE_STORE_EXPIRES_AT);
 
-    if (!accessToken || !expiresIn || !issuedAt) {
+    if (!accessToken || !expiresAt) {
       return false;
     }
 
-    const expiresInVal = Number.parseInt(expiresIn);
-    const issuedAtVal = Number.parseInt(issuedAt);
+    const expiresAtVal = Number.parseInt(expiresAt);
 
-    if (expiresIn) {
+    if (expiresAt) {
       const now = Auth.getCurrentTimeInSeconds();
-      return now < issuedAtVal + expiresInVal + secondsMargin;
+      return now < expiresAtVal + secondsMargin;
     }
 
     // if there is no expiration time but we have an access token, it is assumed to never expire
@@ -100,11 +98,16 @@ export default class Auth {
 
       const accessToken = resp["access_token_response"]["access_token"];
       const refreshToken = resp["access_token_response"]["refresh_token"];
-      const expiresIn = resp["access_token_response"]["expires_in"];
+      let expiresAt = resp["access_token_response"]["expires_at"];
+
+      if (!expiresAt) {
+        expiresAt = resp["access_token_response"]["expires_on"];
+      } 
+
       const issuedAt = Auth.getCurrentTimeInSeconds().toString();
       localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
       localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken);
-      localStorage.setItem(SECURE_STORE_EXPIRES_IN, expiresIn);
+      localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
       localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
 
       return true;
@@ -125,12 +128,16 @@ export default class Auth {
 
       const accessToken = resp["access_token_response"]["access_token"];
       refreshToken = resp["access_token_response"]["refresh_token"];
-      const expiresIn = resp["access_token_response"]["expires_in"];
+      let expiresAt = resp["access_token_response"]["expires_at"];
       const issuedAt = Auth.getCurrentTimeInSeconds().toString();
+
+      if (!expiresAt) {
+        expiresAt = resp["access_token_response"]["expires_on"];
+      } 
 
       localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
       localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken as string);
-      localStorage.setItem(SECURE_STORE_EXPIRES_IN, expiresIn);
+      localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
       localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
 
       return true;
