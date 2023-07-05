@@ -28,7 +28,7 @@ function toFixedNumber(num, digits = 2, base = 10) {
   return Math.round(num * pow) / pow;
 }
 
-export const getQR = (url, size = 256) => {
+export const getQR = (url, size = 512) => {
   const qrcode = new QRCode({
     content: url,
     ecl: "H",

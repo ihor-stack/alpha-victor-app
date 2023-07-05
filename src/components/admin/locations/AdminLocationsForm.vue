@@ -183,13 +183,16 @@ import { useRoute } from "vue-router";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { flowerOutline } from "ionicons/icons";
+import { Organisations } from "@/stores/adminOrganisations";
 const route = useRoute();
 
 const organisationId = route.params.id as string;
 const locationId = route.params.locationId as string;
 
 const Location = Locations();
+const Organisation = Organisations();
 const { location } = storeToRefs(Location);
+const { organisationDetails } = storeToRefs(Organisation);
 const Floor = Floors();
 const { floors } = storeToRefs(Floor);
 const canvas = ref();
@@ -211,7 +214,8 @@ const exportQrCodes = async () => {
     for (let j = 0; j < f.spaces.length; j++) {
       const s = f.spaces[j];
 
-      const qr = getQR(`${s.shortCode}`);
+      const qrUrl = `${process.env.VUE_APP_BASE_URL}/qr/${organisationDetails.value.prefix}/${location.value.prefix}/${f.shortName}/${s.shortCode}`;
+      const qr = getQR(qrUrl);
       const pngData = await getPNG(qr.display, 400, 400);
 
       floorFolder?.file(`${s.name}.png`, pngData, { binary: true });
@@ -242,6 +246,7 @@ watch(
 );
 
 onBeforeMount(() => {
+  Organisation.getOrgDetails(organisationId);
   Floor.getFloors(locationId);
   Location.getLocation(locationId);
 });
