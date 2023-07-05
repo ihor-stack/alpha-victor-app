@@ -195,6 +195,8 @@ import {
   IonButton,
   IonIcon,
 } from "@ionic/vue";
+import { useRouter } from "vue-router";
+
 import DesktopHeader from "@/components/shared/DesktopHeader.vue";
 import {
   closeOutline,
@@ -202,9 +204,16 @@ import {
   chevronForwardOutline,
 } from "ionicons/icons";
 import AppHeader from "./AppHeader.vue";
+import Auth from "@/auth";
 
-const logout = () => {
-  console.log("logging out");
+const router = useRouter();
+const authService = new Auth();
+
+const logout = async () => {
+  const authRes = await authService.logout();
+  if (authRes) {
+    return router.replace({ name: "Home" });
+  }
 };
 </script>
 
