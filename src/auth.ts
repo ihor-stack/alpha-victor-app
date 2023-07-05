@@ -174,7 +174,7 @@ export default class Auth {
       await OAuth2Client.logout(oidcOptions, accessToken);
       localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, "");
       localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, "");
-      localStorage.setItem(SECURE_STORE_EXPIRES_IN, "");
+      localStorage.setItem(SECURE_STORE_EXPIRES_AT, "");
       localStorage.setItem(SECURE_STORE_ISSUED_AT, "");
       return true;
     } catch (error) {
