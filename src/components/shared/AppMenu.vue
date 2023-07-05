@@ -2,14 +2,16 @@
   <ion-menu content-id="content">
     <app-header class="no-background">
       <template #start>
-        <ion-button
-          fill="clear"
-          class="logout-button color-light-gray"
-          @click="logout"
-        >
-          <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
-          <span class="font-mono font-size-xs logout-text">logout</span>
-        </ion-button>
+        <ion-menu-toggle>
+          <ion-button
+            fill="clear"
+            class="logout-button color-light-gray"
+            @click="logout"
+          >
+            <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
+            <span class="font-mono font-size-xs logout-text">logout</span>
+          </ion-button>
+        </ion-menu-toggle>
       </template>
 
       <template #end>
@@ -180,10 +182,19 @@ import {
   logOutOutline,
   chevronForwardOutline,
 } from "ionicons/icons";
+
+import { useRouter } from "vue-router";
+import Auth from "@/auth";
 import AppHeader from "./AppHeader.vue";
 
-const logout = () => {
-  console.log("logging out");
+const router = useRouter();
+const authService = new Auth();
+
+const logout = async () => {
+  const authRes = await authService.logout();
+  if (authRes) {
+    return router.replace({ name: "Home" });
+  }
 };
 </script>
 
