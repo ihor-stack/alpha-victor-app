@@ -129,6 +129,7 @@ const startRangingBeacons = async () => {
     }
   });
 
+  // TODO: Assuming for now we'll always be using the one Beacon with the same UUID. Extracted when originally testing.
   beaconRegion = IBeacon.BeaconRegion(
     "spaceBeacon",
     "f7826da6-4fa2-4e98-8024-bc5b71e0893e"
@@ -150,6 +151,8 @@ onBeforeUnmount(() => {
   if (beaconRegion !== null) {
     IBeacon.stopRangingBeaconsInRegion(beaconRegion);
   }
+
+  state.observedBeacons.splice(0, state.observedBeacons.length);
 });
 </script>
 
