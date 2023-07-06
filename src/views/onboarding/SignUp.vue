@@ -18,38 +18,48 @@
                 <ion-input
                   class="custom-input"
                   type="text"
-                  placeholder="Full name"
-                  name="full-name"
+                  placeholder="First name"
+                  v-model="state.firstName"
+                />
+                <ion-input
+                  class="custom-input"
+                  type="text"
+                  placeholder="Last name"
+                  v-model="state.lastName"
                 />
                 <ion-input
                   class="custom-input"
                   type="email"
                   placeholder="Email"
-                  name="email"
+                  v-model="state.email"
+                />
+                <ion-input
+                  class="custom-input"
+                  type="tel"
+                  placeholder="Phone number"
+                  v-model="state.phoneNumber"
                 />
                 <ion-input
                   class="custom-input"
                   type="password"
                   placeholder="Password"
-                  name="password"
+                  v-model="state.password"
                 />
                 <ion-input
                   class="custom-input"
                   type="password"
                   placeholder="Confirm Password"
-                  name="confirm-password"
+                  v-model="state.confirmPassword"
                 />
               </div>
               <ion-footer>
-                <ion-button expand="block">Sign up</ion-button>
+                <ion-button expand="block" @click="signup">Sign up</ion-button>
 
                 <div class="link-container text-center">
                   <p class="color-mid-gray font-md">
-                    Already signed up?
-                    <router-link
-                      :to="{ name: 'AllowAccess' }"
-                      class="color-light-gray link"
-                      >Allow Access</router-link
+                    Already have an account?
+                    <span @click="signIn" class="color-light-gray link"
+                      >Login</span
                     >
                   </p>
                 </div>
@@ -63,6 +73,7 @@
 </template>
 
 <script setup lang="ts">
+import { reactive } from "vue";
 import {
   IonContent,
   IonFooter,
@@ -70,7 +81,57 @@ import {
   IonButton,
   IonInput,
 } from "@ionic/vue";
+import { useRouter } from "vue-router";
+
 import DotText from "@/components/shared/DotText.vue";
+import Auth from "@/auth";
+import { Account as useAccountStore } from "@/stores/publicAccount";
+import { IUserData } from "@/types";
+
+const router = useRouter();
+const authService = new Auth();
+const accountStore = useAccountStore();
+
+const state = reactive({
+  firstName: "",
+  lastName: "",
+  email: "",
+  phoneNumber: "",
+  password: "",
+  confirmPassword: "",
+});
+
+const signup = () => {
+  console.log(state);
+  const userData: IUserData = {
+    firstName: state.firstName,
+    lastName: state.lastName,
+    email: state.email,
+    phoneNumber: state.phoneNumber,
+    password: state.password,
+  };
+  accountStore
+    .registerUser(userData)
+    .then((res) => {
+      if (res.statusText === "OK") {
+        router.replace({ name: "AllowAccess" });
+      }
+    })
+    .catch((error) => {
+      console.log("----error", error);
+    });
+};
+
+const signIn = async () => {
+  // Sign in logic here
+  const authRes = await authService.authenticate(false);
+
+  if (authRes) {
+    return router.replace({ name: "Dashboard" });
+  } else {
+    return router.replace({ name: "Home" });
+  }
+};
 </script>
 
 <style scoped>

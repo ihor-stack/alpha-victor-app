@@ -374,7 +374,7 @@ export interface SpaceBeaconAvailableResponse {
   available: boolean;
   current: boolean;
   minor: number;
-  major: number
+  major: number;
 }
 
 export interface SpaceAnnouncement {
@@ -429,4 +429,17 @@ export interface NewPanorama {
   initialViewPitch: number;
   initialViewYaw: number;
   initialViewHfov: number;
+}
+
+export interface Permission {
+  organisationId: string;
+  name: string;
+}
+
+export interface IUserData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
 }

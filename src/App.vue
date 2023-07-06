@@ -29,6 +29,7 @@ import AppMenu from "./components/shared/AppMenu.vue";
 import CustomToast from "@/components/shared/CustomToast.vue";
 import LoadingIndicator from "@/components/shared/LoadingIndicator.vue";
 import { Theme } from "@/types";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
 /* Services */
 import toastService from "./services/toastService";
@@ -38,6 +39,7 @@ import Auth from "@/auth";
 const route = useRoute();
 
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+const accountStore = useAccountStore();
 
 const organisationStore = useOrganisationStore();
 const { currentOrganisationId, theme } = storeToRefs(organisationStore);
@@ -67,14 +69,16 @@ const updateTheme = (theme: Theme) => {
 
 const updateThemeFromStorage = () => {
   const themeString = localStorage.getItem("theme");
-  if (themeString) {
+  if (themeString && themeString !== "undefined") {
     try {
       const theme: Theme = JSON.parse(themeString);
       organisationStore.setOrgTheme(theme);
       updateTheme(theme);
     } catch (err) {
-      console.log(err);
+      console.log(err, themeString);
     }
+  } else {
+    updateTheme(theme.value);
   }
 };
 
@@ -99,7 +103,10 @@ onBeforeMount(async () => {
   updateThemeFromStorage();
   const accessToken = await authService.fetchCurrentAccessToken();
   if (accessToken) {
+    accountStore.getPermissions();
     organisationStore.getOrganisations();
+  } else {
+    organisationStore.setOrgTheme();
   }
 });
 </script>

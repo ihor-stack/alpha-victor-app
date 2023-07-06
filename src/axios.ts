@@ -65,7 +65,12 @@ const handleError = (error: any) => {
     );
     router.push("/");
   } else {
-    toastService.show("Error", error, "error", "top");
+    toastService.show(
+      "Error",
+      error.response?.data?.message || error.response?.data?.title || error,
+      "error",
+      "top"
+    );
   }
 };
 
