@@ -40,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+import { onBeforeMount } from "vue";
 import { IonContent, IonPage, IonButton } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import DotText from "@/components/shared/DotText.vue";
@@ -58,6 +59,13 @@ const signIn = async () => {
     return router.replace({ name: "Home" });
   }
 };
+
+onBeforeMount(async () => {
+  const accessToken = await authService.fetchCurrentAccessToken();
+  if (accessToken) {
+    return router.replace({ name: "Dashboard" });
+  }
+});
 
 const signup = () => {
   router.push({ name: "Signup" });
