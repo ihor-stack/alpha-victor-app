@@ -18,13 +18,17 @@
                   <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
                 </div>
                 <div class="button-container">
-                  <ion-button expand="block" @click="signup">Sign up</ion-button>
+                  <ion-button expand="block" @click="signup"
+                    >Sign up</ion-button
+                  >
                 </div>
               </div>
               <div class="link-container text-center">
                 <p class="color-mid-gray font-md">
-                  Already have an account? 
-                  <span @click="signIn" class="color-light-gray link">Login</span>
+                  Already have an account?
+                  <span @click="signIn" class="color-light-gray link"
+                    >Login</span
+                  >
                 </p>
               </div>
             </div>
@@ -44,7 +48,6 @@ import Auth from "@/auth";
 const router = useRouter();
 const authService = new Auth();
 
-
 const signIn = async () => {
   // Sign in logic here
   const authRes = await authService.authenticate(false);
@@ -52,7 +55,7 @@ const signIn = async () => {
   if (authRes) {
     return router.replace({ name: "Dashboard" });
   } else {
-    return router.replace({ name: "Login" });
+    return router.replace({ name: "Home" });
   }
 };
 

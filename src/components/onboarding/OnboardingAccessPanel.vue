@@ -24,7 +24,7 @@
         <div class="link-container text-center">
           <p class="color-mid-gray font-md">
             Already have an account?
-            <router-link :to="{ name: 'Login' }" class="color-light-gray link">Login</router-link>
+            <span @click="signIn" class="color-light-gray link">Login</span>
           </p>
         </div>
       </div>
@@ -39,6 +39,7 @@ import DotText from "../shared/DotText.vue";
 defineProps<{
   dotText: string;
   ctaFunc: () => void;
+  signIn: () => void;
 }>();
 </script>
 

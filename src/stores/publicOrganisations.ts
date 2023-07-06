@@ -4,6 +4,11 @@ import { AdminOrganisation, OrgDetails, Location, Theme } from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 
+export const defaultTheme = {
+  darkmodeEnabled: true,
+  logo: require("@/theme/img/logo/logo-without-name.svg"),
+} as Theme;
+
 export const Organisations = defineStore("PublicOrganisations", {
   state: () => {
     return {
@@ -11,10 +16,7 @@ export const Organisations = defineStore("PublicOrganisations", {
       currentOrganisation: {} as OrgDetails,
       currentOrganisationId: "" as string,
       searchNavigationTree: [] as Location[],
-      theme: {
-        darkmodeEnabled: true,
-        logo: require("@/theme/img/logo/logo-without-name.svg"),
-      } as Theme,
+      theme: defaultTheme,
     };
   },
   actions: {
@@ -84,7 +86,7 @@ export const Organisations = defineStore("PublicOrganisations", {
           loadingService.close();
         });
     },
-    async setOrgTheme(theme: Theme) {
+    async setOrgTheme(theme = defaultTheme) {
       this.theme = theme;
     },
   },

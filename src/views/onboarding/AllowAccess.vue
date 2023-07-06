@@ -67,10 +67,8 @@
               <div class="link-container text-center">
                 <p class="color-mid-gray font-md">
                   Already have an account?
-                  <router-link
-                    :to="{ name: 'Login' }"
-                    class="color-light-gray link"
-                    >Login</router-link
+                  <span @click="signIn" class="color-light-gray link"
+                    >Login</span
                   >
                 </p>
               </div>
@@ -88,6 +86,7 @@
         <onboarding-access-panel
           :dotText="`${permissions[state.currentPermission]}.access`"
           :ctaFunc="requestPermission"
+          :signIn="signIn"
         >
           <template v-slot:image>
             <img src="@/theme/img/onboarding-access-location.svg" />
@@ -109,16 +108,32 @@
 <script setup lang="ts">
 import { IonContent, IonPage, IonButton, IonModal } from "@ionic/vue";
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
 import { Diagnostic } from "@awesome-cordova-plugins/diagnostic";
 import DotText from "@/components/shared/DotText.vue";
 import OnboardingAccessPanel from "@/components/onboarding/OnboardingAccessPanel.vue";
+import Auth from "@/auth";
 
 const permissions = ["location", "bluetooth", "notification"];
+const router = useRouter();
+const authService = new Auth();
 
 const state = reactive({
   modalOpen: false,
   currentPermission: 0,
 });
+
+const signIn = async () => {
+  // Sign in logic here
+  const authRes = await authService.authenticate(false);
+
+  if (authRes) {
+    return router.replace({ name: "Dashboard" });
+  } else {
+    return router.replace({ name: "Home" });
+  }
+};
+
 const setOpen = () => {
   state.modalOpen = !state.modalOpen;
 };
