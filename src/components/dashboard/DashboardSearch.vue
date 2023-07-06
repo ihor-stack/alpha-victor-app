@@ -34,10 +34,20 @@ const state = reactive({
 });
 
 const searchByQrCode = async () => {
+  const body = document.querySelector('body');
+
+  if (body) {
+    body.classList.add('scanner-active');
+  }
+
   await BarcodeScanner.checkPermission({ force: true });
   BarcodeScanner.hideBackground();
 
   const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
+
+  if (body) {
+    body.classList.remove('scanner-active');
+  }
 
   // if the result has content
   if (result.hasContent) {

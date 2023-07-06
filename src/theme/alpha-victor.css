@@ -853,3 +853,8 @@ ion-menu-button {
 body.dark ion-menu-button {
   --background: rgba(255, 255, 255, 0.1);
 }
+
+body.scanner-active {
+  --background: transparent;
+  --ion-background-color: transparent;
+}
