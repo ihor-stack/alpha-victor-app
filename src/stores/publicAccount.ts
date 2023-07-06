@@ -1,13 +1,13 @@
 import { defineStore } from "pinia";
 import { publicAPI } from "@/axios";
-import { PublicAccount, Permission, IUserData } from "@/types/index";
+import { PublicAccount, UserPermission, IUserData } from "@/types/index";
 import toastService from "@/services/toastService";
 
 export const Account = defineStore("Account", {
   state: () => {
     return {
       accountDetails: {} as PublicAccount,
-      permissions: [] as Permission[],
+      userPermission: {} as UserPermission,
     };
   },
   actions: {
@@ -39,9 +39,9 @@ export const Account = defineStore("Account", {
     },
     async getPermissions() {
       publicAPI
-        .get<Permission[]>("/Identity/GetUserPermissions")
+        .get<UserPermission>("/Identity/GetUserPermissions")
         .then((response) => {
-          this.permissions = response.data;
+          this.userPermission = response.data;
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

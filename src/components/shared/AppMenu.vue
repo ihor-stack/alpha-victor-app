@@ -38,7 +38,7 @@
             </ion-item>
           </ion-menu-toggle>
         </li>
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="!isGuestUser">
           <ion-menu-toggle>
             <ion-item
               router-link="/favourites"
@@ -50,7 +50,7 @@
             </ion-item>
           </ion-menu-toggle>
         </li>
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="!isGuestUser">
           <ion-menu-toggle>
             <ion-item
               router-link="/find-space/location"
@@ -62,7 +62,7 @@
             </ion-item>
           </ion-menu-toggle>
         </li>
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="!isGuestUser">
           <ion-menu-toggle>
             <ion-item
               router-link="/recently-viewed"
@@ -74,7 +74,7 @@
             </ion-item>
           </ion-menu-toggle>
         </li>
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="!isGuestUser">
           <ion-menu-toggle>
             <ion-item
               router-link="/settings"
@@ -111,7 +111,7 @@
           </ion-menu-toggle>
         </li>
         <hr />
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="canAccessAdmin">
           <ion-menu-toggle>
             <ion-item
               router-link="/admin/organisations"
@@ -168,6 +168,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import {
   IonMenu,
   IonContent,
@@ -186,9 +187,20 @@ import {
 import { useRouter } from "vue-router";
 import Auth from "@/auth";
 import AppHeader from "./AppHeader.vue";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
 const router = useRouter();
 const authService = new Auth();
+const accountStore = useAccountStore();
+
+const canAccessAdmin = computed(
+  () =>
+    accountStore.userPermission.isGlobalAdmin ||
+    accountStore.userPermission.organisationGroups?.some(
+      (group) => group.name === "OrganisationAdmin"
+    )
+);
+const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 
 const logout = async () => {
   const authRes = await authService.logout();

@@ -30,7 +30,9 @@ export const Organisations = defineStore("PublicOrganisations", {
         .get<AdminOrganisation[]>("/Organisation/")
         .then((response) => {
           this.organisationList = response.data;
-          this.currentOrganisationId = response.data[0].organisationId;
+          if (response.data.length > 0) {
+            this.currentOrganisationId = response.data[0].organisationId;
+          }
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

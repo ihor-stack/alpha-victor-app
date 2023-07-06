@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { onBeforeMount, watch, computed } from "vue";
 import { IonApp } from "@ionic/vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import AppMenu from "./components/shared/AppMenu.vue";
 import CustomToast from "@/components/shared/CustomToast.vue";
@@ -37,12 +37,14 @@ import loadingService from "./services/loadingService";
 import Auth from "@/auth";
 
 const route = useRoute();
+const router = useRouter();
 
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 const accountStore = useAccountStore();
 
 const organisationStore = useOrganisationStore();
 const { currentOrganisationId, theme } = storeToRefs(organisationStore);
+const { userPermission } = storeToRefs(accountStore);
 const authService = new Auth();
 
 const path = computed(() => route.path);
@@ -92,12 +94,38 @@ watch(theme, (newValue) => {
 });
 
 watch(path, (newValue, oldValue) => {
+  checkPermission();
   if (!oldValue.includes("/admin") && newValue.includes("/admin")) {
     document.body.classList.toggle("dark", true);
   } else if (oldValue.includes("/admin") && !newValue.includes("/admin")) {
     updateThemeFromStorage();
   }
+  if (oldValue === "/" && newValue === "/dashboard") {
+    accountStore.getPermissions();
+  }
 });
+
+watch(userPermission, () => {
+  checkPermission();
+});
+
+const checkPermission = () => {
+  if (
+    !userPermission.value.isGlobalAdmin &&
+    !userPermission.value.organisationGroups?.some(
+      (group) => group.name === "OrganisationAdmin"
+    ) &&
+    path.value?.includes("/admin")
+  ) {
+    router.replace({ name: "Dashboard" });
+  } else if (
+    userPermission.value.isGuest &&
+    path.value !== "/dashboard" &&
+    !path.value.includes("/space/")
+  ) {
+    router.replace({ name: "Dashboard" });
+  }
+};
 
 onBeforeMount(async () => {
   updateThemeFromStorage();
