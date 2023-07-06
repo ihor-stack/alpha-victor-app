@@ -431,7 +431,12 @@ export interface NewPanorama {
   initialViewHfov: number;
 }
 
-export interface Permission {
+export interface UserPermission {
+  isGlobalAdmin: boolean;
+  isGuest: boolean;
+  organisationGroups: OrgPermission[];
+}
+export interface OrgPermission {
   organisationId: string;
   name: string;
 }

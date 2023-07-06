@@ -21,7 +21,7 @@
       </li>
     </ul>
 
-    <NewOrganisationModal />
+    <NewOrganisationModal v-if="accountStore.userPermission.isGlobalAdmin" />
   </div>
 </template>
 
@@ -30,8 +30,10 @@ import { IonItem, IonIcon } from "@ionic/vue";
 import { onBeforeMount, ref } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
 import NewOrganisationModal from "@/components/modals/NewOrganisationModal.vue";
+const accountStore = useAccountStore();
 
 const organisation = Organisations();
 

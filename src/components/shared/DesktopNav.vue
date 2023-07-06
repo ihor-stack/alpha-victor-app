@@ -109,7 +109,10 @@
             class="arrow-right"
           ></ion-icon>
         </li>
-        <li class="nav-menu-link arrow-align">
+        <li
+          class="nav-menu-link arrow-align"
+          v-if="userPermission.isGlobalAdmin"
+        >
           <router-link
             to="/admin/equipment"
             class="font-size-sm color-light-gray"
@@ -120,7 +123,10 @@
             class="arrow-right"
           ></ion-icon>
         </li>
-        <li class="nav-menu-link arrow-align">
+        <li
+          class="nav-menu-link arrow-align"
+          v-if="userPermission.isGlobalAdmin"
+        >
           <router-link
             to="/admin/documents"
             class="font-size-sm color-light-gray"
@@ -203,12 +209,16 @@ import {
   logOutOutline,
   chevronForwardOutline,
 } from "ionicons/icons";
+import { storeToRefs } from "pinia";
+
 import AppHeader from "./AppHeader.vue";
 import Auth from "@/auth";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
 const router = useRouter();
 const authService = new Auth();
-
+const accountStore = useAccountStore();
+const { userPermission } = storeToRefs(accountStore);
 const logout = async () => {
   const authRes = await authService.logout();
   if (authRes) {
