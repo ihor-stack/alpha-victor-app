@@ -51,6 +51,7 @@
     "capacitor-secure-storage-plugin": "^0.8.1",
     "com.unarin.cordova.beacon": "github:myth-digital/uncoded-ibeacon#v3.0.0",
     "cordova-plugin-device": "^2.1.0",
+    "cordova.plugins.diagnostic": "^7.1.0",
     "core-js": "^3.6.5",
     "file-saver": "^2.0.5",
     "floyd-steinberg": "^1.0.6",
