@@ -12,7 +12,7 @@ export const adminDocuments = defineStore("adminDocuments", {
   },
   actions: {
     async getDocumentTypes() {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .get<AdminDocument[]>("/Document/DocumentType")
         .then((response) => {
@@ -22,7 +22,7 @@ export const adminDocuments = defineStore("adminDocuments", {
             }
             this.documents = [...response.data];
           }
-          loadingService.close();
+          loadingService.close(loadId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

@@ -22,7 +22,7 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">Get Help</span>
+          <span class="link-text">Step By Step Guides</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>

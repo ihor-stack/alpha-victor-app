@@ -53,7 +53,7 @@ const searchByQrCode = async () => {
   if (result.hasContent) {
     console.log(result.content); // log the raw scanned content
 
-    loadingService.show("Loading...");
+    const loadId = loadingService.show("Loading...");
     publicAPI
       .get(`Space/FindShortcode?request=${result.content}`)
       .then((response) => {
@@ -66,7 +66,7 @@ const searchByQrCode = async () => {
         toastService.show("Error", "The QR code is not valid.", "error", "top");
       })
       .finally(() => {
-        loadingService.close();
+        loadingService.close(loadId);
       });
   }
 };
@@ -74,7 +74,7 @@ const searchByQrCode = async () => {
 const searchByShortcode = () => {
   if (state.shortcode?.length < 1) return;
 
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   publicAPI
     .get(`Space/FindShortcode?request=${state.shortcode}`)
     .then((response) => {
@@ -87,7 +87,7 @@ const searchByShortcode = () => {
       toastService.show("Error", "We couldn't find any spaces by that shortcode", "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 </script>

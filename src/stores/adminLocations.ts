@@ -47,14 +47,14 @@ export const Locations = defineStore("Locations", {
 
     async saveLocation(organisationId: string) {
       const newLocation = this.newLocationDetails;
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .post(`/Location?organisationId=${organisationId}`, {
           name: newLocation.name,
           prefix: newLocation.prefix,
         })
         .then((response) => {
-          loadingService.close();
+          loadingService.close(loadId);
           toastService.show("Success", "New location added", "success", "top");
           this.getNavigationTree(organisationId);
           router.push(
@@ -78,7 +78,7 @@ export const Locations = defineStore("Locations", {
     },
 
     async getLocation(locationId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .get(`/Location/Location/${locationId}`)
         .then((response) => {
@@ -88,7 +88,7 @@ export const Locations = defineStore("Locations", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
@@ -110,7 +110,7 @@ export const Locations = defineStore("Locations", {
     },
 
     async getNavigationTree(organisationId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .get<Navigation[]>(`/Organisation/${organisationId}/NavigationTree`)
         .then((response) => {
@@ -124,7 +124,7 @@ export const Locations = defineStore("Locations", {
             });
             this.navigationTree = response.data;
           }
-          loadingService.close();
+          loadingService.close(loadId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

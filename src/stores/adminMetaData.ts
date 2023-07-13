@@ -16,7 +16,7 @@ export const MetaData = defineStore("MetaData", {
     },
 
     async getMetaData(organisationId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .get<AdminMetaData>(`/Organisation/${organisationId}/Metadata`)
         .then((response) => {

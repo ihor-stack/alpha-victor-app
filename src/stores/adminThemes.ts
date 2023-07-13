@@ -23,7 +23,7 @@ export const Theme = defineStore("Themes", {
     },
 
     saveThemes(organisationId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
 
       const themeToSave = {
         darkmodeEnabled: this.theme.darkmodeEnabled,
@@ -51,12 +51,12 @@ export const Theme = defineStore("Themes", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     removeLogo(organisationId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .delete(`/Organisation/${organisationId}/ClearLogo`)
         .then(() => {
@@ -72,12 +72,12 @@ export const Theme = defineStore("Themes", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     removeBackgroundImage(organisationId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .delete(`/Organisation/${organisationId}/ClearBackground`)
         .then(() => {
@@ -93,7 +93,7 @@ export const Theme = defineStore("Themes", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
   },

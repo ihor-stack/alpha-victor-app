@@ -665,6 +665,14 @@ ion-select-option::part(text) {
 }
 
 /* Toast Styling */
+ion-toast.customToast {
+  --max-width: 400px; 
+}
+
+ion-toast.customToast::part(wrapper) {
+  width: 400px !important;
+}
+
 ion-toast.customToast::part(container) {
   position: relative;
   border-radius: 15px;

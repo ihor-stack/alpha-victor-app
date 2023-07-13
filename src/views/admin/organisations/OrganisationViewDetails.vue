@@ -208,8 +208,50 @@ const removeDomain = (index: number) => {
 };
 
 const saveChanges = () => {
-  organisation.updateOrgDetails(organisationId, selectedLanguage.value.id);
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const postCodePattern = /^[a-zA-Z0-9\s-]*$/;
+  const phoneNumberPattern = /^[0-9-]*$/;
+  let isValid = true;
+
+  // Validate the email
+  if (!emailPattern.test(organisationDetails.value.email)) {
+    toastService.show(
+      "Error",
+      "Please enter a valid email address",
+      "error",
+      "top"
+    );
+    isValid = false;
+  }
+
+  // Validate the phone number
+  if (!phoneNumberPattern.test(organisationDetails.value.phone)) {
+    toastService.show(
+      "Error",
+      "Please enter a valid phone number",
+      "error",
+      "top"
+    );
+    isValid = false;
+  }
+
+  // Validate the postcode
+  if (!postCodePattern.test(organisationDetails.value.postCode)) {
+    toastService.show(
+      "Error",
+      "Please enter a valid postcode",
+      "error",
+      "top"
+    );
+    isValid = false;
+  }
+
+  if (isValid) {
+    // If all validations pass, then save the changes
+    organisation.updateOrgDetails(organisationId, selectedLanguage.value.id);
+  }
 };
+
 
 onBeforeMount(() => {
   organisation.getOrgDetails(organisationId);

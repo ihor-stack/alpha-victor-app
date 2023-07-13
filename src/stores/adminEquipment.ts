@@ -26,7 +26,7 @@ export const Equipment = defineStore("Equipment", {
   },
   actions: {
     async getEquipments() {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       return adminAPI
         .get<EquipmentList>(`/Equipment`)
         .then((response) => {
@@ -36,7 +36,7 @@ export const Equipment = defineStore("Equipment", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async getEquipmentDropdownList() {
@@ -50,7 +50,7 @@ export const Equipment = defineStore("Equipment", {
         });
     },
     async getEquipmentDetails(id: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .get<EquipmentDetails>(`/Equipment/${id}`)
         .then((response) => {
@@ -60,11 +60,11 @@ export const Equipment = defineStore("Equipment", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async addEquipment(equipment: NewEquipment) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .post("/Equipment", equipment)
         .then(() => {
@@ -72,11 +72,11 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async updateEquipment(id: string, state: any) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(`/Equipment/${id}`, {
           name: state.name,
@@ -89,11 +89,11 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async addManufacturer(name: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .post("/Equipment/Manufacturer/", { name })
         .then(() => {
@@ -102,11 +102,11 @@ export const Equipment = defineStore("Equipment", {
         .catch((error) => {
           toastService.show("Error", error.response.data, "error", "top");
           console.log(error);
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async updateManufacturer(manufacturerId: string, name: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(`/Equipment/Manufacturer?manufacturerId=${manufacturerId}`, {
           name,
@@ -116,11 +116,11 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error.response.data, "error", "top");
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async removeManufacturer(id: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .delete(`/Equipment/Manufacturer/${id}`)
         .then(() => {
@@ -128,11 +128,11 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async addAssetType(name: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .post("/Equipment/AssetType", { name })
         .then(() => {
@@ -140,11 +140,11 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error.response.data, "error", "top");
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async updateAssetType(assetTypeId: string, name: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(`/Equipment/AssetType?assetTypeId=${assetTypeId}`, { name })
         .then(() => {
@@ -152,11 +152,11 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error.response.data, "error", "top");
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async removeAssetType(id: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .delete(`/Equipment/AssetType/${id}`)
         .then(() => {
@@ -164,27 +164,27 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async addEquipmentDocument(newDocument: NewDocument, equipmentId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       return adminAPI
         .post(`/Document/Equipment/${equipmentId}`, newDocument)
         .then(() => this.getEquipmentDetails(equipmentId))
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async deleteEquipmentDocument(documentId: string, equipmentId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .delete(`/Document/Equipment/${documentId}?equipmentId=${equipmentId}`)
         .then(() => this.getEquipmentDetails(equipmentId))
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
   },

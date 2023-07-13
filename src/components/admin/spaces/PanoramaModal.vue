@@ -42,13 +42,13 @@
                 </ion-select>
               </ion-col>
             </ion-row>
-            <ion-row>
+            <ion-row v-if="!state.deviceId">
               <ion-col class="position-relative">
                 <hr class="form-admin--divider" />
                 <div class="or-text">or</div>
               </ion-col>
             </ion-row>
-            <ion-row>
+            <ion-row v-if="!state.deviceId">
               <ion-col size="12" class="form-admin--group_field">
                 <ion-label>Add label</ion-label>
                 <ion-input

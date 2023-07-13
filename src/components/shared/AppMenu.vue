@@ -248,6 +248,7 @@ ion-item::part(detail-icon) {
 .nav-menu-link {
   width: 100%;
   margin-bottom: 12px;
+  cursor: pointer;
 }
 
 .nav-menu-link ion-item {

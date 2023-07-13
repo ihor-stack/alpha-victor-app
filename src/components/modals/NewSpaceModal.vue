@@ -4,7 +4,7 @@
     fill="outline"
     color="--av-light-gray"
     @click="modalOpen = true"
-  >
+  > 
     Add new space +
   </ion-button>
   <ion-modal
@@ -42,6 +42,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
+                  <ion-label>Space name</ion-label>
                   <ion-input
                     class="font-size-sm"
                     placeholder="Space Name"
@@ -57,6 +58,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
+                  <ion-label>Space shortcode</ion-label>
                   <ion-input
                     class="font-size-sm"
                     placeholder="Space Shortcode"
@@ -85,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onBeforeMount, ref, watch } from "vue";
 import {
   IonPage,
   IonContent,
@@ -99,6 +101,7 @@ import {
 import { useRoute } from "vue-router";
 import { close } from "ionicons/icons";
 import { storeToRefs } from "pinia";
+import { Locations } from "@/stores/adminLocations";
 import { Spaces } from "@/stores/adminSpaces";
 
 const route = useRoute();
@@ -107,10 +110,24 @@ const organisationId = route.params.id as string;
 const locationId = route.params.locationId as string;
 const floorId = route.params.floorId as string;
 
+const Location = Locations();
+const { location } = storeToRefs(Location);
+
 const Space = Spaces();
 const { newSpaceDetails } = storeToRefs(Space);
 
 const modalOpen = ref(false);
+
+const generateShortcode = () => {
+  const randomNum = Math.floor(Math.random() * 900) + 100;
+  newSpaceDetails.value.shortCode = `${location.value.prefix}${randomNum}`;
+};
+
+watch(modalOpen, (newValue) => {
+  if (newValue) {
+    generateShortcode();
+  }
+});
 
 const handleDismiss = () => {
   modalOpen.value = false;
@@ -120,6 +137,10 @@ const saveNewSpace = () => {
   Space.saveSpace(organisationId, locationId, floorId);
   modalOpen.value = false;
 };
+
+onBeforeMount(() => {
+  Location.getLocation(locationId);
+});
 </script>
 
 <style scoped>

@@ -25,7 +25,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Outcome type</ion-label>
+          <ion-label>Destination type</ion-label>
           <ion-select
             interface="action-sheet"
             placeholder="Select type"

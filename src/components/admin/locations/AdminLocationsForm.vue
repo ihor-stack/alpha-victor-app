@@ -184,6 +184,8 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { flowerOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
+import toastService from "@/services/toastService";
+
 const route = useRoute();
 
 const organisationId = route.params.id as string;
@@ -198,7 +200,47 @@ const { floors } = storeToRefs(Floor);
 const canvas = ref();
 
 const saveChanges = (id: string) => {
-  Location.updateLocation(organisationId, id);
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const postCodePattern = /^[a-zA-Z0-9\s-]*$/;
+  const phoneNumberPattern = /^[0-9-]*$/;
+  let isValid = true;
+  // Validate the email
+  if (!emailPattern.test(location.value.email)) {
+    toastService.show(
+      "Error",
+      "Please enter a valid email address",
+      "error",
+      "top"
+    );
+    isValid = false;
+  }
+
+  // Validate the phone number
+  if (!phoneNumberPattern.test(location.value.phone)) {
+    toastService.show(
+      "Error",
+      "Please enter a valid phone number",
+      "error",
+      "top"
+    );
+    isValid = false;
+  }
+
+  // Validate the postcode
+  if (!postCodePattern.test(location.value.postcode)) {
+    toastService.show(
+      "Error",
+      "Please enter a valid postcode",
+      "error",
+      "top"
+    );
+    isValid = false;
+  }
+
+  if (isValid) {
+    // If all validations pass, then save the changes
+    Location.updateLocation(organisationId, id);
+  }
 };
 
 const exportQrCodes = async () => {
@@ -214,7 +256,7 @@ const exportQrCodes = async () => {
     for (let j = 0; j < f.spaces.length; j++) {
       const s = f.spaces[j];
 
-      const qrUrl = `${process.env.VUE_APP_BASE_URL}/qr/${organisationDetails.value.prefix}/${location.value.prefix}/${f.shortName}/${s.shortCode}`;
+      const qrUrl = `${process.env.VUE_APP_BASE_URL}/qr/${location.value.prefix}/${location.value.prefix}/${f.shortName}/${s.shortCode}`;
       const qr = getQR(qrUrl);
       const pngData = await getPNG(qr.display, 400, 400);
 

@@ -44,7 +44,7 @@ const state: State = reactive({
 });
 
 const getDocument = () => {
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   adminAPI
     .get(`/Document/${documentId}`)
     .then((response) => {
@@ -54,7 +54,7 @@ const getDocument = () => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 

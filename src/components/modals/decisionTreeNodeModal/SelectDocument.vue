@@ -141,7 +141,7 @@ const models = computed(() => {
 
 const getDocumentTypes = (equipmentId) => {
   if (!equipmentId) return;
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   adminAPI
     .get(`/Document/Equipment/${equipmentId}`)
     .then((response) => {
@@ -152,7 +152,7 @@ const getDocumentTypes = (equipmentId) => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 

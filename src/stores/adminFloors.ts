@@ -28,14 +28,14 @@ export const Floors = defineStore("Floors", {
 
     async saveFloor(organisationId: string, locationId: string) {
       const newFloor = this.newFloorDetails;
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .post(`/Floor?locationId=${locationId}`, {
           longName: newFloor.longName,
           shortName: newFloor.shortName,
         })
         .then(() => {
-          loadingService.close();
+          loadingService.close(loadId);
           toastService.show("Success", "New floor added", "success", "top");
           const locationsStore = Locations();
           this.getFloors(locationId);
@@ -85,7 +85,7 @@ export const Floors = defineStore("Floors", {
     },
 
     async getFloorDetails(id: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .get<SpecificFloor>(`/Floor/${id}`)
         .then((response) => {
@@ -95,7 +95,7 @@ export const Floors = defineStore("Floors", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
   },

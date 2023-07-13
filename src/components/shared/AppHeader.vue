@@ -60,6 +60,9 @@ const props = defineProps({
 </script>
 
 <style scoped>
+ion-title {
+  text-align: center;
+}
 .title {
   display: flex;
   flex-direction: column;

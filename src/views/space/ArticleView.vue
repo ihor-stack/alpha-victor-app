@@ -58,7 +58,7 @@ const state: State = reactive({
 });
 
 const getArticle = () => {
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   adminAPI
     .get(`/Article/${articleId}`)
     .then((response) => {
@@ -68,7 +68,7 @@ const getArticle = () => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 

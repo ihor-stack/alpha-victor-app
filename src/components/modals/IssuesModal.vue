@@ -162,7 +162,7 @@ const getAgoTime = (date: string) => {
 };
 
 const handleAddComment = () => {
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   publicAPI
     .post(`/Issue/AddIssueComment/${props.issueId}`, {
       comment: state.comment,
@@ -175,12 +175,12 @@ const handleAddComment = () => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 
 const handleChangeStatus = (status: number) => {
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   publicAPI
     .post(`/Issue/ChangeIssueStatus/${props.issueId}`, {
       status,
@@ -192,12 +192,12 @@ const handleChangeStatus = (status: number) => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 
 const getIssueDetails = () => {
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   publicAPI
     .get(`/Issue/${props.spaceId}/Issue/${props.issueId}`)
     .then((res) => {
@@ -207,7 +207,7 @@ const getIssueDetails = () => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 onBeforeMount(() => {
