@@ -78,7 +78,7 @@ import NewSpaceModal from "@/components/modals/NewSpaceModal.vue";
 import DeleteFloorModal from "@/components/modals/DeleteFloorModal.vue";
 
 const route = useRoute();
-
+ 
 const organisationId = route.params.id as string;
 const locationId = route.params.locationId as string;
 const floorId = route.params.floorId as string;

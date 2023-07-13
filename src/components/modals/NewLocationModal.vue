@@ -38,24 +38,24 @@
                     size-sm="6"
                     class="form-admin--group_field"
                   >
+                    <ion-label>Location name</ion-label>
                     <ion-input
                       class="font-size-sm"
-                      placeholder="Location Name"
+                      placeholder="e.g. Headquarters"
                       :value="newLocationDetails.name"
-                      @ion-input="
-                        newLocationDetails.name = String($event.target.value)
-                      "
+                      @input="onNameChange"
                     ></ion-input>
                   </ion-col>
-
+ 
                   <ion-col
                     size-xs="12"
                     size-sm="6"
                     class="form-admin--group_field"
                   >
+                    <ion-label>Location prefix</ion-label>
                     <ion-input
                       class="font-size-sm"
-                      placeholder="Location Prefix"
+                      placeholder="e.g. HQ"
                       :value="newLocationDetails.prefix"
                       @ion-input="
                         newLocationDetails.prefix = String($event.target.value)
@@ -105,6 +105,16 @@ const Location = Locations();
 const { newLocationDetails } = storeToRefs(Location);
 
 const modalOpen = ref(false);
+
+const onNameChange = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  const name = input.value;
+  newLocationDetails.value.name = name;
+
+  if (name.length > 2) {
+    newLocationDetails.value.prefix = (name.slice(0, 2) + name.slice(-2, -1)).toUpperCase();
+  }
+};
 
 const handleDismiss = () => {
   modalOpen.value = false;

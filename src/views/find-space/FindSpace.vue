@@ -79,7 +79,7 @@ watch(currentOrganisationId, (newValue) => {
 });
 
 const searchSpace = (term: string) => {
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   publicAPI
     .get(`/Dashboard/Find?request=${term}`)
     .then((response) => {
@@ -90,7 +90,7 @@ const searchSpace = (term: string) => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 

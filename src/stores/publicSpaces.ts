@@ -22,7 +22,7 @@ export const Spaces = defineStore("PublicSpaces", {
       return true;
     },
     async getSpaceDetails(id: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .get<DetailedSpace>(`/Space/${id || this.currentId}/Details`)
         .then((response) => {
@@ -33,12 +33,12 @@ export const Spaces = defineStore("PublicSpaces", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async getFavouriteSpaces() {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .get<Space[]>("/Dashboard/Favourite")
         .then((response) => {
@@ -48,12 +48,12 @@ export const Spaces = defineStore("PublicSpaces", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async setFavouriteSpace(spaceId: string, isFavourite: boolean) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .post<Space>(`/Space/${spaceId}/Favourite?isFavourite=${isFavourite}`)
         .then(() => {
@@ -63,12 +63,12 @@ export const Spaces = defineStore("PublicSpaces", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async setRecentlyViewedSpace(spaceId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .post<Space>(`/Space/${spaceId}/RecentlyViewed`)
         .then(() => {
@@ -78,12 +78,12 @@ export const Spaces = defineStore("PublicSpaces", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async getRecentlyViewedSpaces() {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .get<Space[]>("/Dashboard/RecentlyViewed")
         .then((response) => {
@@ -93,12 +93,12 @@ export const Spaces = defineStore("PublicSpaces", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async getNearbySpace(uuid: string, major: number, minor: number) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .get<Space>(`/Dashboard/ByBeacon/${uuid}/${major}/${minor}`)
         .then((response) => {
@@ -110,12 +110,12 @@ export const Spaces = defineStore("PublicSpaces", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async getSpaceDevices(spaceId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .get<Device[]>(`/Space/${spaceId || this.currentId}/Devices`)
         .then((response) => {
@@ -125,7 +125,7 @@ export const Spaces = defineStore("PublicSpaces", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
@@ -143,7 +143,7 @@ export const Spaces = defineStore("PublicSpaces", {
     },
 
     async getPanorama(spaceId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .get<Panorama>(`/Panorama/${spaceId}`)
         .then((response) => {
@@ -157,7 +157,7 @@ export const Spaces = defineStore("PublicSpaces", {
           }
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
   },

@@ -35,13 +35,14 @@ export const Integrations = defineStore("Integrations", {
         });
     },
     async editIntegration(integrationId: string, edit: Integration) {
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(
           `/Organisation/${edit.selectedOrgnisation}/Integration/${integrationId}`,
           edit
         )
         .then(() => {
-          loadingService.close();
+          loadingService.close(loadId);
           toastService.show("Success", "Integration updated", "success", "top");
         })
         .catch((error) => {

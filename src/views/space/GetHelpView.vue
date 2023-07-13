@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <app-header title="Get help">
+    <app-header title="Step By Step Guides">
       <template #start>
         <ion-button fill="clear" @click="handleBack" class="back">
           <span class="font-mono font-size-xs">&lt;&lt; back</span>

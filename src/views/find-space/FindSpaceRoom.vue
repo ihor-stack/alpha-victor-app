@@ -28,7 +28,7 @@ const state: State = reactive({
 });
 
 const getFloor = () => {
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   publicAPI
     .get(`/Floor/${floorId}/Spaces`)
     .then((response) => {
@@ -39,7 +39,7 @@ const getFloor = () => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 

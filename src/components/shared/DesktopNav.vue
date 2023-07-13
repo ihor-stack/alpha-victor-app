@@ -21,80 +21,75 @@
     </desktop-header>
     <ion-content class="ion-padding no-tp">
       <ul class="nav-menu">
-        <!-- <li class="nav-menu-link">
-          <router-link to="/" class="font-size-lg color-light-gray"
-            >Home</router-link
-          >
-        </li> -->
         <li class="nav-menu-link arrow-align">
           <router-link to="/dashboard" class="font-size-sm color-light-gray"
-            >Dashboard</router-link
-          >
+            >Dashboard
           <ion-icon
             :icon="chevronForwardOutline"
             class="arrow-right"
-          ></ion-icon>
+          ></ion-icon></router-link
+          >
         </li>
 
         <li class="nav-menu-link arrow-align">
           <router-link to="/favourites" class="font-size-sm color-light-gray"
-            >Favourites</router-link
-          >
+            >Favourites
           <ion-icon
             :icon="chevronForwardOutline"
             class="arrow-right"
-          ></ion-icon>
+          ></ion-icon></router-link
+          >
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link
             to="/find-space/location"
             class="font-size-sm color-light-gray"
-            >Find a space</router-link
-          >
+            >Find a space
           <ion-icon
             :icon="chevronForwardOutline"
             class="arrow-right"
-          ></ion-icon>
+          ></ion-icon></router-link
+          >
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link
             to="/recently-viewed"
             class="font-size-sm color-light-gray"
-            >Recently viewed</router-link
-          >
+            >Recently viewed
           <ion-icon
             :icon="chevronForwardOutline"
             class="arrow-right"
-          ></ion-icon>
+          ></ion-icon></router-link
+          >
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link to="/settings" class="font-size-sm color-light-gray"
-            >Account settings</router-link
-          >
+            >Account settings
           <ion-icon
             :icon="chevronForwardOutline"
             class="arrow-right"
-          ></ion-icon>
+          ></ion-icon></router-link
+          >
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link to="/about" class="font-size-sm color-light-gray"
-            >About Alpha Victor</router-link
-          >
+            >About Alpha Victor
           <ion-icon
             :icon="chevronForwardOutline"
             class="arrow-right"
-          ></ion-icon>
+          ></ion-icon></router-link
+          >
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link
             to="/terms-and-conditions"
             class="font-size-sm color-light-gray"
-            >Terms & conditions</router-link
-          >
+            >Terms & conditions
           <ion-icon
             :icon="chevronForwardOutline"
             class="arrow-right"
-          ></ion-icon>
+          ></ion-icon></router-link
+          >
         </li>
         <div class="spacer-line"></div>
         <li class="sub-title font-size-xxs color-light-gray">administration</li>
@@ -102,12 +97,12 @@
           <router-link
             to="/admin/organisations"
             class="font-size-sm color-light-gray"
-            >Organisations</router-link
-          >
+            >Organisations
           <ion-icon
             :icon="chevronForwardOutline"
             class="arrow-right"
-          ></ion-icon>
+          ></ion-icon></router-link
+          >
         </li>
         <li
           class="nav-menu-link arrow-align"
@@ -116,12 +111,13 @@
           <router-link
             to="/admin/equipment"
             class="font-size-sm color-light-gray"
-            >Equipment</router-link
+            >Equipment
+            <ion-icon
+              :icon="chevronForwardOutline"
+              class="arrow-right"
+            ></ion-icon>
+          </router-link
           >
-          <ion-icon
-            :icon="chevronForwardOutline"
-            class="arrow-right"
-          ></ion-icon>
         </li>
         <li
           class="nav-menu-link arrow-align"
@@ -130,12 +126,12 @@
           <router-link
             to="/admin/documents"
             class="font-size-sm color-light-gray"
-            >Document Types</router-link
-          >
+            >Document Types
           <ion-icon
             :icon="chevronForwardOutline"
             class="arrow-right"
-          ></ion-icon>
+          ></ion-icon></router-link
+          >
         </li>
       </ul>
     </ion-content>
@@ -228,6 +224,9 @@ const logout = async () => {
 </script>
 
 <style scoped>
+ion-title {
+  text-align: center;
+}
 .side-nav {
   height: 100%;
   width: 30%;
@@ -276,6 +275,17 @@ ion-content {
 
 .nav-menu-link {
   margin-bottom: 32px;
+}
+
+.nav-menu-link a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.nav-menu-link a:hover {
+  opacity: .5;
 }
 
 .spacer-line {

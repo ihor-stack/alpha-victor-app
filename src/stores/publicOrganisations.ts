@@ -25,7 +25,7 @@ export const Organisations = defineStore("PublicOrganisations", {
       return true;
     },
     async getOrganisations() {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .get<AdminOrganisation[]>("/Organisation/")
         .then((response) => {
@@ -38,11 +38,11 @@ export const Organisations = defineStore("PublicOrganisations", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async getOrgDetails(id: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .get<OrgDetails>(
           `/Organisation/${id || this.currentOrganisationId}/Details`
@@ -55,11 +55,11 @@ export const Organisations = defineStore("PublicOrganisations", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async getSearchNavigationTree(id: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       if (id) {
         publicAPI
           .get<Location[]>(`/Organisation/${id}/SearchNavigationTree`)
@@ -70,12 +70,12 @@ export const Organisations = defineStore("PublicOrganisations", {
             toastService.show("Error", error, "error", "top");
           })
           .finally(() => {
-            loadingService.close();
+            loadingService.close(loadId);
           });
       }
     },
     async getOrgTheme(id: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .get<Theme>(`/Organisation/${id || this.currentOrganisationId}/Theme`)
         .then((response) => {
@@ -85,7 +85,7 @@ export const Organisations = defineStore("PublicOrganisations", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
     async setOrgTheme(theme = defaultTheme) {

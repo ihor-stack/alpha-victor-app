@@ -47,13 +47,13 @@ export const Organisations = defineStore("Organisations", {
 
     async saveOrganisation() {
       const newOrg = this.newOrganisationDetails;
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .post("/Organisation/Details", {
           name: newOrg.name,
         })
         .then(() => {
-          loadingService.close();
+          loadingService.close(loadId);
           toastService.show(
             "Success",
             "New organisation added",
@@ -68,7 +68,7 @@ export const Organisations = defineStore("Organisations", {
     },
 
     async getOrganisations() {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       publicAPI
         .get<AdminOrganisation[]>("/Organisation/")
         .then((response) => {
@@ -78,7 +78,7 @@ export const Organisations = defineStore("Organisations", {
             }
             this.organisationList = response.data;
           }
-          loadingService.close();
+          loadingService.close(loadId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
@@ -86,7 +86,7 @@ export const Organisations = defineStore("Organisations", {
     },
 
     async getOrgDetails(id: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .get<OrgDetails>(`/Organisation/${id}/Details`)
         .then((response) => {
@@ -96,13 +96,13 @@ export const Organisations = defineStore("Organisations", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async updateOrgDetails(organisationId: string, languageIndex: number) {
       const editedOrg = this.organisationDetails;
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .patch<OrgDetails>(`/Organisation/${organisationId}/Details`, {
           name: editedOrg.name,
@@ -118,7 +118,7 @@ export const Organisations = defineStore("Organisations", {
           language: languageIndex,
         })
         .then(() => {
-          loadingService.close();
+          loadingService.close(loadId);
           toastService.show(
             "Success",
             "Organisation details saved",
@@ -169,7 +169,7 @@ export const Organisations = defineStore("Organisations", {
     },
 
     async getOrgDocumentTypes(organisationId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .get<AdminDocument[]>(`/Organisation/${organisationId}/DocumentTypes`)
         .then((response) => {
@@ -179,7 +179,7 @@ export const Organisations = defineStore("Organisations", {
             }
             this.documents = [...response.data];
           }
-          loadingService.close();
+          loadingService.close(loadId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
@@ -225,7 +225,7 @@ export const Organisations = defineStore("Organisations", {
     },
 
     async getDecisionDetails(decisionTreeId: string) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .get<DecisionTree>(`/DecisionTree/${decisionTreeId}`)
         .then((response) => {
@@ -235,12 +235,12 @@ export const Organisations = defineStore("Organisations", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async updateDecisionDetails(decisionTreeId: string, treeData: any) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(`/DecisionTree/${decisionTreeId}`, treeData)
         .then((response) => {
@@ -251,12 +251,12 @@ export const Organisations = defineStore("Organisations", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async getDecisionTrees() {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .get<DecisionTreeList[]>(`/DecisionTree`)
         .then((response) => {
@@ -270,18 +270,18 @@ export const Organisations = defineStore("Organisations", {
             });
           });
           this.decisionTreeList = formattedList;
-          loadingService.close();
+          loadingService.close(loadId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async createDecisionTree(decisionTree: DecisionTree) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .post(`/DecisionTree?organisationId=${this.currentOrg}`, decisionTree)
         .then((res) => {
@@ -296,12 +296,12 @@ export const Organisations = defineStore("Organisations", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async createAarticle(article: Article, callback?: (res: Video) => void) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .post(`/article?organisationId=${this.currentOrg}`, article)
         .then((res) => {
@@ -312,12 +312,12 @@ export const Organisations = defineStore("Organisations", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 
     async createVideo(video: Video, callback?: (res: Video) => void) {
-      loadingService.show("Loading...");
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .post(`/video?organisationId=${this.currentOrg}`, video)
         .then((res) => {
@@ -328,7 +328,7 @@ export const Organisations = defineStore("Organisations", {
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {
-          loadingService.close();
+          loadingService.close(loadId);
         });
     },
 

@@ -119,7 +119,7 @@ const state: State = reactive({
 });
 
 const getVideo = () => {
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   adminAPI
     .get(`/Video/${videoId}`)
     .then(async (response) => {
@@ -155,7 +155,7 @@ const getVideo = () => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 

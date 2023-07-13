@@ -50,7 +50,7 @@ const documents = computed(() => {
 });
 
 const getDocuments = () => {
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   publicAPI
     .get(`/Space/${spaceId}/Documents`)
     .then((response) => {
@@ -61,7 +61,7 @@ const getDocuments = () => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 

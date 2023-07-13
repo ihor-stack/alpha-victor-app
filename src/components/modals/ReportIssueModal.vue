@@ -115,7 +115,7 @@ const checkForInputs = () => {
 };
 
 const handleSubmitIssue = () => {
-  loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
   publicAPI
     .post(`/Issue/CreateIssue/${props.spaceId}`, {
       title: state.title,
@@ -129,7 +129,7 @@ const handleSubmitIssue = () => {
       toastService.show("Error", error, "error", "top");
     })
     .finally(() => {
-      loadingService.close();
+      loadingService.close(loadId);
     });
 };
 </script>
