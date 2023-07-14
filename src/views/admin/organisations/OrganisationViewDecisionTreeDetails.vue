@@ -502,6 +502,11 @@ export default {
         };
         decisionTree.value.root = rootNode;
       }
+
+      if (decisionTree.value?.root) {
+        decisionTree.value.root.xPosition = canvas.value.width / 2 - destinationWidth / 2;
+      }
+
       getDestinations(decisionTree.value?.root);
     };
 
