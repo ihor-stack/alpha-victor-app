@@ -133,7 +133,7 @@
             lines="none"
           >
             <ion-label>
-              {{ document.name }}
+              {{ trimFileExtension(document.name) }}
             </ion-label>
             <ion-button
               class="button-red text-lowercase"
@@ -245,6 +245,10 @@ const handleImageRemoved = (photoId: string) => {
 
 const removeSpacesDocument = (documentId: string) => {
   Space.deleteSpacesDocument(documentId, spaceId);
+};
+
+const trimFileExtension = (fileName: string) => {
+  return fileName.substring(0, fileName.lastIndexOf('.')) || fileName;
 };
 
 const spaceRoutes = [
