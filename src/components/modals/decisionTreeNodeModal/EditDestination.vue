@@ -7,25 +7,7 @@
     <ion-content :scroll-y="false">
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Question title</ion-label>
-          <ion-input
-            placeholder="Enter new question"
-            v-model="state.text"
-          ></ion-input>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Outcome label</ion-label>
-          <ion-input
-            placeholder="Enter new outcome"
-            v-model="state.outcomeLabel"
-          ></ion-input>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Destination type</ion-label>
+          <ion-label>Destination Type</ion-label>
           <ion-select
             interface="action-sheet"
             placeholder="Select type"
@@ -41,6 +23,21 @@
           </ion-select>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col size="12" class="form-admin--group_field">
+          <ion-label>Outcome label</ion-label>
+          <ion-input
+            placeholder="Enter new outcome"
+            v-model="state.outcomeLabel"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="form-admin--group_field">
+          <ion-label>{{ selectedOutcome }} title</ion-label>
+          <ion-input placeholder="Enter new question" v-model="state.text"></ion-input>
+        </ion-col>
+      </ion-row>
       <ion-button
         class="ion-text-capitalize"
         expand="block"
@@ -52,7 +49,7 @@
   </common-modal>
 </template>
 <script setup>
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import {
   IonContent,
   IonButton,
@@ -92,12 +89,15 @@ const treeNodeTypes = [
   },
 ];
 
-const props = defineProps([
-  "editTreeNode",
-  "type",
-  "handleClickNext",
-  "handleDismiss",
-]);
+const selectedOutcome = computed(() => {
+  const selectedNodeType = treeNodeTypes.find(
+    (treeNodeType) => treeNodeType.value === state.type
+  );
+
+  return selectedNodeType?.label || '';
+});
+
+const props = defineProps(["editTreeNode", "type", "handleClickNext", "handleDismiss"]);
 
 const state = reactive({
   text: props.editTreeNode.text,
