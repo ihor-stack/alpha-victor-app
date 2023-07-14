@@ -35,7 +35,7 @@
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
           <ion-label>{{ selectedOutcome }} title</ion-label>
-          <ion-input placeholder="Enter new question" v-model="state.text"></ion-input>
+          <ion-input v-model="state.text"></ion-input>
         </ion-col>
       </ion-row>
       <ion-button

@@ -13,7 +13,7 @@
     />
     <EditDestination
       v-else-if="state.step === 0"
-      :editTreeNode="editTreeNode"
+      :editTreeNode="''"
       :type="editTreeNode?.type"
       :handleDismiss="() => handleDismiss()"
       :handleClickNext="handleClickNext"
