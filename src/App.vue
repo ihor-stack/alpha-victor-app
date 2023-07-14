@@ -57,6 +57,8 @@ const updateTheme = (theme: Theme) => {
   const root = document.querySelector(":root") as HTMLElement;
   if (root && theme.backgroundImage) {
     root.style.setProperty("--theme-image", `url('${theme.backgroundImage}')`);
+  } else {
+    root.style.setProperty("--theme-image", `url('/img/lines-no-logo.svg')`);
   }
   if (root && theme.primaryColour) {
     root.style.setProperty("--ion-color-primary", theme.primaryColour);

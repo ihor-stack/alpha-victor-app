@@ -22,7 +22,7 @@
       </ion-buttons>
     </ion-toolbar>
     <div class="title" v-if="props.title">
-      <ion-item lines="none">
+      <ion-item class="ion-no-padding" lines="none">
         <h1 class="title-admin font-bold font-size-lg">
           {{ props.title }}
         </h1>

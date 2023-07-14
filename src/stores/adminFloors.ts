@@ -35,7 +35,6 @@ export const Floors = defineStore("Floors", {
           shortName: newFloor.shortName,
         })
         .then(() => {
-          loadingService.close(loadId);
           toastService.show("Success", "New floor added", "success", "top");
           const locationsStore = Locations();
           this.getFloors(locationId);
@@ -43,6 +42,9 @@ export const Floors = defineStore("Floors", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 

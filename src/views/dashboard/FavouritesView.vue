@@ -40,7 +40,7 @@
         </ion-item>
       </ion-list>
     </ion-content>
-    <ion-footer class="ion-padding">
+    <ion-footer class="ion-no-border">
       <router-link to="/find-space/location">
         <ion-button expand="block">Explore Spaces</ion-button>
       </router-link>
@@ -104,8 +104,9 @@ ion-thumbnail {
   height: 100%;
   margin: 0 !important;
 }
-ion-button::part(native) {
-  padding: 12px;
+
+ion-footer {
+  padding: 20px 22px 40px;
 }
 .name {
   font-size: 18px;

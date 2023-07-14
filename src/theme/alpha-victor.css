@@ -123,8 +123,8 @@ ion-button {
 .custom-input {
   --padding-top: 18px;
   --padding-bottom: 18px;
-  --padding-start: 24px;
-  --padding-end: 24px;
+  --padding-start: 18px;
+  --padding-end: 18px;
   --placeholder-color: #9ca0a6;
   --placeholder-opacity: 0.8;
   border-radius: 8px;
@@ -206,6 +206,12 @@ ion-modal::part(handle) {
   display: block;
   margin-top: 20px;
   opacity: 0.25;
+}
+
+.wrap-text {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 
 /* Colors */

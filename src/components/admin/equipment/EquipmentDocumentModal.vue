@@ -31,8 +31,7 @@
                   Add new document +
                 </h1>
                 <p class="modal-panel__comment color-light-gray font-size-sm">
-                  You can upload a document and document type using the form
-                  below.
+                  You can upload a document and document type using the form below.
                 </p>
               </div>
             </ion-header>
@@ -107,16 +106,19 @@ import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 
 import AdminSelect from "@/components/admin/AdminSelect.vue";
-import { Organisations } from "@/stores/adminOrganisations";
+import { adminDocuments } from "@/stores/adminDocumentTypes";
 import { SelectItem } from "@/types";
 import { Equipment as useEquipment } from "@/stores/adminEquipment";
 
 const EquipmentStore = useEquipment();
-const Org = Organisations();
+
 const route = useRoute();
 
 const equipmentId = route.params.equipmentId as string;
-const { documents } = storeToRefs(Org);
+
+const DocTypes = adminDocuments();
+const { documents } = storeToRefs(DocTypes);
+
 const state = reactive({
   organisation: "",
   modalOpen: false,
@@ -166,7 +168,7 @@ const saveNewDocument = () => {
 };
 
 onBeforeMount(() => {
-  Org.getOrgDocumentTypes();
+  DocTypes.getDocumentTypes();
 });
 </script>
 

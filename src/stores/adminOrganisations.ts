@@ -53,7 +53,6 @@ export const Organisations = defineStore("Organisations", {
           name: newOrg.name,
         })
         .then(() => {
-          loadingService.close(loadId);
           toastService.show(
             "Success",
             "New organisation added",
@@ -64,6 +63,9 @@ export const Organisations = defineStore("Organisations", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -78,10 +80,12 @@ export const Organisations = defineStore("Organisations", {
             }
             this.organisationList = response.data;
           }
-          loadingService.close(loadId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -118,7 +122,6 @@ export const Organisations = defineStore("Organisations", {
           language: languageIndex,
         })
         .then(() => {
-          loadingService.close(loadId);
           toastService.show(
             "Success",
             "Organisation details saved",
@@ -128,6 +131,9 @@ export const Organisations = defineStore("Organisations", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -179,10 +185,12 @@ export const Organisations = defineStore("Organisations", {
             }
             this.documents = [...response.data];
           }
-          loadingService.close(loadId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -270,7 +278,6 @@ export const Organisations = defineStore("Organisations", {
             });
           });
           this.decisionTreeList = formattedList;
-          loadingService.close(loadId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

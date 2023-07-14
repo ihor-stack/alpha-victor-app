@@ -39,6 +39,12 @@
                   @input="newFeature = $event.target.value"
                 />
               </div>
+              <AdminSelect
+                label="Choose an icon"
+                v-model="selectedIcon"
+                :options="iconList"
+                :isSearchable="true"
+              />
             </ion-content>
             <ion-footer>
               <ion-button
@@ -70,18 +76,54 @@ import {
 } from "@ionic/vue";
 import { close } from "ionicons/icons";
 import { MetaData } from "@/stores/adminMetaData";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 
 const metaDataStore = MetaData();
 const modalOpen = ref(false);
 const newFeature = ref("");
 const props = defineProps(["organisationId"]);
+
+const iconList = [
+  { value: "icon_360", title: "360" },
+  { value: "icon_blinds", title: "Blinds" },
+  { value: "icon_bluetooth", title: "Bluetooth" },
+  { value: "icon_book", title: "Book" },
+  { value: "icon_controlpanel", title: "Control Panel" },
+  { value: "icon_divisiblespace", title: "Divisible Space" },
+  { value: "icon_email", title: "Email" },
+  { value: "icon_fooddrink", title: "Food & Drink" },
+  { value: "icon_hdmi", title: "HDMI" },
+  { value: "icon_interactivewhiteboard", title: "Interactive Whiteboard" },
+  { value: "icon_lighting", title: "Lighting" },
+  { value: "icon_microphone", title: "Microphone" },
+  { value: "icon_minipc", title: "Mini PC" },
+  { value: "icon_naturallight", title: "Natural Light" },
+  { value: "icon_phone", title: "Phone" },
+  { value: "icon_camera", title: "Camera" },
+  { value: "icon_bolt", title: "Bolt" },
+  { value: "icon_projector", title: "Projector" },
+  { value: "icon_qrcode", title: "QR Code" },
+  { value: "icon_speakers", title: "Speakers" },
+  { value: "icon_temperature", title: "Temperature" },
+  { value: "icon_tv", title: "TV" },
+  { value: "icon_lock", title: "Lock" },
+  { value: "icon_usbc", title: "USB-C" },
+  { value: "icon_videocamera", title: "Video Camera" },
+  { value: "icon_whiteboard", title: "Whiteboard" },
+  { value: "icon_wifi", title: "WiFi" }
+];
+
+const selectedIcon = ref<SelectItem | null>(null);
+
 const handleDismiss = () => {
   modalOpen.value = false;
 };
+
 const saveNewFeature = () => {
-  metaDataStore.saveSpaceFeature(props.organisationId, newFeature.value);
+  metaDataStore.saveSpaceFeature(props.organisationId, newFeature.value, selectedIcon.value?.value || '');
   newFeature.value = "";
   modalOpen.value = false;
+  selectedIcon.value = null;
 };
 </script>
 

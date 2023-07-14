@@ -19,6 +19,7 @@
             :icon="close"
             :size="10"
             color="light"
+            class="close"
             v-if="feature.selected"
             @click="updateFeatureValue($event, feature)"
           ></ion-icon>
@@ -94,8 +95,9 @@ const updateFeatureValue = (event: MouseEvent, feature: SpaceFeature) => {
   border-color: #37b14c;
 }
 
-.feature p {
-  padding-right: 14px;
+.close {
+  margin-left: 14px;
+  display: block;
 }
 
 .check-icon-wrapper {

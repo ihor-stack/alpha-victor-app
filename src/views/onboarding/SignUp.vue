@@ -38,16 +38,24 @@
                   type="tel"
                   placeholder="Phone number"
                   v-model="state.phoneNumber"
-                />
+                /> 
+                <div class="password-container">
+                  <ion-input
+                    class="custom-input"
+                    :type="state.isPasswordVisible ? 'text' : 'password'"
+                    placeholder="Password"
+                    v-model="state.password"
+                  />
+                  <ion-icon 
+                    :icon="state.isPasswordVisible ? eyeOff : eye" 
+                    size="small"
+                    color="dark"
+                    @click="state.isPasswordVisible = !state.isPasswordVisible"
+                  ></ion-icon>
+                </div>
                 <ion-input
                   class="custom-input"
-                  type="password"
-                  placeholder="Password"
-                  v-model="state.password"
-                />
-                <ion-input
-                  class="custom-input"
-                  type="password"
+                  :type="state.isPasswordVisible ? 'text' : 'password'"
                   placeholder="Confirm Password"
                   v-model="state.confirmPassword"
                 />
@@ -74,6 +82,9 @@
 
 <script setup lang="ts">
 import { reactive } from "vue";
+import { IonIcon } from "@ionic/vue";
+import { eye, eyeOff } from "ionicons/icons";
+
 import {
   IonContent,
   IonFooter,
@@ -87,6 +98,7 @@ import DotText from "@/components/shared/DotText.vue";
 import Auth from "@/auth";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { IUserData } from "@/types";
+import toastService from "@/services/toastService";
 
 const router = useRouter();
 const authService = new Auth();
@@ -99,27 +111,62 @@ const state = reactive({
   phoneNumber: "",
   password: "",
   confirmPassword: "",
+  isPasswordVisible: false,
 });
 
 const signup = () => {
-  console.log(state);
-  const userData: IUserData = {
-    firstName: state.firstName,
-    lastName: state.lastName,
-    email: state.email,
-    phoneNumber: state.phoneNumber,
-    password: state.password,
-  };
-  accountStore
-    .registerUser(userData)
-    .then((res) => {
-      if (res.statusText === "OK") {
-        router.replace({ name: "AllowAccess" });
-      }
-    })
-    .catch((error) => {
-      console.log("----error", error);
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneNumberPattern = /^[0-9-]*$/;
+
+  let isValid = true;
+
+  // Validate the email
+  if (!emailPattern.test(state.email)) {
+    toastService.show(
+      "Error",
+      "Please enter a valid email address",
+      "error",
+      "top"
+    );
+    isValid = false;
+  }
+
+  // Validate the phone number
+  if (!phoneNumberPattern.test(state.phoneNumber)) {
+    toastService.show(
+      "Error",
+      "Please enter a valid phone number",
+      "error",
+      "top"
+    );
+    isValid = false;
+  }
+
+  if (isValid) {
+    // If all validations pass, then save the changes
+    const userData: IUserData = {
+      firstName: state.firstName,
+      lastName: state.lastName,
+      email: state.email,
+      phoneNumber: state.phoneNumber,
+      password: state.password,
+    };
+    accountStore
+      .registerUser(userData)
+      .then((res) => {
+        if (res.statusText === "OK") {
+          router.replace({ name: "AllowAccess" });
+        }
+      })
+      .catch((error) => {
+        toastService.show(
+        "Error",
+        error,
+        "error",
+        "top"
+      );
     });
+  }
 };
 
 const signIn = async () => {
@@ -140,7 +187,6 @@ const signIn = async () => {
   display: flex;
   flex-direction: column;
 }
-
 .blue-text-container {
   margin-bottom: 5px;
   text-align: center;
@@ -157,6 +203,10 @@ const signIn = async () => {
   flex: 1;
 }
 
+.custom-input {
+  background: #181818;
+}
+
 ion-footer {
   height: 30%;
   display: flex;
@@ -164,10 +214,43 @@ ion-footer {
   justify-content: space-between;
 }
 
+ion-footer ion-button {
+  margin-bottom: 20px;
+}
+
 .link-container {
   flex: 0 0 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  opacity: .5;
+}
+
+.password-container {
+  position: relative;
+}
+
+ion-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 99;
+}
+
+/* Desktop styling */
+@media only screen and (min-width: 1023px) {
+  .content-container {
+    width: 500px;
+    margin: auto;
+  }
 }
 </style>

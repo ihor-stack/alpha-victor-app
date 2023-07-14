@@ -72,10 +72,12 @@ export const Spaces = defineStore("Spaces", {
             };
           }
           this.formattedSelect = formattedList;
-          loadingService.close(loadId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -92,7 +94,6 @@ export const Spaces = defineStore("Spaces", {
           shortCode: newSpace.shortCode,
         })
         .then((res) => {
-          loadingService.close(loadId);
           toastService.show("Success", "New space added", "success", "top");
           const locationsStore = Locations();
           locationsStore.getNavigationTree(organisationId);
@@ -108,6 +109,9 @@ export const Spaces = defineStore("Spaces", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -124,7 +128,6 @@ export const Spaces = defineStore("Spaces", {
           decisionTreeId: this.decisionTreeSelected.additionalInfo,
         })
         .then(() => {
-          loadingService.close(loadId);
           toastService.show(
             "Success",
             "Space details updated",
@@ -134,6 +137,9 @@ export const Spaces = defineStore("Spaces", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -158,7 +164,6 @@ export const Spaces = defineStore("Spaces", {
           deviceEdit
         )
         .then(() => {
-          loadingService.close(loadId);
           toastService.show(
             "Success",
             "Space devices updated",
@@ -168,6 +173,9 @@ export const Spaces = defineStore("Spaces", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -188,7 +196,6 @@ export const Spaces = defineStore("Spaces", {
         .post(`/Space/${spaceId}/Device/`, newDevice)
         .then(() => {
           this.getSpaceDetailsDevices(spaceId);
-          loadingService.close(loadId);
           toastService.show(
             "Success",
             "Space devices updated",
@@ -198,6 +205,9 @@ export const Spaces = defineStore("Spaces", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -224,7 +234,6 @@ export const Spaces = defineStore("Spaces", {
             this.announcement.text
         )
         .then(() => {
-          loadingService.close(loadId);
           toastService.show(
             "Success",
             "Space announcement updated",
@@ -234,6 +243,9 @@ export const Spaces = defineStore("Spaces", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -267,7 +279,6 @@ export const Spaces = defineStore("Spaces", {
         )
         .then(() => {
           this.getSpaceDetailsDevices(spaceId);
-          loadingService.close(loadId);
           toastService.show(
             "Success",
             "Space wifi details updated",
@@ -277,6 +288,9 @@ export const Spaces = defineStore("Spaces", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -316,7 +330,6 @@ export const Spaces = defineStore("Spaces", {
         )
         .then(() => {
           this.getSpaceDetailsBeacon(spaceId);
-          loadingService.close(loadId);
           toastService.show(
             "Success",
             "Space beacon details updated",
@@ -326,6 +339,9 @@ export const Spaces = defineStore("Spaces", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 

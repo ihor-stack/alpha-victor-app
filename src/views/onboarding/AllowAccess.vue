@@ -191,6 +191,14 @@ const requestPermission = async () => {
   justify-content: center;
 }
 
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  opacity: .5;
+}
+
 .allow-access-container {
   flex: 1;
   padding-left: 10px;

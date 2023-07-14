@@ -13,7 +13,7 @@
             <ItemField
               :modelValue="data.name"
               :data="data"
-              :icon="data.icon"
+              icon=""
               :id="data.spaceTypeId"
               placeholder="Space type"
               @update:modelValue="

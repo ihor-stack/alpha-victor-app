@@ -99,6 +99,15 @@ defineProps<{
   justify-content: center;
 }
 
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  opacity: .5;
+}
+
+
 .button-container {
   flex: 1;
   display: flex;

@@ -89,11 +89,15 @@ const routes: Array<RouteRecordRaw> = [
     name: "Equipment",
     component: () => import("@/views/space/EquipmentView.vue"),
   },
-
   {
     path: "/get-help/:decisionTreeId",
     name: "GetHelp",
     component: () => import("@/views/space/GetHelpView.vue"),
+  },
+  {
+    path: "/feedback/:spaceId",
+    name: "Feedback",
+    component: () => import("@/views/space/FeedbackView.vue"),
   },
   {
     path: "/article/:id",

@@ -36,6 +36,9 @@ export const MetaData = defineStore("MetaData", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -89,11 +92,11 @@ export const MetaData = defineStore("MetaData", {
         });
     },
 
-    async saveSpaceFeature(organisationId: string, name: string) {
+    async saveSpaceFeature(organisationId: string, name: string, icon: string) {
       adminAPI
         .post(`/Organisation/${organisationId}/SpaceFeature/`, {
           name: name,
-          icon: "string",
+          icon: icon,
         })
         .then(() => {
           toastService.show(

@@ -188,7 +188,7 @@ ion-content {
 }
 
 ion-footer {
-  padding: 20px 22px;
+  padding: 20px 22px 40px;
 }
 ion-item {
   --background: transparent;

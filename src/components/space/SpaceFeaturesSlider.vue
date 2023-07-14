@@ -2,11 +2,11 @@
   <div>
     <swiper :slidesPerView="'auto'" :spaceBetween="10" class="space-features">
       <swiper-slide v-for="feature in selectedFeatures" :key="feature.name">
-        <ion-item lines="none" :detail="false">
+        <ion-item class="ion-no-padding" lines="none" :detail="false">
           <div class="space-equipment-menu__item__icon">
-            <img :src="useEquipmentIcon(feature.icon || '')" />
+            <img :src="`/img/icons/${feature.icon}.svg`" :alt="feature.name" />
           </div>
-          <ion-label class="font-size-xxs font-bold">
+          <ion-label class="font-size-xs font-bold">
             {{ feature.name }}
           </ion-label>
         </ion-item>
@@ -51,6 +51,10 @@ const selectedFeatures = computed(() => props.features ? props.features.filter(f
   overflow: hidden;
   background: var(--ion-color-light);
   border: 0.75px solid #313131;
+}
+
+.space-equipment-menu__item__icon {
+  margin: 0 10px;
 }
 
 ion-item {
