@@ -44,8 +44,9 @@
                       class="file-input"
                       type="file"
                       accept="*/"
-                      :v-model="file"
-                      @change="uploadFile"
+                      :v-model="files"
+                      @change="uploadFiles"
+                      multiple
                     />
                   </div>
                 </ion-input>
@@ -61,7 +62,7 @@
               <ion-button
                 class="font-size-sm text-lowercase"
                 expand="block"
-                :disabled="!uploadedDoc || !selectedDocType?.title"
+                :disabled="!uploadedDocs.length || !selectedDocType?.title"
                 @click="saveNewDocumentType()"
               >
                 Save
@@ -121,42 +122,42 @@ const newDocument = ref("");
 const handleDismiss = () => {
   modalOpen.value = false;
 };
-const file = ref();
-const uploadedDoc = ref();
-const fileName = computed(() => uploadedDoc.value?.name);
-const fileExtension = computed(() =>
-  fileName.value?.substr(fileName.value?.lastIndexOf(".") + 0)
-);
-const fileMimeType = computed(() => uploadedDoc.value?.type);
-const uploadFile = (event: any) => {
-  uploadedDoc.value = event.target.files[0];
+const files = ref();
+const uploadedDocs = ref([]);
+const uploadFiles = (event: any) => {
+  uploadedDocs.value = event.target.files;
 };
 const saveNewDocumentType = () => {
-  const reader = new FileReader();
-  reader.readAsDataURL(uploadedDoc.value);
-  reader.onload = async () => {
-    if (typeof reader.result === "string") {
-      const encodedFile = reader.result?.split(",")[1];
-      uploadedDoc.value.logo = fileName.value;
-      uploadedDoc.value.logoFileName = fileName.value;
-      uploadedDoc.value.logoContentType = fileExtension.value;
-      uploadedDoc.value.logoBase64Payload = encodedFile;
+  const readOneFile = (fileItem: any) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileItem);
+    reader.onload = async () => {
+      if (typeof reader.result === "string") {
+        const fileName = fileItem.name;
+        const fileMimeType = fileItem.type;
 
-      const data = {
-        base64Payload: encodedFile,
-        fileName: fileName.value,
-        documentTypeId: selectedDocType.value.additionalInfo,
-        contentType: fileMimeType.value,
-      };
-      try {
-        await Space.addSpacesDocument(data, spaceId);
-        handleDismiss();
-        return data;
-      } catch (error) {
-        console.error(error);
+        const encodedFile = reader.result?.split(",")[1];
+
+        const data = {
+          base64Payload: encodedFile,
+          fileName: fileName,
+          documentTypeId: selectedDocType.value.additionalInfo,
+          contentType: fileMimeType,
+        };
+        try {
+          await Space.addSpacesDocument(data, spaceId);
+          handleDismiss();
+          return data;
+        } catch (error) {
+          console.error(error);
+        }
       }
-    }
+    };
   };
+
+  if (uploadedDocs.value) {
+    Array.prototype.forEach.call(uploadedDocs.value, readOneFile);
+  }
 };
 
 onBeforeMount(() => {
