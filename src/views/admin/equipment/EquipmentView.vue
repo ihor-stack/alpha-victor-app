@@ -6,7 +6,7 @@
 
     <ion-row class="form-admin">
       <ion-col size-xs="12" class="form-admin--group_field">
-        <ion-list>
+        <ion-list class="equipment-list">
           <ion-item
             v-for="equipment in equipmentList.equipments"
             v-bind:key="equipment.equipmentId"
@@ -18,8 +18,11 @@
             router-direction="root"
           >
             <ion-label>
-              <h2>{{ equipment.equipmentName }}</h2>
-              <p>{{ equipment.typeName }}</p>
+              <img :src="`/img/icons/${equipment.icon}.svg`" :alt="equipment.typeName" />
+              <div>
+                <h2>{{ equipment.equipmentName }}</h2>
+                <span class="equipment-list--type">{{ equipment.typeName }}</span>
+              </div>
             </ion-label>
             <ion-icon :icon="chevronForwardOutline" slot="end"></ion-icon>
           </ion-item>
@@ -56,7 +59,7 @@
           <ItemField
             :modelValue="asset.name"
             :data="asset"
-            icon=""
+            :icon="asset.icon"
             :id="asset.assetId"
             placeholder="Asset Type"
             @update:modelValue="
@@ -123,21 +126,35 @@ h3 {
   margin: 30px 0 10px;
 }
 
-p {
-  margin-left: 2%;
+.equipment-list ion-label {
+  display: flex;
+}
+
+.equipment-list ion-label div {
+  display:block;
+  margin-left: 20px;
+}
+
+.equipment-list--type {
+  margin-left: 10px;
   font-family: "Akkurat-Mono";
   font-size: var(--av-font-xs);
+  opacity: .5;
 }
+
 ion-select {
   margin-bottom: 3%;
 }
+
 ion-button {
   margin-bottom: 5%;
   width: 246px;
 }
+
 ion-list {
   background: transparent;
 }
+
 ion-item {
   --background: transparent;
 }

@@ -70,7 +70,7 @@
           </div>
         </div>
 
-        <div class="space-features-slider-container">
+        <div class="space-features-slider-container" v-if="currentSpace && currentSpace.spaceFeatures && currentSpace.spaceFeatures.length">
           <space-features-slider :features="currentSpace.spaceFeatures" />
         </div>
 
@@ -93,13 +93,14 @@
     <ion-footer>
       <div class="space-cta-container">
         <ion-item
-          class="announcement"
+          class="announcement ion-no-padding"
+          text-wrap
           lines="none"
           v-if="currentSpace.announcementTitle"
         >
           <ion-label>
-            <h4>{{ currentSpace.announcementTitle }}</h4>
-            <p>
+            <h4 class="wrap-text">{{ currentSpace.announcementTitle }}</h4>
+            <p class="wrap-text">
               {{ currentSpace.announcementText }}
             </p>
           </ion-label>
@@ -113,7 +114,14 @@
           >
             Report Issue
           </ion-button>
-          <ion-button expand="block">Give Feedback</ion-button>
+          
+          <ion-button
+            v-if="currentSpace.typeformId"
+            expand="block"
+            @click="goToFeedback"
+          >
+            Give Feedback
+          </ion-button>
         </div>
       </div>
     </ion-footer>
@@ -168,8 +176,13 @@ const { devices } = storeToRefs(spacesStore);
 const isFavourite = computed(() =>
   spacesStore.favouriteSpaces?.some((item) => item.id === spaceId)
 );
+
 const setFavoriteSpace = () => {
   spacesStore.setFavouriteSpace(spaceId, !isFavourite.value);
+};
+
+const goToFeedback = () => {
+  router.push({ name: 'Feedback' });  // replace 'RouteName' with the name of your route
 };
 
 onBeforeMount(() => {
@@ -311,22 +324,27 @@ onBeforeMount(() => {
 
 .announcement {
   background: var(--ion-color-light);
-  border: 0.75px solid #313131;
+  border: 1px solid #313131;
   border-radius: 4px;
   padding: 4px 12px;
   margin-bottom: 12px;
 }
 
+.announcement .item-inner {
+  border: none !important;
+}
+
 .announcement h4 {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   font-weight: 700;
   font-size: 14px;
   line-height: 14px;
 }
 
 .announcement p {
-  font-size: 10px;
+  font-size: 11px;
   line-height: 16px;
+  color: #fff;
 }
 
 .ctas {

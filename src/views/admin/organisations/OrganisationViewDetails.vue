@@ -252,7 +252,6 @@ const saveChanges = () => {
   }
 };
 
-
 onBeforeMount(() => {
   organisation.getOrgDetails(organisationId);
 });

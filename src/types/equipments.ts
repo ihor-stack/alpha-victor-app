@@ -7,6 +7,7 @@ export interface EquipmentList {
   assetTypes: {
     assetId: string;
     name: string;
+    icon: string;
   }[];
   equipments: {
     equipmentName: string;
@@ -14,6 +15,7 @@ export interface EquipmentList {
     assetTypeName: string | null;
     manufacturerName: string | null;
     assetTypeId: string;
+    icon: string;
     equipmentId: string;
     manufacturerId: string;
   }[];

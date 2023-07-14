@@ -1,7 +1,7 @@
 <template>
   <ion-item>
     <div class="item-icon" v-if="props.icon">
-      <img :src="props.icon" :alt="props.modelValue" />
+      <img :src="`/img/icons/${props.icon}.svg`" :alt="props.modelValue" />
     </div>
     <ion-input
       :placeholder="props.placeholder"
@@ -104,6 +104,7 @@ ion-button {
   width: 20px;
   height: 20px;
   overflow: hidden;
+  margin-right: 10px;
 }
 .item-icon img {
   width: 20px;

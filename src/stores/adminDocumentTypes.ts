@@ -22,10 +22,12 @@ export const adminDocuments = defineStore("adminDocuments", {
             }
             this.documents = [...response.data];
           }
-          loadingService.close(loadId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 

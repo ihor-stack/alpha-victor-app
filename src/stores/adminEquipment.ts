@@ -72,6 +72,8 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
           loadingService.close(loadId);
         });
     },
@@ -89,6 +91,8 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
           loadingService.close(loadId);
         });
     },
@@ -100,8 +104,9 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error.response.data, "error", "top");
-          console.log(error);
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
           loadingService.close(loadId);
         });
     },
@@ -115,7 +120,9 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error.response.data, "error", "top");
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
           loadingService.close(loadId);
         });
     },
@@ -128,18 +135,22 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
           loadingService.close(loadId);
         });
     },
-    async addAssetType(name: string) {
+    async addAssetType(name: string, icon: string) {
       const loadId = loadingService.show("Loading...");
       adminAPI
-        .post("/Equipment/AssetType", { name })
+        .post("/Equipment/AssetType", { name, icon })
         .then(() => {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error.response.data, "error", "top");
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
           loadingService.close(loadId);
         });
     },
@@ -151,7 +162,9 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error.response.data, "error", "top");
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
           loadingService.close(loadId);
         });
     },
@@ -164,6 +177,8 @@ export const Equipment = defineStore("Equipment", {
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
           loadingService.close(loadId);
         });
     },
@@ -174,6 +189,8 @@ export const Equipment = defineStore("Equipment", {
         .then(() => this.getEquipmentDetails(equipmentId))
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
           loadingService.close(loadId);
         });
     },
@@ -184,6 +201,8 @@ export const Equipment = defineStore("Equipment", {
         .then(() => this.getEquipmentDetails(equipmentId))
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
           loadingService.close(loadId);
         });
     },

@@ -33,6 +33,12 @@
             <div class="modal-panel__section modal-panel__select-equipment">
               <ion-input v-model="state.name" placeholder="e.g. camera" />
             </div>
+            <AdminSelect
+              label="Choose an icon"
+              v-model="selectedIcon"
+              :options="iconList"
+              :isSearchable="true"
+            />
           </ion-content>
           <ion-footer>
             <ion-button
@@ -51,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import {
   IonPage,
   IonContent,
@@ -64,6 +70,7 @@ import {
 } from "@ionic/vue";
 import { close } from "ionicons/icons";
 import { Equipment as useEquipment } from "@/stores/adminEquipment";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 
 const EquipmentStore = useEquipment();
 
@@ -71,14 +78,48 @@ const state = reactive({
   name: "",
   modalOpen: false,
 });
+
+const iconList = [
+  { value: "icon_360", title: "360" },
+  { value: "icon_blinds", title: "Blinds" },
+  { value: "icon_bluetooth", title: "Bluetooth" },
+  { value: "icon_book", title: "Book" },
+  { value: "icon_controlpanel", title: "Control Panel" },
+  { value: "icon_divisiblespace", title: "Divisible Space" },
+  { value: "icon_email", title: "Email" },
+  { value: "icon_fooddrink", title: "Food & Drink" },
+  { value: "icon_hdmi", title: "HDMI" },
+  { value: "icon_interactivewhiteboard", title: "Interactive Whiteboard" },
+  { value: "icon_lighting", title: "Lighting" },
+  { value: "icon_microphone", title: "Microphone" },
+  { value: "icon_minipc", title: "Mini PC" },
+  { value: "icon_naturallight", title: "Natural Light" },
+  { value: "icon_phone", title: "Phone" },
+  { value: "icon_camera", title: "Camera" },
+  { value: "icon_bolt", title: "Bolt" },
+  { value: "icon_projector", title: "Projector" },
+  { value: "icon_qrcode", title: "QR Code" },
+  { value: "icon_speakers", title: "Speakers" },
+  { value: "icon_temperature", title: "Temperature" },
+  { value: "icon_tv", title: "TV" },
+  { value: "icon_lock", title: "Lock" },
+  { value: "icon_usbc", title: "USB-C" },
+  { value: "icon_videocamera", title: "Video Camera" },
+  { value: "icon_whiteboard", title: "Whiteboard" },
+  { value: "icon_wifi", title: "WiFi" }
+];
+
 const handleDismiss = () => {
   state.modalOpen = false;
 };
 
+const selectedIcon = ref<SelectItem | null>(null);
+
 const handleAddAssetType = () => {
-  EquipmentStore.addAssetType(state.name).then(() => {
+  EquipmentStore.addAssetType(state.name, selectedIcon.value?.value || '').then(() => {
     state.modalOpen = false;
     state.name = "";
+    selectedIcon.value = null;
   });
 };
 </script>

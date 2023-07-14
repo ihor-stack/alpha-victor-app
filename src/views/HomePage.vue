@@ -115,4 +115,20 @@ const signup = () => {
   flex-direction: column;
   justify-content: center;
 }
+
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  opacity: .5;
+}
+
+/* Desktop styling */
+@media only screen and (min-width: 1023px) {
+  .content-container {
+    width: 500px;
+    margin: auto;
+  }
+}
 </style>

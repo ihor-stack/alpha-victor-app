@@ -42,11 +42,13 @@ export const Integrations = defineStore("Integrations", {
           edit
         )
         .then(() => {
-          loadingService.close(loadId);
           toastService.show("Success", "Integration updated", "success", "top");
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
   },
