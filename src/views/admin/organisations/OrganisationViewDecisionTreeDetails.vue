@@ -505,6 +505,7 @@ export default {
 
       if (decisionTree.value?.root) {
         decisionTree.value.root.xPosition = canvas.value.width / 2 - destinationWidth / 2;
+        decisionTree.value.root.yPosition = canvas.value.height / 2 - outcomeHeight / 2;
       }
 
       getDestinations(decisionTree.value?.root);
