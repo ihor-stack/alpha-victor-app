@@ -109,7 +109,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Area Code</ion-label>
+          <ion-label>Postcode</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.postcode"
