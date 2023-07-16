@@ -54,5 +54,12 @@ export const Account = defineStore("Account", {
           return response;
         });
     },
+    async sendEmailLoginLink(emailAddress: string) {
+      return publicAPI
+        .post<any>("/Identity/SendEmailLoginLink", {emailAddress: emailAddress})
+        .then((response) => {
+          return response;
+        });
+    },
   },
 });

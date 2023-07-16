@@ -8,6 +8,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/HomePage.vue"),
   },
   {
+    path: "/send-email-login-link",
+    name: "SendEmailLoginLink",
+    component: () => import("@/views/auth/SendEmailLoginLink.vue"),
+  },
+  {
     path: "/email-link-login",
     name: "EmailLinkLogin",
     component: () => import("@/views/auth/EmailLinkLogin.vue"),

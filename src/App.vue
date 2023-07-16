@@ -30,6 +30,7 @@ import CustomToast from "@/components/shared/CustomToast.vue";
 import LoadingIndicator from "@/components/shared/LoadingIndicator.vue";
 import { Theme } from "@/types";
 import { Account as useAccountStore } from "@/stores/publicAccount";
+import { App, URLOpenListenerEvent } from '@capacitor/app';
 
 /* Services */
 import toastService from "./services/toastService";
@@ -38,6 +39,18 @@ import Auth from "@/auth";
 
 const route = useRoute();
 const router = useRouter();
+
+App.addListener('appUrlOpen', function (event: URLOpenListenerEvent) {
+  // TODO: Assuming av.mythdigital.dev for now. Make this configurable?
+  const slug = event.url.split('.dev').pop();
+
+  // We only push to the route if there is a slug present
+  if (slug) {
+    router.push({
+      path: slug,
+    });
+  }
+});
 
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 const accountStore = useAccountStore();

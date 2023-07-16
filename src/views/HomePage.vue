@@ -25,9 +25,12 @@
               </div>
               <div class="link-container text-center">
                 <p class="color-mid-gray font-md">
-                  Already have an account?
+                  Already have an account? 
+                  <span @click="signInEmail" class="color-light-gray link"
+                    >Send me a login link</span
+                  > or
                   <span @click="signIn" class="color-light-gray link"
-                    >Login</span
+                    >Sign in with my password</span
                   >
                 </p>
               </div>
@@ -59,6 +62,10 @@ const signIn = async () => {
     return router.replace({ name: "Home" });
   }
 };
+
+const signInEmail = async () => {
+  return router.replace({ name: "SendEmailLoginLink" });
+}
 
 onBeforeMount(async () => {
   const accessToken = await authService.fetchCurrentAccessToken();
