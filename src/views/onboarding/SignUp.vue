@@ -66,9 +66,12 @@
                 <div class="link-container text-center">
                   <p class="color-mid-gray font-md">
                     Already have an account?
-                    <span @click="signIn" class="color-light-gray link"
-                      >Login</span
-                    >
+                    <span @click="signInEmail" class="color-light-gray link"
+                    >Send me a login link</span
+                  > or
+                  <span @click="signIn" class="color-light-gray link"
+                    >Sign in with my password</span
+                  >
                   </p>
                 </div>
               </ion-footer>
@@ -168,6 +171,10 @@ const signup = () => {
     });
   }
 };
+
+const signInEmail = async () => {
+  return router.replace({ name: "SendEmailLoginLink" });
+}
 
 const signIn = async () => {
   // Sign in logic here

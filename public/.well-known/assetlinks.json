@@ -1,0 +1,5 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target" : { "namespace": "android_app", "package_name": "com.alphavictorapp.app",
+                 "sha256_cert_fingerprints": ["93:AE:71:B8:A3:3D:B0:F2:E9:99:AD:6F:7C:73:AB:7C:7D:E5:A1:55:19:30:13:CB:4F:8E:CE:56:C2:F3:E5:1E"] }
+  }]
