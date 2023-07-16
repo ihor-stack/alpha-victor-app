@@ -39,17 +39,41 @@ import Auth from "@/auth";
 
 const route = useRoute();
 const router = useRouter();
+const authService = new Auth();
 
-App.addListener('appUrlOpen', function (event: URLOpenListenerEvent) {
-  // TODO: Assuming av.mythdigital.dev for now. Make this configurable?
-  const slug = event.url.split('.dev').pop();
+App.addListener('appUrlOpen', async (event: URLOpenListenerEvent) => {
 
-  // We only push to the route if there is a slug present
-  if (slug) {
-    router.push({
-      path: slug,
-    });
+  if (!event.url) return;
+
+  const url = new URL(event.url);
+
+  const slug = url.pathname;
+
+  if (!slug) return;
+  
+  if (slug == "/email-link-login") {
+    // TODO: Put this here because onIonViewDidEnter isn't firing when redirecting to EmailLinkLogin.
+
+    const loginToken = url.searchParams.get("token");
+
+    if (!loginToken || loginToken == null || !(loginToken as string)) {
+      // Redirect to login.
+      return router.replace({ name: "Login" });
+    }
+
+    const strLoginToken = loginToken as string;  
+
+    const authRes = await authService.authenticate(true, strLoginToken);
+
+    if (authRes) {
+      return router.replace({ name: "Dashboard" });
+    } else {
+      return router.replace({ name: "Login" });
+    }
+
   }
+
+  
 });
 
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
@@ -58,7 +82,6 @@ const accountStore = useAccountStore();
 const organisationStore = useOrganisationStore();
 const { currentOrganisationId, theme } = storeToRefs(organisationStore);
 const { userPermission } = storeToRefs(accountStore);
-const authService = new Auth();
 
 const path = computed(() => route.path);
 
