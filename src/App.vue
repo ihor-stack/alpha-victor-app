@@ -73,7 +73,20 @@ App.addListener('appUrlOpen', async (event: URLOpenListenerEvent) => {
 
   }
 
-  
+  else if (slug == "/reset-password") {
+    // TODO: Put this here because onIonViewDidEnter isn't firing when redirecting to EmailLinkLogin.
+
+    const resetToken = url.searchParams.get("token");
+
+    if (!resetToken || resetToken == null || !(resetToken as string)) {
+      // Redirect to login.
+      return router.replace({ name: "Login" });
+    }
+
+    const strResetToken = resetToken as string;  
+
+    return router.replace({name: 'ResetPassword', query: {token: strResetToken}});
+  }  
 });
 
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";

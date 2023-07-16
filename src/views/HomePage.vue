@@ -26,12 +26,11 @@
               <div class="link-container text-center">
                 <p class="color-mid-gray font-md">
                   Already have an account? 
-                  <span @click="signInEmail" class="color-light-gray link"
-                    >Send me a login link</span
-                  > or
-                  <span @click="signIn" class="color-light-gray link"
-                    >Sign in with my password</span
-                  >
+                  <br/><br/>
+                  <span @click="signInEmail" class="color-light-gray link">Send me a login link</span> or
+                  <span @click="signIn" class="color-light-gray link">Sign in with my password</span>
+                  <br/><br/>
+                  <span @click="resetPassword" class="color-light-gray link">I've forgot my password</span>
                 </p>
               </div>
             </div>
@@ -65,6 +64,10 @@ const signIn = async () => {
 
 const signInEmail = async () => {
   return router.replace({ name: "SendEmailLoginLink" });
+}
+
+const resetPassword = async () => {
+  return router.replace({ name: "ForgotPassword" });
 }
 
 onBeforeMount(async () => {

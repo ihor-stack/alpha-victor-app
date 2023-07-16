@@ -61,5 +61,19 @@ export const Account = defineStore("Account", {
           return response;
         });
     },
+    async sendPasswordResetLink(emailAddress: string) {
+      return publicAPI
+        .post<any>("/Identity/SendPasswordResetLink", {emailAddress: emailAddress})
+        .then((response) => {
+          return response;
+        });
+    },
+    async confirmPasswordReset(token: string, password: string) {
+      return publicAPI
+        .post<any>("/Identity/ConfirmPasswordReset", {resetToken: token, newPassword: password })
+        .then((response) => {
+          return response;
+        });
+    },
   },
 });

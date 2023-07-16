@@ -22,12 +22,15 @@
                   
                 </div>
                 <ion-footer>
-                  <ion-button expand="block" :disabled="state.preventSubmit">Confirm password reset</ion-button>
+                  <ion-button @click="confirmPasswordReset" expand="block" :disabled="state.preventSubmit">Confirm password reset</ion-button>
                     
                   <div class="link-container text-center">
                     <p class="color-mid-gray font-md">
                       Don't have an account?
                       <router-link :to="{ name: 'Signup' }" class="color-light-gray link">Sign Up</router-link>
+                    </p>
+                    <p class="color-mid-gray font-md">
+                      <router-link :to="{ name: 'Home' }" class="color-light-gray link">Go back</router-link>
                     </p>
                   </div>
                 </ion-footer>
@@ -41,21 +44,75 @@
 
 <script setup lang="ts">
 import { IonPage, IonContent, IonFooter, IonButton } from '@ionic/vue';
-import { reactive, watch } from "vue";
+import { reactive, watch, onBeforeMount } from "vue";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 import DotText from "@/components/shared/DotText.vue";
 import PasswordInput from '@/components/shared/PasswordInput.vue';
+import { useRoute, useRouter } from 'vue-router';
+import Auth from '@/auth';
+import toastService from '@/services/toastService';
+
+const router = useRouter();
+const route = useRoute();
+const authService = new Auth();
+const accountStore = useAccountStore();
 
 interface State {
   newPassword: string;
   confirmedPassword: string;
+  token: string;
   preventSubmit: boolean;
 }
 
 const state: State = reactive({
   newPassword: "",
   confirmedPassword: "",
+  token: "",
   preventSubmit: true
 });
+
+onBeforeMount(async () => {
+
+  const token = route.query.token;
+
+  if (token)
+
+  if (!token || token == null || !(token as string)) {
+    // Redirect to login.
+    return router.replace({ name: "Login" });
+  }
+
+  const strLoginToken = token as string;  
+
+  state.token = strLoginToken;
+});
+
+const confirmPasswordReset = async () => {
+
+  accountStore
+      .confirmPasswordReset(state.token, state.newPassword)
+      .then((res) => {
+
+        toastService.show(
+          "Success",
+          "Your password was successfully reset. Login to continue",
+          "success",
+          "top"
+        );
+
+        router.replace({ name: "Home" });
+
+      })
+      .catch((error) => {
+        toastService.show(
+        "Error",
+        error,
+        "error",
+        "top"
+      );
+    });
+
+}
 
 function confirmPassword(value: string) {
   if (value === state.newPassword && state.newPassword.length > 0) {

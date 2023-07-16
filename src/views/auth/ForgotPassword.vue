@@ -16,15 +16,14 @@
                 <div class="login-form">
                   <p class="instructions">Enter the registered email address and we’ll send you instructions to reset your password.</p>
                   <div class="login-form-fields">
-                    <ion-input type="email" class="custom-input" placeholder="Email" name="email" />
+                    <ion-input :value="state.email" @ion-input="state.email = $event.target.value" type="email" class="custom-input" placeholder="Email" name="email" />
                   </div>
                 </div>
                 <ion-footer>
-                  <ion-button expand="block">Sent password reset link</ion-button>
+                  <ion-button @click="sendPasswordResetLink" expand="block">Sent password reset link</ion-button>
                   <div class="link-container text-center">
                     <p class="color-mid-gray font-md">
-                      Don't have an account?
-                      <router-link :to="{ name: 'Signup' }" class="color-light-gray link">Sign Up</router-link>
+                      <router-link :to="{ name: 'Home' }" class="color-light-gray link">Go back</router-link>
                     </p>
                   </div>
                 </ion-footer>
@@ -38,7 +37,64 @@
 
 <script setup lang="ts">
 import { IonPage, IonContent, IonFooter } from '@ionic/vue';
+import { Account as useAccountStore } from "@/stores/publicAccount";
 import DotText from "@/components/shared/DotText.vue";
+import { useRouter } from 'vue-router';
+import Auth from '@/auth';
+import { reactive } from 'vue';
+import toastService from '@/services/toastService';
+
+const router = useRouter();
+const authService = new Auth();
+const accountStore = useAccountStore();
+
+const state = reactive({
+  email: ""
+});
+
+const sendPasswordResetLink = async () => {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  let isValid = true;
+
+  // Validate the email
+  if (!emailPattern.test(state.email)) {
+    toastService.show(
+      "Error",
+      "Please enter a valid email address",
+      "error",
+      "top"
+    );
+    isValid = false;
+  }
+
+  if (!isValid) return;
+
+  accountStore
+      .sendPasswordResetLink(state.email)
+      .then((res) => {
+
+        toastService.show(
+          "Success",
+          "A password reset link has been sent to your email address. Check your inbox to continue",
+          "success",
+          "top"
+        );
+
+        router.replace({ name: "Home" });
+
+      })
+      .catch((error) => {
+        toastService.show(
+        "Error",
+        error,
+        "error",
+        "top"
+      );
+    });
+
+}
+
 </script>
 
 <style scoped>
