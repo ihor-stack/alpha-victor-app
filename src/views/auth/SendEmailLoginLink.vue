@@ -23,13 +23,7 @@
                   <ion-button @click="sendEmailSignInLink" expand="block">Send login link</ion-button>
                   <div class="link-container text-center">
                     <p class="color-mid-gray font-md">
-                      Don't have an account?
-                      <router-link :to="{ name: 'Signup' }" class="color-light-gray link">Sign Up</router-link>
-                    </p>
-                    <br/>
-                    <p class="color-mid-gray font-md">
-                      Want to login with your password?
-                      <span @click="signIn" class="color-light-gray link">Sign in with my password</span>
+                      <router-link :to="{ name: 'Home' }" class="color-light-gray link">Go back</router-link>
                     </p>
                   </div>
                 </ion-footer>
@@ -57,17 +51,6 @@ const accountStore = useAccountStore();
 const state = reactive({
   email: ""
 });
-
-const signIn = async () => {
-  // Sign in logic here
-  const authRes = await authService.authenticate(false);
-
-  if (authRes) {
-    return router.replace({ name: "Dashboard" });
-  } else {
-    return router.replace({ name: "Home" });
-  }
-};
 
 const sendEmailSignInLink = async () => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
