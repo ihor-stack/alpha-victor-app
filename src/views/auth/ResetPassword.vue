@@ -75,8 +75,6 @@ onBeforeMount(async () => {
 
   const token = route.query.token;
 
-  if (token)
-
   if (!token || token == null || !(token as string)) {
     // Redirect to login.
     return router.replace({ name: "Login" });

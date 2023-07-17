@@ -158,7 +158,15 @@ const signup = () => {
       .registerUser(userData)
       .then((res) => {
         if (res.statusText === "OK") {
-          router.replace({ name: "AllowAccess" });
+
+          toastService.show(
+            "Success",
+            "Your account has been created. Check your email for the verification link to continue",
+            "success",
+            "top"
+          );
+
+          router.replace({ name: "Home" });
         }
       })
       .catch((error) => {

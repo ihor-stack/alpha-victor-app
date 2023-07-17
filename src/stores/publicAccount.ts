@@ -75,5 +75,12 @@ export const Account = defineStore("Account", {
           return response;
         });
     },
+    async confirmEmailVerification(token: string) {
+      return publicAPI
+        .post<any>("/Identity/VerifyAccount", {verificationToken: token })
+        .then((response) => {
+          return response;
+        });
+    },
   },
 });
