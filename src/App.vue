@@ -88,6 +88,20 @@ App.addListener('appUrlOpen', async (event: URLOpenListenerEvent) => {
     return router.replace({name: 'ResetPassword', query: {token: strResetToken}});
   }  
 
+  else if (slug == "/verify-account") {
+
+    const verifyToken = url.searchParams.get("token");
+
+    if (!verifyToken || verifyToken == null || !(verifyToken as string)) {
+      // Redirect to login.
+      return router.replace({ name: "Login" });
+    }
+
+    const strVerifyToken = verifyToken as string;  
+
+    return router.replace({name: 'VerifyAccount', query: {token: strVerifyToken}});
+  }  
+
   else if (slug.indexOf("/qr") > -1) {
 
     return router.replace({path: slug});
