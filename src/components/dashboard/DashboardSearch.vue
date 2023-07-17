@@ -53,13 +53,23 @@ const searchByQrCode = async () => {
   if (result.hasContent) {
     console.log(result.content); // log the raw scanned content
 
+    // Remove our base URL and prefix from content.
+    const prefix = `${process.env.VUE_APP_BASE_URL}/qr/`;
+    const url = result.content.replace(prefix, '');
+    const urlParts = url.split('/');
+
+    const orgPrefix = urlParts[0];
+    const locPrefix = urlParts[1];
+    const floorName = urlParts[2];
+    const spaceShort = urlParts[3];
+
     const loadId = loadingService.show("Loading...");
     publicAPI
-      .get(`Space/FindShortcode?request=${result.content}`)
+      .get(`Space/SpaceByQR/${orgPrefix}/${locPrefix}/${floorName}/${spaceShort}`)
       .then((response) => {
         console.log(response);
         if (response?.data?.id) {
-          router.push(`/space/${response.data.id}`);
+          router.push(`/space/${response.data.spaceId}`);
         }
       })
       .catch((error) => {

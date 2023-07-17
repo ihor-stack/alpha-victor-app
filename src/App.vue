@@ -87,6 +87,11 @@ App.addListener('appUrlOpen', async (event: URLOpenListenerEvent) => {
 
     return router.replace({name: 'ResetPassword', query: {token: strResetToken}});
   }  
+
+  else if (slug.indexOf("/qr") > -1) {
+
+    return router.replace({path: slug});
+  }  
 });
 
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";

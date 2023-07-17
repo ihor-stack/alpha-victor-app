@@ -448,3 +448,8 @@ export interface IUserData {
   phoneNumber: string;
   password: string;
 }
+
+export interface SpaceQRCodeResponse {
+  spaceId: string;
+  guestAccessToken: string;
+}
