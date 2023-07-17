@@ -86,30 +86,7 @@ onBeforeMount(async () => {
 });
 
 const confirmPasswordReset = async () => {
-
-  accountStore
-      .confirmPasswordReset(state.token, state.newPassword)
-      .then((res) => {
-
-        toastService.show(
-          "Success",
-          "Your password was successfully reset. Login to continue",
-          "success",
-          "top"
-        );
-
-        router.replace({ name: "Home" });
-
-      })
-      .catch((error) => {
-        toastService.show(
-        "Error",
-        error,
-        "error",
-        "top"
-      );
-    });
-
+  accountStore.confirmPasswordReset(state.token, state.newPassword);
 }
 
 function confirmPassword(value: string) {
@@ -178,5 +155,13 @@ ion-footer {
 
 ion-button:first-of-type {
   margin-bottom: 15px;
+}
+
+/* Desktop styling */
+@media only screen and (min-width: 1023px) {
+  .content-container {
+    width: 500px;
+    margin: auto;
+  }
 }
 </style>

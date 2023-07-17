@@ -22,9 +22,10 @@
           <ion-button expand="block" @click="ctaFunc">Enable</ion-button>
         </div>
         <div class="link-container text-center">
-          <p class="color-mid-gray font-md">
-            Already have an account?
-            <span @click="signIn" class="color-light-gray link">Login</span>
+          <p class="color-mid-gray font-sm">
+            Already have an account? <span @click="signInEmail" class="color-light-gray link">Send me a login link</span>
+            <br/><br/>
+            <span @click="signIn" class="color-light-gray link">Login with email</span>
           </p>
         </div>
       </div>
@@ -35,12 +36,19 @@
 <script setup lang="ts">
 import { IonButton } from "@ionic/vue";
 import DotText from "../shared/DotText.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 defineProps<{
   dotText: string;
   ctaFunc: () => void;
   signIn: () => void;
 }>();
+
+const signInEmail = async () => {
+  return router.replace({ name: "SendEmailLoginLink" });
+}
 </script>
 
 <style scoped>
@@ -97,6 +105,8 @@ defineProps<{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 20px 0 0;
+  font-size: 13px;
 }
 
 .link {

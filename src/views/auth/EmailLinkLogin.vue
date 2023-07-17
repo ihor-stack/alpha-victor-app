@@ -52,4 +52,11 @@ onIonViewDidEnter(async () => {
   flex-direction: column;
 }
 
+/* Desktop styling */
+@media only screen and (min-width: 1023px) {
+  .content-container {
+    width: 500px;
+    margin: auto;
+  }
+}
 </style>

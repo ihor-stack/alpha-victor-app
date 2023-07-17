@@ -10,11 +10,11 @@
                 </div>
                 <div class="headline-container">
                   <h1 class="headline font-size-xl color-light-gray font-bold">
-                    Login<br/>via<br/>email
+                    Login via <br/>email
                   </h1>
                 </div>
                 <div class="login-form">
-                  <p class="instructions">Enter the registered email address and we’ll send you a link to login</p>
+                  <p class="instructions">Enter your email address and we’ll send you a link to login.</p>
                   <div class="login-form-fields">
                     <ion-input :value="state.email" @ion-input="state.email = $event.target.value" type="email" class="custom-input" placeholder="Email" name="email" />
                   </div>
@@ -61,7 +61,7 @@ const sendEmailSignInLink = async () => {
   if (!emailPattern.test(state.email)) {
     toastService.show(
       "Error",
-      "Please enter a valid email address",
+      "Please enter a valid email address.",
       "error",
       "top"
     );
@@ -70,29 +70,7 @@ const sendEmailSignInLink = async () => {
 
   if (!isValid) return;
 
-  accountStore
-      .sendEmailLoginLink(state.email)
-      .then((res) => {
-
-        toastService.show(
-          "Success",
-          "A login link has been sent to your email address. Check your inbox to continue",
-          "success",
-          "top"
-        );
-
-        router.replace({ name: "Home" });
-
-      })
-      .catch((error) => {
-        toastService.show(
-        "Error",
-        error,
-        "error",
-        "top"
-      );
-    });
-
+  accountStore.sendEmailLoginLink(state.email);
 }
 
 </script>
@@ -135,6 +113,10 @@ const sendEmailSignInLink = async () => {
   margin-bottom: 15px;
 }
 
+.custom-input {
+  background: #181818;
+}
+
 .link-container {
   flex: 0 0 10%;
   display: flex;
@@ -151,5 +133,13 @@ ion-footer {
 
 ion-button:first-of-type {
   margin-bottom: 15px;
+}
+
+/* Desktop styling */
+@media only screen and (min-width: 1023px) {
+  .content-container {
+    width: 500px;
+    margin: auto;
+  }
 }
 </style>
