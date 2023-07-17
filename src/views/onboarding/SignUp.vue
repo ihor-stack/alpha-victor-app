@@ -18,24 +18,28 @@
                 <ion-input
                   class="custom-input"
                   type="text"
+                  name="firstname"
                   placeholder="First name"
                   v-model="state.firstName"
                 />
                 <ion-input
                   class="custom-input"
                   type="text"
+                  name="surname"
                   placeholder="Last name"
                   v-model="state.lastName"
                 />
                 <ion-input
                   class="custom-input"
                   type="email"
+                  name="email"
                   placeholder="Email"
                   v-model="state.email"
                 />
                 <ion-input
                   class="custom-input"
                   type="tel"
+                  name="phone"
                   placeholder="Phone number"
                   v-model="state.phoneNumber"
                 /> 
@@ -64,14 +68,10 @@
                 <ion-button expand="block" @click="signup">Sign up</ion-button>
 
                 <div class="link-container text-center">
-                  <p class="color-mid-gray font-md">
-                    Already have an account?
-                    <span @click="signInEmail" class="color-light-gray link"
-                    >Send me a login link</span
-                  > or
-                  <span @click="signIn" class="color-light-gray link"
-                    >Sign in with my password</span
-                  >
+                  <p class="color-mid-gray font-sm">
+                    Already have an account? <span @click="signInEmail" class="color-light-gray link">Send me a login link</span>
+                    <br/><br/>
+                    <span @click="signIn" class="color-light-gray link">Login with email</span>
                   </p>
                 </div>
               </ion-footer>
@@ -145,6 +145,17 @@ const signup = () => {
     isValid = false;
   }
 
+  // Validate the phone number
+  if (state.password !== state.confirmPassword) {
+    toastService.show(
+      "Error",
+      "The passwords you entered don't match, please check and try again.",
+      "error",
+      "top"
+    );
+    isValid = false;
+  }
+
   if (isValid) {
     // If all validations pass, then save the changes
     const userData: IUserData = {
@@ -154,29 +165,7 @@ const signup = () => {
       phoneNumber: state.phoneNumber,
       password: state.password,
     };
-    accountStore
-      .registerUser(userData)
-      .then((res) => {
-        if (res.statusText === "OK") {
-
-          toastService.show(
-            "Success",
-            "Your account has been created. Check your email for the verification link to continue",
-            "success",
-            "top"
-          );
-
-          router.replace({ name: "Home" });
-        }
-      })
-      .catch((error) => {
-        toastService.show(
-        "Error",
-        error,
-        "error",
-        "top"
-      );
-    });
+    accountStore.registerUser(userData);
   }
 };
 
@@ -233,11 +222,15 @@ ion-footer ion-button {
   margin-bottom: 20px;
 }
 
+
+
 .link-container {
   flex: 0 0 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 20px 0 0;
+  font-size: 13px;
 }
 
 .link {
