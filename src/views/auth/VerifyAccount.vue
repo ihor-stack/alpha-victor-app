@@ -126,4 +126,12 @@ ion-footer {
 ion-button:first-of-type {
   margin-bottom: 15px;
 }
+
+/* Desktop styling */
+@media only screen and (min-width: 1023px) {
+  .content-container {
+    width: 500px;
+    margin: auto;
+  }
+}
 </style>
