@@ -68,6 +68,22 @@ export default class Auth {
 
   // Methods
 
+  storeGuestAccessToken(guestToken: string) {
+
+    const accessToken = localStorage.getItem(SECURE_STORE_ACCESS_TOKEN);
+
+    // Don't overwrite an actual access token.
+    if (accessToken) return;
+
+    const issuedAt = Auth.getCurrentTimeInSeconds().toString();
+    const expiresAt = (Auth.getCurrentTimeInSeconds() + 900).toString();
+
+    localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, guestToken);
+    localStorage.removeItem(SECURE_STORE_REFRESH_TOKEN);
+    localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
+    localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
+  }
+
   async isTokenFresh(secondsMargin: number = 60 * 10 * -1): Promise<boolean> {
     const accessToken = localStorage.getItem(SECURE_STORE_ACCESS_TOKEN);
     const expiresAt = localStorage.getItem(SECURE_STORE_EXPIRES_AT);

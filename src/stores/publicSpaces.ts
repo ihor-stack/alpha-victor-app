@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { publicAPI } from "@/axios";
-import { DetailedSpace, Space, Device, Panorama } from "@/types/index";
+import { DetailedSpace, Space, Device, Panorama, SpaceQRCodeResponse } from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 
@@ -120,6 +120,21 @@ export const Spaces = defineStore("PublicSpaces", {
         .get<Device[]>(`/Space/${spaceId || this.currentId}/Devices`)
         .then((response) => {
           this.devices = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+
+    async getSpaceByQr(orgPrefix: string, locPrefix: string, floorShortName: string, spaceShortCode: string) {
+      const loadId = loadingService.show("Loading...");
+      return publicAPI
+        .get<SpaceQRCodeResponse>(`/Space/SpaceByQR/${orgPrefix}/${locPrefix}/${floorShortName}/${spaceShortCode}`)
+        .then((response) => {
+          return response.data;
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");

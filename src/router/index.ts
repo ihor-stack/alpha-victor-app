@@ -8,6 +8,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/HomePage.vue"),
   },
   {
+    path: "/qr/:orgPrefix/:locPrefix/:floorShortName/:spaceShortCode",
+    name: "QR",
+    component: () => import("@/views/FindByQR.vue"),
+  },
+  {
     path: "/send-email-login-link",
     name: "SendEmailLoginLink",
     component: () => import("@/views/auth/SendEmailLoginLink.vue"),
