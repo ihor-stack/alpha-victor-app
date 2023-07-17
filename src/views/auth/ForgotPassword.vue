@@ -61,7 +61,7 @@ const sendPasswordResetLink = async () => {
   if (!emailPattern.test(state.email)) {
     toastService.show(
       "Error",
-      "Please enter a valid email address",
+      "Please enter a valid email address.",
       "error",
       "top"
     );
@@ -70,29 +70,7 @@ const sendPasswordResetLink = async () => {
 
   if (!isValid) return;
 
-  accountStore
-      .sendPasswordResetLink(state.email)
-      .then((res) => {
-
-        toastService.show(
-          "Success",
-          "A password reset link has been sent to your email address. Check your inbox to continue",
-          "success",
-          "top"
-        );
-
-        router.replace({ name: "Home" });
-
-      })
-      .catch((error) => {
-        toastService.show(
-        "Error",
-        error,
-        "error",
-        "top"
-      );
-    });
-
+  accountStore.sendPasswordResetLink(state.email);
 }
 
 </script>
@@ -135,6 +113,10 @@ const sendPasswordResetLink = async () => {
   margin-bottom: 15px;
 }
 
+.custom-input {
+  background: #181818;
+}
+
 .link-container {
   flex: 0 0 10%;
   display: flex;
@@ -151,5 +133,13 @@ ion-footer {
 
 ion-button:first-of-type {
   margin-bottom: 15px;
+}
+
+/* Desktop styling */
+@media only screen and (min-width: 1023px) {
+  .content-container {
+    width: 500px;
+    margin: auto;
+  }
 }
 </style>

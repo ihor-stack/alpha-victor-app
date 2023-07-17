@@ -18,17 +18,17 @@
                   <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
                 </div>
                 <div class="button-container">
-                  <ion-button expand="block" @click="signup"
+                  <ion-button expand="block" class="button-gray"  @click="signIn"
+                    >Log in</ion-button
+                  >
+                  <ion-button expand="block" color="light" @click="signup"
                     >Sign up</ion-button
                   >
                 </div>
               </div>
               <div class="link-container text-center">
-                <p class="color-mid-gray font-md">
-                  Already have an account? 
-                  <br/><br/>
-                  <span @click="signInEmail" class="color-light-gray link">Send me a login link</span> or
-                  <span @click="signIn" class="color-light-gray link">Sign in with my password</span>
+                <p class="color-mid-gray font-sm">
+                  Prefer to login via email? <span @click="signInEmail" class="color-light-gray link">Send me a login link</span>
                   <br/><br/>
                   <span @click="resetPassword" class="color-light-gray link">I've forgot my password</span>
                 </p>
@@ -124,6 +124,8 @@ const signup = () => {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 20px 0 0;
+  font-size: 13px;
 }
 
 .link {

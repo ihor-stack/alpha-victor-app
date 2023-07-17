@@ -67,7 +67,7 @@ const handleError = (error: any) => {
   } else {
     toastService.show(
       "Error",
-      error.response?.data?.message || error.response?.data?.title || error,
+      error.response?.data || error.response?.data?.message || error.response?.data?.title || error,
       "error",
       "top"
     );

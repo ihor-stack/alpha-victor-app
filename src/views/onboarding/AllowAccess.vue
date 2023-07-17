@@ -64,14 +64,6 @@
               <div class="button-container">
                 <ion-button @click="setOpen" expand="block">Got it</ion-button>
               </div>
-              <div class="link-container text-center">
-                <p class="color-mid-gray font-md">
-                  Already have an account?
-                  <span @click="signIn" class="color-light-gray link"
-                    >Login</span
-                  >
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -189,6 +181,8 @@ const requestPermission = async () => {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 20px 0 0;
+  font-size: 13px;
 }
 
 .link {
@@ -235,5 +229,13 @@ const requestPermission = async () => {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* Desktop styling */
+@media only screen and (min-width: 1023px) {
+  .content-container {
+    width: 500px;
+    margin: auto;
+  }
 }
 </style>
