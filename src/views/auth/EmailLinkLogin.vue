@@ -18,12 +18,13 @@
 import { IonContent, IonSpinner, IonPage, onIonViewDidEnter } from "@ionic/vue";
 import { useRouter, useRoute  } from "vue-router";
 import Auth from "@/auth";
+import { onBeforeMount } from "vue";
 
 const router = useRouter();
 const route = useRoute();
 const authService = new Auth();
 
-onIonViewDidEnter(async () => {
+onBeforeMount(async () => {
 
   const loginToken = route.query.token;
 
