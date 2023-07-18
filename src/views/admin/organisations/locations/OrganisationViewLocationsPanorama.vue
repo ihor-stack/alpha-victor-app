@@ -103,6 +103,7 @@ import { onBeforeMount, watch, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 import { Hotspot } from "@/types";
 import PanoramaModal from "@/components/admin/spaces/PanoramaModal.vue";
+import toastService from "@/services/toastService";
 
 const route = useRoute();
 
@@ -251,6 +252,7 @@ const deletePanorama = async () => {
 
 const setInitialView = () => {
   Space.setInitialView(viewer.getPitch(), viewer.getYaw(), viewer.getHfov());
+  toastService.show("Success", "View was set to starting point", "success", "top");
 };
 
 onBeforeMount(() => {
