@@ -276,9 +276,9 @@ watch(
   }
 );
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
+  await organisation.getDecisionTrees();
   Space.getSpaceDetails(spaceId);
-  organisation.getDecisionTrees();
 });
 </script>
 

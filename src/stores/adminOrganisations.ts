@@ -104,7 +104,7 @@ export const Organisations = defineStore("Organisations", {
         });
     },
 
-    async updateOrgDetails(organisationId: string, languageIndex: number) {
+    async updateOrgDetails(organisationId: string) {
       const editedOrg = this.organisationDetails;
       const loadId = loadingService.show("Loading...");
       adminAPI
@@ -119,7 +119,7 @@ export const Organisations = defineStore("Organisations", {
           city: editedOrg.city,
           postcode: editedOrg.postCode,
           website: editedOrg.website,
-          language: languageIndex,
+          language: editedOrg.selectedLanguage,
         })
         .then(() => {
           toastService.show(

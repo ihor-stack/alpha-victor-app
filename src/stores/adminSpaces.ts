@@ -21,6 +21,7 @@ import toastService from "@/services/toastService";
 import router from "@/router";
 
 import { Locations } from "./adminLocations";
+import { Organisations } from './adminOrganisations';
 
 export const Spaces = defineStore("Spaces", {
   state: () => {
@@ -49,6 +50,19 @@ export const Spaces = defineStore("Spaces", {
         .then((response) => {
           this.space = response.data;
           this.currentSpace = response.data.spaceName;
+
+          const { decisionTreeList } = Organisations();          
+
+          if (response.data.decisionTreeId) {
+            const foundDecisionTree = decisionTreeList.find(
+              (decisionTree) => decisionTree.additionalInfo === response.data.decisionTreeId
+            );
+
+            if (foundDecisionTree) { 
+              this.decisionTreeSelected = foundDecisionTree;
+            }
+          }
+
           const formattedList: SelectItem[] = [];
 
           response.data.roomTypes.forEach((element, index) => {
