@@ -380,6 +380,12 @@ export const Spaces = defineStore("Spaces", {
         })
         .finally(() => loadingService.close(loadId));
     },
+    async reorderPhotos(photos: string[]) {
+      const loadId = loadingService.show("Loading...");
+      console.log('reorder photos API call', photos);
+
+      setTimeout(() => loadingService.close(loadId), 500);
+    },
 
     async addSpacesDocument(newDocument: NewDocument, spaceId: string) {
       return adminAPI
