@@ -40,7 +40,7 @@ onBeforeMount(async () => {
   if (authRes) {
     return router.replace({ name: "Dashboard" });
   } else {
-    return router.replace({ name: "Login" });
+    return router.replace({ name: "Home" });
   }
 })
 
