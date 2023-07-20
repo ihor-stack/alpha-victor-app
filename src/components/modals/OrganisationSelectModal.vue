@@ -78,7 +78,7 @@ const handleChange = (event: CustomEvent) => {
 };
 
 const handleConfirm = () => {
-  organisationStore.setId(state.organisation);
+  organisationStore.setOrganisationId(state.organisation);
   props.handleDismiss();
 };
 </script>
