@@ -20,9 +20,9 @@ export const Organisations = defineStore("PublicOrganisations", {
     };
   },
   actions: {
-    setId(newId: string) {
+    setOrganisationId(newId: string) {
       this.currentOrganisationId = newId;
-      return true;
+      localStorage.setItem("currentOrganisationId", newId);
     },
     async getOrganisations() {
       const loadId = loadingService.show("Loading...");
@@ -30,8 +30,8 @@ export const Organisations = defineStore("PublicOrganisations", {
         .get<AdminOrganisation[]>("/Organisation/")
         .then((response) => {
           this.organisationList = response.data;
-          if (response.data.length > 0) {
-            this.currentOrganisationId = response.data[0].organisationId;
+          if (!this.currentOrganisationId && response.data.length > 0) {
+            this.setOrganisationId(response.data[0].organisationId);
           }
         })
         .catch((error) => {
