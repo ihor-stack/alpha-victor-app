@@ -167,7 +167,7 @@ export interface OrgDetails {
   contactName: string;
   email: string;
   phone: string;
-  selectedLanguage: 0;
+  selectedLanguage: number;
   postCode: string;
   city: string;
   addressLine0: string;

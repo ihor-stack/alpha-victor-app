@@ -161,12 +161,11 @@ import {
 } from "@ionic/vue";
 import { Organisations } from "@/stores/adminOrganisations";
 import { storeToRefs } from "pinia";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, ref, computed } from "vue";
 import { useRoute } from "vue-router";
 
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { closeCircle } from "ionicons/icons";
-import { SelectItem } from "@/types/index";
 import toastService from "@/services/toastService";
 
 const route = useRoute();
@@ -177,7 +176,6 @@ const languageOptions = [
   { id: 0, title: "English" },
   { id: 1, title: "Welsh" },
 ];
-const selectedLanguage = ref({} as SelectItem);
 const newDomain = ref("");
 
 const addDomain = () => {
@@ -248,9 +246,22 @@ const saveChanges = () => {
 
   if (isValid) {
     // If all validations pass, then save the changes
-    organisation.updateOrgDetails(organisationId, selectedLanguage.value.id);
+    organisation.updateOrgDetails(organisationId);
   }
 };
+
+const selectedLanguage = computed({
+  get() {
+    return languageOptions.find(language => 
+      organisationDetails.value.selectedLanguage === language.id
+    )
+  },
+  set(newValue) {
+    if (newValue) {
+      organisationDetails.value.selectedLanguage = newValue.id
+    }
+  }
+})
 
 onBeforeMount(() => {
   organisation.getOrgDetails(organisationId);
