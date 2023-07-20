@@ -1,0 +1,16 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "RU6GPGM35J.com.alphavictorapp.app",
+        "paths": [
+            "/email-link-login",
+            "/verify-account",
+            "/reset-password",
+            "/qr"
+        ]
+      }
+    ]
+  }
+}
