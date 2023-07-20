@@ -30,7 +30,7 @@ import CustomToast from "@/components/shared/CustomToast.vue";
 import LoadingIndicator from "@/components/shared/LoadingIndicator.vue";
 import { Theme } from "@/types";
 import { Account as useAccountStore } from "@/stores/publicAccount";
-import { App, URLOpenListenerEvent } from '@capacitor/app';
+import { App, URLOpenListenerEvent } from "@capacitor/app";
 
 /* Services */
 import toastService from "./services/toastService";
@@ -41,8 +41,7 @@ const route = useRoute();
 const router = useRouter();
 const authService = new Auth();
 
-App.addListener('appUrlOpen', async (event: URLOpenListenerEvent) => {
-
+App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
   if (!event.url) return;
 
   const url = new URL(event.url);
@@ -50,7 +49,7 @@ App.addListener('appUrlOpen', async (event: URLOpenListenerEvent) => {
   const slug = url.pathname;
 
   if (!slug) return;
-  
+
   if (slug == "/email-link-login") {
     // TODO: Put this here because onIonViewDidEnter isn't firing when redirecting to EmailLinkLogin.
 
@@ -61,7 +60,7 @@ App.addListener('appUrlOpen', async (event: URLOpenListenerEvent) => {
       return router.replace({ name: "Login" });
     }
 
-    const strLoginToken = loginToken as string;  
+    const strLoginToken = loginToken as string;
 
     const authRes = await authService.authenticate(true, strLoginToken);
 
@@ -70,10 +69,7 @@ App.addListener('appUrlOpen', async (event: URLOpenListenerEvent) => {
     } else {
       return router.replace({ name: "Login" });
     }
-
-  }
-
-  else if (slug == "/reset-password") {
+  } else if (slug == "/reset-password") {
     // TODO: Put this here because onIonViewDidEnter isn't firing when redirecting to EmailLinkLogin.
 
     const resetToken = url.searchParams.get("token");
@@ -83,13 +79,13 @@ App.addListener('appUrlOpen', async (event: URLOpenListenerEvent) => {
       return router.replace({ name: "Login" });
     }
 
-    const strResetToken = resetToken as string;  
+    const strResetToken = resetToken as string;
 
-    return router.replace({name: 'ResetPassword', query: {token: strResetToken}});
-  }  
-
-  else if (slug == "/verify-account") {
-
+    return router.replace({
+      name: "ResetPassword",
+      query: { token: strResetToken },
+    });
+  } else if (slug == "/verify-account") {
     const verifyToken = url.searchParams.get("token");
 
     if (!verifyToken || verifyToken == null || !(verifyToken as string)) {
@@ -97,15 +93,15 @@ App.addListener('appUrlOpen', async (event: URLOpenListenerEvent) => {
       return router.replace({ name: "Login" });
     }
 
-    const strVerifyToken = verifyToken as string;  
+    const strVerifyToken = verifyToken as string;
 
-    return router.replace({name: 'VerifyAccount', query: {token: strVerifyToken}});
-  }  
-
-  else if (slug.indexOf("/qr") > -1) {
-
-    return router.replace({path: slug});
-  }  
+    return router.replace({
+      name: "VerifyAccount",
+      query: { token: strVerifyToken },
+    });
+  } else if (slug.indexOf("/qr") > -1) {
+    return router.replace({ path: slug });
+  }
 });
 
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
@@ -155,7 +151,9 @@ const updateThemeFromStorage = () => {
 };
 
 watch(currentOrganisationId, (newValue) => {
-  organisationStore.getOrgTheme(newValue);
+  if (newValue?.length > 0) {
+    organisationStore.getOrgTheme(newValue);
+  }
 });
 
 watch(theme, (newValue) => {
@@ -199,6 +197,10 @@ const checkPermission = () => {
 
 onBeforeMount(async () => {
   updateThemeFromStorage();
+  const currentOrgId = localStorage.getItem("currentOrganisationId");
+  if (currentOrgId) {
+    organisationStore.setOrganisationId(currentOrgId);
+  }
   const accessToken = await authService.fetchCurrentAccessToken();
   if (accessToken) {
     accountStore.getPermissions();
