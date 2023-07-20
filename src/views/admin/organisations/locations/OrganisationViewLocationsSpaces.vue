@@ -111,6 +111,7 @@
       </ion-item>
       <ImageGallery
         :images="space.photos"
+        @image-reordered="handleImageReordered"
         @image-removed="handleImageRemoved"
       />
       <hr class="form-admin--divider" />
@@ -243,6 +244,12 @@ const handleImageRemoved = (photoId: string) => {
   });
 };
 
+const handleImageReordered = (photos: string[]) => {
+  Space.reorderPhotos(photos).then(() => {
+    Space.getSpaceDetails(spaceId);
+  });
+}
+
 const removeSpacesDocument = (documentId: string) => {
   Space.deleteSpacesDocument(documentId, spaceId);
 };
@@ -269,9 +276,9 @@ watch(
   }
 );
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
+  await organisation.getDecisionTrees();
   Space.getSpaceDetails(spaceId);
-  organisation.getDecisionTrees();
 });
 </script>
 
