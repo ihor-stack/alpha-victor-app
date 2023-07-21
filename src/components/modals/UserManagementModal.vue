@@ -4,7 +4,7 @@
       <ion-content>
         <ion-row>
           <ion-col size="12">
-            <ion-label class="mb-2">Assigned Organisations</ion-label>
+            <ion-label class="font-size-sm">Assigned Organisations</ion-label>
             <ion-item
               class="orgItemWrapper"
               v-for="org in assignedOrganisations"
@@ -35,7 +35,7 @@
         </div>
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
-            <ion-label>Add to organisation</ion-label>
+            <ion-label class="font-size-sm">Add to organisation</ion-label>
             <ion-select
               interface="action-sheet"
               placeholder="Select organisation"
@@ -101,6 +101,7 @@ ion-item {
   border-radius: 5px;
   --background: transparent;
   margin-top: 10px;
+  font-size: 14px;
 }
 ion-button.removeButton::part(native) {
   padding: 0 !important;
@@ -110,7 +111,7 @@ ion-button.removeButton::part(native) {
   padding: 32px 0;
 }
 .divider div {
-  border: 0.75px solid #ffffff;
+  border: 1px solid #313131;
 }
 .divider span {
   background: #121212;
@@ -123,5 +124,12 @@ ion-button.removeButton::part(native) {
 
 .form-admin--group_field {
   padding-right: 0;
+  margin: 0 !important;
+}
+
+ion-modal::part(content) {
+  --border-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 </style>

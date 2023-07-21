@@ -4,7 +4,7 @@
       <ion-content>
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
-            <ion-label>{{ organisationName }}</ion-label>
+            <ion-label class="font-size-sm">{{ organisationName }}</ion-label>
             <ion-select placeholder="Select role" v-model="state.groupId">
               <ion-select-option
                 v-for="option in userGroups"
@@ -21,8 +21,8 @@
         <ion-button
           class="ion-text-capitalize"
           expand="block"
-          :disabled="!state.organisationId"
-          @click="handleClickSave(state.organisationId)"
+          :disabled="!state.groupId"
+          @click="handleClickSave(state.groupId)"
         >
           Save and close
         </ion-button>
@@ -49,18 +49,29 @@ const props = defineProps([
   "isOpen",
   "name",
   "organisationName",
+  "currentUserGroup",
   "userGroups",
   "handleClickSave",
   "handleDismiss",
 ]);
 
 const state = reactive({
-  groupId: "",
+  groupId: props.currentUserGroup,
 });
 </script>
 
 <style scoped>
 .form-admin--group_field {
   padding-right: 0;
+}
+ion-modal {
+  --width: 490px;
+  --height: 300px;
+}
+
+ion-modal::part(content) {
+  --border-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 </style>

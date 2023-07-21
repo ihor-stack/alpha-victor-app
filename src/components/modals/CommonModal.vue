@@ -66,7 +66,7 @@ ion-popover::part(backdrop) {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 30px 10px;
+  padding: 45px 30px 20px;
 }
 .modal-panel__header {
   margin-bottom: 20px;
