@@ -64,26 +64,10 @@
         <ion-text> {{ row.emailAddress }} </ion-text>
       </ion-col>
       <ion-col size="3" v-if="!isGlobalAdmin">
-        <ion-select
-          class="modal-panel__select-organisation__select"
-          placeholder="Select role"
-          :value="row.userGroups[0]?.id"
-          @ion-change="
-            handleChangeRole(
-              row.id,
-              row.userGroups[0].organisationId,
-              $event.detail.value
-            )
-          "
-        >
-          <ion-select-option
-            v-for="role in userGroupOptions"
-            :key="role.id"
-            :value="role.id"
-          >
-            {{ role.name }}
-          </ion-select-option>
-        </ion-select>
+        <div class="userRole" @click="onClickRole(row)">
+          {{ row.userGroups[0]?.name }}
+          <ion-icon :icon="chevronDown" size="small" />
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -101,8 +85,10 @@
     :removeUserFromOrg="removeUserFromOrg"
   />
   <UserOrgPermissionModal
+    v-if="state.openPermissionModal"
     :name="state.currentUser.name"
     :isOpen="state.openPermissionModal"
+    :currentUserGroup="state.currentUser.userGroups?.[0]?.id"
     :userGroups="userGroupOptions"
     :organisationName="getOrganisationText(state.currentUser.organisations)"
     :handleDismiss="
@@ -115,20 +101,14 @@
 </template>
 
 <script setup lang="ts">
-import {
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonIcon,
-  IonSelect,
-  IonSelectOption,
-} from "@ionic/vue";
+import { IonGrid, IonRow, IonCol, IonIcon } from "@ionic/vue";
 import {
   search,
   checkmarkCircle,
   closeCircle,
   ellipsisVertical,
   personOutline,
+  chevronDown,
 } from "ionicons/icons";
 import { onBeforeMount, computed, reactive } from "vue";
 import { storeToRefs } from "pinia";
@@ -212,7 +192,14 @@ const handleClickSave = (orgId: string) => {
 };
 
 const handleSavePermission = (groupId: string) => {
-  console.log(groupId);
+  const currentOrganisationId = state.currentUser.organisations[0].id;
+  handleChangeRole(state.currentUser.id, currentOrganisationId, groupId);
+  state.openPermissionModal = false;
+};
+
+const onClickRole = (row: UserResponse) => {
+  state.currentUser = row;
+  state.openPermissionModal = true;
 };
 
 onBeforeMount(() => {
@@ -249,14 +236,17 @@ ion-row:last-child ion-col {
   border-bottom: solid 1px #44464f;
 }
 
-.modal-panel__select-organisation__select {
-  appearance: none;
-  background: none;
-  border: 0.75px solid #313131;
-  border-radius: 8px;
+.userRole {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  padding: 12px;
-  font-size: 12px;
-  line-height: 16px;
+  border-radius: 4px;
+  border: 1px solid #313131;
+  background: #181818;
+  padding: 8px 10px;
+  line-height: 24px;
+  font-size: 14px;
+  cursor: pointer;
 }
 </style>
