@@ -672,7 +672,7 @@ ion-select-option::part(text) {
 
 /* Toast Styling */
 ion-toast.customToast {
-  --max-width: 400px; 
+  --max-width: 400px;
 }
 
 ion-toast.customToast::part(wrapper) {
@@ -871,4 +871,11 @@ body.dark ion-menu-button {
 body.scanner-active {
   --background: transparent;
   --ion-background-color: transparent;
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+.mt-2 {
+  margin-top: 8px;
 }

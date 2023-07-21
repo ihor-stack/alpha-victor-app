@@ -325,6 +325,11 @@ const routes: Array<RouteRecordRaw> = [
                 "@/views/admin/organisations/OrganisationViewDecisionTreeDetails.vue"
               ),
           },
+          {
+            path: "users",
+            name: "UsersManagement",
+            component: () => import("@/views/admin/UsersManagement.vue"),
+          },
         ],
       },
       {
