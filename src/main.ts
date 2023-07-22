@@ -5,6 +5,9 @@ import router from "./router";
 
 import { IonicVue } from "@ionic/vue";
 
+import { createI18n } from "vue-i18n";
+import en from "./lang/en";
+
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/vue/css/core.css";
 
@@ -32,7 +35,14 @@ import "./registerServiceWorker";
 /* Pinia */
 const pinia = createPinia();
 
-const app = createApp(App).use(IonicVue).use(router).use(pinia);
+const i18n = createI18n({
+  locale: "en",
+  messages: {
+    en
+  }
+});
+
+const app = createApp(App).use(IonicVue).use(router).use(pinia).use(i18n);
 
 router.isReady().then(() => {
   app.mount("#app");

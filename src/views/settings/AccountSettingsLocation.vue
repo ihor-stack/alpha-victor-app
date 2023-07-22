@@ -5,20 +5,17 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-size-md font-bold">Location</h2>
-              <p class="font-size-xs">
-                We use your location to check spaces near you. Update your
-                location settings below.
-              </p>
+              <h2 class="font-size-md font-bold">{{ $t('pages.accountSettings.location.label') }}</h2>
+              <p class="font-size-xs">{{ $t('pages.accountSettings.location.description') }}</p>
             </ion-label>
           </ion-item>
         </ion-header>
         <ion-content :scroll-y="false">
           <div class="setting">
             <div class="setting__label">
-              <p class="label font-size-xs font-bold">Allow location</p>
+              <p class="label font-size-xs font-bold">{{ $t('pages.accountSettings.location.allowLocation') }}</p>
               <span class="sublabel font-mono font-size-xxs color-dark-gray">{{
-                useDotify("Accurate Location")
+                useDotify($t('pages.accountSettings.location.accurateLocation'))
               }}</span>
             </div>
             <ion-toggle

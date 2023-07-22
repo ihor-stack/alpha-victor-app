@@ -2,7 +2,7 @@
   <form class="container" v-on:submit.prevent="searchByShortcode">
     <input
       type="search"
-      placeholder="Enter shortcode"
+      :placeholder="$t('pages.dashboard.placeholder')"
       v-model="state.shortcode"
       class="search-input font-size-sm"
     />

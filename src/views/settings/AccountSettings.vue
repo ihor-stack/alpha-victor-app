@@ -1,9 +1,9 @@
 <template>
   <ion-page>
-    <app-header title="Account Settings">
+    <app-header :title="$t('pages.accountSettings.header')">
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{ $t('pages.accountSettings.back')}}</span>
         </ion-button>
       </template>
 
@@ -22,10 +22,10 @@
         >
           <ion-label>
             <h2 class="name font-bold font-size-sm">
-              {{ accountDetails.name ? accountDetails.name : "No name set" }}
+              {{ accountDetails.name ? accountDetails.name : $t('pages.accountSettings.noNameSet') }}
             </h2>
             <p class="email font-mono font-size-xxs text-lowercase">
-              {{ accountDetails.email ? accountDetails.email : "No email set" }}
+              {{ accountDetails.email ? accountDetails.email : $t('pages.accountSettings.noEmailSet') }}
             </p>
           </ion-label>
         </ion-item>
@@ -38,10 +38,10 @@
         >
           <ion-label>
             <h2 class="font-bold font-size-sm">
-              {{ option.title }}
+              {{ $t(`pages.findSpace.options.${option.key}.title`) }}
             </h2>
             <p class="font-mono font-size-xxs text-lowercase">
-              {{ useDotify(option.subtitle) }}
+              {{ useDotify($t(`pages.findSpace.options.${option.key}.title`)) }}
             </p>
           </ion-label>
         </ion-item>
@@ -103,33 +103,27 @@ const handleDismiss = () => {
 
 const options = [
   {
-    title: "Notifications",
-    subtitle: "Notifications Settings",
+    key: "notifications",
     path: "/settings/notifications",
   },
   {
-    title: "Bluetooth",
-    subtitle: "Bluetooth Settings",
+    key: "bluetooth",
     path: "/settings/bluetooth",
   },
   {
-    title: "Location",
-    subtitle: "Location Settings",
+    key: "location", 
     path: "/settings/location",
   },
   {
-    title: "Password",
-    subtitle: "Password Settings",
+    key: "password",
     path: "/settings/password",
   },
   {
-    title: "Language",
-    subtitle: "Language Settings",
+    key: "language",
     path: "/settings/language",
   },
   {
-    title: "Delete Account",
-    subtitle: "Delete Your Account",
+    key: "deleteAccount",
     path: "/settings/delete-account",
   },
 ];

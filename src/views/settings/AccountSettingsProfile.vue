@@ -6,11 +6,11 @@
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
               <h2 class="font-size-md font-bold">
-                {{ accountDetails.name ? accountDetails.name : "No name set" }}
+                {{ accountDetails.name ? accountDetails.name : $t('pages.accountSettings.profile.noNameSet') }}
               </h2>
               <p class="font-size-xs">
                 {{
-                  accountDetails.email ? accountDetails.email : "No email set"
+                  accountDetails.email ? accountDetails.email : $t('pages.accountSettings.profile.noEmailSet')
                 }}
               </p>
             </ion-label>
@@ -19,19 +19,19 @@
         <ion-content :scroll-y="false">
           <ion-input
             class="font-size-sm custom-input"
-            placeholder="Name"
+            :placeholder="$t('pages.accountSettings.profile.placeholders.name')"
             :value="accountDetails.name"
             @ion-input="accountDetails.name = String($event.target.value)"
           ></ion-input>
           <ion-input
             class="font-size-sm custom-input"
-            placeholder="Email"
+            :placeholder="$t('pages.accountSettings.profile.placeholders.email')"
             :value="accountDetails.email"
             @ion-input="accountDetails.email = String($event.target.value)"
           ></ion-input>
           <ion-input
             class="font-size-sm custom-input"
-            placeholder="Phone"
+            :placeholder="$t('pages.accountSettings.profile.placeholders.phone')"
             :value="accountDetails.phone"
             @ion-input="accountDetails.phone = String($event.target.value)"
           ></ion-input>
@@ -62,18 +62,18 @@
           </ion-modal>
           <ion-select
             interface="action-sheet"
-            placeholder="Gender"
+            :placeholder="$t('pages.accountSettings.profile.placeholders.gender')"
             class="custom-select"
             v-model="accountDetails.gender"
           >
-            <ion-select-option :value="0">Male</ion-select-option>
-            <ion-select-option :value="1">Female</ion-select-option>
-            <ion-select-option :value="2">Prefer not to say</ion-select-option>
+            <ion-select-option :value="0">{{ $t('pages.accountSettings.profile.gender.male') }}</ion-select-option>
+            <ion-select-option :value="1">{{ $t('pages.accountSettings.profile.gender.female') }}</ion-select-option>
+            <ion-select-option :value="2">{{ $t('pages.accountSettings.profile.gender.not') }}</ion-select-option>
           </ion-select>
         </ion-content>
         <ion-footer>
           <ion-button expand="block" @click="confirm"
-            >Update profile</ion-button
+            >{{ $t('pages.accountSettings.profile.updateProfileBtn') }}</ion-button
           >
         </ion-footer>
       </div>

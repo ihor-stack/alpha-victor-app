@@ -1,9 +1,9 @@
 <template>
   <ion-page>
-    <app-header title="About Alpha Victor">
+    <app-header :title="$t('pages.about.header')">
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{ $t('pages.about.back') }}</span>
         </ion-button>
       </template>
       <template #end>
@@ -14,9 +14,9 @@
     </app-header>
     <ion-content>
       <div class="text-content">
-        <p class="color-light-gray font-size-xs">Alpha Victor seeks to continually enhance the user experience in the workspace. The platform also provides workplace teams with the information they need to make future decisions on the design of new, better performing spaces.</p>
+        <p class="color-light-gray font-size-xs">{{ $t('pages.about.sentence1') }}</p>
 
-        <p class="color-light-gray font-size-xs">Alpha Victor delivers dynamic user guides for users of the space alongside a simple way for them to give their feedback, whether at home or in the office.</p>
+        <p class="color-light-gray font-size-xs">{{ $t('pages.about.sentence2') }}</p>
       </div>
       <div class="links">
         <ul class="list list--condensed">

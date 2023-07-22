@@ -5,20 +5,17 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-size-md font-bold">Bluetooth</h2>
-              <p class="font-size-xs">
-                We use bluetooth to ping beacons for a more accurate location.
-                Update your bluetooth settings below.
-              </p>
+              <h2 class="font-size-md font-bold">{{ $t('pages.accountSettings.bluetooth.label') }}</h2>
+              <p class="font-size-xs">{{ $t('pages.accountSettings.bluetooth.description') }}</p>
             </ion-label>
           </ion-item>
         </ion-header>
         <ion-content :scroll-y="false">
           <div class="setting">
             <div class="setting__label">
-              <p class="label font-size-xs font-bold">Allow Bluetooth</p>
+              <p class="label font-size-xs font-bold">{{ $t('pages.accountSettings.bluetooth.allowBluetooth') }}</p>
               <span class="sublabel font-mono font-size-xxs color-dark-gray">{{
-                useDotify("Ping Beacons")
+                useDotify($t('pages.accountSettings.bluetooth.pingBeacons'))
               }}</span>
             </div>
             <ion-toggle

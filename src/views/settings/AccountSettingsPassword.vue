@@ -5,27 +5,25 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-size-md font-bold">Update password</h2>
-              <p class="font-size-xs">
-                Use the form below to update/change your password.
-              </p>
+              <h2 class="font-size-md font-bold">{{ $t('pages.accountSettings.password.label') }}</h2>
+              <p class="font-size-xs">{{ $t('pages.accountSettings.password.description') }}</p>
             </ion-label>
           </ion-item>
         </ion-header>
         <ion-content :scroll-y="false">
           <password-input
             name="current-password"
-            placeholder="Current Password"
+            :placeholder="$t('pages.accountSettings.password.placeholders.current')"
             v-model="state.currentPassword"
           />
           <password-input
             name="new-password"
-            placeholder="New Password"
+            :placeholder="$t('pages.accountSettings.password.placeholders.new')"
             v-model="state.newPassword"
           />
           <password-input
             name="confirm-new-password"
-            placeholder="Confirm New Password"
+            :placeholder="$t('pages.accountSettings.password.placeholders.confirm')"
             v-model="state.confirmedPassword"
           />
         </ion-content>
@@ -34,7 +32,7 @@
             expand="block"
             :disabled="state.preventSubmit"
             @click="confirm"
-            >Update password</ion-button
+            >{{ $t('pages.accountSettings.password.updatePasswordBtn') }}</ion-button
           >
         </ion-footer>
       </div>
