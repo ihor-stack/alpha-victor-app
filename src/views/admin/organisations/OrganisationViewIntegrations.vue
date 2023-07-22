@@ -1,11 +1,13 @@
 <template>
   <h1 class="title-admin font-bold font-size-lg color-light-gray">
-    Ubiquisense
+    {{ $t("pages.admin.organisations.view.integrations.header") }}
   </h1>
   <ion-grid class="form-admin">
     <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label> Client ID </ion-label>
+        <ion-label>
+          {{ $t("pages.admin.organisations.view.integrations.clientId") }}
+        </ion-label>
         <ion-input
           class="font-size-sm"
           type="password"
@@ -17,7 +19,9 @@
         </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label> Client Secret </ion-label>
+        <ion-label>
+          {{ $t("pages.admin.organisations.view.integrations.clientSecret") }}
+        </ion-label>
         <ion-input
           class="font-size-sm"
           type="password"
@@ -32,7 +36,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button class="button-wide" @click="SaveEdit"> Save Changes </ion-button>
+  <ion-button class="button-wide" @click="SaveEdit">
+    {{ $t("pages.admin.organisations.view.integrations.saveBtn") }}
+  </ion-button>
 </template>
 
 <script setup lang="ts">

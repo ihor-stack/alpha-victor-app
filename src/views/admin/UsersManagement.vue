@@ -1,21 +1,21 @@
 <template>
-  <h1 class="title-admin font-bold font-size-lg color-light-gray">Users</h1>
+  <h1 class="title-admin font-bold font-size-lg color-light-gray">{{ $t('pages.admin.users.title') }}</h1>
   <ion-grid>
     <ion-row class="header-row">
       <ion-col :size="isGlobalAdmin ? '4' : '3'">
         <div class="flex ion-align-items-center">
           <ion-icon :icon="search" size="small" />
-          <ion-text class="ml-2">Account</ion-text>
+          <ion-text class="ml-2">{{ $t('pages.admin.users.account') }}</ion-text>
         </div>
       </ion-col>
       <ion-col :size="isGlobalAdmin ? '3' : '2'">
-        <ion-text>Status</ion-text>
+        <ion-text>{{ $t('pages.admin.users.status') }}</ion-text>
       </ion-col>
       <ion-col :size="isGlobalAdmin ? '5' : '4'">
-        <ion-text>Email</ion-text>
+        <ion-text>{{ $t('pages.admin.users.email') }}</ion-text>
       </ion-col>
       <ion-col size="3" v-if="!isGlobalAdmin">
-        <ion-text>Role</ion-text>
+        <ion-text>{{ $t('pages.admin.users.role') }}</ion-text>
       </ion-col>
     </ion-row>
     <ion-row v-for="row in usersList" :key="row.id">
@@ -53,10 +53,10 @@
         <ion-text class="ml-2">
           {{
             row.userState === 1
-              ? "Active"
+              ? $t('pages.admin.users.active')
               : row.userState === 2
-              ? "Deleted"
-              : "InActive"
+              ? $t('pages.admin.users.deleted')
+              : $t('pages.admin.users.inactive')
           }}
         </ion-text>
       </ion-col>

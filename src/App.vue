@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, watch, computed } from "vue";
+import { onBeforeMount, watch, computed, inject } from "vue";
 import { IonApp } from "@ionic/vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
@@ -196,9 +196,11 @@ const checkPermission = () => {
 };
 
 onBeforeMount(async () => {
+  const i18n = inject('i18n');
   updateThemeFromStorage();
   const currentOrgId = localStorage.getItem("currentOrganisationId");
   if (currentOrgId) {
+    // i18n.global.locale = "cy";    // You can set locale of the project based on the organisation here.
     organisationStore.setOrganisationId(currentOrgId);
   }
   const accessToken = await authService.fetchCurrentAccessToken();

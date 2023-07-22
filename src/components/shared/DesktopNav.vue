@@ -14,7 +14,7 @@
           </ion-title>
           <ion-button fill="clear" @click="logout">
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
-            <span class="font-mono font-size-xs low-caps">logout</span>
+            <span class="font-mono font-size-xs low-caps">{{ $t('desktopNav.logout')}}</span>
           </ion-button>
         </div>
       </template>
@@ -23,7 +23,7 @@
       <ul class="nav-menu">
         <li class="nav-menu-link arrow-align">
           <router-link to="/dashboard" class="font-size-sm color-light-gray"
-            >Dashboard
+            >{{ $t('desktopNav.dashboard')}}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -33,7 +33,7 @@
 
         <li class="nav-menu-link arrow-align">
           <router-link to="/favourites" class="font-size-sm color-light-gray"
-            >Favourites
+            >{{ $t('desktopNav.favourites')}}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -44,7 +44,7 @@
           <router-link
             to="/find-space/location"
             class="font-size-sm color-light-gray"
-            >Find a space
+            >{{ $t('desktopNav.findSpace')}}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -55,7 +55,7 @@
           <router-link
             to="/recently-viewed"
             class="font-size-sm color-light-gray"
-            >Recently viewed
+            >{{ $t('desktopNav.recentlyViewed')}}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -64,7 +64,7 @@
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link to="/settings" class="font-size-sm color-light-gray"
-            >Account settings
+            >{{ $t('desktopNav.accountSettings') }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -73,7 +73,7 @@
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link to="/about" class="font-size-sm color-light-gray"
-            >About Alpha Victor
+            >{{ $t('desktopNav.about')}}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -84,7 +84,7 @@
           <router-link
             to="/terms-and-conditions"
             class="font-size-sm color-light-gray"
-            >Terms & conditions
+            >{{ $t('desktopNav.tos')}}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -92,12 +92,12 @@
           ></router-link>
         </li>
         <div class="spacer-line"></div>
-        <li class="sub-title font-size-xxs color-light-gray">administration</li>
+        <li class="sub-title font-size-xxs color-light-gray">{{ $t('desktopNav.administration')}}</li>
         <li class="nav-menu-link arrow-align">
           <router-link
             to="/admin/organisations"
             class="font-size-sm color-light-gray"
-            >Organisations
+            >{{ $t('desktopNav.organisations')}}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -111,7 +111,7 @@
           <router-link
             to="/admin/equipment"
             class="font-size-sm color-light-gray"
-            >Equipment
+            >{{ $t('desktopNav.equipment')}}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -125,7 +125,7 @@
           <router-link
             to="/admin/documents"
             class="font-size-sm color-light-gray"
-            >Document Types
+            >{{ $t('desktopNav.documentTypes')}}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -134,7 +134,7 @@
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link to="/admin/users" class="font-size-sm color-light-gray"
-            >Users
+            >{{ $t('desktopNav.users')}}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"

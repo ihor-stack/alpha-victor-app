@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 class="title-admin font-bold font-size-lg">Organisations</h1>
+    <h1 class="title-admin font-bold font-size-lg">
+      {{ $t("pages.admin.organisations.list.title") }}
+    </h1>
     <ul class="organisations-list-menu">
       <li class="organisations-list-menu-item">
         <ion-item

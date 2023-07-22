@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      Document Types
+      {{ $t("pages.admin.organisations.view.documentTypes.title") }}
     </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
@@ -19,7 +19,7 @@
             class="button-wide"
             @click="newDocumentType()"
           >
-            Add new +
+            {{ $t("pages.admin.organisations.view.documentTypes.addNew") }}
           </ion-button>
         </ion-col>
       </ion-row>
@@ -30,7 +30,7 @@
             class="font-bold font-size-md color-light-gray"
             v-if="documents.length"
           >
-            Current Document Types
+            {{ $t("pages.admin.organisations.view.documentTypes.current") }}
           </h3>
         </ion-col>
       </ion-row>

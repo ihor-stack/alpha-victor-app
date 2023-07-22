@@ -13,6 +13,21 @@ export default {
     email: "hello@alphavictor.com",
     footer: "AlphaVictor® is a registered trademark of Uncoded Limited, a registered company in England and Wales with company number 11435074"
   },
+  desktopNav:  {
+    logout: "logout",
+    dashboard: "Dashboard",
+    favourites: "Favourites",
+    findSpace: "Find a Space",
+    recentlyViewed: "Recently Viewed",
+    accountSettings: "Account Settings",
+    about: "About Alpha Victor",
+    tos: "Terms & Conditions",
+    administration: "administration",
+    organisations: "Organisations",
+    equipment: "Equipment",
+    documentTypes: "Document Types",
+    users: "Users",
+  },
   pages: {
     dashboard: {
       placeholder: "Enter shortcode",
@@ -143,6 +158,104 @@ export default {
       header: "About Alpha Victor",
       sentence1: "Alpha Victor seeks to continually enhance the user experience in the workspace. The platform also provides workplace teams with the information they need to make future decisions on the design of new, better performing spaces.",
       sentence2: "Alpha Victor delivers dynamic user guides for users of the space alongside a simple way for them to give their feedback, whether at home or in the office."
+    },
+    admin: {
+      documents: {
+        documentTypes: {
+  
+        }
+      },
+      equipment: {
+        details: {
+          model: "Model",
+          sn: "Serial Number",
+          remove: ">> remove",
+          saveBtn: "Save Changes",
+        },
+        view: {
+          title: "Equipment",
+          manufacturers: "Manufacturers",
+          assetTypes: "Asset Types",
+        }
+      },
+      organisations: {
+        list: {
+          title: "Organisations",
+        },
+        view: {
+          details: {
+            title: "Details",
+            organisationName: "Organisation name",
+            shortcodePrefix: "Shortcode prefix",
+            contactName: "Contact name",
+            email: "Email address",
+            phone: "Phone number",
+            language: "Language",
+            address1: "Address line 1",
+            address2: "Address line 2",
+            city: "City",
+            zip: "Postcode",
+            label: "Website / email domain(s)",
+            press: "Press enter to add",
+            saveBtn: "Save changes",
+          },
+          theme: {
+            title: "Theme",
+            logo: "Logo",
+            bg: "Background Image",
+            buttonText: "Select File",
+            dark: "Dark mode",
+            enableDark: "Enable dark mode",
+            primary: "Primary colour",
+            secondary: "Secondary colour",
+            saveBtn: "Save changes",
+          },
+          spaceMetadata: {
+            title: "Space Metadata",
+            spaceTypes: "Space Types",
+            spaceFeatures: "Space Features",
+          },
+          documentTypes: {
+            title: "Document Types",
+            addNew: "Add new +",
+            current: "Current Document Types",
+          },
+          decisionTrees: {
+            title: "Decision Trees",
+            documentTypes: "Document Types",
+            addNew: "Add new +",
+            current: "Current Decision Trees",
+            view: ">> view",
+            details: {
+              back: "<< back",
+              saveBtn: "Save decision tree",    
+            }
+          },
+          integrations: {
+            title: "Integrations",
+            header: "Ubiquisense",
+            clientId: "Client ID",
+            clientSecret: "Client Secret",
+            saveBtn: "Save changes",
+            list: {
+              title: "Integration",
+              integration: "Integration",
+            }
+          },
+          locations: "Locations",
+        }
+      },
+      users: {
+        title: "Users",
+        account: "Account",
+        status: "Status",
+        email: "Email",
+        role: "Role",
+        active: "Active",
+        deleted: "Deleted",
+        inactive: "Inactive",
+
+      }
     }
   },
 }

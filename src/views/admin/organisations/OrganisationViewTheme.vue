@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1 class="title-admin font-bold font-size-lg color-light-gray">Theme</h1>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">{{ $t('pages.admin.organisations.view.theme.title')}}</h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Logo</ion-label>
+          <ion-label>{{ $t('pages.admin.organisations.view.theme.logo')}}</ion-label>
           <CustomIonUploadInput
-            :buttonText="'Select file'"
+            :buttonText="$t('pages.admin.organisations.view.theme.buttonText')"
             :disabled="theme.logo ? true : false"
             :selectedImage="theme.logo"
             @file-selected="onLogoSelected"
@@ -14,9 +14,9 @@
           />
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Background image</ion-label>
+          <ion-label>{{ $t('pages.admin.organisations.view.theme.bg')}}</ion-label>
           <CustomIonUploadInput
-            :buttonText="'Select file'"
+            :buttonText="$t('pages.admin.organisations.view.theme.buttonText')"
             :disabled="theme.backgroundImage ? true : false"
             :selectedImage="theme.backgroundImage"
             @file-selected="onBackgroundSelected"
@@ -26,9 +26,9 @@
       </ion-row>
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Dark mode</ion-label>
+          <ion-label>{{ $t('pages.admin.organisations.view.theme.dark')}}</ion-label>
           <ion-item justify="space-between" lines="full">
-            <ion-label>Enable dark mode</ion-label>
+            <ion-label>{{ $t('pages.admin.organisations.view.theme.enableDark')}}</ion-label>
             <ion-toggle v-model="theme.darkmodeEnabled"></ion-toggle>
           </ion-item>
         </ion-col>
@@ -37,7 +37,7 @@
 
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Primary colour</ion-label>
+          <ion-label>{{ $t('pages.admin.organisations.view.theme.primary')}}</ion-label>
           <ion-row>
             <ion-col size-sm="12">
               <ion-input class="form-colorpick" v-model="theme.primaryColour">
@@ -51,7 +51,7 @@
           </ion-row>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Secondary colour</ion-label>
+          <ion-label>{{ $t('pages.admin.organisations.view.theme.secondary')}}</ion-label>
           <ion-row>
             <ion-col size-sm="12">
               <ion-input class="form-colorpick" v-model="theme.secondaryColour">
@@ -71,7 +71,7 @@
       class="button-wide"
       @click="organisation.saveThemes(organisationId)"
     >
-      Save changes
+    {{ $t('pages.admin.organisations.view.theme.saveBtn')}}
     </ion-button>
   </div>
 </template>

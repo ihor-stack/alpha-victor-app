@@ -6,7 +6,9 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Organisation name</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.organisationName")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             placeholder="Organisation"
@@ -15,7 +17,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Shortcode prefix</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.shortcodePrefix")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             placeholder="APL"
@@ -26,7 +30,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Contact name</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.contactName")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="organisationDetails.contactName"
@@ -36,7 +42,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Email address</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.email")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             placeholder="youremail@domain.com"
@@ -45,7 +53,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Phone number</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.phone")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             placeholder="01245 000000"
@@ -54,7 +64,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Language</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.language")
+          }}</ion-label>
           <AdminSelect v-model="selectedLanguage" :options="languageOptions" />
         </ion-col>
       </ion-row>
@@ -63,7 +75,9 @@
 
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Address line 1</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.address1")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             placeholder="123 Main Street"
@@ -78,7 +92,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Address line 2</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.address2")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             placeholder=""
@@ -93,7 +109,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>City</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.city")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             placeholder="London"
@@ -102,7 +120,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Postcode</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.zip")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             placeholder="S1 3LL"
@@ -113,7 +133,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
-          <ion-label>Website / email domain(s)</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.details.label")
+          }}</ion-label>
           <div class="chips-field">
             <ion-input
               class="font-size-sm"
@@ -125,7 +147,7 @@
               v-if="newDomain.length"
               class="color-light-gray chips-field--label font-mono font-size-sm"
             >
-              Press enter to add
+              {{ $t("pages.admin.organisations.view.details.press") }}
             </p>
           </div>
           <ion-chip
@@ -143,7 +165,7 @@
     </ion-grid>
 
     <ion-button class="button-wide" @click="saveChanges()">
-      Save changes
+      {{ $t("pages.admin.organisations.view.details.saveBtn") }}
     </ion-button>
   </div>
 </template>
@@ -235,12 +257,7 @@ const saveChanges = () => {
 
   // Validate the postcode
   if (!postCodePattern.test(organisationDetails.value.postCode)) {
-    toastService.show(
-      "Error",
-      "Please enter a valid postcode",
-      "error",
-      "top"
-    );
+    toastService.show("Error", "Please enter a valid postcode", "error", "top");
     isValid = false;
   }
 
@@ -252,16 +269,16 @@ const saveChanges = () => {
 
 const selectedLanguage = computed({
   get() {
-    return languageOptions.find(language => 
-      organisationDetails.value.selectedLanguage === language.id
-    )
+    return languageOptions.find(
+      (language) => organisationDetails.value.selectedLanguage === language.id
+    );
   },
   set(newValue) {
     if (newValue) {
-      organisationDetails.value.selectedLanguage = newValue.id
+      organisationDetails.value.selectedLanguage = newValue.id;
     }
-  }
-})
+  },
+});
 
 onBeforeMount(() => {
   organisation.getOrgDetails(organisationId);

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      Integration
+      {{ $t("pages.admin.organisations.view.integrations.list.title") }}
     </h1>
     <ion-item
       v-for="item in integrations.integrations.value"
@@ -12,7 +12,11 @@
     >
       <ion-label>
         <h2>{{ item.name }}</h2>
-        <p>Integration</p>
+        <p>
+          {{
+            $t("pages.admin.organisations.view.integrations.list.integration")
+          }}
+        </p>
       </ion-label>
       <ion-icon :icon="chevronForwardOutline" slot="end"></ion-icon>
     </ion-item>
