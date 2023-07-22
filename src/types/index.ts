@@ -452,7 +452,7 @@ export interface IUserData {
 export interface UserResponse {
   id: string;
   userId: string;
-  emailAddress: string;
+  email: string;
   userState: number;
   lastLoginDate: string;
   currentOrganisation: string;
