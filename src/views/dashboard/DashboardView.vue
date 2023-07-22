@@ -81,13 +81,15 @@ import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
 import DashboardSlider from "@/components/dashboard/DashboardSlider.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
 import { Capacitor } from "@capacitor/core";
+import { storeToRefs } from "pinia";
+
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { IBeacon, Beacon } from "@ionic-native/ibeacon";
 
 const spacesStore = useSpacesStore();
 const organisationStore = useOrganisationStore();
-
+const { currentOrganisationId } = storeToRefs(organisationStore);
 interface State {
   modalOpen: boolean;
   observedBeacons: Beacon[];
@@ -138,12 +140,20 @@ const startRangingBeacons = async () => {
   await IBeacon.startRangingBeaconsInRegion(beaconRegion);
 };
 
+watch(currentOrganisationId, (newValue) => {
+  if (newValue?.length > 0) {
+    spacesStore.getRecentlyViewedSpaces();
+  }
+});
+
 onBeforeMount(() => {
   spacesStore.getFavouriteSpaces();
-  spacesStore.getRecentlyViewedSpaces();
   organisationStore.getOrganisations();
   if (Capacitor.getPlatform() !== "web") {
     startRangingBeacons();
+  }
+  if (currentOrganisationId) {
+    spacesStore.getRecentlyViewedSpaces();
   }
 });
 

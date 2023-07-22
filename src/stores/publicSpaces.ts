@@ -1,8 +1,17 @@
 import { defineStore } from "pinia";
 import { publicAPI } from "@/axios";
-import { DetailedSpace, Space, Device, Panorama, SpaceQRCodeResponse } from "@/types/index";
+import {
+  DetailedSpace,
+  Space,
+  Device,
+  Panorama,
+  SpaceQRCodeResponse,
+} from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+
+const organisationStore = useOrganisationStore();
 
 export const Spaces = defineStore("PublicSpaces", {
   state: () => {
@@ -83,9 +92,10 @@ export const Spaces = defineStore("PublicSpaces", {
     },
 
     async getRecentlyViewedSpaces() {
+      const organisationId = organisationStore.currentOrganisationId;
       const loadId = loadingService.show("Loading...");
       publicAPI
-        .get<Space[]>("/Dashboard/RecentlyViewed")
+        .get<Space[]>(`/Dashboard/RecentlyViewed/${organisationId}`)
         .then((response) => {
           this.recentlyViewedSpaces = response.data;
         })
@@ -129,10 +139,17 @@ export const Spaces = defineStore("PublicSpaces", {
         });
     },
 
-    async getSpaceByQr(orgPrefix: string, locPrefix: string, floorShortName: string, spaceShortCode: string) {
+    async getSpaceByQr(
+      orgPrefix: string,
+      locPrefix: string,
+      floorShortName: string,
+      spaceShortCode: string
+    ) {
       const loadId = loadingService.show("Loading...");
       return publicAPI
-        .get<SpaceQRCodeResponse>(`/Space/SpaceByQR/${orgPrefix}/${locPrefix}/${floorShortName}/${spaceShortCode}`)
+        .get<SpaceQRCodeResponse>(
+          `/Space/SpaceByQR/${orgPrefix}/${locPrefix}/${floorShortName}/${spaceShortCode}`
+        )
         .then((response) => {
           return response.data;
         })

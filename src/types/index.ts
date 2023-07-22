@@ -449,6 +449,32 @@ export interface IUserData {
   password: string;
 }
 
+export interface UserResponse {
+  id: string;
+  userId: string;
+  emailAddress: string;
+  userState: number;
+  lastLoginDate: string;
+  currentOrganisation: string;
+  organisations: { id: string; name: string; prefix: string }[];
+  name: string;
+  phone: string;
+  dob: string;
+  gender: number;
+  userGroups: UserGroupResponse[];
+}
+
+export interface UserGroupResponse {
+  id: string;
+  name: string;
+  permissions: string[];
+  organisationId?: string;
+}
+
+export interface UserGroupRequest {
+  userGroups: { groupIds: string[]; organisationId?: string }[];
+}
+
 export interface SpaceQRCodeResponse {
   spaceId: string;
   guestAccessToken: string;
