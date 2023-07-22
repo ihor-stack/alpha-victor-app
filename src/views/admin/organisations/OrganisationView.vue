@@ -9,7 +9,9 @@
           :router-link="{ name: 'OrganisationViewDetails' }"
           router-direction="root"
         >
-          <span class="link-text">Details</span>
+          <span class="link-text">{{
+            $t("pages.admin.organisations.view.details.title")
+          }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
@@ -18,7 +20,9 @@
           :router-link="{ name: 'OrganisationViewTheme' }"
           router-direction="root"
         >
-          <span class="link-text">Theme</span>
+          <span class="link-text">{{
+            $t("pages.admin.organisations.view.theme")
+          }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
@@ -27,7 +31,9 @@
           :router-link="{ name: 'OrganisationViewSpaceMetadata' }"
           router-direction="root"
         >
-          <span class="link-text">Space Metadata</span>
+          <span class="link-text">{{
+            $t("pages.admin.organisations.view.spaceMetadata.title")
+          }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
@@ -36,7 +42,9 @@
           :router-link="{ name: 'OrganisationViewDocumentTypes' }"
           router-direction="root"
         >
-          <span class="link-text">Document Types</span>
+          <span class="link-text">{{
+            $t("pages.admin.organisations.view.documentTypes.title")
+          }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
@@ -48,7 +56,9 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">Decision Trees</span>
+          <span class="link-text">{{
+            $t("pages.admin.organisations.view.decisionTrees.title")
+          }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
@@ -57,7 +67,9 @@
           :router-link="{ name: 'OrganisationViewIntegrationsList' }"
           router-direction="root"
         >
-          <span class="link-text">Integrations</span>
+          <span class="link-text">{{
+            $t("pages.admin.organisations.view.integrations.title")
+          }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
@@ -70,7 +82,9 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">Locations</span>
+          <span class="link-text">{{
+            $t("pages.admin.organisations.view.locations")
+          }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>

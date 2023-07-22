@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      Equipment
+      {{ $t('pages.admin.equipment.view.title')}}
     </h1>
 
     <ion-row class="form-admin">
@@ -33,7 +33,7 @@
 
     <ion-row class="form-admin">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <h3 class="font-bold font-size-md color-light-gray">Manufacturers</h3>
+        <h3 class="font-bold font-size-md color-light-gray">{{ $t('pages.admin.equipment.view.manufacturers')}}</h3>
         <div
           v-for="manufacturer in equipmentList.manufacturers"
           :key="manufacturer.manufacturerId"
@@ -54,7 +54,7 @@
         <EquipmentManufacturerModal />
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <h3 class="font-bold font-size-md color-light-gray">Asset Types</h3>
+        <h3 class="font-bold font-size-md color-light-gray">{{ $t('pages.admin.equipment.view.assetTypes')}}</h3>
         <div v-for="asset in equipmentList.assetTypes" :key="asset.assetId">
           <ItemField
             :modelValue="asset.name"

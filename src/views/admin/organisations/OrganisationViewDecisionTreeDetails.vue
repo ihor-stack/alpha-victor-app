@@ -3,7 +3,11 @@
     <div id="pageContainer">
       <div id="container" ref="container">
         <div class="button-container left bg-white">
-          <button class="back-button" @click="cancel()">&#60;&#60; back</button>
+          <button class="back-button" @click="cancel()">
+            {{
+              $t("pages.admin.organisations.view.decisionTrees.details.back")
+            }}
+          </button>
           <div class="divider"></div>
           <h1 class="title">{{ decisionTree?.name }}</h1>
         </div>
@@ -24,7 +28,9 @@
             <span>Auto layout</span>
           </button> -->
           <ion-button :disabled="!dirty" @click="save">
-            Save decision tree
+            {{
+              $t("pages.admin.organisations.view.decisionTrees.details.saveBtn")
+            }}
           </ion-button>
         </div>
         <canvas ref="canvas" id="canvas"></canvas>
@@ -504,8 +510,10 @@ export default {
       }
 
       if (decisionTree.value?.root) {
-        decisionTree.value.root.xPosition = canvas.value.width / 2 - destinationWidth / 2;
-        decisionTree.value.root.yPosition = canvas.value.height / 2 - outcomeHeight / 2;
+        decisionTree.value.root.xPosition =
+          canvas.value.width / 2 - destinationWidth / 2;
+        decisionTree.value.root.yPosition =
+          canvas.value.height / 2 - outcomeHeight / 2;
       }
 
       getDestinations(decisionTree.value?.root);

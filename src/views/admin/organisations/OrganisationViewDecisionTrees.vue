@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      Document Types
+      {{ $t("pages.admin.organisations.view.decisionTrees.documentTypes") }}
     </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
@@ -17,7 +17,7 @@
             @click="addNewDecisionTree"
             :disabled="!state.newDecisionTreeName"
           >
-            Add new +
+            {{ $t("pages.admin.organisations.view.decisionTrees.addNew") }}
           </ion-button>
         </ion-col>
       </ion-row>
@@ -28,7 +28,7 @@
             class="font-bold font-size-md color-light-gray"
             v-if="organisationDetails.decisionTrees?.length > 0"
           >
-            Current Decision Trees
+            {{ $t("pages.admin.organisations.view.decisionTrees.current") }}
           </h3>
         </ion-col>
       </ion-row>
@@ -54,7 +54,9 @@
             <ion-label
               slot="end"
               class="decision-view-icon font-size-xs font-mono"
-              >>> view</ion-label
+              >{{
+                $t("pages.admin.organisations.view.decisionTrees.view")
+              }}</ion-label
             >
           </ion-item>
         </ion-col>

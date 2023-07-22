@@ -1,14 +1,16 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      Space Metadata
+      {{ $t("pages.admin.organisations.view.spaceMetadata.title") }}
     </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="6" class="form-admin--group_field">
           <SpaceTypeModal :organisationId="organisationId" />
           <hr class="form-admin--divider" />
-          <ion-label class="font-bold" v-if="metaData.spaceTypes">Space Types</ion-label>
+          <ion-label class="font-bold" v-if="metaData.spaceTypes">{{
+            $t("pages.admin.organisations.view.spaceMetadata.spaceTypes")
+          }}</ion-label>
           <div v-for="(data, index) in metaData.spaceTypes" :key="index">
             <ItemField
               :modelValue="data.name"
@@ -26,7 +28,9 @@
         <ion-col size-xs="6" class="form-admin--group_field">
           <SpaceFeatureModal :organisationId="organisationId" />
           <hr class="form-admin--divider" />
-          <ion-label class="font-bold" v-if="metaData.spaceFeatures">Space Features</ion-label>
+          <ion-label class="font-bold" v-if="metaData.spaceFeatures">{{
+            $t("pages.admin.organisations.view.spaceMetadata.spaceFeatures")
+          }}</ion-label>
           <div v-for="(data, index) in metaData.spaceFeatures" :key="index">
             <ItemField
               :modelValue="data.name"

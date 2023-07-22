@@ -13,13 +13,13 @@
         />
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label>Model</ion-label>
+        <ion-label>{{ $t('pages.admin.equipment.details.model')}}</ion-label>
         <ion-input v-model="state.name" label="Model"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label>Serial number</ion-label>
+        <ion-label>{{ $t('pages.admin.equipment.details.sn')}}</ion-label>
         <ion-input
           v-model="state.serialNumber"
           label="Serial number"
@@ -58,7 +58,7 @@
             size="small"
             @click="removeSpacesDocument(document.id)"
           >
-            &gt;&gt; remove
+            {{ $t('pages.admin.equipment.details.remove')}}
           </ion-button>
         </ion-item>
       </ion-col>
@@ -78,7 +78,7 @@
           "
           @click="save"
         >
-          Save Changes
+          {{ $t('pages.admin.equipment.details.saveBtn')}}
         </ion-button>
       </ion-col>
     </ion-row>
