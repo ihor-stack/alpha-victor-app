@@ -1,9 +1,9 @@
 <template>
   <ion-page id="recently-viewed">
-    <app-header title="Recently Viewed">
+    <app-header :title="$t('pages.recentlyViewed.header')">
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{ $t('pages.recentlyViewed.back')}}</span>
         </ion-button>
       </template>
       <template #end>

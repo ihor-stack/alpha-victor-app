@@ -9,7 +9,7 @@
             @click="logout"
           >
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
-            <span class="font-mono font-size-xs logout-text">logout</span>
+            <span class="font-mono font-size-xs logout-text">{{ $t('appMenu.logout') }}</span>
           </ion-button>
         </ion-menu-toggle>
       </template>
@@ -34,7 +34,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">Dashboard</span>
+              <span class="link-text">{{ $t('appMenu.dashboard') }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -46,7 +46,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">Favourites</span>
+              <span class="link-text">{{ $t('appMenu.favourites') }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -58,7 +58,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">Find a space</span>
+              <span class="link-text">{{ $t('appMenu.findSpace') }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -70,7 +70,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">Recently viewed</span>
+              <span class="link-text">{{ $t('appMenu.recentlyViewed') }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -82,7 +82,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">Account settings</span>
+              <span class="link-text">{{ $t('appMenu.accountSettings') }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -94,7 +94,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">About Alpha Victor</span>
+              <span class="link-text">{{ $t('appMenu.about') }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -106,7 +106,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">Terms &amp; conditions</span>
+              <span class="link-text">{{ $t('appMenu.tos') }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -119,7 +119,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">Admin</span>
+              <span class="link-text">{{ $t('appMenu.admin') }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -128,16 +128,12 @@
     <ion-footer>
       <div class="footer">
         <div class="footer-contact">
-          <p class="contact font-mono">contact</p>
+          <p class="contact font-mono">{{ $t('appMenu.contact') }}</p>
         </div>
         <div class="footer-hello">
           <a href="mailto: hello@alphavictor.com">hello@alphavictor.com</a>
           <div class="footer-details">
-            <p class="font-mono">
-              AlphaVictor® is a registered trademark of Uncoded Limited, a
-              registered company in England and Wales with company number
-              11435074
-            </p>
+            <p class="font-mono">{{ $t('appMenu.footer') }}</p>
             <ul class="footer-links">
               <li>
                 <a href="">

@@ -43,14 +43,14 @@
         lines="none"
       >
         <ion-label>
-          <h1 class="color-white">no.spaces.found</h1>
-          <p>Please enter a short code or explore spaces.</p>
+          <h1 class="color-white">{{ $t("pages.dashboard.noSpacesFound") }}</h1>
+          <p>{{ $t("pages.dashboard.shortCodeTip") }}</p>
         </ion-label>
       </ion-item>
     </ion-content>
     <ion-footer class="ion-no-border">
       <router-link to="/find-space/location">
-        <ion-button expand="block">Explore Spaces</ion-button>
+        <ion-button expand="block">{{ $t("pages.dashboard.exploreBtn") }}</ion-button>
       </router-link>
     </ion-footer>
     <ion-modal

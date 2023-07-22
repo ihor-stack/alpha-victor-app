@@ -7,21 +7,27 @@
             <ion-label>
               <h2 class="font-size-md font-bold">
                 {{
-                  state.accountDeleted ? "Account Deleted" : "Confirm Deletion"
+                  state.accountDeleted
+                    ? $t("pages.accountSettings.deleteAccount.label.deleted")
+                    : $t("pages.accountSettings.deleteAccount.label.confirm")
                 }}
               </h2>
               <p class="settings-panel__comment font-size-xs">
                 {{
                   state.accountDeleted
-                    ? "Your account had been deleted from our system. We hope to see you again in the future."
-                    : "Are you sure you want to delete your account?"
+                    ? $t("pages.accountSettings.deleteAccount.question.deleted")
+                    : $t("pages.accountSettings.deleteAccount.question.confirm")
                 }}
               </p>
               <p class="settings-panel__comment font-size-xs">
                 {{
                   state.accountDeleted
-                    ? "Best wishes from the Alpha Victor team."
-                    : "Your account can’t be restored after it’s been deleted. Are you sure you want to continue? If so, please confirm your password. "
+                    ? $t(
+                        "pages.accountSettings.deleteAccount.description.deleted"
+                      )
+                    : $t(
+                        "pages.accountSettings.deleteAccount.description.confirm"
+                      )
                 }}
               </p>
             </ion-label>
@@ -33,11 +39,15 @@
             v-if="state.accountDeleted"
             expand="block"
             @click="confirm"
-            >Got it, thanks</ion-button
+            >{{
+              $t(
+                "pages.accountSettings.deleteAccount.confirmDeletionBtn.deleted"
+              )
+            }}</ion-button
           >
-          <ion-button v-else expand="block" @click="confirm"
-            >Confirm deletion</ion-button
-          >
+          <ion-button v-else expand="block" @click="confirm">{{
+            $t("pages.accountSettings.deleteAccount.confirmDeletionBtn.confirm")
+          }}</ion-button>
         </ion-footer>
       </div>
     </div>

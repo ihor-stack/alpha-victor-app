@@ -5,28 +5,26 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-size-md font-bold">Language</h2>
-              <p class="font-size-xs">
-                You can switch between languages via the drop down below.
-              </p>
+              <h2 class="font-size-md font-bold">{{ $t('pages.accountSettings.language.label') }}</h2>
+              <p class="font-size-xs">{{ $t('pages.accountSettings.language.description') }}</p>
             </ion-label>
           </ion-item>
         </ion-header>
         <ion-content :scroll-y="false">
           <ion-select
             interface="action-sheet"
-            placeholder="Select language"
+            :placeholder="$t('pages.accountSettings.language.placeholder')"
             class="custom-select"
             v-model="state.language"
           >
-            <ion-select-option value="english">English</ion-select-option>
-            <ion-select-option value="french">French</ion-select-option>
-            <ion-select-option value="german">German</ion-select-option>
+            <ion-select-option value="english">{{ $t('pages.accountSettings.language.english') }}</ion-select-option>
+            <ion-select-option value="french">{{ $t('pages.accountSettings.language.french') }}</ion-select-option>
+            <ion-select-option value="german">{{ $t('pages.accountSettings.language.german') }}</ion-select-option>
           </ion-select>
         </ion-content>
         <ion-footer>
           <ion-button expand="block" @click="confirm"
-            >Update language settings</ion-button
+            >{{ $t('pages.accountSettings.language.updateLanguageBtn') }}</ion-button
           >
         </ion-footer>
       </div>
