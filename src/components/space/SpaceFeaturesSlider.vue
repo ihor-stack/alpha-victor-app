@@ -20,7 +20,6 @@ import { IonLabel, IonItem } from "@ionic/vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import { SpaceFeature } from "@/types";
-import { useEquipmentIcon } from "@/composables/utilities";
 import { computed } from 'vue';
 
 interface Props {

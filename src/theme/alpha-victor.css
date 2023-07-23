@@ -198,10 +198,6 @@ ion-modal::part(handle) {
   top: 10px;
 }
 
-.form-admin--group_field ion-item ion-label {
-  font-size: 14px !important;
-}
-
 .form-admin--group_field ion-label.empty-state {
   display: block;
   margin-top: 20px;
@@ -397,10 +393,6 @@ ion-button.button-red {
 .form-toggle {
   /* background: var(--av-black); */
   padding: 0 15px !important;
-}
-
-.form-colorpick {
-  background: var(--av-black);
 }
 
 /* Linked List Item with arrow */

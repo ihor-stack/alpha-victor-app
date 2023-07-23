@@ -2,7 +2,6 @@
   <div class="modal-panel">
     <div class="modal-panel-container">
       <div class="equipment-panel__icon" v-if="deviceDetails.category">
-        <img :src="useEquipmentIcon(deviceDetails.category)" />
       </div>
       <ion-header class="ion-no-border">
         <ion-item class="modal-panel__header" lines="none">
@@ -85,7 +84,6 @@ import {
   IonList,
   IonListHeader,
 } from "@ionic/vue";
-import { useEquipmentIcon } from "@/composables/utilities";
 
 const props = defineProps([
   "deviceDetails",

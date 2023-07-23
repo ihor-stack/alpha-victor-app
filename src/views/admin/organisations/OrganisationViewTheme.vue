@@ -50,20 +50,6 @@
             </ion-col>
           </ion-row>
         </ion-col>
-        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t('pages.admin.organisations.view.theme.secondary')}}</ion-label>
-          <ion-row>
-            <ion-col size-sm="12">
-              <ion-input class="form-colorpick" v-model="theme.secondaryColour">
-                <input
-                  class="color-input"
-                  type="color"
-                  v-model="theme.secondaryColour"
-                />
-              </ion-input>
-            </ion-col>
-          </ion-row>
-        </ion-col>
       </ion-row>
     </ion-grid>
 
@@ -145,7 +131,8 @@ onBeforeMount(() => {
 }
 ion-item {
   --background: transparent;
-  --border-width: 2px;
+  --border-width: 1px;
   --border-radius: 5px;
+  --border-color: #313131;
 }
 </style>

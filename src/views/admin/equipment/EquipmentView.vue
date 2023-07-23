@@ -20,7 +20,7 @@
             <ion-label>
               <img :src="`/img/icons/${equipment.icon}.svg`" :alt="equipment.typeName" />
               <div>
-                <h2>{{ equipment.equipmentName }}</h2>
+                <h2>{{ equipment.manufacturerName }} {{ equipment.equipmentName }} {{ equipment.assetTypeName }}</h2>
                 <span class="equipment-list--type">{{ equipment.typeName }}</span>
               </div>
             </ion-label>
