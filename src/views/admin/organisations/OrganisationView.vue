@@ -19,9 +19,9 @@
         <ion-item
           :router-link="{ name: 'OrganisationViewTheme' }"
           router-direction="root"
-        >
+        > 
           <span class="link-text">{{
-            $t("pages.admin.organisations.view.theme")
+            $t("pages.admin.organisations.view.theme.title")
           }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>

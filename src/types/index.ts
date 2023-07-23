@@ -74,6 +74,7 @@ export interface Device {
   description: string;
   photos?: Photo[];
   icon?: string;
+  macAddress?: string;
   equipmentId?: string;
   documents?: Document[];
 }

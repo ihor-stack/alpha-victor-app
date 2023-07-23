@@ -101,7 +101,7 @@
       </ion-row>
 
       <hr class="form-admin--divider" />
-      <ion-item lines="none">
+      <ion-item lines="none" class="ion-no-padding">
         <ion-label>Photos</ion-label>
         <PhotoModal
           :isFirstPhoto="isFirstPhoto"
@@ -110,17 +110,18 @@
         />
       </ion-item>
       <ImageGallery
+        v-if="space.photos && space.photos.length"
         :images="space.photos"
         @image-reordered="handleImageReordered"
         @image-removed="handleImageRemoved"
       />
       <hr class="form-admin--divider" />
-      <ion-item lines="none">
+      <ion-item lines="none" class="ion-no-padding">
         <ion-label>Documents</ion-label>
         <DocumentModal :organisationId="organisationId" />
       </ion-item>
 
-      <ion-row class="form-admin--group_field component_container">
+      <ion-row class="form-admin--group_field component_container" v-if="space.documents && space.documents.length">
         <ion-col
           size-xs="12"
           size-md="6"

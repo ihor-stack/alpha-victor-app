@@ -19,7 +19,6 @@
             @click="handleClick(item)"
           >
             <div class="space-equipment-menu__item__icon">
-              <img :src="useEquipmentIcon(item.icon || '')" />
             </div>
             <ion-label>
               <h3 class="label font-bold font-size-sm">
@@ -79,7 +78,6 @@ import RoomEquipmentModal from "@/components/modals/RoomEquipmentModal.vue";
 import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useEquipmentIcon } from "@/composables/utilities";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 
 const router = useRouter();
