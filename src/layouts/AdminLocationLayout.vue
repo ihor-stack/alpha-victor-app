@@ -14,7 +14,7 @@
                     class="ion-no-padding"
                     fill="clear"
                     color="dark"
-                    @click="() => router.back()"
+                    @click="handleBack"
                   >
                     <span class="font-mono font-size-xs">&lt;&lt; back</span>
                   </ion-button>
@@ -37,9 +37,32 @@ import { IonPage, IonContent, IonButton } from "@ionic/vue";
 import { reactive, watch } from "vue";
 import DesktopNav from "@/components/shared/DesktopNav";
 import AdminLocationsNav from "@/components/shared/AdminLocationsNav";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
+const route = useRoute();
+
+const handleBack = () => {
+  const currentRouteName = route.name as string;
+  const { id: orgId, locationId, floorId } = route.params;
+
+  if (currentRouteName === "OrganisationViewLocations") {
+    router.push({
+      name: "OrganisationView",
+      params: { id: orgId },
+    });
+  } else if (currentRouteName === "OrganisationViewLocationsFloors") {
+    router.push({
+      name: "OrganisationViewLocations",
+      params: { locationId },
+    });
+  } else if (currentRouteName === "OrganisationViewLocationsSpaces") {
+    router.push({
+      name: "OrganisationViewLocationsFloors",
+      params: { locationId, floorId },
+    });
+  }
+};
 </script>
 <style scoped>
 ion-grid {

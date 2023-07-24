@@ -74,7 +74,7 @@ export default {
 
   mounted() {
     const route = useRoute();
-    const organisationId = route.params.organisationId;
+    const organisationId = route.params.id;
     const decisionTreeId = route.params.decisionTreeId;
     if (organisationsStore.organisationDetails?.id !== organisationId) {
       organisationsStore.setId(organisationId);
@@ -963,7 +963,11 @@ export default {
 
     const cancel = async () => {
       decisionTree.value = null;
-      router.back();
+      const organisationId = route.params.id;
+      router.push({
+        name: "OrganisationViewDecisionTrees",
+        params: { id: organisationId },
+      });
     };
 
     return {
