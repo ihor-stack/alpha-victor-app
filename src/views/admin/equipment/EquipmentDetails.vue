@@ -94,8 +94,6 @@ import {
   IonCol,
   IonButton,
   IonGrid,
-  IonSelect,
-  IonSelectOption,
   IonItem,
 } from "@ionic/vue";
 import { useRoute } from "vue-router";
@@ -116,24 +114,28 @@ const {
 } = storeToRefs(EquipmentStore);
 
 const manufacturerOptions = computed(() => {
-  return equipmentList.value.manufacturers.map((manufacturer) => ({
-    id: manufacturer.manufacturerId, // map manufacturerId to id
-    title: manufacturer.name, // map name to title
+  console.log('manufacturers', equipmentList.value.manufacturers)
+  return equipmentList.value.manufacturers.map((manufacturer, index) => ({
+    id: index,
+    title: manufacturer.name,
+    additionalInfo: manufacturer.manufacturerId,
   }));
 });
 
 const assetTypeOptions = computed(() => {
-  return equipmentList.value.assetTypes.map((assetType) => ({
-    id: assetType.assetId,
+  console.log('assetTypes', equipmentList.value.assetTypes)
+  return equipmentList.value.assetTypes.map((assetType, index) => ({
+    id: index,
     title: assetType.name,
+    additionalInfo: assetType.assetId,
   }));
 });
 
 const state = reactive({
   name: currentEquipment.value?.name,
   serialNumber: currentEquipment.value?.serialNumber,
-  manufacturerId: currentEquipment.value?.manufacturerId,
-  assetTypeId: currentEquipment.value?.assetTypeId,
+  manufacturerId: manufacturerSelected.value?.additionalInfo,
+  assetTypeId: assetTypeSelected.value?.additionalInfo,
 });
 
 const removeSpacesDocument = (documentId: string) => {
@@ -147,16 +149,16 @@ const save = () => {
 watch(currentEquipment, (newValue) => {
   state.name = newValue.name;
   state.serialNumber = newValue.serialNumber;
-  state.manufacturerId = newValue.manufacturerId.toString();
-  state.assetTypeId = newValue.assetTypeId.toString();
+  state.manufacturerId = newValue.manufacturerId;
+  state.assetTypeId = newValue.assetTypeId;
 });
 
 watch(manufacturerSelected, (newValue) => {
-  state.manufacturerId = newValue.id;
+  state.manufacturerId = newValue.additionalInfo;
 });
 
 watch(assetTypeSelected, (newValue) => {
-  state.assetTypeId = newValue.id;
+  state.assetTypeId = newValue.additionalInfo;
 });
 
 onBeforeMount(() => {

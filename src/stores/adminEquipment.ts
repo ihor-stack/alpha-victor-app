@@ -55,6 +55,32 @@ export const Equipment = defineStore("Equipment", {
         .get<EquipmentDetails>(`/Equipment/${id}`)
         .then((response) => {
           this.currentEquipment = response.data;
+
+          if (response.data.assetTypeId) {
+            const assetTypeSelected = this.equipmentList.assetTypes.find(assetType => {
+              return assetType.assetId === response.data.assetTypeId
+            })
+            if (assetTypeSelected) {
+              this.assetTypeSelected = {
+                id: 0,
+                title: assetTypeSelected.name,
+                additionalInfo: assetTypeSelected.assetId,
+              }
+            }
+          }
+
+          if (response.data.manufacturerId) {
+            const manufacturerSelected = this.equipmentList.manufacturers.find(manufacturer => {
+              return manufacturer.manufacturerId === response.data.manufacturerId
+            })
+            if (manufacturerSelected) {
+              this.manufacturerSelected = {
+                id: 0,
+                title: manufacturerSelected.name,
+                additionalInfo: manufacturerSelected.manufacturerId
+              }
+            }
+          }
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
@@ -78,6 +104,7 @@ export const Equipment = defineStore("Equipment", {
         });
     },
     async updateEquipment(id: string, state: any) {
+      console.log('updateEquipment state', state)
       const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(`/Equipment/${id}`, {
