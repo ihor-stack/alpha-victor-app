@@ -571,7 +571,6 @@ export default {
       if (!c) return;
       c.clearRect(0, 0, canvas.value.width, canvas.value.height);
       drawGrid();
-      console.log(destinations);
       destinations
         .filter((d) => d.type === 3)
         .forEach((d) => {
