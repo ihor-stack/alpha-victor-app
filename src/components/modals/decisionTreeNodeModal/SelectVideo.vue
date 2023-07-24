@@ -6,13 +6,12 @@
   >
     <ion-content>
       <ion-row>
-        <ion-col size="12"> 
+        <ion-col size="12" class="ion-no-padding"> 
           <input-with-icon
             iconPosition="start"
             type="search"
             placeholder="Search for a video"
             v-model="state.searchTerm"
-            color="dark"
             :icon="search"
           ></input-with-icon>
         </ion-col>

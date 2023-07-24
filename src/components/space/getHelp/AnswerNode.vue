@@ -82,7 +82,7 @@ defineProps<Props>();
 }
 
 .cancel-ask-button {
-  text-align: center;
+  text-align: right;
   color: #ff3737;
   font-size: 12px;
   cursor: pointer;
