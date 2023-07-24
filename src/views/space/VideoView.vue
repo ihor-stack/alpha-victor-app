@@ -3,7 +3,7 @@
     <app-header>
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{ $t('pages.space.video.back')}}</span>
         </ion-button>
       </template>
     </app-header>
@@ -51,7 +51,7 @@
         </ion-list>
         <ion-list lines="none" class="autoplay-wrapper">
           <ion-item class="autoplay-toggle">
-            <ion-label>Autoplay</ion-label>
+            <ion-label>{{ $t('pages.space.video.label')}}</ion-label>
             <ion-toggle v-model="state.autoplay"></ion-toggle>
           </ion-item>
         </ion-list>
