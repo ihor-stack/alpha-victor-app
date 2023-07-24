@@ -248,6 +248,10 @@ ion-button {
   max-width: 300px;
 }
 
+#content {
+  height: 100%;
+}
+
 @media only screen and (max-width: 1023px) {
   .fixed-sidebar {
     display: none;

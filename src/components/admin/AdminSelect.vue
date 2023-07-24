@@ -107,4 +107,7 @@ ion-popover .admin-select--item:hover {
 ion-popover .admin-select--item:last-of-type {
   border-bottom: none;
 }
+ion-searchbar, ion-searchbar .searchbar-input {
+  background: #fff;
+}
 </style>

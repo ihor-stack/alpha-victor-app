@@ -172,7 +172,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
 }
 .dashboard-search-container {
-  padding: 0 20px 32px;
+  padding: 20px 20px 32px;
   background: 0;
 }
 .dashboard-sliders {

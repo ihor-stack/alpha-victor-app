@@ -89,8 +89,11 @@ ion-buttons {
 }
 
 @media only screen and (min-width: 1023px) {
-  .app-header--right {
-    visibility: hidden;
+  ion-toolbar {
+    display: none;
+  }
+  .title {
+    margin-top: 30px;
   }
 }
 </style>
