@@ -15,19 +15,17 @@
           </ion-button>
           <ion-title class="no-lp">
             <router-link to="/dashboard">
+              <img v-if="theme.logo" :src="theme?.logo" class="logo" />
               <img
+                v-else
                 src="@/theme/img/logo/logo-without-name.svg"
                 class="logo"
-                alt="AlphaVictor logo"
+                alt="AlphaVictor"
               />
             </router-link>
           </ion-title>
-          <ion-button fill="clear" color="dark" @click="logout">
-            <ion-icon
-              :icon="logOutOutline"
-              class="logout"
-              color="dark"
-            ></ion-icon>
+          <ion-button fill="clear" @click="logout" class="logout-button">
+            <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
             <span class="font-bold font-size-xs low-caps">{{
               $t("desktopNav.logout")
             }}</span>
@@ -37,127 +35,114 @@
     </desktop-header>
     <ion-content class="ion-padding no-tp">
       <ul class="nav-menu">
-        <li class="nav-menu-link arrow-align">
-          <router-link to="/dashboard" class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.dashboard") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon
-          ></router-link>
-        </li>
-
-        <li class="nav-menu-link arrow-align">
-          <router-link to="/favourites" class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.favourites") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon
-          ></router-link>
-        </li>
-        <li class="nav-menu-link arrow-align">
-          <router-link
-            to="/find-space/location"
-            class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.findSpace") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon
-          ></router-link>
-        </li>
-        <li class="nav-menu-link arrow-align">
-          <router-link
-            to="/recently-viewed"
-            class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.recentlyViewed") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon
-          ></router-link>
-        </li>
-        <li class="nav-menu-link arrow-align">
-          <router-link to="/settings" class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.accountSettings") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon
-          ></router-link>
-        </li>
-        <li class="nav-menu-link arrow-align">
-          <router-link to="/about" class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.about") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon
-          ></router-link>
-        </li>
-        <li class="nav-menu-link arrow-align">
-          <router-link
-            to="/terms-and-conditions"
-            class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.tos") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon
-          ></router-link>
-        </li>
-        <div class="spacer-line"></div>
-        <li class="sub-title font-size-xxs color-light-gray">
-          {{ $t("desktopNav.administration") }}
-        </li>
-        <li class="nav-menu-link arrow-align">
-          <router-link
-            to="/admin/organisations"
-            class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.organisations") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon
-          ></router-link>
-        </li>
-        <li
-          class="nav-menu-link arrow-align"
-          v-if="userPermission.isGlobalAdmin"
-        >
-          <router-link
-            to="/admin/equipment"
-            class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.equipment") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon>
+        <li class="nav-menu-link">
+          <router-link to="/dashboard">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.dashboard") }}
+              </ion-label>
+            </ion-item>
           </router-link>
         </li>
-        <li
-          class="nav-menu-link arrow-align"
-          v-if="userPermission.isGlobalAdmin"
-        >
-          <router-link
-            to="/admin/documents"
-            class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.documentTypes") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon
-          ></router-link>
+
+        <li class="nav-menu-link">
+          <router-link to="/favourites">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.favourites") }}
+              </ion-label>
+            </ion-item>
+          </router-link>
         </li>
-        <li class="nav-menu-link arrow-align">
-          <router-link to="/admin/users" class="font-size-sm color-light-gray"
-            >{{ $t("desktopNav.users") }}
-            <ion-icon
-              :icon="chevronForwardOutline"
-              class="arrow-right"
-            ></ion-icon
-          ></router-link>
+        <li class="nav-menu-link">
+          <router-link to="/find-space/location">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.findSpace") }}
+              </ion-label>
+            </ion-item>
+          </router-link>
+        </li>
+        <li class="nav-menu-link">
+          <router-link to="/recently-viewed">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.recentlyViewed") }}
+              </ion-label>
+            </ion-item>
+          </router-link>
+        </li>
+        <li class="nav-menu-link">
+          <router-link to="/settings">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.accountSettings") }}
+              </ion-label>
+            </ion-item>
+          </router-link>
+        </li>
+        <li class="nav-menu-link">
+          <router-link to="/about">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.about") }}
+              </ion-label>
+            </ion-item>
+          </router-link>
+        </li>
+        <li class="nav-menu-link">
+          <router-link to="/terms-and-conditions">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.tos") }}
+              </ion-label>
+            </ion-item>
+          </router-link>
+        </li>
+        <div class="spacer-line"></div>
+        <li class="nav-menu-link">
+          <ion-item lines="none">
+            <ion-label class="ion-no-margin font-size-xxs">
+              {{ $t("desktopNav.administration") }}
+            </ion-label>
+          </ion-item>
+        </li>
+
+        <li class="nav-menu-link">
+          <router-link to="/admin/organisations">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.organisations") }}
+              </ion-label>
+            </ion-item>
+          </router-link>
+        </li>
+        <li class="nav-menu-link" v-if="userPermission.isGlobalAdmin">
+          <router-link to="/admin/equipment">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.equipment") }}
+              </ion-label>
+            </ion-item>
+          </router-link>
+        </li>
+        <li class="nav-menu-link" v-if="userPermission.isGlobalAdmin">
+          <router-link to="/admin/documents">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.documentTypes") }}
+              </ion-label>
+            </ion-item>
+          </router-link>
+        </li>
+        <li class="nav-menu-link">
+          <router-link to="/admin/users">
+            <ion-item lines="none" :detail="true">
+              <ion-label class="ion-no-margin">
+                {{ $t("desktopNav.users") }}
+              </ion-label>
+            </ion-item>
+          </router-link>
         </li>
       </ul>
     </ion-content>
@@ -175,7 +160,14 @@
 
 <script setup lang="ts">
 import { reactive } from "vue";
-import { IonTitle, IonContent, IonButton, IonIcon } from "@ionic/vue";
+import {
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonIcon,
+  IonItem,
+  IonLabel,
+} from "@ionic/vue";
 import { useRouter } from "vue-router";
 
 import {
@@ -191,12 +183,15 @@ import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal
 import Auth from "@/auth";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
 const router = useRouter();
 const authService = new Auth();
 const accountStore = useAccountStore();
 const authStore = useAuthStore();
 const { userPermission } = storeToRefs(accountStore);
+const organisationStore = useOrganisationStore();
+const { theme } = storeToRefs(organisationStore);
 
 interface State {
   modalOpen: boolean;
@@ -231,7 +226,7 @@ ion-title {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #0000ff;
+  background-color: var(--ion-color-primary, #3880ff);
   transition: 0.5s;
 }
 ion-menu {
@@ -245,6 +240,8 @@ ion-menu {
 }
 ion-content {
   --background: none;
+  --padding-start: 0;
+  --padding-end: 0;
 }
 
 .logout {
@@ -269,17 +266,6 @@ ion-content {
   padding: 0;
 }
 
-.nav-menu-link {
-  margin-bottom: 32px;
-}
-
-.nav-menu-link a {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
-
 .nav-menu-link a:hover {
   opacity: 0.5;
 }
@@ -287,11 +273,10 @@ ion-content {
 .spacer-line {
   border-top: 0.75px solid;
   border-bottom: none;
-  padding-bottom: 21px;
+  margin-top: 20px;
+  border-color: var(--ion-color-primary-contrast, #fff);
 }
-.sub-title {
-  padding-bottom: 20px;
-}
+
 .no-tp {
   --padding-top: unset;
 }
@@ -302,5 +287,22 @@ ion-content {
   width: 250px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.nav-menu-link ion-item {
+  color: var(--ion-color-primary-contrast, #fff);
+}
+
+ion-item::part(detail-icon) {
+  opacity: 1;
+}
+
+.logo {
+  height: 50px;
+}
+
+.logout-button {
+  --color: var(--ion-color-primary-contrast, #fff);
 }
 </style>
