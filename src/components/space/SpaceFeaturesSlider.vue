@@ -4,7 +4,7 @@
       <swiper-slide v-for="feature in selectedFeatures" :key="feature.name">
         <ion-item class="ion-no-padding" lines="none" :detail="false">
           <div class="space-equipment-menu__item__icon">
-            <img :src="`/img/icons/${feature.icon}.svg`" :alt="feature.name" />
+            <ion-icon :src="`/img/icons/${feature.icon}.svg`" />
           </div>
           <ion-label class="font-size-xs font-bold">
             {{ feature.name }}
@@ -20,7 +20,7 @@ import { IonLabel, IonItem } from "@ionic/vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 import { SpaceFeature } from "@/types";
-import { computed } from 'vue';
+import { computed } from "vue";
 
 interface Props {
   features: SpaceFeature[];
@@ -28,8 +28,9 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const selectedFeatures = computed(() => props.features ? props.features.filter(feature => feature.selected) : []);
-
+const selectedFeatures = computed(() =>
+  props.features ? props.features.filter((feature) => feature.selected) : []
+);
 </script>
 
 <style scoped>
