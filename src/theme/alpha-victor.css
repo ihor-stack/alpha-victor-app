@@ -800,7 +800,7 @@ ion-toast.customToast::part(message) {
 
 .form-admin--group_field-item {
   margin-top: 20px;
-  border: 1px solid var(--av-darkest-gray);
+  border: 1px solid var(--av-darker-gray);
   border-radius: 10px;
 }
 
@@ -812,7 +812,6 @@ ion-toast.customToast::part(message) {
 .form-admin--group_field-item > img {
   width: 100px;
   height: auto;
-  margin-right: 20px;
 }
 
 .form-admin--group_field-item:hover {

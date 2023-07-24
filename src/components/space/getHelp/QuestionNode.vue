@@ -36,7 +36,7 @@
             :detail="true"
             @click="selectAnswerHandler(node)"
           >
-            <span>{{ node.text }}</span>
+            <span class="answers-list--text">{{ node.text }}</span>
           </IonItem>
         </template>
         <IonItem
@@ -46,7 +46,7 @@
           :detail="true"
           @click="handleClickDestination"
         >
-          <span>{{ nodeData.text }}</span>
+          <span class="answers-list--text">{{ nodeData.text }}</span>
         </IonItem>
       </IonList>
       <span class="question-bubble">
@@ -125,7 +125,9 @@ ion-item::part(detail-icon) {
   border-radius: 20px;
   padding: 15px 12px;
 }
-
+.answers-list--text {
+  font-size: 14px;
+}
 .question-bubble {
   position: absolute;
   top: 0;
@@ -152,5 +154,7 @@ ion-item::part(detail-icon) {
   --color: #000000;
   font-size: 15px;
   line-height: 1.25;
+  padding: 0;
+  align-items: center;
 }
 </style>

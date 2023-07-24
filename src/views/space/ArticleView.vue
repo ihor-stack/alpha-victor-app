@@ -76,13 +76,9 @@ onBeforeMount(() => getArticle());
 </script>
 
 <style scoped>
-ion-list {
-  padding: 0 16px;
-}
-
 ion-list-header {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 18px;
 }
 </style>
