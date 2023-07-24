@@ -4,7 +4,7 @@
     description="You can adjust the destination and outcomes via the form below."
     :handleDismiss="() => handleDismiss()"
   >
-    <ion-content :scroll-y="false">
+    <div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
           <ion-label>Destination Type</ion-label>
@@ -45,7 +45,7 @@
       >
         Next</ion-button
       >
-    </ion-content>
+    </div>
   </common-modal>
 </template>
 <script setup>
