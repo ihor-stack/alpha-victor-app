@@ -7,7 +7,7 @@
         iconPosition === 'start' ? '0px 0px 0px 18px' : '0px 18px 0px 0px',
     }"
   >
-    <ion-icon :icon="props.icon" />
+    <ion-icon :icon="props.icon" color="dark" />
     <ion-input
       class="inner-input"
       :color="color"
