@@ -9,15 +9,17 @@
               class="orgItemWrapper"
               v-for="org in assignedOrganisations"
               :key="org.id"
+              button
+              @click="handleClickAssignedOrg(org)"
             >
               <ion-label>
                 {{ org.name }}
                 <span class="color-dark-gray">{{
-                  ` / ${org.permission}`
+                  ` / ${org.permission?.name}`
                 }}</span>
               </ion-label>
               <ion-button
-                @click="removeUserFromOrg(org.id)"
+                @click="removeUserFromOrg($event, org.id)"
                 class="color-red removeButton"
                 slot="end"
                 fill="clear"
@@ -88,6 +90,7 @@ const props = defineProps([
   "handleClickSave",
   "removeUserFromOrg",
   "handleDismiss",
+  "handleClickAssignedOrg",
 ]);
 
 const state = reactive({

@@ -4,8 +4,12 @@
       <ion-content>
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
-            <ion-label class="font-size-sm">{{ organisationName }}</ion-label>
-            <ion-select placeholder="Select role" v-model="state.groupId">
+            <ion-label class="font-size-sm">{{ organisation?.name }}</ion-label>
+            <ion-select
+              interface="action-sheet"
+              placeholder="Select role"
+              v-model="state.groupId"
+            >
               <ion-select-option
                 v-for="option in userGroups"
                 :key="option.id"
