@@ -76,7 +76,7 @@
           @ion-change="
             handleChangeRole(
               row.id,
-              row.userGroups[0].organisationId || '',
+              row.organisations[0].id || '',
               $event.detail.value
             )
           "
@@ -166,7 +166,7 @@ const state = reactive({
   },
 });
 
-const userGroupOptions = computed(() => userGroups.value.slice(2));
+const userGroupOptions = computed(() => userGroups.value);
 const isGlobalAdmin = computed(() => userPermission.value.isGlobalAdmin);
 const userGroupId = computed(
   () =>
