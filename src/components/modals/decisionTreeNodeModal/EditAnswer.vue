@@ -4,7 +4,7 @@
     description="You can edit the answer via the form below."
     :handleDismiss="() => handleDismiss()"
   >
-    <ion-content :scroll-y="false">
+    <div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
           <ion-label>Answer</ion-label>
@@ -21,7 +21,7 @@
       >
         Update</ion-button
       >
-    </ion-content>
+    </div>
   </common-modal>
 </template>
 <script setup>
