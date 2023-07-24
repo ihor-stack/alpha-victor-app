@@ -4,7 +4,7 @@
     description="You can select an article to be presented via the list below."
     :handleDismiss="() => handleDismiss()"
   >
-    <ion-content>
+    <div>
       <template v-if="state.isAddingArticle">
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
@@ -55,7 +55,7 @@
           :handleSelectItem="(item) => (state.selectedArticle = item)"
         ></CustomList>
       </template>
-    </ion-content>
+    </div>
     <ion-footer>
       <template v-if="state.isAddingArticle">
         <ion-button
