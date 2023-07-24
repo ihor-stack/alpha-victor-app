@@ -6,6 +6,7 @@
     <ion-modal
       :is-open="modalOpen"
       @willDismiss="handleDismiss"
+      class="auto-height"
     >
       <ion-page>
         <div class="modal-panel">
