@@ -1,7 +1,40 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M2.08984 19.7203V7.07027H6.57984L9.36984 4.28027H14.6298L17.2598 6.91027H21.8998V19.7203H2.08984Z" stroke="black" stroke-width="1.5" stroke-linejoin="bevel"/>
-<path d="M10.1201 6.65039H13.8801" stroke="black" stroke-width="0.6" stroke-linejoin="bevel"/>
-<path d="M11.9998 17.9596C14.5955 17.9596 16.6998 15.8553 16.6998 13.2596C16.6998 10.6638 14.5955 8.55957 11.9998 8.55957C9.40407 8.55957 7.2998 10.6638 7.2998 13.2596C7.2998 15.8553 9.40407 17.9596 11.9998 17.9596Z" stroke="black" stroke-width="0.6" stroke-linejoin="bevel"/>
-<path d="M19.3803 9.82988C19.7116 9.82988 19.9803 9.56125 19.9803 9.22988C19.9803 8.89851 19.7116 8.62988 19.3803 8.62988C19.0489 8.62988 18.7803 8.89851 18.7803 9.22988C18.7803 9.56125 19.0489 9.82988 19.3803 9.82988Z" stroke="black" stroke-width="0.6" stroke-linejoin="bevel"/>
-<path d="M8.75968 13.9799C8.75968 13.9799 8.58968 12.5699 9.54968 11.3299C10.5097 10.0899 11.6397 10.1399 11.6397 10.1399" stroke="black" stroke-width="0.6" stroke-linejoin="bevel"/>
+<svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+<path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M2.08984 19.7203V7.07027H6.57984L9.36984 4.28027H14.6298L17.2598 6.91027H21.8998V19.7203H2.08984Z"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M10.1201 6.65039H13.8801"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M11.9998 17.9596C14.5955 17.9596 16.6998 15.8553 16.6998 13.2596C16.6998 10.6638 14.5955 8.55957 11.9998 8.55957C9.40407 8.55957 7.2998 10.6638 7.2998 13.2596C7.2998 15.8553 9.40407 17.9596 11.9998 17.9596Z"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M19.3803 9.82988C19.7116 9.82988 19.9803 9.56125 19.9803 9.22988C19.9803 8.89851 19.7116 8.62988 19.3803 8.62988C19.0489 8.62988 18.7803 8.89851 18.7803 9.22988C18.7803 9.56125 19.0489 9.82988 19.3803 9.82988Z"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M8.75968 13.9799C8.75968 13.9799 8.58968 12.5699 9.54968 11.3299C10.5097 10.0899 11.6397 10.1399 11.6397 10.1399"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linejoin="bevel"
+  />
 </svg>

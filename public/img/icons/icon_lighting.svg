@@ -1,9 +1,53 @@
-<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.75977 2.04004H15.6698" stroke="black" stroke-width="1.5" stroke-linejoin="bevel"/>
-<path d="M12.21 2.51953V11.6995" stroke="black" stroke-width="1.5" stroke-linejoin="bevel"/>
-<path d="M15.1599 11.9199H9.42992L7.16992 15.9099H17.2599L15.1599 11.9199Z" stroke="black" stroke-width="1.5" stroke-linejoin="bevel"/>
-<path d="M12.2092 18.3801C10.9392 18.3801 9.90918 17.3501 9.90918 16.0801H14.4992C14.4992 17.3501 13.4692 18.3801 12.1992 18.3801H12.2092Z" stroke="black" stroke-width="0.6" stroke-linejoin="bevel"/>
-<path d="M12.1992 22.3499V20.4199" stroke="black" stroke-width="0.6" stroke-linecap="square" stroke-linejoin="bevel"/>
-<path d="M7.64941 21.58L9.01941 20.21" stroke="black" stroke-width="0.6" stroke-linecap="square" stroke-linejoin="bevel"/>
-<path d="M16.7692 21.58L15.4092 20.21" stroke="black" stroke-width="0.6" stroke-linecap="square" stroke-linejoin="bevel"/>
+<svg
+  width="25"
+  height="24"
+  viewBox="0 0 25 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+<path
+    d="M8.75977 2.04004H15.6698"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M12.21 2.51953V11.6995"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M15.1599 11.9199H9.42992L7.16992 15.9099H17.2599L15.1599 11.9199Z"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M12.2092 18.3801C10.9392 18.3801 9.90918 17.3501 9.90918 16.0801H14.4992C14.4992 17.3501 13.4692 18.3801 12.1992 18.3801H12.2092Z"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M12.1992 22.3499V20.4199"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linecap="square"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M7.64941 21.58L9.01941 20.21"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linecap="square"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M16.7692 21.58L15.4092 20.21"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linecap="square"
+    stroke-linejoin="bevel"
+  />
 </svg>

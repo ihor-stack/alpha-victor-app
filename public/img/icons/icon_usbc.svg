@@ -1,6 +1,32 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14.52 1.63965H9.95996V5.64965H14.52V1.63965Z" stroke="black" stroke-width="0.6" stroke-linejoin="bevel"/>
-<path d="M14.0397 18.5602V16.5002H15.7897V6.2002H8.67969V16.6202H10.5397V18.5702" stroke="black" stroke-width="1.5" stroke-linejoin="bevel"/>
-<path d="M14.5496 18.3398H10.0596V19.9298H14.5496V18.3398Z" stroke="black" stroke-width="0.6" stroke-linejoin="bevel"/>
-<path d="M13.2104 19.9297H11.4004V22.3097H13.2104V19.9297Z" stroke="black" stroke-width="0.6" stroke-linejoin="bevel"/>
+<svg
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+<path
+    d="M14.52 1.63965H9.95996V5.64965H14.52V1.63965Z"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M14.0397 18.5602V16.5002H15.7897V6.2002H8.67969V16.6202H10.5397V18.5702"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M14.5496 18.3398H10.0596V19.9298H14.5496V18.3398Z"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linejoin="bevel"
+  />
+<path
+    d="M13.2104 19.9297H11.4004V22.3097H13.2104V19.9297Z"
+    stroke="currentColor"
+    stroke-width="0.6"
+    stroke-linejoin="bevel"
+  />
 </svg>
