@@ -91,6 +91,11 @@ defineProps<Props>();
   --inner-padding-bottom: 8px;
 }
 
+.space-options-menu-item ion-item:hover {
+  cursor: pointer;
+  opacity: .5;
+}
+
 .space-options-menu-item ion-item ion-icon {
   margin-right: 0;
 }
