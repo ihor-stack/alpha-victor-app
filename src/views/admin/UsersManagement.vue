@@ -185,7 +185,8 @@ const onClickAction = (row: UserResponse) => {
 };
 
 const removeUserFromOrg = (orgId: string) => {
-  console.log(orgId);
+  usersStore.removeFromOrg(state.currentUser.id, orgId);
+  state.openEditModal = false;
 };
 
 const handleClickSave = (orgId: string) => {

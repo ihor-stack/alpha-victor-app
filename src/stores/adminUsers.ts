@@ -62,5 +62,21 @@ export const adminUsers = defineStore("adminUsers", {
           loadingService.close(loadId);
         });
     },
+    async removeFromOrg(userId: string, organisationId: string) {
+      const loadId = loadingService.show("Loading...");
+      adminAPI
+        .delete(
+          `/User/RemoveFromOrg?userId=${userId}&organisationId=${organisationId}`
+        )
+        .then(() => {
+          this.getUsers();
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
   },
 });
