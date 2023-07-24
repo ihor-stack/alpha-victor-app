@@ -28,7 +28,15 @@ const route = useRoute();
 
 const handleBack = () => {
   const currentRouteName = route.name as string;
-  const { id: orgId, locationId, floorId } = route.params;
+  const { id: orgId, locationId, floorId, spaceId } = route.params;
+  const spacesRoutes = [
+    "OrganisationViewLocationsDevices",
+    "OrganisationViewLocationsBeacon",
+    "OrganisationViewLocationsAnnouncement",
+    "OrganisationViewLocationsIntegrations",
+    "OrganisationViewLocationsWifi",
+    "OrganisationViewLocationsPanorama",
+  ];
 
   if (currentRouteName === "OrganisationViewLocations") {
     router.push({
@@ -44,6 +52,11 @@ const handleBack = () => {
     router.push({
       name: "OrganisationViewLocationsFloors",
       params: { locationId, floorId },
+    });
+  } else if (spacesRoutes.includes(currentRouteName)) {
+    router.push({
+      name: "OrganisationViewLocationsSpaces",
+      params: { locationId, floorId, spaceId },
     });
   }
 };
