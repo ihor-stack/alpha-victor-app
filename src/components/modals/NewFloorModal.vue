@@ -33,7 +33,7 @@
               </p>
             </div>
           </ion-header>
-          <ion-content class="form-admin--group_field">
+          <div class="form-admin--group_field">
             <div class="modal-panel__section modal-panel__select-equipment">
               <ion-row class="form-admin--group">
                 <ion-col
@@ -67,7 +67,7 @@
                 </ion-col>
               </ion-row>
             </div>
-          </ion-content>
+          </div>
           <ion-footer>
             <ion-button
               class="button-wide"
