@@ -6,8 +6,6 @@
     <ion-modal
       :is-open="modalOpen"
       @willDismiss="handleDismiss"
-      :initial-breakpoint="1"
-      :breakpoints="[0, 1]"
     >
       <ion-page>
         <div class="modal-panel">
@@ -22,13 +20,13 @@
               />
               <div class="modal-panel__header">
                 <h1
-                  class="modal-panel__title color-light-gray font-bold font-size-normal"
+                  class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
                   Add New Device
                 </h1>
               </div>
             </ion-header>
-            <ion-content :scroll-y="false" class="form-admin--group_field">
+            <div class="form-admin--group_field">
               <ion-row class="form-admin--group">
                 <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
                   <AdminSelect
@@ -169,7 +167,7 @@
                   </ion-button>
                 </ion-col>
               </ion-row>
-            </ion-content>
+            </div>
           </div>
         </div>
       </ion-page>

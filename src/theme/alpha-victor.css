@@ -184,13 +184,12 @@ ion-toggle {
 }
 
 ion-modal {
-  --border-radius: 40px 40px 0px 0px !important;
+  --border-radius: 20px !important;
+  --height: auto;
 }
 
 ion-modal::part(content) {
-  --border-radius: 40px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
+  --border-radius: 20px;
 }
 
 ion-modal::part(handle) {
@@ -549,7 +548,7 @@ ion-button.button-red {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 22px 32px;
+  padding: 25px 22px 32px;
 }
 
 .modal-panel__header {
@@ -557,7 +556,7 @@ ion-button.button-red {
 }
 
 .modal-panel__title {
-  margin-bottom: 12px;
+  margin-bottom: 22px;
 }
 
 .modal-panel__section {
@@ -865,8 +864,13 @@ body.dark ion-menu-button {
 }
 
 body.scanner-active {
+  background: none;
   --background: transparent;
   --ion-background-color: transparent;
+}
+
+ion-content.transparent::part(scroll) {
+  background: none;
 }
 
 .ml-2 {
