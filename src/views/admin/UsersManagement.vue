@@ -22,7 +22,7 @@
         <ion-text>{{ $t("pages.admin.users.role") }}</ion-text>
       </ion-col>
     </ion-row>
-    <ion-row v-for="row in usersList" :key="row.id">
+    <ion-row v-for="row in users" :key="row.id">
       <ion-col
         :size="isGlobalAdmin ? '4' : '3'"
         class="ion-justify-content-between"
@@ -68,10 +68,27 @@
         <ion-text> {{ row.email }} </ion-text>
       </ion-col>
       <ion-col size="3" v-if="!isGlobalAdmin">
-        <div class="userRole" @click="onClickRole(row)">
-          {{ row.userGroups[0]?.name }}
-          <ion-icon :icon="chevronDown" size="small" />
-        </div>
+        <ion-select
+          interface="action-sheet"
+          class="modal-panel__select-organisation__select"
+          placeholder="Select role"
+          :value="row.userGroups[0]?.id"
+          @ion-change="
+            handleChangeRole(
+              row.id,
+              row.organisations[0].id || '',
+              $event.detail.value
+            )
+          "
+        >
+          <ion-select-option
+            v-for="role in userGroupOptions"
+            :key="role.id"
+            :value="role.id"
+          >
+            {{ role.name }}
+          </ion-select-option>
+        </ion-select>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -87,14 +104,15 @@
     "
     :handleClickSave="handleClickSave"
     :removeUserFromOrg="removeUserFromOrg"
+    :handleClickAssignedOrg="onClickAssignedOrg"
   />
   <UserOrgPermissionModal
     v-if="state.openPermissionModal"
     :name="state.currentUser.name"
     :isOpen="state.openPermissionModal"
-    :currentUserGroup="state.currentUser.userGroups?.[0]?.id"
-    :userGroups="userGroupOptions"
-    :organisationName="getOrganisationText(state.currentUser.organisations)"
+    :currentUserGroup="state.selectedOrg.groupId"
+    :userGroups="userGroups"
+    :organisation="state.selectedOrg.organisation"
     :handleDismiss="
       () => {
         state.openPermissionModal = false;
@@ -105,14 +123,20 @@
 </template>
 
 <script setup lang="ts">
-import { IonGrid, IonRow, IonCol, IonIcon } from "@ionic/vue";
+import {
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonIcon,
+  IonSelect,
+  IonSelectOption,
+} from "@ionic/vue";
 import {
   search,
   checkmarkCircle,
   closeCircle,
   ellipsisVertical,
   personOutline,
-  chevronDown,
 } from "ionicons/icons";
 import { onBeforeMount, computed, reactive } from "vue";
 import { storeToRefs } from "pinia";
@@ -122,7 +146,7 @@ import { Account as useAccountStore } from "@/stores/publicAccount";
 import { Organisations as useOrganisationsStore } from "@/stores/publicOrganisations";
 import UserManagementModal from "@/components/modals/UserManagementModal.vue";
 import UserOrgPermissionModal from "@/components/modals/UserOrgPermissionModal.vue";
-import { UserGroupResponse, UserResponse } from "@/types";
+import { UserGroupResponse, UserResponse, AdminOrganisation } from "@/types";
 
 const usersStore = useUsersStore();
 const { users, userGroups } = storeToRefs(usersStore);
@@ -136,11 +160,13 @@ const state = reactive({
   openPermissionModal: false,
   assignedOrganisations: [] as any[],
   currentUser: {} as UserResponse,
+  selectedOrg: {} as {
+    groupId: string;
+    organisation: AdminOrganisation;
+  },
 });
-const usersList = computed(() =>
-  users.value.filter((user) => user.userGroups.length)
-);
-const userGroupOptions = computed(() => userGroups.value.slice(0, 2));
+
+const userGroupOptions = computed(() => userGroups.value);
 const isGlobalAdmin = computed(() => userPermission.value.isGlobalAdmin);
 const userGroupId = computed(
   () =>
@@ -158,34 +184,23 @@ const getOrganisationText = (organisations: any) => {
   return "";
 };
 
-const handleChangeRole = (
-  id: string,
-  orgId: string | undefined,
-  role: string
-) => {
-  const requestBody = {
-    userGroups: [
-      {
-        groupIds: [role],
-        organisationId: orgId,
-      },
-    ],
-  };
-  usersStore.updateUserRole(id, requestBody);
+const handleChangeRole = (userId: string, orgId: string, groupId: string) => {
+  usersStore.assignRole(orgId, userId, groupId);
 };
 
 const onClickAction = (row: UserResponse) => {
   state.currentUser = row;
   state.assignedOrganisations = row.organisations.map((org) => ({
     ...org,
-    permission: row.userGroups.find((group) => group.organisationId === org.id)
-      ?.name,
+    permission: row.userGroups.find((group) => group.organisationId === org.id),
   }));
   state.openEditModal = true;
 };
 
-const removeUserFromOrg = (orgId: string) => {
-  console.log(orgId);
+const removeUserFromOrg = (event: any, orgId: string) => {
+  event.stopPropagation();
+  usersStore.removeFromOrg(state.currentUser.id, orgId);
+  state.openEditModal = false;
 };
 
 const handleClickSave = (orgId: string) => {
@@ -196,14 +211,23 @@ const handleClickSave = (orgId: string) => {
 };
 
 const handleSavePermission = (groupId: string) => {
-  const currentOrganisationId = state.currentUser.organisations[0].id;
-  handleChangeRole(state.currentUser.id, currentOrganisationId, groupId);
+  handleChangeRole(
+    state.currentUser.id,
+    state.selectedOrg.organisation.organisationId,
+    groupId
+  );
   state.openPermissionModal = false;
 };
 
-const onClickRole = (row: UserResponse) => {
-  state.currentUser = row;
+const onClickAssignedOrg = (assignedOrg: any) => {
+  state.openEditModal = false;
   state.openPermissionModal = true;
+  state.selectedOrg = {
+    groupId: assignedOrg.id,
+    organisation: organisationList.value.find(
+      (org) => org.id === assignedOrg.organisationId
+    ) as AdminOrganisation,
+  };
 };
 
 onBeforeMount(() => {
@@ -240,17 +264,14 @@ ion-row:last-child ion-col {
   border-bottom: solid 1px #44464f;
 }
 
-.userRole {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.modal-panel__select-organisation__select {
+  appearance: none;
+  background: none;
+  border: 0.75px solid #313131;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 16px;
   width: 100%;
-  border-radius: 4px;
-  border: 1px solid #313131;
-  background: #181818;
-  padding: 8px 10px;
-  line-height: 24px;
-  font-size: 14px;
-  cursor: pointer;
 }
 </style>
