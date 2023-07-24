@@ -1,7 +1,7 @@
 <template>
-  <ion-modal :is-open="isOpen" @didDismiss="handleDismiss">
+  <ion-modal :is-open="isOpen" @didDismiss="handleDismiss" class="auto-height">
     <common-modal :title="name" :handleDismiss="() => handleDismiss()">
-      <ion-content>
+      <div>
         <ion-row>
           <ion-col size="12">
             <ion-label class="font-size-sm">Assigned Organisations</ion-label>
@@ -53,7 +53,7 @@
             </ion-select>
           </ion-col>
         </ion-row>
-      </ion-content>
+      </div>
       <ion-footer>
         <ion-button
           class="ion-text-capitalize"
