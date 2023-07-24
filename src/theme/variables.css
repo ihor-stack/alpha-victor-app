@@ -139,6 +139,9 @@ body.dark {
   --ion-color-light-tint: #3b3b3b;
 }
 
+body.dark ion-modal {
+  color: var(--ion-color-primary-contrast, #fff);
+}
 /*
    * iOS Dark Theme
    * -------------------------------------------
