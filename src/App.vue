@@ -3,7 +3,7 @@
     <app-menu />
     <ion-grid class="ion-no-padding">
       <ion-row class="ion-no-padding">
-        <ion-col class="fixed-sidebar ion-padding">
+        <ion-col class="fixed-sidebar ion-padding" v-if="isAuthenticated">
           <desktop-nav />
         </ion-col>
         <ion-col>
@@ -41,6 +41,7 @@ import CustomToast from "@/components/shared/CustomToast.vue";
 import LoadingIndicator from "@/components/shared/LoadingIndicator.vue";
 import { Theme } from "@/types";
 import { Account as useAccountStore } from "@/stores/publicAccount";
+import { auth as useAuthStore } from "@/stores/authStore";
 import { App, URLOpenListenerEvent } from "@capacitor/app";
 import DesktopNav from "@/components/shared/DesktopNav.vue";
 
@@ -118,10 +119,12 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
 
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 const accountStore = useAccountStore();
+const authStore = useAuthStore();
 
 const organisationStore = useOrganisationStore();
 const { currentOrganisationId, theme } = storeToRefs(organisationStore);
 const { userPermission } = storeToRefs(accountStore);
+const { isAuthenticated } = storeToRefs(authStore);
 
 const path = computed(() => route.path);
 
@@ -214,9 +217,11 @@ onBeforeMount(async () => {
   }
   const accessToken = await authService.fetchCurrentAccessToken();
   if (accessToken) {
+    authStore.setAuthStatus(true);
     accountStore.getPermissions();
     organisationStore.getOrganisations();
   } else {
+    authStore.setAuthStatus(false);
     organisationStore.setOrgTheme();
   }
 });
@@ -242,10 +247,6 @@ ion-button {
 .fixed-sidebar {
   width: 30%;
   max-width: 300px;
-}
-
-#content {
-  min-height: 100%;
 }
 
 @media only screen and (max-width: 1023px) {
