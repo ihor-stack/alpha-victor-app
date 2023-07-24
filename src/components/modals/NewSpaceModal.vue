@@ -10,8 +10,6 @@
   <ion-modal
     :is-open="modalOpen"
     @willDismiss="handleDismiss"
-    :initial-breakpoint="0.8"
-    :breakpoints="[0, 0.8]"
   >
     <ion-page>
       <div class="modal-panel">
@@ -25,7 +23,7 @@
             />
             <div class="modal-panel__header">
               <h1
-                class="modal-panel__title color-light-gray font-bold font-size-normal"
+                class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
                 Add new space
               </h1>
@@ -34,43 +32,41 @@
               </p>
             </div>
           </ion-header>
-          <ion-content class="form-admin--group_field">
-            <div class="modal-panel__section modal-panel__select-equipment">
-              <ion-row class="form-admin--group">
-                <ion-col
-                  size-xs="12"
-                  size-sm="6"
-                  class="form-admin--group_field"
-                >
-                  <ion-label>Space name</ion-label>
-                  <ion-input
-                    class="font-size-sm"
-                    placeholder="Space Name"
-                    :value="newSpaceDetails.spaceName"
-                    @ion-input="
-                      newSpaceDetails.spaceName = String($event.target.value)
-                    "
-                  ></ion-input>
-                </ion-col>
+          <div class="modal-panel__section modal-panel__select-equipment">
+            <ion-row class="form-admin--group">
+              <ion-col
+                size-xs="12"
+                size-sm="6"
+                class="form-admin--group_field"
+              >
+                <ion-label>Space name</ion-label>
+                <ion-input
+                  class="font-size-sm"
+                  placeholder="Space Name"
+                  :value="newSpaceDetails.spaceName"
+                  @ion-input="
+                    newSpaceDetails.spaceName = String($event.target.value)
+                  "
+                ></ion-input>
+              </ion-col>
 
-                <ion-col
-                  size-xs="12"
-                  size-sm="6"
-                  class="form-admin--group_field"
-                >
-                  <ion-label>Space shortcode</ion-label>
-                  <ion-input
-                    class="font-size-sm"
-                    placeholder="Space Shortcode"
-                    :value="newSpaceDetails.shortCode"
-                    @ion-input="
-                      newSpaceDetails.shortCode = String($event.target.value)
-                    "
-                  ></ion-input>
-                </ion-col>
-              </ion-row>
-            </div>
-          </ion-content>
+              <ion-col
+                size-xs="12"
+                size-sm="6"
+                class="form-admin--group_field"
+              >
+                <ion-label>Space shortcode</ion-label>
+                <ion-input
+                  class="font-size-sm"
+                  placeholder="Space Shortcode"
+                  :value="newSpaceDetails.shortCode"
+                  @ion-input="
+                    newSpaceDetails.shortCode = String($event.target.value)
+                  "
+                ></ion-input>
+              </ion-col>
+            </ion-row>
+          </div>
           <ion-footer>
             <ion-button
               class="font-size-sm text-lowercase"

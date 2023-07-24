@@ -18,7 +18,7 @@
                   <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
                 </div>
                 <div class="button-container">
-                  <ion-button expand="block" class="button-gray"  @click="signIn"
+                  <ion-button expand="block" class="button-gray" @click="signIn"
                     >Log in</ion-button
                   >
                   <ion-button expand="block" color="light" @click="signup"
@@ -28,9 +28,14 @@
               </div>
               <div class="link-container text-center">
                 <p class="color-mid-gray font-sm">
-                  Prefer to login via email? <span @click="signInEmail" class="color-light-gray link">Send me a login link</span>
-                  <br/><br/>
-                  <span @click="resetPassword" class="color-light-gray link">I've forgot my password</span>
+                  Prefer to login via email?
+                  <span @click="signInEmail" class="color-light-gray link"
+                    >Send me a login link</span
+                  >
+                  <br /><br />
+                  <span @click="resetPassword" class="color-light-gray link"
+                    >I've forgot my password</span
+                  >
                 </p>
               </div>
             </div>
@@ -47,28 +52,32 @@ import { IonContent, IonPage, IonButton } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import DotText from "@/components/shared/DotText.vue";
 import Auth from "@/auth";
+import { auth as useAuthStore } from "@/stores/authStore";
 
 const router = useRouter();
 const authService = new Auth();
+const authStore = useAuthStore();
 
 const signIn = async () => {
   // Sign in logic here
   const authRes = await authService.authenticate(false);
 
   if (authRes) {
+    authStore.setAuthStatus(true);
     return router.replace({ name: "Dashboard" });
   } else {
+    authStore.setAuthStatus(false);
     return router.replace({ name: "Home" });
   }
 };
 
 const signInEmail = async () => {
   return router.replace({ name: "SendEmailLoginLink" });
-}
+};
 
 const resetPassword = async () => {
   return router.replace({ name: "ForgotPassword" });
-}
+};
 
 onBeforeMount(async () => {
   const accessToken = await authService.fetchCurrentAccessToken();
@@ -133,7 +142,7 @@ const signup = () => {
 }
 
 .link:hover {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 /* Desktop styling */

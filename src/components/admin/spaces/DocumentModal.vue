@@ -10,8 +10,6 @@
     <ion-modal
       :is-open="modalOpen"
       @willDismiss="handleDismiss"
-      :initial-breakpoint="1"
-      :breakpoints="[0, 1]"
     >
       <ion-page>
         <div class="modal-panel">
@@ -25,13 +23,13 @@
               />
               <div class="modal-panel__header">
                 <h1
-                  class="modal-panel__title color-light-gray font-bold font-size-normal"
+                  class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
                   Add New Document
                 </h1>
               </div>
             </ion-header>
-            <ion-content :scroll-y="false" class="form-admin--group_field">
+            <div class="form-admin--group_field">
               <div class="modal-panel__section modal-panel__select-equipment">
                 <ion-input
                   placeholder="Document Name"
@@ -57,7 +55,7 @@
                   idPrefix="doc-type-select"
                 />
               </div>
-            </ion-content>
+            </div>
             <ion-footer>
               <ion-button
                 class="font-size-sm text-lowercase"
@@ -140,7 +138,7 @@ const saveNewDocumentType = () => {
 
         const data = {
           base64Payload: encodedFile,
-          fileName: fileName,
+          fileName: 'Brand New File #1.txt',
           documentTypeId: selectedDocType.value.additionalInfo,
           contentType: fileMimeType,
         };

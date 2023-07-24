@@ -23,8 +23,14 @@
             </router-link>
           </ion-title>
           <ion-button fill="clear" color="dark" @click="logout">
-            <ion-icon :icon="logOutOutline" class="logout" color="dark"></ion-icon>
-            <span class="font-bold font-size-xs low-caps">{{ $t('desktopNav.logout')}}</span>
+            <ion-icon
+              :icon="logOutOutline"
+              class="logout"
+              color="dark"
+            ></ion-icon>
+            <span class="font-bold font-size-xs low-caps">{{
+              $t("desktopNav.logout")
+            }}</span>
           </ion-button>
         </div>
       </template>
@@ -33,7 +39,7 @@
       <ul class="nav-menu">
         <li class="nav-menu-link arrow-align">
           <router-link to="/dashboard" class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.dashboard')}}
+            >{{ $t("desktopNav.dashboard") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -43,7 +49,7 @@
 
         <li class="nav-menu-link arrow-align">
           <router-link to="/favourites" class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.favourites')}}
+            >{{ $t("desktopNav.favourites") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -54,7 +60,7 @@
           <router-link
             to="/find-space/location"
             class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.findSpace')}}
+            >{{ $t("desktopNav.findSpace") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -65,7 +71,7 @@
           <router-link
             to="/recently-viewed"
             class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.recentlyViewed')}}
+            >{{ $t("desktopNav.recentlyViewed") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -74,7 +80,7 @@
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link to="/settings" class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.accountSettings') }}
+            >{{ $t("desktopNav.accountSettings") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -83,7 +89,7 @@
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link to="/about" class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.about')}}
+            >{{ $t("desktopNav.about") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -94,7 +100,7 @@
           <router-link
             to="/terms-and-conditions"
             class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.tos')}}
+            >{{ $t("desktopNav.tos") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -102,12 +108,14 @@
           ></router-link>
         </li>
         <div class="spacer-line"></div>
-        <li class="sub-title font-size-xxs color-light-gray">{{ $t('desktopNav.administration')}}</li>
+        <li class="sub-title font-size-xxs color-light-gray">
+          {{ $t("desktopNav.administration") }}
+        </li>
         <li class="nav-menu-link arrow-align">
           <router-link
             to="/admin/organisations"
             class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.organisations')}}
+            >{{ $t("desktopNav.organisations") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -121,7 +129,7 @@
           <router-link
             to="/admin/equipment"
             class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.equipment')}}
+            >{{ $t("desktopNav.equipment") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -135,7 +143,7 @@
           <router-link
             to="/admin/documents"
             class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.documentTypes')}}
+            >{{ $t("desktopNav.documentTypes") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -144,7 +152,7 @@
         </li>
         <li class="nav-menu-link arrow-align">
           <router-link to="/admin/users" class="font-size-sm color-light-gray"
-            >{{ $t('desktopNav.users')}}
+            >{{ $t("desktopNav.users") }}
             <ion-icon
               :icon="chevronForwardOutline"
               class="arrow-right"
@@ -167,12 +175,7 @@
 
 <script setup lang="ts">
 import { reactive } from "vue";
-import {
-  IonTitle,
-  IonContent,
-  IonButton,
-  IonIcon,
-} from "@ionic/vue";
+import { IonTitle, IonContent, IonButton, IonIcon } from "@ionic/vue";
 import { useRouter } from "vue-router";
 
 import {
@@ -187,10 +190,12 @@ import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal
 
 import Auth from "@/auth";
 import { Account as useAccountStore } from "@/stores/publicAccount";
+import { auth as useAuthStore } from "@/stores/authStore";
 
 const router = useRouter();
 const authService = new Auth();
 const accountStore = useAccountStore();
+const authStore = useAuthStore();
 const { userPermission } = storeToRefs(accountStore);
 
 interface State {
@@ -208,6 +213,7 @@ const handleDismiss = () => {
 const logout = async () => {
   const authRes = await authService.logout();
   if (authRes) {
+    authStore.setAuthStatus(false);
     return router.replace({ name: "Home" });
   }
 };
