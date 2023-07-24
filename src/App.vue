@@ -136,14 +136,11 @@ const updateTheme = (theme: Theme) => {
   } else {
     root.style.setProperty("--theme-image", `url('/img/lines-no-logo.svg')`);
   }
-  if (root && theme.primaryColour) {
+  if (root) {
     root.style.setProperty("--ion-color-primary", theme.primaryColour);
   }
-  if (root && theme.secondaryColour) {
-    root.style.setProperty(
-      "--ion-color-secondary",
-      `url('${theme.secondaryColour}')`
-    );
+  if (root) {
+    root.style.setProperty("--ion-color-secondary", theme.primaryColour);
   }
 };
 
@@ -208,7 +205,7 @@ const checkPermission = () => {
 };
 
 onBeforeMount(async () => {
-  const i18n = inject('i18n');
+  const i18n = inject("i18n");
   updateThemeFromStorage();
   const currentOrgId = localStorage.getItem("currentOrganisationId");
   if (currentOrgId) {
@@ -226,7 +223,6 @@ onBeforeMount(async () => {
 </script>
 
 <style scoped>
-
 .ion-page-hidden {
   display: none !important;
 }
