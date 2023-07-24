@@ -537,6 +537,7 @@ export default {
         email: node.email,
         document: node.document,
         phone: node.phone,
+        locked: node.locked,
       });
       newDestination.x = Math.round(newDestination.x / gridSize) * gridSize;
       newDestination.y = Math.round(newDestination.y / gridSize) * gridSize;
