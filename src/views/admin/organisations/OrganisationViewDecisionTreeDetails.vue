@@ -501,15 +501,18 @@ export default {
         const rootNode = {
           id: crypto.randomUUID(),
           text: "New Question",
-          xPosition: 0,
-          yPosition: 0,
+          xxPosition: canvas.value.width / 2 - destinationWidth / 2,
+          yPosition: canvas.value.height / 2 - outcomeHeight / 2,
           children: [],
           type: 2,
         };
         decisionTree.value.root = rootNode;
       }
 
-      if (decisionTree.value?.root) {
+      if (
+        decisionTree.value?.root &&
+        decisionTree.value?.root.children.length < 1
+      ) {
         decisionTree.value.root.xPosition =
           canvas.value.width / 2 - destinationWidth / 2;
         decisionTree.value.root.yPosition =
@@ -991,7 +994,6 @@ export default {
 </script>
 
 <style scoped>
-
 .button-action {
   background-color: white;
   border-radius: 8px;
