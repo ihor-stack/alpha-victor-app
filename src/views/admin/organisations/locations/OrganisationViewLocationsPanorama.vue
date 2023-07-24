@@ -24,7 +24,7 @@
             class="font-size-xs font-mono color-light-gray header-left--label"
           >
             <ion-icon :icon="locationOutline"></ion-icon>
-            Howard Street Belfast
+            {{ space.location?.name }}
           </span>
           <span
             class="font-size-xs font-mono color-light-gray header-left--label"
@@ -41,7 +41,7 @@
         <ion-col>
           <ion-chip class="font-size-xs font-mono" @click="setInitialView">
             <ion-icon :icon="locate" color="secondaryContrast" />
-            <ion-label>Set starting view</ion-label>
+            <ion-label>{{ $t("pages.admin.organisations.view.locations.panorama.label") }}</ion-label>
           </ion-chip>
         </ion-col>
       </ion-row>
@@ -63,7 +63,7 @@
           @click="deletePanorama"
           color="danger"
           :disabled="!currentPanorama?.path"
-          >Delete panorama</ion-button
+          >{{ $t("pages.admin.organisations.view.locations.panorama.deleteBtn") }}</ion-button
         >
       </ion-row>
     </div>

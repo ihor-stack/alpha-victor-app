@@ -1,12 +1,16 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      Announcement
+      {{ $t("pages.admin.organisations.view.locations.announcement.title") }}
     </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group form-admin--group-full">
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
-          <ion-label>Title</ion-label>
+          <ion-label>{{
+            $t(
+              "pages.admin.organisations.view.locations.announcement.labelTitle"
+            )
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             type="text"
@@ -15,7 +19,11 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
-          <ion-label>Content</ion-label>
+          <ion-label>{{
+            $t(
+              "pages.admin.organisations.view.locations.announcement.labelContent"
+            )
+          }}</ion-label>
           <ion-textarea
             class="font-size-sm"
             type="text"
@@ -27,7 +35,11 @@
       <ion-row class="form-admin--group">
         <ion-col size-xs="12">
           <ion-button class="button-wide" @click="submitAnnouncement()">
-            Save announcement
+            {{
+              $t(
+                "pages.admin.organisations.view.locations.announcement.saveBtn"
+              )
+            }}
           </ion-button>
         </ion-col>
       </ion-row>
