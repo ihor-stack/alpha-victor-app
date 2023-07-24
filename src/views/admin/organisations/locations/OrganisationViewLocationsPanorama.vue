@@ -24,7 +24,7 @@
             class="font-size-xs font-mono color-light-gray header-left--label"
           >
             <ion-icon :icon="locationOutline"></ion-icon>
-            Howard Street Belfast
+            {{ space.location?.name }}
           </span>
           <span
             class="font-size-xs font-mono color-light-gray header-left--label"
