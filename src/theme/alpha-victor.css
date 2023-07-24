@@ -185,6 +185,8 @@ ion-toggle {
 
 ion-modal {
   --border-radius: 20px !important;
+}
+ion-modal.auto-height {
   --height: auto;
 }
 
