@@ -330,10 +330,11 @@ export default {
         let textColor = "#FFFFFF";
 
         if (
-          this.x > canvas.value.width ||
-          this.x < -destinationWidth ||
-          this.y < -this.height ||
-          this.y > canvas.value.height
+          this.type !== 3 &&
+          (this.x > canvas.value.width ||
+            this.x < -destinationWidth ||
+            this.y < -this.height ||
+            this.y > canvas.value.height)
         )
           return;
 
@@ -570,6 +571,7 @@ export default {
       if (!c) return;
       c.clearRect(0, 0, canvas.value.width, canvas.value.height);
       drawGrid();
+      console.log(destinations);
       destinations
         .filter((d) => d.type === 3)
         .forEach((d) => {
