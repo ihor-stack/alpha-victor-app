@@ -1,12 +1,12 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      Wifi Password
+      {{ $t("pages.admin.organisations.view.locations.wifi.title")}}
     </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Wifi Network</ion-label>
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.wifi.network")}}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="wifi.wifiName"
@@ -14,7 +14,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Wifi password</ion-label>
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.wifi.password")}}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="wifi.wifiPassword"
@@ -32,9 +32,9 @@
         </ion-col>
 
         <ion-col size-xs="12" class="form-admin--group_field">
-          <ion-label>Show wifi password</ion-label>
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.wifi.show")}}</ion-label>
           <ion-input class="form-toggle" :disabled="true">
-            <ion-label>Show wifi password within space</ion-label>
+            <ion-label>{{ $t("pages.admin.organisations.view.locations.wifi.showSpace")}}</ion-label>
             <ion-toggle
               color="primary"
               :checked="wifi.showWifiPassword"
@@ -45,7 +45,7 @@
 
         <ion-col size-xs="12">
           <ion-button class="button-wide" @click="saveChanges">
-            Save changes
+            {{ $t("pages.admin.organisations.view.locations.wifi.saveBtn")}}
           </ion-button>
         </ion-col>
       </ion-row>

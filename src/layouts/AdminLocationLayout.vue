@@ -8,7 +8,7 @@
           color="dark"
           @click="handleBack"
         >
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{ $t('locationLayout.back')}}</span>
         </ion-button>
         <AdminLocationsNav />
       </div>

@@ -1,9 +1,9 @@
 <template>
   <ion-page>
-    <app-header title="Terms & Conditions">
+    <app-header :title="$t('pages.static.tos.title')">
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{ $t('pages.static.tos.back')}}</span>
         </ion-button>
       </template>
       <template #end>
@@ -11,48 +11,23 @@
           <img
             src="@/theme/icons/nav-menu.svg"
             class="nav-menu"
-            alt="Nav Menu Button"
+            :alt="$t('pages.static.tos.menuBtn')"
           />
         </ion-menu-button>
       </template>
     </app-header>
     <ion-content>
       <div class="text-content">
-        <h2>Privacy Policy</h2>
-        <p>Last updated August 26th, 2022</p>
-        <p>
-          This privacy notice for Uncoded Limited (doing business as Alpha
-          Victor) ('Alpha Victor', 'we', 'us', or 'our',), describes how and why
-          we might collect, store, use, and/or share ('process') your
-          information when you use our services ('Services'), such as when you:
-        </p>
-        <p>
-          Visit our website at http://www.alphavictor.com, or any website of
-          ours that links to this privacy notice Download and use our mobile
-          application (OnlineInside), or any other application of ours that
-          links to this privacy notice
-        </p>
-        <p>
-          Engage with us in other related ways, including any sales, marketing,
-          or events
-        </p>
-        <p>
-          Questions or concerns? Reading this privacy notice will help you
-          understand your privacy rights and choices. If you do not agree with
-          our policies and practices, please do not use our Services. If you
-          still have any questions or concerns, please contact us at
-          hello@uncoded.com.
-        </p>
+        <h2>{{ $t('pages.static.tos.content1.header')}}</h2>
+        <p>{{ $t('pages.static.tos.content1.subtitle')}}</p>
+        <p>{{ $t('pages.static.tos.content1.p1')}}</p>
+        <p>{{ $t('pages.static.tos.content1.p2')}}</p>
+        <p>{{ $t('pages.static.tos.content1.p3')}}</p>
+        <p>{{ $t('pages.static.tos.content1.p4')}}</p>
       </div>
       <div class="text-content">
-        <h2>Summary of key points</h2>
-        <p>
-          This summary provides key points from our privacy notice, but you can
-          find out more details about any of these topics by clicking the link
-          following each key point or by using our table of contents below to
-          find the section you are looking for. You can also click here to go
-          directly to our table of contents.
-        </p>
+        <h2>{{ $t('pages.static.tos.content2.header')}}</h2>
+        <p>{{ $t('pages.static.tos.content2.p')}}</p>
       </div>
     </ion-content>
   </ion-page>

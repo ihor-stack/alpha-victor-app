@@ -1,9 +1,11 @@
 <template>
   <ion-page>
-    <app-header title="Step By Step Guides">
+    <app-header :title="$t('pages.space.getHelp.title')">
       <template #start>
         <ion-button fill="clear" @click="handleBack" class="back">
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.space.getHelp.back")
+          }}</span>
         </ion-button>
       </template>
     </app-header>

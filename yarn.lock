@@ -1049,13 +1049,13 @@
   "resolved" "https://registry.npmjs.org/@byteowls/capacitor-oauth2/-/capacitor-oauth2-4.0.2.tgz"
   "version" "4.0.2"
 
-"@capacitor-community/barcode-scanner@^3.0.3":
-  "integrity" "sha512-XXxiumONhaIgCwzzoZazmNIybsBq0KFvgQZxtv4TWH2zakmr6dOAvj7DYp6KZOapHS/zg3s6czF8MCpFTjbQWQ=="
-  "resolved" "https://registry.npmjs.org/@capacitor-community/barcode-scanner/-/barcode-scanner-3.0.3.tgz"
-  "version" "3.0.3"
+"@capacitor-community/barcode-scanner@^4.0.1":
+  "integrity" "sha512-acuhDU2mqskSeCIQMc5TGNnDszXXs4IqEES+3C2JDiq+MkJMTr+B2Dhq4k55hlkRFMOumMhlnbr2R9G6qyFPhw=="
+  "resolved" "https://registry.npmjs.org/@capacitor-community/barcode-scanner/-/barcode-scanner-4.0.1.tgz"
+  "version" "4.0.1"
   dependencies:
-    "@zxing/browser" "^0.1.1"
-    "@zxing/library" "^0.19.2"
+    "@zxing/browser" "^0.1.3"
+    "@zxing/library" "^0.20.0"
 
 "@capacitor-community/bluetooth-le@^2.1.0":
   "integrity" "sha512-bVxff7QsSsJONUWEPB9sbJu3aiuuL3ISvhhitImvy2gawl3D6giNsjJnDPvYjjKs2o3Xbeq/U71UMx11BDR98g=="
@@ -1142,7 +1142,7 @@
     "tslib" "^2.4.0"
     "xml2js" "^0.5.0"
 
-"@capacitor/core@^4.0.0", "@capacitor/core@^4.4.0", "@capacitor/core@^4.5.0", "@capacitor/core@^4.6.0", "@capacitor/core@^4.7.0", "@capacitor/core@^4.8.0", "@capacitor/core@^5.0.0", "@capacitor/core@>=4":
+"@capacitor/core@^4.0.0", "@capacitor/core@^4.4.0", "@capacitor/core@^4.6.0", "@capacitor/core@^4.7.0", "@capacitor/core@^4.8.0", "@capacitor/core@^5.0.0", "@capacitor/core@>=4":
   "integrity" "sha512-GIUGw1P2Iyh4jb8ZAIWRPtR2zH6ARcpwN5pn/vmIJiTujQBMQmF62s5L3m4XMQSVKlbw8iCPi/YKjlUL+EjKhA=="
   "resolved" "https://registry.npmjs.org/@capacitor/core/-/core-4.8.1.tgz"
   "version" "4.8.1"
@@ -2969,7 +2969,6 @@
     "eslint-visitor-keys" "^3.3.0"
 
 "@uncoded-limited/connect@github:myth-digital/uncoded-connect#1.3.0":
-  "integrity" "sha512-DoZDuWdeMr9j4SJQc4LclvArwrn0mjzcWNXvsRGNSctxvTRY3Nbq+bq77qUC+uaH7ZwmaCnq+Pta6tg6HhoDEA=="
   "resolved" "git+ssh://git@github.com/myth-digital/uncoded-connect.git#c057915ed93c8c7cb7046632523df96859b856b3"
   "version" "0.0.21"
   dependencies:
@@ -3820,17 +3819,17 @@
   "resolved" "https://registry.npmjs.org/@xtuc/long/-/long-4.2.2.tgz"
   "version" "4.2.2"
 
-"@zxing/browser@^0.1.1":
+"@zxing/browser@^0.1.3":
   "integrity" "sha512-WYjaav7St4sj/u/Km2llE4NU2Pq3JFIWnczr0tmyCC1KUlp08rV3qpu7iiEB4kOx/CgcCzrSebNnSmFt5B3IFg=="
   "resolved" "https://registry.npmjs.org/@zxing/browser/-/browser-0.1.4.tgz"
   "version" "0.1.4"
   optionalDependencies:
     "@zxing/text-encoding" "^0.9.0"
 
-"@zxing/library@^0.19.2", "@zxing/library@^0.20.0":
-  "integrity" "sha512-RUv5svewpDoD0ymXleOP8yVTO5BLkR0zn5coGC/Vs1671u0OBJ4xdtR8WVWf08OcvrieEMHdSfQY3ZKtqII/hg=="
-  "resolved" "https://registry.npmjs.org/@zxing/library/-/library-0.19.3.tgz"
-  "version" "0.19.3"
+"@zxing/library@^0.20.0":
+  "integrity" "sha512-6Ev6rcqVjMakZFIDvbUf0dtpPGeZMTfyxYg4HkVWioWeN7cRcnUWT3bU6sdohc82O1nPXcjq6WiGfXX2Pnit6A=="
+  "resolved" "https://registry.npmjs.org/@zxing/library/-/library-0.20.0.tgz"
+  "version" "0.20.0"
   dependencies:
     "ts-custom-error" "^3.2.1"
   optionalDependencies:
@@ -5129,7 +5128,6 @@
     "wcwidth" "^1.0.0"
 
 "com.unarin.cordova.beacon@github:myth-digital/uncoded-ibeacon#v3.0.0":
-  "integrity" "sha512-bBuJRW8DReH0V9uJuwAMmNu02GZwtENX4a/hngqWZf461a1z1neSjpWX/F4pIXxfmOxvUtJC4Dj0giOqkP4xWg=="
   "resolved" "git+ssh://git@github.com/myth-digital/uncoded-ibeacon.git#bc94911f5b27b84a6a2c8b62c2354d02457ebd60"
   "version" "3.8.1"
 
@@ -7135,11 +7133,6 @@
   "integrity" "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
-
-"fsevents@^2.3.2", "fsevents@~2.3.2":
-  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
-  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
-  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
