@@ -12,19 +12,8 @@
               </p>
             </ion-label>
           </ion-item>
-          <!-- <div class="settings-panel__header">
-            <ion-text>
-              <h1 class="settings-panel__title font-bold font-size-normal">
-                Contact
-              </h1>
-            </ion-text>
-            <p class="settings-panel__comment color-light-gray font-size-xs">
-              Simply fill out the form below and someone from AlphaVictor will
-              be in touch soon.
-            </p>
-          </div> -->
         </ion-header>
-        <ion-content :scroll-y="false">
+        <div>
           <ion-input
             type="text"
             class="custom-input"
@@ -51,7 +40,7 @@
             placeholder="Your message"
             :auto-grow="true"
           ></ion-textarea>
-        </ion-content>
+        </div>
         <ion-footer>
           <ion-button expand="block">Send message</ion-button>
         </ion-footer>

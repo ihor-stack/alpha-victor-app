@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, inject, ref } from "vue";
 import { IonButton } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import { publicAPI } from "@/axios";
@@ -33,21 +33,32 @@ const state = reactive({
   shortcode: "",
 });
 
+const isScanning = inject('isScanning') as ReturnType<typeof ref>;
 const searchByQrCode = async () => {
   const body = document.querySelector('body');
+
+  await BarcodeScanner.checkPermission({ force: true });
+  BarcodeScanner.hideBackground();
 
   if (body) {
     body.classList.add('scanner-active');
   }
 
-  await BarcodeScanner.checkPermission({ force: true });
-  BarcodeScanner.hideBackground();
+  isScanning.value = true;
 
-  const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
+  const startScanning = async () => {
+    const scanPromise = BarcodeScanner.startScan();
+    
+    const timeoutPromise = new Promise(() => {
+      setTimeout(() => {
+        closeScanner()
+      }, 10000); // 10 seconds
+    });
 
-  if (body) {
-    body.classList.remove('scanner-active');
-  }
+    return Promise.race([scanPromise, timeoutPromise]);
+  };
+
+  const result = await startScanning();
 
   // if the result has content
   if (result.hasContent) {
@@ -67,18 +78,30 @@ const searchByQrCode = async () => {
     publicAPI
       .get(`Space/SpaceByQR/${orgPrefix}/${locPrefix}/${floorName}/${spaceShort}`)
       .then((response) => {
-        console.log(response);
         if (response?.data?.id) {
           router.push(`/space/${response.data.spaceId}`);
         }
       })
-      .catch((error) => {
+      .catch(() => {
         toastService.show("Error", "The QR code is not valid.", "error", "top");
       })
       .finally(() => {
         loadingService.close(loadId);
       });
   }
+  
+  isScanning.value = false;
+};
+
+const closeScanner = () => {
+  BarcodeScanner.stopScan();
+  const body = document.querySelector('body');
+
+  if (body) {
+    body.classList.remove('scanner-active');
+  }
+
+  isScanning.value = false;
 };
 
 const searchByShortcode = () => {
@@ -137,5 +160,23 @@ const searchByShortcode = () => {
   --padding-top: 0px;
   --padding-bottom: 0px;
   --padding-end: 0px;
+}
+
+.scanner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  background: rgba(0,0,0,.6);
+}
+
+.scanner-overlay .close {
+  color: #fff;
+  font-size: 100px;
 }
 </style>

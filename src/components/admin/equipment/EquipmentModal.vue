@@ -5,8 +5,6 @@
   <ion-modal
     :is-open="state.modalOpen"
     @willDismiss="handleDismiss"
-    :initial-breakpoint="0.8"
-    :breakpoints="[0, 0.8]"
   >
     <ion-page>
       <div class="modal-panel">
@@ -20,7 +18,7 @@
             />
             <div class="modal-panel__header">
               <h1
-                class="modal-panel__title color-light-gray font-bold font-size-normal"
+                class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
                 Add new equipment
               </h1>
@@ -29,7 +27,7 @@
               </p>
             </div>
           </ion-header>
-          <ion-content :scroll-y="false">
+          <div>
             <ion-grid class="form-admin">
               <ion-row class="form-admin--group">
                 <ion-col
@@ -101,7 +99,7 @@
                 </ion-col>
               </ion-row>
             </ion-grid>
-          </ion-content>
+          </div>
           <ion-footer>
             <ion-button
               class="font-size-sm text-lowercase"
