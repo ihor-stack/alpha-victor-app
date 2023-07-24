@@ -1,9 +1,9 @@
 <template>
   <ion-page>
-    <app-header title="Legal Notices">
+    <app-header :title="$t('pages.static.legalNotices.title')">
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{ $t('pages.static.legalNotices.back')}}</span>
         </ion-button>
       </template>
       <template #end>
@@ -11,48 +11,24 @@
           <img
             src="@/theme/icons/nav-menu.svg"
             class="nav-menu"
-            alt="Nav Menu Button"
+            :alt="$t('pages.static.legalNotices.menuBtn')"
           />
         </ion-menu-button>
       </template>
     </app-header>
     <ion-content>
       <div class="text-content">
-        <h2>Barcode scanner</h2>
-        <p>@capacitor-community/barcode-scanner</p>
-        <p>
-          Permission is hereby granted, free of charge, to any person obtaining
-          a copy of this software and associated documentation files (the
-          "Software"), to deal in the Software without restriction, including
-          without limitation the rights to use, copy, modify, merge, publish,
-          distribute, sublicense, and/or sell copies of the Software, and to
-          permit persons to whom the Software is furnished to do so, subject to
-          the following conditions:
-        </p>
-
-        <p>
-          The above copyright notice and this permission notice shall be
-          included in all copies or substantial portions of the Software.
-        </p>
-
-        <p>
-          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-          EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-          MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-          IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-          CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-          TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-          SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-        </p>
+        <h2>{{ $t('pages.static.legalNotices.content1.header')}}</h2>
+        <p>{{ $t('pages.static.legalNotices.content1.subtitle')}}</p>
+        <p>{{ $t('pages.static.legalNotices.content1.p1')}}</p>
+        <p>{{ $t('pages.static.legalNotices.content1.p2')}}</p>
+        <p>{{ $t('pages.static.legalNotices.content1.p3')}}</p>
       </div>
       <div class="text-content">
-        <h2>Google Maps</h2>
-        <p>@googlemaps/js-api-loader</p>
+        <h2>{{ $t('pages.static.legalNotices.content2.header')}}</h2>
+        <p>{{ $t('pages.static.legalNotices.content2.subtitle')}}</p>
 
-        <p>
-          Licensed under the Apache License, Version 2.0 (the "License"); you
-          may not use this file except in compliance with the License.
-        </p>
+        <p>{{ $t('pages.static.legalNotices.content2.p')}}</p>
       </div>
     </ion-content>
   </ion-page>

@@ -45,7 +45,7 @@
       </ion-row>
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Space name</ion-label>
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.name") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="space.spaceName"
@@ -53,7 +53,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Space shortcode</ion-label>
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.shortcode") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="space.shortcode"
@@ -61,17 +61,17 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Room type</ion-label>
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.roomType") }}</ion-label>
           <AdminSelect
             v-if="formattedSelect.length"
             v-model="roomTypeSelected"
             :options="formattedSelect"
             idPrefix="room-type-select"
           />
-          <ion-label class="empty-state" v-else>No room types exist</ion-label>
+          <ion-label class="empty-state" v-else>{{ $t("pages.admin.organisations.view.locations.spaces.notifyRoomType") }}</ion-label>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Capacity</ion-label>
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.capacity") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="space.capacity"
@@ -79,7 +79,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Typeform ID</ion-label>
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.typeform") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="space.typeformId"
@@ -87,7 +87,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Decision Tree</ion-label>
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.decision") }}</ion-label>
           <AdminSelect
             v-if="decisionTreeList.length"
             :options="decisionTreeList"
@@ -95,14 +95,14 @@
             idPrefix="decision-tree-select"
           />
           <ion-label class="empty-state" v-else
-            >No decision trees exist</ion-label
+            >{{ $t("pages.admin.organisations.view.locations.spaces.notifyDecisionTree") }}</ion-label
           >
         </ion-col>
       </ion-row>
 
       <hr class="form-admin--divider" />
       <ion-item lines="none" class="ion-no-padding">
-        <ion-label>Photos</ion-label>
+        <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.photos") }}</ion-label>
         <PhotoModal
           :isFirstPhoto="isFirstPhoto"
           :queryParams="`spaceId=${spaceId}`"
@@ -117,7 +117,7 @@
       />
       <hr class="form-admin--divider" />
       <ion-item lines="none" class="ion-no-padding">
-        <ion-label>Documents</ion-label>
+        <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.documents") }}</ion-label>
         <DocumentModal :organisationId="organisationId" />
       </ion-item>
 
@@ -144,7 +144,7 @@
               size="small"
               @click="removeSpacesDocument(document.id)"
             >
-              &gt;&gt; remove
+              {{ $t("pages.admin.organisations.view.locations.spaces.remove") }}
             </ion-button>
           </ion-item>
         </ion-col>
@@ -175,10 +175,10 @@
     </ion-grid>
     <div class="button-pair">
       <ion-button class="button-wide" @click="Space.updateSpace(spaceId)">
-        Save changes
+        {{ $t("pages.admin.organisations.view.locations.spaces.saveBtn") }}
       </ion-button>
       <ion-button class="button-wide button-red button-outline" color="red">
-        Delete space
+        {{ $t("pages.admin.organisations.view.locations.spaces.deleteBtn") }}
       </ion-button>
     </div>
   </div>

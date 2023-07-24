@@ -1,9 +1,11 @@
 <template>
   <ion-page>
-    <app-header title="Known Issues">
+    <app-header :title="$t('pages.space.knownIssues.title')">
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.space.knownIssues.back")
+          }}</span>
         </ion-button>
       </template>
     </app-header>
@@ -16,12 +18,11 @@
           :click-handler="handleIssueClick"
         />
 
-        <ion-item
-          v-else
-          lines="none"
-        >
+        <ion-item v-else lines="none">
           <ion-label>
-            <h2 class="color-dark-gray">no.issues.reported</h2>
+            <h2 class="color-dark-gray">
+              {{ $t("pages.space.knownIssues.itemLabel") }}
+            </h2>
           </ion-label>
         </ion-item>
       </div>
@@ -36,9 +37,9 @@
     </ion-content>
     <ion-footer>
       <div class="known-issues__report-issue">
-        <ion-button expand="block" @click="handleReportIssueClick"
-          >Report Issue</ion-button
-        >
+        <ion-button expand="block" @click="handleReportIssueClick">{{
+          $t("pages.space.knownIssues.footer")
+        }}</ion-button>
       </div>
     </ion-footer>
     <ion-modal

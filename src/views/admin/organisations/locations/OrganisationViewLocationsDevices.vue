@@ -1,6 +1,8 @@
 <template>
   <ion-grid class="form-admin">
-    <h1 class="title-admin font-bold font-size-lg color-light-gray">Devices</h1>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">
+      {{ $t("pages.admin.organisations.view.locations.devices.title") }}
+    </h1>
     <ion-row>
       <ion-col size-xs="12">
         <ion-accordion-group>
@@ -30,7 +32,9 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Serial number</ion-label>
+                  <ion-label>{{
+                    $t("pages.admin.organisations.view.locations.devices.sn")
+                  }}</ion-label>
                   <ion-input
                     class="font-size-sm"
                     :value="device.serialNumber"
@@ -44,7 +48,11 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Installer</ion-label>
+                  <ion-label>{{
+                    $t(
+                      "pages.admin.organisations.view.locations.devices.installer"
+                    )
+                  }}</ion-label>
                   <ion-input
                     class="font-size-sm"
                     :value="device.installer"
@@ -56,7 +64,11 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Install date</ion-label>
+                  <ion-label>{{
+                    $t(
+                      "pages.admin.organisations.view.locations.devices.installDate"
+                    )
+                  }}</ion-label>
                   <ion-datetime-button
                     :datetime="`installDate${device.id}`"
                     class="date-button"
@@ -79,7 +91,11 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Warranty expiry date</ion-label>
+                  <ion-label>{{
+                    $t(
+                      "pages.admin.organisations.view.locations.devices.expiryDate"
+                    )
+                  }}</ion-label>
                   <ion-datetime-button
                     :datetime="`warrantyDate${device.id}`"
                   ></ion-datetime-button>
@@ -97,7 +113,11 @@
                   </ion-modal>
                 </ion-col>
                 <ion-col size-xs="12" class="form-admin--group_field">
-                  <ion-label>Description</ion-label>
+                  <ion-label>{{
+                    $t(
+                      "pages.admin.organisations.view.locations.devices.description"
+                    )
+                  }}</ion-label>
                   <ion-textarea
                     class="font-size-sm"
                     :value="device.description"
@@ -106,7 +126,11 @@
                     "
                   ></ion-textarea>
                   <ion-item lines="none">
-                    <ion-label>Photos</ion-label>
+                    <ion-label>{{
+                      $t(
+                        "pages.admin.organisations.view.locations.devices.photos"
+                      )
+                    }}</ion-label>
                     <PhotoModal
                       :queryParams="`deviceId=${device.id}`"
                       :hiddenFeatureImageToggle="true"
@@ -120,14 +144,22 @@
                 </ion-col>
                 <ion-col size-xs="12">
                   <ion-button class="button-wide" @click="editDevice()">
-                    Save changes
+                    {{
+                      $t(
+                        "pages.admin.organisations.view.locations.devices.saveBtn"
+                      )
+                    }}
                   </ion-button>
                   <ion-button
                     class="button-wide button-red"
                     fill="clear"
                     @click="deleteDevice()"
                   >
-                    or delete device
+                    {{
+                      $t(
+                        "pages.admin.organisations.view.locations.devices.deleteBtn"
+                      )
+                    }}
                   </ion-button>
                 </ion-col>
               </ion-row>
