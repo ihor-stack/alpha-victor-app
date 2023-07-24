@@ -10,8 +10,6 @@
   <ion-modal
     :is-open="modalOpen"
     @willDismiss="handleDismiss"
-    :initial-breakpoint="0.8"
-    :breakpoints="[0, 0.8]"
   >
     <ion-page>
       <div class="modal-panel">
@@ -25,7 +23,7 @@
             />
             <div class="modal-panel__header">
               <h1
-                class="modal-panel__title color-light-gray font-bold font-size-normal"
+                class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
                 Add new floor
               </h1>
