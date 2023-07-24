@@ -3,7 +3,7 @@
     <app-header>
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{ $t('pages.space.document.back')}}</span>
         </ion-button>
       </template>
     </app-header>

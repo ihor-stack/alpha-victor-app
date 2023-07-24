@@ -8,7 +8,9 @@
           class="back color-light-gray"
           @click="() => router.back()"
         >
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.space.space.back")
+          }}</span>
         </ion-button>
       </template>
       <template #end>
@@ -70,7 +72,14 @@
           </div>
         </div>
 
-        <div class="space-features-slider-container" v-if="currentSpace && currentSpace.spaceFeatures && currentSpace.spaceFeatures.length">
+        <div
+          class="space-features-slider-container"
+          v-if="
+            currentSpace &&
+            currentSpace.spaceFeatures &&
+            currentSpace.spaceFeatures.length
+          "
+        >
           <space-features-slider :features="currentSpace.spaceFeatures" />
         </div>
 
@@ -112,15 +121,15 @@
             expand="block"
             @click="state.reportIssueModalOpen = true"
           >
-            Report Issue
+            {{ $t("pages.space.space.reportIssue") }}
           </ion-button>
-          
+
           <ion-button
             v-if="currentSpace.typeformId"
             expand="block"
             @click="goToFeedback"
           >
-            Give Feedback
+            {{ $t("pages.space.space.giveFeedback") }}
           </ion-button>
         </div>
       </div>
@@ -182,7 +191,7 @@ const setFavoriteSpace = () => {
 };
 
 const goToFeedback = () => {
-  router.push({ name: 'Feedback' });  // replace 'RouteName' with the name of your route
+  router.push({ name: "Feedback" }); // replace 'RouteName' with the name of your route
 };
 
 onBeforeMount(() => {

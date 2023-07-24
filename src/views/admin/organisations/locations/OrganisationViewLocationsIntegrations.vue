@@ -1,18 +1,28 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      Integrations
+      {{ $t("pages.admin.organisations.view.locations.integrations.title") }}
     </h1>
-    <h2 class="font-bold font-size-sm color-light-gray">Ubiqisense</h2>
+    <h2 class="font-bold font-size-sm color-light-gray">
+      {{ $t("pages.admin.organisations.view.locations.integrations.subtitle") }}
+    </h2>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
-          <ion-label>Select location</ion-label>
+          <ion-label>{{
+            $t(
+              "pages.admin.organisations.view.locations.integrations.selectLocation"
+            )
+          }}</ion-label>
           <AdminSelect v-model="selectedLocation" :options="locations" />
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-button class="font-size-sm" @click="saveChanges()">
-            Save changes
+            {{
+              $t(
+                "pages.admin.organisations.view.locations.integrations.saveBtn"
+              )
+            }}
           </ion-button>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -20,7 +30,11 @@
             class="font-size-sm text-lowercase delete-button"
             fill="clear"
           >
-            or clear integration
+            {{
+              $t(
+                "pages.admin.organisations.view.locations.integrations.clearBtn"
+              )
+            }}
           </ion-button>
         </ion-col>
       </ion-row>
