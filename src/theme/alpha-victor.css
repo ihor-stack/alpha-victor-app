@@ -866,8 +866,13 @@ body.dark ion-menu-button {
 }
 
 body.scanner-active {
+  background: none;
   --background: transparent;
   --ion-background-color: transparent;
+}
+
+ion-content.transparent::part(scroll) {
+  background: none;
 }
 
 .ml-2 {

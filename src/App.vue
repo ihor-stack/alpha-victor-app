@@ -28,17 +28,19 @@
       :duration="toastService.toast.value.duration"
       :isOpen="toastService.toast.value.isOpen"
     />
+    <ScannerOverlay />
   </ion-app>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, watch, computed, inject } from "vue";
+import { onBeforeMount, watch, computed, inject, ref, provide } from "vue";
 import { IonApp } from "@ionic/vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import AppMenu from "./components/shared/AppMenu.vue";
 import CustomToast from "@/components/shared/CustomToast.vue";
 import LoadingIndicator from "@/components/shared/LoadingIndicator.vue";
+import ScannerOverlay from "@/components/shared/ScannerOverlay.vue";
 import { Theme } from "@/types";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { App, URLOpenListenerEvent } from "@capacitor/app";
@@ -52,6 +54,9 @@ import Auth from "@/auth";
 const route = useRoute();
 const router = useRouter();
 const authService = new Auth();
+
+const isScanning = ref(false);
+provide('isScanning', isScanning);
 
 App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
   if (!event.url) return;
