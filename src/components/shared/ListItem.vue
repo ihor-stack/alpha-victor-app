@@ -1,30 +1,34 @@
 <template>
-  <li class="list-item"
-    @click="props.clickHandler()">
+  <li class="list-item" @click="props.clickHandler()">
     <div class="list-item__info">
       <slot name="icon"></slot>
       <div class="list-item__details">
-        <p class="primaryText font-bold font-size-sm color-light-gray">
-          {{ props.primaryText }}
-        </p>
-        <p v-if="props.secondaryText"
-          class="secondaryText font-mono font-size-xxs color-dark-gray text-lowercase">
+        <ion-text>
+          <p class="primaryText font-bold font-size-sm">
+            {{ props.primaryText }}
+          </p>
+        </ion-text>
+        <p
+          v-if="props.secondaryText"
+          class="secondaryText font-mono font-size-xxs color-dark-gray text-lowercase"
+        >
           {{ useDotify(props.secondaryText) }}
         </p>
       </div>
     </div>
-    <span class="arrow-right"></span>
+    <ion-icon :icon="chevronForwardOutline"></ion-icon>
   </li>
 </template>
 
 <script setup lang="ts">
 import { defineProps } from "vue";
 import { useDotify } from "@/composables/utilities";
+import { chevronForwardOutline } from "ionicons/icons";
 
 interface Props {
-  primaryText: string
-  secondaryText: string
-  clickHandler?: any
+  primaryText: string;
+  secondaryText: string;
+  clickHandler?: any;
 }
 
 const props = defineProps<Props>();
@@ -64,5 +68,4 @@ const props = defineProps<Props>();
   background-size: 8px 12px;
   background-position: center;
 }
-
 </style>

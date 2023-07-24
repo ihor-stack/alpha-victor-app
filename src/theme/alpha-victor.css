@@ -159,7 +159,6 @@ ion-button {
   width: 100%;
   padding: 18px 24px;
   min-height: 100px;
-  color: var(--av-light-gray);
   font-size: 15px;
   line-height: 20px;
 }
