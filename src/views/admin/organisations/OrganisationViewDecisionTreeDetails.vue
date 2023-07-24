@@ -537,6 +537,7 @@ export default {
         email: node.email,
         document: node.document,
         phone: node.phone,
+        locked: node.locked,
       });
       newDestination.x = Math.round(newDestination.x / gridSize) * gridSize;
       newDestination.y = Math.round(newDestination.y / gridSize) * gridSize;
@@ -606,11 +607,7 @@ export default {
         ) {
           return;
         }
-        if (
-          destinationHover === "click" &&
-          destination.type !== 3 &&
-          !destination.lock
-        ) {
+        if (destinationHover === "click" && destination.type !== 3) {
           dragDestination = destination;
         }
       });
@@ -938,6 +935,7 @@ export default {
         documentId: destination.document?.id,
         xPosition: destination.x,
         yPosition: destination.y,
+        locked: destination.locked,
       };
       const children = [];
       if (destination?.children) {

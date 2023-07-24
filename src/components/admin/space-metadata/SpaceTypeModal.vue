@@ -18,18 +18,16 @@
                 class="close-button"
                 @click="modalOpen = false"
               />
-              <div class="modal-panel__header">
-                <h1
-                  class="modal-panel__title color-light-gray font-bold font-size-lg"
-                >
-                  Add new space type
-                </h1>
-                <p class="modal-panel__comment color-light-gray font-size-sm">
-                  You can create a new space Type via the form below.
-                </p>
-              </div>
+              <ion-item class="modal-panel__header" lines="none">
+                <ion-label>
+                  <h2 class="font-bold font-size-lg">Add new space type</h2>
+                  <p class="font-size-sm">
+                    You can create a new space Type via the form below.
+                  </p>
+                </ion-label>
+              </ion-item>
             </ion-header>
-            <div class="form-admin--group_field">
+            <ion-item class="form-admin--group_field" lines="none">
               <div class="modal-panel__section modal-panel__select-equipment">
                 <ion-input
                   placeholder="e.g. meeting room"
@@ -37,7 +35,7 @@
                   @input="newType = $event.target.value"
                 />
               </div>
-            </div>
+            </ion-item>
             <ion-footer>
               <ion-button
                 class="font-size-sm text-lowercase"

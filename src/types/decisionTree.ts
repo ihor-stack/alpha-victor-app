@@ -65,6 +65,7 @@ export class DecisionTreeNode {
       email,
       document,
       children,
+      locked,
     } = data;
     this.id = id;
     this.text = text;
@@ -79,6 +80,6 @@ export class DecisionTreeNode {
     this.document = document;
     this.children = children;
     this.hover = false;
-    this.locked = false;
+    this.locked = locked;
   }
 }
