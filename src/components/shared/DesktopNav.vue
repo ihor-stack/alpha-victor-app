@@ -3,6 +3,16 @@
     <desktop-header class="no-background">
       <template #start>
         <div class="header-spacing">
+          <ion-button
+            class="switch-organisation"
+            shape="round"
+            @click="state.modalOpen = true"
+          >
+            <img
+              src="@/theme/icons/switch-location.svg"
+              alt="Switch Organisation"
+            />
+          </ion-button>
           <ion-title class="no-lp">
             <router-link to="/dashboard">
               <img
@@ -143,71 +153,28 @@
         </li>
       </ul>
     </ion-content>
-  </div>
-  <!-- <ion-menu>
-    <app-header class="no-background">
-      <template #start>
-        <ion-button fill="clear"  @click="logout">
-          <ion-icon
-            :icon="logOutOutline"
-            
-            class="logout"
-          ></ion-icon>
-          <span class="font-mono font-size-xs">logout</span>
-        </ion-button>
-      </template>
 
-      <template #end>
-        <ion-menu-toggle>
-          <ion-icon :icon="closeOutline"  size="large"></ion-icon>
-        </ion-menu-toggle>
-      </template>
-    </app-header>
-    <ion-content class="ion-padding">
-      <ul class="nav-menu">
-        <li class="nav-menu-link">
-          <router-link to="/" class="font-size-lg color-light-gray"
-            >Home</router-link
-          >
-        </li>
-        <li class="nav-menu-link">
-          <router-link to="/settings" class="font-size-lg color-light-gray"
-            >Settings</router-link
-          >
-        </li>
-        <li class="nav-menu-link">
-          <router-link to="/dashboard" class="font-size-lg color-light-gray"
-            >Dashboard</router-link
-          >
-        </li>
-        <li class="nav-menu-link">
-          <router-link to="/space" class="font-size-lg color-light-gray"
-            >Space</router-link
-          >
-        </li>
-        <div class="spacer-line"></div>
-        <li class="nav-menu-link">
-          <router-link to="/admin" class="font-size-lg color-light-gray"
-            >Admin</router-link
-          >
-        </li>
-      </ul>
-    </ion-content>
-  </ion-menu> -->
+    <ion-modal
+      :is-open="state.modalOpen"
+      :initial-breakpoint="0.4"
+      :breakpoints="[0, 0.4]"
+      @willDismiss="handleDismiss"
+    >
+      <organisation-select-modal :handleDismiss="handleDismiss" />
+    </ion-modal>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { reactive } from "vue";
 import {
-  IonMenu,
   IonTitle,
   IonContent,
-  IonMenuToggle,
   IonButton,
   IonIcon,
 } from "@ionic/vue";
 import { useRouter } from "vue-router";
 
-import DesktopHeader from "@/components/shared/DesktopHeader.vue";
 import {
   closeOutline,
   logOutOutline,
@@ -215,7 +182,9 @@ import {
 } from "ionicons/icons";
 import { storeToRefs } from "pinia";
 
-import AppHeader from "./AppHeader.vue";
+import DesktopHeader from "@/components/shared/DesktopHeader.vue";
+import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
+
 import Auth from "@/auth";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 
@@ -223,6 +192,19 @@ const router = useRouter();
 const authService = new Auth();
 const accountStore = useAccountStore();
 const { userPermission } = storeToRefs(accountStore);
+
+interface State {
+  modalOpen: boolean;
+}
+
+const state: State = reactive({
+  modalOpen: false,
+});
+
+const handleDismiss = () => {
+  state.modalOpen = false;
+};
+
 const logout = async () => {
   const authRes = await authService.logout();
   if (authRes) {

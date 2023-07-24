@@ -991,6 +991,7 @@ export default {
 </script>
 
 <style scoped>
+
 .button-action {
   background-color: white;
   border-radius: 8px;
