@@ -557,7 +557,7 @@ ion-button.button-red {
 }
 
 .modal-panel__title {
-  margin-bottom: 22px;
+  margin-bottom: 12px;
 }
 
 .modal-panel__section {
@@ -766,8 +766,13 @@ ion-toast.customToast::part(message) {
 
 .form-admin--group_field {
   margin: 10px 0;
-  padding-right: 10px;
-  padding-left: 10px;
+}
+
+@media only screen and (min-width: 1023px) {
+  .form-admin--group_field {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 }
 
 .form-admin--group_field:nth-child(2n-1) {
@@ -866,6 +871,7 @@ body.dark ion-menu-button {
 
 body.scanner-active {
   background: none;
+  background-color: transparent;
   --background: transparent;
   --ion-background-color: transparent;
 }
