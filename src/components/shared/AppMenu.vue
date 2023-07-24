@@ -9,7 +9,9 @@
             @click="logout"
           >
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
-            <span class="font-mono font-size-xs logout-text">{{ $t('appMenu.logout') }}</span>
+            <span class="font-mono font-size-xs logout-text">{{
+              $t("appMenu.logout")
+            }}</span>
           </ion-button>
         </ion-menu-toggle>
       </template>
@@ -34,7 +36,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t('appMenu.dashboard') }}</span>
+              <span class="link-text">{{ $t("appMenu.dashboard") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -46,7 +48,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t('appMenu.favourites') }}</span>
+              <span class="link-text">{{ $t("appMenu.favourites") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -58,7 +60,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t('appMenu.findSpace') }}</span>
+              <span class="link-text">{{ $t("appMenu.findSpace") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -70,7 +72,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t('appMenu.recentlyViewed') }}</span>
+              <span class="link-text">{{ $t("appMenu.recentlyViewed") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -82,7 +84,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t('appMenu.accountSettings') }}</span>
+              <span class="link-text">{{ $t("appMenu.accountSettings") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -94,7 +96,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t('appMenu.about') }}</span>
+              <span class="link-text">{{ $t("appMenu.about") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -106,7 +108,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t('appMenu.tos') }}</span>
+              <span class="link-text">{{ $t("appMenu.tos") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -119,7 +121,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t('appMenu.admin') }}</span>
+              <span class="link-text">{{ $t("appMenu.admin") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -128,12 +130,12 @@
     <ion-footer>
       <div class="footer">
         <div class="footer-contact">
-          <p class="contact font-mono">{{ $t('appMenu.contact') }}</p>
+          <p class="contact font-mono">{{ $t("appMenu.contact") }}</p>
         </div>
         <div class="footer-hello">
           <a href="mailto: hello@alphavictor.com">hello@alphavictor.com</a>
           <div class="footer-details">
-            <p class="font-mono">{{ $t('appMenu.footer') }}</p>
+            <p class="font-mono">{{ $t("appMenu.footer") }}</p>
             <ul class="footer-links">
               <li>
                 <a href="">
@@ -210,7 +212,7 @@ const logout = async () => {
 ion-menu {
   --min-width: 100vw;
   --background: url("@/theme/backgrounds/menu-background.svg") no-repeat
-    var(--av-primary);
+    var(--ion-color-primary, #3880ff);
 }
 
 ion-content {
@@ -249,7 +251,6 @@ ion-item::part(detail-icon) {
 
 .nav-menu-link ion-item {
   --background: none;
-  --color: #ffffff;
   --padding-start: 0;
   --padding-end: 0;
   --inner-padding-end: 0;
@@ -263,7 +264,6 @@ ion-item::part(detail-icon) {
   font-weight: 700;
   font-size: 18px;
   line-height: 21px;
-  color: #ffffff;
 }
 
 hr {
@@ -347,7 +347,7 @@ ion-footer {
   align-items: flex-end;
 }
 
-.footer-links li { 
+.footer-links li {
   display: inline-block;
   width: 24px;
   height: 24px;
