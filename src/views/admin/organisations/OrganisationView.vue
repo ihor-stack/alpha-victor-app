@@ -83,7 +83,7 @@
           router-direction="root"
         >
           <span class="link-text">{{
-            $t("pages.admin.organisations.view.locations")
+            $t("pages.admin.organisations.view.locations.title")
           }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>

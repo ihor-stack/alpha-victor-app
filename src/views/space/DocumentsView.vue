@@ -1,9 +1,9 @@
 <template>
   <ion-page>
-    <app-header title="Documents">
+    <app-header :title="$t('pages.space.documents.title')">
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">&lt;&lt; back</span>
+          <span class="font-mono font-size-xs">{{ $t('pages.space.documents.back')}}</span>
         </ion-button>
       </template>
     </app-header>
