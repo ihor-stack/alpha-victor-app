@@ -4,7 +4,7 @@
     description="You can add a phone number to be presented via the form field below. "
     :handleDismiss="() => handleDismiss()"
   >
-    <ion-content :scroll-y="false">
+    <div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
           <ion-label>Phone Number</ion-label>
@@ -29,7 +29,7 @@
       >
         Back to destination
       </ion-button>
-    </ion-content>
+    </div>
   </common-modal>
 </template>
 <script setup>
