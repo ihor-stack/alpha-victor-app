@@ -2,18 +2,16 @@
   <ion-page>
     <div class="settings-panel">
       <div class="settings-panel-container">
-        <ion-header>
-          <div class="settings-panel__header">
-            <h1
-              class="settings-panel__title color-light-gray font-bold font-size-lg"
-            >
-              Contact
-            </h1>
-            <p class="settings-panel__comment color-light-gray font-size-xs">
-              Simply fill out the form below and someone from AlphaVictor will
-              be in touch soon.
-            </p>
-          </div>
+        <ion-header class="ion-no-border">
+          <ion-item class="settings-panel__header" lines="none">
+            <ion-label>
+              <h2 class="font-bold font-size-md">Contact</h2>
+              <p class="font-size-xs">
+                Simply fill out the form below and someone from AlphaVictor will
+                be in touch soon.
+              </p>
+            </ion-label>
+          </ion-item>
         </ion-header>
         <div>
           <ion-input
@@ -71,4 +69,8 @@ const state = reactive({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.settings-panel__header {
+  border-bottom: none;
+}
+</style>

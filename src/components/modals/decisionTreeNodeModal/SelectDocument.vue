@@ -4,7 +4,7 @@
     description="You can select a document to be presented via the drop downs below."
     :handleDismiss="() => handleDismiss()"
   >
-    <ion-content>
+    <div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
           <ion-label>Manufacturer</ion-label>
@@ -64,7 +64,7 @@
         :selectedItem="state.selectedDocument"
         :handleSelectItem="(item) => (state.selectedDocument = item)"
       ></CustomList>
-    </ion-content>
+    </div>
     <ion-footer>
       <ion-button
         class="ion-text-capitalize ion-margin-top"
