@@ -1072,7 +1072,7 @@ export default {
 
 .fixed-sidebar {
   width: 30%;
-  max-width: 270px;
+  max-width: 300px;
 }
 
 #pageContainer {

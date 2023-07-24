@@ -7,17 +7,18 @@ interface ToastObject {
   position?: string;
   status?: 'generic' | 'success' | 'problem' | 'error';
   duration?: number;
+  color?: string;
 }
 
 export interface ToastService {
   toast: Ref<ToastObject>;
-  show: (header: string, message: string, status: 'generic' | 'success' | 'problem' | 'error', position: string, duration?: number) => void;
+  show: (header: string, message: string, status: 'generic' | 'success' | 'problem' | 'error', position: string, duration?: number, color?: string) => void;
   close: () => void;
 }
 
 const toast: Ref<ToastObject> = ref({});
 
-const show = (header: string, message: string, status: 'generic' | 'success' | 'problem' | 'error', position: string, duration = 3000) => {
+const show = (header: string, message: string, status: 'generic' | 'success' | 'problem' | 'error', position: string, duration = 3000, color = 'dark') => {
   toast.value = {
     isOpen: true,
     header,
@@ -25,6 +26,7 @@ const show = (header: string, message: string, status: 'generic' | 'success' | '
     position,
     status,
     duration,
+    color
   };
 
   setTimeout(() => {

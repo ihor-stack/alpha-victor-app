@@ -347,7 +347,7 @@ ion-footer {
   align-items: flex-end;
 }
 
-.footer-links li {
+.footer-links li { 
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -361,5 +361,11 @@ ion-footer {
   width: 100%;
   height: 100%;
   display: flex;
+}
+
+@media only screen and (min-width: 1023px) {
+  ion-menu {
+    display: none;
+  }
 }
 </style>

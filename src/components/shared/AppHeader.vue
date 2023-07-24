@@ -1,7 +1,7 @@
 <template>
-  <ion-header :class="['ion-no-border', noBackground ? 'no-background' : '']">
+  <ion-header :class="['app-header ion-no-border', noBackground ? 'no-background' : '']">
     <ion-toolbar>
-      <ion-buttons slot="start" mode="md">
+      <ion-buttons slot="start" mode="md" class="app-header--left">
         <slot name="start"></slot>
       </ion-buttons>
 
@@ -17,7 +17,7 @@
         </router-link>
       </ion-title>
 
-      <ion-buttons slot="end" mode="md">
+      <ion-buttons slot="end" mode="md" class="app-header--right">
         <slot name="end"></slot>
       </ion-buttons>
     </ion-toolbar>
@@ -86,5 +86,11 @@ ion-buttons {
 }
 .logo {
   height: 50px;
+}
+
+@media only screen and (min-width: 1023px) {
+  .app-header--right {
+    visibility: hidden;
+  }
 }
 </style>

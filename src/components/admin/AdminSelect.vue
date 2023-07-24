@@ -90,10 +90,13 @@ ion-popover::part(backdrop) {
 }
 ion-popover .admin-select {
   background-color: white;
-  padding: 0 20px;
+  padding: 0 15px;
   list-style: none;
+  border-radius: 0 0 10px 10px;
+  margin-top: 0;
 }
 ion-popover .admin-select--item {
+  color: #000;
   padding: 20px 0;
   border-bottom: 1px solid var(--av-mid-gray);
   cursor: pointer;

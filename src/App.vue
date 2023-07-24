@@ -1,7 +1,18 @@
 <template>
   <ion-app>
     <app-menu />
-    <router-view id="content" />
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col class="fixed-sidebar ion-padding">
+          <desktop-nav />
+        </ion-col>
+        <ion-col>
+          <ion-content class="ion-no-padding">
+            <router-view id="content" />
+          </ion-content>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <LoadingIndicator
       v-if="loadingService.loading.value.isLoading"
       :message="loadingService.loading.value.message"
@@ -31,6 +42,7 @@ import LoadingIndicator from "@/components/shared/LoadingIndicator.vue";
 import { Theme } from "@/types";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { App, URLOpenListenerEvent } from "@capacitor/app";
+import DesktopNav from "@/components/shared/DesktopNav.vue";
 
 /* Services */
 import toastService from "./services/toastService";
@@ -213,8 +225,32 @@ onBeforeMount(async () => {
 });
 </script>
 
-<style>
+<style scoped>
+
 .ion-page-hidden {
   display: none !important;
+}
+ion-grid {
+  width: 100%;
+}
+
+ion-row {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+}
+
+ion-button {
+  margin: 20px 0;
+}
+.fixed-sidebar {
+  width: 30%;
+  max-width: 300px;
+}
+
+@media only screen and (max-width: 1023px) {
+  .fixed-sidebar {
+    display: none;
+  }
 }
 </style>

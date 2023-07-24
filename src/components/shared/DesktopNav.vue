@@ -12,9 +12,9 @@
               />
             </router-link>
           </ion-title>
-          <ion-button fill="clear" @click="logout">
-            <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
-            <span class="font-mono font-size-xs low-caps">{{ $t('desktopNav.logout')}}</span>
+          <ion-button fill="clear" color="dark" @click="logout">
+            <ion-icon :icon="logOutOutline" class="logout" color="dark"></ion-icon>
+            <span class="font-bold font-size-xs low-caps">{{ $t('desktopNav.logout')}}</span>
           </ion-button>
         </div>
       </template>
@@ -238,7 +238,7 @@ ion-title {
 .side-nav {
   height: 100%;
   width: 30%;
-  max-width: 270px;
+  max-width: 300px;
   position: fixed;
   z-index: 1;
   top: 0;

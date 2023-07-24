@@ -73,5 +73,6 @@ ion-reorder {
 }
 ion-reorder ion-icon {
   font-size: 1.5rem;
+  opacity: .15;
 }
 </style>
