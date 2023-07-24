@@ -57,7 +57,7 @@ const closeScanner = () => {
   right: 0;
   bottom:0;
   left: 0;
-  z-index: 9999;
+  z-index: 9999999999;
   width: 80%;
   max-width: min(500px, 80vh);
   margin: auto;
