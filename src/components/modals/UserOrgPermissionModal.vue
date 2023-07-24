@@ -1,5 +1,5 @@
 <template>
-  <ion-modal :is-open="isOpen" @didDismiss="handleDismiss">
+  <ion-modal :is-open="isOpen" @didDismiss="handleDismiss" class="auto-height">
     <common-modal :title="name" :handleDismiss="() => handleDismiss()">
       <ion-content>
         <ion-row>
