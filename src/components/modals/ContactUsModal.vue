@@ -5,7 +5,7 @@
         <ion-header>
           <div class="settings-panel__header">
             <h1
-              class="settings-panel__title color-light-gray font-bold font-size-normal"
+              class="settings-panel__title color-light-gray font-bold font-size-lg"
             >
               Contact
             </h1>
@@ -15,7 +15,7 @@
             </p>
           </div>
         </ion-header>
-        <ion-content :scroll-y="false">
+        <div>
           <ion-input
             type="text"
             class="custom-input"
@@ -42,7 +42,7 @@
             placeholder="Your message"
             :auto-grow="true"
           ></ion-textarea>
-        </ion-content>
+        </div>
         <ion-footer>
           <ion-button expand="block">Send message</ion-button>
         </ion-footer>

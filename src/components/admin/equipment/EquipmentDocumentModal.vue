@@ -11,8 +11,6 @@
     <ion-modal
       :is-open="state.modalOpen"
       @willDismiss="handleDismiss"
-      :initial-breakpoint="0.9"
-      :breakpoints="[0, 0.9]"
     >
       <ion-page>
         <div class="modal-panel">
@@ -26,7 +24,7 @@
               />
               <div class="modal-panel__header">
                 <h1
-                  class="modal-panel__title color-light-gray font-bold font-size-normal"
+                  class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
                   Add new document +
                 </h1>
@@ -35,7 +33,7 @@
                 </p>
               </div>
             </ion-header>
-            <ion-content :scroll-y="false" class="form-admin--group_field">
+            <div class="form-admin--group_field">
               <p class="modal-panel__comment color-light-gray font-size-sm">
                 Upload document
               </p>
@@ -70,7 +68,7 @@
                   :options="documentTypeOptions"
                 />
               </div>
-            </ion-content>
+            </div>
             <ion-footer>
               <ion-button
                 class="font-size-sm text-lowercase"

@@ -10,8 +10,6 @@
   <ion-modal
     :is-open="modalOpen"
     @willDismiss="handleDismiss"
-    :initial-breakpoint="0.8"
-    :breakpoints="[0, 0.8]"
   >
     <ion-page>
       <div class="modal-panel">
@@ -25,13 +23,13 @@
             />
             <div class="modal-panel__header">
               <h1
-                class="modal-panel__title color-light-gray font-bold font-size-normal"
+                class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
                 Add New Photo
               </h1>
             </div>
           </ion-header>
-          <ion-content :scroll-y="false" class="form-admin--group_field">
+          <div class="form-admin--group_field">
             <CustomIonUploadInput
               :buttonText="'Select file'"
               @file-selected="onFileSelected"
@@ -45,7 +43,7 @@
               <ion-label>Featured Photo</ion-label>
               <ion-toggle color="primary" v-model="state.featuredPhoto" />
             </ion-input>
-          </ion-content>
+          </div>
           <ion-footer>
             <ion-button class="font-size-sm" expand="block" @click="save()">
               Save

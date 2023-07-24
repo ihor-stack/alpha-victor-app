@@ -5,8 +5,6 @@
   <ion-modal
     :is-open="state.modalOpen"
     @willDismiss="handleDismiss"
-    :initial-breakpoint="0.8"
-    :breakpoints="[0, 0.8]"
   >
     <ion-page>
       <div class="modal-panel">
@@ -20,7 +18,7 @@
             />
             <div class="modal-panel__header">
               <h1
-                class="modal-panel__title color-light-gray font-bold font-size-normal"
+                class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
                 Add new asset type
               </h1>
@@ -29,7 +27,7 @@
               </p>
             </div>
           </ion-header>
-          <ion-content :scroll-y="false" class="form-admin--group_field">
+          <div :scroll-y="false" class="form-admin--group_field">
             <div class="modal-panel__section modal-panel__select-equipment">
               <ion-input v-model="state.name" placeholder="e.g. camera" />
             </div>
@@ -39,7 +37,7 @@
               :options="iconList"
               :isSearchable="true"
             />
-          </ion-content>
+          </div>
           <ion-footer>
             <ion-button
               class="font-size-sm text-lowercase"

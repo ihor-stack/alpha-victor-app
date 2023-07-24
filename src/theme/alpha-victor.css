@@ -549,7 +549,7 @@ ion-button.button-red {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 22px 32px;
+  padding: 25px 22px 32px;
 }
 
 .modal-panel__header {
@@ -557,7 +557,7 @@ ion-button.button-red {
 }
 
 .modal-panel__title {
-  margin-bottom: 12px;
+  margin-bottom: 22px;
 }
 
 .modal-panel__section {

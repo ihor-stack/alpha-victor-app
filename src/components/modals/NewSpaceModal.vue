@@ -23,7 +23,7 @@
             />
             <div class="modal-panel__header">
               <h1
-                class="modal-panel__title color-light-gray font-bold font-size-normal"
+                class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
                 Add new space
               </h1>
