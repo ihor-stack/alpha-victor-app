@@ -185,13 +185,12 @@ ion-toggle {
 }
 
 ion-modal {
-  --border-radius: 40px 40px 0px 0px !important;
+  --border-radius: 20px !important;
+  --height: auto;
 }
 
 ion-modal::part(content) {
-  --border-radius: 40px;
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
+  --border-radius: 20px;
 }
 
 ion-modal::part(handle) {
