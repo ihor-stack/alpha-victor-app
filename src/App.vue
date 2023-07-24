@@ -28,8 +28,8 @@
       :duration="toastService.toast.value.duration"
       :isOpen="toastService.toast.value.isOpen"
     />
-    <ScannerOverlay />
   </ion-app>
+  <ScannerOverlay />
 </template>
 
 <script setup lang="ts">
@@ -57,7 +57,7 @@ const router = useRouter();
 const authService = new Auth();
 
 const isScanning = ref(false);
-provide('isScanning', isScanning);
+provide("isScanning", isScanning);
 
 App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
   if (!event.url) return;
