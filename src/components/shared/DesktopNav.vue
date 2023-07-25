@@ -170,12 +170,9 @@ import {
 } from "@ionic/vue";
 import { useRouter } from "vue-router";
 
-import {
-  closeOutline,
-  logOutOutline,
-  chevronForwardOutline,
-} from "ionicons/icons";
+import { logOutOutline } from "ionicons/icons";
 import { storeToRefs } from "pinia";
+import mixpanel from "mixpanel-browser";
 
 import DesktopHeader from "@/components/shared/DesktopHeader.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
@@ -208,6 +205,9 @@ const handleDismiss = () => {
 const logout = async () => {
   const authRes = await authService.logout();
   if (authRes) {
+    mixpanel.track("User Logged Out", {
+      email: accountStore.accountDetails.email,
+    });
     authStore.setAuthStatus(false);
     return router.replace({ name: "Home" });
   }

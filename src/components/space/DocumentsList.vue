@@ -13,7 +13,10 @@
       <ul class="documents-list__list">
         <li v-for="document in documents" :key="document.id">
           <router-link
-            :to="{ name: 'DocumentViewer', params: { id: document.id } }"
+            :to="{
+              name: 'SpaceDocumentViewer',
+              params: { id: document.id, spaceId: spaceId },
+            }"
             class="documents-list__item"
           >
             <div class="documents-list__item__info">
@@ -57,6 +60,7 @@ interface Document {
 
 interface Props {
   documents: Document[];
+  spaceId?: string;
 }
 
 const props = defineProps<Props>();

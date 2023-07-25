@@ -3,7 +3,9 @@
     <app-header>
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">{{ $t('pages.space.document.back')}}</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.space.document.back")
+          }}</span>
         </ion-button>
       </template>
     </app-header>
@@ -25,11 +27,15 @@ import { IonPage, IonContent, IonButton } from "@ionic/vue";
 import { adminAPI } from "@/axios";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
-import { Document } from "@/types/index";
+import { Document, DetailedSpace } from "@/types/index";
+import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import mixpanel from "mixpanel-browser";
 
 const router = useRouter();
 const route = useRoute();
+const spacesStore = useSpacesStore();
 const documentId: string = route.params.id as string;
+const spaceId: string = route.params.spaceId as string;
 
 interface State {
   documentData: Document;
@@ -40,15 +46,28 @@ const state: State = reactive({
     id: documentId,
     name: "",
     path: "",
-  },
+  } as Document,
 });
 
-const getDocument = () => {
+const getDocument = async () => {
+  let spaceDetails: DetailedSpace | null = spacesStore.currentSpace;
+  if (spaceId && spacesStore.currentSpace?.id !== spaceId) {
+    spaceDetails = await spacesStore.getSpaceDetails(spaceId);
+  }
   const loadId = loadingService.show("Loading...");
   adminAPI
     .get(`/Document/${documentId}`)
     .then((response) => {
       state.documentData = response.data;
+      if (spaceId) {
+        mixpanel.track("Document Viewed", {
+          organisaLon: spaceDetails?.organisationName,
+          location: spaceDetails?.locationName,
+          ﬂoor: spaceDetails?.floorName,
+          space: spaceDetails?.name,
+          document: response.data.name,
+        });
+      }
     })
     .catch((error) => {
       toastService.show("Error", error, "error", "top");

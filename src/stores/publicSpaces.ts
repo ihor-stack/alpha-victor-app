@@ -32,13 +32,15 @@ export const Spaces = defineStore("PublicSpaces", {
     },
     async getSpaceDetails(id: string) {
       const loadId = loadingService.show("Loading...");
-      publicAPI
+      return publicAPI
         .get<DetailedSpace>(`/Space/${id || this.currentId}/Details`)
         .then((response) => {
           this.currentSpace = response.data;
           this.currentId = response.data.id;
+          return response.data;
         })
         .catch((error) => {
+          return null;
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {

@@ -36,7 +36,6 @@ import { IDecisionTreeNode } from "@/types/decisionTree";
 
 interface Props {
   nodeData: IDecisionTreeNode;
-  cancelHandler: (answer: IDecisionTreeNode) => void;
   handleCancelAndAskAgain: (answer: IDecisionTreeNode) => void;
 }
 

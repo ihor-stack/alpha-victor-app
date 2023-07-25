@@ -23,6 +23,7 @@ import { useRouter, useRoute } from "vue-router";
 import { IonPage, IonContent, IonButton } from "@ionic/vue";
 import { createWidget } from "@typeform/embed";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import mixpanel from "mixpanel-browser";
 
 const route = useRoute();
 const spacesStore = useSpacesStore();
@@ -41,7 +42,23 @@ watch(currentSpace, (newValue) => {
 
 onBeforeMount(() => {
   if (spacesStore.currentSpace?.id !== spaceId) {
-    spacesStore.getSpaceDetails(spaceId);
+    spacesStore.getSpaceDetails(spaceId).then((res) => {
+      if (res?.name) {
+        mixpanel.track("Feedback Started", {
+          organisaLon: res.organisationName,
+          location: res.locationName,
+          ﬂoor: res.floorName,
+          space: res.name,
+        });
+      }
+    });
+  } else {
+    mixpanel.track("Feedback Started", {
+      organisaLon: spacesStore.currentSpace.organisationName,
+      location: spacesStore.currentSpace.locationName,
+      ﬂoor: spacesStore.currentSpace.floorName,
+      space: spacesStore.currentSpace.name,
+    });
   }
 });
 
