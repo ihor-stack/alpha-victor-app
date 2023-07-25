@@ -14,7 +14,7 @@
         <ion-item
           slot="header"
           size="small"
-          color="dark"
+          class="location-item"
           @click="router.push(getLocationRoute(location.locationId))"
         >
           <ion-label>{{ location.locationName }}</ion-label>
@@ -127,9 +127,77 @@ ion-button {
 
 .floors-tree-wrapper {
   margin: 10px 0 10px 10px;
-  padding-left: 25px;
+  padding-left: 10px;
+}
+.locations-tree-wrapper > ion-accordion {
+  border-bottom: 1px solid #2c2c2c;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.locations-tree-wrapper > ion-accordion:last-child {
+  border: none;
+}
+.locations-tree-wrapper > ion-accordion > ion-item {
+  border-radius: 6px;
+}
+button {
+  background: none !important;
+}
+ion-item.location-item {
+  --background: none;
+  --color: #fff;
+
+  --background-hover: none;
+  --border-width: 0;
+}
+
+ion-accordion-group {
+  position: relative;
+}
+
+ion-accordion ion-accordion-group.accordion-group-expand-compact ion-accordion {
+  overflow: visible;
+}
+ion-accordion ion-accordion-group.accordion-group-expand-compact ion-accordion:after {
+  position: absolute;
+  top: -1em;
+  left: 0;
+  display: block;
+  height: calc(100% + 2em);
+  width: 1em;
   border-left: 1px solid #353535;
-  border-bottom-left-radius: 10px;
+  content: '';
+}
+ion-accordion ion-accordion-group.accordion-group-expand-compact ion-accordion:first-child:last-child:after {
+  position: absolute;
+  top: -1em;
+  left: 0;
+  display: block;
+  height: 2.3em;
+  width: 1em;
+  border-left: 1px solid #353535;
+  content: '';
+}
+ion-accordion ion-accordion-group.accordion-group-expand-compact ion-accordion:not(:first-child):last-child:after {
+  display: none;
+}
+.accordion-expanded ion-item {
+  background: none;
+}
+ion-accordion ion-item {
+  position: relative;
+}
+ion-accordion ion-accordion ion-item:after {
+  position: absolute;
+  top: 1.5em;
+  left: 0;
+  display: block;
+  height: 0.5em;
+  width: 1em;
+  border-bottom: 1px solid #353535;
+  border-left: 1px solid #353535;
+  border-radius: 0 0 0 1em;
+  content: '';
 }
 
 .floors-tree-wrapper ion-accordion ion-item[slot="header"] {
@@ -143,19 +211,44 @@ ion-button {
 
 .floor-header.active {
   color: #ffffff !important;
+  background: none;
 }
 
 .space-wrapper {
+  position: relative;
   list-style: none;
   margin: 0;
+  margin-left: 20px;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+.space-wrapper:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  height: calc(100% - 1em);
+  width: 1em;
   border-left: 1px solid #353535;
-  border-bottom-left-radius: 10px;
+  content: '';
 }
 
 .space-wrapper li {
   margin-bottom: 15px;
+  position: relative;
 }
-
+.space-wrapper li:after {
+  position: absolute;
+  top: 0;
+  left: -1.25em;
+  display: block;
+  height: 0.5em;
+  width: 1em;
+  border-bottom: 1px solid #353535;
+  border-left: 1px solid #353535;
+  border-radius: 0 0 0 1em;
+  content: '';
+}
 .space-wrapper li a {
   color: var(--av-dark-gray);
 }
@@ -177,8 +270,9 @@ ion-accordion ion-item {
   padding: 0;
 }
 
-ion-accordion.accordion-expanded > ion-item {
-  background: var(--av-darker-gray);
+.locations-tree-wrapper > ion-accordion.accordion-expanded > ion-item {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
 }
 
 ion-accordion > ion-item ion-label {
