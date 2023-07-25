@@ -1,7 +1,7 @@
 <template>
   <div>
     <ion-button class="button-wide" @click="modalOpen = true">
-      Add new space feature +
+      {{ $t('components.admin.spaceMetadata.spaceFeatureModal.addNewSpaceFeatureButton') }}
     </ion-button>
 
     <ion-modal
@@ -23,10 +23,10 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                  Add new space feature
+                {{ $t('components.admin.spaceMetadata.spaceFeatureModal.addNewSpaceFeatureHeader') }}
                 </h1>
                 <p class="modal-panel__comment color-light-gray font-size-sm">
-                  You can create a new space feature via the form below.
+                  {{ $t('components.admin.spaceMetadata.spaceFeatureModal.createNewSpaceFeatureParagraph') }}
                 </p>
               </div>
             </ion-header>
@@ -51,7 +51,7 @@
                 expand="block"
                 @click="saveNewFeature()"
               >
-                Add new space feature +
+              {{ $t('components.admin.spaceMetadata.spaceFeatureModal.addNewSpaceFeatureButton') }}
               </ion-button>
             </ion-footer>
           </div>

@@ -7,10 +7,10 @@
     <div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Destination Type</ion-label>
+          <ion-label>{{ $t('components.modals.decisionTreeNodeModal.editDestination.destinationTypeLabel') }}</ion-label>
           <ion-select
             interface="action-sheet"
-            placeholder="Select type"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.editDestination.selectTypePlaceholder')"
             v-model="state.type"
           >
             <ion-select-option
@@ -25,9 +25,9 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Outcome label</ion-label>
+          <ion-label>{{$t('components.modals.decisionTreeNodeModal.editDestination.outcomeLabel')}}</ion-label>
           <ion-input
-            placeholder="Enter new outcome"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.editDestination.outcomePlaceholder')"
             v-model="state.outcomeLabel"
           ></ion-input>
         </ion-col>
@@ -43,7 +43,7 @@
         expand="block"
         @click="() => handleClickNext(state)"
       >
-        Next</ion-button
+        {{$t('components.modals.decisionTreeNodeModal.editDestination.nextButton')}}</ion-button
       >
     </div>
   </common-modal>

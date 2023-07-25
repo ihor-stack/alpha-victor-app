@@ -7,9 +7,9 @@
     <div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Phone Number</ion-label>
+          <ion-label>{{$t('components.modals.decisionTreeNodeModal.addPhone.phoneNumberLabel')}}</ion-label>
           <ion-input
-            placeholder="Enter phone number"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.addPhone.phoneNumberPlaceholder')"
             v-model="state.phone"
           ></ion-input>
         </ion-col>
@@ -19,7 +19,7 @@
         expand="block"
         @click="handleClickConfirm(state)"
       >
-        Confirm Selection</ion-button
+        {{$t('components.modals.decisionTreeNodeModal.addPhone.confirmSelectionButton')}}</ion-button
       >
       <ion-button
         class="ion-text-capitalize"
@@ -27,7 +27,7 @@
         expand="block"
         @click="handleClickBack"
       >
-        Back to destination
+      {{$t('components.modals.decisionTreeNodeModal.addPhone.backToDestinationButton')}}
       </ion-button>
     </div>
   </common-modal>

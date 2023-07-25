@@ -1,16 +1,16 @@
 <template>
   <common-modal
-    title="Select document"
-    description="You can select a document to be presented via the drop downs below."
+    :title="$t('components.modals.decisionTreeNodeModal.selectDocument.selectDocumentTitle')"
+    :description="$t('components.modals.decisionTreeNodeModal.selectDocument.selectDocumentDescription')"
     :handleDismiss="() => handleDismiss()"
   >
     <div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Manufacturer</ion-label>
+          <ion-label>{{$t('components.modals.decisionTreeNodeModal.selectDocument.manufacturerLabel')}}</ion-label>
           <ion-select
             interface="action-sheet"
-            placeholder="Select manufacturer"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.selectDocument.manufacturerSelectPlaceholder')"
             v-model="state.manufacturerId"
           >
             <ion-select-option
@@ -25,10 +25,10 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Type</ion-label>
+          <ion-label>{{$t('components.modals.decisionTreeNodeModal.selectDocument.typeLabel')}}</ion-label>
           <ion-select
             interface="action-sheet"
-            placeholder="Select type"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.selectDocument.typeSelectPlaceholder')"
             v-model="state.assetTypeId"
           >
             <ion-select-option
@@ -43,10 +43,10 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Model</ion-label>
+          <ion-label>{{$t('components.modals.decisionTreeNodeModal.selectDocument.modelLabel')}}</ion-label>
           <ion-select
             interface="action-sheet"
-            placeholder="Select model"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.selectDocument.modeSelectPlaceholder')"
             v-model="state.equipmentId"
           >
             <ion-select-option
@@ -71,7 +71,7 @@
         expand="block"
         @click="handleClickConfirm({ document: state.selectedDocument })"
       >
-        Confirm Selection</ion-button
+      {{$t('components.modals.decisionTreeNodeModal.selectDocument.confirmSelectionButton')}}</ion-button
       >
       <ion-button
         class="ion-text-capitalize"
@@ -79,7 +79,7 @@
         expand="block"
         @click="handleClickBack"
       >
-        Back to destination
+        {{ $t('components.modals.decisionTreeNodeModal.selectDocument.backToDestinationButton') }}
       </ion-button>
     </ion-footer>
   </common-modal>

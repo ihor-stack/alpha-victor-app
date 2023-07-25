@@ -31,7 +31,7 @@
               </div>
             </div>
             <div class="documents-list__item__link">
-              <span class="font-mono font-size-xxs">&gt;&gt; view</span>
+              <span class="font-mono font-size-xxs">{{$t('components.space.documentsList.viewSpan')}}</span>
             </div>
           </router-link>
         </li>

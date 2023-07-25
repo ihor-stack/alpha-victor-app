@@ -1,6 +1,6 @@
 <template>
   <ion-button class="button-wide" @click="state.modalOpen = true">
-    Add new manufacturer +
+    {{ $t ("components.admin.equipment.manufacturerModal.addManufacturerButton") }}
   </ion-button>
   <ion-modal
     :is-open="state.modalOpen"
@@ -21,10 +21,10 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
-                Add new manufacturer
+              {{ $t ("components.admin.equipment.manufacturerModal.addManufacturerHeader") }}
               </h1>
               <p class="modal-panel__comment color-light-gray font-size-sm">
-                You can create a new manufacturer via the form below.
+                {{ $t ("components.admin.equipment.manufacturerModal.addManufacturerParagraph") }}
               </p>
             </div>
           </ion-header>
@@ -40,7 +40,7 @@
               :disabled="!state.name"
               @click="handleAddName"
             >
-              Add new manufacturer +
+              {{ $t ("components.admin.equipment.manufacturerModal.addManufacturerButton") }}
             </ion-button>
           </ion-footer>
         </div>

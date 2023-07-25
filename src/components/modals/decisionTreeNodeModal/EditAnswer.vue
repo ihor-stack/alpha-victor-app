@@ -19,7 +19,7 @@
         expand="block"
         @click="handleClickConfirm(state)"
       >
-        Update</ion-button
+        {{$t("components.modals.decisionTreeNodeModal.editAnswer.updateButton")}}</ion-button
       >
     </div>
   </common-modal>

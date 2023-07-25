@@ -9,7 +9,7 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">Room Equipment</span>
+          <span class="link-text">{{ $t('components.space.SpaceOptionsMenu.roomEquipmentSpan') }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
@@ -22,7 +22,7 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">Step By Step Guides</span>
+          <span class="link-text">{{$t('components.space.spaceOptionsMenu.stepByStepGuides')}}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
@@ -35,7 +35,7 @@
           router-direction="root"
         >
           <div class="with-counter">
-            <p class="label font-bold font-size-sm">Known Issues</p>
+            <p class="label font-bold font-size-sm">{{$t('components.space.spaceOptionsMenu.knownIssuesParagraph')}}</p>
             <div v-if="currentSpace?.issueCount" class="counter">
               <div>
                 <span>{{ currentSpace.issueCount }}</span>
@@ -53,7 +53,7 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">Documents</span>
+          <span class="link-text">{{$t('components.spaceOptionsMenu.documentsSpan')}}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>

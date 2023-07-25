@@ -20,7 +20,7 @@
           size="small"
           @click="removeImage(image.id)"
         >
-          &gt;&gt; remove
+          {{ $t('components.shared.imageGallery.removeButton')}}
         </ion-button>
         <ion-reorder slot="end">
           <ion-icon :icon="menuOutline"></ion-icon>

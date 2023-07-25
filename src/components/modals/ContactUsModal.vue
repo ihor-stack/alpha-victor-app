@@ -7,8 +7,7 @@
             <ion-label>
               <h2 class="font-bold font-size-md">Contact</h2>
               <p class="font-size-xs">
-                Simply fill out the form below and someone from AlphaVictor will
-                be in touch soon.
+                {{$t('components.modals.contactUsModal.contactUsModalParagraph')}}
               </p>
             </ion-label>
           </ion-item>
@@ -18,31 +17,31 @@
             type="text"
             class="custom-input"
             name="name"
-            placeholder="Your name"
+            :placeholder="$t('components.modals.contactUsModal.nameInputPlaceholder')"
             v-model="state.name"
           />
           <ion-input
             type="email"
             class="custom-input"
             name="email"
-            placeholder="Your email address"
+            :placeholder="$t('components.modals.contactUsModal.emailInputPlaceholder')"
             v-model="state.email"
           />
           <ion-input
             type="number"
             class="custom-input"
             name="phone"
-            placeholder="Your number"
+            :placeholder="$t('components.modals.contactUsModal.numberInputPlaceholder')"
             v-model="state.phone"
           />
           <ion-textarea
             class="custom-textarea"
-            placeholder="Your message"
+            :placeholder="$t('components.modals.contactUsModal.messageInputPlaceholder')"
             :auto-grow="true"
           ></ion-textarea>
         </div>
         <ion-footer>
-          <ion-button expand="block">Send message</ion-button>
+          <ion-button expand="block">{{$t('components.modals.contactUsModal.sendMessageButton')}}</ion-button>
         </ion-footer>
       </div>
     </div>

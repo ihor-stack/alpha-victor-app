@@ -4,7 +4,7 @@
     color="red"
     @click="modalOpen = true"
   >
-    Delete floor
+    {{$t('components.modals.deleteFloorModal.deleteFloorButton')}}
   </ion-button>
 
   <ion-modal
@@ -27,11 +27,10 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
-                Delete floor
+                {{$t('components.modals.deleteFloorModal.deleteFloorHeader')}}
               </h1>
               <p class="modal-panel__comment color-light-gray font-size-sm">
-                Are you sure you wish to delete this floor, this action cannot
-                be undone
+                {{$t('components.modals.deleteFloorModal.deleteFloorParagraph')}}
               </p>
             </div>
           </ion-header>
@@ -44,7 +43,7 @@
                   color="--av-red"
                   @click="confirmDeleteFloor(props.floorId)"
                 >
-                  Yes, delete
+                  {{$t('components.modals.deleteFloorModal.deleteButton')}}
                 </ion-button>
               </ion-col>
 
@@ -55,7 +54,7 @@
                   color="--av-light-gray"
                   @click="modalOpen = false"
                 >
-                  No, cancel
+                {{$t('components.modals.deleteFloorModal.cancelButton')}}
                 </ion-button>
               </ion-col>
             </ion-row>

@@ -410,4 +410,281 @@ export default {
       },
     }
   },
+  components: {
+    admin: {
+      equipment: {
+        assetTypeModal: {
+          header: "Add new asset type",
+          paragraph: "You can create a new asset type via the form below.",
+          button: "Add new asset type +",
+        },
+        documentModal: {
+          addDocumentHeader: "Add new document +",
+          uploadDocumentTypeParagraph: "You can upload a document and document type using the form below.",
+          uploadDocumentParagraph: "Upload document",
+          clickSpan: "Click to browse device",
+          addNewAssetbutton: "Add new asset type +",
+        },
+        manufacturerModal: {
+          addManufacturerButton: "Add new manufacturer +",
+          addManufacturerHeader: "Add new manufacturer",
+          addManufacturerParagraph: "You can create a new manufacturer via the form below.",
+        },
+        equipmentModal: {
+          addEquipmentButton: "Add new equipment +",
+          addEquipmentHeader: "Add new equipment",
+          createEquipmentParagraph: "You can create a new equipment the form below.",
+          manufacturerLabel: "Manufacturer",
+          selectManufacturerPlaceholder: "Select manufacturer",
+          selectAssetTypePlaceholder: "Select asset type",
+          inputModelPlaceholder: "Input Model",
+          inputSerialNumberPlaceholder: "Input Serial number",
+        }
+      },
+      locations: {
+        adminLocationsForm: {
+          locationNameLabel: "Location name",
+          locationPrefixLabel: "Location prefix",
+          contactNameLabel: "Main contact name",
+          emailAddressLabel: "Email address",
+          phoneNumberLabel: "Phone number",
+          sosNumberLabel: "SOS Number",
+          publicWifiLabel: "Public Wifi",
+          wifiPasswordLabel: "Wifi Password",
+          addressLine1Label: "Address Line 1",
+          addressLine2Label: "Address Line 2",
+          cityLabel: "City",
+          postcodeLabel: "Postcode",
+          saveChangesButton: "Save changes",
+          exportQRCodesButton: "Export QR Codes",
+          floorsHeader: "Floors",
+        },
+        adminLoacationsList: {
+          floorNameLabel: "Floor name",
+          shortNameLabel: "Short name",
+          saveFloorButton: "Save floor",
+        }
+      },
+      spaceMetadata: {
+        spaceFeatureModal: {
+          addNewSpaceFeatureButton: "Add new space feature +",
+          addNewSpaceFeatureHeader: "Add new space feature",
+          createNewSpaceFeatureParagraph: "You can create a new space feature via the form below.",
+        },
+        spaceTypeModal: {
+          addNewSpaceTypeButton: "Add new space type +",
+          createNewSpaceTypeParagraph: "You can create a new space Type via the form below.",
+
+        },
+      },
+      spaces: {
+        documentField: {
+          editDocumentTypeHeader: "Edit document Type",
+          removeButton: ">> remove",
+          saveButton: ">> save",
+        },
+        organisationsSelect: {
+          viewAllSpan: ">> view.all"
+        }
+      }
+    },
+    modals: {
+      decisionTreeNodeModal: {
+        addEmail: {
+          emailAddressLabel: "Email Address",
+          emailAddressInputPlaceholder: "Enter a email address",
+          confirmSelectionButton: "Confirm Selection",
+          backToDestinationButton: "Back to destination",
+        },
+        addPhone: {
+          phoneNumberLabel: "Phone Number",
+          phoneNumberPlaceholder: "Enter phone number",
+          confirmSelectionButton: "Confirm Selection",
+          backToDestinationButton: "Back to destination",
+        },
+        customList: {
+          selectedCol: "selected",
+          greaterSelectedCol: ">> select",
+        },
+        editAnswer: {
+          updateButton: "Update",
+        },
+        editDestination: {
+          destinationTypeLabel: "Destination Type",
+          selectTypePlaceholder: "Select type",
+          outcomeLabel: "Outcome label",
+          outcomePlaceholder: "Enter new outcome",
+          nextButton: "Next",
+        },
+        selectArticle: {
+          articleTitleLabel: "Article title",
+          articleTitleInputPlaceholder: "Enter title",
+          searchInputPlaceholder: "Search for an article",
+          addArticleButton: "Add article +",
+          cancelButton: "Cancel",
+          addNewArticleButton: "Add new article +",
+          confirmSelectionButton: "Confirm Selection",
+          backToDestinationButton: "Back to destination",
+        },
+        selectDocument: {
+          selectDocumentTitle: "Select Document",
+          selectDocumentDescription: "You can select a document to be presented via the drop downs below.",
+          manufacturerLabel: "Manufacturer",
+          manufacturerSelectPlaceholder: "Select manufacturer",
+          typeLabel: "Type",
+          typeSelectPlaceholder: "Select type",
+          modelLabel: "Model",
+          modelSelectPlaceholder: "Select model",
+          confirmSelectionButton: "Confirm Selection",
+          backToDestinationButton: "Back to destination",
+        },
+        selectVideo: {
+          selectVideoTitle: "Select video",
+          selectVideoDescription: "You can select a video to be presented via the list below.",
+          dividerSpan: "or",
+          addVideoLabel: "Add new video",
+          videoURLInputPlaceholder: "Enter Video or YouTube URL",
+          addVideoButton: "Add +",
+          addVideoTitleLabel: "Add video title",
+          addVideoTitlePlaceholder: "New video added",
+        },
+      },
+      contactUsModal: {
+        contactUsModalParagraph: "Simply fill out the form below and someone from AlphaVictor will be in touch soon.",
+        nameInputPlaceholder: "Your name",
+        emailInputPlaceholder: "Your email address",
+        numberInputPlaceholder: "Your number",
+        messageInputPlaceholder: "Your message",
+        sendMessageButton: "Send Message",
+      },
+      deleteFloorModal: {
+        deleteFloorButton: "Delete floor",
+        deleteFloorHeader: "Delete floor",
+        deleteFloorParagraph: "Are you sure you wish to delete this floor, this action cannot be undone",
+        deleteButton: "Yes, delete",
+        cancelButton: "No, cancel",
+      },
+      deleteOrganisationModal: {
+        deleteOrganisationButton: "Delete organisation",
+        deleteOrganisationHeader: "Delete organisation",
+        deleteOrganisationParagraph: "Are you sure you wish to delete this organisation, this action cannot be undone",
+      },
+      issuesModal: {
+        addCommentLabel: "Add comment",
+        addCommentPlaceholder: "Enter a comment here",
+        selectStatusHeader: "Select Status",
+        lowImpactLabel: "low.impact",
+        highImpactLabel: "high.impact",
+        resolveLabel: "Resolve",
+        statusHeader: "status",
+      },
+      newFloorModal: {
+        addNewFloorButton: "Add new floor +",
+        addNewFloorHeader: "Add new floor",
+        createNewFloorParagraph: "You can create a new floor via the form below.",
+        floorNameInputPlaceholder: "Floor name",
+        floorShortNameInputPlaceholder: "Floor Short Name",
+      },
+      newLocationModal: {
+        addNewLocationSpan: "Add new location +",
+        addNewLocationHeader: "Add new location",
+        addNewLocationParagraph: "You can create a new location via the form the form below.",
+        locationNameLabel: "Location name",
+        headquartersInputPlaceholder: "e.g. Headquarters",
+        locationPrefixLabel: "Location prefix",
+        newLocationInputPlaceholder: "e.g. HQ",
+      },
+      newOrganisationModal: {
+        createNewOrganisationButton: "Create new organisation +",
+        addNewOrganisationHeader: "Add new organisation",
+        createNewOrganisationParagraph: "You can create a new organisation via the form below.",
+        OrganisationNameInputPlaceholder: "Organisation Name",
+        addNewOrganisationButton: "Add new organisation +",
+      },
+      newSpaceModal: {
+        addNewSpaceButton: "Add new space +",
+        addNewSpaceHeader: "Add new space",
+        createNewSpaceParagraph: "You can create a new space via the form below.",
+        spaceNameLabel: "Space name",
+        spaceNamePlaceholder: "Space Name",
+        spaceShortcodeLabel: "Space shortcode",
+        spaceShortcodePlaceholder: "Space Shortcode",
+      },
+      organisationSelectModal: {
+        selectOrganisationHeader: "Select organisation",
+        selectOrganisationParagraph: "Here you can select the organisation that you’d like to see spaces in.",
+        selectOrganisationPlaceholder: "Select organisation",
+        confirmButton: "Confirm",
+      },
+      ReportIssueModal: {
+        reportIssueHeader: "Report Issue",
+        reportIssueParagraph: "Please provide details on the issue you're facing, and which equipment",
+        selectEquipmentLabel: "Select Equipment",
+        selectEquipmentPlaceholder: "Select equipment",
+        addTitleLabel: "Add title",
+        issueTitlePlaceholder: "Enter title of issue",
+        addCommentLabel: "Add Comment",
+        enterCommentPlaceholder: "Enter a comment here",
+        submitIssueButton: "Submit Issue",
+      },
+      roomEquipmentModal: {
+        deviceInformationParagraph: "device.information",
+        technicalLabel: "Technical",
+        installationLabel: "Installation",
+        userGuideButton: "User Guide",
+        reportIssueButton: "Report Issue",
+      },
+      userManagementModal: {
+        assignedOrganisationLabel: "Assigned Organisations",
+        removeButton: ">> remove",
+        dividerSpan: "or",
+        addOrganisationLabel: "Add to organisation",
+        selectOrganisationPlaceholder: "Select organization",
+        saveAndCloseButton: "Save and close",
+      },
+      userOrgPermissionModal: {
+        selectRolePlaceholder: "Select role",
+        saveAndCloseButton: "Save and close",
+      },
+    },
+    onboarding: {
+      enableButton: "Enable",
+      accountExists: "Already have an account?",
+      sendLoginLinkSpan: "Send me a login link",
+      loginWithEmailSpan: "Login with email",
+    },
+    shared: {
+      imageGallery: {
+        removeButton: ">> remove",
+      },
+    },
+    space: {
+      getHelp: {
+        answerNode: {
+          cancelAskButton: "Cancel and ask again",
+        },
+        questionNode: {
+          articleTemplateDescription: "I've found the following article that I think you'll find useful",
+          videoTemplateDescription: "I've found the following video that I think you'll find useful",
+          documentTemplateDescription: "I've found the following document that I think you'll find helpful",
+          appreciateDetailsDescription: "We'd really appreciate some more details - click below to send us an email",
+          callDescription: "I think it's best you speak to someone - click below to place a call",
+        },
+      },
+      documentsList: {
+        viewSpan: ">> view",
+      },
+      spaceOptionsMenu: {
+        roomEquipmentSpan: "Room Equipment",
+        stepByStepGuides: "Step By Step Guides",
+        knownIssuesParagraph: "Known Issues",
+        documentsSpan: "Documents",
+      },
+      spaceWifiInfo: {
+        wifiNetworkParagraph: "Wifi.network",
+        wifiPasswordParagraph: "Wifi.password",
+        connectButton: "Connect",
+      },
+    },
+  },
 }

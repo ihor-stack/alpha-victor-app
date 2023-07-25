@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="wifi-network">
-      <p class="label font-mono text-spaced">wifi.network</p>
+      <p class="label font-mono text-spaced">{{$t('components.space.spaceWifiInfo.wifiNetworkParagraph')}}</p>
       <p class="font-size-xs font-bold">{{ wifiNetwork }}</p>
     </div>
     <div class="wifi-password">
-      <p class="label font-mono text-spaced">wifi.password</p>
+      <p class="label font-mono text-spaced">{{ $t('components.space.spaceWifiInfo.wifiPasswordParagraph') }}</p>
       <p class="font-size-xs font-bold">{{ wifiPassword }}</p>
     </div>
     <div class="wifi-connect" v-if="showConnectButton">
@@ -13,7 +13,7 @@
         @click="($event) => doWifiConnect()"
         expand="block"
         size="small"
-        >Connect</ion-button
+        >{{$t('components.space.spaceWifiInfo.connectButton')}}</ion-button
       >
     </div>
   </div>

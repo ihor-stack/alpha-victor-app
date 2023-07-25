@@ -29,7 +29,7 @@
       size="small"
       v-if="!hideRemove && !editMode"
     >
-      &gt;&gt; remove
+    {{$t('components.admin.spaces.documentField.removeButton')}}
     </ion-button>
   </ion-item>
 </template>

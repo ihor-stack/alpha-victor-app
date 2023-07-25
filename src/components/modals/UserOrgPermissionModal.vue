@@ -7,7 +7,7 @@
             <ion-label class="font-size-sm">{{ organisation?.name }}</ion-label>
             <ion-select
               interface="action-sheet"
-              placeholder="Select role"
+              :placeholder= "$t('components.modals.userOrgPermissionModal.selectRolePlaceholder')"
               v-model="state.groupId"
             >
               <ion-select-option
@@ -28,7 +28,7 @@
           :disabled="!state.groupId"
           @click="handleClickSave(state.groupId)"
         >
-          Save and close
+          {{$t('components.modals.userOrgPermissionModal.saveAndCloseButton')}}
         </ion-button>
       </ion-footer>
     </common-modal>

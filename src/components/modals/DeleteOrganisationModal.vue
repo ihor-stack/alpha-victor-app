@@ -5,7 +5,7 @@
       color="red"
       @click="modalOpen = true"
     >
-      Delete organisation
+      {{$t('components.modals.deleteOrganisationModal.deleteOrganisationButton')}}
     </ion-button>
 
     <ion-modal
@@ -28,11 +28,10 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                  Delete organisation
+                {{$t('components.modals.deleteOrganisationModal.deleteOrganisationHeader')}}
                 </h1>
                 <p class="modal-panel__comment color-light-gray font-size-sm">
-                  Are you sure you wish to delete this organisation, this action
-                  cannot be undone
+                  {{$t('components.modals.deleteOrganisationModal.deleteOrganisationParagraph')}}
                 </p>
               </div>
             </ion-header>
@@ -45,7 +44,7 @@
                     color="--av-red"
                     @click="confirmDeleteOrganisation()"
                   >
-                    Yes, delete
+                    {{$t('components.modals.deleteFloorModal.deleteButton')}}
                   </ion-button>
                 </ion-col>
 
@@ -56,7 +55,7 @@
                     color="--av-light-gray"
                     @click="modalOpen = false"
                   >
-                    No, cancel
+                  {{$t('components.modals.deleteFloorModal.cancelButton')}}
                   </ion-button>
                 </ion-col>
               </ion-row>
