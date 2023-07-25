@@ -3,12 +3,14 @@
     <app-header :title="$t('pages.space.documents.title')">
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">{{ $t('pages.space.documents.back')}}</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.space.documents.back")
+          }}</span>
         </ion-button>
       </template>
     </app-header>
     <ion-content :fullscreen="true">
-      <documents-list :documents="documents" />
+      <documents-list :documents="documents" :spaceId="spaceId" />
     </ion-content>
   </ion-page>
 </template>

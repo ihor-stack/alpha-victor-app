@@ -40,6 +40,7 @@ export const Spaces = defineStore("PublicSpaces", {
           return response.data;
         })
         .catch((error) => {
+          return null;
           toastService.show("Error", error, "error", "top");
         })
         .finally(() => {

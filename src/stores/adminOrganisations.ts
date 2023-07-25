@@ -234,10 +234,11 @@ export const Organisations = defineStore("Organisations", {
 
     async getDecisionDetails(decisionTreeId: string) {
       const loadId = loadingService.show("Loading...");
-      adminAPI
+      return adminAPI
         .get<DecisionTree>(`/DecisionTree/${decisionTreeId}`)
         .then((response) => {
           this.decisionTree = { ...response.data, loaded: true };
+          return response.data;
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
