@@ -315,9 +315,11 @@ export default {
             },
             devices: {
               title: "Devices",
+              name: "Name",
               sn: "Serial Number",
               installer: "Installer",
               installDate: "Install Date",
+              macAddress: "Mac Address",
               expiryDate: "Warranty expiry date",
               description: "Description",
               photos: "Photos",
