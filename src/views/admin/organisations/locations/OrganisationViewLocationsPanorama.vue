@@ -291,6 +291,9 @@ onBeforeMount(() => {
   height: 100%;
   object-fit: cover;
 }
+.header-left {
+  margin-left: 20px;
+}
 .header-left--label {
   display: flex;
   align-items: center;

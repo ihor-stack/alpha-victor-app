@@ -31,40 +31,27 @@
               </div>
             </ion-header>
             <div class="form-admin--group_field">
-              <div class="modal-panel__section modal-panel__select-equipment">
-                <ion-input
-                  placeholder="Document Name"
-                  :value="newDocument"
-                  @input="newDocument = $event.target.value"
-                />
-                <ion-input class="font-size-sm" :disabled="true">
-                  <div>
-                    <input
-                      class="file-input"
-                      type="file"
-                      accept="*/"
-                      :v-model="files"
-                      @change="uploadFiles"
-                      multiple
-                    />
-                  </div>
-                </ion-input>
-                <AdminSelect
-                  label="Select a type"
-                  v-model="selectedDocType"
-                  :options="documentTypeOptions"
-                  idPrefix="doc-type-select"
+              <div class="upload-area">
+                <CustomIonUploadInput
+                  :buttonText="'Select file(s)'"
+                  @file-selected="uploadFiles"
                 />
               </div>
+              <AdminSelect
+                label="Select a type"
+                v-model="selectedDocType"
+                :options="documentTypeOptions"
+                idPrefix="doc-type-select"
+              />
             </div>
             <ion-footer>
               <ion-button
-                class="font-size-sm text-lowercase"
+                class="font-size-sm"
                 expand="block"
                 :disabled="!uploadedDocs.length || !selectedDocType?.title"
                 @click="saveNewDocumentType()"
               >
-                Save
+                Upload document(s)
               </ion-button>
             </ion-footer>
           </div>
@@ -94,6 +81,7 @@ import { Organisations } from "@/stores/adminOrganisations";
 import { Spaces } from "@/stores/adminSpaces";
 
 import { storeToRefs } from "pinia";
+import CustomIonUploadInput from "@/components/shared/CustomIonUploadInput.vue";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { SelectItem } from "@/types";
 
@@ -117,14 +105,14 @@ const documentTypeOptions = computed(() => {
 const selectedDocType = ref({} as SelectItem);
 
 const modalOpen = ref(false);
-const newDocument = ref("");
+
 const handleDismiss = () => {
   modalOpen.value = false;
 };
-const files = ref();
-const uploadedDocs = ref([]);
-const uploadFiles = (event: any) => {
-  uploadedDocs.value = event.target.files;
+
+const uploadedDocs = ref<File[]>([]);
+const uploadFiles = (file: File) => {
+  uploadedDocs.value = [file];
 };
 const saveNewDocumentType = () => {
   const readOneFile = (fileItem: any) => {
@@ -202,5 +190,9 @@ ion-chip {
 
 .modal-panel__section {
   margin-bottom: 20px;
+}
+
+.upload-area {
+  margin-bottom: 15px;
 }
 </style>

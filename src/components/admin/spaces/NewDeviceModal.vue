@@ -22,7 +22,7 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                  Add New Device
+                  Add new device
                 </h1>
               </div>
             </ion-header>
@@ -157,10 +157,7 @@
                   <ion-button
                     class="font-size-sm"
                     :disabled="
-                      !newDevice.name ||
-                      !newDevice.serialNumber ||
-                      !newDevice.installer ||
-                      !newDevice.description
+                      !newDevice.name
                     "
                     @click="saveNewDevice()"
                   >

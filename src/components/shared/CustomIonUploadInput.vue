@@ -13,7 +13,11 @@
         />
       </div>
     </ion-input>
-    <div v-if="uploadedImage" class="preview-image">
+    <div v-if="uploadedImage && imageName && imageName.endsWith('.pdf')" class="preview-pdf">
+      <img src="@/theme/icons/upload-blue.svg" :alt="imageName" />
+      <span>{{ imageName }}</span>
+    </div>
+    <div v-else-if="uploadedImage" class="preview-image">
       <img :src="uploadedImage" :alt="imageName" />
     </div>
     <div v-if="selectedImage" class="preview-image">
@@ -55,9 +59,15 @@ export default defineComponent({
     function handleFileUpload(event: Event) {
       const file = (event.target as HTMLInputElement).files?.[0];
       if (file) {
-        uploadedImage.value = URL.createObjectURL(file);
-        imageName.value = file.name;
-        emit('file-selected', file); // Emitting event to parent
+        if (file.type === 'application/pdf') {
+          uploadedImage.value = '/path/to/pdf-icon.png'; // Use the path to your PDF icon image
+          imageName.value = file.name;
+          emit('file-selected', file); // Emitting event to parent
+        } else {
+          uploadedImage.value = URL.createObjectURL(file);
+          imageName.value = file.name;
+          emit('file-selected', file); // Emitting event to parent
+        }
       }
     }
 
@@ -158,5 +168,21 @@ ion-input label:hover {
 }
 .preview-image .remove:hover {
   opacity: .5;
+}
+.preview-pdf {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.preview-pdf img {
+  width: 18px;
+  height: 18px;
+}
+
+.preview-pdf span {
+  margin-left: 10px;
+  font-size: 14px;
 }
 </style>

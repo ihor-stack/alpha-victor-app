@@ -27,6 +27,33 @@
             </div>
             <div slot="content" class="border">
               <ion-row class="form-admin--group">
+                <ion-col size-xs="12" class="form-admin--group_field">
+                  <AdminSelect
+                    label="Equipment"
+                    v-model="selectedEquipment"
+                    :options="equipmentList"
+                    idPrefix="equipment-select"
+                    :isSearchable="true"
+                  />
+                </ion-col>
+              </ion-row>
+              <ion-row class="form-admin--group">
+                <ion-col
+                  size-xs="12"
+                  size-sm="6"
+                  class="form-admin--group_field"
+                >
+                  <ion-label>{{
+                    $t("pages.admin.organisations.view.locations.devices.name")
+                  }}</ion-label>
+                  <ion-input
+                    class="font-size-sm"
+                    :value="device.name"
+                    @ion-input="
+                      device.name = String($event.target.value)
+                    "
+                  ></ion-input>
+                </ion-col>
                 <ion-col
                   size-xs="12"
                   size-sm="6"
@@ -43,21 +70,40 @@
                     "
                   ></ion-input>
                 </ion-col>
+              </ion-row>
+
+              <ion-row class="form-admin--group">
                 <ion-col
-                  size-xs="12"
-                  size-sm="6"
-                  class="form-admin--group_field"
-                >
-                  <ion-label>{{
-                    $t(
-                      "pages.admin.organisations.view.locations.devices.installer"
-                    )
-                  }}</ion-label>
-                  <ion-input
-                    class="font-size-sm"
-                    :value="device.installer"
-                    @ion-input="device.installer = String($event.target.value)"
-                  ></ion-input>
+                    size-xs="12"
+                    size-sm="6"
+                    class="form-admin--group_field"
+                  >
+                    <ion-label>{{
+                      $t(
+                        "pages.admin.organisations.view.locations.devices.installer"
+                      )
+                    }}</ion-label>
+                    <ion-input
+                      class="font-size-sm"
+                      :value="device.installer"
+                      @ion-input="device.installer = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+                <ion-col
+                    size-xs="12"
+                    size-sm="6"
+                    class="form-admin--group_field"
+                  >
+                    <ion-label>{{
+                      $t(
+                        "pages.admin.organisations.view.locations.devices.macAddress"
+                      )
+                    }}</ion-label>
+                    <ion-input
+                      class="font-size-sm"
+                      :value="device.macAddress"
+                      @ion-input="device.macAddress = String($event.target.value)"
+                    ></ion-input>
                 </ion-col>
               </ion-row>
 
@@ -136,23 +182,26 @@
                       device.description = String($event.target.value)
                     "
                   ></ion-textarea>
-                  <ion-item lines="none" class="ion-no-padding">
-                    <ion-label>{{
-                      $t(
-                        "pages.admin.organisations.view.locations.devices.photos"
-                      )
-                    }}</ion-label>
-                    <PhotoModal
-                      :queryParams="`deviceId=${device.id}`"
-                      :hiddenFeatureImageToggle="true"
-                      :disableUpload="device.photos && device.photos.length >= 1"
-                      :callback="() => Space.getSpaceDetailsDevices(spaceId)"
+                  <div class="photos-container">
+                    <ion-item lines="none" class="ion-no-padding">
+                      <ion-label>{{
+                        $t(
+                          "pages.admin.organisations.view.locations.devices.photos"
+                        )
+                      }}</ion-label>
+                      <PhotoModal
+                        :queryParams="`deviceId=${device.id}`"
+                        :hiddenFeatureImageToggle="true"
+                        :disableUpload="device.photos && device.photos.length >= 1"
+                        :callback="() => Space.getSpaceDetailsDevices(spaceId)"
+                      />
+                    </ion-item>
+                    <ImageGallery
+                      v-if="device.photos && device.photos.length"
+                      :images="device.photos"
+                      @image-removed="handleImageRemoved"
                     />
-                  </ion-item>
-                  <ImageGallery
-                    :images="device.photos"
-                    @image-removed="handleImageRemoved"
-                  />
+                  </div>
                 </ion-col>
                 <ion-col size-xs="12">
                   <ion-button class="button-wide" @click="editDevice()">
@@ -204,9 +253,12 @@ import {
 } from "@ionic/vue";
 //import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 import { Spaces } from "@/stores/adminSpaces";
+import { Equipment as useEquipment } from "@/stores/adminEquipment";
 import { storeToRefs } from "pinia";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import { SelectItem } from "@/types";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 import NewDeviceModal from "@/components/admin/spaces/NewDeviceModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
 import ImageGallery from "@/components/shared/ImageGallery.vue";
@@ -215,8 +267,24 @@ const route = useRoute();
 
 const spaceId = route.params.spaceId as string;
 const Space = Spaces();
+const EquipmentStore = useEquipment();
+const selectedEquipment = ref({} as SelectItem);
+
 const { devices } = storeToRefs(Space);
+const { equipmentDropdownList } = storeToRefs(EquipmentStore);
 const currentIndex = ref<number>(0);
+
+const equipmentList = computed(() =>
+  equipmentDropdownList.value?.map((item, index) => {
+    const selectItem: SelectItem = {
+      id: index,
+      additionalInfo: item.id,
+      title: item.name,
+    };
+    return selectItem;
+  })
+);
+
 const editDevice = () => {
   Space.editSpacesDevices(currentIndex.value, spaceId);
 };
@@ -229,12 +297,18 @@ const handleImageRemoved = (photoId: string) => {
     Space.getSpaceDetailsDevices(spaceId);
   });
 };
-onBeforeMount(() => [Space.getSpaceDetailsDevices(spaceId)]);
+
+onBeforeMount(() => {
+  if (equipmentDropdownList.value?.length < 1) {
+    EquipmentStore.getEquipmentDropdownList();
+  }
+  Space.getSpaceDetailsDevices(spaceId)
+});
 </script>
 
 <style scoped>
 .border {
-  padding: 25px;
+  padding: 20px;
   border-radius: 5px;
   border: 1px solid var(--av-darker-gray);
 }
@@ -258,6 +332,5 @@ onBeforeMount(() => [Space.getSpaceDetailsDevices(spaceId)]);
 
 ion-item {
   --background: transparent;
-  margin-top: 16px;
 }
 </style>
