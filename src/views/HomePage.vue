@@ -53,10 +53,12 @@ import { useRouter } from "vue-router";
 import DotText from "@/components/shared/DotText.vue";
 import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
 const router = useRouter();
 const authService = new Auth();
 const authStore = useAuthStore();
+const organisationStore = useOrganisationStore();
 
 const signIn = async () => {
   // Sign in logic here
@@ -64,6 +66,10 @@ const signIn = async () => {
 
   if (authRes) {
     authStore.setAuthStatus(true);
+    const currentOrgId = localStorage.getItem("currentOrganisationId");
+    if (currentOrgId) {
+      organisationStore.setOrganisationId(currentOrgId);
+    }
     return router.replace({ name: "Dashboard" });
   } else {
     authStore.setAuthStatus(false);

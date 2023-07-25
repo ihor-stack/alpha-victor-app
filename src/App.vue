@@ -144,10 +144,10 @@ const updateTheme = (theme: Theme) => {
   } else {
     root.style.setProperty("--theme-image", `url('/img/lines-no-logo.svg')`);
   }
-  if (root) {
+  if (root && theme.primaryColour) {
     root.style.setProperty("--ion-color-primary", theme.primaryColour);
   }
-  if (root) {
+  if (root && theme.primaryColour) {
     root.style.setProperty("--ion-color-secondary", theme.primaryColour);
   }
 };
@@ -216,13 +216,12 @@ onBeforeMount(async () => {
   const i18n = inject("i18n");
   updateThemeFromStorage();
   const currentOrgId = localStorage.getItem("currentOrganisationId");
-  if (currentOrgId) {
-    // i18n.global.locale = "cy";    // You can set locale of the project based on the organisation here.
-    organisationStore.setOrganisationId(currentOrgId);
-  }
   const accessToken = await authService.fetchCurrentAccessToken();
   if (accessToken) {
     authStore.setAuthStatus(true);
+    if (currentOrgId) {
+      organisationStore.setOrganisationId(currentOrgId);
+    }
     accountStore.getPermissions();
     organisationStore.getOrganisations();
   } else {
