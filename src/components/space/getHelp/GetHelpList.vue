@@ -45,6 +45,16 @@ const spacesStore = useSpacesStore();
 const spaceId: string = route.params.spaceId as string;
 const decisionTree = computed(() => organisationsStore.decisionTree);
 
+const nodeTypes = [
+  "Article",
+  "Video",
+  "Question",
+  "Answer",
+  "Email",
+  "Phone",
+  "Document",
+];
+
 interface State {
   currentDecitionTreeNodes: IDecisionTreeNode[];
   baseMixPanelProperties: {
@@ -105,6 +115,15 @@ const handleClickNode = (node: IDecisionTreeNode, question?: string) => {
       description: node.document?.title,
     });
     router.push({ path: `/document-viewer/${node.document?.id}` });
+  }
+  if (
+    node.type !== DecisionTreeNodeType.Answer &&
+    node.type !== DecisionTreeNodeType.Question
+  ) {
+    mixpanel.track("DT Goal Reached", {
+      ...state.baseMixPanelProperties,
+      type: nodeTypes[node.type],
+    });
   }
 };
 
