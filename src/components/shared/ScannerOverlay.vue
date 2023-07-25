@@ -58,7 +58,7 @@ const closeScanner = () => {
   bottom:0;
   left: 0;
   z-index: 9999999999;
-  width: 80%;
+  width: 100%;
   max-width: min(500px, 80vh);
   margin: auto;
   display: flex;
@@ -71,7 +71,7 @@ const closeScanner = () => {
 }
 .barcode-scanner--area--inner {
   width: 100%;
-  margin: 1rem;
+  margin: 2rem;
   border: 2px solid #fff;
   box-shadow: 0px 0px 2px 1px rgb(0 0 0 / 0.5),
     inset 0px 0px 2px 1px rgb(0 0 0 / 0.5);

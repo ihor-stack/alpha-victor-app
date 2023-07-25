@@ -175,7 +175,7 @@ ion-chip {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 22px 32px;
+  padding: 25px;
 }
 
 .modal-panel__header {
