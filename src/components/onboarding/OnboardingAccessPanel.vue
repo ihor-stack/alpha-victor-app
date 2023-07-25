@@ -23,9 +23,7 @@
         </div>
         <div class="link-container text-center">
           <p class="color-mid-gray font-sm">
-            Already have an account? <span @click="signInEmail" class="color-light-gray link">Send me a login link</span>
-            <br/><br/>
-            <span @click="signIn" class="color-light-gray link">Login with email</span>
+            <span @click="skipPermissions" class="color-light-gray link">Skip permissions</span>
           </p>
         </div>
       </div>
@@ -46,8 +44,8 @@ defineProps<{
   signIn: () => void;
 }>();
 
-const signInEmail = async () => {
-  return router.replace({ name: "SendEmailLoginLink" });
+const skipPermissions = async () => {
+  return router.replace({ name: "Dashboard" });
 }
 </script>
 
