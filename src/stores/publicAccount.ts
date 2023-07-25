@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import mixpanel from "mixpanel-browser";
 import { publicAPI } from "@/axios";
 import { PublicAccount, UserPermission, IUserData } from "@/types/index";
 import toastService from "@/services/toastService";
@@ -14,10 +15,11 @@ export const Account = defineStore("Account", {
   },
   actions: {
     async getAccount() {
-      publicAPI
+      return publicAPI
         .get<PublicAccount>("/Account/PersonalDetails")
         .then((response) => {
           this.accountDetails = response.data;
+          return response.data;
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "top");
@@ -59,6 +61,7 @@ export const Account = defineStore("Account", {
             "success",
             "top"
           );
+          mixpanel.track("User Registered", { email: userData.email });
           router.replace({ name: "Home" });
         })
         .finally(() => {
@@ -68,7 +71,9 @@ export const Account = defineStore("Account", {
     async sendEmailLoginLink(emailAddress: string) {
       const loadId = loadingService.show("Loading...");
       return publicAPI
-        .post<any>("/Identity/SendEmailLoginLink", {emailAddress: emailAddress})
+        .post<any>("/Identity/SendEmailLoginLink", {
+          emailAddress: emailAddress,
+        })
         .then((response) => {
           toastService.show(
             "Success",
@@ -89,7 +94,9 @@ export const Account = defineStore("Account", {
     async sendPasswordResetLink(emailAddress: string) {
       const loadId = loadingService.show("Loading...");
       return publicAPI
-        .post<any>("/Identity/SendPasswordResetLink", {emailAddress: emailAddress})
+        .post<any>("/Identity/SendPasswordResetLink", {
+          emailAddress: emailAddress,
+        })
         .then((response) => {
           toastService.show(
             "Success",
@@ -110,7 +117,10 @@ export const Account = defineStore("Account", {
     async confirmPasswordReset(token: string, password: string) {
       const loadId = loadingService.show("Loading...");
       return publicAPI
-        .post<any>("/Identity/ConfirmPasswordReset", {resetToken: token, newPassword: password })
+        .post<any>("/Identity/ConfirmPasswordReset", {
+          resetToken: token,
+          newPassword: password,
+        })
         .then((response) => {
           toastService.show(
             "Success",
@@ -130,7 +140,7 @@ export const Account = defineStore("Account", {
     },
     async confirmEmailVerification(token: string) {
       return publicAPI
-        .post<any>("/Identity/VerifyAccount", {verificationToken: token })
+        .post<any>("/Identity/VerifyAccount", { verificationToken: token })
         .then((response) => {
           return response;
         });

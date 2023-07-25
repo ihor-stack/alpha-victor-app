@@ -69,7 +69,6 @@ export default class Auth {
   // Methods
 
   storeGuestAccessToken(guestToken: string) {
-
     const accessToken = localStorage.getItem(SECURE_STORE_ACCESS_TOKEN);
 
     // Don't overwrite an actual access token.
@@ -111,14 +110,13 @@ export default class Auth {
 
     try {
       const resp = await OAuth2Client.authenticate(oidcOptions);
-
       const accessToken = resp["access_token_response"]["access_token"];
       const refreshToken = resp["access_token_response"]["refresh_token"];
       let expiresAt = resp["access_token_response"]["expires_at"];
 
       if (!expiresAt) {
         expiresAt = resp["access_token_response"]["expires_on"];
-      } 
+      }
 
       const issuedAt = Auth.getCurrentTimeInSeconds().toString();
       localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
@@ -149,7 +147,7 @@ export default class Auth {
 
       if (!expiresAt) {
         expiresAt = resp["access_token_response"]["expires_on"];
-      } 
+      }
 
       localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
       localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken as string);

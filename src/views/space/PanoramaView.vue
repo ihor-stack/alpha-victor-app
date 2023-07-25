@@ -66,6 +66,7 @@ import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 import { useRoute, useRouter } from "vue-router";
 import { Hotspot, Device } from "@/types";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import mixpanel from "mixpanel-browser";
 
 const router = useRouter();
 const route = useRoute();
@@ -103,6 +104,13 @@ const hotspotClicked = (event: MouseEvent, args: { id: string }) => {
     viewer.setPitch(selectedHotspot?.pitch);
     viewer.setYaw(selectedHotspot?.yaw);
     state.modalOpen = true;
+    mixpanel.track("Panorama Device Selected", {
+      organisaLon: spacesStore.currentSpace.organisationName,
+      location: spacesStore.currentSpace.locationName,
+      ﬂoor: spacesStore.currentSpace.floorName,
+      space: spacesStore.currentSpace.name,
+      device: selectedHotspot.deviceName,
+    });
   }
 };
 
@@ -158,8 +166,24 @@ watch(currentPanorama, (newValue) => {
 
 onBeforeMount(() => {
   if (spacesStore.currentSpace?.id !== spaceId) {
-    spacesStore.getSpaceDetails(spaceId);
+    spacesStore.getSpaceDetails(spaceId).then((res) => {
+      if (res?.name) {
+        mixpanel.track("Panorama Viewed", {
+          organisaLon: res.organisationName,
+          location: res.locationName,
+          ﬂoor: res.floorName,
+          space: res.name,
+        });
+      }
+    });
     spacesStore.getSpaceDevices(spaceId);
+  } else {
+    mixpanel.track("Panorama Viewed", {
+      organisaLon: spacesStore.currentSpace.organisationName,
+      location: spacesStore.currentSpace.locationName,
+      ﬂoor: spacesStore.currentSpace.floorName,
+      space: spacesStore.currentSpace.name,
+    });
   }
   spacesStore.getPanorama(spaceId);
 });
