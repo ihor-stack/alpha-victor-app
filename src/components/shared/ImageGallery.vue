@@ -22,7 +22,7 @@
         >
           {{ $t('components.shared.imageGallery.removeButton')}}
         </ion-button>
-        <ion-reorder slot="end">
+        <ion-reorder slot="end" v-if="images.length > 1">
           <ion-icon :icon="menuOutline"></ion-icon>
         </ion-reorder>
       </ion-item>

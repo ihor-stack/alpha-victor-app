@@ -289,5 +289,6 @@ onBeforeMount(() => {
 ion-chip {
   --background: var(--av-primary);
   --color: var(--av-light-gray);
+  margin-top: 15px;
 }
 </style>

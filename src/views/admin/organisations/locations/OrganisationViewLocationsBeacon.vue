@@ -1,55 +1,61 @@
 <template>
-  <div>
+  <ion-grid class="form-admin ion-no-padding">
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
       {{ $t("pages.admin.organisations.view.locations.beacon.title") }}
     </h1>
-    <ion-grid class="form-admin">
-      <ion-row class="form-admin--group">
-        <ion-col size-xs="12">
-          <ion-label>{{
-            $t("pages.admin.organisations.view.locations.beacon.minorLabel")
-          }}</ion-label>
-          <ion-label v-if="Space.beacon.beaconId">{{
-            Space.beacon.minor
-          }}</ion-label>
-          <ion-label>{{
-            $t("pages.admin.organisations.view.locations.beacon.majorLabel")
-          }}</ion-label>
-          <ion-label v-if="Space.beacon.beaconId">{{
-            Space.beacon.major
-          }}</ion-label>
-        </ion-col>
-        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
-            $t("pages.admin.organisations.view.locations.beacon.selectedLabel")
-          }}</ion-label>
-          <ion-select
-            interface="action-sheet"
-            :placeholder="
-              $t('pages.admin.organisations.view.locations.beacon.placeholders')
-            "
-            :value="state.selectedBeacon"
-            @ion-change="(e) => (state.selectedBeacon = e.target.value)"
+    <ion-row class="form-admin--group">
+      <ion-col size-xs="6" v-if="Space.beacon.beaconId">
+        <ion-label>{{
+          $t("pages.admin.organisations.view.locations.beacon.minorLabel")
+        }}: </ion-label>
+        <ion-label>{{
+          Space.beacon.minor
+        }}</ion-label>
+      </ion-col>
+
+      <ion-col size-xs="6" v-if="Space.beacon.beaconId">
+        <ion-label>{{
+          $t("pages.admin.organisations.view.locations.beacon.majorLabel")
+        }}: </ion-label>
+        <ion-label>{{
+          Space.beacon.major
+        }}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="form-admin--group">
+      <ion-col size-xs="12" class="form-admin--group_field" v-if="!Space.beacon.beaconId">
+        <ion-select
+          interface="action-sheet"
+          :placeholder="
+            $t('pages.admin.organisations.view.locations.beacon.placeholder')
+          "
+          :value="state.selectedBeacon"
+          @ionChange="onBeaconSelected"
+        >
+          <ion-select-option
+            v-for="(option, idx) in state.availableBeacons"
+            :key="idx"
+            :value="idx"
           >
-            <ion-select-option
-              v-for="(option, idx) in state.availableBeacons"
-              :key="idx"
-              :value="idx"
-            >
-              {{ option.minor }} {{ option.major }}
-            </ion-select-option>
-          </ion-select>
-        </ion-col>
-        <ion-col size-xs="12">
-          <ion-button class="button-wide" @click="saveSelectedBeacon()">
-            {{
-              $t("pages.admin.organisations.view.locations.beacon.updateBtn")
-            }}
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+            Beacon: {{ option.minor }} min / {{ option.major }} maj
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size-xs="12" class="button-pair">
+        <!-- <ion-button class="button-wide" @click="saveSelectedBeacon()">
+          {{
+            $t("pages.admin.organisations.view.locations.beacon.updateBtn")
+          }}
+        </ion-button> -->
+        <ion-button class="button-wide button-red button-outline" fill="outline" @click="removeSelectedBeacon()" v-if="Space.beacon.beaconId">
+          {{
+            $t("pages.admin.organisations.view.locations.beacon.removeBtn")
+          }}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </template>
 
 <script setup lang="ts">
@@ -131,6 +137,14 @@ const startRangingBeacons = async () => {
   await IBeacon.startRangingBeaconsInRegion(beaconRegion);
 };
 
+const onBeaconSelected = (e: CustomEvent) => {
+  const selectedValue = e.detail.value;
+  if (selectedValue !== undefined) {
+    state.selectedBeacon = Number(selectedValue);
+    saveSelectedBeacon(); // Call the saveSelectedBeacon method when an item is selected
+  }
+};
+
 const saveSelectedBeacon = async () => {
   const selectionIdx = state.selectedBeacon ?? -1;
 
@@ -143,6 +157,10 @@ const saveSelectedBeacon = async () => {
     selectedBeaconModel.minor,
     selectedBeaconModel.major
   );
+};
+
+const removeSelectedBeacon = async () => {
+  Space.unlinkSpaceBeacon(spaceId);
 };
 
 onBeforeMount(() => {

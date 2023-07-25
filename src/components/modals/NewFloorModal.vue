@@ -33,7 +33,7 @@
               </p>
             </div>
           </ion-header>
-          <div class="form-admin--group_field">
+          <div class="form-admin--group">
             <div class="modal-panel__section modal-panel__select-equipment">
               <ion-row class="form-admin--group">
                 <ion-col

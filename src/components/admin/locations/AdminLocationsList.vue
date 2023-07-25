@@ -41,10 +41,10 @@
           button
           :router-link="redirect(String(space.spaceId))"
           router-direction="root"
-          class="form-admin--group_field-item ion-no-padding"
+          class="form-admin--group_field-item space-card ion-no-padding"
         >
           <img v-if="space.image" :src="space.image" :alt="space.name" />
-          <ion-label>
+          <ion-label class="space-card--info">
             {{ space.name }}
           </ion-label>
           <ion-icon :icon="chevronForwardOutline" slot="end"></ion-icon>
@@ -119,6 +119,9 @@ h2 {
 }
 ion-button {
   width: 246px;
+}
+.space-card--info {
+  margin-left: 20px;
 }
 .export-button {
   color: var(--av-light-gray);

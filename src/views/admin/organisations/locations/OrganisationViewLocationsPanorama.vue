@@ -24,7 +24,7 @@
             class="font-size-xs font-mono color-light-gray header-left--label"
           >
             <ion-icon :icon="locationOutline"></ion-icon>
-            {{ $t("pages.admin.organisations.view.locations.panorama.icon") }}
+            {{ space.location?.name }}
           </span>
           <span
             class="font-size-xs font-mono color-light-gray header-left--label"
@@ -290,6 +290,9 @@ onBeforeMount(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.header-left {
+  margin-left: 20px;
 }
 .header-left--label {
   display: flex;

@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 import { IonIcon } from "@ionic/vue";
 import { eye, eyeOff } from "ionicons/icons";
 
@@ -96,6 +96,8 @@ import {
   IonInput,
 } from "@ionic/vue";
 import { useRouter } from "vue-router";
+import { Plugins } from "@capacitor/core";
+const { Keyboard, StatusBar } = Plugins;
 
 import DotText from "@/components/shared/DotText.vue";
 import Auth from "@/auth";
@@ -183,6 +185,18 @@ const signIn = async () => {
     return router.replace({ name: "Home" });
   }
 };
+
+onMounted(() => {
+  Keyboard.setResizeMode({ mode: "ionic" });
+  StatusBar.setStyle({ style: "Light" });
+  Keyboard.addListener('keyboardWillShow', () => {
+    StatusBar.overlaysWebView({ overlay: true });
+  });
+
+  Keyboard.addListener('keyboardWillHide', () => {
+    StatusBar.overlaysWebView({ overlay: false });
+  });
+})
 </script>
 
 <style scoped>

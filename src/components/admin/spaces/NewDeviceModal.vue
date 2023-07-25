@@ -13,7 +13,6 @@
           <div class="modal-panel-container">
             <ion-header>
               <ion-icon
-               
                 :icon="close"
                 size="small"
                 class="close-button"
@@ -23,13 +22,13 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                  Add New Device
+                  Add new device
                 </h1>
               </div>
             </ion-header>
-            <div class="form-admin--group_field">
+            <div class="form-admin">
               <ion-row class="form-admin--group">
-                <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
+                <ion-col size-xs="12" class="form-admin--group_field">
                   <AdminSelect
                     label="Equipment"
                     v-model="selectedEquipment"
@@ -38,6 +37,8 @@
                     :isSearchable="true"
                   />
                 </ion-col>
+              </ion-row>
+              <ion-row class="form-admin--group">
                 <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
                   <ion-label>Name</ion-label>
                   <ion-input
@@ -46,8 +47,6 @@
                     @ion-input="newDevice.name = String($event.target.value)"
                   ></ion-input>
                 </ion-col>
-              </ion-row>
-              <ion-row class="form-admin--group">
                 <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
                   <ion-label>Serial number</ion-label>
                   <ion-input
@@ -58,6 +57,10 @@
                     "
                   ></ion-input>
                 </ion-col>
+              </ion-row>
+              
+
+              <ion-row class="form-admin--group">
                 <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
                   <ion-label>Mac Address</ion-label>
                   <ion-input
@@ -68,10 +71,6 @@
                     "
                   ></ion-input>
                 </ion-col>
-              </ion-row>
-              
-
-              <ion-row class="form-admin--group">
                 <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
                   <ion-label>Installer</ion-label>
                   <ion-input
@@ -82,6 +81,9 @@
                     "
                   ></ion-input>
                 </ion-col>
+              </ion-row>
+
+              <ion-row class="form-admin--group">
                 <ion-col
                   size-xs="12"
                   size-sm="6"
@@ -109,11 +111,9 @@
                     />
                   </ion-modal>
                 </ion-col>
-              </ion-row>
-
-              <ion-row class="form-admin--group">
                 <ion-col
                   size-xs="12"
+                  size-sm="6"
                   class="form-admin--group_field"
                 >
                   <ion-label>Warranty expiry date</ion-label>
@@ -153,18 +153,15 @@
                     "
                   ></ion-textarea>
                 </ion-col>
-                <ion-col size-xs="12" class="form-admin--group_field">
+                <ion-col size-xs="12" class="ion-no-padding">
                   <ion-button
-                    class="font-size-sm text-lowercase"
+                    class="font-size-sm"
                     :disabled="
-                      !newDevice.name ||
-                      !newDevice.serialNumber ||
-                      !newDevice.installer ||
-                      !newDevice.description
+                      !newDevice.name
                     "
                     @click="saveNewDevice()"
                   >
-                    Save
+                    Add new device +
                   </ion-button>
                 </ion-col>
               </ion-row>
@@ -245,9 +242,6 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
-ion-button {
-  margin-top: 40px;
-}
 .close-button {
   width: 20px;
   margin-left: 95%;
@@ -265,5 +259,7 @@ ion-button {
 }
 .date-wrapper ion-datetime-button::part(native) {
   background: transparent;
+  padding-left: 0;
+  width: 100%;
 }
 </style>
