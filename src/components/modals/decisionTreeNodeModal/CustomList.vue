@@ -15,9 +15,9 @@
           class="color-green ion-align-items-center"
         >
           <ion-icon :icon="checkmarkCircle" size="small" />
-          <ion-col> selected </ion-col>
+          <ion-col> {{$t('components.admin.modals.decisionTreeNodeModal.customList.selectedCol')}} </ion-col>
         </ion-row>
-        <ion-col v-else>>> select</ion-col>
+        <ion-col v-else>{{$t('components.admin.modals.decisionTreeNodeModal.customList.greaterSelectedCol')}}</ion-col>
       </div>
     </li>
   </ul>

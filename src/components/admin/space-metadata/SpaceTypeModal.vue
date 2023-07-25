@@ -1,7 +1,7 @@
 <template>
   <div>
     <ion-button class="button-wide" @click="modalOpen = true">
-      Add new space type +
+      {{ $t('components.admin.spaceMetadata.SpaceTypeModal.addNewSpaceTypeButton') }}
     </ion-button>
     <ion-modal
       :is-open="modalOpen"
@@ -22,7 +22,7 @@
                 <ion-label>
                   <h2 class="font-bold font-size-lg">Add new space type</h2>
                   <p class="font-size-sm">
-                    You can create a new space Type via the form below.
+                    {{ $t('components.admin.spaceMetadata.SpaceTypeModal.createNewSpaceTypeParagraph') }}
                   </p>
                 </ion-label>
               </ion-item>
@@ -42,7 +42,7 @@
                 expand="block"
                 @click="saveNewType()"
               >
-                Add new space type +
+              {{ $t('components.admin.spaceMetadata.SpaceTypeModal.addNewSpaceTypeButton') }}
               </ion-button>
             </ion-footer>
           </div>

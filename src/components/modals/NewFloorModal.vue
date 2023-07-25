@@ -5,7 +5,7 @@
     color="--av-light-gray"
     @click="modalOpen = true"
   >
-    Add new floor +
+    {{$t('components.modals.newFloorModal.addNewFloorButton')}}
   </ion-button>
   <ion-modal
     :is-open="modalOpen"
@@ -26,10 +26,10 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
-                Add new floor
+                {{ $t('components.modals.newFloorModal.addNewFloorHeader') }}
               </h1>
               <p class="modal-panel__comment color-light-gray font-size-sm">
-                You can create a new floor via the form below.
+                {{ $t('components.modals.newFloorModal.createNewFloorParagraph') }}
               </p>
             </div>
           </ion-header>
@@ -43,7 +43,7 @@
                 >
                   <ion-input
                     class="font-size-sm"
-                    placeholder="Floor Name"
+                    :placeholder="$t('components.modals.newFloorModal.floorNameInputPlaceholder')"
                     :value="newFloorDetails.longName"
                     @ion-input="
                       newFloorDetails.longName = String($event.target.value)
@@ -58,7 +58,7 @@
                 >
                   <ion-input
                     class="font-size-sm"
-                    placeholder="Floor Short Name"
+                    :placeholder="$t('components.modals.newFloorModal.floorShortNameInputPlaceholder')"
                     :value="newFloorDetails.shortName"
                     @ion-input="
                       newFloorDetails.shortName = String($event.target.value)
@@ -74,7 +74,7 @@
               expand="block"
               @click="saveNewFloor()"
             >
-              Add new floor +
+              {{ $t('components.modals.newFloorModal.addNewFloorButton') }}
             </ion-button>
           </ion-footer>
         </div>

@@ -6,7 +6,7 @@
       color="dark"
       @click="handleBack"
     >
-      <span class="font-mono font-size-xs">&lt;&lt; back</span>
+      <span class="font-mono font-size-xs">{{$t('layouts.adminLayout.backSpan')}}</span>
     </ion-button>
     <router-view />
   </div>

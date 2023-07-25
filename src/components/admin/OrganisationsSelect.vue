@@ -11,7 +11,7 @@
           size="small"
           @click="handleCta"
           ><span class="color-light-gray font-mono font-size-xs text-spaced"
-            >&gt;&gt; view.all</span
+            >{{$t('components.admin.spaces.organisationsSelect.viewAllSpan')}}</span
           ></ion-button
         >
       </div>

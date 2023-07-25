@@ -19,13 +19,13 @@
           </p>
         </div>
         <div class="button-container">
-          <ion-button expand="block" @click="ctaFunc">Enable</ion-button>
+          <ion-button expand="block" @click="ctaFunc">{{$t('components.onboarding.enableButton')}}</ion-button>
         </div>
         <div class="link-container text-center">
           <p class="color-mid-gray font-sm">
-            Already have an account? <span @click="signInEmail" class="color-light-gray link">Send me a login link</span>
+            {{$t('components.onboarding.accountExists')}} <span @click="signInEmail" class="color-light-gray link">{{ $t('components.onboarding.sendLoginLinkSpan') }}</span>
             <br/><br/>
-            <span @click="signIn" class="color-light-gray link">Login with email</span>
+            <span @click="signIn" class="color-light-gray link">{{$t('components.onboarding.loginWithEmailSpan')}}</span>
           </p>
         </div>
       </div>

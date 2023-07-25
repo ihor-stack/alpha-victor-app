@@ -1,6 +1,6 @@
 <template>
   <ion-button class="button-wide" @click="state.modalOpen = true">
-    Add new asset type +
+    {{$t('components.admin.equipment.assetTypeModal.button')}}
   </ion-button>
   <ion-modal
     :is-open="state.modalOpen"
@@ -21,10 +21,10 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
-                Add new asset type
+                {{ $t("components.admin.equipment.assetTypeModal.header") }}
               </h1>
               <p class="modal-panel__comment color-light-gray font-size-sm">
-                You can create a new asset type via the form below.
+                {{ $t("components.admin.equipment.assetTypeModal.paragraph") }}
               </p>
             </div>
           </ion-header>
@@ -46,7 +46,7 @@
               :disabled="!state.name"
               @click="handleAddAssetType"
             >
-              Add new asset type +
+            {{ $t("components.admin.equipment.assetTypeModal.button") }}
             </ion-button>
           </ion-footer>
         </div>

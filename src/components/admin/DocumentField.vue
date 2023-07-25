@@ -30,7 +30,7 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
-                Edit Document Type
+                {{$t('components.admin.spaces.documentField.editDocumentTypeHeader')}}
               </h1>
               <ion-input
                 class="font-size-sm"
@@ -47,7 +47,7 @@
               fill="clear"
               size="small"
             >
-              &gt;&gt; save
+            {{$t('components.admin.spaces.documentField.saveButton')}}
             </ion-button>
             <ion-button
               @click="$emit('remove'), (active = false)"
@@ -55,7 +55,7 @@
               fill="clear"
               size="small"
             >
-              &gt;&gt; remove
+            {{$t('components.admin.spaces.documentField.removeButton')}}
             </ion-button>
           </ion-footer>
         </div>
