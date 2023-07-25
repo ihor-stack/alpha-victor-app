@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onBeforeMount } from "vue";
+import { reactive, onMounted } from "vue";
 import { IonIcon } from "@ionic/vue";
 import { eye, eyeOff } from "ionicons/icons";
 
@@ -97,7 +97,7 @@ import {
 } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import { Plugins } from "@capacitor/core";
-const { Keyboard } = Plugins;
+const { Keyboard, StatusBar } = Plugins;
 
 import DotText from "@/components/shared/DotText.vue";
 import Auth from "@/auth";
@@ -186,8 +186,16 @@ const signIn = async () => {
   }
 };
 
-onBeforeMount(() => {
-  Keyboard.setResizeMode({ mode: "ionic" })
+onMounted(() => {
+  Keyboard.setResizeMode({ mode: "ionic" });
+  StatusBar.setStyle({ style: "Light" });
+  Keyboard.addListener('keyboardWillShow', () => {
+    StatusBar.overlaysWebView({ overlay: true });
+  });
+
+  Keyboard.addListener('keyboardWillHide', () => {
+    StatusBar.overlaysWebView({ overlay: false });
+  });
 })
 </script>
 
