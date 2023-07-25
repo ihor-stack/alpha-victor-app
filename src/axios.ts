@@ -65,12 +65,14 @@ const handleError = (error: any) => {
     );
     router.push("/");
   } else {
-    toastService.show(
-      "Error",
-      error.response?.data || error.response?.data?.message || error.response?.data?.title || error,
-      "error",
-      "top"
-    );
+    if (error.response.status !== 404) {
+      toastService.show(
+        "Error",
+        error.response?.data || error.response?.data?.message || error.response?.data?.title || error,
+        "error",
+        "top"
+      );
+    }
   }
 };
 

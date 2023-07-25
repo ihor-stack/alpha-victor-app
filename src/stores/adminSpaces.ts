@@ -443,12 +443,7 @@ export const Spaces = defineStore("Spaces", {
     async getPanorama(spaceId: string) {
       const loadId = loadingService.show("Loading...");
       adminAPI
-        .get<Panorama>(`/Panorama/${spaceId}`, {
-          validateStatus: function (status: any) {
-            // disable error toast when get 404
-            return status === 404;
-          }
-        })
+        .get<Panorama>(`/Panorama/${spaceId}`)
         .then((response) => {
           this.currentPanorama = response.data;
         })
