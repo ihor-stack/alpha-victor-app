@@ -50,7 +50,9 @@
     </ion-content>
     <ion-footer class="ion-no-border">
       <router-link to="/find-space/location">
-        <ion-button expand="block">{{ $t("pages.dashboard.exploreBtn") }}</ion-button>
+        <ion-button expand="block">{{
+          $t("pages.dashboard.exploreBtn")
+        }}</ion-button>
       </router-link>
     </ion-footer>
     <ion-modal

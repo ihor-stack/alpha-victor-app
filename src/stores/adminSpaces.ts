@@ -359,6 +359,15 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
+    async unlinkSpaceBeacon(spaceId: string) {
+      adminAPI
+        .delete(`/Space/${spaceId}/Beacon`)
+        .then(() => this.getSpaceDetailsBeacon(spaceId))
+        .catch((error) => {
+          toastService.show("Error", error, "error", "top");
+        });
+    },
+
     async deletePhoto(photoId: string) {
       const photoQuery = `?photoId=${photoId}`;
       const loadId = loadingService.show("Loading...");

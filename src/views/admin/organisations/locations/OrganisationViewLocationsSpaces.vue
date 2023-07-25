@@ -100,57 +100,58 @@
         </ion-col>
       </ion-row>
 
-      <hr class="form-admin--divider" />
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.photos") }}</ion-label>
-        <PhotoModal
-          :isFirstPhoto="isFirstPhoto"
-          :queryParams="`spaceId=${spaceId}`"
-          :callback="() => Space.getSpaceDetails(spaceId)"
+      <div class="photos-container">
+        <ion-item lines="none" class="ion-no-padding"> 
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.photos") }}</ion-label>
+          <PhotoModal
+            :isFirstPhoto="isFirstPhoto"
+            :queryParams="`spaceId=${spaceId}`"
+            :callback="() => Space.getSpaceDetails(spaceId)"
+          />
+        </ion-item>
+        <ImageGallery
+          v-if="space.photos && space.photos.length"
+          :images="space.photos"
+          @image-reordered="handleImageReordered"
+          @image-removed="handleImageRemoved"
         />
-      </ion-item>
-      <ImageGallery
-        v-if="space.photos && space.photos.length"
-        :images="space.photos"
-        @image-reordered="handleImageReordered"
-        @image-removed="handleImageRemoved"
-      />
-      <hr class="form-admin--divider" />
-      <ion-item lines="none" class="ion-no-padding">
-        <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.documents") }}</ion-label>
-        <DocumentModal :organisationId="organisationId" />
-      </ion-item>
+      </div>
 
-      <ion-row class="form-admin--group_field component_container" v-if="space.documents && space.documents.length">
-        <ion-col
-          size-xs="12"
-          size-md="6"
-          class="form-admin--group_field"
-          v-for="document in space.documents"
-          :key="document.id"
-        >
-          <ion-item
-            button
-            class="form-admin--group_field-item rev-margin"
-            lines="none"
+      <div class="photos-container">
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.documents") }}</ion-label>
+          <DocumentModal :organisationId="organisationId" />
+        </ion-item>
+
+        <ion-row class="form-admin--group_field component_container" v-if="space.documents && space.documents.length">
+          <ion-col
+            size-xs="12"
+            size-md="6"
+            class="form-admin--group_field"
+            v-for="document in space.documents"
+            :key="document.id"
           >
-            <ion-label>
-              {{ trimFileExtension(document.name) }}
-            </ion-label>
-            <ion-button
-              class="button-red text-lowercase"
-              slot="end"
-              fill="clear"
-              size="small"
-              @click="removeSpacesDocument(document.id)"
+            <ion-item
+              button
+              class="form-admin--group_field-item rev-margin"
+              lines="none"
             >
-              {{ $t("pages.admin.organisations.view.locations.spaces.remove") }}
-            </ion-button>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <hr class="form-admin--divider" />
+              <ion-label>
+                {{ trimFileExtension(document.name) }}
+              </ion-label>
+              <ion-button
+                class="button-red text-lowercase"
+                slot="end"
+                fill="clear"
+                size="small"
+                @click="removeSpacesDocument(document.id)"
+              >
+                {{ $t("pages.admin.organisations.view.locations.spaces.remove") }}
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
 
       <ul class="list">
         <li
@@ -296,6 +297,10 @@ onBeforeMount(async () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.header-left {
+  margin-left: 20px;
 }
 
 .header-left--label {

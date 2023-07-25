@@ -18,6 +18,9 @@
             @ion-input="announcement.title = String($event.target.value)"
           ></ion-input>
         </ion-col>
+      </ion-row>
+
+      <ion-row class="form-admin--group form-admin--group-full">
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
           <ion-label>{{
             $t(

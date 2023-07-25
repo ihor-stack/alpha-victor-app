@@ -25,8 +25,35 @@
               </div>
               <span class="arrow-right"></span>
             </div>
-            <div slot="content">
+            <div slot="content" class="border">
               <ion-row class="form-admin--group">
+                <ion-col size-xs="12" class="form-admin--group_field">
+                  <AdminSelect
+                    label="Equipment"
+                    v-model="selectedEquipment"
+                    :options="equipmentList"
+                    idPrefix="equipment-select"
+                    :isSearchable="true"
+                  />
+                </ion-col>
+              </ion-row>
+              <ion-row class="form-admin--group">
+                <ion-col
+                  size-xs="12"
+                  size-sm="6"
+                  class="form-admin--group_field"
+                >
+                  <ion-label>{{
+                    $t("pages.admin.organisations.view.locations.devices.name")
+                  }}</ion-label>
+                  <ion-input
+                    class="font-size-sm"
+                    :value="device.name"
+                    @ion-input="
+                      device.name = String($event.target.value)
+                    "
+                  ></ion-input>
+                </ion-col>
                 <ion-col
                   size-xs="12"
                   size-sm="6"
@@ -43,22 +70,44 @@
                     "
                   ></ion-input>
                 </ion-col>
+              </ion-row>
+
+              <ion-row class="form-admin--group">
                 <ion-col
-                  size-xs="12"
-                  size-sm="6"
-                  class="form-admin--group_field"
-                >
-                  <ion-label>{{
-                    $t(
-                      "pages.admin.organisations.view.locations.devices.installer"
-                    )
-                  }}</ion-label>
-                  <ion-input
-                    class="font-size-sm"
-                    :value="device.installer"
-                    @ion-input="device.installer = String($event.target.value)"
-                  ></ion-input>
+                    size-xs="12"
+                    size-sm="6"
+                    class="form-admin--group_field"
+                  >
+                    <ion-label>{{
+                      $t(
+                        "pages.admin.organisations.view.locations.devices.installer"
+                      )
+                    }}</ion-label>
+                    <ion-input
+                      class="font-size-sm"
+                      :value="device.installer"
+                      @ion-input="device.installer = String($event.target.value)"
+                    ></ion-input>
                 </ion-col>
+                <ion-col
+                    size-xs="12"
+                    size-sm="6"
+                    class="form-admin--group_field"
+                  >
+                    <ion-label>{{
+                      $t(
+                        "pages.admin.organisations.view.locations.devices.macAddress"
+                      )
+                    }}</ion-label>
+                    <ion-input
+                      class="font-size-sm"
+                      :value="device.macAddress"
+                      @ion-input="device.macAddress = String($event.target.value)"
+                    ></ion-input>
+                </ion-col>
+              </ion-row>
+
+              <ion-row class="form-admin--group">
                 <ion-col
                   size-xs="12"
                   size-sm="6"
@@ -69,15 +118,17 @@
                       "pages.admin.organisations.view.locations.devices.installDate"
                     )
                   }}</ion-label>
-                  <ion-datetime-button
-                    :datetime="`installDate${device.id}`"
-                    class="date-button"
-                  ></ion-datetime-button>
+                  <div class="custom-input date-wrapper">
+                    <ion-datetime-button
+                      :datetime="`installDate${device.id}`"
+                    ></ion-datetime-button>
+                  </div>
                   <ion-modal :keep-contents-mounted="true">
                     <ion-datetime
                       :id="`installDate${device.id}`"
                       :value="device?.installDate?.split('.', 1)[0]"
                       presentation="date"
+                      show-default-buttons
                       @ion-change="
                         (e: any) => {
                           device.installDate = String(e.target.value);
@@ -96,14 +147,17 @@
                       "pages.admin.organisations.view.locations.devices.expiryDate"
                     )
                   }}</ion-label>
-                  <ion-datetime-button
+                  <div class="custom-input date-wrapper">
+                    <ion-datetime-button
                     :datetime="`warrantyDate${device.id}`"
-                  ></ion-datetime-button>
+                    ></ion-datetime-button>
+                  </div>
                   <ion-modal :keep-contents-mounted="true">
                     <ion-datetime
                       :id="`warrantyDate${device.id}`"
                       :value="device.warrantyExpiryDate.split('.', 1)[0]"
                       presentation="date"
+                      show-default-buttons
                       @ion-change="
                         (e: any) => {
                           device.warrantyExpiryDate = String(e.target.value);
@@ -112,6 +166,9 @@
                     />
                   </ion-modal>
                 </ion-col>
+              </ion-row>
+
+              <ion-row class="form-admin--group">
                 <ion-col size-xs="12" class="form-admin--group_field">
                   <ion-label>{{
                     $t(
@@ -125,22 +182,26 @@
                       device.description = String($event.target.value)
                     "
                   ></ion-textarea>
-                  <ion-item lines="none">
-                    <ion-label>{{
-                      $t(
-                        "pages.admin.organisations.view.locations.devices.photos"
-                      )
-                    }}</ion-label>
-                    <PhotoModal
-                      :queryParams="`deviceId=${device.id}`"
-                      :hiddenFeatureImageToggle="true"
-                      :callback="() => Space.getSpaceDetailsDevices(spaceId)"
+                  <div class="photos-container">
+                    <ion-item lines="none" class="ion-no-padding">
+                      <ion-label>{{
+                        $t(
+                          "pages.admin.organisations.view.locations.devices.photos"
+                        )
+                      }}</ion-label>
+                      <PhotoModal
+                        :queryParams="`deviceId=${device.id}`"
+                        :hiddenFeatureImageToggle="true"
+                        :disableUpload="device.photos && device.photos.length >= 1"
+                        :callback="() => Space.getSpaceDetailsDevices(spaceId)"
+                      />
+                    </ion-item>
+                    <ImageGallery
+                      v-if="device.photos && device.photos.length"
+                      :images="device.photos"
+                      @image-removed="handleImageRemoved"
                     />
-                  </ion-item>
-                  <ImageGallery
-                    :images="device.photos"
-                    @image-removed="handleImageRemoved"
-                  />
+                  </div>
                 </ion-col>
                 <ion-col size-xs="12">
                   <ion-button class="button-wide" @click="editDevice()">
@@ -192,9 +253,12 @@ import {
 } from "@ionic/vue";
 //import AdminFloorsField from '@/components/admin/locations/AdminFloorsField.vue'
 import { Spaces } from "@/stores/adminSpaces";
+import { Equipment as useEquipment } from "@/stores/adminEquipment";
 import { storeToRefs } from "pinia";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import { SelectItem } from "@/types";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 import NewDeviceModal from "@/components/admin/spaces/NewDeviceModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
 import ImageGallery from "@/components/shared/ImageGallery.vue";
@@ -203,8 +267,36 @@ const route = useRoute();
 
 const spaceId = route.params.spaceId as string;
 const Space = Spaces();
+const EquipmentStore = useEquipment();
+
 const { devices } = storeToRefs(Space);
+const { equipmentDropdownList } = storeToRefs(EquipmentStore);
 const currentIndex = ref<number>(0);
+
+const equipmentList = computed(() =>
+  equipmentDropdownList.value?.map((item, index) => {
+    const selectItem: SelectItem = {
+      id: index,
+      additionalInfo: item.id,
+      title: item.name,
+    };
+    return selectItem;
+  })
+);
+
+const selectedEquipment = computed({
+  get() {
+    return equipmentList.value.find(
+      (equipment) => equipment.additionalInfo === devices.value[currentIndex.value].equipmentId
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      devices.value[currentIndex.value].equipmentId = newValue.additionalInfo;
+    }
+  },
+});
+
 const editDevice = () => {
   Space.editSpacesDevices(currentIndex.value, spaceId);
 };
@@ -217,15 +309,40 @@ const handleImageRemoved = (photoId: string) => {
     Space.getSpaceDetailsDevices(spaceId);
   });
 };
-onBeforeMount(() => [Space.getSpaceDetailsDevices(spaceId)]);
+
+onBeforeMount(() => {
+  if (equipmentDropdownList.value?.length < 1) {
+    EquipmentStore.getEquipmentDropdownList();
+  }
+  Space.getSpaceDetailsDevices(spaceId)
+});
 </script>
 
 <style scoped>
-ion-datetime-button {
-  margin-top: 20px;
+.border {
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid var(--av-darker-gray);
 }
+
+.date-wrapper {
+  padding: 9px;
+  margin-top: 5px;
+  border-radius: 5px;
+  margin-bottom: 0;
+}
+
+.date-wrapper ion-datetime-button {
+  width: fit-content;
+}
+
+.date-wrapper ion-datetime-button::part(native) {
+  background: transparent;
+  padding-left: 0;
+  width: 100%;
+}
+
 ion-item {
   --background: transparent;
-  margin-top: 16px;
 }
 </style>

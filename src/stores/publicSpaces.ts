@@ -93,6 +93,7 @@ export const Spaces = defineStore("PublicSpaces", {
 
     async getRecentlyViewedSpaces() {
       const organisationId = organisationStore.currentOrganisationId;
+      if (!organisationId) return;
       const loadId = loadingService.show("Loading...");
       publicAPI
         .get<Space[]>(`/Dashboard/RecentlyViewed/${organisationId}`)

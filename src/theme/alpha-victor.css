@@ -110,6 +110,10 @@ a {
   background: var(--av-primary);
 }
 
+.container {
+  width: 100%;
+}
+
 /* Overrides */
 ion-button {
   height: auto;
@@ -196,6 +200,10 @@ ion-modal::part(content) {
 
 ion-modal::part(handle) {
   top: 10px;
+}
+
+.date-button {
+  width: 100% !important;
 }
 
 .form-admin--group_field ion-label.empty-state {
@@ -581,7 +589,7 @@ ion-button.button-red {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 45px 22px 32px;
+  padding: 25px;
 }
 
 .settings-panel-container ion-item::part(native) {
@@ -750,6 +758,10 @@ ion-toast.customToast::part(message) {
 
 /* Form styling */
 
+.form-admin {
+  padding: 0;
+}
+
 .form-admin ion-input,
 .form-admin ion-textarea {
   --background: #181818;
@@ -770,18 +782,14 @@ ion-toast.customToast::part(message) {
   margin: 10px 0;
 }
 
-@media only screen and (min-width: 1023px) {
-  .form-admin--group_field {
-    padding-right: 10px;
-  }
-}
-
-.form-admin--group_field:nth-child(2n-1) {
+.form-admin--group_field:first-of-type {
   padding-left: 0;
+  padding-right: 0;
 }
 
 .form-admin--group_field:nth-child(2n) {
-  padding-right: 0;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
 .form-admin--group_field ion-input,
@@ -795,8 +803,8 @@ ion-toast.customToast::part(message) {
 }
 
 .form-admin--group_field ion-textarea {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .form-admin--group_field-item {
@@ -896,4 +904,12 @@ ion-content.transparent::part(scroll) {
 .typeform-container .tf-v1-widget iframe {
   width: 100%;
   height: 100%;
+}
+
+.photos-container {
+  margin-top: 25px;
+  border-radius: 8px;
+  padding: 5px 15px;
+  background: var(--av-darkest-gray);
+  border: 1px solid var(--av-darker-gray);
 }
