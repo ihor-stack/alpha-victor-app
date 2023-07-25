@@ -309,9 +309,9 @@ export default {
               title: "Beacon",
               minorLabel: "Current Minor",
               majorLabel: "Current Major",
-              placeholder: "Select manufacturer",
-              selectedLabel: "Selected beacon",
+              placeholder: "Scan for beacons",
               updateBtn: "Update selected beacon",
+              removeBtn: "Unlink beacon",
             },
             devices: {
               title: "Devices",

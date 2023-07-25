@@ -25,7 +25,7 @@
               </div>
               <span class="arrow-right"></span>
             </div>
-            <div slot="content">
+            <div slot="content" class="border">
               <ion-row class="form-admin--group">
                 <ion-col
                   size-xs="12"
@@ -59,6 +59,9 @@
                     @ion-input="device.installer = String($event.target.value)"
                   ></ion-input>
                 </ion-col>
+              </ion-row>
+
+              <ion-row class="form-admin--group">
                 <ion-col
                   size-xs="12"
                   size-sm="6"
@@ -69,15 +72,17 @@
                       "pages.admin.organisations.view.locations.devices.installDate"
                     )
                   }}</ion-label>
-                  <ion-datetime-button
-                    :datetime="`installDate${device.id}`"
-                    class="date-button"
-                  ></ion-datetime-button>
+                  <div class="custom-input date-wrapper">
+                    <ion-datetime-button
+                      :datetime="`installDate${device.id}`"
+                    ></ion-datetime-button>
+                  </div>
                   <ion-modal :keep-contents-mounted="true">
                     <ion-datetime
                       :id="`installDate${device.id}`"
                       :value="device?.installDate?.split('.', 1)[0]"
                       presentation="date"
+                      show-default-buttons
                       @ion-change="
                         (e: any) => {
                           device.installDate = String(e.target.value);
@@ -96,14 +101,17 @@
                       "pages.admin.organisations.view.locations.devices.expiryDate"
                     )
                   }}</ion-label>
-                  <ion-datetime-button
+                  <div class="custom-input date-wrapper">
+                    <ion-datetime-button
                     :datetime="`warrantyDate${device.id}`"
-                  ></ion-datetime-button>
+                    ></ion-datetime-button>
+                  </div>
                   <ion-modal :keep-contents-mounted="true">
                     <ion-datetime
                       :id="`warrantyDate${device.id}`"
                       :value="device.warrantyExpiryDate.split('.', 1)[0]"
                       presentation="date"
+                      show-default-buttons
                       @ion-change="
                         (e: any) => {
                           device.warrantyExpiryDate = String(e.target.value);
@@ -112,6 +120,9 @@
                     />
                   </ion-modal>
                 </ion-col>
+              </ion-row>
+
+              <ion-row class="form-admin--group">
                 <ion-col size-xs="12" class="form-admin--group_field">
                   <ion-label>{{
                     $t(
@@ -125,7 +136,7 @@
                       device.description = String($event.target.value)
                     "
                   ></ion-textarea>
-                  <ion-item lines="none">
+                  <ion-item lines="none" class="ion-no-padding">
                     <ion-label>{{
                       $t(
                         "pages.admin.organisations.view.locations.devices.photos"
@@ -134,6 +145,7 @@
                     <PhotoModal
                       :queryParams="`deviceId=${device.id}`"
                       :hiddenFeatureImageToggle="true"
+                      :disableUpload="device.photos && device.photos.length >= 1"
                       :callback="() => Space.getSpaceDetailsDevices(spaceId)"
                     />
                   </ion-item>
@@ -221,9 +233,29 @@ onBeforeMount(() => [Space.getSpaceDetailsDevices(spaceId)]);
 </script>
 
 <style scoped>
-ion-datetime-button {
-  margin-top: 20px;
+.border {
+  padding: 25px;
+  border-radius: 5px;
+  border: 1px solid var(--av-darker-gray);
 }
+
+.date-wrapper {
+  padding: 9px;
+  margin-top: 5px;
+  border-radius: 5px;
+  margin-bottom: 0;
+}
+
+.date-wrapper ion-datetime-button {
+  width: fit-content;
+}
+
+.date-wrapper ion-datetime-button::part(native) {
+  background: transparent;
+  padding-left: 0;
+  width: 100%;
+}
+
 ion-item {
   --background: transparent;
   margin-top: 16px;
