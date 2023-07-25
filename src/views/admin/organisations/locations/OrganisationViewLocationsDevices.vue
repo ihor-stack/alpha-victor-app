@@ -268,7 +268,6 @@ const route = useRoute();
 const spaceId = route.params.spaceId as string;
 const Space = Spaces();
 const EquipmentStore = useEquipment();
-const selectedEquipment = ref({} as SelectItem);
 
 const { devices } = storeToRefs(Space);
 const { equipmentDropdownList } = storeToRefs(EquipmentStore);
@@ -284,6 +283,19 @@ const equipmentList = computed(() =>
     return selectItem;
   })
 );
+
+const selectedEquipment = computed({
+  get() {
+    return equipmentList.value.find(
+      (equipment) => equipment.additionalInfo === devices.value[currentIndex.value].equipmentId
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      devices.value[currentIndex.value].equipmentId = newValue.additionalInfo;
+    }
+  },
+});
 
 const editDevice = () => {
   Space.editSpacesDevices(currentIndex.value, spaceId);
