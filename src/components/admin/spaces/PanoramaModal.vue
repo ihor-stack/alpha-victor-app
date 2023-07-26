@@ -106,6 +106,7 @@ import {
 } from "@ionic/vue";
 import { close } from "ionicons/icons";
 import { Spaces } from "@/stores/adminSpaces";
+import { Device } from "@/types";
 const Space = Spaces();
 
 const props = defineProps([
@@ -123,15 +124,25 @@ const state = reactive({
 });
 
 const save = () => {
+  let hotspotName = state.text
+
+  const selectedDevice: Device = props.devices.find(
+    (device: Device) => device.id === state.deviceId
+  )
+
+  if (selectedDevice) {
+    hotspotName = selectedDevice.name
+  }
+
   Space.updateHotspot(props.spaceId, props.selectedHotspot.hotspotId, {
     ...props.selectedHotspot,
     deviceId: state.deviceId,
-    text: state.text,
+    text: hotspotName,
   }).then(() => {
     props.deleteHotspotFromViewer(props.selectedHotspot.hotspotId);
     const updatedHotspot = {
       ...props.selectedHotspot,
-      text: state.text,
+      text: hotspotName,
       deviceId: state.deviceId,
     };
     props.drawHotspot(updatedHotspot);
