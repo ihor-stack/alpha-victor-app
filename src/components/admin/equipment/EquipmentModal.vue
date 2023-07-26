@@ -36,20 +36,13 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Manufacturer</ion-label>
-                  <ion-select
-                    interface="action-sheet"
-                    placeholder="Select manufacturer"
-                    v-model="state.manufacturerId"
-                  >
-                    <ion-select-option
-                      v-for="option in equipmentList.manufacturers"
-                      :key="option.manufacturerId"
-                      :value="option.manufacturerId"
-                    >
-                      {{ option.name }}
-                    </ion-select-option>
-                  </ion-select>
+                  <AdminSelect
+                    label="Manufacturer"
+                    v-model="selectedManufacturer"
+                    :options="manufacturerOptions"
+                    :isSearchable="true"
+                    idPrefix="manufacturer-select"
+                  />
                 </ion-col>
 
                 <ion-col
@@ -57,20 +50,13 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Asset type</ion-label>
-                  <ion-select
-                    interface="action-sheet"
-                    placeholder="Select asset type"
-                    v-model="state.assetTypeId"
-                  >
-                    <ion-select-option
-                      v-for="option in equipmentList.assetTypes"
-                      :key="option.assetId"
-                      :value="option.assetId"
-                    >
-                      {{ option.name }}
-                    </ion-select-option>
-                  </ion-select>
+                  <AdminSelect
+                    label="Asset type"
+                    v-model="selectedAssetType"
+                    :options="assetTypeOptions"
+                    :isSearchable="true"
+                    idPrefix="asset-type-select"
+                  />
                 </ion-col>
               </ion-row>
               <ion-row class="form-admin--group">
@@ -123,10 +109,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import {
   IonPage,
-  IonContent,
   IonHeader,
   IonFooter,
   IonButton,
@@ -137,12 +122,11 @@ import {
   IonRow,
   IonCol,
   IonLabel,
-  IonSelect,
-  IonSelectOption,
 } from "@ionic/vue";
 import { close } from "ionicons/icons";
 import { storeToRefs } from "pinia";
 import { Equipment as useEquipment } from "@/stores/adminEquipment";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 
 const EquipmentStore = useEquipment();
 const { equipmentList } = storeToRefs(EquipmentStore);
@@ -154,6 +138,53 @@ const state = reactive({
   assetTypeId: "",
   modalOpen: false,
 });
+
+const manufacturerOptions = computed(() => {
+  return equipmentList.value.manufacturers.map((manufacturer, index) => {
+    return {
+      id: index,
+      title: manufacturer.name,
+      additionalInfo: manufacturer.manufacturerId
+    }
+  })
+})
+
+const selectedManufacturer = computed({
+  get() {
+    return manufacturerOptions.value.find(
+      (manufacturer) => state.manufacturerId === manufacturer.additionalInfo
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      state.manufacturerId = newValue.additionalInfo
+    }
+  },
+})
+
+const assetTypeOptions = computed(() => {
+  return equipmentList.value.assetTypes.map((manufacturer, index) => {
+    return {
+      id: index,
+      title: manufacturer.name,
+      additionalInfo: manufacturer.assetId
+    }
+  })
+})
+
+const selectedAssetType = computed({
+  get() {
+    return assetTypeOptions.value.find(
+      (assetType) => state.assetTypeId === assetType.additionalInfo
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      state.assetTypeId = newValue.additionalInfo
+    }
+  },
+})
+
 const handleDismiss = () => {
   state.modalOpen = false;
 };
