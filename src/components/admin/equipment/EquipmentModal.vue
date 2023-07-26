@@ -42,6 +42,7 @@
                     :options="manufacturerOptions"
                     :isSearchable="true"
                     idPrefix="manufacturer-select"
+                    placeholder="Select manufacturer"
                   />
                 </ion-col>
 
@@ -56,6 +57,7 @@
                     :options="assetTypeOptions"
                     :isSearchable="true"
                     idPrefix="asset-type-select"
+                    placeholder="Select asset type"
                   />
                 </ion-col>
               </ion-row>

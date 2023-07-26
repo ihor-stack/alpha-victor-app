@@ -8,6 +8,7 @@
       readonly
       :value="props.modelValue ? props.modelValue.title : ''"
       @click="openPopover($event)"
+      :placeholder="placeholder"
     />
     <ion-popover
       :is-open="state.popoverOpen"
@@ -46,6 +47,7 @@ interface Props {
   modelValue?: SelectItem;
   options: SelectItem[];
   isSearchable?: boolean;
+  placeholder?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {

@@ -31,6 +31,7 @@
                   :options="deviceOptions"
                   :isSearchable="true"
                   idPrefix="device-select"
+                  placeholder="Select"
                 />
               </ion-col>
             </ion-row>
