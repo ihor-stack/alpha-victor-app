@@ -104,7 +104,6 @@ export const Equipment = defineStore("Equipment", {
         });
     },
     async updateEquipment(id: string, state: any) {
-      console.log('updateEquipment state', state)
       const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(`/Equipment/${id}`, {

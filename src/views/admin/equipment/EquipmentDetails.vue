@@ -114,7 +114,6 @@ const {
 } = storeToRefs(EquipmentStore);
 
 const manufacturerOptions = computed(() => {
-  console.log('manufacturers', equipmentList.value.manufacturers)
   return equipmentList.value.manufacturers.map((manufacturer, index) => ({
     id: index,
     title: manufacturer.name,
@@ -123,7 +122,6 @@ const manufacturerOptions = computed(() => {
 });
 
 const assetTypeOptions = computed(() => {
-  console.log('assetTypes', equipmentList.value.assetTypes)
   return equipmentList.value.assetTypes.map((assetType, index) => ({
     id: index,
     title: assetType.name,

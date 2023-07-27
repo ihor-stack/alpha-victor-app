@@ -7,62 +7,41 @@
     <div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Manufacturer</ion-label>
-          <ion-select
-            interface="action-sheet"
+          <AdminSelect
+            label="Manufacturer"
+            v-model="selectedManufacturer"
+            :options="manufacturerOptions"
+            idPrefix="manufacturer-select"
             placeholder="Select manufacturer"
-            v-model="state.manufacturerId"
-          >
-            <ion-select-option
-              v-for="option in manufacturers"
-              :key="option.manufacturerId"
-              :value="option.manufacturerId"
-            >
-              {{ option.name }}
-            </ion-select-option>
-          </ion-select>
+          />
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Type</ion-label>
-          <ion-select
-            interface="action-sheet"
+          <AdminSelect
+            label="Type"
+            v-model="selectedType"
+            :options="typeOptions"
+            idPrefix="type-select"
             placeholder="Select type"
-            v-model="state.assetTypeId"
-          >
-            <ion-select-option
-              v-for="option in types"
-              :key="option.assetId"
-              :value="option.assetId"
-            >
-              {{ option.name }}
-            </ion-select-option>
-          </ion-select>
+          />
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Model</ion-label>
-          <ion-select
-            interface="action-sheet"
+          <AdminSelect
+            label="Model"
+            v-model="selectedModel"
+            :options="modelOptions"
+            idPrefix="model-select"
             placeholder="Select model"
-            v-model="state.equipmentId"
-          >
-            <ion-select-option
-              v-for="option in models"
-              :key="option.equipmentId"
-              :value="option.equipmentId"
-            >
-              {{ option.equipmentName }}
-            </ion-select-option>
-          </ion-select>
+          />
         </ion-col>
       </ion-row>
       <CustomList
         :listData="state.documents"
         :selectedItem="state.selectedDocument"
-        :handleSelectItem="(item) => (state.selectedDocument = item)"
+        :handleSelectItem="(item: any) => (state.selectedDocument = item)"
       ></CustomList>
     </div>
     <ion-footer>
@@ -84,16 +63,12 @@
     </ion-footer>
   </common-modal>
 </template>
-<script setup>
+<script setup lang="ts">
 import { reactive, computed, watch, onBeforeMount } from "vue";
 import {
-  IonContent,
   IonButton,
   IonRow,
   IonCol,
-  IonSelect,
-  IonSelectOption,
-  IonLabel,
   IonFooter,
 } from "@ionic/vue";
 
@@ -103,6 +78,7 @@ import { adminAPI } from "@/axios";
 import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 
 const organisationsStore = useOrganisationsStore();
 
@@ -122,24 +98,82 @@ const state = reactive({
   selectedDocument: props.editTreeNode?.document,
 });
 
-const manufacturers = computed(() => {
-  return organisationsStore.equipmentList?.manufacturers || [];
+const manufacturerOptions = computed(() => {
+  return organisationsStore.equipmentList.manufacturers.map((manufacturer, index) => {
+    return {
+      id: index,
+      title: manufacturer.name,
+      manufacturerId: manufacturer.manufacturerId,
+    }
+  });
 });
 
-const types = computed(() => {
-  return organisationsStore.equipmentList?.assetTypes || [];
+const selectedManufacturer = computed({
+  get() {
+    return manufacturerOptions.value.find(
+      (manufacturer) => state.manufacturerId === manufacturer.manufacturerId
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      state.manufacturerId = newValue.manufacturerId
+    }
+  },
+})
+
+const typeOptions = computed(() => {
+  return organisationsStore.equipmentList.assetTypes.map((assetType, index) => {
+    return {
+      id: index,
+      title: assetType.name,
+      assetId: assetType.assetId,
+    }
+  });
 });
 
-const models = computed(() => {
-  const equipmentList = organisationsStore.equipmentList?.equipments || [];
+const selectedType = computed({
+  get() {
+    return typeOptions.value.find(
+      (assetType) => state.assetTypeId === assetType.assetId
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      state.assetTypeId = newValue.assetId
+    }
+  },
+})
+
+const modelOptions = computed(() => {
+  const equipmentList = organisationsStore.equipmentList?.equipments || []
+
   return equipmentList.filter(
     (equipment) =>
       equipment.manufacturerId === state.manufacturerId &&
       equipment.assetTypeId === state.assetTypeId
-  );
-});
+  ).map((equipment, index) => {
+    return {
+      id: index,
+      title: equipment.equipmentName,
+      equipmentId: equipment.equipmentId,
+    }
+  });
+})
 
-const getDocumentTypes = (equipmentId) => {
+const selectedModel = computed({
+  get() {
+    return modelOptions.value.find(
+      (equipment) => state.equipmentId === equipment.equipmentId
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      state.equipmentId = newValue.equipmentId
+    }
+  },
+})
+
+const getDocumentTypes = (equipmentId: string) => {
   if (!equipmentId) return;
   const loadId = loadingService.show("Loading...");
   adminAPI

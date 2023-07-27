@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { IonLabel, IonInput, IonPopover, IonSearchbar } from "@ionic/vue";
 import { SelectItem } from "@/types/index";
-import { reactive } from "vue";
+import { onUpdated, reactive } from "vue";
 
 interface Props {
   label?: string;
@@ -78,6 +78,10 @@ function handleSearch(event: any) {
     option.title.toLowerCase().includes(query)
   );
 }
+
+onUpdated(() => {
+  state.options = props.options
+})
 </script>
 <style scoped>
 ion-popover {
