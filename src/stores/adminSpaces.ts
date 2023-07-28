@@ -165,6 +165,7 @@ export const Spaces = defineStore("Spaces", {
       adminAPI
         .get<Device[]>(`/Space/${spaceId}/Device`)
         .then((response) => {
+          confirmToLeaveService.setEditing(false);
           this.devices = response.data;
         })
         .catch((error) => {
@@ -182,6 +183,7 @@ export const Spaces = defineStore("Spaces", {
           deviceEdit
         )
         .then(() => {
+          confirmToLeaveService.setEditing(false);
           toastService.show(
             "Success",
             "Space devices updated",
@@ -252,6 +254,7 @@ export const Spaces = defineStore("Spaces", {
             this.announcement.text
         )
         .then(() => {
+          confirmToLeaveService.setEditing(false);
           toastService.show(
             "Success",
             "Space announcement updated",
@@ -305,6 +308,7 @@ export const Spaces = defineStore("Spaces", {
             "success",
             "bottom"
           );
+          confirmToLeaveService.setEditing(false);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");

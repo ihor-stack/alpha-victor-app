@@ -1,24 +1,36 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      {{ $t("pages.admin.organisations.view.locations.wifi.title")}}
+      {{ $t("pages.admin.organisations.view.locations.wifi.title") }}
     </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.wifi.network")}}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.wifi.network")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="wifi.wifiName"
-            @ion-input="wifi.wifiName = String($event.target.value)"
+            @ion-input="
+              wifi.wifiName = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.wifi.password")}}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.wifi.password")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="wifi.wifiPassword"
-            @ion-input="wifi.wifiPassword = $event.target.value ? String($event.target.value) : undefined"
+            @ion-input="
+              wifi.wifiPassword = $event.target.value
+                ? String($event.target.value)
+                : undefined;
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
 
@@ -28,24 +40,32 @@
             v-model="securityTypeSelected"
             :options="securityTypesList"
             idPrefix="security-type-select"
+            :handleChange="() => confirmToLeaveService.setEditing(true)"
           />
         </ion-col>
 
         <ion-col size-xs="12" class="form-admin--group_field">
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.wifi.show")}}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.wifi.show")
+          }}</ion-label>
           <ion-input class="form-toggle" :disabled="true">
-            <ion-label>{{ $t("pages.admin.organisations.view.locations.wifi.showSpace")}}</ion-label>
+            <ion-label>{{
+              $t("pages.admin.organisations.view.locations.wifi.showSpace")
+            }}</ion-label>
             <ion-toggle
               color="primary"
               :checked="wifi.showWifiPassword"
-              @ionChange="wifi.showWifiPassword = $event.detail.checked"
+              @ionChange="
+                wifi.showWifiPassword = $event.detail.checked;
+                confirmToLeaveService.setEditing(true);
+              "
             />
           </ion-input>
         </ion-col>
 
         <ion-col size-xs="12">
           <ion-button class="button-wide" @click="saveChanges">
-            {{ $t("pages.admin.organisations.view.locations.wifi.saveBtn")}}
+            {{ $t("pages.admin.organisations.view.locations.wifi.saveBtn") }}
           </ion-button>
         </ion-col>
       </ion-row>
@@ -70,6 +90,7 @@ import { Spaces } from "@/stores/adminSpaces";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { onBeforeMount, ref } from "vue";
 import { useRoute } from "vue-router";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const Space = Spaces();
 const route = useRoute();
