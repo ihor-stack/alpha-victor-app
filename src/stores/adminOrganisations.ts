@@ -18,6 +18,7 @@ import {
 
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 export const Organisations = defineStore("Organisations", {
   state: () => {
@@ -48,11 +49,11 @@ export const Organisations = defineStore("Organisations", {
     async saveOrganisation() {
       const newOrg = this.newOrganisationDetails;
       const loadId = loadingService.show("Loading...");
-      
+
       adminAPI
         .post("/Organisation/Details", {
           name: newOrg.name,
-          prefix: newOrg.prefix
+          prefix: newOrg.prefix,
         })
         .then(() => {
           toastService.show(
@@ -130,6 +131,7 @@ export const Organisations = defineStore("Organisations", {
             "success",
             "bottom"
           );
+          confirmToLeaveService.setEditing(false);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
@@ -202,7 +204,12 @@ export const Organisations = defineStore("Organisations", {
           name: documentName,
         })
         .then(() => {
-          toastService.show("Success", "Document type added", "success", "bottom");
+          toastService.show(
+            "Success",
+            "Document type added",
+            "success",
+            "bottom"
+          );
           this.getOrgDocumentTypes(organisationId);
         })
         .catch((error) => {

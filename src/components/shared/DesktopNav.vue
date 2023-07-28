@@ -36,68 +36,89 @@
     <ion-content class="ion-padding no-tp">
       <ul class="nav-menu">
         <li class="nav-menu-link">
-          <router-link to="/dashboard">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.dashboard") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/dashboard')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.dashboard") }}
+            </ion-label>
+          </ion-item>
         </li>
 
         <li class="nav-menu-link">
-          <router-link to="/favourites">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.favourites") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/favourites')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.favourites") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/find-space/location">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.findSpace") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/find-space/location')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.findSpace") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/recently-viewed">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.recentlyViewed") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/recently-viewed')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.recentlyViewed") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/settings">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.accountSettings") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/settings')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.accountSettings") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/about">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.about") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/about')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.about") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/terms-and-conditions">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.tos") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/terms-and-conditions')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.tos") }}
+            </ion-label>
+          </ion-item>
         </li>
         <div class="spacer-line"></div>
         <li class="nav-menu-link">
@@ -109,40 +130,52 @@
         </li>
 
         <li class="nav-menu-link">
-          <router-link to="/admin/organisations">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.organisations") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/admin/organisations')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.organisations") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link" v-if="userPermission.isGlobalAdmin">
-          <router-link to="/admin/equipment">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.equipment") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/admin/equipment')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.equipment") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link" v-if="userPermission.isGlobalAdmin">
-          <router-link to="/admin/documents">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.documentTypes") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/admin/documents')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.documentTypes") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/admin/users">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.users") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/admin/users')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("desktopNav.users") }}
+            </ion-label>
+          </ion-item>
         </li>
       </ul>
     </ion-content>
@@ -181,6 +214,7 @@ import Auth from "@/auth";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const router = useRouter();
 const authService = new Auth();
@@ -210,6 +244,14 @@ const logout = async () => {
     });
     authStore.setAuthStatus(false);
     return router.replace({ name: "Home" });
+  }
+};
+
+const handleNavigate = (route: string) => {
+  if (confirmToLeaveService.confirm.value.isEditing) {
+    confirmToLeaveService.show(() => router.push(route));
+  } else {
+    router.push(route);
   }
 };
 </script>

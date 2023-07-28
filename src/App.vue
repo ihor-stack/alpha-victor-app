@@ -28,6 +28,11 @@
       :duration="toastService.toast.value.duration"
       :isOpen="toastService.toast.value.isOpen"
     />
+    <ConfirmToLeaveModal
+      :open="confirmToLeaveService.confirm.value.isOpen"
+      :handleConfirm="confirmToLeaveService.confirm.value.handleConfirm"
+      :handleDismiss="confirmToLeaveService.close"
+    />
   </ion-app>
   <ScannerOverlay />
 </template>
@@ -46,10 +51,12 @@ import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
 import { App, URLOpenListenerEvent } from "@capacitor/app";
 import DesktopNav from "@/components/shared/DesktopNav.vue";
+import ConfirmToLeaveModal from "./components/modals/ConfirmToLeaveModal.vue";
 
 /* Services */
 import toastService from "./services/toastService";
 import loadingService from "./services/loadingService";
+import confirmToLeaveService from "./services/confirmToLeaveService";
 import Auth from "@/auth";
 
 const route = useRoute();

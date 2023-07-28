@@ -13,7 +13,10 @@
             class="font-size-sm"
             placeholder="Organisation"
             :value="organisationDetails.name"
-            @ion-input="organisationDetails.name = String($event.target.value)"
+            @ion-input="
+              organisationDetails.name = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -25,7 +28,8 @@
             placeholder="APL"
             :value="organisationDetails.prefix"
             @ion-input="
-              organisationDetails.prefix = String($event.target.value)
+              organisationDetails.prefix = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
             "
           ></ion-input>
         </ion-col>
@@ -37,7 +41,8 @@
             class="font-size-sm"
             :value="organisationDetails.contactName"
             @ion-input="
-              organisationDetails.contactName = String($event.target.value)
+              organisationDetails.contactName = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
             "
           ></ion-input>
         </ion-col>
@@ -49,7 +54,10 @@
             class="font-size-sm"
             placeholder="youremail@domain.com"
             :value="organisationDetails.email"
-            @ion-input="organisationDetails.email = String($event.target.value)"
+            @ion-input="
+              organisationDetails.email = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -60,14 +68,21 @@
             class="font-size-sm"
             placeholder="01245 000000"
             :value="organisationDetails.phone"
-            @ion-input="organisationDetails.phone = String($event.target.value)"
+            @ion-input="
+              organisationDetails.phone = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label>{{
             $t("pages.admin.organisations.view.details.language")
           }}</ion-label>
-          <AdminSelect v-model="selectedLanguage" :options="languageOptions" />
+          <AdminSelect
+            v-model="selectedLanguage"
+            :options="languageOptions"
+            :handleChange="() => confirmToLeaveService.setEditing(true)"
+          />
         </ion-col>
       </ion-row>
 
@@ -87,7 +102,8 @@
                 : ''
             "
             @ion-input="
-              organisationDetails.addressLine0 = String($event.target.value)
+              organisationDetails.addressLine0 = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
             "
           ></ion-input>
         </ion-col>
@@ -104,7 +120,8 @@
                 : ''
             "
             @ion-input="
-              organisationDetails.addressLine1 = String($event.target.value)
+              organisationDetails.addressLine1 = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
             "
           ></ion-input>
         </ion-col>
@@ -116,7 +133,10 @@
             class="font-size-sm"
             placeholder="London"
             :value="organisationDetails.city"
-            @ion-input="organisationDetails.city = String($event.target.value)"
+            @ion-input="
+              organisationDetails.city = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -128,7 +148,8 @@
             placeholder="S1 3LL"
             :value="organisationDetails.postCode"
             @ion-input="
-              organisationDetails.postCode = String($event.target.value)
+              organisationDetails.postCode = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
             "
           ></ion-input>
         </ion-col>
@@ -189,6 +210,7 @@ import { useRoute } from "vue-router";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { closeCircle } from "ionicons/icons";
 import toastService from "@/services/toastService";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const route = useRoute();
 const organisation = Organisations();
@@ -219,21 +241,26 @@ const addDomain = () => {
     organisationDetails.value.website = [newDomain.value];
   }
   newDomain.value = "";
+  confirmToLeaveService.setEditing(true);
 };
 
 const removeDomain = (index: number) => {
   if (index > -1) {
     organisationDetails.value.website.splice(index, 1);
+    confirmToLeaveService.setEditing(true);
   }
 };
 
 const saveChanges = () => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const postCodePattern = /^[A-Za-z]{1,2}\d{1,2}[A-Za-z\d]? ?\d[A-Za-z]{2}$/;
-  const phoneNumberPattern = /^[0-9-]*$/; 
+  const phoneNumberPattern = /^[0-9-]*$/;
   let isValid = true;
 
-  if (!organisationDetails.value.prefix || organisationDetails.value.prefix.length < 3) {
+  if (
+    !organisationDetails.value.prefix ||
+    organisationDetails.value.prefix.length < 3
+  ) {
     toastService.show(
       "Error",
       "Shortcode prefix must have at least 3 characters",
@@ -242,9 +269,12 @@ const saveChanges = () => {
     );
     isValid = false;
   }
- 
+
   // Validate the email
-  if (organisationDetails.value.email && !emailPattern.test(organisationDetails.value.email)) {
+  if (
+    organisationDetails.value.email &&
+    !emailPattern.test(organisationDetails.value.email)
+  ) {
     toastService.show(
       "Error",
       "Please enter a valid email address",
@@ -255,7 +285,10 @@ const saveChanges = () => {
   }
 
   // Validate the phone number
-  if (organisationDetails.value.phone && !phoneNumberPattern.test(organisationDetails.value.phone)) {
+  if (
+    organisationDetails.value.phone &&
+    !phoneNumberPattern.test(organisationDetails.value.phone)
+  ) {
     toastService.show(
       "Error",
       "Please enter a valid phone number",
@@ -266,7 +299,10 @@ const saveChanges = () => {
   }
 
   // Validate the postcode
-  if (organisationDetails.value.postCode && !postCodePattern.test(organisationDetails.value.postCode)) {
+  if (
+    organisationDetails.value.postCode &&
+    !postCodePattern.test(organisationDetails.value.postCode)
+  ) {
     toastService.show("Error", "Please enter a valid postcode", "error", "top");
     isValid = false;
   }

@@ -48,6 +48,7 @@ interface Props {
   options: SelectItem[];
   isSearchable?: boolean;
   placeholder?: string;
+  handleChange?: () => void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -70,6 +71,7 @@ function openPopover(e: Event) {
 function onOptionClick(option: SelectItem) {
   state.popoverOpen = false;
   emit("update:modelValue", option);
+  props.handleChange && props.handleChange();
 }
 
 function handleSearch(event: any) {
@@ -80,8 +82,8 @@ function handleSearch(event: any) {
 }
 
 onUpdated(() => {
-  state.options = props.options
-})
+  state.options = props.options;
+});
 </script>
 <style scoped>
 ion-popover {
@@ -113,7 +115,8 @@ ion-popover .admin-select--item:hover {
 ion-popover .admin-select--item:last-of-type {
   border-bottom: none;
 }
-ion-searchbar, ion-searchbar .searchbar-input {
+ion-searchbar,
+ion-searchbar .searchbar-input {
   background: #fff;
 }
 </style>
