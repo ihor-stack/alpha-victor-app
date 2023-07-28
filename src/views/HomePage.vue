@@ -96,8 +96,11 @@ const resetPassword = async () => {
 
 onBeforeMount(async () => {
   const accessToken = await authService.fetchCurrentAccessToken();
+  console.log(accessToken);
   if (accessToken) {
     return router.replace({ name: "Dashboard" });
+  } else {
+    authStore.setAuthStatus(false);
   }
 });
 

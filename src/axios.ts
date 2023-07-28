@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import Auth from "@/auth";
 import toastService from "@/services/toastService";
+import loadingService from "@/services/loadingService";
 import router from "./router";
 
 const adminAPI = axios.create({
@@ -63,12 +64,16 @@ const handleError = (error: any) => {
       "error",
       "top"
     );
+    loadingService.closeAll();
     router.push("/");
   } else {
     if (error.response.status !== 404) {
       toastService.show(
         "Error",
-        error.response?.data || error.response?.data?.message || error.response?.data?.title || error,
+        error.response?.data ||
+          error.response?.data?.message ||
+          error.response?.data?.title ||
+          error,
         "error",
         "top"
       );

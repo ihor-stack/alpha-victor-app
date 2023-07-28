@@ -39,7 +39,11 @@
                 </ion-col>
               </ion-row>
               <ion-row class="form-admin--group">
-                <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
+                <ion-col
+                  size-xs="12"
+                  size-md="6"
+                  class="form-admin--group_field"
+                >
                   <ion-label>Name</ion-label>
                   <ion-input
                     class="font-size-sm"
@@ -47,7 +51,11 @@
                     @ion-input="newDevice.name = String($event.target.value)"
                   ></ion-input>
                 </ion-col>
-                <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
+                <ion-col
+                  size-xs="12"
+                  size-md="6"
+                  class="form-admin--group_field"
+                >
                   <ion-label>Serial number</ion-label>
                   <ion-input
                     class="font-size-sm"
@@ -58,10 +66,13 @@
                   ></ion-input>
                 </ion-col>
               </ion-row>
-              
 
               <ion-row class="form-admin--group">
-                <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
+                <ion-col
+                  size-xs="12"
+                  size-md="6"
+                  class="form-admin--group_field"
+                >
                   <ion-label>Mac Address</ion-label>
                   <ion-input
                     class="font-size-sm"
@@ -71,7 +82,11 @@
                     "
                   ></ion-input>
                 </ion-col>
-                <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
+                <ion-col
+                  size-xs="12"
+                  size-md="6"
+                  class="form-admin--group_field"
+                >
                   <ion-label>Installer</ion-label>
                   <ion-input
                     class="font-size-sm"
@@ -157,7 +172,7 @@
                   <ion-button
                     class="font-size-sm"
                     :disabled="
-                      !newDevice.name
+                      !newDevice.name || !selectedEquipment.additionalInfo
                     "
                     @click="saveNewDevice()"
                   >
@@ -205,7 +220,15 @@ const spaceId = route.params.spaceId as string;
 const { equipmentDropdownList } = storeToRefs(EquipmentStore);
 
 const Space = Spaces();
-const newDevice = ref({} as Device);
+const newDevice = ref({
+  description: "",
+  installDate: "",
+  installer: "",
+  macAddress: "",
+  name: "",
+  serialNumber: "",
+  warrantyExpiryDate: "",
+} as Device);
 const selectedEquipment = ref({} as SelectItem);
 
 const modalOpen = ref(false);
@@ -222,14 +245,29 @@ const equipmentList = computed(() =>
 
 const handleDismiss = () => {
   modalOpen.value = false;
+  newDevice.value = {
+    description: "",
+    installDate: "",
+    installer: "",
+    macAddress: "",
+    name: "",
+    serialNumber: "",
+    warrantyExpiryDate: "",
+  } as Device;
 };
 
 const saveNewDevice = () => {
   Space.saveSpacesDevices(spaceId, {
     ...newDevice.value,
-    installDate: newDevice.value.installDate ?? new Date().toISOString(),
+    installDate:
+      newDevice.value.installDate && newDevice.value.installDate?.length > 0
+        ? newDevice.value.installDate
+        : new Date().toISOString(),
     warrantyExpiryDate:
-      newDevice.value.warrantyExpiryDate ?? new Date().toISOString(),
+      newDevice.value.warrantyExpiryDate &&
+      newDevice.value.warrantyExpiryDate?.length > 0
+        ? newDevice.value.warrantyExpiryDate
+        : new Date().toISOString(),
     equipmentId: selectedEquipment.value.additionalInfo,
   });
 };

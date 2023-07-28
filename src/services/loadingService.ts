@@ -1,4 +1,4 @@
-import { ref, Ref } from 'vue';
+import { ref, Ref } from "vue";
 
 interface LoadingObject {
   isLoading?: boolean;
@@ -9,6 +9,7 @@ export interface LoadingService {
   loading: Ref<LoadingObject>;
   show: (message: string, delay?: number) => string;
   close: (loadId: string) => void;
+  closeAll: () => void;
 }
 
 const loading: Ref<LoadingObject> = ref({});
@@ -52,10 +53,18 @@ const close = (loadId: string) => {
   }
 };
 
+const closeAll = () => {
+  loadingQueue.length = 0;
+  if (loading.value) {
+    loading.value.isLoading = false;
+  }
+};
+
 const loadingService: LoadingService = {
   loading,
   show,
   close,
+  closeAll,
 };
 
 export default loadingService;
