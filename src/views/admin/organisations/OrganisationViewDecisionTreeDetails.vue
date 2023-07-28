@@ -40,6 +40,7 @@
       v-if="destinationVisible"
       :isOpen="destinationVisible"
       :editTreeNode="editTreeNode"
+      :isRoot="decisionTree?.root?.id === editTreeNode.id"
       :handleDismiss="
         () => {
           destinationVisible = false;
@@ -905,7 +906,7 @@ export default {
       c.stroke();
       c.fillStyle = fillStyle;
       c.fill();
-      c.textBaseline = "bottom";
+      c.textBaseline = "top";
       c.textAlign = "center";
       c.font = `${textSize - 3}px Akkurat-Regular`;
       c.fontStyle = "normal";

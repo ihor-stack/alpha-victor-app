@@ -5,7 +5,7 @@
     :handleDismiss="() => handleDismiss()"
   >
     <div>
-      <ion-row>
+      <ion-row v-if="!isRoot">
         <ion-col size="12" class="form-admin--group_field">
           <AdminSelect
             label="Destination Type"
@@ -16,7 +16,7 @@
           />
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row v-if="!isRoot">
         <ion-col size="12" class="form-admin--group_field">
           <ion-label>Outcome label</ion-label>
           <ion-input
@@ -43,13 +43,7 @@
 </template>
 <script setup lang="ts">
 import { reactive, computed } from "vue";
-import {
-  IonButton,
-  IonRow,
-  IonCol,
-  IonLabel,
-  IonInput,
-} from "@ionic/vue";
+import { IonButton, IonRow, IonCol, IonLabel, IonInput } from "@ionic/vue";
 import CommonModal from "@/components/modals/CommonModal.vue";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 
@@ -88,14 +82,22 @@ const selectedDestinationType = computed({
   },
   set(newValue) {
     if (newValue) {
-      state.type = newValue.id
+      state.type = newValue.id;
     }
   },
-})
+});
 
-const selectedOutcome = computed(() => selectedDestinationType.value?.title || '');
+const selectedOutcome = computed(
+  () => selectedDestinationType.value?.title || ""
+);
 
-const props = defineProps(["editTreeNode", "type", "handleClickNext", "handleDismiss"]);
+const props = defineProps([
+  "editTreeNode",
+  "type",
+  "handleClickNext",
+  "handleDismiss",
+  "isRoot",
+]);
 
 const state = reactive({
   text: props.editTreeNode.text,

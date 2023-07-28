@@ -18,6 +18,7 @@
       :handleDismiss="() => handleDismiss()"
       :handleClickNext="handleClickNext"
       :handleClickBack="handleClickBack"
+      :isRoot="isRoot"
     />
     <v-container v-else>
       <SelectArticle
@@ -88,10 +89,12 @@ interface ITreeNodeData {
 const props = defineProps([
   "editTreeNode",
   "isOpen",
+  "isRoot",
   "handleDismiss",
   "handleClickNext",
   "handleClickConfirm",
 ]);
+
 const state = reactive({
   step: 0,
 });
