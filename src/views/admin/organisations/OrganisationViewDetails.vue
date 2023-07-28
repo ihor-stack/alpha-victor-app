@@ -229,12 +229,22 @@ const removeDomain = (index: number) => {
 
 const saveChanges = () => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const postCodePattern = /^[a-zA-Z0-9\s-]*$/;
-  const phoneNumberPattern = /^[0-9-]*$/;
+  const postCodePattern = /^[A-Za-z]{1,2}\d{1,2}[A-Za-z\d]? ?\d[A-Za-z]{2}$/;
+  const phoneNumberPattern = /^[0-9-]*$/; 
   let isValid = true;
 
+  if (!organisationDetails.value.prefix || organisationDetails.value.prefix.length < 3) {
+    toastService.show(
+      "Error",
+      "Shortcode prefix must have at least 3 characters",
+      "error",
+      "bottom"
+    );
+    isValid = false;
+  }
+ 
   // Validate the email
-  if (!emailPattern.test(organisationDetails.value.email)) {
+  if (organisationDetails.value.email && !emailPattern.test(organisationDetails.value.email)) {
     toastService.show(
       "Error",
       "Please enter a valid email address",
@@ -245,7 +255,7 @@ const saveChanges = () => {
   }
 
   // Validate the phone number
-  if (!phoneNumberPattern.test(organisationDetails.value.phone)) {
+  if (organisationDetails.value.phone && !phoneNumberPattern.test(organisationDetails.value.phone)) {
     toastService.show(
       "Error",
       "Please enter a valid phone number",
@@ -256,7 +266,7 @@ const saveChanges = () => {
   }
 
   // Validate the postcode
-  if (!postCodePattern.test(organisationDetails.value.postCode)) {
+  if (organisationDetails.value.postCode && !postCodePattern.test(organisationDetails.value.postCode)) {
     toastService.show("Error", "Please enter a valid postcode", "error", "top");
     isValid = false;
   }

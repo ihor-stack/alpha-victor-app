@@ -905,7 +905,7 @@ export default {
       c.stroke();
       c.fillStyle = fillStyle;
       c.fill();
-      c.textBaseline = "top";
+      c.textBaseline = "bottom";
       c.textAlign = "center";
       c.font = `${textSize - 3}px Akkurat-Regular`;
       c.fontStyle = "normal";

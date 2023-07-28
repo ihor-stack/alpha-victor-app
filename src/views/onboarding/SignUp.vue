@@ -132,7 +132,7 @@ const signup = () => {
       "Error",
       "Please enter a valid email address",
       "error",
-      "top"
+      "bottom"
     );
     isValid = false;
   }
@@ -143,7 +143,7 @@ const signup = () => {
       "Error",
       "Please enter a valid phone number",
       "error",
-      "top"
+      "bottom"
     );
     isValid = false;
   }
@@ -154,7 +154,7 @@ const signup = () => {
       "Error",
       "The passwords you entered don't match, please check and try again.",
       "error",
-      "top"
+      "bottom"
     );
     isValid = false;
   }

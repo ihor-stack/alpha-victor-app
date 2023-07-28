@@ -88,7 +88,7 @@ export const Spaces = defineStore("Spaces", {
           this.formattedSelect = formattedList;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -108,7 +108,7 @@ export const Spaces = defineStore("Spaces", {
           shortCode: newSpace.shortCode,
         })
         .then((res) => {
-          toastService.show("Success", "New space added", "success", "top");
+          toastService.show("Success", "New space added", "success", "bottom");
           const locationsStore = Locations();
           locationsStore.getNavigationTree(organisationId);
           router.push({
@@ -122,7 +122,7 @@ export const Spaces = defineStore("Spaces", {
           });
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -146,11 +146,11 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Space details updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -164,7 +164,7 @@ export const Spaces = defineStore("Spaces", {
           this.devices = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -182,11 +182,11 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Space devices updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -200,7 +200,7 @@ export const Spaces = defineStore("Spaces", {
           this.getSpaceDetailsDevices(spaceId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -214,11 +214,11 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Space devices updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -232,7 +232,7 @@ export const Spaces = defineStore("Spaces", {
           this.announcement = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -252,11 +252,11 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Space announcement updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -270,7 +270,7 @@ export const Spaces = defineStore("Spaces", {
           this.wifi = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -297,11 +297,11 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Space wifi details updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -315,7 +315,7 @@ export const Spaces = defineStore("Spaces", {
           this.beacon = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -326,7 +326,7 @@ export const Spaces = defineStore("Spaces", {
         return resp.data;
       }
       catch {
-        toastService.show("Error", "Could not check beacon available status", "error", "top");
+        toastService.show("Error", "Could not check beacon available status", "error", "bottom");
       }
     },
 
@@ -348,11 +348,11 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Space beacon details updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -364,7 +364,7 @@ export const Spaces = defineStore("Spaces", {
         .delete(`/Space/${spaceId}/Beacon`)
         .then(() => this.getSpaceDetailsBeacon(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -378,11 +378,11 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Photo deleted successfully",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },
@@ -399,7 +399,7 @@ export const Spaces = defineStore("Spaces", {
       return adminAPI
         .post(`/Photo?${queryParams}`, newPhoto)
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },
@@ -415,7 +415,7 @@ export const Spaces = defineStore("Spaces", {
         .post(`/Document/${spaceId}/Document`, newDocument)
         .then(() => this.getSpaceDetails(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -424,7 +424,7 @@ export const Spaces = defineStore("Spaces", {
         .delete(`/Document/${spaceId}/Document/${documentId}`)
         .then(() => this.getSpaceDetails(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -451,7 +451,7 @@ export const Spaces = defineStore("Spaces", {
           if (error.response.status === 404) {
             this.currentPanorama = {} as Panorama;
           } else {
-            toastService.show("Error", error, "error", "top");
+            toastService.show("Error", error, "error", "bottom");
           }
         })
         .finally(() => {
@@ -464,7 +464,7 @@ export const Spaces = defineStore("Spaces", {
         .post(`/Panorama/${spaceId}`, panorama)
         .then(() => this.getPanorama(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -475,7 +475,7 @@ export const Spaces = defineStore("Spaces", {
         .put(`/Panorama/${spaceId}`, panorama)
         .then(() => this.getPanorama(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
     async deletePanorama(spaceId: string) {
@@ -484,7 +484,7 @@ export const Spaces = defineStore("Spaces", {
         .delete(`/Panorama/${spaceId}`)
         .then(() => (this.currentPanorama = {} as Panorama))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -505,7 +505,7 @@ export const Spaces = defineStore("Spaces", {
           return res.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },
@@ -533,7 +533,7 @@ export const Spaces = defineStore("Spaces", {
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },
@@ -547,7 +547,7 @@ export const Spaces = defineStore("Spaces", {
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },
@@ -557,7 +557,7 @@ export const Spaces = defineStore("Spaces", {
         .patch(`/Space/SpaceFeature?${queryParams}`)
         .then(() => this.getSpaceDetails(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },

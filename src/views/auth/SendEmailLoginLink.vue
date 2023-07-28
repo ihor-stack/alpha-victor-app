@@ -79,7 +79,7 @@ const sendEmailSignInLink = async () => {
       "Error",
       "Please enter a valid email address.",
       "error",
-      "top"
+      "bottom"
     );
     isValid = false;
   }

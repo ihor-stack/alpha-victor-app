@@ -96,6 +96,8 @@ import { close } from "ionicons/icons";
 import { storeToRefs } from "pinia";
 import { Locations } from "@/stores/adminLocations";
 import { useRoute } from "vue-router";
+import toastService from "@/services/toastService";
+
 const route = useRoute();
 
 const organisationId = route.params.id as string;
@@ -120,8 +122,22 @@ const handleDismiss = () => {
 };
 
 const saveNewLocation = () => {
-  Location.saveLocation(organisationId);
-  modalOpen.value = false;
+  let isValid = true;
+
+  if (!newLocationDetails.value.prefix || newLocationDetails.value.prefix.length < 3) {
+    toastService.show(
+      "Error",
+      "Location prefix must have at least 3 characters",
+      "error",
+      "bottom"
+    );
+    isValid = false;
+  }
+
+  if (isValid) {
+    Location.saveLocation(organisationId);
+    modalOpen.value = false;
+  }
 };
 </script>
 

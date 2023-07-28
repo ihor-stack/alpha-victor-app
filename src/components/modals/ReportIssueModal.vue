@@ -126,7 +126,7 @@ const handleSubmitIssue = () => {
       props.handleReportIssue();
     })
     .catch((error) => {
-      toastService.show("Error", error, "error", "top");
+      toastService.show("Error", error, "error", "bottom");
     })
     .finally(() => {
       loadingService.close(loadId);

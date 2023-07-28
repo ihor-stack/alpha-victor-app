@@ -60,7 +60,7 @@ const getDocuments = () => {
     })
     .catch((error) => {
       state.documents = [];
-      toastService.show("Error", error, "error", "top");
+      toastService.show("Error", error, "error", "bottom");
     })
     .finally(() => {
       loadingService.close(loadId);

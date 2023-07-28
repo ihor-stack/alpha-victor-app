@@ -19,7 +19,7 @@ export const Integrations = defineStore("Integrations", {
           this.integrations = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
     async getSingleIntegration(organisationId: string, integrationId: string) {
@@ -31,7 +31,7 @@ export const Integrations = defineStore("Integrations", {
           this.integration = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
     async editIntegration(integrationId: string, edit: Integration) {
@@ -42,10 +42,10 @@ export const Integrations = defineStore("Integrations", {
           edit
         )
         .then(() => {
-          toastService.show("Success", "Integration updated", "success", "top");
+          toastService.show("Success", "Integration updated", "success", "bottom");
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
