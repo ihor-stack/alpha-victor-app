@@ -46,8 +46,8 @@ defineProps<{
   signIn: () => void;
 }>();
 
-const signInEmail = async () => {
-  return router.replace({ name: "SendEmailLoginLink" });
+const skipPermissions = async () => {
+  return router.replace({ name: "Dashboard" });
 }
 </script>
 

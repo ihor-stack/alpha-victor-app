@@ -2,8 +2,7 @@
   <ion-modal
     :is-open="modalOpen"
     @willDismiss="handleDismiss"
-    :initial-breakpoint="0.8"
-    :breakpoints="[0, 0.8]"
+    class="auto-height"
   >
     <ion-page>
       <div class="modal-panel">
@@ -23,7 +22,7 @@
               </h1>
             </div>
           </ion-header>
-          <ion-content :scroll-y="false" class="form-admin--group_field">
+          <div class="form-admin--group_field">
             <ion-row>
               <ion-col size="12" class="form-admin--group_field">
                 <ion-label>Select device</ion-label>
@@ -57,7 +56,7 @@
                 ></ion-input>
               </ion-col>
             </ion-row>
-          </ion-content>
+          </div>
           <ion-footer>
             <ion-row>
               <ion-col>
