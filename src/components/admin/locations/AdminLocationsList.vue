@@ -9,7 +9,10 @@
         <ion-input
           class="font-size-sm"
           :value="floor.name"
-          @ion-input="floor.name = String($event.target.value)"
+          @ion-input="
+            floor.name = String($event.target.value);
+            confirmToLeaveService.setEditing(true);
+          "
         ></ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -17,7 +20,10 @@
         <ion-input
           class="font-size-sm"
           :value="floor.shortName"
-          @ion-input="floor.shortName = String($event.target.value)"
+          @ion-input="
+            floor.shortName = String($event.target.value);
+            confirmToLeaveService.setEditing(true);
+          "
         ></ion-input>
       </ion-col>
 
@@ -76,9 +82,10 @@ import { useRoute } from "vue-router";
 import { chevronForwardOutline } from "ionicons/icons";
 import NewSpaceModal from "@/components/modals/NewSpaceModal.vue";
 import DeleteFloorModal from "@/components/modals/DeleteFloorModal.vue";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const route = useRoute();
- 
+
 const organisationId = route.params.id as string;
 const locationId = route.params.locationId as string;
 const floorId = route.params.floorId as string;

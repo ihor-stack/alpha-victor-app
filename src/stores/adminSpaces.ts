@@ -23,6 +23,7 @@ import router from "@/router";
 
 import { Locations } from "./adminLocations";
 import { Organisations } from "./adminOrganisations";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 export const Spaces = defineStore("Spaces", {
   state: () => {
@@ -51,7 +52,7 @@ export const Spaces = defineStore("Spaces", {
         .then((response) => {
           this.space = response.data;
           this.currentSpace = response.data.spaceName;
-
+          confirmToLeaveService.setEditing(false);
           const { decisionTreeList } = Organisations();
 
           if (response.data.decisionTreeId) {
@@ -144,6 +145,7 @@ export const Spaces = defineStore("Spaces", {
           decisionTreeId: this.decisionTreeSelected.additionalInfo,
         })
         .then(() => {
+          confirmToLeaveService.setEditing(false);
           toastService.show(
             "Success",
             "Space details updated",

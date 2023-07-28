@@ -13,7 +13,10 @@
           type="password"
           :value="integration.integration.value.clientId"
           @ion-input="
-            integration.integration.value.clientId = String($event.target.value)
+            integration.integration.value.clientId = String(
+              $event.target.value
+            );
+            confirmToLeaveService.setEditing(true);
           "
         >
         </ion-input>
@@ -29,7 +32,8 @@
           @ion-input="
             integration.integration.value.clientSecret = String(
               $event.target.value
-            )
+            );
+            confirmToLeaveService.setEditing(true);
           "
         >
         </ion-input>
@@ -49,8 +53,6 @@ import {
   IonCol,
   IonLabel,
   IonInput,
-  IonSelect,
-  IonSelectOption,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import { onBeforeMount } from "vue";
@@ -58,8 +60,8 @@ import { useRoute } from "vue-router";
 import { Integrations } from "@/stores/adminIntegrations";
 import { Organisations } from "@/stores/adminOrganisations";
 
-import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { Integration } from "@/types";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const store = Integrations();
 const orgStore = Organisations();
