@@ -10,7 +10,7 @@
               </div>
               <div class="headline-container">
                 <h1 class="headline font-bold font-size-xl color-light-gray">
-                  a better experience.
+                  {{ $t('pages.home.headline')}}
                 </h1>
               </div>
               <div class="cta-container">
@@ -19,22 +19,22 @@
                 </div>
                 <div class="button-container">
                   <ion-button expand="block" class="button-gray" @click="signIn"
-                    >Log in</ion-button
+                    >{{ $t('pages.home.signin')}}</ion-button
                   >
                   <ion-button expand="block" color="light" @click="signup"
-                    >Sign up</ion-button
+                    >{{ $t('pages.home.signup')}}</ion-button
                   >
                 </div>
               </div>
               <div class="link-container text-center">
                 <p class="color-mid-gray font-sm">
-                  Prefer to login via email?
+                  {{ $t('pages.home.emailSignin')}}
                   <span @click="signInEmail" class="color-light-gray link"
-                    >Send me a login link</span
+                    >{{ $t('pages.home.link')}}</span
                   >
                   <br /><br />
                   <span @click="resetPassword" class="color-light-gray link"
-                    >I've forgot my password</span
+                    >{{ $t('pages.home.resetPassword')}}</span
                   >
                 </p>
               </div>

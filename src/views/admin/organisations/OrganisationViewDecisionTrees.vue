@@ -7,7 +7,7 @@
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-input
-            placeholder="Add new decision tree"
+            :placeholder=" $t('pages.admin.organisations.view.decisionTrees.placeholder')"
             v-model="state.newDecisionTreeName"
           >
           </ion-input>
@@ -17,7 +17,7 @@
             @click="addNewDecisionTree"
             :disabled="!state.newDecisionTreeName"
           >
-            {{ $t("pages.admin.organisations.view.decisionTrees.addNew") }}
+            {{ $t("pages.admin.organisations.view.decisionTrees.addNew")}}
           </ion-button>
         </ion-col>
       </ion-row>

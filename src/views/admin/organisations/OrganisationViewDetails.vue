@@ -11,7 +11,7 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            placeholder="Organisation"
+            :placeholder="$t('pages.admin.organisations.view.details.placeholders.organisation')"
             :value="organisationDetails.name"
             @ion-input="organisationDetails.name = String($event.target.value)"
           ></ion-input>
@@ -22,7 +22,7 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            placeholder="APL"
+            :placeholder="$t('pages.admin.organisations.view.details.placeholders.apl')"
             :value="organisationDetails.prefix"
             @ion-input="
               organisationDetails.prefix = String($event.target.value)
@@ -47,7 +47,7 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            placeholder="youremail@domain.com"
+            :placeholder="$t('pages.admin.organisations.view.details.placeholders.email')"
             :value="organisationDetails.email"
             @ion-input="organisationDetails.email = String($event.target.value)"
           ></ion-input>
@@ -58,7 +58,7 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            placeholder="01245 000000"
+            :placeholder="$t('pages.admin.organisations.view.details.placeholders.phone')"
             :value="organisationDetails.phone"
             @ion-input="organisationDetails.phone = String($event.target.value)"
           ></ion-input>
@@ -80,7 +80,7 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            placeholder="123 Main Street"
+            :placeholder="$t('pages.admin.organisations.view.details.placeholders.address1')"
             :value="
               organisationDetails.addressLine0
                 ? organisationDetails.addressLine0
@@ -97,7 +97,7 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            placeholder=""
+            :placeholder="$t('pages.admin.organisations.view.details.placeholders.address2')"
             :value="
               organisationDetails.addressLine1
                 ? organisationDetails.addressLine1
@@ -114,18 +114,18 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            placeholder="London"
+            :placeholder="$t('pages.admin.organisations.view.details.placeholders.city')"
             :value="organisationDetails.city"
             @ion-input="organisationDetails.city = String($event.target.value)"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label>{{
-            $t("pages.admin.organisations.view.details.zip")
+            $t("pages.admin.organisations.view.details.postCode")
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            placeholder="S1 3LL"
+            :placeholder="$t('pages.admin.organisations.view.details.placeholders.postCode')"
             :value="organisationDetails.postCode"
             @ion-input="
               organisationDetails.postCode = String($event.target.value)
@@ -134,12 +134,12 @@
         </ion-col>
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
           <ion-label>{{
-            $t("pages.admin.organisations.view.details.label")
+            $t("pages.admin.organisations.view.details.website")
           }}</ion-label>
           <div class="chips-field">
             <ion-input
               class="font-size-sm"
-              placeholder="ex: website.com"
+              :placeholder="$t('pages.admin.organisations.view.details.placeholders.website')"
               v-model="newDomain"
               @keyup.enter="addDomain()"
             />

@@ -9,7 +9,7 @@
         >
           <img
             src="@/theme/icons/switch-location.svg"
-            alt="Switch Organisation"
+            :alt="$t('pages.dashboard.alt')"
           />
         </ion-button>
       </template>
@@ -24,14 +24,14 @@
 
       <div class="dashboard-sliders" v-if="nearbySpaces?.length">
         <div class="dashboard-slider-container">
-          <dashboard-slider title="Nearby spaces" :slides="nearbySpaces" />
+          <dashboard-slider :title="$t('pages.dashboard.slider.title1')" :slides="nearbySpaces" />
         </div>
       </div>
 
       <div class="dashboard-sliders" v-if="recentlyViewedSpaces?.length">
         <div class="dashboard-slider-container">
           <dashboard-slider
-            title="Recently viewed"
+            :title="$t('pages.dashboard.slider.title2')"
             cta-url="/recently-viewed"
             :slides="recentlyViewedSpaces"
           />

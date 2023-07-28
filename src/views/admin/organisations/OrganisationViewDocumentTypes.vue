@@ -1,13 +1,13 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      {{ $t("pages.admin.organisations.view.documentTypes.title") }}
+      {{ $t("pages.admin.organisations.view.documentTypes.title")}}
     </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-input
-            placeholder="Enter new document type"
+            :placeholder="$t('pages.admin.organisations.view.documentTypes.title')"
             :value="newDocument"
             @ionInput="newDocument = $event.target.value"
           >

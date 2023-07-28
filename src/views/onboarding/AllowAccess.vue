@@ -10,86 +10,70 @@
               </div>
               <div class="headline-container">
                 <h1 class="headline font-size-xl color-light-gray font-bold">
-                  We need some<br />
-                  access.
+                  {{ $t('pages.allowAccess.headline1') }}<br />
+                  {{ $t('pages.allowAccess.headline2') }}
                 </h1>
               </div>
               <div class="allow-access-container">
                 <div class="allow-access-item">
-                  <img
-                    class="allow-access-icon"
-                    src="@/theme/icons/location.svg"
-                    alt="Icon of a map pin marker"
-                  />
+                  <img class="allow-access-icon" src="@/theme/icons/location.svg"
+                    :alt="$t('pages.allowAccess.location.alt')" />
                   <div class="allow-access-info">
                     <h4 class="font-mono font-size-normal color-light-gray">
-                      Location
+                      {{ $t('pages.allowAccess.location.title') }}
                     </h4>
                     <p class="color-mid-gray font-size-xs">
-                      To allow us to see which room you’re in
+                      {{ $t('pages.allowAccess.location.description') }}
                     </p>
                   </div>
                 </div>
                 <div class="allow-access-item">
-                  <img
-                    class="allow-access-icon"
-                    src="@/theme/icons/bluetooth.svg"
-                    alt="Bluetooth icon"
-                  />
+                  <img class="allow-access-icon" src="@/theme/icons/bluetooth.svg"
+                    :alt="$t('pages.allowAccess.bluetooth.alt')" />
                   <div class="allow-access-info">
                     <h4 class="font-mono font-size-normal color-light-gray">
-                      Bluetooth
+                      {{ $t('pages.allowAccess.bluetooth.title') }}
                     </h4>
                     <p class="color-mid-gray font-size-xs">
-                      To ping beacons for a more accurate location
+                      {{ $t('pages.allowAccess.bluetooth.description') }}
                     </p>
                   </div>
                 </div>
                 <div class="allow-access-item">
-                  <img
-                    class="allow-access-icon"
-                    src="@/theme/icons/notifications.svg"
-                    alt="Icon of a bell"
-                  />
+                  <img class="allow-access-icon" src="@/theme/icons/notifications.svg"
+                    :alt="$t('pages.allowAccess.bluetooth.title')" />
                   <div class="allow-access-info">
                     <h4 class="font-mono font-size-normal color-light-gray">
-                      Notifications
+                      {{ $t('pages.allowAccess.bluetooth.title') }}
                     </h4>
                     <p class="color-mid-gray font-size-xs">
-                      To keep you in the loop
+                      {{ $t('pages.allowAccess.bluetooth.description') }}
                     </p>
                   </div>
                 </div>
               </div>
               <div class="button-container">
-                <ion-button @click="setOpen" expand="block">Got it</ion-button>
+                <ion-button @click="setOpen" expand="block">{{ $t('pages.allowAccess.btn') }}</ion-button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <ion-modal
-        :is-open="state.modalOpen"
-        :initial-breakpoint="0.75"
-        :breakpoints="[0, 0.3, 0.75]"
-        @willDismiss="handleDismiss"
-      >
+      <ion-modal :is-open="state.modalOpen" :initial-breakpoint="0.75" :breakpoints="[0, 0.3, 0.75]"
+        @willDismiss="handleDismiss">
         <!-- Modal content to be conditionally shown here based on which permissions are still to be provided; this is just an example -->
-        <onboarding-access-panel
-          :dotText="`${permissions[state.currentPermission]}.access`"
-          :ctaFunc="requestPermission"
-          :signIn="signIn"
-        >
+        <onboarding-access-panel :dotText="`${permissions[state.currentPermission]}.access`" :ctaFunc="requestPermission"
+          :signIn="signIn">
           <template v-slot:image>
             <img src="@/theme/img/onboarding-access-location.svg" />
           </template>
           <template v-slot:heading>
-            Enable<br />
+            {{ $t('pages.allowAccess.modal.enable') }}<br />
             {{ permissions[state.currentPermission] }}.
           </template>
           <template v-slot:info-text>
-            Please allow {{ permissions[state.currentPermission] }} when
-            prompted on the next screen for a better app experience
+            {{ $t('pages.allowAccess.modal.text1') }}{{ permissions[state.currentPermission] }}{{
+              $t('pages.allowAccess.modal.text2') }}
           </template>
         </onboarding-access-panel>
       </ion-modal>

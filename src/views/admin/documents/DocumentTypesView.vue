@@ -7,7 +7,7 @@
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-input
-            placeholder="Enter new document type"
+            :placeholder="$t('pages.admin.documents.documentTypes.placeholder1')"
             v-model="state.newDocumentType"
           ></ion-input>
         </ion-col>
@@ -41,7 +41,7 @@
               :data="doc"
               icon=""
               :id="doc.id"
-              placeholder="Document Type"
+              :placeholder="$t('pages.admin.documents.documentTypes.placeholder2')"
               :hideRemove="false"
               @update:modelValue="
                 (value: string) => updateTypeValue({ ...doc, name: value })

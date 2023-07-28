@@ -14,7 +14,7 @@
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <ion-label>{{ $t('pages.admin.equipment.details.model')}}</ion-label>
-        <ion-input v-model="state.name" label="Model"></ion-input>
+        <ion-input v-model="state.name" :label="$t('pages.admin.equipment.details.model')"></ion-input>
       </ion-col>
     </ion-row>
     <ion-row class="form-admin--group">
@@ -22,7 +22,7 @@
         <ion-label>{{ $t('pages.admin.equipment.details.sn')}}</ion-label>
         <ion-input
           v-model="state.serialNumber"
-          label="Serial number"
+          :label="$t('pages.admin.equipment.details.sn')"
         ></ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">

@@ -71,7 +71,7 @@
         <ion-select
           interface="action-sheet"
           class="modal-panel__select-organisation__select"
-          placeholder="Select role"
+          :placeholder="$t('pages.admin.users.placeholder')"
           :value="row.userGroups[0]?.id"
           @ion-change="
             handleChangeRole(

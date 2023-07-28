@@ -11,7 +11,12 @@ export default {
       placeholder: "Enter shortcode",
       noSpacesFound: "no.spaces.found",
       shortCodeTip: "Please enter a short code or explore spaces.",
-      exploreBtn: "Explore Spaces"
+      exploreBtn: "Explore Spaces",
+      alt: "Switch organisation",
+      slider: {
+        title1: "Nearby spaces",
+        title2: "Recently viewed"
+      }
     },
     favourites: {
       header: "Favourites",
@@ -190,11 +195,15 @@ export default {
           title: "Document Types",
           add: "Add new +",
           current: "Current Document Types",
+          placeholder1: "Enter new document type",
+          placeholder2: "Document Type",          
         }
       },
       equipment: {
         details: {
           model: "Model",
+          manufacturer: "Manufacturer",
+          assetType: "Asset Type",
           sn: "Serial Number",
           remove: ">> remove",
           saveBtn: "Save Changes",
@@ -203,6 +212,8 @@ export default {
           title: "Equipment",
           manufacturers: "Manufacturers",
           assetTypes: "Asset Types",
+          assetType: "Asset Type",
+          manufacturer: "Manufacturer",
         }
       },
       organisations: {
@@ -221,10 +232,21 @@ export default {
             address1: "Address line 1",
             address2: "Address line 2",
             city: "City",
-            zip: "Postcode",
-            label: "Website / email domain(s)",
+            postCode: "Postcode",
+            website: "Website / email domain(s)",
             press: "Press enter to add",
             saveBtn: "Save changes",
+            placeholders: {
+              organisation: "Organisation",
+              apl: "APL",
+              email: "youremail@domain.com",
+              phone: "01245 000000",
+              address1: "123 Main Street",
+              address2: "",
+              city: "London",
+              postCode: "S1 3LL",
+              website: "ex: website.com",
+            }
           },
           theme: {
             title: "Theme",
@@ -246,10 +268,12 @@ export default {
             title: "Document Types",
             addNew: "Add new +",
             current: "Current Document Types",
+            placeholders: "Enter new document type",
           },
           decisionTrees: {
             title: "Decision Trees",
             documentTypes: "Document Types",
+            placeholder: "Add new decision tree",
             addNew: "Add new +",
             current: "Current Decision Trees",
             view: ">> view",
@@ -308,6 +332,8 @@ export default {
             panorama: {
               icon: "Howard Street Belfast",
               label: "Set starting view",
+              change: "Change panorama",
+              add: "Add panorama",
               deleteBtn: "Delete panorama",
             },
             spaces: {
@@ -345,6 +371,7 @@ export default {
         active: "Active",
         deleted: "Deleted",
         inactive: "Inactive",
+        placeholder: "Select role",
       }
     },
     static: {
@@ -382,6 +409,39 @@ export default {
           p: "This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for. You can also click here to go directly to our table of contents."
         }
       },
+    },
+    allowAccess: {
+      headline1: "We need some",
+      headline2: "acess.",
+      location: {
+        title: "Location",
+        description: "To allow us to see which room you’re in",
+        alt: "Icon of a map pin marker",
+      },
+      bluetooth: {
+        title: "Bluetooth",
+        description: "To ping beacons for a more accurate location",
+        alt: "Bluetooth icon",
+      },
+      notifications: {
+        title: "Notifications",
+        description: "To keep you in the loop",
+        alt: "Icon of a bell",
+      },
+      btn: "Got it",
+      modal: {
+        enable: "Enable",
+        text1: "Please allow ",
+        text2: " when prompted on the next screen for a better app experience"
+      }
+    },
+    home: {
+      headline: "a better experience",
+      signin: "Log in",
+      signup: "Sign up",
+      emailSignin: "Prefer to login via email?",
+      link: "Send me a login link",
+      resetPassword: "I've forgot my password"
     }
   },
   components: {
