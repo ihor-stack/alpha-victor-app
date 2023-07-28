@@ -86,7 +86,7 @@ const searchByQrCode = async () => {
         }
       })
       .catch(() => {
-        toastService.show("Error", "The QR code is not valid.", "error", "top");
+        toastService.show("Error", "The QR code is not valid.", "error", "bottom");
       })
       .finally(() => {
         loadingService.close(loadId);
@@ -126,7 +126,7 @@ const searchByShortcode = () => {
         "Error",
         "We couldn't find any spaces by that shortcode",
         "error",
-        "top"
+        "bottom"
       );
     })
     .finally(() => {

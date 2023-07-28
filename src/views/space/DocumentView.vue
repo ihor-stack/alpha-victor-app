@@ -70,7 +70,7 @@ const getDocument = async () => {
       }
     })
     .catch((error) => {
-      toastService.show("Error", error, "error", "top");
+      toastService.show("Error", error, "error", "bottom");
     })
     .finally(() => {
       loadingService.close(loadId);

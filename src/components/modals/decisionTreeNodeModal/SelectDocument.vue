@@ -183,7 +183,7 @@ const getDocumentTypes = (equipmentId: string) => {
     })
     .catch((error) => {
       state.documents = [];
-      toastService.show("Error", error, "error", "top");
+      toastService.show("Error", error, "error", "bottom");
     })
     .finally(() => {
       loadingService.close(loadId);

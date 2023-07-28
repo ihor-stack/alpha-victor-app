@@ -18,7 +18,7 @@ export const Theme = defineStore("Themes", {
           this.theme = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -44,11 +44,11 @@ export const Theme = defineStore("Themes", {
             "Success",
             "Theme information updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -64,12 +64,12 @@ export const Theme = defineStore("Themes", {
             "Success",
             "Logo removed successfully",
             "success",
-            "top"
+            "bottom"
           );
           this.getThemes(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -85,12 +85,12 @@ export const Theme = defineStore("Themes", {
             "Success",
             "Logo removed successfully",
             "success",
-            "top"
+            "bottom"
           );
           this.getThemes(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);

@@ -164,7 +164,7 @@ const getIssues = () => {
     })
     .catch((error) => {
       state.issues = [];
-      toastService.show("Error", error, "error", "top");
+      toastService.show("Error", error, "error", "bottom");
     })
     .finally(() => {
       loadingService.close(loadId);

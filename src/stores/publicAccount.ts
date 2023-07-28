@@ -22,7 +22,7 @@ export const Account = defineStore("Account", {
           return response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
     async updateAccount() {
@@ -33,11 +33,11 @@ export const Account = defineStore("Account", {
             "Success",
             "Profile details updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
     async getPermissions() {
@@ -47,7 +47,7 @@ export const Account = defineStore("Account", {
           this.userPermission = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
     async registerUser(userData: IUserData) {
@@ -59,7 +59,7 @@ export const Account = defineStore("Account", {
             "Success",
             "Your account has been created. Check your email to confirm your account.",
             "success",
-            "top"
+            "bottom"
           );
           mixpanel.track("User Registered", { email: userData.email });
           router.replace({ name: "Home" });
@@ -79,13 +79,13 @@ export const Account = defineStore("Account", {
             "Success",
             "A login link has been sent to your email address. Check your inbox to continue.",
             "success",
-            "top"
+            "bottom"
           );
           router.replace({ name: "Home" });
           return response;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -102,13 +102,13 @@ export const Account = defineStore("Account", {
             "Success",
             "A password reset link has been sent to your email address, if the address entered has an account.",
             "success",
-            "top"
+            "bottom"
           );
           router.replace({ name: "Home" });
           return response;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -126,13 +126,13 @@ export const Account = defineStore("Account", {
             "Success",
             "Your password has been successfully reset, please login to continue.",
             "success",
-            "top"
+            "bottom"
           );
           router.replace({ name: "Home" });
           return response;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);

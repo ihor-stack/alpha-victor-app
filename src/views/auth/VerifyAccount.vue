@@ -52,7 +52,7 @@ const confirmVerificationToken = async (token: string) => {
           "Success",
           "Your account has been verified.",
           "success",
-          "top"
+          "bottom"
         );
 
         router.replace({ name: "AllowAccess" });
@@ -63,7 +63,7 @@ const confirmVerificationToken = async (token: string) => {
         "Error",
         error,
         "error",
-        "top"
+        "bottom"
       );
     });
 

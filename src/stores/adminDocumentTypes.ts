@@ -24,7 +24,7 @@ export const adminDocuments = defineStore("adminDocuments", {
           }
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -37,11 +37,11 @@ export const adminDocuments = defineStore("adminDocuments", {
           name: documentName,
         })
         .then(() => {
-          toastService.show("Success", "Document type added", "success", "top");
+          toastService.show("Success", "Document type added", "success", "bottom");
           this.getDocumentTypes();
         })
         .catch((error) => {
-          toastService.show("Error", error.response.data, "error", "top");
+          toastService.show("Error", error.response.data, "error", "bottom");
         });
     },
 
@@ -54,7 +54,7 @@ export const adminDocuments = defineStore("adminDocuments", {
           this.getDocumentTypes();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -65,7 +65,7 @@ export const adminDocuments = defineStore("adminDocuments", {
           this.getDocumentTypes();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
   },

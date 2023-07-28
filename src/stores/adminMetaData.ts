@@ -35,7 +35,7 @@ export const MetaData = defineStore("MetaData", {
           }
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -53,12 +53,12 @@ export const MetaData = defineStore("MetaData", {
             "Success",
             "New space type added successfully",
             "success",
-            "top"
+            "bottom"
           );
           this.getMetaData(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error.response.data, "error", "top");
+          toastService.show("Error", error.response.data, "error", "bottom");
         });
     },
 
@@ -76,7 +76,7 @@ export const MetaData = defineStore("MetaData", {
           this.getMetaData(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error.response.data, "error", "top");
+          toastService.show("Error", error.response.data, "error", "bottom");
         });
     },
 
@@ -88,7 +88,7 @@ export const MetaData = defineStore("MetaData", {
           this.getMetaData(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -103,13 +103,13 @@ export const MetaData = defineStore("MetaData", {
             "Success",
             "New space feature added successfully",
             "success",
-            "top"
+            "bottom"
           );
           this.metaData = {} as AdminMetaData;
           this.getMetaData(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error.response.data, "error", "top");
+          toastService.show("Error", error.response.data, "error", "bottom");
         });
     },
 
@@ -127,7 +127,7 @@ export const MetaData = defineStore("MetaData", {
           this.getMetaData(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error.response.data, "error", "top");
+          toastService.show("Error", error.response.data, "error", "bottom");
         });
     },
     async removeSpaceFeature(organisationId: string, edit: spaceFeature) {
@@ -140,7 +140,7 @@ export const MetaData = defineStore("MetaData", {
           this.getMetaData(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
   },

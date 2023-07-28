@@ -55,7 +55,7 @@
                   size-xs="12"
                   size-sm="6"
                   class="form-admin--group_field"
-                >
+                > 
                   <ion-input
                     class="font-size-sm"
                     placeholder="Floor Short Name"
@@ -99,6 +99,7 @@ import { useRoute } from "vue-router";
 import { close } from "ionicons/icons";
 import { storeToRefs } from "pinia";
 import { Floors } from "@/stores/adminFloors";
+import toastService from "@/services/toastService";
 
 const route = useRoute();
 const organisationId = route.params.id as string;
@@ -114,8 +115,22 @@ const handleDismiss = () => {
 };
 
 const saveNewFloor = () => {
-  Floor.saveFloor(organisationId, locationId);
-  modalOpen.value = false;
+  let isValid = true;
+
+  if (!newFloorDetails.value.shortName || newFloorDetails.value.shortName.length < 3) {
+    toastService.show(
+      "Error",
+      "Floor shortname must have at least 3 characters",
+      "error",
+      "bottom"
+    );
+    isValid = false;
+  }
+
+  if (isValid) {
+    Floor.saveFloor(organisationId, locationId);
+    modalOpen.value = false;
+  }
 };
 </script>
 

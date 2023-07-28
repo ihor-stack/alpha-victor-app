@@ -22,7 +22,7 @@ export const Floors = defineStore("Floors", {
           this.floors = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -35,13 +35,13 @@ export const Floors = defineStore("Floors", {
           shortName: newFloor.shortName,
         })
         .then(() => {
-          toastService.show("Success", "New floor added", "success", "top");
+          toastService.show("Success", "New floor added", "success", "bottom");
           const locationsStore = Locations();
           this.getFloors(locationId);
           locationsStore.getNavigationTree(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -59,13 +59,13 @@ export const Floors = defineStore("Floors", {
             "Success",
             "Floor updated successfully",
             "success",
-            "top"
+            "bottom"
           );
           const locationsStore = Locations();
           locationsStore.getNavigationTree(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -77,12 +77,12 @@ export const Floors = defineStore("Floors", {
             "Success",
             "Floor deleted successfully",
             "success",
-            "top"
+            "bottom"
           );
           router.push("/admin/organisations");
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -94,7 +94,7 @@ export const Floors = defineStore("Floors", {
           this.floor = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);

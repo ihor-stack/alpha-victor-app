@@ -41,7 +41,7 @@ export const Spaces = defineStore("PublicSpaces", {
         })
         .catch((error) => {
           return null;
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -56,7 +56,7 @@ export const Spaces = defineStore("PublicSpaces", {
           this.favouriteSpaces = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -71,7 +71,7 @@ export const Spaces = defineStore("PublicSpaces", {
           this.getFavouriteSpaces();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -86,7 +86,7 @@ export const Spaces = defineStore("PublicSpaces", {
           this.getRecentlyViewedSpaces();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -103,7 +103,7 @@ export const Spaces = defineStore("PublicSpaces", {
           this.recentlyViewedSpaces = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -120,7 +120,7 @@ export const Spaces = defineStore("PublicSpaces", {
           }
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -135,7 +135,7 @@ export const Spaces = defineStore("PublicSpaces", {
           this.devices = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -157,7 +157,7 @@ export const Spaces = defineStore("PublicSpaces", {
           return response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -188,7 +188,7 @@ export const Spaces = defineStore("PublicSpaces", {
           if (error.response.status === 404) {
             this.currentPanorama = {} as Panorama;
           } else {
-            toastService.show("Error", error, "error", "top");
+            toastService.show("Error", error, "error", "bottom");
           }
         })
         .finally(() => {

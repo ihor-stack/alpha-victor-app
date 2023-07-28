@@ -61,7 +61,7 @@ const handleError = (error: any) => {
         ? "Your login session has expired, please login again"
         : error,
       "error",
-      "top"
+      "bottom"
     );
     router.push("/");
   } else {
@@ -70,7 +70,7 @@ const handleError = (error: any) => {
         "Error",
         error.response?.data || error.response?.data?.message || error.response?.data?.title || error,
         "error",
-        "top"
+        "bottom"
       );
     }
   }

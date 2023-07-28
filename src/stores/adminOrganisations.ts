@@ -48,21 +48,23 @@ export const Organisations = defineStore("Organisations", {
     async saveOrganisation() {
       const newOrg = this.newOrganisationDetails;
       const loadId = loadingService.show("Loading...");
+      
       adminAPI
         .post("/Organisation/Details", {
           name: newOrg.name,
+          prefix: newOrg.prefix
         })
         .then(() => {
           toastService.show(
             "Success",
             "New organisation added",
             "success",
-            "top"
+            "bottom"
           );
           this.getOrganisations();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -82,7 +84,7 @@ export const Organisations = defineStore("Organisations", {
           }
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -97,7 +99,7 @@ export const Organisations = defineStore("Organisations", {
           this.organisationDetails = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -126,11 +128,11 @@ export const Organisations = defineStore("Organisations", {
             "Success",
             "Organisation details saved",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -145,12 +147,12 @@ export const Organisations = defineStore("Organisations", {
             "Success",
             "Organisation deleted successfully",
             "success",
-            "top"
+            "bottom"
           );
           router.push("/admin/organisations");
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -170,7 +172,7 @@ export const Organisations = defineStore("Organisations", {
         })
         .catch((error) => {
           this.formattedOrgSelect = [];
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -187,7 +189,7 @@ export const Organisations = defineStore("Organisations", {
           }
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -200,11 +202,11 @@ export const Organisations = defineStore("Organisations", {
           name: documentName,
         })
         .then(() => {
-          toastService.show("Success", "Document type added", "success", "top");
+          toastService.show("Success", "Document type added", "success", "bottom");
           this.getOrgDocumentTypes(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -217,7 +219,7 @@ export const Organisations = defineStore("Organisations", {
           this.getOrgDocumentTypes(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -228,7 +230,7 @@ export const Organisations = defineStore("Organisations", {
           this.getOrgDocumentTypes(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -241,7 +243,7 @@ export const Organisations = defineStore("Organisations", {
           return response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -257,7 +259,7 @@ export const Organisations = defineStore("Organisations", {
             this.decisionTree = { ...response.data.value, loaded: true };
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -281,7 +283,7 @@ export const Organisations = defineStore("Organisations", {
           this.decisionTreeList = formattedList;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -301,7 +303,7 @@ export const Organisations = defineStore("Organisations", {
           }
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -317,7 +319,7 @@ export const Organisations = defineStore("Organisations", {
           callback ? callback(res.data) : null;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -333,7 +335,7 @@ export const Organisations = defineStore("Organisations", {
           callback ? callback(res.data) : null;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -347,7 +349,7 @@ export const Organisations = defineStore("Organisations", {
           this.equipmentList = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
   },

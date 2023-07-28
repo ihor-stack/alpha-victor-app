@@ -5,7 +5,6 @@
         </ion-thumbnail>
       <ion-input
         class="font-size-sm"
-       
         placeholder="Document Type"
         :value="doc.title"
         @ionInput="editedDocument = $event.target.value;"

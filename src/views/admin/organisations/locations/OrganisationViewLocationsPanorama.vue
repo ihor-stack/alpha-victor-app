@@ -252,7 +252,7 @@ const deletePanorama = async () => {
 
 const setInitialView = () => {
   Space.setInitialView(viewer.getPitch(), viewer.getYaw(), viewer.getHfov());
-  toastService.show("Success", "View was set to starting point", "success", "top");
+  toastService.show("Success", "View was set to starting point", "success", "bottom");
 };
 
 onBeforeMount(() => {

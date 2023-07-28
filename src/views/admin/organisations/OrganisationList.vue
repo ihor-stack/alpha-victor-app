@@ -57,6 +57,9 @@ onBeforeMount(() => {
   border-radius: 5px;
   overflow: hidden;
   margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .organisations-list-menu--logo img {
   object-fit: cover;
@@ -76,10 +79,6 @@ onBeforeMount(() => {
 
 .organisations-list-menu-item ion-item ion-icon {
   margin-right: 0;
-}
-
-.organisations-list-menu-item img {
-  margin-right: 20px;
 }
 
 .organisations-list-menu-item .link-text {

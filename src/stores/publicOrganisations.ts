@@ -35,7 +35,7 @@ export const Organisations = defineStore("PublicOrganisations", {
           }
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -52,7 +52,7 @@ export const Organisations = defineStore("PublicOrganisations", {
           this.currentOrganisationId = response.data.id;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -67,7 +67,7 @@ export const Organisations = defineStore("PublicOrganisations", {
             this.searchNavigationTree = response.data;
           })
           .catch((error) => {
-            toastService.show("Error", error, "error", "top");
+            toastService.show("Error", error, "error", "bottom");
           })
           .finally(() => {
             loadingService.close(loadId);
@@ -82,7 +82,7 @@ export const Organisations = defineStore("PublicOrganisations", {
           this.theme = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
