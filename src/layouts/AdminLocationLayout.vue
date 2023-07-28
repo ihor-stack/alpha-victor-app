@@ -10,7 +10,7 @@
         class="ion-no-padding"
         fill="clear"
         color="dark"
-        @click="handleBack"
+        @click="onClickBack"
       >
         <span class="font-mono font-size-xs">{{
           $t("locationLayout.back")
@@ -24,9 +24,18 @@
 <script setup lang="ts">
 import AdminLocationsNav from "@/components/shared/AdminLocationsNav";
 import { useRouter, useRoute } from "vue-router";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const router = useRouter();
 const route = useRoute();
+
+const onClickBack = () => {
+  if (confirmToLeaveService.confirm.value.isEditing) {
+    confirmToLeaveService.show(() => handleBack());
+  } else {
+    handleBack();
+  }
+};
 
 const handleBack = () => {
   const currentRouteName = route.name as string;

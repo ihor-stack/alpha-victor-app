@@ -41,6 +41,7 @@ export const Locations = defineStore("Locations", {
         .get<NavLocation[]>(`/Location?organisationId=${organisationId}`)
         .then((response) => {
           this.locations = response.data;
+          confirmToLeaveService.setEditing(false);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
@@ -131,6 +132,7 @@ export const Locations = defineStore("Locations", {
               }
             });
             this.navigationTree = response.data;
+            confirmToLeaveService.setEditing(false);
           }
         })
         .catch((error) => {

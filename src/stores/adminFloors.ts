@@ -75,6 +75,7 @@ export const Floors = defineStore("Floors", {
       adminAPI
         .delete("/floor/?floorId=" + id)
         .then(() => {
+          confirmToLeaveService.setEditing(false);
           toastService.show(
             "Success",
             "Floor deleted successfully",

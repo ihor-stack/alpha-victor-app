@@ -14,7 +14,7 @@
             />
           </ion-button>
           <ion-title class="no-lp">
-            <router-link to="/dashboard">
+            <div class="logo-wraper" @click="handleNavigate('/dashboard')">
               <img v-if="theme.logo" :src="theme?.logo" class="logo" />
               <img
                 v-else
@@ -22,7 +22,7 @@
                 class="logo"
                 alt="AlphaVictor"
               />
-            </router-link>
+            </div>
           </ion-title>
           <ion-button fill="clear" @click="logout" class="logout-button">
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
@@ -338,6 +338,10 @@ ion-content {
 
 ion-item::part(detail-icon) {
   opacity: 1;
+}
+
+.logo-wraper {
+  cursor: pointer;
 }
 
 .logo {
