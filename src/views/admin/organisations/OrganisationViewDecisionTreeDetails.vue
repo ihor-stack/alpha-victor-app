@@ -61,8 +61,8 @@ import { isPlatform, onIonViewDidEnter, IonPage, IonButton } from "@ionic/vue";
 
 import DecisionTreeNodeModal from "@/components/modals/decisionTreeNodeModal/DecisionTreeNodeModal.vue";
 import { DecisionTreeNode } from "@/types/decisionTree";
-
 import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const organisationsStore = useOrganisationsStore();
 
@@ -181,6 +181,7 @@ export default {
       }
       renderChart();
       dirty.value = true;
+      confirmToLeaveService.setEditing(true);
     };
 
     const handleClickConfirm = (treeNodeData) => {
@@ -193,6 +194,7 @@ export default {
       destinationVisible.value = false;
       renderChart();
       dirty.value = true;
+      confirmToLeaveService.setEditing(true);
     };
 
     function getLines(ctx, text, maxWidth) {
@@ -667,6 +669,7 @@ export default {
           });
           editTreeNode.value = newTreeNode;
           dirty.value = true;
+          confirmToLeaveService.setEditing(true);
           return;
         }
 
@@ -680,6 +683,7 @@ export default {
           eventHandled = true;
           destination.delete();
           dirty.value = true;
+          confirmToLeaveService.setEditing(true);
           return;
         }
 
@@ -717,6 +721,7 @@ export default {
           editTreeNode.value = newTreeNode;
           newTreeNode = null;
           dirty.value = true;
+          confirmToLeaveService.setEditing(true);
           renderChart();
           return;
         }
@@ -760,6 +765,7 @@ export default {
         editTreeNode.value = destinations[destinations.length - 1];
         destinationVisible.value = true;
         dirty.value = true;
+        confirmToLeaveService.setEditing(true);
       }
     };
 
@@ -790,6 +796,7 @@ export default {
           dragDestination.x = Math.round(dragDestination.x);
           dragDestination.y = Math.round(dragDestination.y);
           dirty.value = true;
+          confirmToLeaveService.setEditing(true);
           renderChart();
         }
       } else {
@@ -809,6 +816,7 @@ export default {
         }
         dragStart = { x: x, y: y };
         dirty.value = true;
+        confirmToLeaveService.setEditing(true);
       }
       renderChart();
     };

@@ -262,6 +262,7 @@ export const Organisations = defineStore("Organisations", {
       adminAPI
         .patch(`/DecisionTree/${decisionTreeId}`, treeData)
         .then((response) => {
+          confirmToLeaveService.setEditing(false);
           if (response.data?.value)
             this.decisionTree = { ...response.data.value, loaded: true };
         })
