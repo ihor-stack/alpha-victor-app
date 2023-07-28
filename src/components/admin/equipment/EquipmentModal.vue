@@ -57,7 +57,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Asset type</ion-label>
+                  <ion-label>{{ $t('components.admin.equipment.equipmentModal.assetTypeLabel') }}</ion-label>
                   <ion-select
                     interface="action-sheet"
                     :placeholder="$t('components.admin.equipment.equipmentModal.selectAssetTypePlaceholder')"
@@ -79,10 +79,10 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Model</ion-label>
+                  <ion-label>{{$t('components.admin.equipment.equipmentModal.modelLabel')}}</ion-label>
                   <ion-input
                     v-model="state.name"
-                    label="Model"
+                    :label="$t('components.admin.equipment.equipmentModal.inputModelLabel')"
                     :placeholder="$t('components.admin.equipment.equipmentModal.inputModelPlaceholder')"
                   ></ion-input>
                 </ion-col>
@@ -91,10 +91,10 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Serial number</ion-label>
+                  <ion-label>{{ $t('components.admin.equipment.equipmentModal.serialNumberLabel') }}</ion-label>
                   <ion-input
                     v-model="state.serialNumber"
-                    label="Model"
+                    :label="$t('components.admin.equipment.equipmentModal.inputModelLabel')"
                     :placeholder="$t('components.admin.equipment.equipmentModal.inputSerialNumberPlaceholder')"
                   ></ion-input>
                 </ion-col>

@@ -1,15 +1,15 @@
 <template>
   <common-modal
-    title="Edit answer"
-    description="You can edit the answer via the form below."
+    :title="$t('components.modals.decisionTreeNodeModal.editAnswer.editAnswerTitle')"
+    :description="$t('components.modals.decisionTreeNodeModal.editAnswer.editAnswerDescription')"
     :handleDismiss="() => handleDismiss()"
   >
     <div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Answer</ion-label>
+          <ion-label>{{$t('components.modals.decisionTreeNodeModal.editAnswer.answerLabel')}}</ion-label>
           <ion-input
-            placeholder="Enter Answer"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.editAnswer.answerInputPlaceholder')"
             v-model="state.text"
           ></ion-input>
         </ion-col>

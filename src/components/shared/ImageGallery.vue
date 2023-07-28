@@ -8,7 +8,7 @@
         v-bind:key="image.id"
       >
         <ion-thumbnail slot="start">
-          <img alt="image" :src="image.path" />
+          <img :alt="$t('components.shared.imageGallery.imageAlt')" :src="image.path" />
         </ion-thumbnail>
         <ion-label>
           {{ image.name }}

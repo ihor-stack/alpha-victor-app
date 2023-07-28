@@ -1,7 +1,7 @@
 <template>
   <common-modal
-    title="Add email address"
-    description="You can add a email address to be presented via the form field below. "
+    :title="$t('components.modals.decisionTreeNodeModal.addEmail.addEmailAddressTitle')"
+    :description="$t('components.modals.decisionTreeNodeModal.addEmail.addEmailAddressDescription')"
     :handleDismiss="() => handleDismiss()"
   >
     <div>

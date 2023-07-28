@@ -12,7 +12,7 @@
             v-else
             src="@/theme/img/logo/logo-without-name.svg"
             class="logo"
-            alt="AlphaVictor"
+            :alt='$t("components.shared.shared.appHeader.alphaVictorAlt")'
           />
         </router-link>
       </ion-title>

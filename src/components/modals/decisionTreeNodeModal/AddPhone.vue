@@ -1,7 +1,7 @@
 <template>
   <common-modal
-    title="Add phone number"
-    description="You can add a phone number to be presented via the form field below. "
+    :title="$t('components.modals.decisionTreeNodeModal.addPhone.addPhoneTitle')"
+    :description="$t('components.modals.decisionTreeNodeModal.addPhone.addPhoneNumberDescription')"
     :handleDismiss="() => handleDismiss()"
   >
     <div>

@@ -6,7 +6,7 @@
       color="--av-light-gray"
       @click="state.modalOpen = true"
     >
-      {{ $t("components.admin.documentModal.addDocumentHeader") }}
+      {{ $t("components.admin.documentModal.addDocumentButton") }}
     </ion-button>
     <ion-modal
       :is-open="state.modalOpen"

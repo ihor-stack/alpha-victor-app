@@ -5,35 +5,7 @@ export default {
   locationLayout: {
     back: "<< back",
   },
-  appMenu: {
-    logout: "logout",
-    dashboard: "Dashboard",
-    favourites: "Favourites",
-    findSpace: "Find a Space",
-    recentlyViewed: "Recently Viewed",
-    accountSettings: "Account Settings",
-    about: "About Alpha Victor",
-    tos: "Terms & Conditions",
-    admin: "Admin",
-    contact: "Contact",
-    email: "hello@alphavictor.com",
-    footer: "AlphaVictor® is a registered trademark of Uncoded Limited, a registered company in England and Wales with company number 11435074"
-  },
-  desktopNav:  {
-    logout: "logout",
-    dashboard: "Dashboard",
-    favourites: "Favourites",
-    findSpace: "Find a Space",
-    recentlyViewed: "Recently Viewed",
-    accountSettings: "Account Settings",
-    about: "About Alpha Victor",
-    tos: "Terms & Conditions",
-    administration: "administration",
-    organisations: "Organisations",
-    equipment: "Equipment",
-    documentTypes: "Document Types",
-    users: "Users",
-  },
+  
   pages: {
     dashboard: {
       placeholder: "Enter shortcode",
@@ -419,18 +391,23 @@ export default {
           header: "Add new asset type",
           paragraph: "You can create a new asset type via the form below.",
           button: "Add new asset type +",
+          cameraPlaceholder: "e.g. camera",
+          chooseIconLabel: "Choose an icon",
         },
         documentModal: {
+          addDocumentButton: "Add new document +",
           addDocumentHeader: "Add new document +",
           uploadDocumentTypeParagraph: "You can upload a document and document type using the form below.",
           uploadDocumentParagraph: "Upload document",
           clickSpan: "Click to browse device",
           addNewAssetbutton: "Add new asset type +",
+          documentTypeLabel: "Document Type",
         },
         manufacturerModal: {
           addManufacturerButton: "Add new manufacturer +",
           addManufacturerHeader: "Add new manufacturer",
           addManufacturerParagraph: "You can create a new manufacturer via the form below.",
+          samSungPlaceholder: "e.g. samsung",
         },
         equipmentModal: {
           addEquipmentButton: "Add new equipment +",
@@ -441,9 +418,19 @@ export default {
           selectAssetTypePlaceholder: "Select asset type",
           inputModelPlaceholder: "Input Model",
           inputSerialNumberPlaceholder: "Input Serial number",
+          assetTypeLabel: "Asset type",
+          modelLabel: "Model",
+          serialNumberLabel: "Serial number",
+          inputModelLabel: "Model",
         }
       },
       locations: {
+        adminFloorsField: {
+          silhouetteOfMountainsAlt: "Silhouette of mountains",
+          saveButton: ">> save",
+          removeButton: ">> remove",
+          documentTypeInputPlaceholder: "Document Type",
+        },
         adminLocationsForm: {
           locationNameLabel: "Location name",
           locationPrefixLabel: "Location prefix",
@@ -462,6 +449,7 @@ export default {
           floorsHeader: "Floors",
         },
         adminLoacationsList: {
+          spacesHeader: "Spaces",
           floorNameLabel: "Floor name",
           shortNameLabel: "Short name",
           saveFloorButton: "Save floor",
@@ -469,6 +457,7 @@ export default {
       },
       spaceMetadata: {
         spaceFeatureModal: {
+          wifiPlaceholder: "e.g. wifi",
           addNewSpaceFeatureButton: "Add new space feature +",
           addNewSpaceFeatureHeader: "Add new space feature",
           createNewSpaceFeatureParagraph: "You can create a new space feature via the form below.",
@@ -476,29 +465,87 @@ export default {
         spaceTypeModal: {
           addNewSpaceTypeButton: "Add new space type +",
           createNewSpaceTypeParagraph: "You can create a new space Type via the form below.",
-
+          addNewSpaceTypeHeader: "Add new space type",
+          meetingRoomInputPlaceholder: "e.g. meeting room",
         },
       },
       spaces: {
-        documentField: {
-          editDocumentTypeHeader: "Edit document Type",
-          removeButton: ">> remove",
-          saveButton: ">> save",
+        documentModal: {
+          addNewDocumentLabel: "Add New Document  >>",
+          addNewDocumentHeader: "Add New Document",
+          uploadDocumentButton: "Upload document",
         },
-        organisationsSelect: {
-          viewAllSpan: ">> view.all"
+        newDeviceModal: {
+          addNewDeviceButton: "Add New device +",
+          addNewDeviceHeader: "Add New device",
+          nameLabel: "Name",
+          serialNumberLabel: "Serial number",
+          macAddressLabel: "Mac Address",
+          installerLabel: "Installer",
+          installDateLabel: "Install date",
+          warrantyExpiryDateLabel: "Warranty expiration date",
+          descriptionLabel: "Description",
+        },
+        panoramaModal: {
+          editHotspotHeader: "Edit hotspot",
+          selectDeviceLabel: "Select device",
+          selectPlaceholder: "Select",
+          orDiv: "or",
+          addLabelLabel: "Add label",
+          hotspotLabelPlaceholder: "Hotspot label",
+          saveChangeButton: "Save change",
+          orDeleteHotspotButton: "or delete hotspot",
+        },
+        photoModal: {
+          addNewPhotoLabel: "Add New Photo  >>",
+          addNewPhotoHeader: "Add New Photo",
+          featuredPhotoLabel: "Featured Photo",
+          saveButton: "Save",
+          
         }
+      },
+      documentFieldOLD: {
+        documentTypePlaceholder: "Document Type",
+        saveButton: ">> save",
+        removeButton: ">> remove",
+      },
+      documentField: {
+        editDocumentTypeHeader: "Edit document Type",
+        removeButton: ">> remove",
+        saveButton: ">> save",
+        documentTypePlaceholder: "Document Type",
+      },
+      itemField: {
+        saveButton: ">> save",
+        removeButton: ">> remove",
+
+      },
+      organisationsSelect: {
+        viewAllSpan: ">> view.all",
+        spanTen: ">> 10",
+      },
+      SpaceCard: {
+        spanTen: ">> 10",
       }
+    },
+    dashboard: {
+      dashboardSlider: {
+        viewAllSpan: ">> view.all",
+      },
     },
     modals: {
       decisionTreeNodeModal: {
         addEmail: {
+          addEmailAddressDescription: "You can add a email address to be presented via the form field below. ",
+          addEmailAddressTitle: "Add email address",
           emailAddressLabel: "Email Address",
           emailAddressInputPlaceholder: "Enter a email address",
           confirmSelectionButton: "Confirm Selection",
           backToDestinationButton: "Back to destination",
         },
         addPhone: {
+          addPhoneNumberDescription: "You can add a phone number to be presented via the form field below. ",
+          addPhoneTitle: "Add phone number",
           phoneNumberLabel: "Phone Number",
           phoneNumberPlaceholder: "Enter phone number",
           confirmSelectionButton: "Confirm Selection",
@@ -509,9 +556,15 @@ export default {
           greaterSelectedCol: ">> select",
         },
         editAnswer: {
+          editAnswerTitle: "Edit answer",
+          editAnswerDescription: "You can edit the answer via the form below.",
+          answerLabel: "Answer",
+          answerInputPlaceholder: "Enter Answer",
           updateButton: "Update",
         },
         editDestination: {
+          editDestinationTitle: "Edit destination",
+          adjustDestinationDescription: "You can adjust the destination and outcomes via the form below.",
           destinationTypeLabel: "Destination Type",
           selectTypePlaceholder: "Select type",
           outcomeLabel: "Outcome label",
@@ -519,6 +572,8 @@ export default {
           nextButton: "Next",
         },
         selectArticle: {
+          selectArticleTitle: "Select article",
+          selectArticleDescription: "You can select an article to be presented via the list below.",
           articleTitleLabel: "Article title",
           articleTitleInputPlaceholder: "Enter title",
           searchInputPlaceholder: "Search for an article",
@@ -541,6 +596,7 @@ export default {
           backToDestinationButton: "Back to destination",
         },
         selectVideo: {
+          searchForVideoPlaceholder: "Search for a video",
           selectVideoTitle: "Select video",
           selectVideoDescription: "You can select a video to be presented via the list below.",
           dividerSpan: "or",
@@ -552,6 +608,7 @@ export default {
         },
       },
       contactUsModal: {
+        contactHeader: "Contact",
         contactUsModalParagraph: "Simply fill out the form below and someone from AlphaVictor will be in touch soon.",
         nameInputPlaceholder: "Your name",
         emailInputPlaceholder: "Your email address",
@@ -635,6 +692,7 @@ export default {
         installationLabel: "Installation",
         userGuideButton: "User Guide",
         reportIssueButton: "Report Issue",
+        documentsHeader: "Documents",
       },
       userManagementModal: {
         assignedOrganisationLabel: "Assigned Organisations",
@@ -656,8 +714,46 @@ export default {
       loginWithEmailSpan: "Login with email",
     },
     shared: {
+      adminLocationsNav: {
+        locationsHeader: "Locations",
+      },
+      appMenu: {
+        logout: "logout",
+        dashboard: "Dashboard",
+        favourites: "Favourites",
+        findSpace: "Find a Space",
+        recentlyViewed: "Recently Viewed",
+        accountSettings: "Account Settings",
+        about: "About Alpha Victor",
+        tos: "Terms & Conditions",
+        admin: "Admin",
+        contact: "Contact",
+        email: "hello@alphavictor.com",
+        footer: "AlphaVictor® is a registered trademark of Uncoded Limited, a registered company in England and Wales with company number 11435074"
+      },
+      desktopNav:  {
+        switchOrganisationAlt: "Switch Organisation",
+        AlphaVictorAlt: "AlphaVictor",
+        logout: "logout",
+        dashboard: "Dashboard",
+        favourites: "Favourites",
+        findSpace: "Find a Space",
+        recentlyViewed: "Recently Viewed",
+        accountSettings: "Account Settings",
+        about: "About Alpha Victor",
+        tos: "Terms & Conditions",
+        administration: "administration",
+        organisations: "Organisations",
+        equipment: "Equipment",
+        documentTypes: "Document Types",
+        users: "Users",
+      },
       imageGallery: {
         removeButton: ">> remove",
+        imageAlt: "image",
+      },
+      appHeader: {
+        alphaVictorAlt: "AlphaVictor",
       },
     },
     space: {
@@ -666,6 +762,7 @@ export default {
           cancelAskButton: "Cancel and ask again",
         },
         questionNode: {
+          AlphaVictorLogoAlt: "AlphaVictor logo",
           articleTemplateDescription: "I've found the following article that I think you'll find useful",
           videoTemplateDescription: "I've found the following video that I think you'll find useful",
           documentTemplateDescription: "I've found the following document that I think you'll find helpful",
@@ -675,6 +772,9 @@ export default {
       },
       documentsList: {
         viewSpan: ">> view",
+      },
+      pdfViewer: {
+        loadingTemplate: "Loading...",
       },
       spaceOptionsMenu: {
         roomEquipmentSpan: "Room Equipment",

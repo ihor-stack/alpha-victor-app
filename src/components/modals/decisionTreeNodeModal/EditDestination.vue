@@ -1,7 +1,7 @@
 <template>
   <common-modal
-    title="Edit destination"
-    description="You can adjust the destination and outcomes via the form below."
+    :title="$t('components.modals.decisionTreeNodeModal.editDestination.editDestinationTitle')"
+    :description="$t('components.modals.decisionTreeNodeModal.editDestination.adjustDestinationDescription')"
     :handleDismiss="() => handleDismiss()"
   >
     <div>

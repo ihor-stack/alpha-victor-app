@@ -65,7 +65,7 @@
           :annotation="true"
           ref="pdfViewer"
         >
-          <template slot="loading">Loading...</template>
+          <template slot="loading">{{ $t('components.space.pdfViewer.loadingTemplate') }}</template>
         </pdf>
       </div>
     </div>

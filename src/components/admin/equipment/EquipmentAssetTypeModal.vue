@@ -30,7 +30,7 @@
           </ion-header>
           <div :scroll-y="false" class="form-admin--group_field">
             <div class="modal-panel__section modal-panel__select-equipment">
-              <ion-input v-model="state.name" placeholder="e.g. camera" />
+              <ion-input v-model="state.name" :placeholder="$t('components.admin.equipment.assetTypeModal.cameraPlaceholder')" />
             </div>
             <AdminSelect
               label="Choose an icon"

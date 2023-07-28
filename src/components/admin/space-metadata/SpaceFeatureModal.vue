@@ -1,7 +1,7 @@
 <template>
   <div>
     <ion-button class="button-wide" @click="modalOpen = true">
-      {{ $t('components.admin.spaceMetadata.spaceFeatureModal.addNewSpaceFeatureButton') }}
+      {{ $t("components.admin.spaceMetadata.spaceFeatureModal.addNewSpaceFeatureButton") }}
     </ion-button>
 
     <ion-modal
@@ -23,7 +23,7 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                {{ $t('components.admin.spaceMetadata.spaceFeatureModal.addNewSpaceFeatureHeader') }}
+                {{ $t("components.admin.spaceMetadata.spaceFeatureModal.addNewSpaceFeatureHeader") }}
                 </h1>
                 <p class="modal-panel__comment color-light-gray font-size-sm">
                   {{ $t('components.admin.spaceMetadata.spaceFeatureModal.createNewSpaceFeatureParagraph') }}
@@ -33,7 +33,7 @@
             <div class="form-admin--group_field">
               <div class="modal-panel__section modal-panel__select-equipment">
                 <ion-input
-                  placeholder="e.g. wifi"
+                  :placeholder="$t('components.admin.spaceMetadata.spaceFeatureModal.wifiPlaceholder')"
                   :value="newFeature"
                   @input="newFeature = $event.target.value"
                 />

@@ -10,7 +10,7 @@
           <input-with-icon
             iconPosition="start"
             type="search"
-            placeholder="Search for a video"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.selectVideo.searchForVideoPlaceholder')"
             v-model="state.searchTerm"
             :icon="search"
           ></input-with-icon>

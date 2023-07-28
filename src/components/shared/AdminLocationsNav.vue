@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title-admin font-bold font-size-lg">Locations</h1>
+    <h1 class="title-admin font-bold font-size-lg">{{$t('components.shared.adminLocationsNav.locationsHeader')}}</h1>
     <ion-accordion-group
       class="locations-tree-wrapper"
       accessKey="locationGroup"

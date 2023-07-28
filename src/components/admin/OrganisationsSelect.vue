@@ -11,7 +11,7 @@
           size="small"
           @click="handleCta"
           ><span class="color-light-gray font-mono font-size-xs text-spaced"
-            >{{$t('components.admin.spaces.organisationsSelect.viewAllSpan')}}</span
+            >{{$t('components.admin.organisationsSelect.viewAllSpan')}}</span
           ></ion-button
         >
       </div>
@@ -53,7 +53,7 @@
                         />
                         <span
                           class="capacity-number color-light-gray font-size-xxs font-mono"
-                          >&gt;&gt;10</span
+                          >{{$t('components.admin.organisationsSelect.spanTen')}}</span
                         >
                       </div>
                     </div>

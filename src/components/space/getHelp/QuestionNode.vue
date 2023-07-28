@@ -1,7 +1,7 @@
 <template>
   <div class="decision-wrapper">
     <div class="logo-wrapper">
-      <img :src="theme?.logo" class="logo" alt="AlphaVictor logo" />
+      <img :src="theme?.logo" class="logo" :alt="$t('components.space.getHelp.questionNode.AlphaVictorLogoAlt')" />
     </div>
     <div class="answers-list-wrapper">
       <IonList class="answers-list" lines="none">

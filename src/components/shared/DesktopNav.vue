@@ -10,7 +10,7 @@
           >
             <img
               src="@/theme/icons/switch-location.svg"
-              alt="Switch Organisation"
+              :alt="$t('components.shared.desktopNav.switchOrganisationAlt')"
             />
           </ion-button>
           <ion-title class="no-lp">
@@ -20,14 +20,14 @@
                 v-else
                 src="@/theme/img/logo/logo-without-name.svg"
                 class="logo"
-                alt="AlphaVictor"
+                :alt="$t('components.shared.desktopNav.AlphaVictorAlt')"
               />
             </router-link>
           </ion-title>
           <ion-button fill="clear" @click="logout" class="logout-button">
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
             <span class="font-bold font-size-xs low-caps">{{
-              $t("desktopNav.logout")
+              $t("components.shared.desktopNav.logout")
             }}</span>
           </ion-button>
         </div>
@@ -39,7 +39,7 @@
           <router-link to="/dashboard">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.dashboard") }}
+                {{ $t("components.shared.desktopNav.dashboard") }}
               </ion-label>
             </ion-item>
           </router-link>
@@ -49,7 +49,7 @@
           <router-link to="/favourites">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.favourites") }}
+                {{ $t("components.shared.desktopNav.favourites") }}
               </ion-label>
             </ion-item>
           </router-link>
@@ -58,7 +58,7 @@
           <router-link to="/find-space/location">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.findSpace") }}
+                {{ $t("components.shared.desktopNav.findSpace") }}
               </ion-label>
             </ion-item>
           </router-link>
@@ -67,7 +67,7 @@
           <router-link to="/recently-viewed">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.recentlyViewed") }}
+                {{ $t("components.shared.desktopNav.recentlyViewed") }}
               </ion-label>
             </ion-item>
           </router-link>
@@ -76,7 +76,7 @@
           <router-link to="/settings">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.accountSettings") }}
+                {{ $t("components.shared.desktopNav.accountSettings") }}
               </ion-label>
             </ion-item>
           </router-link>
@@ -85,7 +85,7 @@
           <router-link to="/about">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.about") }}
+                {{ $t("components.shared.desktopNav.about") }}
               </ion-label>
             </ion-item>
           </router-link>
@@ -94,7 +94,7 @@
           <router-link to="/terms-and-conditions">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.tos") }}
+                {{ $t("components.shared.desktopNav.tos") }}
               </ion-label>
             </ion-item>
           </router-link>
@@ -103,7 +103,7 @@
         <li class="nav-menu-link">
           <ion-item lines="none">
             <ion-label class="ion-no-margin font-size-xxs">
-              {{ $t("desktopNav.administration") }}
+              {{ $t("components.shared.desktopNav.administration") }}
             </ion-label>
           </ion-item>
         </li>
@@ -112,7 +112,7 @@
           <router-link to="/admin/organisations">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.organisations") }}
+                {{ $t("components.shared.desktopNav.organisations") }}
               </ion-label>
             </ion-item>
           </router-link>
@@ -121,7 +121,7 @@
           <router-link to="/admin/equipment">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.equipment") }}
+                {{ $t("components.shared.desktopNav.equipment") }}
               </ion-label>
             </ion-item>
           </router-link>
@@ -130,7 +130,7 @@
           <router-link to="/admin/documents">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.documentTypes") }}
+                {{ $t("components.shared.desktopNav.documentTypes") }}
               </ion-label>
             </ion-item>
           </router-link>
@@ -139,7 +139,7 @@
           <router-link to="/admin/users">
             <ion-item lines="none" :detail="true">
               <ion-label class="ion-no-margin">
-                {{ $t("desktopNav.users") }}
+                {{ $t("components.shared.desktopNav.users") }}
               </ion-label>
             </ion-item>
           </router-link>

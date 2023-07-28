@@ -30,7 +30,7 @@
           </ion-header>
           <div class="form-admin--group_field">
             <div class="modal-panel__section modal-panel__select-equipment">
-              <ion-input v-model="state.name" placeholder="e.g. samsung" />
+              <ion-input v-model="state.name" :placeholder="$t('components.admin.equipment.manufacturerModal.samSungPlaceholder')" />
             </div>
           </div>
           <ion-footer>

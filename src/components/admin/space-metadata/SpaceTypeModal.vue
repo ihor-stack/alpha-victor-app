@@ -20,7 +20,7 @@
               />
               <ion-item class="modal-panel__header" lines="none">
                 <ion-label>
-                  <h2 class="font-bold font-size-lg">Add new space type</h2>
+                  <h2 class="font-bold font-size-lg">{{ $t('components.admin.spaceMetadata.SpaceTypeModal.addNewSpaceTypeHeader') }}</h2>
                   <p class="font-size-sm">
                     {{ $t('components.admin.spaceMetadata.SpaceTypeModal.createNewSpaceTypeParagraph') }}
                   </p>
@@ -30,7 +30,7 @@
             <ion-item class="form-admin--group_field" lines="none">
               <div class="modal-panel__section modal-panel__select-equipment">
                 <ion-input
-                  placeholder="e.g. meeting room"
+                  :placeholder="$t('components.admin.spaceMetadata.SpaceTypeModal.meetingRoomInputPlaceholder')"
                   :value="newType"
                   @input="newType = $event.target.value"
                 />

@@ -1,7 +1,7 @@
 <template>
   <common-modal
-    title="Select article"
-    description="You can select an article to be presented via the list below."
+    :title="$t('components.modals.decisionTreeNodeModal.selectArticle.selectArticleTitle')"
+    :description="$t('components.modals.decisionTreeNodeModal.selectArticle.selectArticleDescription')"
     :handleDismiss="() => handleDismiss()"
   >
     <div>

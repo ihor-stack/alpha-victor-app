@@ -48,7 +48,7 @@
             :detail="true"
           >
             <ion-label>
-              <h3 class="font-bold font-size-xs">Documents</h3>
+              <h3 class="font-bold font-size-xs">{{$t('components.modals.roomEquipmentModal.documentsHeader')}}</h3>
             </ion-label>
           </ion-item>
         </ion-list>
