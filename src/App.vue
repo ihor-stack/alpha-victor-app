@@ -194,6 +194,7 @@ watch(path, (newValue, oldValue) => {
   }
   if (oldValue === "/" && newValue === "/dashboard") {
     accountStore.getPermissions();
+    confirmToLeaveService.setEditing(false);
   }
 });
 

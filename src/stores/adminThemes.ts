@@ -3,6 +3,7 @@ import { adminAPI } from "@/axios";
 import { AdminTheme } from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 export const Theme = defineStore("Themes", {
   state: () => {
@@ -16,6 +17,7 @@ export const Theme = defineStore("Themes", {
         .get<AdminTheme>(`/Organisation/${organisationId}/Theme`)
         .then((response) => {
           this.theme = response.data;
+          confirmToLeaveService.setEditing(false);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
@@ -46,6 +48,7 @@ export const Theme = defineStore("Themes", {
             "success",
             "bottom"
           );
+          confirmToLeaveService.setEditing(false);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
