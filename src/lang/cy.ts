@@ -17,9 +17,10 @@ export default {
     admin: "Admin",
     contact: "Contact",
     email: "hello@alphavictor.com",
-    footer: "AlphaVictor® is a registered trademark of Uncoded Limited, a registered company in England and Wales with company number 11435074"
+    footer:
+      "AlphaVictor® is a registered trademark of Uncoded Limited, a registered company in England and Wales with company number 11435074",
   },
-  desktopNav:  {
+  desktopNav: {
     logout: "logout",
     dashboard: "Dashboard",
     favourites: "Favourites",
@@ -39,7 +40,7 @@ export default {
       placeholder: "Enter shortcode",
       noSpacesFound: "no.spaces.found",
       shortCodeTip: "Please enter a short code or explore spaces.",
-      exploreBtn: "Explore Spaces"
+      exploreBtn: "Explore Spaces",
     },
     favourites: {
       header: "Favourites",
@@ -78,8 +79,8 @@ export default {
         deleteAccount: {
           title: "Delete Account",
           subtitle: "Delete Your Account",
-        }
-      }
+        },
+      },
     },
     recentlyViewed: {
       header: "Recently viewed",
@@ -102,33 +103,38 @@ export default {
         gender: {
           male: "Male",
           female: "Female",
-          not: "Prefer not to say"
+          not: "Prefer not to say",
         },
-        updateProfileBtn: "Update Profile"
+        updateProfileBtn: "Update Profile",
       },
       notifications: {
         label: "Notifications",
-        description: "We use notifications to keep you in the loop. Update your notifications settings below.",
+        description:
+          "We use notifications to keep you in the loop. Update your notifications settings below.",
         allowNotifications: "Allow notifications",
         receiveNotifications: "Receive Notifications",
       },
       location: {
         label: "Location",
-        description: "We use your location to check spaces near you. Update your location settings below.",
+        description:
+          "We use your location to check spaces near you. Update your location settings below.",
         allowLocation: "Allow location",
-        accurateLocation: "Accurate Location"
+        accurateLocation: "Accurate Location",
       },
       bluetooth: {
         label: "Bluetooth",
-        description: "We use bluetooth to ping beacons for a more accurate location. /n Update your bluetooth settings below.",
+        description:
+          "We use bluetooth to ping beacons for a more accurate location. /n Update your bluetooth settings below.",
         allowBluetooth: "Allow Bluetooth",
         pingBeacons: "Ping Beacons",
       },
       language: {
         label: "Language",
-        description: "You can switch between languages via the drop down below.",
+        description:
+          "You can switch between languages via the drop down below.",
         placeholder: "Select Language",
         english: "English",
+        welsh: "Welsh",
         french: "French",
         german: "German",
         updateLanguageBtn: "Update Language Settings",
@@ -140,43 +146,45 @@ export default {
         placeholders: {
           current: "Current Password",
           new: "New Password",
-          confirm: "Confirm New Password"
-        }
+          confirm: "Confirm New Password",
+        },
       },
       deleteAccount: {
         label: {
           deleted: "Account Deleted",
-          confirm: "Confirm Deletion"
+          confirm: "Confirm Deletion",
         },
         question: {
-          deleted: "Your account had been deleted from our system. We hope to see you again in the future.",
-          confirm: "Are you sure you want to delete your account?"
+          deleted:
+            "Your account had been deleted from our system. We hope to see you again in the future.",
+          confirm: "Are you sure you want to delete your account?",
         },
         description: {
           deleted: "Best wishes from the Alpha Victor team.",
-          confirm: "Your account can’t be restored after it’s been deleted. Are you sure you want to continue? If so, please confirm your password."
+          confirm:
+            "Your account can’t be restored after it’s been deleted. Are you sure you want to continue? If so, please confirm your password.",
         },
         confirmDeletionBtn: {
           deleted: "Got it, thanks",
-          confirm: "Confirm Deletion"
-        }
+          confirm: "Confirm Deletion",
+        },
       },
     },
     space: {
       article: {
         title: "Article",
-        back: "<< back"
+        back: "<< back",
       },
       documents: {
         title: "Documents",
-        back: "<< back"
+        back: "<< back",
       },
       document: {
-        back: "<< back"
+        back: "<< back",
       },
       equipment: {
         title: "Room Equipment",
-        back: "<< back"
+        back: "<< back",
       },
       feedback: {
         title: "Feedback",
@@ -203,14 +211,16 @@ export default {
       },
       video: {
         back: "<< back",
-        label: "Autoplay"
-      }
+        label: "Autoplay",
+      },
     },
     about: {
       back: "<< back",
       header: "About Alpha Victor",
-      sentence1: "Alpha Victor seeks to continually enhance the user experience in the workspace. The platform also provides workplace teams with the information they need to make future decisions on the design of new, better performing spaces.",
-      sentence2: "Alpha Victor delivers dynamic user guides for users of the space alongside a simple way for them to give their feedback, whether at home or in the office."
+      sentence1:
+        "Alpha Victor seeks to continually enhance the user experience in the workspace. The platform also provides workplace teams with the information they need to make future decisions on the design of new, better performing spaces.",
+      sentence2:
+        "Alpha Victor delivers dynamic user guides for users of the space alongside a simple way for them to give their feedback, whether at home or in the office.",
     },
     admin: {
       documents: {
@@ -218,7 +228,7 @@ export default {
           title: "Document Types",
           add: "Add new +",
           current: "Current Document Types",
-        }
+        },
       },
       equipment: {
         details: {
@@ -231,7 +241,7 @@ export default {
           title: "Equipment",
           manufacturers: "Manufacturers",
           assetTypes: "Asset Types",
-        }
+        },
       },
       organisations: {
         list: {
@@ -283,8 +293,8 @@ export default {
             view: ">> view",
             details: {
               back: "<< back",
-              saveBtn: "Save decision tree",    
-            }
+              saveBtn: "Save decision tree",
+            },
           },
           integrations: {
             title: "Integrations",
@@ -295,7 +305,7 @@ export default {
             list: {
               title: "Integration",
               integration: "Integration",
-            }
+            },
           },
           locations: {
             title: "Locations",
@@ -331,7 +341,7 @@ export default {
               subtitle: "Ubiqisense",
               selectLocation: "Select location",
               saveBtn: "Save changes",
-              clearBtn: "or clear integration"
+              clearBtn: "or clear integration",
             },
             panorama: {
               icon: "Howard Street Belfast",
@@ -360,9 +370,9 @@ export default {
               show: "Show wifi password",
               showSpace: "Show wifi password within space",
               saveBtn: "Save changes",
-            }
+            },
           },
-        }
+        },
       },
       users: {
         title: "Users",
@@ -373,7 +383,7 @@ export default {
         active: "Active",
         deleted: "Deleted",
         inactive: "Inactive",
-      }
+      },
     },
     static: {
       legalNotices: {
@@ -383,15 +393,15 @@ export default {
         content1: {
           header: "Barcode scanner",
           subtitle: "@capacitor-community/barcode-scanner",
-          p1: "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:",
+          p1: 'Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:',
           p2: "The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.",
-          p3: "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+          p3: 'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.',
         },
         content2: {
           header: "Google Maps",
           subtitle: "@googlemaps/js-api-loader",
-          p: "Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License.",
-        }
+          p: 'Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.',
+        },
       },
       tos: {
         title: "Terms & Conditions",
@@ -407,9 +417,9 @@ export default {
         },
         content2: {
           header: "Summary of key points",
-          p: "This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for. You can also click here to go directly to our table of contents."
-        }
+          p: "This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for. You can also click here to go directly to our table of contents.",
+        },
       },
-    }
+    },
   },
-}
+};
