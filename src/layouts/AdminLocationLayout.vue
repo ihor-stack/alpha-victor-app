@@ -2,18 +2,20 @@
   <div class="av-locations-layout">
     <div class="av-sidebar ion-padding">
       <div class="av-sidebar-cont">
-        <ion-button
-          class="ion-no-padding"
-          fill="clear"
-          color="dark"
-          @click="handleBack"
-        >
-          <span class="font-mono font-size-xs">{{ $t('locationLayout.back')}}</span>
-        </ion-button>
         <AdminLocationsNav />
       </div>
     </div>
     <div class="container ion-padding position-relative">
+      <ion-button
+        class="ion-no-padding"
+        fill="clear"
+        color="dark"
+        @click="handleBack"
+      >
+        <span class="font-mono font-size-xs">{{
+          $t("locationLayout.back")
+        }}</span>
+      </ion-button>
       <router-view />
     </div>
   </div>
@@ -74,7 +76,7 @@ ion-row {
 }
 
 ion-button {
-  margin: 20px 0;
+  margin: 0 0 20px 0;
 }
 
 .av-locations-layout {
