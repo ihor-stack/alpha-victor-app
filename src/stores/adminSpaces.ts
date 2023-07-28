@@ -14,6 +14,7 @@ import {
   NewPanorama,
   Hotspot,
   SpaceBeaconAvailableResponse,
+  UpdatePanoramaRequest,
 } from "@/types/index";
 
 import loadingService from "@/services/loadingService";
@@ -21,7 +22,7 @@ import toastService from "@/services/toastService";
 import router from "@/router";
 
 import { Locations } from "./adminLocations";
-import { Organisations } from './adminOrganisations';
+import { Organisations } from "./adminOrganisations";
 
 export const Spaces = defineStore("Spaces", {
   state: () => {
@@ -51,14 +52,15 @@ export const Spaces = defineStore("Spaces", {
           this.space = response.data;
           this.currentSpace = response.data.spaceName;
 
-          const { decisionTreeList } = Organisations();          
+          const { decisionTreeList } = Organisations();
 
           if (response.data.decisionTreeId) {
             const foundDecisionTree = decisionTreeList.find(
-              (decisionTree) => decisionTree.additionalInfo === response.data.decisionTreeId
+              (decisionTree) =>
+                decisionTree.additionalInfo === response.data.decisionTreeId
             );
 
-            if (foundDecisionTree) { 
+            if (foundDecisionTree) {
               this.decisionTreeSelected = foundDecisionTree;
             }
           }
@@ -277,7 +279,9 @@ export const Spaces = defineStore("Spaces", {
     async editSpacesWifi(spaceId: string) {
       const loadId = loadingService.show("Loading...");
 
-      const wifiPass = this.wifi.wifiPassword ? `&WifiPassword=${this.wifi.wifiPassword}` : ''
+      const wifiPass = this.wifi.wifiPassword
+        ? `&WifiPassword=${this.wifi.wifiPassword}`
+        : "";
 
       adminAPI
         .patch(
@@ -319,28 +323,37 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async getSpaceDetailsBeaconAvailable(spaceId: string, minor: number, major: number) {
+    async getSpaceDetailsBeaconAvailable(
+      spaceId: string,
+      minor: number,
+      major: number
+    ) {
       try {
-        const resp = await adminAPI.get<SpaceBeaconAvailableResponse>("/Space/" + spaceId + "/BeaconAvailable/" + minor + "/" + major);
+        const resp = await adminAPI.get<SpaceBeaconAvailableResponse>(
+          "/Space/" + spaceId + "/BeaconAvailable/" + minor + "/" + major
+        );
 
         return resp.data;
-      }
-      catch {
-        toastService.show("Error", "Could not check beacon available status", "error", "bottom");
+      } catch {
+        toastService.show(
+          "Error",
+          "Could not check beacon available status",
+          "error",
+          "bottom"
+        );
       }
     },
 
-    async editSpaceDetailsBeacon(spaceId: string, minor : number, major : number) {
+    async editSpaceDetailsBeacon(
+      spaceId: string,
+      minor: number,
+      major: number
+    ) {
       const loadId = loadingService.show("Loading...");
 
       adminAPI
         .patch(
-          "/Space/" +
-            spaceId +
-            "/Beacon?Minor=" +
-            minor +
-            "&Major=" +
-            major
+          "/Space/" + spaceId + "/Beacon?Minor=" + minor + "&Major=" + major
         )
         .then(() => {
           this.getSpaceDetailsBeacon(spaceId);
@@ -405,7 +418,7 @@ export const Spaces = defineStore("Spaces", {
     },
     async reorderPhotos(photos: string[]) {
       const loadId = loadingService.show("Loading...");
-      console.log('reorder photos API call', photos);
+      console.log("reorder photos API call", photos);
 
       setTimeout(() => loadingService.close(loadId), 500);
     },
@@ -433,12 +446,12 @@ export const Spaces = defineStore("Spaces", {
       initialViewYaw: number,
       initialViewHfov: number
     ) {
-      this.currentPanorama = {
-        ...this.currentPanorama,
+      const newPanorama = {
         initialViewPitch,
         initialViewYaw,
         initialViewHfov,
       };
+      this.updatePanorama(this.currentPanorama.spaceId, newPanorama);
     },
     async getPanorama(spaceId: string) {
       const loadId = loadingService.show("Loading...");
@@ -470,7 +483,7 @@ export const Spaces = defineStore("Spaces", {
           loadingService.close(loadId);
         });
     },
-    async updatePanorama(spaceId: string, panorama: NewPanorama) {
+    async updatePanorama(spaceId: string, panorama: UpdatePanoramaRequest) {
       adminAPI
         .put(`/Panorama/${spaceId}`, panorama)
         .then(() => this.getPanorama(spaceId))

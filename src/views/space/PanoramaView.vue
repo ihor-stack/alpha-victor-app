@@ -17,6 +17,15 @@
     </app-header>
     <ion-content>
       <div id="pano"></div>
+      <ion-chip
+        class="font-size-xs font-mono startingViewButton"
+        @click="setInitialView"
+      >
+        <ion-icon :icon="locate" color="secondaryContrast" />
+        <ion-label>{{
+          $t("pages.admin.organisations.view.locations.panorama.label")
+        }}</ion-label>
+      </ion-chip>
     </ion-content>
   </ion-page>
   <ion-modal
@@ -56,7 +65,7 @@ import {
   IonLabel,
   IonIcon,
 } from "@ionic/vue";
-import { locationOutline } from "ionicons/icons";
+import { locationOutline, locate } from "ionicons/icons";
 import "pannellum";
 import "pannellum/build/pannellum.css";
 import { storeToRefs } from "pinia";
@@ -152,12 +161,15 @@ const setupPanorama = () => {
   };
 
   viewer.on("load", drawHotspots);
-  if (currentPanorama?.value?.initialViewPitch)
-    viewer.setPitch(currentPanorama.value.initialViewPitch);
-  if (currentPanorama?.value?.initialViewYaw)
-    viewer.setPitch(currentPanorama.value.initialViewYaw);
-  if (currentPanorama?.value?.initialViewHfov)
-    viewer.setPitch(currentPanorama.value.initialViewHfov);
+  viewer.setPitch(currentPanorama.value?.initialViewPitch ?? 0);
+  viewer.setYaw(currentPanorama.value?.initialViewYaw ?? 0);
+  viewer.setHfov(currentPanorama.value?.initialViewHfov ?? 0);
+};
+
+const setInitialView = () => {
+  viewer.setPitch(currentPanorama.value?.initialViewPitch ?? 0);
+  viewer.setYaw(currentPanorama.value?.initialViewYaw ?? 0);
+  viewer.setHfov(currentPanorama.value?.initialViewHfov ?? 0);
 };
 
 watch(currentPanorama, (newValue) => {
@@ -209,5 +221,13 @@ ion-modal {
 
 ion-icon {
   margin-right: 8px;
+}
+
+.startingViewButton {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  --background: #ffffff;
+  --color: var(--av-primary);
 }
 </style>

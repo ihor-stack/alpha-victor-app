@@ -435,6 +435,15 @@ export interface NewPanorama {
   initialViewHfov: number;
 }
 
+export interface UpdatePanoramaRequest {
+  fileName?: string;
+  contentType?: string;
+  base64ImagePayload?: string;
+  initialViewPitch: number;
+  initialViewYaw: number;
+  initialViewHfov: number;
+}
+
 export interface UserPermission {
   isGlobalAdmin: boolean;
   isGuest: boolean;
