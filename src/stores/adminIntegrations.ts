@@ -3,6 +3,7 @@ import { adminAPI } from "@/axios";
 import { Integration } from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 export const Integrations = defineStore("Integrations", {
   state: () => {
@@ -42,7 +43,13 @@ export const Integrations = defineStore("Integrations", {
           edit
         )
         .then(() => {
-          toastService.show("Success", "Integration updated", "success", "bottom");
+          confirmToLeaveService.setEditing(false);
+          toastService.show(
+            "Success",
+            "Integration updated",
+            "success",
+            "bottom"
+          );
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");

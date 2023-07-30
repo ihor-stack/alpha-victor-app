@@ -15,7 +15,10 @@
             class="font-size-sm"
             type="text"
             :value="announcement.title"
-            @ion-input="announcement.title = String($event.target.value)"
+            @ion-input="
+              announcement.title = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
       </ion-row>
@@ -31,7 +34,10 @@
             class="font-size-sm"
             type="text"
             :value="announcement.text"
-            @ion-input="announcement.text = String($event.target.value)"
+            @ion-input="
+              announcement.text = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-textarea>
         </ion-col>
       </ion-row>
@@ -58,12 +64,12 @@ import {
   IonInput,
   IonButton,
   IonLabel,
-  IonItem,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import { Spaces } from "@/stores/adminSpaces";
 import { useRoute } from "vue-router";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount } from "vue";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const route = useRoute();
 

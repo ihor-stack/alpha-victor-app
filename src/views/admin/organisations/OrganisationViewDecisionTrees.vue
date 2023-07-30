@@ -9,6 +9,7 @@
           <ion-input
             placeholder="Add new decision tree"
             v-model="state.newDecisionTreeName"
+            @ion-input="confirmToLeaveService.setEditing(true)"
           >
           </ion-input>
         </ion-col>
@@ -79,6 +80,7 @@ import {
 } from "@ionic/vue";
 import { Organisations as useOrganisationsStore } from "@/stores/adminOrganisations";
 import { DecisionTree, DecisionTreeNodeType } from "@/types/decisionTree";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const route = useRoute();
 const organisationsStore = useOrganisationsStore();

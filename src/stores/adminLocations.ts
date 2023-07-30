@@ -9,6 +9,7 @@ import {
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 import router from "@/router";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 export const Locations = defineStore("Locations", {
   state: () => {
@@ -40,6 +41,7 @@ export const Locations = defineStore("Locations", {
         .get<NavLocation[]>(`/Location?organisationId=${organisationId}`)
         .then((response) => {
           this.locations = response.data;
+          confirmToLeaveService.setEditing(false);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
@@ -56,7 +58,12 @@ export const Locations = defineStore("Locations", {
         })
         .then((response) => {
           loadingService.close(loadId);
-          toastService.show("Success", "New location added", "success", "bottom");
+          toastService.show(
+            "Success",
+            "New location added",
+            "success",
+            "bottom"
+          );
           this.getNavigationTree(organisationId);
           router.push(
             `/admin/organisation/${organisationId}/location/${response.data.id}`
@@ -103,6 +110,7 @@ export const Locations = defineStore("Locations", {
             "success",
             "bottom"
           );
+          confirmToLeaveService.setEditing(true);
           this.getNavigationTree(organisationId);
         })
         .catch((error) => {
@@ -124,6 +132,7 @@ export const Locations = defineStore("Locations", {
               }
             });
             this.navigationTree = response.data;
+            confirmToLeaveService.setEditing(false);
           }
         })
         .catch((error) => {

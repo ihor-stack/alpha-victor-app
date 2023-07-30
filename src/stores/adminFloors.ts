@@ -5,6 +5,7 @@ import { SingleFloor, SpecificFloor, NewFloorDetails } from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 import { Locations } from "./adminLocations";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 export const Floors = defineStore("Floors", {
   state: () => {
@@ -62,6 +63,7 @@ export const Floors = defineStore("Floors", {
             "bottom"
           );
           const locationsStore = Locations();
+          confirmToLeaveService.setEditing(false);
           locationsStore.getNavigationTree(organisationId);
         })
         .catch((error) => {
@@ -73,6 +75,7 @@ export const Floors = defineStore("Floors", {
       adminAPI
         .delete("/floor/?floorId=" + id)
         .then(() => {
+          confirmToLeaveService.setEditing(false);
           toastService.show(
             "Success",
             "Floor deleted successfully",
