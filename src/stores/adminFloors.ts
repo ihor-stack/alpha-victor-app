@@ -5,6 +5,7 @@ import { SingleFloor, SpecificFloor, NewFloorDetails } from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 import { Locations } from "./adminLocations";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 export const Floors = defineStore("Floors", {
   state: () => {
@@ -22,7 +23,7 @@ export const Floors = defineStore("Floors", {
           this.floors = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -35,13 +36,13 @@ export const Floors = defineStore("Floors", {
           shortName: newFloor.shortName,
         })
         .then(() => {
-          toastService.show("Success", "New floor added", "success", "top");
+          toastService.show("Success", "New floor added", "success", "bottom");
           const locationsStore = Locations();
           this.getFloors(locationId);
           locationsStore.getNavigationTree(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -59,13 +60,14 @@ export const Floors = defineStore("Floors", {
             "Success",
             "Floor updated successfully",
             "success",
-            "top"
+            "bottom"
           );
           const locationsStore = Locations();
+          confirmToLeaveService.setEditing(false);
           locationsStore.getNavigationTree(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -73,16 +75,17 @@ export const Floors = defineStore("Floors", {
       adminAPI
         .delete("/floor/?floorId=" + id)
         .then(() => {
+          confirmToLeaveService.setEditing(false);
           toastService.show(
             "Success",
             "Floor deleted successfully",
             "success",
-            "top"
+            "bottom"
           );
           router.push("/admin/organisations");
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -94,7 +97,7 @@ export const Floors = defineStore("Floors", {
           this.floor = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);

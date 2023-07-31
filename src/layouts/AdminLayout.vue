@@ -4,21 +4,29 @@
       class="ion-no-padding"
       fill="clear"
       color="dark"
-      @click="handleBack"
+      @click="onClickBack"
     >
-      <span class="font-mono font-size-xs">{{ $t('layout.back')}}</span>
+      <span class="font-mono font-size-xs">{{ $t("layout.back") }}</span>
     </ion-button>
     <router-view />
   </div>
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonContent, IonButton } from "@ionic/vue";
-import { reactive, watch } from "vue";
+import { IonButton } from "@ionic/vue";
 import { useRouter, useRoute } from "vue-router";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const router = useRouter();
 const route = useRoute();
+
+const onClickBack = () => {
+  if (confirmToLeaveService.confirm.value.isEditing) {
+    confirmToLeaveService.show(() => handleBack());
+  } else {
+    handleBack();
+  }
+};
 
 const handleBack = () => {
   const organisationSubRoutes = [

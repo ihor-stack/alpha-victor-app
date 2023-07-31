@@ -24,7 +24,9 @@
                 >
                   {{ $t('components.modals.newOrganisationModal.addNewOrganisationHeader') }}
                 </h1>
-                {{$t('components.modals.newOrganisationModal.createNewOrganisationParagraph')}}
+                <p class="modal-panel__comment color-light-gray font-size-sm">
+                  {{ $t('components.modals.newOrganisationModal.createNewOrganisationParagraph') }}
+                </p>
               </div>
             </ion-header>
             <div class="form-admin--group_field">
@@ -35,16 +37,12 @@
                     size-sm="12"
                     class="form-admin--group_field"
                   >
-                    <ion-input
-                      class="font-size-sm"
-                      :placeholder="$t('components.modals.newOrganisationModal.OrganisationNameInputPlaceholder')"
-                      :value="newOrganisationDetails.name"
-                      @ion-input="
-                        newOrganisationDetails.name = String(
-                          $event.target.value
-                        )
-                      "
-                    ></ion-input>
+                  <ion-input
+                    class="font-size-sm"
+                    placeholder="Organisation Name"
+                    :value="newOrganisationName"
+                    @ion-input="handleUpdateOrganisationName($event)"
+                  ></ion-input>
                   </ion-col>
                 </ion-row>
               </div>
@@ -66,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import {
   IonPage,
   IonContent,
@@ -85,14 +83,25 @@ const organisation = Organisations();
 const { newOrganisationDetails } = storeToRefs(organisation);
 
 const modalOpen = ref(false);
+const newOrganisationName = ref(""); // we will store the input value here
 
 const handleDismiss = () => {
   modalOpen.value = false;
 };
 
+const handleUpdateOrganisationName = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  newOrganisationName.value = target.value;
+};
+
 const saveNewOrganisation = () => {
-  organisation.saveOrganisation();
-  modalOpen.value = false;
+  if (newOrganisationName.value && newOrganisationName.value.length > 2) {
+    const prefix = `${newOrganisationName.value[0]}${newOrganisationName.value[1]}${newOrganisationName.value.slice(-1)}`.toUpperCase();
+    newOrganisationDetails.value.prefix = prefix;
+    newOrganisationDetails.value.name = newOrganisationName.value;
+    organisation.saveOrganisation();
+    modalOpen.value = false;
+  }
 };
 </script>
 

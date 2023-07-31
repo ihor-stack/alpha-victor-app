@@ -34,6 +34,7 @@
                     :options="equipmentList"
                     idPrefix="equipment-select"
                     :isSearchable="true"
+                    :handleChange="() => confirmToLeaveService.setEditing(true)"
                   />
                 </ion-col>
               </ion-row>
@@ -50,7 +51,8 @@
                     class="font-size-sm"
                     :value="device.name"
                     @ion-input="
-                      device.name = String($event.target.value)
+                      device.name = String($event.target.value);
+                      confirmToLeaveService.setEditing(true);
                     "
                   ></ion-input>
                 </ion-col>
@@ -66,7 +68,8 @@
                     class="font-size-sm"
                     :value="device.serialNumber"
                     @ion-input="
-                      device.serialNumber = String($event.target.value)
+                      device.serialNumber = String($event.target.value);
+                      confirmToLeaveService.setEditing(true);
                     "
                   ></ion-input>
                 </ion-col>
@@ -74,36 +77,42 @@
 
               <ion-row class="form-admin--group">
                 <ion-col
-                    size-xs="12"
-                    size-sm="6"
-                    class="form-admin--group_field"
-                  >
-                    <ion-label>{{
-                      $t(
-                        "pages.admin.organisations.view.locations.devices.installer"
-                      )
-                    }}</ion-label>
-                    <ion-input
-                      class="font-size-sm"
-                      :value="device.installer"
-                      @ion-input="device.installer = String($event.target.value)"
-                    ></ion-input>
+                  size-xs="12"
+                  size-sm="6"
+                  class="form-admin--group_field"
+                >
+                  <ion-label>{{
+                    $t(
+                      "pages.admin.organisations.view.locations.devices.installer"
+                    )
+                  }}</ion-label>
+                  <ion-input
+                    class="font-size-sm"
+                    :value="device.installer"
+                    @ion-input="
+                      device.installer = String($event.target.value);
+                      confirmToLeaveService.setEditing(true);
+                    "
+                  ></ion-input>
                 </ion-col>
                 <ion-col
-                    size-xs="12"
-                    size-sm="6"
-                    class="form-admin--group_field"
-                  >
-                    <ion-label>{{
-                      $t(
-                        "pages.admin.organisations.view.locations.devices.macAddress"
-                      )
-                    }}</ion-label>
-                    <ion-input
-                      class="font-size-sm"
-                      :value="device.macAddress"
-                      @ion-input="device.macAddress = String($event.target.value)"
-                    ></ion-input>
+                  size-xs="12"
+                  size-sm="6"
+                  class="form-admin--group_field"
+                >
+                  <ion-label>{{
+                    $t(
+                      "pages.admin.organisations.view.locations.devices.macAddress"
+                    )
+                  }}</ion-label>
+                  <ion-input
+                    class="font-size-sm"
+                    :value="device.macAddress"
+                    @ion-input="
+                      device.macAddress = String($event.target.value);
+                      confirmToLeaveService.setEditing(true);
+                    "
+                  ></ion-input>
                 </ion-col>
               </ion-row>
 
@@ -132,6 +141,7 @@
                       @ion-change="
                         (e: any) => {
                           device.installDate = String(e.target.value);
+                          confirmToLeaveService.setEditing(true)
                         }
                       "
                     />
@@ -149,7 +159,7 @@
                   }}</ion-label>
                   <div class="custom-input date-wrapper">
                     <ion-datetime-button
-                    :datetime="`warrantyDate${device.id}`"
+                      :datetime="`warrantyDate${device.id}`"
                     ></ion-datetime-button>
                   </div>
                   <ion-modal :keep-contents-mounted="true">
@@ -161,6 +171,7 @@
                       @ion-change="
                         (e: any) => {
                           device.warrantyExpiryDate = String(e.target.value);
+                          confirmToLeaveService.setEditing(true)
                         }
                       "
                     />
@@ -179,7 +190,8 @@
                     class="font-size-sm"
                     :value="device.description"
                     @ion-input="
-                      device.description = String($event.target.value)
+                      device.description = String($event.target.value);
+                      confirmToLeaveService.setEditing(true);
                     "
                   ></ion-textarea>
                   <div class="photos-container">
@@ -192,7 +204,9 @@
                       <PhotoModal
                         :queryParams="`deviceId=${device.id}`"
                         :hiddenFeatureImageToggle="true"
-                        :disableUpload="device.photos && device.photos.length >= 1"
+                        :disableUpload="
+                          device.photos && device.photos.length >= 1
+                        "
                         :callback="() => Space.getSpaceDetailsDevices(spaceId)"
                       />
                     </ion-item>
@@ -262,6 +276,7 @@ import AdminSelect from "@/components/admin/AdminSelect.vue";
 import NewDeviceModal from "@/components/admin/spaces/NewDeviceModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
 import ImageGallery from "@/components/shared/ImageGallery.vue";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const route = useRoute();
 
@@ -287,7 +302,9 @@ const equipmentList = computed(() =>
 const selectedEquipment = computed({
   get() {
     return equipmentList.value.find(
-      (equipment) => equipment.additionalInfo === devices.value[currentIndex.value].equipmentId
+      (equipment) =>
+        equipment.additionalInfo ===
+        devices.value[currentIndex.value].equipmentId
     );
   },
   set(newValue) {
@@ -314,7 +331,7 @@ onBeforeMount(() => {
   if (equipmentDropdownList.value?.length < 1) {
     EquipmentStore.getEquipmentDropdownList();
   }
-  Space.getSpaceDetailsDevices(spaceId)
+  Space.getSpaceDetailsDevices(spaceId);
 });
 </script>
 

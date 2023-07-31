@@ -5,25 +5,18 @@
     :handleDismiss="() => handleDismiss()"
   >
     <div>
-      <ion-row>
+      <ion-row v-if="!isRoot">
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>{{ $t('components.modals.decisionTreeNodeModal.editDestination.destinationTypeLabel') }}</ion-label>
-          <ion-select
-            interface="action-sheet"
-            :placeholder="$t('components.modals.decisionTreeNodeModal.editDestination.selectTypePlaceholder')"
-            v-model="state.type"
-          >
-            <ion-select-option
-              v-for="option in treeNodeTypes"
-              :key="option.value"
-              :value="option.value"
-            >
-              {{ option.label }}
-            </ion-select-option>
-          </ion-select>
+          <AdminSelect
+            label="Destination Type"
+            v-model="selectedDestinationType"
+            :options="destinationTypeOptions"
+            idPrefix="organisation-type-select"
+            placeholder="Select type"
+          />
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row v-if="!isRoot">
         <ion-col size="12" class="form-admin--group_field">
           <ion-label>{{$t('components.modals.decisionTreeNodeModal.editDestination.outcomeLabel')}}</ion-label>
           <ion-input
@@ -48,56 +41,63 @@
     </div>
   </common-modal>
 </template>
-<script setup>
+<script setup lang="ts">
 import { reactive, computed } from "vue";
-import {
-  IonContent,
-  IonButton,
-  IonRow,
-  IonCol,
-  IonLabel,
-  IonInput,
-  IonSelect,
-  IonSelectOption,
-} from "@ionic/vue";
+import { IonButton, IonRow, IonCol, IonLabel, IonInput } from "@ionic/vue";
 import CommonModal from "@/components/modals/CommonModal.vue";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 
-const treeNodeTypes = [
+const destinationTypeOptions = [
   {
-    value: 0,
-    label: "Article",
+    id: 0,
+    title: "Article",
   },
   {
-    value: 1,
-    label: "Video",
+    id: 1,
+    title: "Video",
   },
   {
-    value: 2,
-    label: "Question",
+    id: 2,
+    title: "Question",
   },
   {
-    value: 4,
-    label: "Email",
+    id: 4,
+    title: "Email",
   },
   {
-    value: 5,
-    label: "Phone",
+    id: 5,
+    title: "Phone",
   },
   {
-    value: 6,
-    label: "Document",
+    id: 6,
+    title: "Document",
   },
 ];
 
-const selectedOutcome = computed(() => {
-  const selectedNodeType = treeNodeTypes.find(
-    (treeNodeType) => treeNodeType.value === state.type
-  );
-
-  return selectedNodeType?.label || '';
+const selectedDestinationType = computed({
+  get() {
+    return destinationTypeOptions.find(
+      (destinationType: any) => state.type === destinationType.id
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      state.type = newValue.id;
+    }
+  },
 });
 
-const props = defineProps(["editTreeNode", "type", "handleClickNext", "handleDismiss"]);
+const selectedOutcome = computed(
+  () => selectedDestinationType.value?.title || ""
+);
+
+const props = defineProps([
+  "editTreeNode",
+  "type",
+  "handleClickNext",
+  "handleDismiss",
+  "isRoot",
+]);
 
 const state = reactive({
   text: props.editTreeNode.text,

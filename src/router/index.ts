@@ -105,7 +105,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/space/EquipmentView.vue"),
   },
   {
-    path: "/get-help/:decisionTreeId",
+    path: "/space/:spaceId/get-help/:decisionTreeId",
     name: "GetHelp",
     component: () => import("@/views/space/GetHelpView.vue"),
   },
@@ -128,6 +128,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/documents/:spaceId",
     name: "Documents",
     component: () => import("@/views/space/DocumentsView.vue"),
+  },
+  {
+    path: "/documents/:spaceId/document-viewer/:id",
+    name: "SpaceDocumentViewer",
+    component: () => import("@/views/space/DocumentView.vue"),
   },
   {
     path: "/document-viewer/:id",

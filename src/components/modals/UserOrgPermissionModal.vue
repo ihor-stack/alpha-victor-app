@@ -4,20 +4,14 @@
       <ion-content>
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
-            <ion-label class="font-size-sm">{{ organisation?.name }}</ion-label>
-            <ion-select
-              interface="action-sheet"
-              :placeholder= "$t('components.modals.userOrgPermissionModal.selectRolePlaceholder')"
-              v-model="state.groupId"
-            >
-              <ion-select-option
-                v-for="option in userGroups"
-                :key="option.id"
-                :value="option.id"
-              >
-                {{ option.name }}
-              </ion-select-option>
-            </ion-select>
+            <AdminSelect
+              :label="organisationName"
+              v-model="selectedUserGroup"
+              :options="userGroupOptions"
+              :isSearchable="true"
+              idPrefix="user-group-select"
+              placeholder="Select role"
+            />
           </ion-col>
         </ion-row>
       </ion-content>
@@ -34,8 +28,8 @@
     </common-modal>
   </ion-modal>
 </template>
-<script setup>
-import { reactive } from "vue";
+<script setup lang="ts">
+import { computed, reactive } from "vue";
 import {
   IonModal,
   IonContent,
@@ -43,11 +37,9 @@ import {
   IonFooter,
   IonRow,
   IonCol,
-  IonLabel,
-  IonSelect,
-  IonSelectOption,
 } from "@ionic/vue";
 import CommonModal from "@/components/modals/CommonModal.vue";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 
 const props = defineProps([
   "isOpen",
@@ -62,6 +54,29 @@ const props = defineProps([
 const state = reactive({
   groupId: props.currentUserGroup,
 });
+
+const userGroupOptions = computed(() => {
+  return props.userGroups.map((userGroup: any, index: number) => {
+    return {
+      id: index,
+      title: userGroup.name,
+      additionalInfo: userGroup.id
+    }
+  })
+})
+
+const selectedUserGroup = computed({
+  get() {
+    return userGroupOptions.value.find(
+      (userGroup: any) => state.groupId === userGroup.additionalInfo
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      state.groupId = newValue.additionalInfo
+    }
+  },
+})
 </script>
 
 <style scoped>

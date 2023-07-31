@@ -2,21 +2,33 @@
   <div class="panorama-wrapper">
     <div>
       <ion-row class="form-admin--group">
-        <ion-col v-if="space.featuredImagePath || space.photos?.[0]?.path" size-xs="12" size-sm="2"
-          class="form-admin--group_field">
+        <ion-col
+          v-if="space.featuredImagePath || space.photos?.[0]?.path"
+          size-xs="12"
+          size-sm="2"
+          class="form-admin--group_field"
+        >
           <div class="img-container">
             <img :src="space.featuredImagePath" alt="" />
           </div>
         </ion-col>
-        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field header-left">
+        <ion-col
+          size-xs="12"
+          size-sm="6"
+          class="form-admin--group_field header-left"
+        >
           <h1 class="font-bold font-size-lg color-light-gray">
             {{ space.spaceName }}
           </h1>
-          <span class="font-size-xs font-mono color-light-gray header-left--label">
+          <span
+            class="font-size-xs font-mono color-light-gray header-left--label"
+          >
             <ion-icon :icon="locationOutline"></ion-icon>
             {{ space.location?.name }}
           </span>
-          <span class="font-size-xs font-mono color-light-gray header-left--label">
+          <span
+            class="font-size-xs font-mono color-light-gray header-left--label"
+          >
             <ion-icon :icon="peopleOutline"></ion-icon>
             &gt;&gt; {{ space.capacity }}
           </span>
@@ -41,19 +53,37 @@
               $t("pages.admin.organisations.view.locations.panorama.add")
             }}</span>
           </label>
-          <input id="panormaSelect" type="file" style="display: none" @change="onFileSelected" />
+          <input
+            id="panormaSelect"
+            type="file"
+            style="display: none"
+            @change="onFileSelected"
+          />
         </ion-button>
-        <ion-button @click="deletePanorama" color="danger" :disabled="!currentPanorama?.path">{{
-          $t("pages.admin.organisations.view.locations.panorama.deleteBtn") }}</ion-button>
+        <ion-button
+          @click="deletePanorama"
+          color="danger"
+          :disabled="!currentPanorama?.path"
+          >{{ $t("pages.admin.organisations.view.locations.panorama.deleteBtn") }}</ion-button
+        >
       </ion-row>
     </div>
   </div>
-  <PanoramaModal v-if="state.selectedHotspot?.hotspotId" :modalOpen="state.editModalOpen" :spaceId="spaceId"
-    :devices="devices" :selectedHotspot="state.selectedHotspot" :handleDismiss="() => {
+  <PanoramaModal
+    v-if="state.selectedHotspot?.hotspotId"
+    :modalOpen="state.editModalOpen"
+    :spaceId="spaceId"
+    :devices="devices"
+    :selectedHotspot="state.selectedHotspot"
+    :handleDismiss="
+      () => {
         state.editModalOpen = false;
         state.selectedHotspot = {} as Hotspot;
       }
-      " :deleteHotspotFromViewer="(hotspotId: string) => viewer.removeHotSpot(hotspotId)" :drawHotspot="drawHotspot" />
+    "
+    :deleteHotspotFromViewer="(hotspotId: string) => viewer.removeHotSpot(hotspotId)"
+    :drawHotspot="drawHotspot"
+  />
 </template>
 
 <script setup lang="ts">
@@ -223,7 +253,7 @@ const deletePanorama = async () => {
 
 const setInitialView = () => {
   Space.setInitialView(viewer.getPitch(), viewer.getYaw(), viewer.getHfov());
-  toastService.show("Success", "View was set to starting point", "success", "top");
+  toastService.show("Success", "View was set to starting point", "success", "bottom");
 };
 
 onBeforeMount(() => {
@@ -242,7 +272,6 @@ onBeforeMount(() => {
   justify-content: space-between;
   height: 100%;
 }
-
 .panorama-content {
   display: flex;
   flex-direction: column;
@@ -251,7 +280,6 @@ onBeforeMount(() => {
   position: relative;
   padding-top: 20px;
 }
-
 .img-container {
   width: 100%;
   height: 100%;
@@ -259,17 +287,14 @@ onBeforeMount(() => {
   overflow: hidden;
   position: relative;
 }
-
 .img-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 .header-left {
   margin-left: 20px;
 }
-
 .header-left--label {
   display: flex;
   align-items: center;
@@ -291,7 +316,6 @@ onBeforeMount(() => {
   left: -30px;
   bottom: -30px;
 }
-
 ion-chip {
   --background: #ffffff;
   --color: var(--av-primary);

@@ -8,6 +8,7 @@
       readonly
       :value="props.modelValue ? props.modelValue.title : ''"
       @click="openPopover($event)"
+      :placeholder="placeholder"
     />
     <ion-popover
       :is-open="state.popoverOpen"
@@ -38,7 +39,7 @@
 <script setup lang="ts">
 import { IonLabel, IonInput, IonPopover, IonSearchbar } from "@ionic/vue";
 import { SelectItem } from "@/types/index";
-import { reactive } from "vue";
+import { onUpdated, reactive } from "vue";
 
 interface Props {
   label?: string;
@@ -46,6 +47,8 @@ interface Props {
   modelValue?: SelectItem;
   options: SelectItem[];
   isSearchable?: boolean;
+  placeholder?: string;
+  handleChange?: () => void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -68,6 +71,7 @@ function openPopover(e: Event) {
 function onOptionClick(option: SelectItem) {
   state.popoverOpen = false;
   emit("update:modelValue", option);
+  props.handleChange && props.handleChange();
 }
 
 function handleSearch(event: any) {
@@ -76,6 +80,10 @@ function handleSearch(event: any) {
     option.title.toLowerCase().includes(query)
   );
 }
+
+onUpdated(() => {
+  state.options = props.options;
+});
 </script>
 <style scoped>
 ion-popover {
@@ -107,7 +115,8 @@ ion-popover .admin-select--item:hover {
 ion-popover .admin-select--item:last-of-type {
   border-bottom: none;
 }
-ion-searchbar, ion-searchbar .searchbar-input {
+ion-searchbar,
+ion-searchbar .searchbar-input {
   background: #fff;
 }
 </style>

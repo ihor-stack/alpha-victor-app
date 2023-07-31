@@ -45,64 +45,96 @@
       </ion-row>
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.name") }}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.spaces.name")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="space.spaceName"
-            @ion-input="space.spaceName = String($event.target.value)"
+            @ion-input="
+              space.spaceName = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.shortcode") }}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.spaces.shortcode")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="space.shortcode"
-            @ion-input="space.shortcode = String($event.target.value)"
+            @ion-input="
+              space.shortcode = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.roomType") }}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.spaces.roomType")
+          }}</ion-label>
           <AdminSelect
             v-if="formattedSelect.length"
             v-model="roomTypeSelected"
             :options="formattedSelect"
             idPrefix="room-type-select"
+            :handleChange="() => confirmToLeaveService.setEditing(true)"
           />
-          <ion-label class="empty-state" v-else>{{ $t("pages.admin.organisations.view.locations.spaces.notifyRoomType") }}</ion-label>
+          <ion-label class="empty-state" v-else>{{
+            $t("pages.admin.organisations.view.locations.spaces.notifyRoomType")
+          }}</ion-label>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.capacity") }}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.spaces.capacity")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="space.capacity"
-            @ion-input="space.capacity = String($event.target.value)"
+            @ion-input="
+              space.capacity = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.typeform") }}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.spaces.typeform")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="space.typeformId"
-            @ion-input="space.typeformId = String($event.target.value)"
+            @ion-input="
+              space.typeformId = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.decision") }}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.spaces.decision")
+          }}</ion-label>
           <AdminSelect
             v-if="decisionTreeList.length"
             :options="decisionTreeList"
             v-model="decisionTreeSelected"
             idPrefix="decision-tree-select"
+            :handleChange="() => confirmToLeaveService.setEditing(true)"
           />
-          <ion-label class="empty-state" v-else
-            >{{ $t("pages.admin.organisations.view.locations.spaces.notifyDecisionTree") }}</ion-label
-          >
+          <ion-label class="empty-state" v-else>{{
+            $t(
+              "pages.admin.organisations.view.locations.spaces.notifyDecisionTree"
+            )
+          }}</ion-label>
         </ion-col>
       </ion-row>
 
       <div class="photos-container">
-        <ion-item lines="none" class="ion-no-padding"> 
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.photos") }}</ion-label>
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.spaces.photos")
+          }}</ion-label>
           <PhotoModal
             :isFirstPhoto="isFirstPhoto"
             :queryParams="`spaceId=${spaceId}`"
@@ -119,11 +151,16 @@
 
       <div class="photos-container">
         <ion-item lines="none" class="ion-no-padding">
-          <ion-label>{{ $t("pages.admin.organisations.view.locations.spaces.documents") }}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.locations.spaces.documents")
+          }}</ion-label>
           <DocumentModal :organisationId="organisationId" />
         </ion-item>
 
-        <ion-row class="form-admin--group_field component_container" v-if="space.documents && space.documents.length">
+        <ion-row
+          class="form-admin--group_field component_container"
+          v-if="space.documents && space.documents.length"
+        >
           <ion-col
             size-xs="12"
             size-md="6"
@@ -146,7 +183,9 @@
                 size="small"
                 @click="removeSpacesDocument(document.id)"
               >
-                {{ $t("pages.admin.organisations.view.locations.spaces.remove") }}
+                {{
+                  $t("pages.admin.organisations.view.locations.spaces.remove")
+                }}
               </ion-button>
             </ion-item>
           </ion-col>
@@ -212,6 +251,7 @@ import { Organisations } from "@/stores/adminOrganisations";
 import DocumentModal from "@/components/admin/spaces/DocumentModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
 import ImageGallery from "@/components/shared/ImageGallery.vue";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const route = useRoute();
 
@@ -250,14 +290,14 @@ const handleImageReordered = (photos: string[]) => {
   Space.reorderPhotos(photos).then(() => {
     Space.getSpaceDetails(spaceId);
   });
-}
+};
 
 const removeSpacesDocument = (documentId: string) => {
   Space.deleteSpacesDocument(documentId, spaceId);
 };
 
 const trimFileExtension = (fileName: string) => {
-  return fileName.substring(0, fileName.lastIndexOf('.')) || fileName;
+  return fileName.substring(0, fileName.lastIndexOf(".")) || fileName;
 };
 
 const spaceRoutes = [

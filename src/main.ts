@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import mixpanel from "mixpanel-browser";
 import App from "./App.vue";
 import router from "./router";
 
@@ -7,7 +8,7 @@ import { IonicVue } from "@ionic/vue";
 
 import { createI18n } from "vue-i18n";
 import en from "./lang/en";
-import cy from "./lang/cy";         // Welsh language
+import cy from "./lang/cy"; // Welsh language
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/vue/css/core.css";
@@ -38,13 +39,24 @@ const pinia = createPinia();
 
 const i18n = createI18n({
   locale: "en",
+  legacy: false,
   messages: {
     en,
-    cy
-  }
+    cy,
+  },
 });
 
-const app = createApp(App).use(IonicVue).use(router).use(pinia).use(i18n).provide('i18n', i18n);
+mixpanel.init(process.env.VUE_APP_MIXPANEL_TOKEN, {
+  debug: true,
+  ignore_dnt: true,
+});
+
+const app = createApp(App)
+  .use(IonicVue)
+  .use(router)
+  .use(pinia)
+  .use(i18n)
+  .provide("i18n", i18n);
 
 router.isReady().then(() => {
   app.mount("#app");

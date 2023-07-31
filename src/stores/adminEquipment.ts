@@ -33,7 +33,7 @@ export const Equipment = defineStore("Equipment", {
           this.equipmentList = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -46,7 +46,7 @@ export const Equipment = defineStore("Equipment", {
           this.equipmentDropdownList = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
     async getEquipmentDetails(id: string) {
@@ -83,7 +83,7 @@ export const Equipment = defineStore("Equipment", {
           }
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -97,14 +97,13 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
         });
     },
     async updateEquipment(id: string, state: any) {
-      console.log('updateEquipment state', state)
       const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(`/Equipment/${id}`, {
@@ -117,7 +116,7 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -131,7 +130,7 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -147,7 +146,7 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -161,7 +160,7 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -175,7 +174,7 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -189,7 +188,7 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -203,7 +202,7 @@ export const Equipment = defineStore("Equipment", {
           this.getEquipments();
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -215,7 +214,7 @@ export const Equipment = defineStore("Equipment", {
         .post(`/Document/Equipment/${equipmentId}`, newDocument)
         .then(() => this.getEquipmentDetails(equipmentId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -227,7 +226,7 @@ export const Equipment = defineStore("Equipment", {
         .delete(`/Document/Equipment/${documentId}?equipmentId=${equipmentId}`)
         .then(() => this.getEquipmentDetails(equipmentId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);

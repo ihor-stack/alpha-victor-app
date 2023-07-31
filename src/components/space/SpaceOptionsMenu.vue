@@ -18,7 +18,10 @@
           :disabled="!currentSpace?.decisionTreeId"
           :router-link="{
             name: 'GetHelp',
-            params: { decisionTreeId: currentSpace?.decisionTreeId },
+            params: {
+              spaceId: currentSpace?.id,
+              decisionTreeId: currentSpace?.decisionTreeId,
+            },
           }"
           router-direction="root"
         >
@@ -93,7 +96,7 @@ defineProps<Props>();
 
 .space-options-menu-item ion-item:hover {
   cursor: pointer;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .space-options-menu-item ion-item ion-icon {

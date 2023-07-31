@@ -23,9 +23,7 @@
         </div>
         <div class="link-container text-center">
           <p class="color-mid-gray font-sm">
-            {{$t('components.onboarding.accountExists')}} <span @click="signInEmail" class="color-light-gray link">{{ $t('components.onboarding.sendLoginLinkSpan') }}</span>
-            <br/><br/>
-            <span @click="signIn" class="color-light-gray link">{{$t('components.onboarding.loginWithEmailSpan')}}</span>
+            <span @click="skipPermissions" class="color-light-gray link">Skip permissions</span>
           </p>
         </div>
       </div>

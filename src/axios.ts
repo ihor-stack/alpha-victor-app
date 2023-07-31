@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import Auth from "@/auth";
 import toastService from "@/services/toastService";
+import loadingService from "@/services/loadingService";
 import router from "./router";
 
 const adminAPI = axios.create({
@@ -61,16 +62,22 @@ const handleError = (error: any) => {
         ? "Your login session has expired, please login again"
         : error,
       "error",
-      "top"
+      "bottom"
     );
+    loadingService.closeAll();
     router.push("/");
   } else {
-    toastService.show(
-      "Error",
-      error.response?.data || error.response?.data?.message || error.response?.data?.title || error,
-      "error",
-      "top"
-    );
+    if (error.response.status !== 404) {
+      toastService.show(
+        "Error",
+        error.response?.data ||
+          error.response?.data?.message ||
+          error.response?.data?.title ||
+          error,
+        "error",
+        "bottom"
+      );
+    }
   }
 };
 

@@ -169,6 +169,7 @@ import { storeToRefs } from "pinia";
 import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import mixpanel from "mixpanel-browser";
 
 const route = useRoute();
 const router = useRouter();
@@ -195,9 +196,27 @@ const goToFeedback = () => {
 };
 
 onBeforeMount(() => {
+  const from = route.query?.from;
+  const trackKey = from === "byQR" ? "QR Code Scanned" : "Space Viewed";
   if (spacesStore.currentSpace?.id !== spaceId) {
-    spacesStore.getSpaceDetails(spaceId);
+    spacesStore.getSpaceDetails(spaceId).then((res) => {
+      if (res?.name) {
+        mixpanel.track(trackKey, {
+          organisaLon: res.organisationName,
+          location: res.locationName,
+          ﬂoor: res.floorName,
+          space: res.name,
+        });
+      }
+    });
     spacesStore.getSpaceDevices(spaceId);
+  } else {
+    mixpanel.track(trackKey, {
+      organisaLon: spacesStore.currentSpace.organisationName,
+      location: spacesStore.currentSpace.locationName,
+      ﬂoor: spacesStore.currentSpace.floorName,
+      space: spacesStore.currentSpace.name,
+    });
   }
   spacesStore.setRecentlyViewedSpace(spaceId);
 });

@@ -176,20 +176,19 @@ import {
   IonButton,
   IonIcon,
 } from "@ionic/vue";
-import {
-  closeOutline,
-  logOutOutline,
-  chevronForwardOutline,
-} from "ionicons/icons";
+import { closeOutline, logOutOutline } from "ionicons/icons";
+import mixpanel from "mixpanel-browser";
 
 import { useRouter } from "vue-router";
 import Auth from "@/auth";
 import AppHeader from "./AppHeader.vue";
 import { Account as useAccountStore } from "@/stores/publicAccount";
+import { auth as useAuthStore } from "@/stores/authStore";
 
 const router = useRouter();
 const authService = new Auth();
 const accountStore = useAccountStore();
+const authStore = useAuthStore();
 
 const canAccessAdmin = computed(
   () =>
@@ -203,6 +202,10 @@ const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 const logout = async () => {
   const authRes = await authService.logout();
   if (authRes) {
+    mixpanel.track("User Logged Out", {
+      email: accountStore.accountDetails.email,
+    });
+    authStore.setAuthStatus(false);
     return router.replace({ name: "Home" });
   }
 };

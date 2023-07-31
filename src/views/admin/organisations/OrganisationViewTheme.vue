@@ -1,10 +1,14 @@
 <template>
   <div>
-    <h1 class="title-admin font-bold font-size-lg color-light-gray">{{ $t('pages.admin.organisations.view.theme.title')}}</h1>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">
+      {{ $t("pages.admin.organisations.view.theme.title") }}
+    </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t('pages.admin.organisations.view.theme.logo')}}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.theme.logo")
+          }}</ion-label>
           <CustomIonUploadInput
             :buttonText="$t('pages.admin.organisations.view.theme.buttonText')"
             :disabled="theme.logo ? true : false"
@@ -14,7 +18,9 @@
           />
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t('pages.admin.organisations.view.theme.bg')}}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.theme.bg")
+          }}</ion-label>
           <CustomIonUploadInput
             :buttonText="$t('pages.admin.organisations.view.theme.buttonText')"
             :disabled="theme.backgroundImage ? true : false"
@@ -26,10 +32,17 @@
       </ion-row>
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t('pages.admin.organisations.view.theme.dark')}}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.theme.dark")
+          }}</ion-label>
           <ion-item justify="space-between" lines="full">
-            <ion-label>{{ $t('pages.admin.organisations.view.theme.enableDark')}}</ion-label>
-            <ion-toggle v-model="theme.darkmodeEnabled"></ion-toggle>
+            <ion-label>{{
+              $t("pages.admin.organisations.view.theme.enableDark")
+            }}</ion-label>
+            <ion-toggle
+              v-model="theme.darkmodeEnabled"
+              @ion-change="confirmToLeaveService.setEditing(true)"
+            ></ion-toggle>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -37,14 +50,21 @@
 
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t('pages.admin.organisations.view.theme.primary')}}</ion-label>
+          <ion-label>{{
+            $t("pages.admin.organisations.view.theme.primary")
+          }}</ion-label>
           <ion-row>
             <ion-col size-sm="12">
-              <ion-input class="form-colorpick" v-model="theme.primaryColour">
+              <ion-input
+                class="form-colorpick"
+                v-model="theme.primaryColour"
+                @ion-input="confirmToLeaveService.setEditing(true)"
+              >
                 <input
                   class="color-input"
                   type="color"
                   v-model="theme.primaryColour"
+                  @change="confirmToLeaveService.setEditing(true)"
                 />
               </ion-input>
             </ion-col>
@@ -79,6 +99,7 @@ import { storeToRefs } from "pinia";
 
 import { Theme } from "@/stores/adminThemes";
 import CustomIonUploadInput from "@/components/shared/CustomIonUploadInput.vue";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const organisation = Theme();
 const { theme } = storeToRefs(organisation);
@@ -101,6 +122,7 @@ async function onFileSelected(file: File, isLogo: boolean) {
       theme.value.backgroundContentType = file.type;
       theme.value.backgroundBase64Payload = base64Payload;
     }
+    confirmToLeaveService.setEditing(true);
   };
 }
 

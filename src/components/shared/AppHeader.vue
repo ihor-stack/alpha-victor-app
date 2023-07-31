@@ -88,6 +88,18 @@ ion-buttons {
   height: 50px;
 }
 
+.app-header--right, .app-header--left {
+  min-width: 100px;
+}
+
+.app-header--left {
+  justify-content: start;
+}
+
+.app-header--right {
+  justify-content: end;
+}
+
 @media only screen and (min-width: 1023px) {
   ion-toolbar {
     display: none;

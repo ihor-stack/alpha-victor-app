@@ -65,7 +65,7 @@ const getArticle = () => {
       state.articleData = response.data;
     })
     .catch((error) => {
-      toastService.show("Error", error, "error", "top");
+      toastService.show("Error", error, "error", "bottom");
     })
     .finally(() => {
       loadingService.close(loadId);

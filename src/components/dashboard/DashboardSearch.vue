@@ -26,6 +26,7 @@ import { publicAPI } from "@/axios";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
+import mixpanel from "mixpanel-browser";
 
 const router = useRouter();
 
@@ -33,25 +34,25 @@ const state = reactive({
   shortcode: "",
 });
 
-const isScanning = inject('isScanning') as ReturnType<typeof ref>;
+const isScanning = inject("isScanning") as ReturnType<typeof ref>;
 const searchByQrCode = async () => {
-  const body = document.querySelector('body');
+  const body = document.querySelector("body");
 
   await BarcodeScanner.checkPermission({ force: true });
   BarcodeScanner.hideBackground();
 
   if (body) {
-    body.classList.add('scanner-active');
+    body.classList.add("scanner-active");
   }
 
   isScanning.value = true;
 
   const startScanning = async () => {
     const scanPromise = BarcodeScanner.startScan();
-    
+
     const timeoutPromise = new Promise(() => {
       setTimeout(() => {
-        closeScanner()
+        closeScanner();
       }, 10000); // 10 seconds
     });
 
@@ -66,8 +67,8 @@ const searchByQrCode = async () => {
 
     // Remove our base URL and prefix from content.
     const prefix = `${process.env.VUE_APP_BASE_URL}/qr/`;
-    const url = result.content.replace(prefix, '');
-    const urlParts = url.split('/');
+    const url = result.content.replace(prefix, "");
+    const urlParts = url.split("/");
 
     const orgPrefix = urlParts[0];
     const locPrefix = urlParts[1];
@@ -76,29 +77,31 @@ const searchByQrCode = async () => {
 
     const loadId = loadingService.show("Loading...");
     publicAPI
-      .get(`Space/SpaceByQR/${orgPrefix}/${locPrefix}/${floorName}/${spaceShort}`)
+      .get(
+        `Space/SpaceByQR/${orgPrefix}/${locPrefix}/${floorName}/${spaceShort}`
+      )
       .then((response) => {
-        if (response?.data?.id) {
-          router.push(`/space/${response.data.spaceId}`);
+        if (response?.data?.spaceId) {
+          router.push(`/space/${response.data.spaceId}?from=byQR`);
         }
       })
       .catch(() => {
-        toastService.show("Error", "The QR code is not valid.", "error", "top");
+        toastService.show("Error", "The QR code is not valid.", "error", "bottom");
       })
       .finally(() => {
         loadingService.close(loadId);
       });
   }
-  
+
   isScanning.value = false;
 };
 
 const closeScanner = () => {
   BarcodeScanner.stopScan();
-  const body = document.querySelector('body');
+  const body = document.querySelector("body");
 
   if (body) {
-    body.classList.remove('scanner-active');
+    body.classList.remove("scanner-active");
   }
 
   isScanning.value = false;
@@ -106,7 +109,9 @@ const closeScanner = () => {
 
 const searchByShortcode = () => {
   if (state.shortcode?.length < 1) return;
-
+  mixpanel.track("Shortcode Entered", {
+    shortcode: state.shortcode,
+  });
   const loadId = loadingService.show("Loading...");
   publicAPI
     .get(`Space/FindShortcode?request=${state.shortcode}`)
@@ -117,7 +122,12 @@ const searchByShortcode = () => {
       }
     })
     .catch(() => {
-      toastService.show("Error", "We couldn't find any spaces by that shortcode", "error", "top");
+      toastService.show(
+        "Error",
+        "We couldn't find any spaces by that shortcode",
+        "error",
+        "bottom"
+      );
     })
     .finally(() => {
       loadingService.close(loadId);
@@ -172,7 +182,7 @@ const searchByShortcode = () => {
   width: 100%;
   height: 100%;
   z-index: 99999;
-  background: rgba(0,0,0,.6);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .scanner-overlay .close {

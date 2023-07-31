@@ -14,7 +14,7 @@
             />
           </ion-button>
           <ion-title class="no-lp">
-            <router-link to="/dashboard">
+            <div class="logo-wraper" @click="handleNavigate('/dashboard')">
               <img v-if="theme.logo" :src="theme?.logo" class="logo" />
               <img
                 v-else
@@ -22,7 +22,7 @@
                 class="logo"
                 :alt="$t('components.shared.desktopNav.AlphaVictorAlt')"
               />
-            </router-link>
+            </div>
           </ion-title>
           <ion-button fill="clear" @click="logout" class="logout-button">
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
@@ -36,68 +36,89 @@
     <ion-content class="ion-padding no-tp">
       <ul class="nav-menu">
         <li class="nav-menu-link">
-          <router-link to="/dashboard">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.dashboard") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/dashboard')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.dashboard") }}
+            </ion-label>
+          </ion-item>
         </li>
 
         <li class="nav-menu-link">
-          <router-link to="/favourites">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.favourites") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/favourites')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.favourites") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/find-space/location">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.findSpace") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/find-space/location')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.findSpace") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/recently-viewed">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.recentlyViewed") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/recently-viewed')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.recentlyViewed") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/settings">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.accountSettings") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/settings')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.accountSettings") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/about">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.about") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/about')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.about") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/terms-and-conditions">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.tos") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/terms-and-conditions')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.tos") }}
+            </ion-label>
+          </ion-item>
         </li>
         <div class="spacer-line"></div>
         <li class="nav-menu-link">
@@ -109,40 +130,52 @@
         </li>
 
         <li class="nav-menu-link">
-          <router-link to="/admin/organisations">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.organisations") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/admin/organisations')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.organisations") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link" v-if="userPermission.isGlobalAdmin">
-          <router-link to="/admin/equipment">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.equipment") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/admin/equipment')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.equipment") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link" v-if="userPermission.isGlobalAdmin">
-          <router-link to="/admin/documents">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.documentTypes") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/admin/documents')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.documentTypes") }}
+            </ion-label>
+          </ion-item>
         </li>
         <li class="nav-menu-link">
-          <router-link to="/admin/users">
-            <ion-item lines="none" :detail="true">
-              <ion-label class="ion-no-margin">
-                {{ $t("components.shared.desktopNav.users") }}
-              </ion-label>
-            </ion-item>
-          </router-link>
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
+            @click="handleNavigate('/admin/users')"
+          >
+            <ion-label class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.users") }}
+            </ion-label>
+          </ion-item>
         </li>
       </ul>
     </ion-content>
@@ -170,12 +203,9 @@ import {
 } from "@ionic/vue";
 import { useRouter } from "vue-router";
 
-import {
-  closeOutline,
-  logOutOutline,
-  chevronForwardOutline,
-} from "ionicons/icons";
+import { logOutOutline } from "ionicons/icons";
 import { storeToRefs } from "pinia";
+import mixpanel from "mixpanel-browser";
 
 import DesktopHeader from "@/components/shared/DesktopHeader.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
@@ -184,6 +214,7 @@ import Auth from "@/auth";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const router = useRouter();
 const authService = new Auth();
@@ -208,8 +239,19 @@ const handleDismiss = () => {
 const logout = async () => {
   const authRes = await authService.logout();
   if (authRes) {
+    mixpanel.track("User Logged Out", {
+      email: accountStore.accountDetails.email,
+    });
     authStore.setAuthStatus(false);
     return router.replace({ name: "Home" });
+  }
+};
+
+const handleNavigate = (route: string) => {
+  if (confirmToLeaveService.confirm.value.isEditing) {
+    confirmToLeaveService.show(() => router.push(route));
+  } else {
+    router.push(route);
   }
 };
 </script>
@@ -296,6 +338,10 @@ ion-content {
 
 ion-item::part(detail-icon) {
   opacity: 1;
+}
+
+.logo-wraper {
+  cursor: pointer;
 }
 
 .logo {

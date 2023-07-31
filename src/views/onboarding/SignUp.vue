@@ -80,6 +80,7 @@
         </div>
       </div>
     </ion-content>
+    <div id="keyboard-area"></div>
   </ion-page>
 </template>
 
@@ -97,7 +98,7 @@ import {
 } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import { Plugins } from "@capacitor/core";
-const { Keyboard, StatusBar } = Plugins;
+const { Keyboard } = Plugins;
 
 import DotText from "@/components/shared/DotText.vue";
 import Auth from "@/auth";
@@ -131,7 +132,7 @@ const signup = () => {
       "Error",
       "Please enter a valid email address",
       "error",
-      "top"
+      "bottom"
     );
     isValid = false;
   }
@@ -142,7 +143,7 @@ const signup = () => {
       "Error",
       "Please enter a valid phone number",
       "error",
-      "top"
+      "bottom"
     );
     isValid = false;
   }
@@ -153,7 +154,7 @@ const signup = () => {
       "Error",
       "The passwords you entered don't match, please check and try again.",
       "error",
-      "top"
+      "bottom"
     );
     isValid = false;
   }
@@ -188,13 +189,31 @@ const signIn = async () => {
 
 onMounted(() => {
   Keyboard.setResizeMode({ mode: "ionic" });
-  StatusBar.setStyle({ style: "Light" });
-  Keyboard.addListener('keyboardWillShow', () => {
-    StatusBar.overlaysWebView({ overlay: true });
+  // StatusBar.setStyle({ style: "Light" });
+  Keyboard.addListener('keyboardWillShow', (info: any) => {
+    const keyboardHeight = info.keyboardHeight;
+    let activeElem = document.activeElement as HTMLElement;
+    if (activeElem === null) activeElem = document.createElement('input');
+    const activeRect = activeElem.getBoundingClientRect();
+    let keyboard = document.getElementById('keyboard-area')
+    if (keyboard === null) keyboard = document.createElement('div')
+    let offset = 0;
+    if (keyboard.style.display === 'block') offset = window.innerHeight - activeRect.y - activeRect.height - keyboardHeight;
+    else offset = window.innerHeight - activeRect.y - activeRect.height;
+    if (offset < keyboardHeight) {
+      keyboard.style.height = keyboardHeight + 'px';
+      keyboard.style.display = 'block';
+    } else {
+      keyboard.style.height = '0px';
+      keyboard.style.display = 'none';
+    }
   });
 
   Keyboard.addListener('keyboardWillHide', () => {
-    StatusBar.overlaysWebView({ overlay: false });
+    let keyboard = document.getElementById('keyboard-area')
+    if (keyboard === null) keyboard = document.createElement('div')
+    keyboard.style.height = '0px';
+    keyboard.style.display = 'none';
   });
 })
 </script>
@@ -266,6 +285,10 @@ ion-icon {
   transform: translateY(-50%);
   cursor: pointer;
   z-index: 99;
+}
+
+#keyboard-area {
+  display: none;
 }
 
 /* Desktop styling */

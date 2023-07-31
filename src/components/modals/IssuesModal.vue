@@ -172,7 +172,7 @@ const handleAddComment = () => {
       getIssueDetails();
     })
     .catch((error) => {
-      toastService.show("Error", error, "error", "top");
+      toastService.show("Error", error, "error", "bottom");
     })
     .finally(() => {
       loadingService.close(loadId);
@@ -189,7 +189,7 @@ const handleChangeStatus = (status: number) => {
       getIssueDetails();
     })
     .catch((error) => {
-      toastService.show("Error", error, "error", "top");
+      toastService.show("Error", error, "error", "bottom");
     })
     .finally(() => {
       loadingService.close(loadId);
@@ -204,7 +204,7 @@ const getIssueDetails = () => {
       state.issue = res.data;
     })
     .catch((error) => {
-      toastService.show("Error", error, "error", "top");
+      toastService.show("Error", error, "error", "bottom");
     })
     .finally(() => {
       loadingService.close(loadId);

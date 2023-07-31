@@ -3,6 +3,7 @@ import { adminAPI } from "@/axios";
 import { Integration } from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 export const Integrations = defineStore("Integrations", {
   state: () => {
@@ -19,7 +20,7 @@ export const Integrations = defineStore("Integrations", {
           this.integrations = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
     async getSingleIntegration(organisationId: string, integrationId: string) {
@@ -31,7 +32,7 @@ export const Integrations = defineStore("Integrations", {
           this.integration = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
     async editIntegration(integrationId: string, edit: Integration) {
@@ -42,10 +43,16 @@ export const Integrations = defineStore("Integrations", {
           edit
         )
         .then(() => {
-          toastService.show("Success", "Integration updated", "success", "top");
+          confirmToLeaveService.setEditing(false);
+          toastService.show(
+            "Success",
+            "Integration updated",
+            "success",
+            "bottom"
+          );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);

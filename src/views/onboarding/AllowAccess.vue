@@ -41,13 +41,13 @@
                 </div>
                 <div class="allow-access-item">
                   <img class="allow-access-icon" src="@/theme/icons/notifications.svg"
-                    :alt="$t('pages.allowAccess.bluetooth.title')" />
+                    :alt="$t('pages.allowAccess.notifications.title')" />
                   <div class="allow-access-info">
                     <h4 class="font-mono font-size-normal color-light-gray">
-                      {{ $t('pages.allowAccess.bluetooth.title') }}
+                      {{ $t('pages.allowAccess.notifications.title') }}
                     </h4>
                     <p class="color-mid-gray font-size-xs">
-                      {{ $t('pages.allowAccess.bluetooth.description') }}
+                      {{ $t('pages.allowAccess.notifications.description') }}
                     </p>
                   </div>
                 </div>
@@ -59,11 +59,18 @@
           </div>
         </div>
       </div>
-      <ion-modal :is-open="state.modalOpen" :initial-breakpoint="0.75" :breakpoints="[0, 0.3, 0.75]"
-        @willDismiss="handleDismiss">
+      <ion-modal
+        :is-open="state.modalOpen"
+        :initial-breakpoint="0.75"
+        :breakpoints="[0, 0.3, 0.75]"
+        @willDismiss="handleDismiss"
+      >
         <!-- Modal content to be conditionally shown here based on which permissions are still to be provided; this is just an example -->
-        <onboarding-access-panel :dotText="`${permissions[state.currentPermission]}.access`" :ctaFunc="requestPermission"
-          :signIn="signIn">
+        <onboarding-access-panel
+          :dotText="`${permissions[state.currentPermission]}.access`"
+          :ctaFunc="requestPermission"
+          :signIn="signIn"
+        >
           <template v-slot:image>
             <img src="@/theme/img/onboarding-access-location.svg" />
           </template>

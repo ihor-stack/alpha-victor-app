@@ -33,7 +33,14 @@
             button
             :disabled="!isAvailable"
             :detail="true"
-            @click="selectAnswerHandler(node)"
+            @click="
+              selectAnswerHandler(
+                node,
+                nodeData.type === DecisionTreeNodeType.Question
+                  ? nodeData.text
+                  : undefined
+              )
+            "
           >
             <span class="answers-list--text">{{ node.text }}</span>
           </IonItem>
@@ -79,7 +86,10 @@ const { theme } = storeToRefs(organisationStore);
 interface Props {
   nodeData: IDecisionTreeNode;
   isAvailable: boolean;
-  selectAnswerHandler: (answer: IDecisionTreeNode) => void;
+  selectAnswerHandler: (
+    answer: IDecisionTreeNode,
+    question?: string | null
+  ) => void;
 }
 const props = defineProps<Props>();
 

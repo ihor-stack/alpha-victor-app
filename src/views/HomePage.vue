@@ -50,15 +50,19 @@
 import { onBeforeMount } from "vue";
 import { IonContent, IonPage, IonButton } from "@ionic/vue";
 import { useRouter } from "vue-router";
+import mixpanel from "mixpanel-browser";
+
 import DotText from "@/components/shared/DotText.vue";
 import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
 const router = useRouter();
 const authService = new Auth();
 const authStore = useAuthStore();
 const organisationStore = useOrganisationStore();
+const accountStore = useAccountStore();
 
 const signIn = async () => {
   // Sign in logic here
@@ -66,6 +70,11 @@ const signIn = async () => {
 
   if (authRes) {
     authStore.setAuthStatus(true);
+    accountStore.getAccount().then((res) => {
+      if (res?.email) {
+        mixpanel.track("User AuthenLcated", { email: res.email });
+      }
+    });
     const currentOrgId = localStorage.getItem("currentOrganisationId");
     if (currentOrgId) {
       organisationStore.setOrganisationId(currentOrgId);
@@ -87,8 +96,11 @@ const resetPassword = async () => {
 
 onBeforeMount(async () => {
   const accessToken = await authService.fetchCurrentAccessToken();
+  console.log(accessToken);
   if (accessToken) {
     return router.replace({ name: "Dashboard" });
+  } else {
+    authStore.setAuthStatus(false);
   }
 });
 

@@ -17,6 +17,15 @@
     </app-header>
     <ion-content>
       <div id="pano"></div>
+      <ion-chip
+        class="font-size-xs font-mono startingViewButton"
+        @click="setInitialView"
+      >
+        <ion-icon :icon="locate" color="secondaryContrast" />
+        <ion-label>{{
+          $t("pages.admin.organisations.view.locations.panorama.label")
+        }}</ion-label>
+      </ion-chip>
     </ion-content>
   </ion-page>
   <ion-modal
@@ -56,7 +65,7 @@ import {
   IonLabel,
   IonIcon,
 } from "@ionic/vue";
-import { locationOutline } from "ionicons/icons";
+import { locationOutline, locate } from "ionicons/icons";
 import "pannellum";
 import "pannellum/build/pannellum.css";
 import { storeToRefs } from "pinia";
@@ -66,6 +75,7 @@ import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 import { useRoute, useRouter } from "vue-router";
 import { Hotspot, Device } from "@/types";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import mixpanel from "mixpanel-browser";
 
 const router = useRouter();
 const route = useRoute();
@@ -103,6 +113,13 @@ const hotspotClicked = (event: MouseEvent, args: { id: string }) => {
     viewer.setPitch(selectedHotspot?.pitch);
     viewer.setYaw(selectedHotspot?.yaw);
     state.modalOpen = true;
+    mixpanel.track("Panorama Device Selected", {
+      organisaLon: spacesStore.currentSpace.organisationName,
+      location: spacesStore.currentSpace.locationName,
+      ﬂoor: spacesStore.currentSpace.floorName,
+      space: spacesStore.currentSpace.name,
+      device: selectedHotspot.deviceName,
+    });
   }
 };
 
@@ -144,12 +161,15 @@ const setupPanorama = () => {
   };
 
   viewer.on("load", drawHotspots);
-  if (currentPanorama?.value?.initialViewPitch)
-    viewer.setPitch(currentPanorama.value.initialViewPitch);
-  if (currentPanorama?.value?.initialViewYaw)
-    viewer.setPitch(currentPanorama.value.initialViewYaw);
-  if (currentPanorama?.value?.initialViewHfov)
-    viewer.setPitch(currentPanorama.value.initialViewHfov);
+  viewer.setPitch(currentPanorama.value?.initialViewPitch ?? 0);
+  viewer.setYaw(currentPanorama.value?.initialViewYaw ?? 0);
+  viewer.setHfov(currentPanorama.value?.initialViewHfov ?? 0);
+};
+
+const setInitialView = () => {
+  viewer.setPitch(currentPanorama.value?.initialViewPitch ?? 0);
+  viewer.setYaw(currentPanorama.value?.initialViewYaw ?? 0);
+  viewer.setHfov(currentPanorama.value?.initialViewHfov ?? 0);
 };
 
 watch(currentPanorama, (newValue) => {
@@ -158,8 +178,24 @@ watch(currentPanorama, (newValue) => {
 
 onBeforeMount(() => {
   if (spacesStore.currentSpace?.id !== spaceId) {
-    spacesStore.getSpaceDetails(spaceId);
+    spacesStore.getSpaceDetails(spaceId).then((res) => {
+      if (res?.name) {
+        mixpanel.track("Panorama Viewed", {
+          organisaLon: res.organisationName,
+          location: res.locationName,
+          ﬂoor: res.floorName,
+          space: res.name,
+        });
+      }
+    });
     spacesStore.getSpaceDevices(spaceId);
+  } else {
+    mixpanel.track("Panorama Viewed", {
+      organisaLon: spacesStore.currentSpace.organisationName,
+      location: spacesStore.currentSpace.locationName,
+      ﬂoor: spacesStore.currentSpace.floorName,
+      space: spacesStore.currentSpace.name,
+    });
   }
   spacesStore.getPanorama(spaceId);
 });
@@ -185,5 +221,13 @@ ion-modal {
 
 ion-icon {
   margin-right: 8px;
+}
+
+.startingViewButton {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  --background: #ffffff;
+  --color: var(--av-primary);
 }
 </style>

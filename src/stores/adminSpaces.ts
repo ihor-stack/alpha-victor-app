@@ -14,6 +14,7 @@ import {
   NewPanorama,
   Hotspot,
   SpaceBeaconAvailableResponse,
+  UpdatePanoramaRequest,
 } from "@/types/index";
 
 import loadingService from "@/services/loadingService";
@@ -21,7 +22,8 @@ import toastService from "@/services/toastService";
 import router from "@/router";
 
 import { Locations } from "./adminLocations";
-import { Organisations } from './adminOrganisations';
+import { Organisations } from "./adminOrganisations";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 export const Spaces = defineStore("Spaces", {
   state: () => {
@@ -50,15 +52,16 @@ export const Spaces = defineStore("Spaces", {
         .then((response) => {
           this.space = response.data;
           this.currentSpace = response.data.spaceName;
-
-          const { decisionTreeList } = Organisations();          
+          confirmToLeaveService.setEditing(false);
+          const { decisionTreeList } = Organisations();
 
           if (response.data.decisionTreeId) {
             const foundDecisionTree = decisionTreeList.find(
-              (decisionTree) => decisionTree.additionalInfo === response.data.decisionTreeId
+              (decisionTree) =>
+                decisionTree.additionalInfo === response.data.decisionTreeId
             );
 
-            if (foundDecisionTree) { 
+            if (foundDecisionTree) {
               this.decisionTreeSelected = foundDecisionTree;
             }
           }
@@ -88,7 +91,7 @@ export const Spaces = defineStore("Spaces", {
           this.formattedSelect = formattedList;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -108,7 +111,7 @@ export const Spaces = defineStore("Spaces", {
           shortCode: newSpace.shortCode,
         })
         .then((res) => {
-          toastService.show("Success", "New space added", "success", "top");
+          toastService.show("Success", "New space added", "success", "bottom");
           const locationsStore = Locations();
           locationsStore.getNavigationTree(organisationId);
           router.push({
@@ -122,7 +125,7 @@ export const Spaces = defineStore("Spaces", {
           });
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -142,15 +145,16 @@ export const Spaces = defineStore("Spaces", {
           decisionTreeId: this.decisionTreeSelected.additionalInfo,
         })
         .then(() => {
+          confirmToLeaveService.setEditing(false);
           toastService.show(
             "Success",
             "Space details updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -161,10 +165,11 @@ export const Spaces = defineStore("Spaces", {
       adminAPI
         .get<Device[]>(`/Space/${spaceId}/Device`)
         .then((response) => {
+          confirmToLeaveService.setEditing(false);
           this.devices = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -178,15 +183,16 @@ export const Spaces = defineStore("Spaces", {
           deviceEdit
         )
         .then(() => {
+          confirmToLeaveService.setEditing(false);
           toastService.show(
             "Success",
             "Space devices updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -200,7 +206,7 @@ export const Spaces = defineStore("Spaces", {
           this.getSpaceDetailsDevices(spaceId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -214,11 +220,11 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Space devices updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -232,7 +238,7 @@ export const Spaces = defineStore("Spaces", {
           this.announcement = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -248,15 +254,16 @@ export const Spaces = defineStore("Spaces", {
             this.announcement.text
         )
         .then(() => {
+          confirmToLeaveService.setEditing(false);
           toastService.show(
             "Success",
             "Space announcement updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -270,14 +277,16 @@ export const Spaces = defineStore("Spaces", {
           this.wifi = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
     async editSpacesWifi(spaceId: string) {
       const loadId = loadingService.show("Loading...");
 
-      const wifiPass = this.wifi.wifiPassword ? `&WifiPassword=${this.wifi.wifiPassword}` : ''
+      const wifiPass = this.wifi.wifiPassword
+        ? `&WifiPassword=${this.wifi.wifiPassword}`
+        : "";
 
       adminAPI
         .patch(
@@ -297,11 +306,12 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Space wifi details updated",
             "success",
-            "top"
+            "bottom"
           );
+          confirmToLeaveService.setEditing(false);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -315,32 +325,41 @@ export const Spaces = defineStore("Spaces", {
           this.beacon = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
-    async getSpaceDetailsBeaconAvailable(spaceId: string, minor: number, major: number) {
+    async getSpaceDetailsBeaconAvailable(
+      spaceId: string,
+      minor: number,
+      major: number
+    ) {
       try {
-        const resp = await adminAPI.get<SpaceBeaconAvailableResponse>("/Space/" + spaceId + "/BeaconAvailable/" + minor + "/" + major);
+        const resp = await adminAPI.get<SpaceBeaconAvailableResponse>(
+          "/Space/" + spaceId + "/BeaconAvailable/" + minor + "/" + major
+        );
 
         return resp.data;
-      }
-      catch {
-        toastService.show("Error", "Could not check beacon available status", "error", "top");
+      } catch {
+        toastService.show(
+          "Error",
+          "Could not check beacon available status",
+          "error",
+          "bottom"
+        );
       }
     },
 
-    async editSpaceDetailsBeacon(spaceId: string, minor : number, major : number) {
+    async editSpaceDetailsBeacon(
+      spaceId: string,
+      minor: number,
+      major: number
+    ) {
       const loadId = loadingService.show("Loading...");
 
       adminAPI
         .patch(
-          "/Space/" +
-            spaceId +
-            "/Beacon?Minor=" +
-            minor +
-            "&Major=" +
-            major
+          "/Space/" + spaceId + "/Beacon?Minor=" + minor + "&Major=" + major
         )
         .then(() => {
           this.getSpaceDetailsBeacon(spaceId);
@@ -348,11 +367,11 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Space beacon details updated",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -364,7 +383,7 @@ export const Spaces = defineStore("Spaces", {
         .delete(`/Space/${spaceId}/Beacon`)
         .then(() => this.getSpaceDetailsBeacon(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -378,11 +397,11 @@ export const Spaces = defineStore("Spaces", {
             "Success",
             "Photo deleted successfully",
             "success",
-            "top"
+            "bottom"
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },
@@ -399,13 +418,13 @@ export const Spaces = defineStore("Spaces", {
       return adminAPI
         .post(`/Photo?${queryParams}`, newPhoto)
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },
     async reorderPhotos(photos: string[]) {
       const loadId = loadingService.show("Loading...");
-      console.log('reorder photos API call', photos);
+      console.log("reorder photos API call", photos);
 
       setTimeout(() => loadingService.close(loadId), 500);
     },
@@ -415,7 +434,7 @@ export const Spaces = defineStore("Spaces", {
         .post(`/Document/${spaceId}/Document`, newDocument)
         .then(() => this.getSpaceDetails(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -424,7 +443,7 @@ export const Spaces = defineStore("Spaces", {
         .delete(`/Document/${spaceId}/Document/${documentId}`)
         .then(() => this.getSpaceDetails(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -433,12 +452,12 @@ export const Spaces = defineStore("Spaces", {
       initialViewYaw: number,
       initialViewHfov: number
     ) {
-      this.currentPanorama = {
-        ...this.currentPanorama,
+      const newPanorama = {
         initialViewPitch,
         initialViewYaw,
         initialViewHfov,
       };
+      this.updatePanorama(this.currentPanorama.spaceId, newPanorama);
     },
     async getPanorama(spaceId: string) {
       const loadId = loadingService.show("Loading...");
@@ -451,7 +470,7 @@ export const Spaces = defineStore("Spaces", {
           if (error.response.status === 404) {
             this.currentPanorama = {} as Panorama;
           } else {
-            toastService.show("Error", error, "error", "top");
+            toastService.show("Error", error, "error", "bottom");
           }
         })
         .finally(() => {
@@ -464,18 +483,18 @@ export const Spaces = defineStore("Spaces", {
         .post(`/Panorama/${spaceId}`, panorama)
         .then(() => this.getPanorama(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
         });
     },
-    async updatePanorama(spaceId: string, panorama: NewPanorama) {
+    async updatePanorama(spaceId: string, panorama: UpdatePanoramaRequest) {
       adminAPI
         .put(`/Panorama/${spaceId}`, panorama)
         .then(() => this.getPanorama(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
     async deletePanorama(spaceId: string) {
@@ -484,7 +503,7 @@ export const Spaces = defineStore("Spaces", {
         .delete(`/Panorama/${spaceId}`)
         .then(() => (this.currentPanorama = {} as Panorama))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -505,7 +524,7 @@ export const Spaces = defineStore("Spaces", {
           return res.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },
@@ -533,7 +552,7 @@ export const Spaces = defineStore("Spaces", {
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },
@@ -547,7 +566,7 @@ export const Spaces = defineStore("Spaces", {
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },
@@ -557,7 +576,7 @@ export const Spaces = defineStore("Spaces", {
         .patch(`/Space/SpaceFeature?${queryParams}`)
         .then(() => this.getSpaceDetails(spaceId))
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => loadingService.close(loadId));
     },

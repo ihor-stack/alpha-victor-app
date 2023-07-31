@@ -9,6 +9,7 @@ import {
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 import router from "@/router";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 export const Locations = defineStore("Locations", {
   state: () => {
@@ -24,6 +25,7 @@ export const Locations = defineStore("Locations", {
         email: "",
         phone: "",
         sosNumber: "",
+        sosVip: "",
         wifiSsid: "",
         wifiPassword: "",
         addressLine0: "",
@@ -39,9 +41,10 @@ export const Locations = defineStore("Locations", {
         .get<NavLocation[]>(`/Location?organisationId=${organisationId}`)
         .then((response) => {
           this.locations = response.data;
+          confirmToLeaveService.setEditing(false);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -55,25 +58,30 @@ export const Locations = defineStore("Locations", {
         })
         .then((response) => {
           loadingService.close(loadId);
-          toastService.show("Success", "New location added", "success", "top");
+          toastService.show(
+            "Success",
+            "New location added",
+            "success",
+            "bottom"
+          );
           this.getNavigationTree(organisationId);
           router.push(
             `/admin/organisation/${organisationId}/location/${response.data.id}`
           );
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
-    async removeLocation(organisationId: string, id: string) {
+    async removeLocation(organisationId: string, locationId: string) {
       adminAPI
-        .delete(`/Location/${organisationId}/${id}`)
+        .delete(`/Location/${locationId}`)
         .then(() => {
           this.getLocations(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -85,7 +93,7 @@ export const Locations = defineStore("Locations", {
           this.location = response.data;
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -100,12 +108,13 @@ export const Locations = defineStore("Locations", {
             "Success",
             "Location updated successfully",
             "success",
-            "top"
+            "bottom"
           );
+          confirmToLeaveService.setEditing(true);
           this.getNavigationTree(organisationId);
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         });
     },
 
@@ -123,10 +132,11 @@ export const Locations = defineStore("Locations", {
               }
             });
             this.navigationTree = response.data;
+            confirmToLeaveService.setEditing(false);
           }
         })
         .catch((error) => {
-          toastService.show("Error", error, "error", "top");
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);

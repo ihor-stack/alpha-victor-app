@@ -24,7 +24,6 @@
                 slot="end"
                 fill="clear"
                 size="small"
-                v-if="!hideRemove && !editMode"
               >
                 {{ $t('components.modals.userManagementModal.removeButton')}}
               </ion-button>
@@ -37,20 +36,14 @@
         </div>
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
-            <ion-label class="font-size-sm">{{ $t('components.modals.userManagementModal.addOrganisationLabel')}}</ion-label>
-            <ion-select
-              interface="action-sheet"
-              :placeholder="$t('components.modals.userManagementModal.selectOrganisationPlaceholder')"
-              v-model="state.organisationId"
-            >
-              <ion-select-option
-                v-for="option in organisations"
-                :key="option.organisationId"
-                :value="option.organisationId"
-              >
-                {{ option.name }}
-              </ion-select-option>
-            </ion-select>
+            <AdminSelect
+              label="Add to organisation"
+              v-model="selectedOrganisation"
+              :options="organisationOptions"
+              :isSearchable="true"
+              idPrefix="organisation-select"
+              placeholder="Select organisation"
+            />
           </ion-col>
         </ion-row>
       </div>
@@ -67,20 +60,19 @@
     </common-modal>
   </ion-modal>
 </template>
-<script setup>
-import { reactive } from "vue";
+<script setup lang="ts">
+import { reactive, computed } from "vue";
 import {
   IonModal,
-  IonContent,
   IonButton,
   IonFooter,
   IonRow,
   IonCol,
   IonLabel,
-  IonSelect,
-  IonSelectOption,
 } from "@ionic/vue";
 import CommonModal from "@/components/modals/CommonModal.vue";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
+import { AdminOrganisation } from "@/types/index";
 
 const props = defineProps([
   "isOpen",
@@ -96,6 +88,29 @@ const props = defineProps([
 const state = reactive({
   organisationId: "",
 });
+
+const organisationOptions = computed(() => {
+  return props.organisations.map((organisation: AdminOrganisation, index: number) => {
+    return {
+      id: index,
+      title: organisation.name,
+      additionalInfo: organisation.organisationId
+    }
+  })
+})
+
+const selectedOrganisation = computed({
+  get() {
+    return organisationOptions.value.find(
+      (organisation: any) => state.organisationId === organisation.additionalInfo
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      state.organisationId = newValue.additionalInfo
+    }
+  },
+})
 </script>
 
 <style scoped>

@@ -10,7 +10,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.name"
-            @ion-input="location.name = String($event.target.value)"
+            @ion-input="
+              location.name = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -18,7 +21,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.prefix"
-            @ion-input="location.prefix = String($event.target.value)"
+            @ion-input="
+              location.prefix = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
       </ion-row>
@@ -31,7 +37,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.mainContactName"
-            @ion-input="location.mainContactName = String($event.target.value)"
+            @ion-input="
+              location.mainContactName = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -39,7 +48,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.email"
-            @ion-input="location.email = String($event.target.value)"
+            @ion-input="
+              location.email = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -47,7 +59,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.phone"
-            @ion-input="location.phone = String($event.target.value)"
+            @ion-input="
+              location.phone = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -55,8 +70,25 @@
           <ion-input
             class="font-size-sm"
             :value="location.sosNumber"
-            @ion-input="location.sosNumber = String($event.target.value)"
+            @ion-input="
+              location.sosNumber = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
+        </ion-col>
+        <ion-col size-xs="12" class="form-admin--group_field">
+          <ion-label>SOS VIP</ion-label>
+          <ion-input class="form-toggle" :disabled="true">
+            <ion-label>SOS is only availble for VIP users</ion-label>
+            <ion-toggle
+              color="primary"
+              :checked="location.sosVip"
+              @ionChange="
+                location.sosVip = $event.detail.checked;
+                confirmToLeaveService.setEditing(true);
+              "
+            />
+          </ion-input>
         </ion-col>
       </ion-row>
 
@@ -68,7 +100,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.wifiSsid"
-            @ion-input="location.wifiSsid = String($event.target.value)"
+            @ion-input="
+              location.wifiSsid = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -76,7 +111,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.wifiPassword"
-            @ion-input="location.wifiPassword = String($event.target.value)"
+            @ion-input="
+              location.wifiPassword = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
       </ion-row>
@@ -89,7 +127,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.addressLine0"
-            @ion-input="location.addressLine0 = String($event.target.value)"
+            @ion-input="
+              location.addressLine0 = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -97,7 +138,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.addressLine1"
-            @ion-input="location.addressLine1 = String($event.target.value)"
+            @ion-input="
+              location.addressLine1 = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -105,7 +149,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.city"
-            @ion-input="location.city = String($event.target.value)"
+            @ion-input="
+              location.city = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -113,7 +160,10 @@
           <ion-input
             class="font-size-sm"
             :value="location.postcode"
-            @ion-input="location.postcode = String($event.target.value)"
+            @ion-input="
+              location.postcode = String($event.target.value);
+              confirmToLeaveService.setEditing(true);
+            "
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" class="button-pair">
@@ -128,6 +178,10 @@
           >
           {{ $t("components.admin.locations.adminLocationsForm.exportQRCodesButton") }}
           </ion-button>
+          <DeleteLocationModal
+            :organisationId="organisationId"
+            :locationId="locationId"
+          />
         </ion-col>
       </ion-row>
 
@@ -182,9 +236,10 @@ import NewFloorModal from "@/components/modals/NewFloorModal.vue";
 import { useRoute } from "vue-router";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import { flowerOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
+import DeleteLocationModal from "@/components/modals/DeleteLocationModal.vue";
 import toastService from "@/services/toastService";
+import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const route = useRoute();
 
@@ -201,38 +256,53 @@ const canvas = ref();
 
 const saveChanges = (id: string) => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const postCodePattern = /^[a-zA-Z0-9\s-]*$/;
+  const postCodePattern = /^[A-Za-z]{1,2}\d{1,2}[A-Za-z\d]? ?\d[A-Za-z]{2}$/;
   const phoneNumberPattern = /^[0-9-]*$/;
   let isValid = true;
+
+  // Validate the prefix
+  if (!location.value.prefix || location.value.prefix.length < 3) {
+    toastService.show(
+      "Error",
+      "Location prefix must have at least 3 characters",
+      "error",
+      "bottom"
+    );
+    isValid = false;
+  }
+
   // Validate the email
-  if (!emailPattern.test(location.value.email)) {
+  if (location.value.email && !emailPattern.test(location.value.email)) {
     toastService.show(
       "Error",
       "Please enter a valid email address",
       "error",
-      "top"
+      "bottom"
     );
     isValid = false;
   }
 
   // Validate the phone number
-  if (!phoneNumberPattern.test(location.value.phone)) {
+  if (location.value.phone && !phoneNumberPattern.test(location.value.phone)) {
     toastService.show(
       "Error",
       "Please enter a valid phone number",
       "error",
-      "top"
+      "bottom"
     );
     isValid = false;
   }
 
   // Validate the postcode
-  if (!postCodePattern.test(location.value.postcode)) {
+  if (
+    location.value.postcode &&
+    !postCodePattern.test(location.value.postcode)
+  ) {
     toastService.show(
       "Error",
       "Please enter a valid postcode",
       "error",
-      "top"
+      "bottom"
     );
     isValid = false;
   }

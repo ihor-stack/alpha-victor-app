@@ -346,6 +346,8 @@ export interface DetailedSpace {
   wifiNetwork?: string;
   panorama?: Panorama;
   wifiSecurityType?: number;
+  organisationName?: string;
+  locationName?: string;
 }
 export interface SpaceDetailsRooms {
   name: string;
@@ -421,12 +423,22 @@ export interface Hotspot {
   yaw: number;
   type?: string;
   deviceId?: string;
+  deviceName?: string;
 }
 
 export interface NewPanorama {
   fileName: string;
   contentType: string;
   base64ImagePayload: string;
+  initialViewPitch: number;
+  initialViewYaw: number;
+  initialViewHfov: number;
+}
+
+export interface UpdatePanoramaRequest {
+  fileName?: string;
+  contentType?: string;
+  base64ImagePayload?: string;
   initialViewPitch: number;
   initialViewYaw: number;
   initialViewHfov: number;

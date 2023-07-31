@@ -25,20 +25,14 @@
           <div class="form-admin--group_field">
             <ion-row>
               <ion-col size="12" class="form-admin--group_field">
-                <ion-label>{{$t('components.admin.spaces.panoramaModal.selectDeviceLabel')}}</ion-label>
-                <ion-select
-                  interface="action-sheet"
-                  :placeholder="$t('components.admin.spaces.panoramaModal.selectPlaceholder')"
-                  v-model="state.deviceId"
-                >
-                  <ion-select-option
-                    v-for="option in devices"
-                    :key="option.id"
-                    :value="option.id"
-                  >
-                    {{ option.name }}
-                  </ion-select-option>
-                </ion-select>
+                <AdminSelect
+                  label="Select device"
+                  v-model="selectedDevice"
+                  :options="deviceOptions"
+                  :isSearchable="true"
+                  idPrefix="device-select"
+                  placeholder="Select"
+                />
               </ion-col>
             </ion-row>
             <ion-row v-if="!state.deviceId">
@@ -88,17 +82,14 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
 import {
   IonPage,
-  IonContent,
   IonHeader,
   IonFooter,
   IonButton,
   IonRow,
   IonCol,
-  IonSelect,
-  IonSelectOption,
   IonInput,
   IonModal,
   IonIcon,
@@ -106,7 +97,9 @@ import {
 } from "@ionic/vue";
 import { close } from "ionicons/icons";
 import { Spaces } from "@/stores/adminSpaces";
+import { Device, SelectItem } from "@/types";
 const Space = Spaces();
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 
 const props = defineProps([
   "spaceId",
@@ -122,16 +115,49 @@ const state = reactive({
   text: props.selectedHotspot.text,
 });
 
+const deviceOptions = computed(() => {
+  return props.devices.map((device: Device, index: number) => {
+    return {
+      id: index,
+      title: device.name,
+      additionalInfo: device.id
+    }
+  })
+})
+
+const selectedDevice = computed({
+  get() {
+    return deviceOptions.value.find(
+      (device: SelectItem) => state.deviceId === device.additionalInfo
+    );
+  },
+  set(newValue) {
+    if (newValue) {
+      state.deviceId = newValue.additionalInfo
+    }
+  },
+})
+
 const save = () => {
+  let hotspotName = state.text
+
+  const selectedDevice: Device = props.devices.find(
+    (device: Device) => device.id === state.deviceId
+  )
+
+  if (selectedDevice) {
+    hotspotName = selectedDevice.name
+  }
+
   Space.updateHotspot(props.spaceId, props.selectedHotspot.hotspotId, {
     ...props.selectedHotspot,
     deviceId: state.deviceId,
-    text: state.text,
+    text: hotspotName,
   }).then(() => {
     props.deleteHotspotFromViewer(props.selectedHotspot.hotspotId);
     const updatedHotspot = {
       ...props.selectedHotspot,
-      text: state.text,
+      text: hotspotName,
       deviceId: state.deviceId,
     };
     props.drawHotspot(updatedHotspot);
