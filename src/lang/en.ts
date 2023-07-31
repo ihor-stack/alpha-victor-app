@@ -299,6 +299,8 @@ export default {
               title: "Announcement",
               labelTitle: "Title",
               labelContent: "Content",
+              labelStart: "Start date/time",
+              labelEnd: "End date/time",
               saveBtn: "Save announcement",
             },
             beacon: {
@@ -498,6 +500,8 @@ export default {
           emailAddressLabel: "Email address",
           phoneNumberLabel: "Phone number",
           sosNumberLabel: "SOS Number",
+          sosVIPLabel: "SOS VIP",
+          sosVIPText: "SOS is only available for VIP users",
           publicWifiLabel: "Public Wifi",
           wifiPasswordLabel: "Wifi Password",
           addressLine1Label: "Address Line 1",
@@ -508,7 +512,7 @@ export default {
           exportQRCodesButton: "Export QR Codes",
           floorsHeader: "Floors",
         },
-        adminLoacationsList: {
+        adminLocationsList: {
           spacesHeader: "Spaces",
           floorNameLabel: "Floor name",
           shortNameLabel: "Short name",

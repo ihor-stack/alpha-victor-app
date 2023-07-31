@@ -25,7 +25,7 @@
                 @ion-change="checkForInputs"
               >
                 <ion-select-option
-                  v-for="device in devices"
+                  v-for="device in allDevices"
                   :key="device.id"
                   :value="device.id"
                 >
@@ -72,7 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, onMounted, computed } from "vue";
 import {
   IonPage,
   IonContent,
@@ -89,6 +89,7 @@ import {
   IonItem,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
+import { Device } from "@/types/index";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
@@ -101,14 +102,23 @@ const props = defineProps(["spaceId", "handleReportIssue"]);
 const state = reactive({
   title: "",
   comment: "",
-  deviceId: "",
+  deviceId: "0",
   canSubmit: false,
+});
+
+const otherDevice: Device = {
+  id: '0',
+  name: 'Other'
+};
+
+const allDevices = computed(() => {
+  return [...devices.value, otherDevice];
 });
 
 const checkForInputs = () => {
   return state.title.length > 0 &&
     state.comment.length > 0 &&
-    state.deviceId.length > 0
+    (state.deviceId.length > 0 && state.deviceId != null)
     ? (state.canSubmit = true)
     : (state.canSubmit = false);
 };
@@ -131,6 +141,10 @@ const handleSubmitIssue = () => {
       loadingService.close(loadId);
     });
 };
+
+onMounted(async () => {
+  await spacesStore.getSpaceDevices(props.spaceId);
+});
 </script>
 
 <style scoped>

@@ -58,6 +58,9 @@ const handleReorder = (event: CustomEvent) => {
 </script>
 
 <style scoped>
+ion-reorder-group {
+  width: 100%;
+}
 ion-thumbnail {
   margin-top: 0;
   margin-bottom: 0;

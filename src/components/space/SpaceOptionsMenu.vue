@@ -9,9 +9,9 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">{{ $t('components.space.SpaceOptionsMenu.roomEquipmentSpan') }}</span>
+          <span class="link-text">{{ $t('components.space.spaceOptionsMenu.roomEquipmentSpan') }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
-        </ion-item>
+        </ion-item> 
       </li>
       <li class="space-options-menu-item">
         <ion-item
@@ -56,7 +56,7 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">{{$t('components.spaceOptionsMenu.documentsSpan')}}</span>
+          <span class="link-text">{{$t('components.space.spaceOptionsMenu.documentsSpan')}}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>

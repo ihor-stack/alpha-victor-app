@@ -77,9 +77,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" class="form-admin--group_field">
-          <ion-label>SOS VIP</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.sosVIPLabel") }}</ion-label>
           <ion-input class="form-toggle" :disabled="true">
-            <ion-label>SOS is only availble for VIP users</ion-label>
+            <ion-label>{{ $t("components.admin.locations.adminLocationsForm.sosVIPText") }}</ion-label>
             <ion-toggle
               color="primary"
               :checked="location.sosVip"

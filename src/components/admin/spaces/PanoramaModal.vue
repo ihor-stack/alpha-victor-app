@@ -35,13 +35,13 @@
                 />
               </ion-col>
             </ion-row>
-            <ion-row v-if="!state.deviceId">
+            <ion-row>
               <ion-col class="position-relative">
                 <hr class="form-admin--divider" />
                 <div class="or-text">{{$t('components.admin.spaces.panoramaModal.orDiv')}}</div>
               </ion-col>
             </ion-row>
-            <ion-row v-if="!state.deviceId">
+            <ion-row>
               <ion-col size="12" class="form-admin--group_field">
                 <ion-label>{{$t('components.admin.spaces.panoramaModal.addLabelLabel')}}</ion-label>
                 <ion-input
@@ -133,7 +133,8 @@ const selectedDevice = computed({
   },
   set(newValue) {
     if (newValue) {
-      state.deviceId = newValue.additionalInfo
+      state.deviceId = newValue.additionalInfo;
+      state.text = newValue.title;
     }
   },
 })

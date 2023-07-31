@@ -1,7 +1,7 @@
 <template>
   <div>
     <ion-button class="button-wide" @click="modalOpen = true">
-      {{ $t('components.admin.spaceMetadata.SpaceTypeModal.addNewSpaceTypeButton') }}
+      {{ $t('components.admin.spaceMetadata.spaceTypeModal.addNewSpaceTypeButton') }}
     </ion-button>
     <ion-modal
       :is-open="modalOpen"
@@ -20,9 +20,9 @@
               />
               <ion-item class="modal-panel__header" lines="none">
                 <ion-label>
-                  <h2 class="font-bold font-size-lg">{{ $t('components.admin.spaceMetadata.SpaceTypeModal.addNewSpaceTypeHeader') }}</h2>
+                  <h2 class="font-bold font-size-lg">{{ $t('components.admin.spaceMetadata.spaceTypeModal.addNewSpaceTypeHeader') }}</h2>
                   <p class="font-size-sm">
-                    {{ $t('components.admin.spaceMetadata.SpaceTypeModal.createNewSpaceTypeParagraph') }}
+                    {{ $t('components.admin.spaceMetadata.spaceTypeModal.createNewSpaceTypeParagraph') }}
                   </p>
                 </ion-label>
               </ion-item>
@@ -30,7 +30,7 @@
             <ion-item class="form-admin--group_field" lines="none">
               <div class="modal-panel__section modal-panel__select-equipment">
                 <ion-input
-                  :placeholder="$t('components.admin.spaceMetadata.SpaceTypeModal.meetingRoomInputPlaceholder')"
+                  :placeholder="$t('components.admin.spaceMetadata.spaceTypeModal.meetingRoomInputPlaceholder')"
                   :value="newType"
                   @input="newType = $event.target.value"
                 />
@@ -42,7 +42,7 @@
                 expand="block"
                 @click="saveNewType()"
               >
-              {{ $t('components.admin.spaceMetadata.SpaceTypeModal.addNewSpaceTypeButton') }}
+              {{ $t('components.admin.spaceMetadata.spaceTypeModal.addNewSpaceTypeButton') }}
               </ion-button>
             </ion-footer>
           </div>
