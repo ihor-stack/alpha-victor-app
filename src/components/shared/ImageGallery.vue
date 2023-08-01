@@ -1,6 +1,9 @@
 <template>
   <ion-row class="form-admin--group_field">
-    <ion-reorder-group :disabled="false" @ionItemReorder="handleReorder($event)">
+    <ion-reorder-group
+      :disabled="false"
+      @ionItemReorder="handleReorder($event)"
+    >
       <ion-item
         button
         class="form-admin--group_field-item rev-margin ion-no-padding"
@@ -34,26 +37,29 @@
 import { ref } from "vue";
 import { menuOutline } from "ionicons/icons";
 
-const props = defineProps(['images']);
+const props = defineProps(["images"]);
 const emit = defineEmits<{
-  (e: 'image-removed', id: string): void
-  (e: 'image-reordered', id: string[]): void
+  (e: "image-removed", id: string): void;
+  (e: "image-reordered", id: string[]): void;
 }>();
 
 const removeImage = (id: string) => {
   emit("image-removed", id);
 };
 
-const images = ref(props.images);
+const orderedImages = ref(props.images);
 
 const handleReorder = (event: CustomEvent) => {
-  const { from, to } : { from: number, to: number} = event.detail;
+  const { from, to }: { from: number; to: number } = event.detail;
 
   event.detail.complete();
 
-  [images.value[from], images.value[to]] = [images.value[to], images.value[from]];
+  [orderedImages.value[from], orderedImages.value[to]] = [
+    orderedImages.value[to],
+    orderedImages.value[from],
+  ];
 
-  emit("image-reordered", images.value);
+  emit("image-reordered", orderedImages.value);
 };
 </script>
 
@@ -73,6 +79,6 @@ ion-reorder {
 }
 ion-reorder ion-icon {
   font-size: 1.5rem;
-  opacity: .15;
+  opacity: 0.15;
 }
 </style>
