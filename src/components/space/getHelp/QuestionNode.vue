@@ -1,7 +1,7 @@
 <template>
   <div class="decision-wrapper">
     <div class="logo-wrapper">
-      <img :src="theme?.logo" class="logo" alt="AlphaVictor logo" />
+      <img :src="theme?.logo" class="logo" :alt="$t('components.space.getHelp.questionNode.AlphaVictorLogoAlt')" />
     </div>
     <div class="answers-list-wrapper">
       <IonList class="answers-list" lines="none">
@@ -10,20 +10,19 @@
             {{ nodeData.text }}
           </template>
           <template v-else-if="nodeData.type === DecisionTreeNodeType.Article">
-            I've found the following article that I think you'll find useful
+            {{ $t('components.space.getHelp.questionNode.articleTemplateDescription') }}
           </template>
           <template v-else-if="nodeData.type === DecisionTreeNodeType.Video">
-            I've found the following video that I think you'll find useful
+            {{ $t('components.space.getHelp.questionNode.videoTemplateDescription') }}
           </template>
           <template v-else-if="nodeData.type === DecisionTreeNodeType.Document">
-            I've found the following document that I think you'll find helpful
+            {{ $t('components.space.getHelp.questionNode.documentTemplateDescription') }}
           </template>
           <template v-else-if="nodeData.type === DecisionTreeNodeType.Email">
-            We'd really appreciate some more details - click below to send us an
-            email
+            {{ $t('components.space.getHelp.questionNode.appreciateDetailsDescription') }}
           </template>
           <template v-else-if="nodeData.type === DecisionTreeNodeType.Phone">
-            I think it's best you speak to someone - click below to place a call
+            {{ $t('components.space.getHelp.questionNode.callDescription') }}
           </template>
         </ion-list-header>
         <template v-if="nodeData.type === DecisionTreeNodeType.Question">

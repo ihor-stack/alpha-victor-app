@@ -12,7 +12,7 @@
           color="dark"
           @click="handleCta"
           ><span class="font-mono font-size-xs text-spaced"
-            >&gt;&gt; view.all</span
+            >{{ $t('components.dashboard.dashboardSlider.viewAllSpan') }}</span
           ></ion-button
         >
       </div>

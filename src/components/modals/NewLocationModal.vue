@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="text-button font-mono font-size-xs" @click="modalOpen = true"
-      >Add new location +</span
+      >{{$t('components.modals.newLocationModal.addNewLocationSpan')}}</span
     >
     <ion-modal
       :is-open="modalOpen"
@@ -22,10 +22,10 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                  Add new location
+                  {{$t('components.modals.newLocationModal.addNewLocationHeader')}}
                 </h1>
                 <p class="modal-panel__comment color-light-gray font-size-sm">
-                  You can create a new location via the form below.
+                  {{$t('components.modals.newLocationModal.addNewLocationParagraph')}}
                 </p>
               </div>
             </ion-header>
@@ -37,10 +37,10 @@
                     size-sm="6"
                     class="form-admin--group_field"
                   >
-                    <ion-label>Location name</ion-label>
+                    <ion-label>{{ $t('components.modals.newLocationModal.locationNameLabel') }}</ion-label>
                     <ion-input
                       class="font-size-sm"
-                      placeholder="e.g. Headquarters"
+                      :placeholder="$t('components.modals.newLocationModal.headquartersInputPlaceholder')"
                       :value="newLocationDetails.name"
                       @input="onNameChange"
                     ></ion-input>
@@ -51,10 +51,10 @@
                     size-sm="6"
                     class="form-admin--group_field"
                   >
-                    <ion-label>Location prefix</ion-label>
+                    <ion-label>{{ $t('components.modals.newLocationModal.locationPrefixLabel') }}</ion-label>
                     <ion-input
                       class="font-size-sm"
-                      placeholder="e.g. HQ"
+                      :placeholder="$t('components.modals.newLocationModal.newLocationInputPlaceholder')"
                       :value="newLocationDetails.prefix"
                       @ion-input="
                         newLocationDetails.prefix = String($event.target.value)
@@ -70,7 +70,7 @@
                 expand="block"
                 @click="saveNewLocation()"
               >
-                Add new location +
+                {{$t('components.modals.newLocationModal.addNewLocationSpan')}}
               </ion-button>
             </ion-footer>
           </div>

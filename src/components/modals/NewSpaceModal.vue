@@ -5,7 +5,7 @@
     color="--av-light-gray"
     @click="modalOpen = true"
   > 
-    Add new space +
+  {{$t('components.modals.newSpaceModal.addNewSpaceButton')}}
   </ion-button>
   <ion-modal
     :is-open="modalOpen"
@@ -26,10 +26,10 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
-                Add new space
+              {{$t('components.modals.newSpaceModal.addNewSpaceHeader')}}
               </h1>
               <p class="modal-panel__comment color-light-gray font-size-sm">
-                You can create a new space via the form below.
+                {{$t('components.modals.newSpaceModal.createNewSpaceParagraph')}}
               </p>
             </div>
           </ion-header>
@@ -40,10 +40,10 @@
                 size-sm="6"
                 class="form-admin--group_field"
               >
-                <ion-label>Space name</ion-label>
+                <ion-label>{{ $t('components.modals.newSpaceModal.spaceNameLabel') }}</ion-label>
                 <ion-input
                   class="font-size-sm"
-                  placeholder="Space Name"
+                  :placeholder="$t('components.modals.newSpaceModal.spaceNamePlaceholder')"
                   :value="newSpaceDetails.spaceName"
                   @ion-input="
                     newSpaceDetails.spaceName = String($event.target.value)
@@ -56,10 +56,10 @@
                 size-sm="6"
                 class="form-admin--group_field"
               >
-                <ion-label>Space shortcode</ion-label>
+                <ion-label>{{ $t("components.modals.newSpaceModal.spaceShortcodeLabel") }}</ion-label>
                 <ion-input
                   class="font-size-sm"
-                  placeholder="Space Shortcode"
+                  :placeholder="$t('components.modals.newSpaceModal.spaceShortcodePlaceholder')"
                   :value="newSpaceDetails.shortCode"
                   @ion-input="
                     newSpaceDetails.shortCode = String($event.target.value)
@@ -74,7 +74,7 @@
               expand="block"
               @click="saveNewSpace()"
             >
-              Add new space +
+              {{ $t('components.modals.newSpaceModal.addNewSpaceButton') }}
             </ion-button>
           </ion-footer>
         </div>

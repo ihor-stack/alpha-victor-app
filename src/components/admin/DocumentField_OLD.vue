@@ -4,7 +4,7 @@
     <ion-input
       class="font-size-sm"
      
-      placeholder="Document Type"
+      :placeholder="$t('components.admin.documentFieldOLD.documentTypePlaceholder')"
       :value="doc.title"
       @ionInput="editedDocument = $event.target.value;"
       @ion-focus="currentDocument = doc"
@@ -18,7 +18,7 @@
       fill="clear"
       size="small"
       v-if=EnableEdit(doc.id)
-      > &gt;&gt; save 
+      > {{$t('components.admin.documentFieldOLD.saveButton')}}
     </ion-button>
     <ion-button 
       @click="RemoveDocument(doc.id)"
@@ -28,7 +28,7 @@
       size="small"
       v-else
       >
-      &gt;&gt; remove
+      {{$t('components.admin.documentFieldOLD.removeButton')}}
     </ion-button>
   </ion-item>
 </template>

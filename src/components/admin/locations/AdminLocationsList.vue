@@ -5,7 +5,7 @@
     </h1>
     <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label>Floor name</ion-label>
+        <ion-label>{{ $t("components.admin.locations.adminLocationsList.floorNameLabel") }}</ion-label>
         <ion-input
           class="font-size-sm"
           :value="floor.name"
@@ -16,7 +16,7 @@
         ></ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label>Short name</ion-label>
+        <ion-label>{{ $t("components.admin.locations.adminLocationsList.shortNameLabel") }}</ion-label>
         <ion-input
           class="font-size-sm"
           :value="floor.shortName"
@@ -32,7 +32,7 @@
           class="button-wide"
           @click="Floor.updateFloor(organisationId, floor.id)"
         >
-          Save floor
+        {{ $t("components.admin.locations.adminLocationsList.saveFloorButton") }}
         </ion-button>
         <DeleteFloorModal :floorId="floor.id" />
       </ion-col>
@@ -40,7 +40,7 @@
       <hr class="form-admin--divider" />
 
       <ion-col size-xs="12" class="form-admin--group_field">
-        <h4 class="font-bold font-size-normal color-light-gray">Spaces</h4>
+        <h4 class="font-bold font-size-normal color-light-gray">{{$t("components.admin.locations.adminLocationsList.spacesHeader")}}</h4>
         <ion-item
           v-for="(space, index) in floor.spaces"
           :key="index"

@@ -11,7 +11,7 @@
         v-bind:key="image.id"
       >
         <ion-thumbnail slot="start">
-          <img alt="image" :src="image.path" />
+          <img :alt="$t('components.shared.imageGallery.imageAlt')" :src="image.path" />
         </ion-thumbnail>
         <ion-label>
           {{ image.name }}
@@ -23,7 +23,7 @@
           size="small"
           @click="removeImage(image.id)"
         >
-          &gt;&gt; remove
+          {{ $t('components.shared.imageGallery.removeButton')}}
         </ion-button>
         <ion-reorder slot="end" v-if="images.length > 1">
           <ion-icon :icon="menuOutline"></ion-icon>
@@ -64,6 +64,9 @@ const handleReorder = (event: CustomEvent) => {
 </script>
 
 <style scoped>
+ion-reorder-group {
+  width: 100%;
+}
 ion-thumbnail {
   margin-top: 0;
   margin-bottom: 0;

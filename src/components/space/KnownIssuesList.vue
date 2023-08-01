@@ -19,7 +19,7 @@
           <status-dot :status="issue.status" />
         </div>
         <div class="issues-list__item__link">
-          <span class="font-mono font-size-xxs">&gt;&gt; view</span>
+          <span class="font-mono font-size-xxs">{{$t('components.space.documentsList.viewSpan')}}</span>
         </div>
       </li>
     </ul>
@@ -44,7 +44,7 @@
           <status-dot :status="issue.status" />
         </div>
         <div class="issues-list__item__link">
-          <span class="font-mono font-size-xxs">&gt;&gt; view</span>
+          <span class="font-mono font-size-xxs">{{$t('components.space.documentsList.viewSpan')}}</span>
         </div>
       </li>
     </ul>

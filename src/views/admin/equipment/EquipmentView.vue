@@ -39,7 +39,7 @@
     <ion-row class="form-admin">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <h3 class="font-bold font-size-md color-light-gray">
-          {{ $t("pages.admin.equipment.view.manufacturers") }}
+          {{ $t('pages.admin.equipment.view.manufacturers')}}
         </h3>
         <div
           v-for="manufacturer in equipmentList.manufacturers"
@@ -50,7 +50,7 @@
             :data="manufacturer"
             icon=""
             :id="manufacturer.manufacturerId"
-            placeholder="Manufacturer"
+            :placeholder="$t('pages.admin.equipment.view.manufacturer')"
             @update:modelValue="
               (value: string) =>
                 updateManufacturer(manufacturer.manufacturerId, value)
@@ -62,7 +62,7 @@
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <h3 class="font-bold font-size-md color-light-gray">
-          {{ $t("pages.admin.equipment.view.assetTypes") }}
+          {{ $t("pages.admin.equipment.view.assetTypes")}}
         </h3>
         <div v-for="asset in equipmentList.assetTypes" :key="asset.assetId">
           <ItemField
@@ -70,7 +70,7 @@
             :data="asset"
             :icon="asset.icon"
             :id="asset.assetId"
-            placeholder="Asset Type"
+            :placeholder="$t('pages.admin.equipment.view.assetType')"
             @update:modelValue="
               (value: string) => updateAssetType(asset.assetId, value)
             "

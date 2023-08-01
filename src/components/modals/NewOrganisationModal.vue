@@ -1,7 +1,7 @@
 <template>
   <div>
     <ion-button class="button-wide" @click="modalOpen = true">
-      Create new organisation +
+      {{ $t('components.modals.newOrganisationModal.createNewOrganisationButton') }}
     </ion-button>
     <ion-modal
       :is-open="modalOpen"
@@ -22,10 +22,10 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                  Add new organisation
+                  {{ $t('components.modals.newOrganisationModal.addNewOrganisationHeader') }}
                 </h1>
                 <p class="modal-panel__comment color-light-gray font-size-sm">
-                  You can create a new organisation via the form below.
+                  {{ $t('components.modals.newOrganisationModal.createNewOrganisationParagraph') }}
                 </p>
               </div>
             </ion-header>
@@ -53,7 +53,7 @@
                 expand="block"
                 @click="saveNewOrganisation()"
               >
-                Add new organisation +
+                {{ $t('components.modals.newOrganisationModal.addNewOrganisationButton') }}
               </ion-button>
             </ion-footer>
           </div>

@@ -6,7 +6,7 @@
       color="--av-light-gray"
       @click="state.modalOpen = true"
     >
-      Add new document +
+      {{ $t("components.admin.documentModal.addDocumentButton") }}
     </ion-button>
     <ion-modal
       :is-open="state.modalOpen"
@@ -27,16 +27,16 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                  Add new document +
+                {{ $t("components.admin.documentModal.addDocumentHeader") }}
                 </h1>
                 <p class="modal-panel__comment color-light-gray font-size-sm">
-                  You can upload a document and document type using the form below.
+                  {{ $t("components.admin.documentModal.uploadDocumentTypeParagraph") }}
                 </p>
               </div>
             </ion-header>
             <div class="form-admin--group_field">
               <p class="modal-panel__comment color-light-gray font-size-sm">
-                Upload document
+                {{ $t("components.admin.documentModal.uploadDocumentParagraph") }}
               </p>
               <div
                 class="modal-panel__section modal-panel__select-equipment upload-icons"
@@ -58,7 +58,7 @@
                 <span
                   class="modal-panel__comment color-light-gray font-size-sm"
                 >
-                  Click to browse device
+                {{ $t("components.admin.documentModal.clickSpan") }}
                 </span>
               </div>
               <div class="modal-panel__select-equipment form-admin">
@@ -79,7 +79,7 @@
                 "
                 @click="saveNewDocument"
               >
-                Add new asset type +
+                {{ $t("components.admin.documentModal.addNewAssetbutton") }}
               </ion-button>
             </ion-footer>
           </div>

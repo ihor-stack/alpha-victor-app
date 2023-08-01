@@ -19,7 +19,7 @@
         </span>
       </div>
       <div class="cancel-ask-button" @click="handleCancelAndAskAgain(nodeData)">
-        Cancel and ask again
+        {{ $t('components.space.getHelp.answerNode.cancelAskButton') }}
       </div>
     </div>
     <div class="profile-avatar-wrapper">

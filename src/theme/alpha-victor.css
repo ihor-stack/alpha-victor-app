@@ -124,6 +124,10 @@ ion-button {
   text-transform: none;
 }
 
+ion-modal {
+  backdrop-filter: blur(3px);
+}
+
 .custom-input {
   --padding-top: 18px;
   --padding-bottom: 18px;

@@ -6,7 +6,7 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Location name</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.locationNameLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.name"
@@ -17,7 +17,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Location prefix</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.locationPrefixLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.prefix"
@@ -33,7 +33,7 @@
 
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Main contact name</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.contactNameLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.mainContactName"
@@ -44,7 +44,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Email address</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.emailAddressLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.email"
@@ -55,7 +55,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Phone number</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.phoneNumberLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.phone"
@@ -66,7 +66,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>SOS Number</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.sosNumberLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.sosNumber"
@@ -77,9 +77,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" class="form-admin--group_field">
-          <ion-label>SOS VIP</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.sosVIPLabel") }}</ion-label>
           <ion-input class="form-toggle" :disabled="true">
-            <ion-label>SOS is only availble for VIP users</ion-label>
+            <ion-label>{{ $t("components.admin.locations.adminLocationsForm.sosVIPText") }}</ion-label>
             <ion-toggle
               color="primary"
               :checked="location.sosVip"
@@ -96,7 +96,7 @@
 
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Public Wifi</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.publicWifiLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.wifiSsid"
@@ -107,7 +107,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Wifi Password</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.wifiPasswordLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.wifiPassword"
@@ -123,7 +123,7 @@
 
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Address Line 1</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.addressLine1Label") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.addressLine0"
@@ -134,7 +134,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Address Line 2</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.addressLine2Label") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.addressLine1"
@@ -145,7 +145,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>City</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.cityLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.city"
@@ -156,7 +156,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>Postcode</ion-label>
+          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.postcodeLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.postcode"
@@ -168,7 +168,7 @@
         </ion-col>
         <ion-col size-xs="12" class="button-pair">
           <ion-button class="button-wide" @click="saveChanges(location.id)">
-            Save changes
+            {{ $t("components.admin.locations.adminLocationsForm.saveChangesButton") }}
           </ion-button>
           <ion-button
             class="button-wide button-outline"
@@ -176,7 +176,7 @@
             color="--av-light-gray"
             @click="exportQrCodes()"
           >
-            Export QR Codes
+          {{ $t("components.admin.locations.adminLocationsForm.exportQRCodesButton") }}
           </ion-button>
           <DeleteLocationModal
             :organisationId="organisationId"
@@ -188,7 +188,7 @@
       <hr class="form-admin--divider" />
 
       <h1 class="title-admin font-bold font-size-lg color-light-gray">
-        Floors
+        {{ $t("components.admin.locations.adminLocationsForm.floorsHeader") }}
       </h1>
 
       <ul class="list" v-if="floors.length > 0">

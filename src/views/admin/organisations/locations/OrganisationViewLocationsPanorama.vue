@@ -49,7 +49,8 @@
         <ion-button color="primary">
           <label for="panormaSelect">
             <span>{{
-              currentPanorama?.path ? "Change panorama" : "Add panorama"
+              currentPanorama?.path ? $t("pages.admin.organisations.view.locations.panorama.change") :
+              $t("pages.admin.organisations.view.locations.panorama.add")
             }}</span>
           </label>
           <input

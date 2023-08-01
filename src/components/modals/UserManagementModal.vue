@@ -4,7 +4,7 @@
       <div>
         <ion-row>
           <ion-col size="12">
-            <ion-label class="font-size-sm">Assigned Organisations</ion-label>
+            <ion-label class="font-size-sm">{{ $t('components.modals.userManagementModal.assignedOrganisationLabel') }}</ion-label>
             <ion-item
               class="orgItemWrapper"
               v-for="org in assignedOrganisations"
@@ -25,14 +25,14 @@
                 fill="clear"
                 size="small"
               >
-                &gt;&gt; remove
+                {{ $t('components.modals.userManagementModal.removeButton')}}
               </ion-button>
             </ion-item>
           </ion-col>
         </ion-row>
         <div class="divider">
           <div></div>
-          <span>or</span>
+          <span>{{ $t('components.modals.userManagementModal.dividerSpan')}}</span>
         </div>
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
@@ -54,7 +54,7 @@
           :disabled="!state.organisationId"
           @click="handleClickSave(state.organisationId)"
         >
-          Save and close
+          {{ $t('components.modals.userManagementModal.saveAndCloseButton')}}
         </ion-button>
       </ion-footer>
     </common-modal>

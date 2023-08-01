@@ -5,7 +5,7 @@
     @click="modalOpen = true"
     v-if="!disableUpload"
   >
-    <ion-label>Add New Photo &nbsp;&gt;&gt;</ion-label>
+    <ion-label>{{$t('components.admin.spaces.photoModal.addNewPhotoLabel')}}</ion-label>
   </ion-chip>
 
   <ion-modal
@@ -27,7 +27,7 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
-                Add New Photo
+              {{$t('components.admin.spaces.photoModal.addNewPhotoHeader')}}
               </h1>
             </div>
           </ion-header>
@@ -42,13 +42,13 @@
               :disabled="true"
               v-if="!hiddenFeatureImageToggle"
             >
-              <ion-label>Featured Photo</ion-label>
+              <ion-label>{{$t('components.admin.spaces.photoModal.featuredPhotoLabel')}}</ion-label>
               <ion-toggle color="primary" v-model="state.featuredPhoto" />
             </ion-input>
           </div>
           <ion-footer>
             <ion-button class="font-size-sm" expand="block" @click="save()">
-              Save
+              {{$t('components.admin.spaces.photoModal.saveButton')}}
             </ion-button>
           </ion-footer>
         </div>

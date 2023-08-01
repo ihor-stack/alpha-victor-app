@@ -10,7 +10,7 @@
           >
             <img
               src="@/theme/icons/switch-location.svg"
-              alt="Switch Organisation"
+              :alt="$t('components.shared.desktopNav.switchOrganisationAlt')"
             />
           </ion-button>
           <ion-title class="no-lp">
@@ -20,14 +20,14 @@
                 v-else
                 src="@/theme/img/logo/logo-without-name.svg"
                 class="logo"
-                alt="AlphaVictor"
+                :alt="$t('components.shared.desktopNav.AlphaVictorAlt')"
               />
             </div>
           </ion-title>
           <ion-button fill="clear" @click="logout" class="logout-button">
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
             <span class="font-bold font-size-xs low-caps">{{
-              $t("desktopNav.logout")
+              $t("components.shared.desktopNav.logout")
             }}</span>
           </ion-button>
         </div>
@@ -43,7 +43,7 @@
             @click="handleNavigate('/dashboard')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.dashboard") }}
+              {{ $t("components.shared.desktopNav.dashboard") }}
             </ion-label>
           </ion-item>
         </li>
@@ -56,7 +56,7 @@
             @click="handleNavigate('/favourites')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.favourites") }}
+              {{ $t("components.shared.desktopNav.favourites") }}
             </ion-label>
           </ion-item>
         </li>
@@ -68,7 +68,7 @@
             @click="handleNavigate('/find-space/location')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.findSpace") }}
+              {{ $t("components.shared.desktopNav.findSpace") }}
             </ion-label>
           </ion-item>
         </li>
@@ -80,7 +80,7 @@
             @click="handleNavigate('/recently-viewed')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.recentlyViewed") }}
+              {{ $t("components.shared.desktopNav.recentlyViewed") }}
             </ion-label>
           </ion-item>
         </li>
@@ -92,7 +92,7 @@
             @click="handleNavigate('/settings')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.accountSettings") }}
+              {{ $t("components.shared.desktopNav.accountSettings") }}
             </ion-label>
           </ion-item>
         </li>
@@ -104,7 +104,7 @@
             @click="handleNavigate('/about')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.about") }}
+              {{ $t("components.shared.desktopNav.about") }}
             </ion-label>
           </ion-item>
         </li>
@@ -116,7 +116,7 @@
             @click="handleNavigate('/terms-and-conditions')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.tos") }}
+              {{ $t("components.shared.desktopNav.tos") }}
             </ion-label>
           </ion-item>
         </li>
@@ -124,7 +124,7 @@
         <li class="nav-menu-link">
           <ion-item lines="none">
             <ion-label class="ion-no-margin font-size-xxs">
-              {{ $t("desktopNav.administration") }}
+              {{ $t("components.shared.desktopNav.administration") }}
             </ion-label>
           </ion-item>
         </li>
@@ -137,7 +137,7 @@
             @click="handleNavigate('/admin/organisations')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.organisations") }}
+              {{ $t("components.shared.desktopNav.organisations") }}
             </ion-label>
           </ion-item>
         </li>
@@ -149,7 +149,7 @@
             @click="handleNavigate('/admin/equipment')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.equipment") }}
+              {{ $t("components.shared.desktopNav.equipment") }}
             </ion-label>
           </ion-item>
         </li>
@@ -161,7 +161,7 @@
             @click="handleNavigate('/admin/documents')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.documentTypes") }}
+              {{ $t("components.shared.desktopNav.documentTypes") }}
             </ion-label>
           </ion-item>
         </li>
@@ -173,7 +173,7 @@
             @click="handleNavigate('/admin/users')"
           >
             <ion-label class="ion-no-margin">
-              {{ $t("desktopNav.users") }}
+              {{ $t("components.shared.desktopNav.users") }}
             </ion-label>
           </ion-item>
         </li>

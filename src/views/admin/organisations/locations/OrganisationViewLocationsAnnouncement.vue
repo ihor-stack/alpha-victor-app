@@ -41,6 +41,57 @@
           ></ion-textarea>
         </ion-col>
       </ion-row>
+      
+      <ion-row class="form-admin--group form-admin--group-full">
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <ion-label>{{
+            $t(
+              "pages.admin.organisations.view.locations.announcement.labelStart"
+            )
+          }}</ion-label>
+
+          <div class="custom-input date-wrapper">
+            <ion-datetime-button datetime="start"></ion-datetime-button>
+          </div>
+          <ion-modal :keep-contents-mounted="true">
+          <ion-datetime
+              id="start"
+              display-format="DD/MM/YYYY HH:mm:ss"
+              picker-format="DD MMM YYYY HH:mm:ss"
+              :value="announcement.start"
+              @ion-change="
+                (e) => {
+                  announcement.start = String(e.target.value);
+                }
+              "
+            ></ion-datetime>
+          </ion-modal>
+        </ion-col>
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <ion-label>{{
+            $t(
+              "pages.admin.organisations.view.locations.announcement.labelEnd"
+            )
+          }}</ion-label>
+
+          <div class="custom-input date-wrapper">
+            <ion-datetime-button datetime="end"></ion-datetime-button>
+          </div>
+          <ion-modal :keep-contents-mounted="true">
+            <ion-datetime
+                id="end"
+                display-format="DD/MM/YYYY HH:mm:ss"
+                picker-format="DD MMM YYYY HH:mm:ss"
+                :value="announcement.end"
+                @ion-change="
+                  (e) => {
+                    announcement.end = String(e.target.value);
+                  }
+                "
+              ></ion-datetime>
+            </ion-modal>
+        </ion-col>
+      </ion-row>
       <ion-row class="form-admin--group">
         <ion-col size-xs="12">
           <ion-button class="button-wide" @click="submitAnnouncement()">
@@ -85,3 +136,19 @@ onBeforeMount(() => {
   Space.getSpaceDetailsAnnouncement(spaceId);
 });
 </script>
+
+<style scoped>
+.custom-input {
+  margin-top: 5px;
+}
+.date-wrapper {
+  padding: 12px;
+}
+
+.date-wrapper ion-datetime-button {
+  width: fit-content;
+}
+.date-wrapper ion-datetime-button::part(native) {
+  background: transparent;
+}
+</style>

@@ -5,7 +5,7 @@
       :outline="true"
       @click="modalOpen = true"
     >
-      <ion-label>Add New Document &nbsp;&gt;&gt;</ion-label>
+      <ion-label>{{ $t('components.admin.spaces.documentModal.addNewDocumentLabel') }}</ion-label>
     </ion-chip>
     <ion-modal
       :is-open="modalOpen"
@@ -26,7 +26,7 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                  Add New Document
+                {{ $t('components.admin.spaces.documentModal.addNewDocumentHeader') }}
                 </h1>
               </div>
             </ion-header>
@@ -51,7 +51,7 @@
                 :disabled="!uploadedDocs.length || !selectedDocType?.title"
                 @click="saveNewDocumentType()"
               >
-                Upload document(s)
+                {{ $t('components.admin.spaces.documentModal.uploadDocumentButton') }}
               </ion-button>
             </ion-footer>
           </div>

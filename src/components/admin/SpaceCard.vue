@@ -23,7 +23,7 @@
             />
             <span
               class="capacity-number color-light-gray font-size-xxs font-mono"
-              >&gt;&gt;10</span
+              >{{$t('components.admin.SpaceCard.spanTen')}}</span
             >
           </div>
         </div>

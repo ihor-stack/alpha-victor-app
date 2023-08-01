@@ -77,7 +77,7 @@
       class="button-wide"
       @click="organisation.saveThemes(organisationId)"
     >
-      {{ $t("pages.admin.organisations.view.theme.saveBtn") }}
+    {{ $t('pages.admin.organisations.view.theme.saveBtn')}}
     </ion-button>
   </div>
 </template>

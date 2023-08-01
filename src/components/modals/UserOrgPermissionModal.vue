@@ -22,7 +22,7 @@
           :disabled="!state.groupId"
           @click="handleClickSave(state.groupId)"
         >
-          Save and close
+          {{$t('components.modals.userOrgPermissionModal.saveAndCloseButton')}}
         </ion-button>
       </ion-footer>
     </common-modal>

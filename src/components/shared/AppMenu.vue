@@ -10,7 +10,7 @@
           >
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
             <span class="font-mono font-size-xs logout-text">{{
-              $t("appMenu.logout")
+              $t("components.shared.appMenu.logout")
             }}</span>
           </ion-button>
         </ion-menu-toggle>
@@ -36,7 +36,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("appMenu.dashboard") }}</span>
+              <span class="link-text">{{ $t("components.shared.appMenu.dashboard") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -48,7 +48,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("appMenu.favourites") }}</span>
+              <span class="link-text">{{ $t("components.shared.appMenu.favourites") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -60,7 +60,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("appMenu.findSpace") }}</span>
+              <span class="link-text">{{ $t("components.shared.appMenu.findSpace") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -72,7 +72,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("appMenu.recentlyViewed") }}</span>
+              <span class="link-text">{{ $t("components.shared.appMenu.recentlyViewed") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -84,7 +84,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("appMenu.accountSettings") }}</span>
+              <span class="link-text">{{ $t("components.shared.appMenu.accountSettings") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -96,7 +96,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("appMenu.about") }}</span>
+              <span class="link-text">{{ $t("components.shared.appMenu.about") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -108,7 +108,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("appMenu.tos") }}</span>
+              <span class="link-text">{{ $t("components.shared.appMenu.tos") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -121,7 +121,7 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("appMenu.admin") }}</span>
+              <span class="link-text">{{ $t("components.shared.appMenu.admin") }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -130,12 +130,12 @@
     <ion-footer>
       <div class="footer">
         <div class="footer-contact">
-          <p class="contact font-mono">{{ $t("appMenu.contact") }}</p>
+          <p class="contact font-mono">{{ $t("components.shared.appMenu.contact") }}</p>
         </div>
         <div class="footer-hello">
           <a href="mailto: hello@alphavictor.com">hello@alphavictor.com</a>
           <div class="footer-details">
-            <p class="font-mono">{{ $t("appMenu.footer") }}</p>
+            <p class="font-mono">{{ $t("components.shared.appMenu.footer") }}</p>
             <ul class="footer-links">
               <li>
                 <a href="">

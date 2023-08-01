@@ -1,7 +1,7 @@
 <template>
   <common-modal
-    title="Edit destination"
-    description="You can adjust the destination and outcomes via the form below."
+    :title="$t('components.modals.decisionTreeNodeModal.editDestination.editDestinationTitle')"
+    :description="$t('components.modals.decisionTreeNodeModal.editDestination.adjustDestinationDescription')"
     :handleDismiss="() => handleDismiss()"
   >
     <div>
@@ -18,9 +18,9 @@
       </ion-row>
       <ion-row v-if="!isRoot">
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Outcome label</ion-label>
+          <ion-label>{{$t('components.modals.decisionTreeNodeModal.editDestination.outcomeLabel')}}</ion-label>
           <ion-input
-            placeholder="Enter new outcome"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.editDestination.outcomePlaceholder')"
             v-model="state.outcomeLabel"
           ></ion-input>
         </ion-col>
@@ -36,7 +36,7 @@
         expand="block"
         @click="() => handleClickNext(state)"
       >
-        Next</ion-button
+        {{$t('components.modals.decisionTreeNodeModal.editDestination.nextButton')}}</ion-button
       >
     </div>
   </common-modal>

@@ -1,7 +1,7 @@
 <template>
   <common-modal
-    title="Select document"
-    description="You can select a document to be presented via the drop downs below."
+    :title="$t('components.modals.decisionTreeNodeModal.selectDocument.selectDocumentTitle')"
+    :description="$t('components.modals.decisionTreeNodeModal.selectDocument.selectDocumentDescription')"
     :handleDismiss="() => handleDismiss()"
   >
     <div>
@@ -50,7 +50,7 @@
         expand="block"
         @click="handleClickConfirm({ document: state.selectedDocument })"
       >
-        Confirm Selection</ion-button
+      {{$t('components.modals.decisionTreeNodeModal.selectDocument.confirmSelectionButton')}}</ion-button
       >
       <ion-button
         class="ion-text-capitalize"
@@ -58,7 +58,7 @@
         expand="block"
         @click="handleClickBack"
       >
-        Back to destination
+        {{ $t('components.modals.decisionTreeNodeModal.selectDocument.backToDestinationButton') }}
       </ion-button>
     </ion-footer>
   </common-modal>

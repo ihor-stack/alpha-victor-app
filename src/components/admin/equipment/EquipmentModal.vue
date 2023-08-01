@@ -1,6 +1,6 @@
 <template>
   <ion-button class="button-wide" @click="state.modalOpen = true">
-    Add new equipment +
+    {{ $t("components.admin.equipment.equipmentModal.addEquipmentButton") }}
   </ion-button>
   <ion-modal
     :is-open="state.modalOpen"
@@ -21,10 +21,10 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
-                Add new equipment
+              {{ $t("components.admin.equipment.equipmentModal.addEquipmentHeader") }}
               </h1>
               <p class="modal-panel__comment color-light-gray font-size-sm">
-                You can create a new equipment the form below.
+                {{ $t("components.admin.equipment.equipmentModal.createEquipmentParagraph") }}
               </p>
             </div>
           </ion-header>
@@ -67,11 +67,11 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Model</ion-label>
+                  <ion-label>{{$t('components.admin.equipment.equipmentModal.modelLabel')}}</ion-label>
                   <ion-input
                     v-model="state.name"
-                    label="Model"
-                    placeholder="Input Model"
+                    :label="$t('components.admin.equipment.equipmentModal.inputModelLabel')"
+                    :placeholder="$t('components.admin.equipment.equipmentModal.inputModelPlaceholder')"
                   ></ion-input>
                 </ion-col>
                 <ion-col
@@ -79,11 +79,11 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>Serial number</ion-label>
+                  <ion-label>{{ $t('components.admin.equipment.equipmentModal.serialNumberLabel') }}</ion-label>
                   <ion-input
                     v-model="state.serialNumber"
-                    label="Model"
-                    placeholder="Input Serial number"
+                    :label="$t('components.admin.equipment.equipmentModal.inputModelLabel')"
+                    :placeholder="$t('components.admin.equipment.equipmentModal.inputSerialNumberPlaceholder')"
                   ></ion-input>
                 </ion-col>
               </ion-row>
@@ -101,7 +101,7 @@
               "
               @click="handleAddEquipment"
             >
-              Add new equipment +
+            {{ $t("components.admin.equipment.equipmentModal.addEquipmentButton") }}
             </ion-button>
           </ion-footer>
         </div>

@@ -18,11 +18,11 @@
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label class="font-size-xs font-bold">
-                Add Comment
+                {{$t('components.modals.issuesModal.addCommentLabel')}}
               </ion-label> 
               <ion-textarea
                 class="font-size-xs"
-                placeholder="Enter a comment here"
+                :placeholder="$t('components.modals.issuesModal.addCommentPlaceholder')"
                 v-model="state.comment"
               ></ion-textarea>
             </ion-col>
@@ -31,7 +31,7 @@
                 expand="block"
                 :disabled="state.comment?.length < 1"
                 @click="handleAddComment"
-                >Add comment</ion-button
+                >{{$t('components.modals.issuesModal.addCommentLabel')}}</ion-button
               >
             </ion-col>
           </ion-row>
@@ -41,7 +41,7 @@
             v-if="false"
           >
             <h2 class="font-size-xs font-bold modal-panel__heading">
-              Select Status
+              {{ $t('components.modals.issuesModal.selectStatusHeader') }}
             </h2>
             <div class="modal-panel__status">
               <div class="modal-panel__status__radio">
@@ -58,7 +58,7 @@
                   class="modal-panel__status__radio__label"
                 >
                   <span class="dot dot--low-impact"></span>
-                  low.impact
+                  {{$t('components.modals.issuesModal.lowImpactLabel')}}
                 </label>
               </div>
               <div class="modal-panel__status__radio">
@@ -75,7 +75,7 @@
                   class="modal-panel__status__radio__label"
                 >
                   <span class="dot dot--high-impact"></span>
-                  high.impact
+                  {{$t('components.modals.issuesModal.highImpactLabel')}}
                 </label>
               </div>
               <div class="modal-panel__status__radio">
@@ -89,7 +89,7 @@
                 />
                 <label for="resolved" class="modal-panel__status__radio__label">
                   <span class="dot dot--resolved"></span>
-                  resolved
+                  {{ $t('components.modals.issuesModal.statusHeader') }}
                 </label>
               </div>
             </div>
@@ -97,7 +97,7 @@
 
           <div class="modal-panel__log">
             <h3 class="modal-panel__log__heading font-mono font-size-xxs">
-              status
+              {{ $t('components.modals.issuesModal.statusHeader') }}
             </h3>
 
             <ul class="modal-panel__log__list">

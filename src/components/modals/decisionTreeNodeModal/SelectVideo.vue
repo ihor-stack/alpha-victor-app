@@ -1,7 +1,7 @@
 <template>
   <common-modal
-    title="Select video"
-    description="You can select a video to be presented via the list below."
+    :title="$t('components.modals.decisionTreeNodeModal.selectVideo.selectVideoTitle')"
+    :description="$t('components.modals.decisionTreeNodeModal.selectVideo.selectVideoDescription')"
     :handleDismiss="() => handleDismiss()"
   >
     <ion-content>
@@ -10,7 +10,7 @@
           <input-with-icon
             iconPosition="start"
             type="search"
-            placeholder="Search for a video"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.selectVideo.searchForVideoPlaceholder')"
             v-model="state.searchTerm"
             :icon="search"
           ></input-with-icon>
@@ -23,27 +23,27 @@
       ></CustomList>
       <div class="divider">
         <div></div>
-        <span>or</span>
+        <span>{{$t('components.modals.decisionTreeNodeModal.selectVideo.dividerSpan')}}</span>
       </div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Add new video</ion-label>
+          <ion-label>{{$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoLabel')}}</ion-label>
           <ion-row>
             <ion-input
-              placeholder="Enter Vimeo or YouTube URL"
+              :placeholder="$t('components.modals.decisionTreeNodeModal.selectVideo.videoURLInputPlaceholder')"
               v-model="state.newVideoUrl.value"
             ></ion-input>
             <ion-button class="addVideoButton" @click="onAddVideo"
-              >Add +</ion-button
+              >{{$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoButton')}}</ion-button
             >
           </ion-row>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>Add video title</ion-label>
+          <ion-label>{{$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoTitleLabel')}}</ion-label>
           <ion-input
-            placeholder="New video added"
+            :placeholder="$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoTitlePlaceholder')"
             v-model="state.newVideoTitle.value"
           ></ion-input>
         </ion-col>
@@ -55,7 +55,7 @@
         expand="block"
         @click="handleClickConfirm({ video: state.selectedVideo })"
       >
-        Confirm selection
+        {{$t('components.modals.decisionTreeNodeModal.selectDocument.confirmSelectionButton')}}
       </ion-button>
       <ion-button
         class="ion-text-capitalize"
@@ -63,7 +63,7 @@
         expand="block"
         @click="handleClickBack"
       >
-        Back to destination
+        {{$t('components.modals.decisionTreeNodeModal.selectDocument.backToDestinationButton')}}
       </ion-button>
     </ion-footer>
   </common-modal>

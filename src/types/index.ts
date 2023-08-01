@@ -70,8 +70,8 @@ export interface Device {
   serialNumber?: string;
   installer?: string;
   installDate?: string;
-  warrantyExpiryDate: string;
-  description: string;
+  warrantyExpiryDate?: string;
+  description?: string;
   photos?: Photo[];
   icon?: string;
   macAddress?: string;
@@ -383,6 +383,8 @@ export interface SpaceBeaconAvailableResponse {
 export interface SpaceAnnouncement {
   title: string;
   text: string;
+  start: string;
+  end: string;
 }
 
 export interface SpaceWifi {

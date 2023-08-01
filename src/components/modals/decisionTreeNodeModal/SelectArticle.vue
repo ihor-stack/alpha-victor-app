@@ -1,16 +1,16 @@
 <template>
   <common-modal
-    title="Select article"
-    description="You can select an article to be presented via the list below."
+    :title="$t('components.modals.decisionTreeNodeModal.selectArticle.selectArticleTitle')"
+    :description="$t('components.modals.decisionTreeNodeModal.selectArticle.selectArticleDescription')"
     :handleDismiss="() => handleDismiss()"
   >
     <div>
       <template v-if="state.isAddingArticle">
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
-            <ion-label>Article title</ion-label>
+            <ion-label>{{ $t('components.modals.decisionTreeNodeModal.selectArticle.articleTitleLabel') }}</ion-label>
             <ion-input
-              placeholder="Enter title"
+              :placeholder="$t('components.modals.decisionTreeNodeModal.selectArticle.articleTitleInputPlaceholder')"
               v-model="state.newArticleTitle.value"
             ></ion-input>
           </ion-col>
@@ -43,7 +43,7 @@
             <input-with-icon
               iconPosition="start"
               type="search"
-              placeholder="Search for an article"
+              :placeholder="$t('components.modals.decisionTreeNodeModal.selectArticle.searchInputPlaceholder')"
               v-model="state.searchTerm"
               :icon="search"
             ></input-with-icon>
@@ -63,7 +63,7 @@
           expand="block"
           @click="onAddArticle"
         >
-          Add article +
+          {{ $t('components.modals.decisionTreeNodeModal.selectArticle.addArticleButton') }}
         </ion-button>
         <ion-button
           class="ion-text-capitalize ion-margin-top"
@@ -71,7 +71,7 @@
           expand="block"
           @click="state.isAddingArticle = false"
         >
-          Cancel
+        {{$t('components.modals.decisionTreeNodeModal.selectArticle.cancelButton')}}
         </ion-button>
       </template>
       <template v-else>
@@ -81,14 +81,14 @@
           expand="block"
           @click="state.isAddingArticle = true"
         >
-          Add new article +</ion-button
+          {{$t('components.modals.decisionTreeNodeModal.selectArticle.addNewArticleButton')}}</ion-button
         >
         <ion-button
           class="ion-text-capitalize ion-margin-top"
           expand="block"
           @click="handleClickConfirm({ article: state.selectedArticle })"
         >
-          Confirm Selection</ion-button
+        {{$t('components.modals.decisionTreeNodeModal.selectArticle.confirmSelectionButton')}}</ion-button
         >
       </template>
       <ion-button
@@ -97,7 +97,7 @@
         expand="block"
         @click="handleClickBack"
       >
-        Back to destination
+        {{$t('components.modals.decisionTreeNodeModal.selectArticle.backToDestinationButton')}}
       </ion-button>
     </ion-footer>
   </common-modal>

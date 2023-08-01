@@ -5,10 +5,9 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label>
-              <h2 class="font-size-md font-bold">Report Issue</h2>
+              <h2 class="font-size-md font-bold">{{ $t('components.modals.ReportIssueModal.reportIssueHeader') }}</h2>
               <p class="font-size-xs">
-                Please provide details on the issue you're facing, and which
-                equipment
+                {{$t('components.modals.ReportIssueModal.reportIssueParagraph')}}
               </p>
             </ion-label>
           </ion-item>
@@ -17,16 +16,16 @@
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label class="font-bold font-size-xs">
-                Select Equipment
+                {{$t('components.modals.ReportIssueModal.selectEquipmentLabel')}}
               </ion-label>
               <ion-select
                 interface="action-sheet"
-                placeholder="Select equipment"
+                :placeholder="$t('components.modals.ReportIssueModal.selectEquipmentPlaceholder')"
                 v-model="state.deviceId"
                 @ion-change="checkForInputs"
               >
                 <ion-select-option
-                  v-for="device in devices"
+                  v-for="device in allDevices"
                   :key="device.id"
                   :value="device.id"
                 >
@@ -37,10 +36,10 @@
           </ion-row>
           <ion-row>
             <ion-col size="12" class="form-admin--group_field">
-              <ion-label class="font-bold font-size-xs">Add title</ion-label>
+              <ion-label class="font-bold font-size-xs">{{ $t('components.modals.ReportIssueModal.addTitleLabel') }}</ion-label>
               <ion-input
                 class="font-size-xs"
-                placeholder="Enter title of issue"
+                :placeholder="$t('components.modals.ReportIssueModal.issueTitlePlaceholder')"
                 v-model="state.title"
               ></ion-input>
             </ion-col>
@@ -48,10 +47,10 @@
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label class="font-size-xs font-bold">
-                Add Comment
+                {{$t('components.modals.ReportIssueModal.addCommentLabel')}}
               </ion-label>
               <ion-textarea
-                placeholder="Enter a comment here"
+                :placeholder="$t('components.modals.ReportIssueModal.enterCommentPlaceholder')"
                 v-model="state.comment"
                 helper-text="Helper Text"
                 @ion-change="checkForInputs"
@@ -64,7 +63,7 @@
             expand="block"
             :disabled="!state.canSubmit"
             @click="handleSubmitIssue"
-            >Submit Issue</ion-button
+            >{{$t('components.modals.ReportIssueModal.submitIssueButton')}}</ion-button
           >
         </ion-footer>
       </div>
@@ -73,7 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, onMounted, computed } from "vue";
 import {
   IonPage,
   IonContent,
@@ -90,6 +89,7 @@ import {
   IonItem,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
+import { Device } from "@/types/index";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
@@ -102,14 +102,23 @@ const props = defineProps(["spaceId", "handleReportIssue"]);
 const state = reactive({
   title: "",
   comment: "",
-  deviceId: "",
+  deviceId: "0",
   canSubmit: false,
+});
+
+const otherDevice: Device = {
+  id: '0',
+  name: 'Other'
+};
+
+const allDevices = computed(() => {
+  return [...devices.value, otherDevice];
 });
 
 const checkForInputs = () => {
   return state.title.length > 0 &&
     state.comment.length > 0 &&
-    state.deviceId.length > 0
+    (state.deviceId.length > 0 && state.deviceId != null)
     ? (state.canSubmit = true)
     : (state.canSubmit = false);
 };
@@ -132,6 +141,10 @@ const handleSubmitIssue = () => {
       loadingService.close(loadId);
     });
 };
+
+onMounted(async () => {
+  await spacesStore.getSpaceDevices(props.spaceId);
+});
 </script>
 
 <style scoped>

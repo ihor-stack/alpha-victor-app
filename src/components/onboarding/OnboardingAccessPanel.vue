@@ -19,7 +19,7 @@
           </p>
         </div>
         <div class="button-container">
-          <ion-button expand="block" @click="ctaFunc">Enable</ion-button>
+          <ion-button expand="block" @click="ctaFunc">{{$t('components.onboarding.enableButton')}}</ion-button>
         </div>
         <div class="link-container text-center">
           <p class="color-mid-gray font-sm">

@@ -18,7 +18,7 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
-                Edit hotspot
+                {{$t('components.admin.spaces.panoramaModal.editHotspotHeader')}}
               </h1>
             </div>
           </ion-header>
@@ -35,17 +35,17 @@
                 />
               </ion-col>
             </ion-row>
-            <ion-row v-if="!state.deviceId">
+            <ion-row>
               <ion-col class="position-relative">
                 <hr class="form-admin--divider" />
-                <div class="or-text">or</div>
+                <div class="or-text">{{$t('components.admin.spaces.panoramaModal.orDiv')}}</div>
               </ion-col>
             </ion-row>
-            <ion-row v-if="!state.deviceId">
+            <ion-row>
               <ion-col size="12" class="form-admin--group_field">
-                <ion-label>Add label</ion-label>
+                <ion-label>{{$t('components.admin.spaces.panoramaModal.addLabelLabel')}}</ion-label>
                 <ion-input
-                  placeholder="Hotspot label"
+                  :placeholder="$t('components.admin.spaces.panoramaModal.hotspotLabelPlaceholder')"
                   v-model="state.text"
                 ></ion-input>
               </ion-col>
@@ -60,7 +60,7 @@
                   :disabled="!state.deviceId && !state.text"
                   @click="save"
                 >
-                  Save change
+                {{$t('components.admin.spaces.panoramaModal.saveChangeButton')}}
                 </ion-button>
               </ion-col>
               <ion-col>
@@ -70,7 +70,7 @@
                   expand="block"
                   @click="deleteHotspot"
                 >
-                  or delete hotspot
+                {{$t('components.admin.spaces.panoramaModal.orDeleteHotspotButton')}}
                 </ion-button>
               </ion-col>
             </ion-row>
@@ -133,7 +133,8 @@ const selectedDevice = computed({
   },
   set(newValue) {
     if (newValue) {
-      state.deviceId = newValue.additionalInfo
+      state.deviceId = newValue.additionalInfo;
+      state.text = newValue.title;
     }
   },
 })
