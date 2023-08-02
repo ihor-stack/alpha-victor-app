@@ -5,7 +5,7 @@ export default {
   locationLayout: {
     back: "<< back",
   },
-  
+
   pages: {
     dashboard: {
       placeholder: "Enter shortcode",
@@ -15,8 +15,8 @@ export default {
       alt: "Switch organisation",
       slider: {
         title1: "Nearby spaces",
-        title2: "Recently viewed"
-      }
+        title2: "Recently viewed",
+      },
     },
     favourites: {
       header: "Favourites",
@@ -55,8 +55,8 @@ export default {
         deleteAccount: {
           title: "Delete Account",
           subtitle: "Delete Your Account",
-        }
-      }
+        },
+      },
     },
     recentlyViewed: {
       header: "Recently viewed",
@@ -79,31 +79,35 @@ export default {
         gender: {
           male: "Male",
           female: "Female",
-          not: "Prefer not to say"
+          not: "Prefer not to say",
         },
-        updateProfileBtn: "Update Profile"
+        updateProfileBtn: "Update Profile",
       },
       notifications: {
         label: "Notifications",
-        description: "We use notifications to keep you in the loop. Update your notifications settings below.",
+        description:
+          "We use notifications to keep you in the loop. Update your notifications settings below.",
         allowNotifications: "Allow notifications",
         receiveNotifications: "Receive Notifications",
       },
       location: {
         label: "Location",
-        description: "We use your location to check spaces near you. Update your location settings below.",
+        description:
+          "We use your location to check spaces near you. Update your location settings below.",
         allowLocation: "Allow location",
-        accurateLocation: "Accurate Location"
+        accurateLocation: "Accurate Location",
       },
       bluetooth: {
         label: "Bluetooth",
-        description: "We use bluetooth to ping beacons for a more accurate location. /n Update your bluetooth settings below.",
+        description:
+          "We use bluetooth to ping beacons for a more accurate location. /n Update your bluetooth settings below.",
         allowBluetooth: "Allow Bluetooth",
         pingBeacons: "Ping Beacons",
       },
       language: {
         label: "Language",
-        description: "You can switch between languages via the drop down below.",
+        description:
+          "You can switch between languages via the drop down below.",
         placeholder: "Select Language",
         english: "English",
         french: "French",
@@ -117,43 +121,45 @@ export default {
         placeholders: {
           current: "Current Password",
           new: "New Password",
-          confirm: "Confirm New Password"
-        }
+          confirm: "Confirm New Password",
+        },
       },
       deleteAccount: {
         label: {
           deleted: "Account Deleted",
-          confirm: "Confirm Deletion"
+          confirm: "Confirm Deletion",
         },
         question: {
-          deleted: "Your account had been deleted from our system. We hope to see you again in the future.",
-          confirm: "Are you sure you want to delete your account?"
+          deleted:
+            "Your account had been deleted from our system. We hope to see you again in the future.",
+          confirm: "Are you sure you want to delete your account?",
         },
         description: {
           deleted: "Best wishes from the Alpha Victor team.",
-          confirm: "Your account can’t be restored after it’s been deleted. Are you sure you want to continue? If so, please confirm your password."
+          confirm:
+            "Your account can’t be restored after it’s been deleted. Are you sure you want to continue? If so, please confirm your password.",
         },
         confirmDeletionBtn: {
           deleted: "Got it, thanks",
-          confirm: "Confirm Deletion"
-        }
+          confirm: "Confirm Deletion",
+        },
       },
     },
     space: {
       article: {
         title: "Article",
-        back: "<< back"
+        back: "<< back",
       },
       documents: {
         title: "Documents",
-        back: "<< back"
+        back: "<< back",
       },
       document: {
-        back: "<< back"
+        back: "<< back",
       },
       equipment: {
         title: "Room Equipment",
-        back: "<< back"
+        back: "<< back",
       },
       feedback: {
         title: "Feedback",
@@ -180,14 +186,16 @@ export default {
       },
       video: {
         back: "<< back",
-        label: "Autoplay"
-      }
+        label: "Autoplay",
+      },
     },
     about: {
       back: "<< back",
       header: "About Alpha Victor",
-      sentence1: "Alpha Victor seeks to continually enhance the user experience in the workspace. The platform also provides workplace teams with the information they need to make future decisions on the design of new, better performing spaces.",
-      sentence2: "Alpha Victor delivers dynamic user guides for users of the space alongside a simple way for them to give their feedback, whether at home or in the office."
+      sentence1:
+        "Alpha Victor seeks to continually enhance the user experience in the workspace. The platform also provides workplace teams with the information they need to make future decisions on the design of new, better performing spaces.",
+      sentence2:
+        "Alpha Victor delivers dynamic user guides for users of the space alongside a simple way for them to give their feedback, whether at home or in the office.",
     },
     admin: {
       documents: {
@@ -196,8 +204,8 @@ export default {
           add: "Add new +",
           current: "Current Document Types",
           placeholder1: "Enter new document type",
-          placeholder2: "Document Type",          
-        }
+          placeholder2: "Document Type",
+        },
       },
       equipment: {
         details: {
@@ -214,7 +222,7 @@ export default {
           assetTypes: "Asset Types",
           assetType: "Asset Type",
           manufacturer: "Manufacturer",
-        }
+        },
       },
       organisations: {
         list: {
@@ -246,7 +254,7 @@ export default {
               city: "London",
               postCode: "S1 3LL",
               website: "ex: website.com",
-            }
+            },
           },
           theme: {
             title: "Theme",
@@ -279,8 +287,8 @@ export default {
             view: ">> view",
             details: {
               back: "<< back",
-              saveBtn: "Save decision tree",    
-            }
+              saveBtn: "Save decision tree",
+            },
           },
           integrations: {
             title: "Integrations",
@@ -291,7 +299,7 @@ export default {
             list: {
               title: "Integration",
               integration: "Integration",
-            }
+            },
           },
           locations: {
             title: "Locations",
@@ -329,7 +337,7 @@ export default {
               subtitle: "Ubiqisense",
               selectLocation: "Select location",
               saveBtn: "Save changes",
-              clearBtn: "or clear integration"
+              clearBtn: "or clear integration",
             },
             panorama: {
               icon: "Howard Street Belfast",
@@ -360,9 +368,9 @@ export default {
               show: "Show wifi password",
               showSpace: "Show wifi password within space",
               saveBtn: "Save changes",
-            }
+            },
           },
-        }
+        },
       },
       users: {
         title: "Users",
@@ -374,7 +382,7 @@ export default {
         deleted: "Deleted",
         inactive: "Inactive",
         placeholder: "Select role",
-      }
+      },
     },
     static: {
       legalNotices: {
@@ -384,15 +392,15 @@ export default {
         content1: {
           header: "Barcode scanner",
           subtitle: "@capacitor-community/barcode-scanner",
-          p1: "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:",
+          p1: 'Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:',
           p2: "The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.",
-          p3: "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+          p3: 'THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.',
         },
         content2: {
           header: "Google Maps",
           subtitle: "@googlemaps/js-api-loader",
-          p: "Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License.",
-        }
+          p: 'Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.',
+        },
       },
       tos: {
         title: "Terms & Conditions",
@@ -408,8 +416,8 @@ export default {
         },
         content2: {
           header: "Summary of key points",
-          p: "This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for. You can also click here to go directly to our table of contents."
-        }
+          p: "This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for. You can also click here to go directly to our table of contents.",
+        },
       },
     },
     allowAccess: {
@@ -434,8 +442,13 @@ export default {
       modal: {
         enable: "Enable",
         text1: "Please allow ",
-        text2: " when prompted on the next screen for a better app experience"
-      }
+        text2: " when prompted on the next screen for a better app experience",
+        language: "Language",
+        selection: "selection",
+        languageText2:
+          "Please select your preferred language to use when using the application.",
+        confirm: "Confirm",
+      },
     },
     home: {
       headline: "a better experience",
@@ -443,8 +456,8 @@ export default {
       signup: "Sign up",
       emailSignin: "Prefer to login via email?",
       link: "Send me a login link",
-      resetPassword: "I've forgot my password"
-    }
+      resetPassword: "I've forgot my password",
+    },
   },
   components: {
     admin: {
@@ -459,7 +472,8 @@ export default {
         documentModal: {
           addDocumentButton: "Add new document +",
           addDocumentHeader: "Add new document +",
-          uploadDocumentTypeParagraph: "You can upload a document and document type using the form below.",
+          uploadDocumentTypeParagraph:
+            "You can upload a document and document type using the form below.",
           uploadDocumentParagraph: "Upload document",
           clickSpan: "Click to browse device",
           addNewAssetbutton: "Add new asset type +",
@@ -468,13 +482,15 @@ export default {
         manufacturerModal: {
           addManufacturerButton: "Add new manufacturer +",
           addManufacturerHeader: "Add new manufacturer",
-          addManufacturerParagraph: "You can create a new manufacturer via the form below.",
+          addManufacturerParagraph:
+            "You can create a new manufacturer via the form below.",
           samSungPlaceholder: "e.g. samsung",
         },
         equipmentModal: {
           addEquipmentButton: "Add new equipment +",
           addEquipmentHeader: "Add new equipment",
-          createEquipmentParagraph: "You can create a new equipment the form below.",
+          createEquipmentParagraph:
+            "You can create a new equipment the form below.",
           manufacturerLabel: "Manufacturer",
           selectManufacturerPlaceholder: "Select manufacturer",
           selectAssetTypePlaceholder: "Select asset type",
@@ -484,7 +500,7 @@ export default {
           modelLabel: "Model",
           serialNumberLabel: "Serial number",
           inputModelLabel: "Model",
-        }
+        },
       },
       locations: {
         adminFloorsField: {
@@ -517,18 +533,20 @@ export default {
           floorNameLabel: "Floor name",
           shortNameLabel: "Short name",
           saveFloorButton: "Save floor",
-        }
+        },
       },
       spaceMetadata: {
         spaceFeatureModal: {
           wifiPlaceholder: "e.g. wifi",
           addNewSpaceFeatureButton: "Add new space feature +",
           addNewSpaceFeatureHeader: "Add new space feature",
-          createNewSpaceFeatureParagraph: "You can create a new space feature via the form below.",
+          createNewSpaceFeatureParagraph:
+            "You can create a new space feature via the form below.",
         },
         spaceTypeModal: {
           addNewSpaceTypeButton: "Add new space type +",
-          createNewSpaceTypeParagraph: "You can create a new space Type via the form below.",
+          createNewSpaceTypeParagraph:
+            "You can create a new space Type via the form below.",
           addNewSpaceTypeHeader: "Add new space type",
           meetingRoomInputPlaceholder: "e.g. meeting room",
         },
@@ -565,8 +583,7 @@ export default {
           addNewPhotoHeader: "Add New Photo",
           featuredPhotoLabel: "Featured Photo",
           saveButton: "Save",
-          
-        }
+        },
       },
       documentFieldOLD: {
         documentTypePlaceholder: "Document Type",
@@ -582,7 +599,6 @@ export default {
       itemField: {
         saveButton: ">> save",
         removeButton: ">> remove",
-
       },
       organisationsSelect: {
         viewAllSpan: ">> view.all",
@@ -590,7 +606,7 @@ export default {
       },
       SpaceCard: {
         spanTen: ">> 10",
-      }
+      },
     },
     dashboard: {
       dashboardSlider: {
@@ -600,7 +616,8 @@ export default {
     modals: {
       decisionTreeNodeModal: {
         addEmail: {
-          addEmailAddressDescription: "You can add a email address to be presented via the form field below. ",
+          addEmailAddressDescription:
+            "You can add a email address to be presented via the form field below. ",
           addEmailAddressTitle: "Add email address",
           emailAddressLabel: "Email Address",
           emailAddressInputPlaceholder: "Enter a email address",
@@ -608,7 +625,8 @@ export default {
           backToDestinationButton: "Back to destination",
         },
         addPhone: {
-          addPhoneNumberDescription: "You can add a phone number to be presented via the form field below. ",
+          addPhoneNumberDescription:
+            "You can add a phone number to be presented via the form field below. ",
           addPhoneTitle: "Add phone number",
           phoneNumberLabel: "Phone Number",
           phoneNumberPlaceholder: "Enter phone number",
@@ -628,7 +646,8 @@ export default {
         },
         editDestination: {
           editDestinationTitle: "Edit destination",
-          adjustDestinationDescription: "You can adjust the destination and outcomes via the form below.",
+          adjustDestinationDescription:
+            "You can adjust the destination and outcomes via the form below.",
           destinationTypeLabel: "Destination Type",
           selectTypePlaceholder: "Select type",
           outcomeLabel: "Outcome label",
@@ -637,7 +656,8 @@ export default {
         },
         selectArticle: {
           selectArticleTitle: "Select article",
-          selectArticleDescription: "You can select an article to be presented via the list below.",
+          selectArticleDescription:
+            "You can select an article to be presented via the list below.",
           articleTitleLabel: "Article title",
           articleTitleInputPlaceholder: "Enter title",
           searchInputPlaceholder: "Search for an article",
@@ -649,7 +669,8 @@ export default {
         },
         selectDocument: {
           selectDocumentTitle: "Select Document",
-          selectDocumentDescription: "You can select a document to be presented via the drop downs below.",
+          selectDocumentDescription:
+            "You can select a document to be presented via the drop downs below.",
           manufacturerLabel: "Manufacturer",
           manufacturerSelectPlaceholder: "Select manufacturer",
           typeLabel: "Type",
@@ -662,7 +683,8 @@ export default {
         selectVideo: {
           searchForVideoPlaceholder: "Search for a video",
           selectVideoTitle: "Select video",
-          selectVideoDescription: "You can select a video to be presented via the list below.",
+          selectVideoDescription:
+            "You can select a video to be presented via the list below.",
           dividerSpan: "or",
           addVideoLabel: "Add new video",
           videoURLInputPlaceholder: "Enter Video or YouTube URL",
@@ -673,7 +695,8 @@ export default {
       },
       contactUsModal: {
         contactHeader: "Contact",
-        contactUsModalParagraph: "Simply fill out the form below and someone from AlphaVictor will be in touch soon.",
+        contactUsModalParagraph:
+          "Simply fill out the form below and someone from AlphaVictor will be in touch soon.",
         nameInputPlaceholder: "Your name",
         emailInputPlaceholder: "Your email address",
         numberInputPlaceholder: "Your number",
@@ -683,14 +706,16 @@ export default {
       deleteFloorModal: {
         deleteFloorButton: "Delete floor",
         deleteFloorHeader: "Delete floor",
-        deleteFloorParagraph: "Are you sure you wish to delete this floor, this action cannot be undone",
+        deleteFloorParagraph:
+          "Are you sure you wish to delete this floor, this action cannot be undone",
         deleteButton: "Yes, delete",
         cancelButton: "No, cancel",
       },
       deleteOrganisationModal: {
         deleteOrganisationButton: "Delete organisation",
         deleteOrganisationHeader: "Delete organisation",
-        deleteOrganisationParagraph: "Are you sure you wish to delete this organisation, this action cannot be undone",
+        deleteOrganisationParagraph:
+          "Are you sure you wish to delete this organisation, this action cannot be undone",
       },
       issuesModal: {
         addCommentLabel: "Add comment",
@@ -704,14 +729,16 @@ export default {
       newFloorModal: {
         addNewFloorButton: "Add new floor +",
         addNewFloorHeader: "Add new floor",
-        createNewFloorParagraph: "You can create a new floor via the form below.",
+        createNewFloorParagraph:
+          "You can create a new floor via the form below.",
         floorNameInputPlaceholder: "Floor name",
         floorShortNameInputPlaceholder: "Floor Short Name",
       },
       newLocationModal: {
         addNewLocationSpan: "Add new location +",
         addNewLocationHeader: "Add new location",
-        addNewLocationParagraph: "You can create a new location via the form the form below.",
+        addNewLocationParagraph:
+          "You can create a new location via the form the form below.",
         locationNameLabel: "Location name",
         headquartersInputPlaceholder: "e.g. Headquarters",
         locationPrefixLabel: "Location prefix",
@@ -720,14 +747,16 @@ export default {
       newOrganisationModal: {
         createNewOrganisationButton: "Create new organisation +",
         addNewOrganisationHeader: "Add new organisation",
-        createNewOrganisationParagraph: "You can create a new organisation via the form below.",
+        createNewOrganisationParagraph:
+          "You can create a new organisation via the form below.",
         OrganisationNameInputPlaceholder: "Organisation Name",
         addNewOrganisationButton: "Add new organisation +",
       },
       newSpaceModal: {
         addNewSpaceButton: "Add new space +",
         addNewSpaceHeader: "Add new space",
-        createNewSpaceParagraph: "You can create a new space via the form below.",
+        createNewSpaceParagraph:
+          "You can create a new space via the form below.",
         spaceNameLabel: "Space name",
         spaceNamePlaceholder: "Space Name",
         spaceShortcodeLabel: "Space shortcode",
@@ -735,13 +764,15 @@ export default {
       },
       organisationSelectModal: {
         selectOrganisationHeader: "Select organisation",
-        selectOrganisationParagraph: "Here you can select the organisation that you’d like to see spaces in.",
+        selectOrganisationParagraph:
+          "Here you can select the organisation that you’d like to see spaces in.",
         selectOrganisationPlaceholder: "Select organisation",
         confirmButton: "Confirm",
       },
       ReportIssueModal: {
         reportIssueHeader: "Report Issue",
-        reportIssueParagraph: "Please provide details on the issue you're facing, and which equipment",
+        reportIssueParagraph:
+          "Please provide details on the issue you're facing, and which equipment",
         selectEquipmentLabel: "Select Equipment",
         selectEquipmentPlaceholder: "Select equipment",
         addTitleLabel: "Add title",
@@ -793,9 +824,10 @@ export default {
         admin: "Admin",
         contact: "Contact",
         email: "hello@alphavictor.com",
-        footer: "AlphaVictor® is a registered trademark of Uncoded Limited, a registered company in England and Wales with company number 11435074"
+        footer:
+          "AlphaVictor® is a registered trademark of Uncoded Limited, a registered company in England and Wales with company number 11435074",
       },
-      desktopNav:  {
+      desktopNav: {
         switchOrganisationAlt: "Switch Organisation",
         AlphaVictorAlt: "AlphaVictor",
         logout: "logout",
@@ -827,11 +859,16 @@ export default {
         },
         questionNode: {
           AlphaVictorLogoAlt: "AlphaVictor logo",
-          articleTemplateDescription: "I've found the following article that I think you'll find useful",
-          videoTemplateDescription: "I've found the following video that I think you'll find useful",
-          documentTemplateDescription: "I've found the following document that I think you'll find helpful",
-          appreciateDetailsDescription: "We'd really appreciate some more details - click below to send us an email",
-          callDescription: "I think it's best you speak to someone - click below to place a call",
+          articleTemplateDescription:
+            "I've found the following article that I think you'll find useful",
+          videoTemplateDescription:
+            "I've found the following video that I think you'll find useful",
+          documentTemplateDescription:
+            "I've found the following document that I think you'll find helpful",
+          appreciateDetailsDescription:
+            "We'd really appreciate some more details - click below to send us an email",
+          callDescription:
+            "I think it's best you speak to someone - click below to place a call",
         },
       },
       documentsList: {
@@ -853,4 +890,4 @@ export default {
       },
     },
   },
-}
+};

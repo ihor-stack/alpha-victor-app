@@ -145,6 +145,7 @@ export interface PublicAccount {
   phone: string;
   dob: string;
   gender: string;
+  activeLanguage: number;
 }
 export interface AdminMetaData {
   spaceTypes: spaceType[];
@@ -168,7 +169,7 @@ export interface OrgDetails {
   contactName: string;
   email: string;
   phone: string;
-  selectedLanguage: number;
+  selectedLanguages: number[];
   postCode: string;
   city: string;
   addressLine0: string;

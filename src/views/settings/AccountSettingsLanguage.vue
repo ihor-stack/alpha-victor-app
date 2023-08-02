@@ -15,19 +15,10 @@
           </ion-item>
         </ion-header>
         <ion-content :scroll-y="false">
-          <ion-select
-            interface="action-sheet"
-            :placeholder="$t('pages.accountSettings.language.placeholder')"
-            class="custom-select"
+          <LanguageSelect
             v-model="state.language"
-          >
-            <ion-select-option value="en">{{
-              $t("pages.accountSettings.language.english")
-            }}</ion-select-option>
-            <ion-select-option value="cy">{{
-              $t("pages.accountSettings.language.welsh")
-            }}</ion-select-option>
-          </ion-select>
+            :defaultValue="accountDetails.activeLanguage"
+          />
         </ion-content>
         <ion-footer>
           <ion-button expand="block" @click="confirm">{{
@@ -45,29 +36,37 @@ import {
   IonHeader,
   IonFooter,
   IonContent,
-  IonSelect,
-  IonSelectOption,
   IonButton,
   modalController,
   IonItem,
   IonLabel,
 } from "@ionic/vue";
 import { reactive } from "vue";
+import { Account } from "@/stores/publicAccount";
+import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 
+import LanguageSelect from "@/components/shared/LanguageSelect.vue";
+
+const locales = ["en", "cy", "fr", "es", "de", "pl"];
 const { locale } = useI18n();
+const publicAccount = Account();
+const { accountDetails } = storeToRefs(publicAccount);
 
 interface State {
-  language: string;
+  language: number;
 }
 
 const state: State = reactive({
-  language: locale.value,
+  language: accountDetails.value.activeLanguage,
 });
 
 function confirm() {
-  locale.value = state.language;
-  return modalController.dismiss();
+  accountDetails.value.activeLanguage = state.language;
+  publicAccount.updateAccount().then(() => {
+    locale.value = locales[state.language];
+    modalController.dismiss();
+  });
 }
 </script>
 

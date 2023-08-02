@@ -18,12 +18,27 @@
             <slot name="info-text"></slot>
           </p>
         </div>
+        <div class="ion-margin-top">
+          <LanguageSelect
+            v-if="isLanguage"
+            v-model="state.language"
+            :defaultValue="state.language"
+          />
+        </div>
         <div class="button-container">
-          <ion-button expand="block" @click="ctaFunc">{{$t('components.onboarding.enableButton')}}</ion-button>
+          <ion-button expand="block" @click="ctaFunc(state.language)">
+            {{
+              isLanguage
+                ? $t("pages.allowAccess.modal.confirm")
+                : $t("components.onboarding.enableButton")
+            }}
+          </ion-button>
         </div>
         <div class="link-container text-center">
           <p class="color-mid-gray font-sm">
-            <span @click="skipPermissions" class="color-light-gray link">Skip permissions</span>
+            <span @click="skipPermissions" class="color-light-gray link"
+              >Skip permissions</span
+            >
           </p>
         </div>
       </div>
@@ -35,18 +50,30 @@
 import { IonButton } from "@ionic/vue";
 import DotText from "../shared/DotText.vue";
 import { useRouter } from "vue-router";
+import { reactive } from "vue";
+
+import LanguageSelect from "@/components/shared/LanguageSelect.vue";
 
 const router = useRouter();
 
 defineProps<{
   dotText: string;
-  ctaFunc: () => void;
+  isLanguage: boolean;
+  ctaFunc: (language?: number) => void;
   signIn: () => void;
 }>();
 
+interface State {
+  language: number;
+}
+
+const state: State = reactive({
+  language: 0,
+});
+
 const skipPermissions = async () => {
   return router.replace({ name: "Dashboard" });
-}
+};
 </script>
 
 <style scoped>
@@ -112,9 +139,8 @@ const skipPermissions = async () => {
 }
 
 .link:hover {
-  opacity: .5;
+  opacity: 0.5;
 }
-
 
 .button-container {
   flex: 1;

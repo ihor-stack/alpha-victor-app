@@ -23,6 +23,7 @@ export const Organisations = defineStore("PublicOrganisations", {
     setOrganisationId(newId: string) {
       this.currentOrganisationId = newId;
       localStorage.setItem("currentOrganisationId", newId);
+      this.getOrgDetails(newId);
     },
     async getOrganisations() {
       const loadId = loadingService.show("Loading...");

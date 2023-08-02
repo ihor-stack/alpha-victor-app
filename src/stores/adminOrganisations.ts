@@ -122,7 +122,7 @@ export const Organisations = defineStore("Organisations", {
           city: editedOrg.city,
           postcode: editedOrg.postCode,
           website: editedOrg.website,
-          language: editedOrg.selectedLanguage,
+          languages: editedOrg.selectedLanguages,
         })
         .then(() => {
           toastService.show(
