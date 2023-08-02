@@ -307,6 +307,7 @@ export interface Space {
   qrCode?: string;
   spaceType: string;
   occupied: boolean;
+  organisationAnonymousAccess: boolean;
   capacity: number;
   imagePath: string;
   email?: string;
@@ -342,6 +343,7 @@ export interface DetailedSpace {
   featuredImagePath?: string;
   documents: SpaceDetailsDocs[];
   occupied: boolean;
+  organisationAnonymousAccess: boolean;
   location?: string;
   issueCount?: number;
   title?: string[];

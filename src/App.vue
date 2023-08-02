@@ -216,7 +216,7 @@ const checkPermission = () => {
     path.value !== "/dashboard" &&
     !path.value.includes("/space/")
   ) {
-    router.replace({ name: "Dashboard" });
+    router.replace({ name: "Login" });
   }
 };
 

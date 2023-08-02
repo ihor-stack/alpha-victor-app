@@ -27,7 +27,7 @@
         </ion-button>
       </template>
     </app-header>
-    <ion-content :fullscreen="true" :scroll-y="false">
+    <ion-content :fullscreen="true">
       <div class="outer-container">
         <div class="space-header">
           <div class="space-header__background">
@@ -165,16 +165,20 @@ import OccupiedStatus from "@/components/shared/OccupiedStatus.vue";
 import SpaceFeaturesSlider from "@/components/space/SpaceFeaturesSlider.vue";
 import SpaceWiFiInfo from "@/components/space/SpaceWiFiInfo.vue";
 import SpaceOptionsMenu from "@/components/space/SpaceOptionsMenu.vue";
-import { storeToRefs } from "pinia";
 import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
+import { storeToRefs } from "pinia";
+import mixpanel from "mixpanel-browser";
 
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
-import mixpanel from "mixpanel-browser";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
 const route = useRoute();
 const router = useRouter();
 const spacesStore = useSpacesStore();
+const accountStore = useAccountStore();
+
 const spaceId: string = route.params.spaceId as string;
+const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 
 const state = reactive({
   reportIssueModalOpen: false,
@@ -198,6 +202,11 @@ const goToFeedback = () => {
 onBeforeMount(() => {
   const from = route.query?.from;
   const trackKey = from === "byQR" ? "QR Code Scanned" : "Space Viewed";
+
+  if (isGuestUser.value && currentSpace.organisationAnonymousAccess == false) {
+    router.push({ name: "NoSpacesFound" });
+  }
+
   if (spacesStore.currentSpace?.id !== spaceId) {
     spacesStore.getSpaceDetails(spaceId).then((res) => {
       if (res?.name) {
