@@ -149,7 +149,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, computed, reactive } from "vue";
+import { onBeforeMount, watchEffect, computed, reactive } from "vue";
 import {
   IonPage,
   IonContent,
@@ -199,14 +199,15 @@ const goToFeedback = () => {
   router.push({ name: "Feedback" }); // replace 'RouteName' with the name of your route
 };
 
+watchEffect(() => {
+  if (currentSpace.value && currentSpace.value.organisationAnonymousAccess === false && isGuestUser.value) {
+    router.push({ name: "NoSpacesFound" });
+  }
+});
+
 onBeforeMount(() => {
   const from = route.query?.from;
   const trackKey = from === "byQR" ? "QR Code Scanned" : "Space Viewed";
-
-  if (isGuestUser.value && currentSpace.organisationAnonymousAccess == false) {
-    router.push({ name: "NoSpacesFound" });
-  }
-
   if (spacesStore.currentSpace?.id !== spaceId) {
     spacesStore.getSpaceDetails(spaceId).then((res) => {
       if (res?.name) {
