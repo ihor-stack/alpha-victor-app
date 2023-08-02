@@ -108,7 +108,7 @@ export default {
         label: "Language",
         description:
           "You can switch between languages via the drop down below.",
-        placeholder: "Select Language",
+        placeholder: "Choose your language",
         english: "English",
         french: "French",
         german: "German",
