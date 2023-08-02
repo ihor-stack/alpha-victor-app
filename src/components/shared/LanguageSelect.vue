@@ -70,15 +70,18 @@ const state: State = reactive({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const languageOptions = computed(() =>
-  currentOrganisation.value?.selectedLanguages.map(
-    (value) =>
-      languagesList.find((lng) => lng.value === value) || {
-        value: "",
-        label: "",
-      }
-  )
-);
+const languageOptions = computed(() => {
+  if (currentOrganisation.value?.selectedLanguages) {
+    return currentOrganisation.value.selectedLanguages.map(
+      (value) =>
+        languagesList.find((lng) => lng.value === value) || {
+          value: "",
+          label: "",
+        }
+    );
+  }
+  return []; // Or return a default value if needed
+});
 
 const handleChange = (event: CustomEvent) => {
   state.language = event.detail.value;

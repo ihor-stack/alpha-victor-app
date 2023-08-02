@@ -29,7 +29,7 @@
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
-      <li class="space-options-menu-item">
+      <li class="space-options-menu-item" v-if="!isGuestUser"> 
         <ion-item
           :router-link="{
             name: 'KnownIssues',
@@ -65,10 +65,15 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { computed, defineProps } from "vue";
 import { IonItem, IonIcon } from "@ionic/vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import { DetailedSpace } from "@/types";
+import { Account as useAccountStore } from "@/stores/publicAccount";
+
+const accountStore = useAccountStore();
+
+const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 
 interface Props {
   currentSpace: DetailedSpace;

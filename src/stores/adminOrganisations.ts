@@ -121,6 +121,7 @@ export const Organisations = defineStore("Organisations", {
           addressLine1: editedOrg.addressLine1,
           city: editedOrg.city,
           postcode: editedOrg.postCode,
+          anonymousAccess: editedOrg.anonymousAccess,
           website: editedOrg.website,
           languages: editedOrg.selectedLanguages,
         })

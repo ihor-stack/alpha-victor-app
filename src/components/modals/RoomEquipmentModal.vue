@@ -64,7 +64,7 @@
             >{{$t('components.modals.roomEquipmentModal.userGuideButton')}}</ion-button
           >
           <ion-button
-           
+            v-if="!isGuestUser"
             expand="block"
             @click="handleClickReportIssue"
             >{{ $t('components.modals.roomEquipmentModal.reportIssueButton') }}</ion-button
@@ -87,6 +87,11 @@ import {
   IonList,
   IonListHeader,
 } from "@ionic/vue";
+import { Account as useAccountStore } from "@/stores/publicAccount";
+
+const accountStore = useAccountStore();
+
+const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 
 const props = defineProps([
   "deviceDetails",
