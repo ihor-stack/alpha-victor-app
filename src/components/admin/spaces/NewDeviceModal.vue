@@ -173,7 +173,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount, computed } from "vue";
+import { ref, onBeforeMount, computed, watch } from "vue";
 import {
   IonPage,
   IonContent,
@@ -221,7 +221,7 @@ const equipmentList = computed(() =>
     const selectItem: SelectItem = {
       id: index,
       additionalInfo: item.id,
-      title: item.name,
+      title: item.manufactureName + " " + item.name + " " + item.assetType,
     };
     return selectItem;
   })
@@ -255,6 +255,11 @@ const saveNewDevice = () => {
     equipmentId: selectedEquipment.value.additionalInfo,
   });
 };
+
+watch(selectedEquipment, (newVal) => {
+  const parts = newVal.title.split(" ");
+  newDevice.value.name = parts[0] + " " + parts[2];
+});
 
 onBeforeMount(() => {
   if (equipmentDropdownList.value?.length < 1) {

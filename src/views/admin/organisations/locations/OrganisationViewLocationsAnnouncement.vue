@@ -59,11 +59,7 @@
               display-format="DD/MM/YYYY HH:mm:ss"
               picker-format="DD MMM YYYY HH:mm:ss"
               :value="announcement.start"
-              @ion-change="
-                (e) => {
-                  announcement.start = String(e.target.value);
-                }
-              "
+              @ionChange="setStartDate"
             ></ion-datetime>
           </ion-modal>
         </ion-col>
@@ -83,11 +79,7 @@
                 display-format="DD/MM/YYYY HH:mm:ss"
                 picker-format="DD MMM YYYY HH:mm:ss"
                 :value="announcement.end"
-                @ion-change="
-                  (e) => {
-                    announcement.end = String(e.target.value);
-                  }
-                "
+                @ionChange="setEndDate"
               ></ion-datetime>
             </ion-modal>
         </ion-col>
@@ -119,7 +111,7 @@ import {
 import { storeToRefs } from "pinia";
 import { Spaces } from "@/stores/adminSpaces";
 import { useRoute } from "vue-router";
-import { onBeforeMount } from "vue";
+import { onBeforeMount, ref } from "vue";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const route = useRoute();
@@ -130,6 +122,18 @@ const spaceId = route.params.spaceId as string;
 
 const submitAnnouncement = () => {
   Space.editSpacesAnnouncement(spaceId);
+};
+
+const modals = ref({ start: false, end: false });
+
+const setStartDate = (e: CustomEvent) => {
+  announcement.value.start = new Date(e.detail.value).toISOString();
+  modals.value.start = false;
+};
+
+const setEndDate = (e: CustomEvent) => {
+  announcement.value.end = new Date(e.detail.value).toISOString();
+  modals.value.end = false;
 };
 
 onBeforeMount(() => {

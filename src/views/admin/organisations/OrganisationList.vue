@@ -60,9 +60,11 @@ onBeforeMount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-blend-mode: difference;
 }
 .organisations-list-menu--logo img {
   object-fit: cover;
+  background-blend-mode: difference;
 }
 
 .organisations-list-menu-item ion-item {

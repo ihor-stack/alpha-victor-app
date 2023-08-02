@@ -55,9 +55,9 @@
                     <ion-input
                       class="font-size-sm"
                       :placeholder="$t('components.modals.newLocationModal.newLocationInputPlaceholder')"
-                      :value="newLocationDetails.prefix"
+                      :value="organisationDetails.prefix"
                       @ion-input="
-                        newLocationDetails.prefix = String($event.target.value)
+                        organisationDetails.prefix = String($event.target.value)
                       "
                     ></ion-input>
                   </ion-col>
@@ -81,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 import {
   IonPage,
   IonContent,
@@ -95,6 +95,7 @@ import {
 import { close } from "ionicons/icons";
 import { storeToRefs } from "pinia";
 import { Locations } from "@/stores/adminLocations";
+import { Organisations } from "@/stores/adminOrganisations";
 import { useRoute } from "vue-router";
 import toastService from "@/services/toastService";
 
@@ -103,6 +104,8 @@ const route = useRoute();
 const organisationId = route.params.id as string;
 
 const Location = Locations();
+const organisation = Organisations();
+const { organisationDetails } = storeToRefs(organisation);
 const { newLocationDetails } = storeToRefs(Location);
 
 const modalOpen = ref(false);
@@ -139,6 +142,10 @@ const saveNewLocation = () => {
     modalOpen.value = false;
   }
 };
+
+onBeforeMount(() => {
+  organisation.getOrgDetails(organisationId);
+});
 </script>
 
 <style scoped>
