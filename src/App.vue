@@ -82,7 +82,7 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
 
     if (!loginToken || loginToken == null || !(loginToken as string)) {
       // Redirect to login.
-      return router.replace({ name: "Login" });
+      return router.replace({ name: "Home" });
     }
 
     const strLoginToken = loginToken as string;
@@ -92,7 +92,7 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
     if (authRes) {
       return router.replace({ name: "Dashboard" });
     } else {
-      return router.replace({ name: "Login" });
+      return router.replace({ name: "Home" });
     }
   } else if (slug == "/reset-password") {
     // TODO: Put this here because onIonViewDidEnter isn't firing when redirecting to EmailLinkLogin.
@@ -101,7 +101,7 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
 
     if (!resetToken || resetToken == null || !(resetToken as string)) {
       // Redirect to login.
-      return router.replace({ name: "Login" });
+      return router.replace({ name: "Home" });
     }
 
     const strResetToken = resetToken as string;
@@ -115,7 +115,7 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
 
     if (!verifyToken || verifyToken == null || !(verifyToken as string)) {
       // Redirect to login.
-      return router.replace({ name: "Login" });
+      return router.replace({ name: "Home" });
     }
 
     const strVerifyToken = verifyToken as string;
@@ -125,7 +125,18 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
       query: { token: strVerifyToken },
     });
   } else if (slug.indexOf("/qr") > -1) {
-    return router.replace({ path: slug });
+
+    const orgPrefix = url.searchParams.get("o");
+    const locPrefix = url.searchParams.get("l");
+    const floorShortName = url.searchParams.get("f");
+    const spaceShortCode = url.searchParams.get("s");
+
+    if (!orgPrefix || !locPrefix || !floorShortName || !spaceShortCode) {
+      // Redirect to login.
+      return router.replace({ name: "Home" });
+    }
+
+    return router.replace({ name: "QR", query: { o: orgPrefix as string, l: locPrefix as string, f: floorShortName as string, s: spaceShortCode as string } });
   }
 });
 

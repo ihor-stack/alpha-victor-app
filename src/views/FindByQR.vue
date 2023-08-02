@@ -35,7 +35,7 @@ onBeforeMount(async () => {
 
   if (!orgPrefix || !locPrefix || !floorShortName || !spaceShortCode) {
     // Redirect to login.
-    return router.replace({ name: "Login" });
+    return router.replace({ name: "Home" });
   }
 
   const spaceResp = await spacesStore.getSpaceByQr(orgPrefix as string, locPrefix  as string, floorShortName  as string, spaceShortCode  as string);

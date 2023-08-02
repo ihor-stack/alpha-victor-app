@@ -30,7 +30,7 @@ onBeforeMount(async () => {
 
   if (!loginToken || loginToken == null || !(loginToken as string)) {
     // Redirect to login.
-    return router.replace({ name: "Login" });
+    return router.replace({ name: "Home" });
   }
 
   const strLoginToken = loginToken as string;  
