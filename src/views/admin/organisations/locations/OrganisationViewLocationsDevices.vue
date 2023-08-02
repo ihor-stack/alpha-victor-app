@@ -16,11 +16,17 @@
             <div class="list-item" slot="header" color="--av-darkest-gray">
               <div class="list-item__info">
                 <div class="list-item__details">
-                  <p
-                    class="primaryText font-bold font-size-sm color-light-gray"
-                  >
-                    {{ device.name }}
-                  </p>
+                  <ion-label>
+                    <ion-icon :src="`/img/icons/${device.icon}.svg`" />
+                    <div>
+                      <h2>
+                        {{ device.manufacturer }}
+                      </h2>
+                      <span class="equipment-list--type">{{
+                        device.name
+                      }}</span>
+                    </div>
+                  </ion-label>
                 </div>
               </div>
               <span class="arrow-right"></span>
@@ -272,6 +278,7 @@ import { storeToRefs } from "pinia";
 import { onBeforeMount, ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { SelectItem } from "@/types";
+import { chevronForwardOutline } from "ionicons/icons";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import NewDeviceModal from "@/components/admin/spaces/NewDeviceModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
@@ -359,7 +366,26 @@ onBeforeMount(() => {
   width: 100%;
 }
 
+ion-accordion-group {
+  margin-bottom: 20px;
+}
+
 ion-item {
   --background: transparent;
+}
+
+.list-item {
+  padding: 10px 0;
+}
+
+.list-item__info {
+  display: block;
+}
+
+.equipment-list--type {
+  margin-left: 10px;
+  font-family: "Akkurat-Mono";
+  font-size: var(--av-font-xs);
+  opacity: 0.5;
 }
 </style>

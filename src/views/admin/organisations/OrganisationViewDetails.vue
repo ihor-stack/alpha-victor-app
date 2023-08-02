@@ -84,6 +84,22 @@
             :handleChange="() => confirmToLeaveService.setEditing(true)"
           />
         </ion-col>
+
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+          <div class="setting">
+            <div class="setting__label">
+              <p class="label font-size-xs font-bold">{{ $t("pages.admin.organisations.view.details.visibilityToggle") }}</p>
+              <span class="sublabel font-mono font-size-xxs color-dark-gray">{{ $t("pages.admin.organisations.view.details.visibilityToggleText") }}</span>
+            </div>
+            <ion-toggle
+              v-model="organisationDetails.anonymousAccess"
+              @ionChange="
+                organisationDetails.anonymousAccess = $event.detail.checked;
+                confirmToLeaveService.setEditing(true);
+              "
+            />
+          </div>
+        </ion-col>
       </ion-row>
 
       <hr class="form-admin--divider" />
@@ -198,6 +214,7 @@ import {
   IonCol,
   IonInput,
   IonLabel,
+  IonToggle,
   IonButton,
   IonIcon,
   IonChip,

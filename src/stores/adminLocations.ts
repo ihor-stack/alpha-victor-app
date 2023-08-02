@@ -17,22 +17,7 @@ export const Locations = defineStore("Locations", {
       locations: [] as NavLocation[],
       navigationTree: [{}] as Navigation[],
       newLocationDetails: {} as NewLocDetails,
-      location: {
-        id: "",
-        name: "",
-        prefix: "",
-        mainContactName: "",
-        email: "",
-        phone: "",
-        sosNumber: "",
-        sosVip: "",
-        wifiSsid: "",
-        wifiPassword: "",
-        addressLine0: "",
-        addressLine1: "",
-        city: "",
-        postcode: "",
-      } as SingleLocation,
+      location: {} as SingleLocation
     };
   },
   actions: {

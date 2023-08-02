@@ -1,7 +1,7 @@
 <template>
   <ion-header :class="['app-header ion-no-border', noBackground ? 'no-background' : '']">
     <ion-toolbar>
-      <ion-buttons slot="start" mode="md" class="app-header--left">
+      <ion-buttons slot="start" mode="md" class="app-header--left" v-if="!isGuestUser">
         <slot name="start"></slot>
       </ion-buttons>
 
@@ -17,7 +17,7 @@
         </router-link>
       </ion-title>
 
-      <ion-buttons slot="end" mode="md" class="app-header--right">
+      <ion-buttons slot="end" mode="md" class="app-header--right" v-if="!isGuestUser">
         <slot name="end"></slot>
       </ion-buttons>
     </ion-toolbar>
@@ -33,6 +33,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+
 import {
   IonHeader,
   IonToolbar,
@@ -42,8 +44,12 @@ import {
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
+const accountStore = useAccountStore();
 const organisationStore = useOrganisationStore();
+
+const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 const { theme } = storeToRefs(organisationStore);
 
 const props = defineProps({
@@ -58,7 +64,7 @@ const props = defineProps({
   },
 });
 </script>
-
+ 
 <style scoped>
 ion-title {
   text-align: center;

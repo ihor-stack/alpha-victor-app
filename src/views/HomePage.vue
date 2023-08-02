@@ -36,6 +36,11 @@
                   <span @click="resetPassword" class="color-light-gray link"
                     >{{ $t('pages.home.resetPassword')}}</span
                   >
+
+
+                  <span @click="goToAccessFlow" class="color-light-gray link"
+                    >TESTINGGG</span
+                  >
                 </p>
               </div>
             </div>
@@ -92,6 +97,10 @@ const signInEmail = async () => {
 
 const resetPassword = async () => {
   return router.replace({ name: "ForgotPassword" });
+};
+
+const goToAccessFlow = async () => {
+  return router.replace({ name: "AllowAccess" });
 };
 
 onBeforeMount(async () => {

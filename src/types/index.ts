@@ -145,6 +145,7 @@ export interface PublicAccount {
   phone: string;
   dob: string;
   gender: string;
+  activeLanguage: number;
 }
 export interface AdminMetaData {
   spaceTypes: spaceType[];
@@ -168,12 +169,13 @@ export interface OrgDetails {
   contactName: string;
   email: string;
   phone: string;
-  selectedLanguage: number;
+  selectedLanguages: number[];
   postCode: string;
   city: string;
   addressLine0: string;
   addressLine1: string;
   website: string[];
+  anonymousAccess: boolean;
   decisionTrees: DecisionTree[];
 }
 export interface NewOrgDetails {
@@ -188,6 +190,7 @@ export interface NewOrgDetails {
   addressLine0: string;
   addressLine1: string;
   website: string[];
+  anonymousAccess: boolean;
   language: number;
 }
 export interface Integration {
@@ -233,6 +236,7 @@ export interface Location {
   email: string;
   phone: string;
   sosNumber: string;
+  sosNumberPublic: boolean;
   wifiSsid: string;
   wifiPassword: string;
   addressLine0: string;
@@ -257,6 +261,7 @@ export interface SingleLocation {
   email: string;
   phone: string;
   sosNumber: string;
+  sosNumberPublic: boolean;
   wifiSsid: string;
   wifiPassword: string;
   addressLine0: string;
@@ -302,6 +307,7 @@ export interface Space {
   qrCode?: string;
   spaceType: string;
   occupied: boolean;
+  organisationAnonymousAccess: boolean;
   capacity: number;
   imagePath: string;
   email?: string;
@@ -337,11 +343,13 @@ export interface DetailedSpace {
   featuredImagePath?: string;
   documents: SpaceDetailsDocs[];
   occupied: boolean;
+  organisationAnonymousAccess: boolean;
   location?: string;
   issueCount?: number;
   title?: string[];
   announcementText?: string[];
   showWifiPassword: boolean;
+  sosNumberPublic: boolean;
   wifiPassword?: string;
   wifiNetwork?: string;
   panorama?: Panorama;

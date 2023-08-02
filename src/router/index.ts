@@ -48,6 +48,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/onboarding/AllowAccess.vue"),
   },
   {
+    path: "/no-spaces-found",
+    name: "NoSpacesFound",
+    component: () => import("@/views/NoSpacesFound.vue"),
+  },
+  {
     path: "/dashboard",
     name: "Dashboard",
     component: () => import("@/views/dashboard/DashboardView.vue"),

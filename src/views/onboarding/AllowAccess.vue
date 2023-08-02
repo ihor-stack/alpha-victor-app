@@ -10,50 +10,61 @@
               </div>
               <div class="headline-container">
                 <h1 class="headline font-size-xl color-light-gray font-bold">
-                  {{ $t('pages.allowAccess.headline1') }}<br />
-                  {{ $t('pages.allowAccess.headline2') }}
+                  {{ $t("pages.allowAccess.headline1") }}<br />
+                  {{ $t("pages.allowAccess.headline2") }}
                 </h1>
               </div>
               <div class="allow-access-container">
                 <div class="allow-access-item">
-                  <img class="allow-access-icon" src="@/theme/icons/location.svg"
-                    :alt="$t('pages.allowAccess.location.alt')" />
+                  <img
+                    class="allow-access-icon"
+                    src="@/theme/icons/location.svg"
+                    :alt="$t('pages.allowAccess.location.alt')"
+                  />
                   <div class="allow-access-info">
                     <h4 class="font-mono font-size-normal color-light-gray">
-                      {{ $t('pages.allowAccess.location.title') }}
+                      {{ $t("pages.allowAccess.location.title") }}
                     </h4>
                     <p class="color-mid-gray font-size-xs">
-                      {{ $t('pages.allowAccess.location.description') }}
+                      {{ $t("pages.allowAccess.location.description") }}
                     </p>
                   </div>
                 </div>
                 <div class="allow-access-item">
-                  <img class="allow-access-icon" src="@/theme/icons/bluetooth.svg"
-                    :alt="$t('pages.allowAccess.bluetooth.alt')" />
+                  <img
+                    class="allow-access-icon"
+                    src="@/theme/icons/bluetooth.svg"
+                    :alt="$t('pages.allowAccess.bluetooth.alt')"
+                  />
                   <div class="allow-access-info">
                     <h4 class="font-mono font-size-normal color-light-gray">
-                      {{ $t('pages.allowAccess.bluetooth.title') }}
+                      {{ $t("pages.allowAccess.bluetooth.title") }}
                     </h4>
                     <p class="color-mid-gray font-size-xs">
-                      {{ $t('pages.allowAccess.bluetooth.description') }}
+                      {{ $t("pages.allowAccess.bluetooth.description") }}
                     </p>
                   </div>
                 </div>
                 <div class="allow-access-item">
-                  <img class="allow-access-icon" src="@/theme/icons/notifications.svg"
-                    :alt="$t('pages.allowAccess.notifications.title')" />
+                  <img
+                    class="allow-access-icon"
+                    src="@/theme/icons/notifications.svg"
+                    :alt="$t('pages.allowAccess.notifications.title')"
+                  />
                   <div class="allow-access-info">
                     <h4 class="font-mono font-size-normal color-light-gray">
-                      {{ $t('pages.allowAccess.notifications.title') }}
+                      {{ $t("pages.allowAccess.notifications.title") }}
                     </h4>
                     <p class="color-mid-gray font-size-xs">
-                      {{ $t('pages.allowAccess.notifications.description') }}
+                      {{ $t("pages.allowAccess.notifications.description") }}
                     </p>
                   </div>
                 </div>
               </div>
               <div class="button-container">
-                <ion-button @click="setOpen" expand="block">{{ $t('pages.allowAccess.btn') }}</ion-button>
+                <ion-button @click="setOpen" expand="block">{{
+                  $t("pages.allowAccess.btn")
+                }}</ion-button>
               </div>
             </div>
           </div>
@@ -70,17 +81,39 @@
           :dotText="`${permissions[state.currentPermission]}.access`"
           :ctaFunc="requestPermission"
           :signIn="signIn"
+          :isLanguage="state.currentPermission === 3"
         >
           <template v-slot:image>
             <img src="@/theme/img/onboarding-access-location.svg" />
           </template>
           <template v-slot:heading>
-            {{ $t('pages.allowAccess.modal.enable') }}<br />
-            {{ permissions[state.currentPermission] }}.
+            {{
+              $t(
+                state.currentPermission < 3
+                  ? "pages.allowAccess.modal.enable"
+                  : "pages.allowAccess.modal.language"
+              )
+            }}<br />
+            {{
+              state.currentPermission < 3
+                ? permissions[state.currentPermission]
+                : $t("pages.allowAccess.modal.selection")
+            }}.
           </template>
           <template v-slot:info-text>
-            {{ $t('pages.allowAccess.modal.text1') }}{{ permissions[state.currentPermission] }}{{
-              $t('pages.allowAccess.modal.text2') }}
+            {{
+              state.currentPermission < 3
+                ? $t("pages.allowAccess.modal.text1")
+                : ""
+            }}{{
+              state.currentPermission < 3
+                ? permissions[state.currentPermission]
+                : ""
+            }}{{
+              state.currentPermission < 3
+                ? $t("pages.allowAccess.modal.text2")
+                : $t("pages.allowAccess.modal.languageText2")
+            }}
           </template>
         </onboarding-access-panel>
       </ion-modal>
@@ -96,10 +129,18 @@ import { Diagnostic } from "@awesome-cordova-plugins/diagnostic";
 import DotText from "@/components/shared/DotText.vue";
 import OnboardingAccessPanel from "@/components/onboarding/OnboardingAccessPanel.vue";
 import Auth from "@/auth";
+import { Account } from "@/stores/publicAccount";
+import { storeToRefs } from "pinia";
+import { useI18n } from "vue-i18n";
 
-const permissions = ["location", "bluetooth", "notification"];
+const permissions = ["location", "bluetooth", "notification", "language"];
 const router = useRouter();
 const authService = new Auth();
+
+const locales = ["en", "cy", "fr", "es", "de", "pl"];
+const { locale } = useI18n();
+const publicAccount = Account();
+const { accountDetails } = storeToRefs(publicAccount);
 
 const state = reactive({
   modalOpen: false,
@@ -124,7 +165,7 @@ const handleDismiss = () => {
   state.modalOpen = false;
 };
 
-const requestPermission = async () => {
+const requestPermission = async (language?: number) => {
   try {
     if (state.currentPermission === 0) {
       await Diagnostic.requestLocationAuthorization();
@@ -132,12 +173,17 @@ const requestPermission = async () => {
       await Diagnostic.requestBluetoothAuthorization();
     } else if (state.currentPermission === 2) {
       await Diagnostic.requestRemoteNotificationsAuthorization();
+    } else if (state.currentPermission === 3 && language !== undefined) {
+      publicAccount.updateAccount().then(() => {
+        accountDetails.value.activeLanguage = language;
+        locale.value = locales[language];
+      });
     }
-    state.currentPermission < 2
+    state.currentPermission < 3
       ? (state.currentPermission = state.currentPermission + 1)
       : null;
   } catch {
-    state.currentPermission < 2
+    state.currentPermission < 3
       ? (state.currentPermission = state.currentPermission + 1)
       : null;
   }
@@ -181,7 +227,7 @@ const requestPermission = async () => {
 }
 
 .link:hover {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .allow-access-container {
