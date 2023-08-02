@@ -39,7 +39,7 @@
       </div>
 
       <ion-item
-        v-if="!nearbySpaces.length && !recentlyViewedSpaces.length"
+        v-if="state.initialFetch && !nearbySpaces.length && !recentlyViewedSpaces.length"
         lines="none"
       >
         <ion-label>
@@ -95,11 +95,13 @@ const { currentOrganisationId } = storeToRefs(organisationStore);
 interface State {
   modalOpen: boolean;
   observedBeacons: Beacon[];
+  initialFetch: boolean;
 }
 
 const state: State = reactive({
   modalOpen: false,
   observedBeacons: [],
+  initialFetch: false
 });
 
 const handleDismiss = () => {
@@ -131,6 +133,7 @@ const startRangingBeacons = async () => {
         }
       });
     }
+    state.initialFetch = true;
   });
 
   // TODO: Assuming for now we'll always be using the one Beacon with the same UUID. Extracted when originally testing.

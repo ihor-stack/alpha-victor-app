@@ -1,5 +1,5 @@
 <template>
-  <div class="decisition-list-container">
+  <div class="decision-list-container">
     <QuestionNode
       v-if="decisionTree.root"
       :nodeData="decisionTree.root"
@@ -157,7 +157,7 @@ onBeforeMount(async () => {
 </script>
 
 <style scoped>
-.decisition-list-container {
+.decision-list-container {
   padding: 0 10px 20px;
   height: 100%;
   display: flex;

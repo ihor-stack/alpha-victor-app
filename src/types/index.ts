@@ -175,6 +175,7 @@ export interface OrgDetails {
   addressLine0: string;
   addressLine1: string;
   website: string[];
+  anonymousAccess: boolean;
   decisionTrees: DecisionTree[];
 }
 export interface NewOrgDetails {
@@ -189,6 +190,7 @@ export interface NewOrgDetails {
   addressLine0: string;
   addressLine1: string;
   website: string[];
+  anonymousAccess: boolean;
   language: number;
 }
 export interface Integration {
@@ -234,6 +236,7 @@ export interface Location {
   email: string;
   phone: string;
   sosNumber: string;
+  sosNumberPublic: boolean;
   wifiSsid: string;
   wifiPassword: string;
   addressLine0: string;
@@ -258,6 +261,7 @@ export interface SingleLocation {
   email: string;
   phone: string;
   sosNumber: string;
+  sosNumberPublic: boolean;
   wifiSsid: string;
   wifiPassword: string;
   addressLine0: string;
@@ -343,6 +347,7 @@ export interface DetailedSpace {
   title?: string[];
   announcementText?: string[];
   showWifiPassword: boolean;
+  sosNumberPublic: boolean;
   wifiPassword?: string;
   wifiNetwork?: string;
   panorama?: Panorama;

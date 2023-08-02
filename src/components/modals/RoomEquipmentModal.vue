@@ -4,13 +4,16 @@
       <div class="equipment-panel__icon" v-if="deviceDetails.category">
       </div>
       <ion-header class="ion-no-border">
-        <ion-item class="modal-panel__header" lines="none">
+        <ion-item class="modal-panel__header ion-no-padding ion-no-margin" lines="none">
           <ion-label>
             <h2 class="font-bold font-size-lg">
               {{ deviceDetails.name }}
             </h2>
             <p class="font-size-xxs font-mono">{{$t('components.modals.roomEquipmentModal.deviceInformationParagraph')}}</p>
           </ion-label>
+          <div class="modal-panel__image" v-if="deviceDetails.photos.length">
+            <img :src="deviceDetails.photos[0].path" :alt="deviceDetails.name" class="modal-panel__image" />
+          </div>
         </ion-item>
       </ion-header>
       <ion-content :scroll-y="false">
@@ -155,6 +158,17 @@ ion-item::part(detail-icon) {
 
 .modal-panel {
   height: 100%;
+}
+
+.modal-panel__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-panel__image {
+  max-width: 150px;
 }
 
 .equipment-panel__icon {

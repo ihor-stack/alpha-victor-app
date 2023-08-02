@@ -82,9 +82,9 @@
             <ion-label>{{ $t("components.admin.locations.adminLocationsForm.sosVIPText") }}</ion-label>
             <ion-toggle
               color="primary"
-              :checked="location.sosVip"
+              :checked="location.sosNumberPublic"
               @ionChange="
-                location.sosVip = $event.detail.checked;
+                location.sosNumberPublic = $event.detail.checked;
                 confirmToLeaveService.setEditing(true);
               "
             />
@@ -221,6 +221,7 @@ import {
   IonRow,
   IonCol,
   IonLabel,
+  IonToggle,
   IonInput,
   IonButton,
   IonItem,
