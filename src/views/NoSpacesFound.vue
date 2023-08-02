@@ -1,5 +1,22 @@
 <template>
   <ion-page id="dashboard" class="outer-container">
+    <app-header :no-background="true">
+      <template #start>
+        <ion-button
+          class="switch-organisation"
+          shape="round"
+          @click="state.modalOpen = true"
+        >
+          <img
+            src="@/theme/icons/switch-location.svg"
+            :alt="$t('pages.dashboard.alt')"
+          />
+        </ion-button>
+      </template>
+      <template #end>
+        <ion-menu-button fill="solid"> </ion-menu-button>
+      </template>
+    </app-header>
     <ion-content :scroll-y="false">
       <ion-item
         lines="none"
@@ -20,18 +37,19 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/vue";
+import AppHeader from "@/components/shared/AppHeader.vue";
 </script>
 
 <style scoped>
-.outer-container {
-  display: flex;
-  flex-direction: column;
-}
 ion-content {
   --background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 ion-item {
   --background: transparent;
   text-align: center;
+  margin-top: 100px;
 }
 </style>
