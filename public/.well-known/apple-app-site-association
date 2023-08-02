@@ -8,7 +8,7 @@
             "/email-link-login",
             "/verify-account",
             "/reset-password",
-            "/qr/*"
+            "/qr"
         ]
       }
     ]

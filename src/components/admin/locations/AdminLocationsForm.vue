@@ -326,7 +326,7 @@ const exportQrCodes = async () => {
 
     for (let j = 0; j < f.spaces.length; j++) {
       const s = f.spaces[j];
-      const qrUrl = `${process.env.VUE_APP_BASE_URL}/qr/${organisationDetails.value.prefix}/${location.value.prefix}/${f.shortName}/${s.shortCode}`;
+      const qrUrl = `${process.env.VUE_APP_BASE_URL}/qr?o=${organisationDetails.value.prefix}&l=${location.value.prefix}&f=${f.shortName}&s=${s.shortCode}`;
       const qr = getQR(qrUrl);
       const pngData = await getPNG(qr.display, 400, 400);
 

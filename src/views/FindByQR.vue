@@ -28,10 +28,10 @@ const spacesStore = useSpacesStore();
 
 onBeforeMount(async () => {
 
-  const orgPrefix = route.params.orgPrefix;
-  const locPrefix = route.params.locPrefix;
-  const floorShortName = route.params.floorShortName;
-  const spaceShortCode = route.params.spaceShortCode;
+  const orgPrefix = route.query.o;
+  const locPrefix = route.query.l;
+  const floorShortName = route.query.f;
+  const spaceShortCode = route.query.s;
 
   if (!orgPrefix || !locPrefix || !floorShortName || !spaceShortCode) {
     // Redirect to login.
