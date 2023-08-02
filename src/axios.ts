@@ -55,30 +55,40 @@ publicAPI.interceptors.response.use(
 );
 
 const handleError = (error: any) => {
-  if (error.response.status === 401) {
-    toastService.show(
-      "Error",
-      error.response.status === 401
-        ? "Your login session has expired, please login again"
-        : error,
-      "error",
-      "bottom"
-    );
-    loadingService.closeAll();
-    router.push("/");
-  } else {
-    if (error.response.status !== 404) {
-      toastService.show(
-        "Error",
+  const status = error.response?.status;
+  let message = error;
+
+  switch (status) {
+    case 401:
+      message = "Your login session has expired, please login again";
+      router.push("/");
+      break;
+    case 403:
+      message = "You don't have permission to access this resource";
+      break;
+    case 404:
+      message = "Sorry, that can't be found";
+      break;
+    case 408:
+      message = "The server timed out waiting for the request";
+      break;
+    case 422:
+      message = "The request was understood, but it could not be processed";
+      break;
+    case 500:
+      message = "Whoops, something went wrong. Please try again later";
+      break;
+    default:
+      message =
         error.response?.data ||
-          error.response?.data?.message ||
-          error.response?.data?.title ||
-          error,
-        "error",
-        "bottom"
-      );
-    }
+        error.response?.data?.message ||
+        error.response?.data?.title ||
+        "An unknown error occurred";
+      break;
   }
+
+  toastService.show("Error", message, "error", "bottom");
+  loadingService.closeAll();
 };
 
 export { adminAPI, publicAPI };
