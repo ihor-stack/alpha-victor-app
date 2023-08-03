@@ -186,7 +186,9 @@
                     @click="removeSpacesDocument(document.id)"
                   >
                     {{
-                      $t("pages.admin.organisations.view.locations.spaces.remove")
+                      $t(
+                        "pages.admin.organisations.view.locations.spaces.remove"
+                      )
                     }}
                   </ion-button>
                 </ion-item>
@@ -256,6 +258,7 @@ import DocumentModal from "@/components/admin/spaces/DocumentModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
 import ImageGallery from "@/components/shared/ImageGallery.vue";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
+import { Photo } from "@/types";
 
 const route = useRoute();
 
@@ -290,7 +293,7 @@ const handleImageRemoved = (photoId: string) => {
   });
 };
 
-const handleImageReordered = (photos: string[]) => {
+const handleImageReordered = (photos: Photo[]) => {
   Space.reorderPhotos(photos).then(() => {
     Space.getSpaceDetails(spaceId);
   });

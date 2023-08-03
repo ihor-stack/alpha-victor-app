@@ -11,7 +11,10 @@
         v-bind:key="image.id"
       >
         <ion-thumbnail slot="start">
-          <img :alt="$t('components.shared.imageGallery.imageAlt')" :src="image.path" />
+          <img
+            :alt="$t('components.shared.imageGallery.imageAlt')"
+            :src="image.path"
+          />
         </ion-thumbnail>
         <ion-label>
           {{ image.name }}
@@ -23,7 +26,7 @@
           size="small"
           @click="removeImage(image.id)"
         >
-          {{ $t('components.shared.imageGallery.removeButton')}}
+          {{ $t("components.shared.imageGallery.removeButton") }}
         </ion-button>
         <ion-reorder slot="end" v-if="images.length > 1">
           <ion-icon :icon="menuOutline"></ion-icon>
@@ -36,11 +39,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { menuOutline } from "ionicons/icons";
+import { Photo } from "@/types";
 
 const props = defineProps(["images"]);
 const emit = defineEmits<{
   (e: "image-removed", id: string): void;
-  (e: "image-reordered", id: string[]): void;
+  (e: "image-reordered", id: Photo[]): void;
 }>();
 
 const removeImage = (id: string) => {

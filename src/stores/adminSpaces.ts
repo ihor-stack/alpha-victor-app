@@ -15,6 +15,7 @@ import {
   Hotspot,
   SpaceBeaconAvailableResponse,
   UpdatePanoramaRequest,
+  Photo,
 } from "@/types/index";
 
 import loadingService from "@/services/loadingService";
@@ -426,11 +427,19 @@ export const Spaces = defineStore("Spaces", {
         })
         .finally(() => loadingService.close(loadId));
     },
-    async reorderPhotos(photos: string[]) {
+    async reorderPhotos(photos: Photo[]) {
+      const orderedPhotos = photos.map((photo, index) => ({
+        id: photo.id,
+        order: index,
+      }));
       const loadId = loadingService.show("Loading...");
-      console.log("reorder photos API call", photos);
-
-      setTimeout(() => loadingService.close(loadId), 500);
+      return adminAPI
+        .patch(`/Photo/Order`, orderedPhotos)
+        .then(() => "success")
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => loadingService.close(loadId));
     },
 
     async addSpacesDocument(newDocument: NewDocument, spaceId: string) {
