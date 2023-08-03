@@ -418,6 +418,7 @@ export const Spaces = defineStore("Spaces", {
         fileName: photo.fileName,
         order: photo.order,
         featuredPhoto: photo.featuredPhoto,
+        caption: photo.caption || "",
       };
 
       return adminAPI

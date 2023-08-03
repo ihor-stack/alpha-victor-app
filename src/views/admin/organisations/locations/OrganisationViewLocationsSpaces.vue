@@ -140,6 +140,7 @@
               <PhotoModal
                 :isFirstPhoto="isFirstPhoto"
                 :queryParams="`spaceId=${spaceId}`"
+                :hasCaption="true"
                 :callback="() => Space.getSpaceDetails(spaceId)"
               />
             </ion-item>
