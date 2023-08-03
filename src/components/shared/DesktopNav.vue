@@ -134,7 +134,7 @@
             </ion-label>
           </ion-item>
         </li>
-        <div v-if="userPermission.isGlobalAdmin || userPermission.organisationGroups?.length">
+        <div v-if="userPermission.isGlobalAdmin || userPermission.isOrganisationAdmin">
           <div class="spacer-line"></div>
           <li class="nav-menu-link">
             <ion-item lines="none">

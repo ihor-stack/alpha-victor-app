@@ -460,6 +460,7 @@ export interface UpdatePanoramaRequest {
 export interface UserPermission {
   isGlobalAdmin: boolean;
   isGuest: boolean;
+  isOrganisationAdmin: boolean;
   organisationGroups: OrgPermission[];
 }
 export interface OrgPermission {
