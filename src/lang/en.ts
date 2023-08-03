@@ -110,8 +110,11 @@ export default {
           "You can switch between languages via the drop down below.",
         placeholder: "Choose your language",
         english: "English",
+        welsh: "Welsh",
         french: "French",
         german: "German",
+        spanish: "Spanish",
+        polish: "Polish",
         updateLanguageBtn: "Update Language Settings",
       },
       password: {

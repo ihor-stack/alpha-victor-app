@@ -11,7 +11,11 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            :placeholder="$t('pages.admin.organisations.view.details.placeholders.organisation')"
+            :placeholder="
+              $t(
+                'pages.admin.organisations.view.details.placeholders.organisation'
+              )
+            "
             :value="organisationDetails.name"
             @ion-input="
               organisationDetails.name = String($event.target.value);
@@ -25,7 +29,9 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            :placeholder="$t('pages.admin.organisations.view.details.placeholders.apl')"
+            :placeholder="
+              $t('pages.admin.organisations.view.details.placeholders.apl')
+            "
             :value="organisationDetails.prefix"
             @ion-input="
               organisationDetails.prefix = String($event.target.value);
@@ -52,7 +58,9 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            :placeholder="$t('pages.admin.organisations.view.details.placeholders.email')"
+            :placeholder="
+              $t('pages.admin.organisations.view.details.placeholders.email')
+            "
             :value="organisationDetails.email"
             @ion-input="
               organisationDetails.email = String($event.target.value);
@@ -66,7 +74,9 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            :placeholder="$t('pages.admin.organisations.view.details.placeholders.phone')"
+            :placeholder="
+              $t('pages.admin.organisations.view.details.placeholders.phone')
+            "
             :value="organisationDetails.phone"
             @ion-input="
               organisationDetails.phone = String($event.target.value);
@@ -79,8 +89,9 @@
             $t("pages.admin.organisations.view.details.language")
           }}</ion-label>
           <AdminSelect
-            v-model="selectedLanguage"
+            v-model="selectedLanguages"
             :options="languageOptions"
+            :isMultiple="true"
             :handleChange="() => confirmToLeaveService.setEditing(true)"
           />
         </ion-col>
@@ -88,8 +99,16 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <div class="setting">
             <div class="setting__label">
-              <p class="label font-size-xs font-bold">{{ $t("pages.admin.organisations.view.details.visibilityToggle") }}</p>
-              <span class="sublabel font-mono font-size-xxs color-dark-gray">{{ $t("pages.admin.organisations.view.details.visibilityToggleText") }}</span>
+              <p class="label font-size-xs font-bold">
+                {{
+                  $t("pages.admin.organisations.view.details.visibilityToggle")
+                }}
+              </p>
+              <span class="sublabel font-mono font-size-xxs color-dark-gray">{{
+                $t(
+                  "pages.admin.organisations.view.details.visibilityToggleText"
+                )
+              }}</span>
             </div>
             <ion-toggle
               v-model="organisationDetails.anonymousAccess"
@@ -111,7 +130,9 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            :placeholder="$t('pages.admin.organisations.view.details.placeholders.address1')"
+            :placeholder="
+              $t('pages.admin.organisations.view.details.placeholders.address1')
+            "
             :value="
               organisationDetails.addressLine0
                 ? organisationDetails.addressLine0
@@ -129,7 +150,9 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            :placeholder="$t('pages.admin.organisations.view.details.placeholders.address2')"
+            :placeholder="
+              $t('pages.admin.organisations.view.details.placeholders.address2')
+            "
             :value="
               organisationDetails.addressLine1
                 ? organisationDetails.addressLine1
@@ -147,7 +170,9 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            :placeholder="$t('pages.admin.organisations.view.details.placeholders.city')"
+            :placeholder="
+              $t('pages.admin.organisations.view.details.placeholders.city')
+            "
             :value="organisationDetails.city"
             @ion-input="
               organisationDetails.city = String($event.target.value);
@@ -161,7 +186,9 @@
           }}</ion-label>
           <ion-input
             class="font-size-sm"
-            :placeholder="$t('pages.admin.organisations.view.details.placeholders.postCode')"
+            :placeholder="
+              $t('pages.admin.organisations.view.details.placeholders.postCode')
+            "
             :value="organisationDetails.postCode"
             @ion-input="
               organisationDetails.postCode = String($event.target.value);
@@ -176,7 +203,11 @@
           <div class="chips-field">
             <ion-input
               class="font-size-sm"
-              :placeholder="$t('pages.admin.organisations.view.details.placeholders.website')"
+              :placeholder="
+                $t(
+                  'pages.admin.organisations.view.details.placeholders.website'
+                )
+              "
               v-model="newDomain"
               @keyup.enter="addDomain()"
             />
@@ -223,19 +254,25 @@ import { Organisations } from "@/stores/adminOrganisations";
 import { storeToRefs } from "pinia";
 import { onBeforeMount, ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { closeCircle } from "ionicons/icons";
 import toastService from "@/services/toastService";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
 
+const { t } = useI18n();
 const route = useRoute();
 const organisation = Organisations();
 const { organisationDetails } = storeToRefs(organisation);
 const organisationId = route.params.id as string;
 const languageOptions = [
-  { id: 0, title: "English" },
-  { id: 1, title: "Welsh" },
+  { id: 0, title: t("pages.accountSettings.language.english") },
+  { id: 1, title: t("pages.accountSettings.language.welsh") },
+  { id: 2, title: t("pages.accountSettings.language.french") },
+  { id: 3, title: t("pages.accountSettings.language.spanish") },
+  { id: 4, title: t("pages.accountSettings.language.german") },
+  { id: 5, title: t("pages.accountSettings.language.polish") },
 ];
 const newDomain = ref("");
 
@@ -330,15 +367,19 @@ const saveChanges = () => {
   }
 };
 
-const selectedLanguage = computed({
+const selectedLanguages = computed({
   get() {
-    return languageOptions.find(
-      (language) => organisationDetails.value.selectedLanguage === language.id
+    return (
+      organisationDetails.value?.selectedLanguages?.map((lang) =>
+        languageOptions.find((option) => option.id === lang)
+      ) || []
     );
   },
   set(newValue) {
-    if (newValue) {
-      organisationDetails.value.selectedLanguage = newValue.id;
+    if (Array.isArray(newValue)) {
+      organisationDetails.value.selectedLanguages = newValue.map(
+        (val) => val?.id || 0
+      );
     }
   },
 });

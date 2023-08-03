@@ -6,10 +6,19 @@
     <ion-input
       :id="`${props.idPrefix}-popover`"
       readonly
-      :value="props.modelValue ? props.modelValue.title : ''"
+      :value="displayValue"
       @click="openPopover($event)"
       :placeholder="placeholder"
     />
+    <template v-if="isMultiple">
+      <ion-chip v-for="(val, index) in modelValue" :key="index">
+        <ion-label>{{ val.title }}</ion-label>
+        <ion-icon
+          :icon="closeCircle"
+          @click="removeValue(Number(index))"
+        ></ion-icon>
+      </ion-chip>
+    </template>
     <ion-popover
       :is-open="state.popoverOpen"
       :event="state.event"
@@ -30,6 +39,15 @@
           @click="onOptionClick(option)"
         >
           {{ option.title }}
+          <div v-if="isMultiple">
+            <div
+              v-if="isSelected(option)"
+              class="color-green selected-item-wrapper"
+            >
+              <ion-icon :icon="checkmarkCircle" size="small" />selected
+            </div>
+            <div v-else class="color-primary">>> select</div>
+          </div>
         </li>
       </ul>
     </ion-popover>
@@ -37,17 +55,26 @@
 </template>
 
 <script setup lang="ts">
-import { IonLabel, IonInput, IonPopover, IonSearchbar } from "@ionic/vue";
+import {
+  IonLabel,
+  IonInput,
+  IonPopover,
+  IonSearchbar,
+  IonIcon,
+  IonChip,
+} from "@ionic/vue";
+import { checkmarkCircle, closeCircle } from "ionicons/icons";
 import { SelectItem } from "@/types/index";
-import { onUpdated, reactive } from "vue";
+import { onUpdated, reactive, computed } from "vue";
 
 interface Props {
   label?: string;
   idPrefix: string;
-  modelValue?: SelectItem;
+  modelValue?: SelectItem | SelectItem[];
   options: SelectItem[];
   isSearchable?: boolean;
   placeholder?: string;
+  isMultiple?: boolean;
   handleChange?: () => void;
 }
 
@@ -61,6 +88,14 @@ const state = reactive({
   event: {} as Event,
 });
 
+const displayValue = computed(() => {
+  if (Array.isArray(props.modelValue)) {
+    return props.modelValue.map((val) => val.title).join(", ");
+  } else {
+    return props.modelValue?.title || "";
+  }
+});
+
 const emit = defineEmits(["update:modelValue"]);
 
 function openPopover(e: Event) {
@@ -68,9 +103,33 @@ function openPopover(e: Event) {
   state.popoverOpen = true;
 }
 
+function removeValue(index: number) {
+  const prevValues = [...(props.modelValue || [])];
+  prevValues.splice(index, 1);
+  emit("update:modelValue", prevValues);
+}
+
+function isSelected(option: SelectItem) {
+  return props.modelValue?.some(
+    (value: SelectItem) => value.title === option.title
+  );
+}
+
 function onOptionClick(option: SelectItem) {
-  state.popoverOpen = false;
-  emit("update:modelValue", option);
+  if (props.isMultiple) {
+    let newValue = props.modelValue;
+    if (isSelected(option)) {
+      newValue = props.modelValue?.filter(
+        (value: SelectItem) => value.title !== option.title
+      );
+    } else {
+      newValue = [...newValue, option];
+    }
+    emit("update:modelValue", newValue);
+  } else {
+    state.popoverOpen = false;
+    emit("update:modelValue", option);
+  }
   props.handleChange && props.handleChange();
 }
 
@@ -108,6 +167,9 @@ ion-popover .admin-select--item {
   padding: 20px 0;
   border-bottom: 1px solid var(--av-mid-gray);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 ion-popover .admin-select--item:hover {
   color: var(--av-mid-gray);
@@ -118,5 +180,17 @@ ion-popover .admin-select--item:last-of-type {
 ion-searchbar,
 ion-searchbar .searchbar-input {
   background: #fff;
+}
+
+.selected-item-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+ion-chip {
+  --background: var(--av-primary);
+  --color: var(--av-light-gray);
+  margin-top: 15px;
 }
 </style>
