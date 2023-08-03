@@ -4,11 +4,14 @@ import {
   OAuth2RefreshTokenOptions,
 } from "@byteowls/capacitor-oauth2";
 
+import { isPlatform } from "@ionic/vue";
+
 // Secure Storage Constants.
 const SECURE_STORE_ACCESS_TOKEN = "SECURE_STORE_ACCESS_TOKEN";
 const SECURE_STORE_REFRESH_TOKEN = "SECURE_STORE_REFRESH_TOKEN";
 const SECURE_STORE_EXPIRES_AT = "SECURE_STORE_EXPIRES_AT";
 const SECURE_STORE_ISSUED_AT = "SECURE_STORE_ISSUED_AT";
+const SECURE_STORE_AUTH_TYPE = "SECURE_STORE_AUTH_TYPE";
 
 export default class Auth {
   // Helper Methods
@@ -83,7 +86,7 @@ export default class Auth {
     localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
   }
 
-  async isTokenFresh(secondsMargin: number = 60 * 10 * -1): Promise<boolean> {
+  async isTokenFresh(secondsMargin: number = 60 * 2 * -1): Promise<boolean> {
     const accessToken = localStorage.getItem(SECURE_STORE_ACCESS_TOKEN);
     const expiresAt = localStorage.getItem(SECURE_STORE_EXPIRES_AT);
 
@@ -123,6 +126,7 @@ export default class Auth {
       localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken);
       localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
       localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
+      localStorage.setItem(SECURE_STORE_AUTH_TYPE, emailLinkLogin ? 'EmailLinkLogin' : 'UsernamePassword');
 
       return true;
     } catch {
@@ -132,30 +136,70 @@ export default class Auth {
 
   async refresh(): Promise<boolean> {
     let refreshToken = localStorage.getItem(SECURE_STORE_REFRESH_TOKEN);
+    const authType = localStorage.getItem(SECURE_STORE_AUTH_TYPE);
 
     if (!refreshToken || refreshToken === "undefined") return false;
+    if (!authType || authType === "undefined") return false;
 
     try {
       const oidcRefreshOptions = Auth.getOidcRefreshOptions(refreshToken);
+      const oidcAuthOptions = Auth.getOidcOptions(authType === 'EmailLinkLogin', null);
 
-      const resp = await OAuth2Client.refreshToken(oidcRefreshOptions);
+      if (!isPlatform('ios') && !isPlatform('android')) {
+        // We need to do the refresh call ourselves.
 
-      const accessToken = resp["access_token_response"]["access_token"];
-      refreshToken = resp["access_token_response"]["refresh_token"];
-      let expiresAt = resp["access_token_response"]["expires_at"];
-      const issuedAt = Auth.getCurrentTimeInSeconds().toString();
+        const endpoint = oidcAuthOptions.accessTokenEndpoint;
 
-      if (!expiresAt) {
-        expiresAt = resp["access_token_response"]["expires_on"];
+        if (!endpoint) return false;
+
+        const rawResponse = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+            'grant_type': 'refresh_token',
+            'client_id': oidcRefreshOptions.appId,
+            'refresh_token': oidcRefreshOptions.refreshToken,
+            'redirect_uri': oidcAuthOptions.redirectUrl ?? ""
+          })
+        });
+
+        const resp = await rawResponse.json();
+
+        const accessToken = resp["access_token"];
+        refreshToken = resp["refresh_token"];
+        const expiresAt = resp["expires_on"];
+        const issuedAt = Auth.getCurrentTimeInSeconds().toString();
+
+        localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
+        localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken as string);
+        localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
+        localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
+
+      }
+      else {
+
+        const resp = await OAuth2Client.refreshToken(oidcRefreshOptions);
+
+        const accessToken = resp["access_token_response"]["access_token"];
+        refreshToken = resp["access_token_response"]["refresh_token"];
+        let expiresAt = resp["access_token_response"]["expires_at"];
+        const issuedAt = Auth.getCurrentTimeInSeconds().toString();
+
+        if (!expiresAt) {
+          expiresAt = resp["access_token_response"]["expires_on"];
+        }
+
+        localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
+        localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken as string);
+        localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
+        localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
       }
 
-      localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
-      localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken as string);
-      localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
-      localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
-
       return true;
-    } catch {
+    } catch (e) {
       return false;
     }
   }
@@ -190,6 +234,7 @@ export default class Auth {
       localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, "");
       localStorage.setItem(SECURE_STORE_EXPIRES_AT, "");
       localStorage.setItem(SECURE_STORE_ISSUED_AT, "");
+      localStorage.setItem(SECURE_STORE_AUTH_TYPE, "");
       return true;
     } catch (error) {
       console.log(error);
