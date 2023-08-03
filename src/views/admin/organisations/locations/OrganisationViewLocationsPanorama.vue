@@ -170,9 +170,9 @@ const setupPanorama = () => {
     mouseZoom: true,
     doubleClickZoom: true,
     compass: false,
-    hfov: 90,
-    yaw: 0,
-    pitch: 0,
+    hfov: currentPanorama.value?.initialViewHfov ?? 90,
+    yaw: currentPanorama.value?.initialViewYaw ?? 0,
+    pitch: currentPanorama.value?.initialViewPitch ?? 0,
     minHfov: 30,
     maxHfov: 120,
   };
@@ -203,11 +203,11 @@ const setupPanorama = () => {
   viewer.on("mouseup", endClick);
   viewer.on("load", drawHotspots);
   if (currentPanorama?.value?.initialViewPitch)
-    viewer.setPitch(currentPanorama.value.initialViewPitch);
+  viewer.setPitch(currentPanorama.value.initialViewPitch);
   if (currentPanorama?.value?.initialViewYaw)
-    viewer.setPitch(currentPanorama.value.initialViewYaw);
+    viewer.setYaw(currentPanorama.value.initialViewYaw);
   if (currentPanorama?.value?.initialViewHfov)
-    viewer.setPitch(currentPanorama.value.initialViewHfov);
+    viewer.setHfov(currentPanorama.value.initialViewHfov);
 
   const addHotspot = (event: MouseEvent) => {
     if (event.movementX > 0 || event.movementY > 0) return;

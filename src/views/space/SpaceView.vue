@@ -361,11 +361,11 @@ onBeforeMount(() => {
 }
 
 .announcement {
-  background: var(--ion-color-light);
-  border: 1px solid #313131;
+  background: var(--av-red);
   border-radius: 4px;
   padding: 4px 12px;
   margin-bottom: 12px;
+  color: #fff;
 }
 
 .announcement .item-inner {
@@ -377,12 +377,13 @@ onBeforeMount(() => {
   font-weight: 700;
   font-size: 14px;
   line-height: 14px;
+  letter-spacing: -0.02rem;
 }
 
 .announcement p {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 16px;
-  color: #fff;
+  color: rgba(255,255,255,.75);
 }
 
 .ctas {

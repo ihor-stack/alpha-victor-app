@@ -122,11 +122,9 @@ const { locations } = storeToRefs(location);
 const organisationId = route.params.id as string;
 
 onBeforeMount(() => {
-  if (organisation.organisationDetails?.id !== organisationId) {
-    organisation.setId(organisationId);
-    organisation.getOrgDetails(organisationId);
-    location.getLocations(organisationId);
-  }
+  organisation.setId(organisationId);
+  organisation.getOrgDetails(organisationId);
+  location.getLocations(organisationId);
 });
 </script>
 

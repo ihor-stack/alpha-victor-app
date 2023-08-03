@@ -51,15 +51,15 @@
           }}</ion-label>
 
           <div class="custom-input date-wrapper">
-            <ion-datetime-button datetime="start"></ion-datetime-button>
+            <ion-datetime-button datetime="from"></ion-datetime-button>
           </div>
           <ion-modal :keep-contents-mounted="true">
           <ion-datetime
-              id="start"
+              id="from"
               display-format="DD/MM/YYYY HH:mm:ss"
               picker-format="DD MMM YYYY HH:mm:ss"
-              :value="announcement.start"
-              @ionChange="setStartDate"
+              :value="announcement.from"
+              @ionChange="setFromDate"
             ></ion-datetime>
           </ion-modal>
         </ion-col>
@@ -71,15 +71,15 @@
           }}</ion-label>
 
           <div class="custom-input date-wrapper">
-            <ion-datetime-button datetime="end"></ion-datetime-button>
+            <ion-datetime-button datetime="to"></ion-datetime-button>
           </div>
           <ion-modal :keep-contents-mounted="true">
             <ion-datetime
-                id="end"
+                id="to"
                 display-format="DD/MM/YYYY HH:mm:ss"
                 picker-format="DD MMM YYYY HH:mm:ss"
-                :value="announcement.end"
-                @ionChange="setEndDate"
+                :value="announcement.to"
+                @ionChange="setToDate"
               ></ion-datetime>
             </ion-modal>
         </ion-col>
@@ -105,6 +105,8 @@ import {
   IonRow,
   IonCol,
   IonInput,
+  IonDatetimeButton,
+  IonDatetime,
   IonButton,
   IonLabel,
 } from "@ionic/vue";
@@ -124,16 +126,16 @@ const submitAnnouncement = () => {
   Space.editSpacesAnnouncement(spaceId);
 };
 
-const modals = ref({ start: false, end: false });
+const modals = ref({ from: false, to: false });
 
-const setStartDate = (e: CustomEvent) => {
-  announcement.value.start = new Date(e.detail.value).toISOString();
-  modals.value.start = false;
+const setFromDate = (e: CustomEvent) => {
+  announcement.value.from = new Date(e.detail.value).toISOString();
+  modals.value.from = false;
 };
 
-const setEndDate = (e: CustomEvent) => {
-  announcement.value.end = new Date(e.detail.value).toISOString();
-  modals.value.end = false;
+const setToDate = (e: CustomEvent) => {
+  announcement.value.to = new Date(e.detail.value).toISOString();
+  modals.value.to = false;
 };
 
 onBeforeMount(() => {

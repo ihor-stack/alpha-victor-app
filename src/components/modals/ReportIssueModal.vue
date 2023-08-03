@@ -102,12 +102,12 @@ const props = defineProps(["spaceId", "handleReportIssue"]);
 const state = reactive({
   title: "",
   comment: "",
-  deviceId: "0",
+  deviceId: null,
   canSubmit: false,
 });
 
 const otherDevice: Device = {
-  id: '0',
+  id: null,
   name: 'Other'
 };
 
@@ -117,8 +117,7 @@ const allDevices = computed(() => {
 
 const checkForInputs = () => {
   return state.title.length > 0 &&
-    state.comment.length > 0 &&
-    (state.deviceId.length > 0 && state.deviceId != null)
+    state.comment.length > 0
     ? (state.canSubmit = true)
     : (state.canSubmit = false);
 };
@@ -262,6 +261,10 @@ ion-item::part(native) {
 
 .form-admin--group_field {
   padding-right: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+ion-textarea {
+  font-size: 14px;
 }
 </style>

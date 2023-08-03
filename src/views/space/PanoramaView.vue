@@ -147,9 +147,9 @@ const setupPanorama = () => {
     mouseZoom: true,
     doubleClickZoom: true,
     compass: false,
-    hfov: 90,
-    yaw: 0,
-    pitch: 0,
+    hfov: currentPanorama.value?.initialViewHfov ?? 90,
+    yaw: currentPanorama.value?.initialViewYaw ?? 0,
+    pitch: currentPanorama.value?.initialViewPitch ?? 0,
     minHfov: 30,
     maxHfov: 120,
   };
@@ -161,9 +161,6 @@ const setupPanorama = () => {
   };
 
   viewer.on("load", drawHotspots);
-  viewer.setPitch(currentPanorama.value?.initialViewPitch ?? 0);
-  viewer.setYaw(currentPanorama.value?.initialViewYaw ?? 0);
-  viewer.setHfov(currentPanorama.value?.initialViewHfov ?? 0);
 };
 
 const setInitialView = () => {

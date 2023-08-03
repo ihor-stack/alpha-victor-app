@@ -391,8 +391,8 @@ export interface SpaceBeaconAvailableResponse {
 export interface SpaceAnnouncement {
   title: string;
   text: string;
-  start: string;
-  end: string;
+  from: string;
+  to: string;
 }
 
 export interface SpaceWifi {

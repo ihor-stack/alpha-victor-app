@@ -253,9 +253,9 @@ export const Spaces = defineStore("Spaces", {
             "&Text=" +
             this.announcement.text +
             "&From=" +
-            this.announcement.start +
+            this.announcement.from +
             "&To=" +
-            this.announcement.end
+            this.announcement.to
         )
         .then(() => {
           confirmToLeaveService.setEditing(false);
