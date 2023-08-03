@@ -459,6 +459,8 @@ export default {
       headline: "a better experience",
       signin: "Log in",
       signup: "Sign up",
+      signinsignup: "Login or register",
+      anonymousMessage: "Save favourite spaces and devices for quick access, browse available resources and more with a free Alpha Victor account.",
       emailSignin: "Prefer to login via email?",
       link: "Send me a login link",
       resetPassword: "I've forgot my password",

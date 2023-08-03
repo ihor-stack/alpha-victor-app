@@ -24,7 +24,7 @@
               />
             </div>
           </ion-title>
-          <ion-button fill="clear" @click="logout" class="logout-button">
+          <ion-button v-if="isAuthenticated" fill="clear" @click="logout" class="logout-button">
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
             <span class="font-bold font-size-xs low-caps">{{
               $t("components.shared.desktopNav.logout")
@@ -192,7 +192,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, onBeforeMount } from "vue";
 import {
   IonTitle,
   IonContent,
@@ -221,6 +221,7 @@ const authService = new Auth();
 const accountStore = useAccountStore();
 const authStore = useAuthStore();
 const { userPermission } = storeToRefs(accountStore);
+const { isAuthenticated } = storeToRefs(authStore);
 const organisationStore = useOrganisationStore();
 const { theme } = storeToRefs(organisationStore);
 

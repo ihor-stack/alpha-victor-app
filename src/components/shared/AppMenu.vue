@@ -2,7 +2,7 @@
   <ion-menu content-id="content">
     <app-header class="no-background">
       <template #start>
-        <ion-menu-toggle>
+        <ion-menu-toggle v-if="isAuthenticated">
           <ion-button
             fill="clear"
             class="logout-button color-light-gray"
@@ -28,7 +28,7 @@
     </app-header>
     <ion-content class="ion-padding">
       <ul class="nav-menu">
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="isAuthenticated">
           <ion-menu-toggle>
             <ion-item
               router-link="/dashboard"
@@ -40,7 +40,19 @@
             </ion-item>
           </ion-menu-toggle>
         </li>
-        <li class="nav-menu-link" v-if="!isGuestUser">
+        <li class="nav-menu-link" v-if="!isAuthenticated">
+          <ion-menu-toggle>
+            <ion-item
+              router-link="/"
+              lines="none"
+              router-direction="root"
+              :detail="true"
+            >
+              <span class="link-text">{{ $t("components.shared.appMenu.dashboard") }}</span>
+            </ion-item>
+          </ion-menu-toggle>
+        </li>
+        <li class="nav-menu-link" v-if="isAuthenticated && !isGuestUser">
           <ion-menu-toggle>
             <ion-item
               router-link="/favourites"
@@ -52,7 +64,7 @@
             </ion-item>
           </ion-menu-toggle>
         </li>
-        <li class="nav-menu-link" v-if="!isGuestUser">
+        <li class="nav-menu-link" v-if="isAuthenticated && !isGuestUser">
           <ion-menu-toggle>
             <ion-item
               router-link="/find-space/location"
@@ -64,7 +76,7 @@
             </ion-item>
           </ion-menu-toggle>
         </li>
-        <li class="nav-menu-link" v-if="!isGuestUser">
+        <li class="nav-menu-link" v-if="isAuthenticated && !isGuestUser">
           <ion-menu-toggle>
             <ion-item
               router-link="/recently-viewed"
@@ -76,7 +88,7 @@
             </ion-item>
           </ion-menu-toggle>
         </li>
-        <li class="nav-menu-link" v-if="!isGuestUser">
+        <li class="nav-menu-link" v-if="isAuthenticated && !isGuestUser">
           <ion-menu-toggle>
             <ion-item
               router-link="/settings"
@@ -178,6 +190,7 @@ import {
 } from "@ionic/vue";
 import { closeOutline, logOutOutline } from "ionicons/icons";
 import mixpanel from "mixpanel-browser";
+import { storeToRefs } from "pinia";
 
 import { useRouter } from "vue-router";
 import Auth from "@/auth";
@@ -189,6 +202,7 @@ const router = useRouter();
 const authService = new Auth();
 const accountStore = useAccountStore();
 const authStore = useAuthStore();
+const { isAuthenticated } = storeToRefs(authStore);
 
 const canAccessAdmin = computed(
   () =>
