@@ -592,8 +592,7 @@ export default {
     };
 
     const onMouseDown = (e) => {
-      const mobile = isPlatform("mobile");
-      const event = mobile ? e.targetTouches[0] : e;
+      const event = e && e.targetTouches && e.targetTouches.length > 0 ? e.targetTouches[0] : e;
       const clientX = event.clientX;
       const clientY = event.clientY;
       const top = event.target.getBoundingClientRect().top;
@@ -770,8 +769,7 @@ export default {
     };
 
     const onDrag = (e) => {
-      const mobile = isPlatform("mobile");
-      const event = mobile ? e.targetTouches[0] : e;
+      const event = e && e.targetTouches && e.targetTouches.length > 0 ? e.targetTouches[0] : e;
       const clientX = event.clientX;
       const clientY = event.clientY;
       const top = event.target.getBoundingClientRect().top;

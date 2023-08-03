@@ -151,7 +151,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, watchEffect, computed, reactive } from "vue";
+import { onBeforeMount, watchEffect, watch, computed, reactive } from "vue";
 import {
   IonPage,
   IonContent,
@@ -202,10 +202,17 @@ const goToFeedback = () => {
   router.push({ name: "Feedback" }); // replace 'RouteName' with the name of your route
 };
 
-watchEffect(() => {
+const checkSpaceAccess = () => {
   if (currentSpace.value && currentSpace.value.organisationAnonymousAccess === false && isGuestUser.value) {
+    console.log(currentSpace.value);
+    console.log(isGuestUser.value);
+    currentSpace.value
     router.push({ name: "NoSpacesFound" });
   }
+}
+
+watch(currentSpace, () => {
+  checkSpaceAccess();
 });
 
 onBeforeMount(() => {
@@ -227,6 +234,7 @@ onBeforeMount(() => {
     });
     spacesStore.getSpaceDevices(spaceId);
   } else {
+    checkSpaceAccess();
     state.isLoadingSpaceDetails = false; // Set to false if no fetch needed
 
     mixpanel.track(trackKey, {
@@ -236,7 +244,10 @@ onBeforeMount(() => {
       space: spacesStore.currentSpace.name,
     });
   }
-  spacesStore.setRecentlyViewedSpace(spaceId);
+
+  if (!isGuestUser.value) {
+    spacesStore.setRecentlyViewedSpace(spaceId);
+  }
 });
 </script>
 

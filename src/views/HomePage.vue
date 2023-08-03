@@ -54,27 +54,10 @@ const goToLogIn = () => {
 
 onMounted(async () => {
 
-  const currentOrgId = localStorage.getItem("currentOrganisationId");
-  let hasFreshLogin = await authService.isTokenFresh();
-  if (!hasFreshLogin) {
-    hasFreshLogin = await authService.refresh();
-  }
-
-  if (hasFreshLogin) {
-    authStore.setAuthStatus(true);
-    if (currentOrgId) {
-      organisationStore.setOrganisationId(currentOrgId);
-    }
-    accountStore.getPermissions();
-    organisationStore.getOrganisations();
-  } else {
-    authStore.setAuthStatus(false);
-    organisationStore.setOrgTheme();
-  }
-
-  if(isAuthenticated.value) {
+  if(isAuthenticated.value && !accountStore.userPermission.isGuest) {
     router.push({ name: "Dashboard" });
   }
+  
 })
 
 onMounted(() => {

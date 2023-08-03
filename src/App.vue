@@ -8,13 +8,13 @@
         </ion-col>
         <ion-col>
           <ion-content class="ion-no-padding">
-            <router-view id="content" />
+            <router-view id="content" v-if="initComplete" />
           </ion-content>
         </ion-col>
       </ion-row>
     </ion-grid>
     <LoadingIndicator
-      v-if="loadingService.loading.value.isLoading"
+      v-if="loadingService.loading.value.isLoading || !initComplete"
       :message="loadingService.loading.value.message"
       :isLoading="loadingService.loading.value.isLoading"
       :duration="loadingService.loading.value.duration"
@@ -66,6 +66,8 @@ const authService = new Auth();
 const isScanning = ref(false);
 provide("isScanning", isScanning);
 
+const initComplete = ref(false);
+
 App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
   if (!event.url) return;
 
@@ -96,6 +98,7 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
       authStore.setAuthStatus(false);
       return router.replace({ name: "Home" });
     }
+    
   } else if (slug == "/reset-password") {
     // TODO: Put this here because onIonViewDidEnter isn't firing when redirecting to EmailLinkLogin.
 
@@ -222,6 +225,15 @@ watch(userPermission, () => {
   checkPermission();
 });
 
+// TOOD: Put this into Rotue metadata.
+const guestAllowedRoutes = [
+  '/',
+  '/about',
+  '/terms-and-conditions',
+  '/space/',
+  '/legal-notices'
+];
+
 const checkPermission = () => {
   if (
     !userPermission.value.isGlobalAdmin &&
@@ -232,17 +244,16 @@ const checkPermission = () => {
   ) {
     router.replace({ name: "Dashboard" });
   } else if (
-    userPermission.value.isGuest &&
-    path.value !== "/dashboard" &&
-    !path.value.includes("/space/")
+    userPermission.value.isGuest && guestAllowedRoutes.find(ar => path.value.startsWith(ar)) === undefined
   ) {
-    router.replace({ name: "Login" });
+    router.replace({ name: "Home" });
   }
 };
 
 onBeforeMount(async () => {
   const i18n = inject("i18n");
   updateThemeFromStorage();
+
   const currentOrgId = localStorage.getItem("currentOrganisationId");
   let hasFreshLogin = await authService.isTokenFresh();
   if (!hasFreshLogin) {
@@ -250,16 +261,21 @@ onBeforeMount(async () => {
   }
 
   if (hasFreshLogin) {
+
+    await accountStore.getPermissions();
+    await organisationStore.getOrganisations();
     authStore.setAuthStatus(true);
+
     if (currentOrgId) {
       organisationStore.setOrganisationId(currentOrgId);
     }
-    accountStore.getPermissions();
-    organisationStore.getOrganisations();
+
   } else {
     authStore.setAuthStatus(false);
     organisationStore.setOrgTheme();
   }
+
+  initComplete.value = true;
 });
 </script>
 

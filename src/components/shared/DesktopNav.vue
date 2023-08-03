@@ -5,7 +5,7 @@
         <div class="header-spacing">
           <ion-button
             class="switch-organisation"
-            v-if="isAuthenticated" 
+            v-if="isAuthenticated && !userPermission.isGuest" 
             shape="round"
             @click="state.modalOpen = true"
           >
@@ -25,7 +25,7 @@
               />
             </div>
           </ion-title>
-          <ion-button v-if="isAuthenticated" fill="clear" @click="logout" class="logout-button">
+          <ion-button v-if="isAuthenticated && !userPermission.isGuest" fill="clear" @click="logout" class="logout-button">
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
             <span class="font-bold font-size-xs low-caps">{{
               $t("components.shared.desktopNav.logout")
@@ -36,7 +36,7 @@
     </desktop-header>
     <ion-content class="ion-padding no-tp">
       <ul class="nav-menu">
-        <li class="nav-menu-link" v-if="isAuthenticated">
+        <li class="nav-menu-link" v-if="isAuthenticated && !userPermission.isGuest">
           <ion-item
             lines="none"
             :detail="true"
@@ -62,7 +62,7 @@
           </ion-item>
         </li>
 
-        <li class="nav-menu-link" v-if="isAuthenticated">
+        <li class="nav-menu-link" v-if="isAuthenticated && !userPermission.isGuest">
           <ion-item
             lines="none"
             :detail="true"
@@ -74,7 +74,7 @@
             </ion-label>
           </ion-item>
         </li>
-        <li class="nav-menu-link" v-if="isAuthenticated">
+        <li class="nav-menu-link" v-if="isAuthenticated && !userPermission.isGuest">
           <ion-item
             lines="none"
             :detail="true"
@@ -86,7 +86,7 @@
             </ion-label>
           </ion-item>
         </li>
-        <li class="nav-menu-link" v-if="isAuthenticated">
+        <li class="nav-menu-link" v-if="isAuthenticated && !userPermission.isGuest">
           <ion-item
             lines="none"
             :detail="true"
@@ -98,7 +98,7 @@
             </ion-label>
           </ion-item>
         </li>
-        <li class="nav-menu-link" v-if="isAuthenticated">
+        <li class="nav-menu-link" v-if="isAuthenticated && !userPermission.isGuest">
           <ion-item
             lines="none"
             :detail="true"
@@ -229,7 +229,7 @@ import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal
 import Auth from "@/auth";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
-import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import { defaultTheme, Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const router = useRouter();
@@ -260,6 +260,8 @@ const logout = async () => {
       email: accountStore.accountDetails.email,
     });
     authStore.setAuthStatus(false);
+    accountStore.logoutPermission();
+    organisationStore.setOrgTheme(defaultTheme);
     return router.replace({ name: "Home" });
   }
 };

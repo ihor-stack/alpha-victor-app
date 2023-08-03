@@ -5,6 +5,7 @@ import { PublicAccount, UserPermission, IUserData } from "@/types/index";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import router from "@/router";
+import axios from "axios";
 
 export const Account = defineStore("Account", {
   state: () => {
@@ -41,14 +42,17 @@ export const Account = defineStore("Account", {
         });
     },
     async getPermissions() {
-      publicAPI
-        .get<UserPermission>("/Identity/GetUserPermissions")
-        .then((response) => {
-          this.userPermission = response.data;
-        })
-        .catch((error) => {
-          toastService.show("Error", error, "error", "bottom");
-        });
+
+      try {
+        const response = await publicAPI.get<UserPermission>("/Identity/GetUserPermissions");
+        this.userPermission = response.data;
+      }
+      catch (e) {
+        if (axios.isAxiosError(e)) {
+          console.log(e);
+          toastService.show("Error", "", "error", "bottom");
+        }
+      }
     },
     async registerUser(userData: IUserData) {
       const loadId = loadingService.show("Loading...");
@@ -145,5 +149,13 @@ export const Account = defineStore("Account", {
           return response;
         });
     },
+    logoutPermission() {
+      this.userPermission = {
+        isGlobalAdmin: false,
+        isGuest: false,
+        organisationGroups: []
+      };
+      
+    }
   },
 });

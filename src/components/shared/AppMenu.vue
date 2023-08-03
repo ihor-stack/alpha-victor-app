@@ -2,7 +2,7 @@
   <ion-menu content-id="content">
     <app-header class="no-background">
       <template #start>
-        <ion-menu-toggle v-if="isAuthenticated">
+        <ion-menu-toggle v-if="isAuthenticated && !isGuestUser">
           <ion-button
             fill="clear"
             class="logout-button color-light-gray"
@@ -28,7 +28,7 @@
     </app-header>
     <ion-content class="ion-padding">
       <ul class="nav-menu">
-        <li class="nav-menu-link" v-if="isAuthenticated">
+        <li class="nav-menu-link" v-if="isAuthenticated && !isGuestUser">
           <ion-menu-toggle>
             <ion-item
               router-link="/dashboard"
@@ -197,11 +197,13 @@ import Auth from "@/auth";
 import AppHeader from "./AppHeader.vue";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
+import { defaultTheme, Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
 const router = useRouter();
 const authService = new Auth();
 const accountStore = useAccountStore();
 const authStore = useAuthStore();
+const organisationStore = useOrganisationStore();
 const { isAuthenticated } = storeToRefs(authStore);
 
 const canAccessAdmin = computed(
@@ -220,6 +222,8 @@ const logout = async () => {
       email: accountStore.accountDetails.email,
     });
     authStore.setAuthStatus(false);
+    accountStore.logoutPermission();
+    organisationStore.setOrgTheme(defaultTheme);
     return router.replace({ name: "Home" });
   }
 };

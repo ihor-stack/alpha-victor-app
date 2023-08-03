@@ -48,6 +48,15 @@ const confirmVerificationToken = async (token: string) => {
       .confirmEmailVerification(token)
       .then((res) => {
 
+        const loginToken = res.data.loginToken;
+
+        if (!loginToken) throw "Your account could not be verified.";
+
+        return authService.authenticate(true, loginToken);
+
+      })
+      .then((res) => {
+        
         toastService.show(
           "Success",
           "Your account has been verified.",
@@ -56,7 +65,6 @@ const confirmVerificationToken = async (token: string) => {
         );
 
         router.replace({ name: "AllowAccess" });
-
       })
       .catch((error) => {
         toastService.show(

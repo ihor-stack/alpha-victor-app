@@ -27,7 +27,7 @@ export const Organisations = defineStore("PublicOrganisations", {
     },
     async getOrganisations() {
       const loadId = loadingService.show("Loading...");
-      publicAPI
+      return publicAPI
         .get<AdminOrganisation[]>("/Organisation/")
         .then((response) => {
           this.organisationList = response.data;
