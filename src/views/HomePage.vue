@@ -7,7 +7,7 @@
     </app-header>
     <ion-content :scroll-y="false">
       <div class="dashboard-search-container">
-        <dashboard-search />
+        <dashboard-search-public />
       </div>
     </ion-content>
     <ion-footer class="ion-no-border">
@@ -28,7 +28,7 @@ import {
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import AppHeader from "@/components/shared/AppHeader.vue";
-import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
+import DashboardSearchPublic from "@/components/dashboard/DashboardSearchPublic.vue";
 
 import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
