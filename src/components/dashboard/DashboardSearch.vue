@@ -63,8 +63,6 @@ const searchByQrCode = async () => {
 
   // if the result has content
   if (result.hasContent) {
-    console.log(result.content); // log the raw scanned content
-
     // Remove our base URL and prefix from content.
     const prefix = `${process.env.VUE_APP_BASE_URL}/qr/`;
     const url = result.content.replace(prefix, "");
@@ -120,7 +118,6 @@ const searchByShortcode = () => {
       }
     })
     .then((response) => {
-      console.log(response);
       if (response?.data?.id) {
         router.push(`/space/${response.data.id}`);
       }

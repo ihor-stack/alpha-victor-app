@@ -5,6 +5,7 @@
         <div class="header-spacing">
           <ion-button
             class="switch-organisation"
+            v-if="isAuthenticated" 
             shape="round"
             @click="state.modalOpen = true"
           >
@@ -35,7 +36,7 @@
     </desktop-header>
     <ion-content class="ion-padding no-tp">
       <ul class="nav-menu">
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="isAuthenticated">
           <ion-item
             lines="none"
             :detail="true"
@@ -53,6 +54,19 @@
             lines="none"
             :detail="true"
             button
+            @click="handleNavigate('/')"
+          >
+            <ion-label text-wrap="true" class="ion-no-margin">
+              {{ $t("components.shared.desktopNav.dashboard") }}
+            </ion-label>
+          </ion-item>
+        </li>
+
+        <li class="nav-menu-link" v-if="isAuthenticated">
+          <ion-item
+            lines="none"
+            :detail="true"
+            button
             @click="handleNavigate('/favourites')"
           >
             <ion-label text-wrap="true" class="ion-no-margin">
@@ -60,7 +74,7 @@
             </ion-label>
           </ion-item>
         </li>
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="isAuthenticated">
           <ion-item
             lines="none"
             :detail="true"
@@ -72,7 +86,7 @@
             </ion-label>
           </ion-item>
         </li>
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="isAuthenticated">
           <ion-item
             lines="none"
             :detail="true"
@@ -84,7 +98,7 @@
             </ion-label>
           </ion-item>
         </li>
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="isAuthenticated">
           <ion-item
             lines="none"
             :detail="true"
@@ -120,63 +134,65 @@
             </ion-label>
           </ion-item>
         </li>
-        <div class="spacer-line"></div>
-        <li class="nav-menu-link">
-          <ion-item lines="none">
-            <ion-label text-wrap="true" class="ion-no-margin font-size-xxs">
-              {{ $t("components.shared.desktopNav.administration") }}
-            </ion-label>
-          </ion-item>
-        </li>
+        <div v-if="userPermission.isGlobalAdmin || userPermission.organisationGroups?.length">
+          <div class="spacer-line"></div>
+          <li class="nav-menu-link">
+            <ion-item lines="none">
+              <ion-label text-wrap="true" class="ion-no-margin font-size-xxs">
+                {{ $t("components.shared.desktopNav.administration") }}
+              </ion-label>
+            </ion-item>
+          </li>
 
-        <li class="nav-menu-link">
-          <ion-item
-            lines="none"
-            :detail="true"
-            button
-            @click="handleNavigate('/admin/organisations')"
-          >
-            <ion-label text-wrap="true" class="ion-no-margin">
-              {{ $t("components.shared.desktopNav.organisations") }}
-            </ion-label>
-          </ion-item>
-        </li>
-        <li class="nav-menu-link" v-if="userPermission.isGlobalAdmin">
-          <ion-item
-            lines="none"
-            :detail="true"
-            button
-            @click="handleNavigate('/admin/equipment')"
-          >
-            <ion-label text-wrap="true" class="ion-no-margin">
-              {{ $t("components.shared.desktopNav.equipment") }}
-            </ion-label>
-          </ion-item>
-        </li>
-        <li class="nav-menu-link" v-if="userPermission.isGlobalAdmin">
-          <ion-item
-            lines="none"
-            :detail="true"
-            button
-            @click="handleNavigate('/admin/documents')"
-          >
-            <ion-label text-wrap="true" class="ion-no-margin">
-              {{ $t("components.shared.desktopNav.documentTypes") }}
-            </ion-label>
-          </ion-item>
-        </li>
-        <li class="nav-menu-link">
-          <ion-item
-            lines="none"
-            :detail="true"
-            button
-            @click="handleNavigate('/admin/users')"
-          >
-            <ion-label text-wrap="true" class="ion-no-margin">
-              {{ $t("components.shared.desktopNav.users") }}
-            </ion-label>
-          </ion-item>
-        </li>
+          <li class="nav-menu-link">
+            <ion-item
+              lines="none"
+              :detail="true"
+              button
+              @click="handleNavigate('/admin/organisations')"
+            >
+              <ion-label text-wrap="true" class="ion-no-margin">
+                {{ $t("components.shared.desktopNav.organisations") }}
+              </ion-label>
+            </ion-item>
+          </li>
+          <li class="nav-menu-link" v-if="userPermission.isGlobalAdmin">
+            <ion-item
+              lines="none"
+              :detail="true"
+              button
+              @click="handleNavigate('/admin/equipment')"
+            >
+              <ion-label text-wrap="true" class="ion-no-margin">
+                {{ $t("components.shared.desktopNav.equipment") }}
+              </ion-label>
+            </ion-item>
+          </li>
+          <li class="nav-menu-link" v-if="userPermission.isGlobalAdmin">
+            <ion-item
+              lines="none"
+              :detail="true"
+              button
+              @click="handleNavigate('/admin/documents')"
+            >
+              <ion-label text-wrap="true" class="ion-no-margin">
+                {{ $t("components.shared.desktopNav.documentTypes") }}
+              </ion-label>
+            </ion-item>
+          </li>
+          <li class="nav-menu-link">
+            <ion-item
+              lines="none"
+              :detail="true"
+              button
+              @click="handleNavigate('/admin/users')"
+            >
+              <ion-label text-wrap="true" class="ion-no-margin">
+                {{ $t("components.shared.desktopNav.users") }}
+              </ion-label>
+            </ion-item>
+          </li>
+        </div>
       </ul>
     </ion-content>
 

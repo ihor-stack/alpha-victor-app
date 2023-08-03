@@ -3,7 +3,7 @@
     <app-menu />
     <ion-grid class="ion-no-padding">
       <ion-row class="ion-no-padding">
-        <ion-col class="fixed-sidebar ion-padding" v-if="isAuthenticated">
+        <ion-col class="fixed-sidebar ion-padding">
           <desktop-nav />
         </ion-col>
         <ion-col>
