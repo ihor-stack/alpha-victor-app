@@ -37,7 +37,7 @@
                     size-sm="6"
                     class="form-admin--group_field"
                   >
-                    <ion-label>{{ $t('components.modals.newLocationModal.locationNameLabel') }}</ion-label>
+                    <ion-label text-wrap="true">{{ $t('components.modals.newLocationModal.locationNameLabel') }}</ion-label>
                     <ion-input
                       class="font-size-sm"
                       :placeholder="$t('components.modals.newLocationModal.headquartersInputPlaceholder')"
@@ -51,7 +51,7 @@
                     size-sm="6"
                     class="form-admin--group_field"
                   >
-                    <ion-label>{{ $t('components.modals.newLocationModal.locationPrefixLabel') }}</ion-label>
+                    <ion-label text-wrap="true">{{ $t('components.modals.newLocationModal.locationPrefixLabel') }}</ion-label>
                     <ion-input
                       class="font-size-sm"
                       :placeholder="$t('components.modals.newLocationModal.newLocationInputPlaceholder')"

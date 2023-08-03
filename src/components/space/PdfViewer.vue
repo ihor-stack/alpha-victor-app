@@ -47,7 +47,6 @@
           :icon="downloadOutline"
           class="download-panel__controls__download__icon"
         />
-        <ion-icon :icon="ellipsisVertical" />
       </div>
     </div>
     <div class="document-panel">

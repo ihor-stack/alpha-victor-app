@@ -2,12 +2,10 @@
   <ion-page>
     <app-header :title="$t('pages.findSpace.header')">
       <template #start>
+        <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">{{ $t('pages.findSpace.back') }}</span>
         </ion-button>
-      </template>
-      <template #end>
-        <ion-menu-button fill="clear"> </ion-menu-button>
       </template>
     </app-header>
     <div class="search-container">
@@ -16,7 +14,7 @@
           type="search"
           fill="outline"
           :placeholder="$t('pages.findSpace.placeholder')"
-          class="space-search-input font-bold font-size-sm"
+          class="space-search-input"
           v-model="state.searchTerm"
           :clear-input="true"
           :debounce="700"
@@ -121,7 +119,6 @@ onBeforeMount(() => {
   --padding-bottom: 18px;
   color: #000;
   background: #fff;
-  border: solid 1px;
   border-radius: 8px;
 }
 
@@ -151,5 +148,18 @@ onBeforeMount(() => {
 
 .list-title {
   font-size: 18px;
+}
+
+.back {
+  display: none;
+}
+
+@media only screen and (min-width: 1023px) {
+  .back {
+    display: block;
+  }
+  ion-menu-button {
+    display: none;
+  }
 }
 </style>

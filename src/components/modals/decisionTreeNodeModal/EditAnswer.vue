@@ -7,7 +7,7 @@
     <div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>{{$t('components.modals.decisionTreeNodeModal.editAnswer.answerLabel')}}</ion-label>
+          <ion-label text-wrap="true">{{$t('components.modals.decisionTreeNodeModal.editAnswer.answerLabel')}}</ion-label>
           <ion-input
             :placeholder="$t('components.modals.decisionTreeNodeModal.editAnswer.answerInputPlaceholder')"
             v-model="state.text"

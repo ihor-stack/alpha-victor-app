@@ -4,13 +4,13 @@
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">{{
-            $t("pages.space.panorama.title")
+            $t("pages.space.panorama.back")
           }}</span>
         </ion-button>
       </template>
       <ion-item lines="none">
         <ion-icon :icon="locationOutline" size="small" slot="start" />
-        <ion-label class="font-mono font-size-xxs">{{
+        <ion-label text-wrap="true" class="font-mono font-size-xxs">{{
           currentSpace.floorName
         }}</ion-label>
       </ion-item>
@@ -22,7 +22,7 @@
         @click="setInitialView"
       >
         <ion-icon :icon="locate" color="secondaryContrast" />
-        <ion-label>{{
+        <ion-label text-wrap="true">{{
           $t("pages.admin.organisations.view.locations.panorama.label")
         }}</ion-label>
       </ion-chip>
@@ -222,8 +222,8 @@ ion-icon {
 
 .startingViewButton {
   position: absolute;
-  top: 20px;
-  left: 50px;
+  top: 15px;
+  right: 15px;
   --background: #ffffff;
   --color: var(--av-primary);
 }

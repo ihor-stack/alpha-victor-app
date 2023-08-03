@@ -142,6 +142,11 @@ ion-modal {
   font-size: 15px;
 }
 
+.native-input.sc-ion-input-ios {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
 .custom-select {
   --padding-top: 18px;
   --padding-bottom: 18px;
@@ -562,7 +567,7 @@ ion-button.button-red {
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 25px;
 }
 
 .modal-panel__header {
@@ -791,9 +796,12 @@ ion-toast.customToast::part(message) {
   padding-right: 0;
 }
 
-.form-admin--group_field:nth-child(2n) {
-  padding-left: 6px;
-  padding-right: 6px;
+
+@media only screen and (min-width: 1023px) {
+  .form-admin--group_field:nth-child(2n) {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
 }
 
 .form-admin--group_field ion-input,
@@ -878,6 +886,10 @@ ion-menu-button {
   --color: var(--av-light-gray);
 }
 
+body.noscroll {
+  overflow: hidden;
+}
+
 body.dark ion-menu-button {
   --background: rgba(255, 255, 255, 0.1);
 }
@@ -916,4 +928,19 @@ ion-content.transparent::part(scroll) {
   padding: 5px 15px;
   background: var(--av-darkest-gray);
   border: 1px solid var(--av-darker-gray);
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnimation ease 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

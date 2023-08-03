@@ -40,7 +40,7 @@
                 size-sm="6"
                 class="form-admin--group_field"
               >
-                <ion-label>{{ $t('components.modals.newSpaceModal.spaceNameLabel') }}</ion-label>
+                <ion-label text-wrap="true">{{ $t('components.modals.newSpaceModal.spaceNameLabel') }}</ion-label>
                 <ion-input
                   class="font-size-sm"
                   :placeholder="$t('components.modals.newSpaceModal.spaceNamePlaceholder')"
@@ -56,7 +56,7 @@
                 size-sm="6"
                 class="form-admin--group_field"
               >
-                <ion-label>{{ $t("components.modals.newSpaceModal.spaceShortcodeLabel") }}</ion-label>
+                <ion-label text-wrap="true">{{ $t("components.modals.newSpaceModal.spaceShortcodeLabel") }}</ion-label>
                 <ion-input
                   class="font-size-sm"
                   :placeholder="$t('components.modals.newSpaceModal.spaceShortcodePlaceholder')"

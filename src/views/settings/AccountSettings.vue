@@ -2,13 +2,10 @@
   <ion-page>
     <app-header :title="$t('pages.accountSettings.header')">
       <template #start>
+        <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">{{ $t('pages.accountSettings.back')}}</span>
         </ion-button>
-      </template>
-
-      <template #end>
-        <ion-menu-button fill="clear"> </ion-menu-button>
       </template>
     </app-header>
 
@@ -20,7 +17,7 @@
          
           @click="handleUrlChange('/settings/profile')"
         >
-          <ion-label>
+          <ion-label text-wrap="true">
             <h2 class="name font-bold font-size-sm">
               {{ accountDetails.name ? accountDetails.name : $t('pages.accountSettings.noNameSet') }}
             </h2>
@@ -36,7 +33,7 @@
           :key="index"
           @click="handleUrlChange(option.path)"
         >
-          <ion-label>
+          <ion-label text-wrap="true">
             <h2 class="font-bold font-size-sm">
               {{ $t(`pages.findSpace.options.${option.key}.title`) }}
             </h2>
@@ -163,5 +160,18 @@ ion-label {
   font-size: 18px;
   line-height: 1.2;
   margin-bottom: 4px;
+}
+
+.back {
+  display: none;
+}
+
+@media only screen and (min-width: 1023px) {
+  .back {
+    display: block;
+  }
+  ion-menu-button {
+    display: none;
+  }
 }
 </style>

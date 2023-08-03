@@ -43,7 +43,7 @@
             </ion-row>
             <ion-row>
               <ion-col size="12" class="form-admin--group_field">
-                <ion-label>{{$t('components.admin.spaces.panoramaModal.addLabelLabel')}}</ion-label>
+                <ion-label text-wrap="true">{{$t('components.admin.spaces.panoramaModal.addLabelLabel')}}</ion-label>
                 <ion-input
                   :placeholder="$t('components.admin.spaces.panoramaModal.hotspotLabelPlaceholder')"
                   v-model="state.text"
@@ -193,15 +193,6 @@ ion-chip {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-.modal-panel-container {
-  position: relative;
-  height: 100%;
-  border-radius: 40px 40px 0px 0px;
-  display: flex;
-  flex-direction: column;
-  padding: 25px;
 }
 
 .modal-panel__header {

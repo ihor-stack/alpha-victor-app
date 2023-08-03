@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      {{ $t("pages.admin.organisations.view.decisionTrees.documentTypes") }}
+      {{ $t("pages.admin.organisations.view.decisionTrees.title") }}
     </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
@@ -49,10 +49,10 @@
               },
             }"
           >
-            <ion-label>
+            <ion-label text-wrap="true">
               {{ decisionTree.name }}
             </ion-label>
-            <ion-label
+            <ion-label text-wrap="true"
               slot="end"
               class="decision-view-icon font-size-xs font-mono"
               >{{

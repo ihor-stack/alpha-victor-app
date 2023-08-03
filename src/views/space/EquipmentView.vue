@@ -22,7 +22,7 @@
           >
             <div class="space-equipment-menu__item__icon">
             </div>
-            <ion-label>
+            <ion-label text-wrap="true">
               <h3 class="label font-bold font-size-sm">
                 {{ item.name }}
               </h3>

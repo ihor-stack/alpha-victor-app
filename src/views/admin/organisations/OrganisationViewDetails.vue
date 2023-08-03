@@ -6,7 +6,7 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.organisationName")
           }}</ion-label>
           <ion-input
@@ -24,7 +24,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.shortcodePrefix")
           }}</ion-label>
           <ion-input
@@ -40,7 +40,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.contactName")
           }}</ion-label>
           <ion-input
@@ -53,7 +53,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.email")
           }}</ion-label>
           <ion-input
@@ -69,7 +69,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.phone")
           }}</ion-label>
           <ion-input
@@ -85,7 +85,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.language")
           }}</ion-label>
           <AdminSelect
@@ -125,7 +125,7 @@
 
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.address1")
           }}</ion-label>
           <ion-input
@@ -145,7 +145,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.address2")
           }}</ion-label>
           <ion-input
@@ -165,7 +165,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.city")
           }}</ion-label>
           <ion-input
@@ -181,7 +181,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.postCode")
           }}</ion-label>
           <ion-input
@@ -197,7 +197,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.details.website")
           }}</ion-label>
           <div class="chips-field">
@@ -222,7 +222,7 @@
             v-for="(domain, index) in organisationDetails.website"
             :key="index"
           >
-            <ion-label>{{ domain }}</ion-label>
+            <ion-label text-wrap="true">{{ domain }}</ion-label>
             <ion-icon
               :icon="closeCircle"
               @click="removeDomain(index)"

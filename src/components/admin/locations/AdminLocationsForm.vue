@@ -6,7 +6,7 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.locationNameLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.locationNameLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.name"
@@ -17,7 +17,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.locationPrefixLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.locationPrefixLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.prefix"
@@ -33,7 +33,7 @@
 
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.contactNameLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.contactNameLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.mainContactName"
@@ -44,7 +44,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.emailAddressLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.emailAddressLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.email"
@@ -55,7 +55,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.phoneNumberLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.phoneNumberLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.phone"
@@ -66,7 +66,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.sosNumberLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.sosNumberLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.sosNumber"
@@ -77,9 +77,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.sosVIPLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.sosVIPLabel") }}</ion-label>
           <ion-input class="form-toggle" :disabled="true">
-            <ion-label>{{ $t("components.admin.locations.adminLocationsForm.sosVIPText") }}</ion-label>
+            <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.sosVIPText") }}</ion-label>
             <ion-toggle
               color="primary"
               :checked="location.sosNumberPublic"
@@ -96,7 +96,7 @@
 
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.publicWifiLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.publicWifiLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.wifiSsid"
@@ -107,7 +107,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.wifiPasswordLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.wifiPasswordLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.wifiPassword"
@@ -123,7 +123,7 @@
 
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.addressLine1Label") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.addressLine1Label") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.addressLine0"
@@ -134,7 +134,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.addressLine2Label") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.addressLine2Label") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.addressLine1"
@@ -145,7 +145,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.cityLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.cityLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.city"
@@ -156,7 +156,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{ $t("components.admin.locations.adminLocationsForm.postcodeLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.postcodeLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.postcode"

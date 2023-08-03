@@ -27,7 +27,7 @@
         </ion-button>
       </template>
     </app-header>
-    <ion-content :fullscreen="true">
+    <ion-content v-if="!state.isLoadingSpaceDetails" :fullscreen="true" class="fade-in">
       <div class="outer-container">
         <div class="space-header">
           <div class="space-header__background">
@@ -99,7 +99,7 @@
         </div>
       </div>
     </ion-content>
-    <ion-footer>
+    <ion-footer v-if="!state.isLoadingSpaceDetails">
       <div class="space-cta-container">
         <ion-item
           class="announcement ion-no-padding"
@@ -107,7 +107,7 @@
           lines="none"
           v-if="currentSpace.announcementTitle"
         >
-          <ion-label>
+          <ion-label text-wrap="true">
             <h4 class="wrap-text">{{ currentSpace.announcementTitle }}</h4>
             <p class="wrap-text">
               {{ currentSpace.announcementText }}
@@ -182,6 +182,7 @@ const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 
 const state = reactive({
   reportIssueModalOpen: false,
+  isLoadingSpaceDetails: false
 });
 
 const { currentSpace } = storeToRefs(spacesStore);
@@ -208,6 +209,8 @@ watchEffect(() => {
 onBeforeMount(() => {
   const from = route.query?.from;
   const trackKey = from === "byQR" ? "QR Code Scanned" : "Space Viewed";
+
+  state.isLoadingSpaceDetails = true; // Set to loading when starting fetch
   if (spacesStore.currentSpace?.id !== spaceId) {
     spacesStore.getSpaceDetails(spaceId).then((res) => {
       if (res?.name) {
@@ -218,9 +221,12 @@ onBeforeMount(() => {
           space: res.name,
         });
       }
+      state.isLoadingSpaceDetails = false; // Set to false once fetch is complete
     });
     spacesStore.getSpaceDevices(spaceId);
   } else {
+    state.isLoadingSpaceDetails = false; // Set to false if no fetch needed
+
     mixpanel.track(trackKey, {
       organisaLon: spacesStore.currentSpace.organisationName,
       location: spacesStore.currentSpace.locationName,
@@ -237,6 +243,7 @@ onBeforeMount(() => {
   display: flex;
   flex-direction: column;
   background: none;
+  height: 100%;
 }
 
 .space-header {
@@ -347,7 +354,7 @@ onBeforeMount(() => {
 }
 
 .space-wifi-info-container {
-  padding: 24px 20px 0px;
+  padding: 0 20px;
 }
 
 .space-options-menu-container {
@@ -397,5 +404,15 @@ onBeforeMount(() => {
 
 .ctas ion-button:not(:last-of-type) {
   margin-right: 12px;
+}
+
+ion-content {
+  --offset-bottom: 0px !important;
+}
+
+@media only screen and (min-width: 1023px) {
+  .back {
+    display: none;
+  }
 }
 </style>

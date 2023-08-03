@@ -17,7 +17,7 @@
             }"
             router-direction="root"
           >
-            <ion-label>
+            <ion-label text-wrap="true">
               <ion-icon :src="`/img/icons/${equipment.icon}.svg`" />
               <div>
                 <h2>

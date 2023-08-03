@@ -6,7 +6,7 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group form-admin--group-full">
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t(
               "pages.admin.organisations.view.locations.announcement.labelTitle"
             )
@@ -25,7 +25,7 @@
 
       <ion-row class="form-admin--group form-admin--group-full">
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t(
               "pages.admin.organisations.view.locations.announcement.labelContent"
             )
@@ -44,7 +44,7 @@
       
       <ion-row class="form-admin--group form-admin--group-full">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t(
               "pages.admin.organisations.view.locations.announcement.labelStart"
             )
@@ -64,7 +64,7 @@
           </ion-modal>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t(
               "pages.admin.organisations.view.locations.announcement.labelEnd"
             )

@@ -27,7 +27,7 @@
       </div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>{{$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoLabel')}}</ion-label>
+          <ion-label text-wrap="true">{{$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoLabel')}}</ion-label>
           <ion-row>
             <ion-input
               :placeholder="$t('components.modals.decisionTreeNodeModal.selectVideo.videoURLInputPlaceholder')"
@@ -41,7 +41,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>{{$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoTitleLabel')}}</ion-label>
+          <ion-label text-wrap="true">{{$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoTitleLabel')}}</ion-label>
           <ion-input
             :placeholder="$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoTitlePlaceholder')"
             v-model="state.newVideoTitle.value"

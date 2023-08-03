@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <app-header :title="$t('pages.space.getHelp.title')">
+    <app-header>
       <template #start>
         <ion-button fill="clear" @click="handleBack" class="back">
           <span class="font-mono font-size-xs">{{
@@ -9,7 +9,15 @@
         </ion-button>
       </template>
     </app-header>
-    <ion-content :fullscreen="true">
+
+    <ion-content>
+      <div class="title">
+        <ion-item class="ion-no-padding" lines="none">
+          <h1 class="title-admin font-bold font-size-lg">
+            {{ $t('pages.space.getHelp.title') }}
+          </h1>
+        </ion-item>
+      </div>
       <GetHelpList></GetHelpList>
     </ion-content>
     <ion-footer v-if="currentSpace.sosNumberPublic">
@@ -101,6 +109,12 @@ ion-footer p {
   text-align: center;
   margin-top: 10px;
 }
+
+ion-title, .title-admin {
+  width: 100%;
+  text-align: center;
+}
+
 .sos-container {
   position: relative;
   height: 80px;

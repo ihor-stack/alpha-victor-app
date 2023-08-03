@@ -2,7 +2,7 @@
   <div v-for="group in spacesGroup" :key="group.floor">
     <ion-list :inset="true" lines="none">
       <ion-list-header v-if="group.floor">
-        <ion-label class="font-size-title font-bold">{{ group.floor }}</ion-label>
+        <ion-label text-wrap="true" class="font-size-title font-bold">{{ group.floor }}</ion-label>
       </ion-list-header>
       <ion-item
         v-for="space in group.spaces"

@@ -13,7 +13,7 @@
           {{ state.articleData?.title }}
         </ion-list-header>
         <ion-item>
-          <ion-label>
+          <ion-label text-wrap="true">
             <div v-html="state.articleData?.richText"></div>
           </ion-label>
         </ion-item>

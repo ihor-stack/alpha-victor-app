@@ -19,7 +19,7 @@
         />
 
         <ion-item v-else lines="none">
-          <ion-label>
+          <ion-label text-wrap="true">
             <h2 class="color-dark-gray">
               {{ $t("pages.space.knownIssues.itemLabel") }}
             </h2>

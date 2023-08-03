@@ -10,7 +10,7 @@
       :router-link="redirect(String(item.id))"
       router-direction="root"
     >
-      <ion-label>
+      <ion-label text-wrap="true">
         <h2>{{ item.name }}</h2>
         <p>
           {{

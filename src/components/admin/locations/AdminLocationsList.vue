@@ -5,7 +5,7 @@
     </h1>
     <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label>{{ $t("components.admin.locations.adminLocationsList.floorNameLabel") }}</ion-label>
+        <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsList.floorNameLabel") }}</ion-label>
         <ion-input
           class="font-size-sm"
           :value="floor.name"
@@ -16,7 +16,7 @@
         ></ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label>{{ $t("components.admin.locations.adminLocationsList.shortNameLabel") }}</ion-label>
+        <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsList.shortNameLabel") }}</ion-label>
         <ion-input
           class="font-size-sm"
           :value="floor.shortName"
@@ -50,7 +50,7 @@
           class="form-admin--group_field-item space-card ion-no-padding"
         >
           <img v-if="space.image" :src="space.image" :alt="space.name" />
-          <ion-label class="space-card--info">
+          <ion-label text-wrap="true" class="space-card--info">
             {{ space.name }}
           </ion-label>
           <ion-icon :icon="chevronForwardOutline" slot="end"></ion-icon>

@@ -1,5 +1,5 @@
 <template>
-    <ion-label v-if="label">
+    <ion-label text-wrap="true" v-if="label">
       {{ label }}
     </ion-label >
     <ion-content>
@@ -11,7 +11,7 @@
           :key="option.id" 
           @click="$emit('update:modelValue', option)"
           >
-            <ion-label >
+            <ion-label text-wrap="true" >
               {{option.title}} 
             </ion-label>
             <ion-radio slot="end" :value="option.title"/>

@@ -2,12 +2,10 @@
   <ion-page id="favourites">
     <app-header :title="$t('pages.favourites.header')">
       <template #start>
+        <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">{{ $t('pages.favourites.back') }}</span>
         </ion-button>
-      </template>
-      <template #end>
-        <ion-menu-button fill="clear"> </ion-menu-button>
       </template>
     </app-header>
     <ion-content :fullscreen="true">
@@ -23,7 +21,7 @@
             <img v-if="favourite.imagePath" :src="favourite.imagePath" />
             <img v-else src="@/theme/img/space-the-henderson-square.png" />
           </ion-thumbnail>
-          <ion-label>
+          <ion-label text-wrap="true">
             <p class="category">{{ favourite.roomType }}</p>
             <h3 class="name font-bold">{{ favourite.name }}</h3>
           </ion-label>
@@ -116,5 +114,18 @@ ion-footer {
 .category {
   font-size: 10px;
   margin-bottom: 4px;
+}
+
+.back {
+  display: none;
+}
+
+@media only screen and (min-width: 1023px) {
+  .back {
+    display: block;
+  }
+  ion-menu-button {
+    display: none;
+  }
 }
 </style>

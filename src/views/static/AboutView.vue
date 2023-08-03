@@ -2,20 +2,12 @@
   <ion-page>
     <app-header :title="$t('pages.about.header')">
       <template #start>
+        <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">{{
             $t("pages.about.back")
           }}</span>
         </ion-button>
-      </template>
-      <template #end>
-        <ion-menu-button fill="clear">
-          <img
-            src="@/theme/icons/nav-menu.svg"
-            class="nav-menu"
-            alt="Nav Menu Button"
-          />
-        </ion-menu-button>
       </template>
     </app-header>
     <ion-content>
@@ -98,5 +90,18 @@ ion-modal {
 }
 .text-content p {
   margin-bottom: 28px;
+}
+
+.back {
+  display: none;
+}
+
+@media only screen and (min-width: 1023px) {
+  .back {
+    display: block;
+  }
+  ion-menu-button {
+    display: none;
+  }
 }
 </style>

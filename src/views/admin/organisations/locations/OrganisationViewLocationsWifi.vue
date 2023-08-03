@@ -6,7 +6,7 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.locations.wifi.network")
           }}</ion-label>
           <ion-input
@@ -19,7 +19,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.locations.wifi.password")
           }}</ion-label>
           <ion-input
@@ -45,11 +45,11 @@
         </ion-col>
 
         <ion-col size-xs="12" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.locations.wifi.show")
           }}</ion-label>
           <ion-input class="form-toggle" :disabled="true">
-            <ion-label>{{
+            <ion-label text-wrap="true">{{
               $t("pages.admin.organisations.view.locations.wifi.showSpace")
             }}</ion-label>
             <ion-toggle

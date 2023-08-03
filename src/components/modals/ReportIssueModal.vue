@@ -4,7 +4,7 @@
       <div class="modal-panel-container">
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
-            <ion-label>
+            <ion-label text-wrap="true">
               <h2 class="font-size-md font-bold">{{ $t('components.modals.ReportIssueModal.reportIssueHeader') }}</h2>
               <p class="font-size-xs">
                 {{$t('components.modals.ReportIssueModal.reportIssueParagraph')}}
@@ -15,7 +15,7 @@
         <ion-content :scroll-y="false">
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
-              <ion-label class="font-bold font-size-xs">
+              <ion-label text-wrap="true" class="font-bold font-size-xs">
                 {{$t('components.modals.ReportIssueModal.selectEquipmentLabel')}}
               </ion-label>
               <ion-select
@@ -36,7 +36,7 @@
           </ion-row>
           <ion-row>
             <ion-col size="12" class="form-admin--group_field">
-              <ion-label class="font-bold font-size-xs">{{ $t('components.modals.ReportIssueModal.addTitleLabel') }}</ion-label>
+              <ion-label text-wrap="true" class="font-bold font-size-xs">{{ $t('components.modals.ReportIssueModal.addTitleLabel') }}</ion-label>
               <ion-input
                 class="font-size-xs"
                 :placeholder="$t('components.modals.ReportIssueModal.issueTitlePlaceholder')"
@@ -46,7 +46,7 @@
           </ion-row>
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
-              <ion-label class="font-size-xs font-bold">
+              <ion-label text-wrap="true" class="font-size-xs font-bold">
                 {{$t('components.modals.ReportIssueModal.addCommentLabel')}}
               </ion-label>
               <ion-textarea
@@ -157,15 +157,6 @@ ion-item::part(native) {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-.modal-panel-container {
-  position: relative;
-  height: 100%;
-  border-radius: 40px 40px 0px 0px;
-  display: flex;
-  flex-direction: column;
-  padding: 25px;
 }
 .modal-panel__title {
   margin-bottom: 12px;

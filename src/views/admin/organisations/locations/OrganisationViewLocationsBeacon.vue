@@ -4,20 +4,20 @@
       {{ $t("pages.admin.organisations.view.locations.beacon.title") }}
     </h1>
     <ion-row class="form-admin--group">
-      <ion-col size-xs="6" v-if="Space.beacon.beaconId">
-        <ion-label>{{
+      <ion-col size-xs="12" size-sm="6" v-if="Space.beacon.beaconId">
+        <ion-label text-wrap="true">{{
           $t("pages.admin.organisations.view.locations.beacon.minorLabel")
         }}: </ion-label>
-        <ion-label>{{
+        <ion-label text-wrap="true">{{
           Space.beacon.minor
         }}</ion-label>
       </ion-col>
 
-      <ion-col size-xs="6" v-if="Space.beacon.beaconId">
-        <ion-label>{{
+      <ion-col size-xs="12" size-sm="6" v-if="Space.beacon.beaconId">
+        <ion-label text-wrap="true">{{
           $t("pages.admin.organisations.view.locations.beacon.majorLabel")
         }}: </ion-label>
-        <ion-label>{{
+        <ion-label text-wrap="true">{{
           Space.beacon.major
         }}</ion-label>
       </ion-col>

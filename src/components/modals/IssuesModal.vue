@@ -4,11 +4,11 @@
       <div class="modal-panel-container">
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
-            <ion-label>
+            <ion-label text-wrap="true">
               <h2 class="font-bold font-size-md">
                 {{ state.issue.title }}
               </h2>
-              <p class="font-size-xs">
+              <p class="font-size-sm">
                 {{ state.issue.description }}
               </p>
             </ion-label>
@@ -17,7 +17,7 @@
         <ion-content :scroll-y="false">
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
-              <ion-label class="font-size-xs font-bold">
+              <ion-label text-wrap="true" class="font-size-xs font-bold">
                 {{$t('components.modals.issuesModal.addCommentLabel')}}
               </ion-label> 
               <ion-textarea
@@ -228,16 +228,12 @@ ion-item::part(native) {
   justify-content: flex-start;
 }
 
-.modal-panel-container {
-  position: relative;
-  height: 100%;
-  border-radius: 40px 40px 0px 0px;
-  display: flex;
-  flex-direction: column;
+.modal-panel__header {
+  margin-bottom: 0;
 }
 
-.modal-panel__header {
-  margin-bottom: 20px;
+.modal-panel__header p {
+  margin-top: 10px;
 }
 
 .modal-panel__title {

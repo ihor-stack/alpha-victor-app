@@ -19,7 +19,7 @@
                 @click="modalOpen = false"
               />
               <ion-item class="modal-panel__header" lines="none">
-                <ion-label>
+                <ion-label text-wrap="true">
                   <h2 class="font-bold font-size-lg">{{ $t('components.admin.spaceMetadata.spaceTypeModal.addNewSpaceTypeHeader') }}</h2>
                   <p class="font-size-sm">
                     {{ $t('components.admin.spaceMetadata.spaceTypeModal.createNewSpaceTypeParagraph') }}
@@ -99,15 +99,6 @@ const saveNewType = () => {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-.modal-panel-container {
-  position: relative;
-  height: 100%;
-  border-radius: 40px 40px 0px 0px;
-  display: flex;
-  flex-direction: column;
-  padding: 25px;
 }
 
 .modal-panel__header {

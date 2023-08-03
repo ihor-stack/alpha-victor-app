@@ -3,15 +3,15 @@
     <div class="modal-panel-container">
       <ion-header class="ion-no-border">
         <ion-item class="modal-panel__header" lines="none">
-          <ion-label>
-            <h2 class="modal-panel__title font-bold">{{$t('components.modals.organisationSelectModal.selectOrganisationHeader')}}</h2>
-            <p class="modal-panel__comment color-light-gray font-size-sm">
+          <ion-label text-wrap="true">
+            <h2 class="font-bold">{{$t('components.modals.organisationSelectModal.selectOrganisationHeader')}}</h2>
+            <p class="font-size-sm">
               {{$t('components.modals.organisationSelectModal.selectOrganisationParagraph')}}
             </p>
           </ion-label>
         </ion-item>
       </ion-header>
-      <ion-content>
+      <ion-content :scroll-y="false">
         <div class="modal-panel__section modal-panel__select-equipment">
           <h2 class="font-size-xs font-bold modal-panel__heading">
             {{ $t('components.modals.organisationSelectModal.selectOrganisationHeader') }}

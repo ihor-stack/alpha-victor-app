@@ -143,14 +143,6 @@ const handleAddAssetType = () => {
   justify-content: flex-start;
 }
 
-.modal-panel-container {
-  position: relative;
-  height: 100%;
-  border-radius: 40px 40px 0px 0px;
-  display: flex;
-  flex-direction: column;
-  padding: 25px;
-}
 
 .modal-panel__header {
   margin-bottom: 20px;

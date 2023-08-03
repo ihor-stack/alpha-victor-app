@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ion-label v-if="label">
+    <ion-label text-wrap="true" v-if="label">
       {{ label }}
     </ion-label>
     <ion-input
@@ -12,7 +12,7 @@
     />
     <template v-if="isMultiple">
       <ion-chip v-for="(val, index) in modelValue" :key="index">
-        <ion-label>{{ val.title }}</ion-label>
+        <ion-label text-wrap="true">{{ val.title }}</ion-label>
         <ion-icon
           :icon="closeCircle"
           @click="removeValue(Number(index))"

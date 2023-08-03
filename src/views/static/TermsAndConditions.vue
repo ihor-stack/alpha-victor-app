@@ -2,18 +2,10 @@
   <ion-page>
     <app-header :title="$t('pages.static.tos.title')">
       <template #start>
+        <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">{{ $t('pages.static.tos.back')}}</span>
         </ion-button>
-      </template>
-      <template #end>
-        <ion-menu-button fill="clear">
-          <img
-            src="@/theme/icons/nav-menu.svg"
-            class="nav-menu"
-            :alt="$t('pages.static.tos.menuBtn')"
-          />
-        </ion-menu-button>
       </template>
     </app-header>
     <ion-content>
@@ -57,5 +49,18 @@ const router = useRouter();
   font-size: 12px;
   line-height: 16px;
   margin-bottom: 16px;
+}
+
+.back {
+  display: none;
+}
+
+@media only screen and (min-width: 1023px) {
+  .back {
+    display: block;
+  }
+  ion-menu-button {
+    display: none;
+  }
 }
 </style>

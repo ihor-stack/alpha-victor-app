@@ -67,7 +67,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>{{$t('components.admin.equipment.equipmentModal.modelLabel')}}</ion-label>
+                  <ion-label text-wrap="true">{{$t('components.admin.equipment.equipmentModal.modelLabel')}}</ion-label>
                   <ion-input
                     v-model="state.name"
                     :label="$t('components.admin.equipment.equipmentModal.inputModelLabel')"
@@ -79,7 +79,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>{{ $t('components.admin.equipment.equipmentModal.serialNumberLabel') }}</ion-label>
+                  <ion-label text-wrap="true">{{ $t('components.admin.equipment.equipmentModal.serialNumberLabel') }}</ion-label>
                   <ion-input
                     v-model="state.serialNumber"
                     :label="$t('components.admin.equipment.equipmentModal.inputModelLabel')"
@@ -227,15 +227,6 @@ const handleAddEquipment = () => {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-.modal-panel-container {
-  position: relative;
-  height: 100%;
-  border-radius: 40px 40px 0px 0px;
-  display: flex;
-  flex-direction: column;
-  padding: 25px;
 }
 
 .modal-panel__header {

@@ -18,7 +18,7 @@
       </ion-row>
       <ion-row v-if="!isRoot">
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>{{$t('components.modals.decisionTreeNodeModal.editDestination.outcomeLabel')}}</ion-label>
+          <ion-label text-wrap="true">{{$t('components.modals.decisionTreeNodeModal.editDestination.outcomeLabel')}}</ion-label>
           <ion-input
             :placeholder="$t('components.modals.decisionTreeNodeModal.editDestination.outcomePlaceholder')"
             v-model="state.outcomeLabel"
@@ -27,7 +27,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label>{{ selectedOutcome }} title</ion-label>
+          <ion-label text-wrap="true">{{ selectedOutcome }} title</ion-label>
           <ion-input v-model="state.text"></ion-input>
         </ion-col>
       </ion-row>

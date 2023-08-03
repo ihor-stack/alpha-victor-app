@@ -51,7 +51,7 @@
         </ion-list>
         <ion-list lines="none" class="autoplay-wrapper">
           <ion-item class="autoplay-toggle">
-            <ion-label>{{ $t('pages.space.video.label')}}</ion-label>
+            <ion-label text-wrap="true">{{ $t('pages.space.video.label')}}</ion-label>
             <ion-toggle v-model="state.autoplay"></ion-toggle>
           </ion-item>
         </ion-list>

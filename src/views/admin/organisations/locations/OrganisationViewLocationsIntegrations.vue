@@ -9,7 +9,7 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="12" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t(
               "pages.admin.organisations.view.locations.integrations.selectLocation"
             )

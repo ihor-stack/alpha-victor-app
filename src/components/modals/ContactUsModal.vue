@@ -4,7 +4,7 @@
       <div class="settings-panel-container">
         <ion-header class="ion-no-border">
           <ion-item class="settings-panel__header" lines="none">
-            <ion-label>
+            <ion-label text-wrap="true">
               <h2 class="font-bold font-size-md">{{$t('components.modals.contactUsModal.contactHeader')}}</h2>
               <p class="font-size-xs">
                 {{$t('components.modals.contactUsModal.contactUsModalParagraph')}}

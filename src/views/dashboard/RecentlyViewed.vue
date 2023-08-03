@@ -2,12 +2,10 @@
   <ion-page id="recently-viewed">
     <app-header :title="$t('pages.recentlyViewed.header')">
       <template #start>
+        <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">{{ $t('pages.recentlyViewed.back')}}</span>
         </ion-button>
-      </template>
-      <template #end>
-        <ion-menu-button fill="clear"> </ion-menu-button>
       </template>
     </app-header>
     <ion-content>
@@ -135,5 +133,18 @@ ion-item {
 
 .space__info .capacity-icon {
   margin-right: 4px;
+}
+
+.back {
+  display: none;
+}
+
+@media only screen and (min-width: 1023px) {
+  .back {
+    display: block;
+  }
+  ion-menu-button {
+    display: none;
+  }
 }
 </style>

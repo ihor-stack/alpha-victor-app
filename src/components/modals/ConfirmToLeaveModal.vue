@@ -24,7 +24,7 @@
           </ion-header>
           <ion-footer>
             <ion-row class="form-admin--group_field">
-              <ion-col size-xs="6">
+              <ion-col size-xs="12" size-sm="6">
                 <ion-button
                   class="button-wide button-red button-outline"
                   fill="outline"
@@ -35,7 +35,7 @@
                 </ion-button>
               </ion-col>
 
-              <ion-col size-xs="6">
+              <ion-col size-xs="12" size-sm="6">
                 <ion-button
                   class="button-wide button-outline"
                   fill="outline"

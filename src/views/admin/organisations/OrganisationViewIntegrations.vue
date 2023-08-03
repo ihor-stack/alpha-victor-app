@@ -5,7 +5,7 @@
   <ion-grid class="form-admin">
     <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label>
+        <ion-label text-wrap="true">
           {{ $t("pages.admin.organisations.view.integrations.clientId") }}
         </ion-label>
         <ion-input
@@ -22,7 +22,7 @@
         </ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label>
+        <ion-label text-wrap="true">
           {{ $t("pages.admin.organisations.view.integrations.clientSecret") }}
         </ion-label>
         <ion-input

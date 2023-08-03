@@ -4,7 +4,7 @@
       <div>
         <ion-row>
           <ion-col size="12">
-            <ion-label class="font-size-sm">{{ $t('components.modals.userManagementModal.assignedOrganisationLabel') }}</ion-label>
+            <ion-label text-wrap="true" class="font-size-sm">{{ $t('components.modals.userManagementModal.assignedOrganisationLabel') }}</ion-label>
             <ion-item
               class="orgItemWrapper"
               v-for="org in assignedOrganisations"
@@ -12,7 +12,7 @@
               button
               @click="handleClickAssignedOrg(org)"
             >
-              <ion-label>
+              <ion-label text-wrap="true">
                 {{ org.name }}
                 <span class="color-dark-gray">{{
                   ` / ${org.permission?.name}`

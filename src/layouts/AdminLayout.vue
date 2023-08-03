@@ -1,24 +1,39 @@
 <template>
-  <div class="ion-padding">
-    <ion-button
-      class="ion-no-padding"
-      fill="clear"
-      color="dark"
-      @click="onClickBack"
-    >
-      <span class="font-mono font-size-xs">{{ $t("layout.back") }}</span>
-    </ion-button>
-    <router-view />
+  <div>
+    <app-header :no-background="true">
+      <template #start>
+        <ion-button fill="clear" @click="() => router.back()" class="back">
+          <span class="font-mono font-size-xs">{{ $t('pages.favourites.back') }}</span>
+        </ion-button>
+      </template>
+      <template #end>
+        <ion-menu-button fill="solid"> </ion-menu-button>
+      </template>
+    </app-header>
+    <div class="ion-padding">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { IonButton } from "@ionic/vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
+import {
+  IonButton,
+  IonMenuButton
+} from "@ionic/vue";
+import AppHeader from "@/components/shared/AppHeader.vue";
 import { useRouter, useRoute } from "vue-router";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const router = useRouter();
 const route = useRoute();
+
+const isMobileView = ref(false);
+
+const updateView = () => {
+  isMobileView.value = window.matchMedia("(max-width: 1063px)").matches;
+};
 
 const onClickBack = () => {
   if (confirmToLeaveService.confirm.value.isEditing) {
@@ -57,10 +72,28 @@ const handleBack = () => {
     router.push({ name: "OrganisationList" });
   }
 };
+
+onMounted(() => {
+  window.addEventListener("resize", updateView);
+  updateView(); // call once on mounted to set the initial state
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateView);
+});
 </script>
 
 <style scoped>
 ion-button {
   margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 1023px) {
+  .back {
+    display: block;
+  }
+  ion-menu-button {
+    display: none;
+  }
 }
 </style>

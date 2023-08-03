@@ -1,7 +1,10 @@
 <template>
   <ion-page id="dashboard" class="outer-container">
-    <app-header :no-background="true">
+    <app-header v-if="isMobileView" :no-background="true">
       <template #start>
+        <ion-menu-button fill="solid"> </ion-menu-button>
+      </template>
+      <template #end>
         <ion-button
           class="switch-organisation"
           shape="round"
@@ -12,9 +15,6 @@
             :alt="$t('pages.dashboard.alt')"
           />
         </ion-button>
-      </template>
-      <template #end>
-        <ion-menu-button fill="solid"> </ion-menu-button>
       </template>
     </app-header>
     <ion-content :scroll-y="false">
@@ -42,7 +42,7 @@
         v-if="state.initialFetch && !nearbySpaces.length && !recentlyViewedSpaces.length"
         lines="none"
       >
-        <ion-label>
+        <ion-label text-wrap="true">
           <h1 class="color-white">{{ $t("pages.dashboard.noSpacesFound") }}</h1>
           <p>{{ $t("pages.dashboard.shortCodeTip") }}</p>
         </ion-label>
@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onBeforeMount, onBeforeUnmount, computed, watch } from "vue";
+import { ref, reactive, onBeforeMount, onBeforeUnmount, computed, watch, onMounted } from "vue";
 import {
   IonPage,
   IonContent,
@@ -103,6 +103,12 @@ const state: State = reactive({
   observedBeacons: [],
   initialFetch: false
 });
+
+const isMobileView = ref(false);
+
+const updateView = () => {
+  isMobileView.value = window.matchMedia("(max-width: 1063px)").matches;
+};
 
 const handleDismiss = () => {
   state.modalOpen = false;
@@ -151,6 +157,11 @@ watch(currentOrganisationId, (newValue) => {
   }
 });
 
+onMounted(() => {
+  window.addEventListener("resize", updateView);
+  updateView(); // call once on mounted to set the initial state
+})
+
 onBeforeMount(() => {
   spacesStore.getFavouriteSpaces();
   organisationStore.getOrganisations();
@@ -166,6 +177,8 @@ onBeforeUnmount(() => {
   if (beaconRegion !== null) {
     IBeacon.stopRangingBeaconsInRegion(beaconRegion);
   }
+
+  window.removeEventListener("resize", updateView);
 
   state.observedBeacons.splice(0, state.observedBeacons.length);
 });

@@ -6,7 +6,7 @@
           <div class="space-equipment-menu__item__icon">
             <ion-icon :src="`/img/icons/${feature.icon}.svg`" />
           </div>
-          <ion-label class="font-size-xs font-bold">
+          <ion-label text-wrap="true" class="font-size-xs font-bold">
             {{ feature.name }}
           </ion-label>
         </ion-item>

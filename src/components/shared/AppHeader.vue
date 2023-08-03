@@ -94,6 +94,11 @@ ion-buttons {
   height: 50px;
 }
 
+.app-header {
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,0) 100%);
+}
+
 .app-header--right, .app-header--left {
   min-width: 100px;
 }
@@ -107,7 +112,7 @@ ion-buttons {
 }
 
 @media only screen and (min-width: 1023px) {
-  ion-toolbar {
+  ion-title {
     display: none;
   }
   .title {

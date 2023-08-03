@@ -41,7 +41,7 @@
         <ion-col>
           <ion-chip class="font-size-xs font-mono" @click="setInitialView">
             <ion-icon :icon="locate" color="secondaryContrast" />
-            <ion-label>{{ $t("pages.admin.organisations.view.locations.panorama.label") }}</ion-label>
+            <ion-label text-wrap="true">{{ $t("pages.admin.organisations.view.locations.panorama.label") }}</ion-label>
           </ion-chip>
         </ion-col>
       </ion-row>

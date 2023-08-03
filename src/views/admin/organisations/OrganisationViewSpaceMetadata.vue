@@ -5,10 +5,10 @@
     </h1>
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
-        <ion-col size-xs="6" class="form-admin--group_field">
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <SpaceTypeModal :organisationId="organisationId" />
           <hr class="form-admin--divider" />
-          <ion-label class="font-bold" v-if="metaData.spaceTypes">{{
+          <ion-label text-wrap="true" class="font-bold" v-if="metaData.spaceTypes">{{
             $t("pages.admin.organisations.view.spaceMetadata.spaceTypes")
           }}</ion-label>
           <div v-for="(data, index) in metaData.spaceTypes" :key="index">
@@ -25,10 +25,10 @@
             />
           </div>
         </ion-col>
-        <ion-col size-xs="6" class="form-admin--group_field">
+        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <SpaceFeatureModal :organisationId="organisationId" />
           <hr class="form-admin--divider" />
-          <ion-label class="font-bold" v-if="metaData.spaceFeatures">{{
+          <ion-label text-wrap="true" class="font-bold" v-if="metaData.spaceFeatures">{{
             $t("pages.admin.organisations.view.spaceMetadata.spaceFeatures")
           }}</ion-label>
           <div v-for="(data, index) in metaData.spaceFeatures" :key="index">

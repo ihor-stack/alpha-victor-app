@@ -16,7 +16,7 @@
             <div class="list-item" slot="header" color="--av-darkest-gray">
               <div class="list-item__info">
                 <div class="list-item__details">
-                  <ion-label>
+                  <ion-label text-wrap="true">
                     <ion-icon :src="`/img/icons/${device.icon}.svg`" />
                     <div>
                       <h2>
@@ -50,7 +50,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>{{
+                  <ion-label text-wrap="true">{{
                     $t("pages.admin.organisations.view.locations.devices.name")
                   }}</ion-label>
                   <ion-input
@@ -67,7 +67,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>{{
+                  <ion-label text-wrap="true">{{
                     $t("pages.admin.organisations.view.locations.devices.sn")
                   }}</ion-label>
                   <ion-input
@@ -87,7 +87,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>{{
+                  <ion-label text-wrap="true">{{
                     $t(
                       "pages.admin.organisations.view.locations.devices.installer"
                     )
@@ -106,7 +106,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>{{
+                  <ion-label text-wrap="true">{{
                     $t(
                       "pages.admin.organisations.view.locations.devices.macAddress"
                     )
@@ -128,7 +128,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>{{
+                  <ion-label text-wrap="true">{{
                     $t(
                       "pages.admin.organisations.view.locations.devices.installDate"
                     )
@@ -158,7 +158,7 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label>{{
+                  <ion-label text-wrap="true">{{
                     $t(
                       "pages.admin.organisations.view.locations.devices.expiryDate"
                     )
@@ -187,7 +187,7 @@
 
               <ion-row class="form-admin--group">
                 <ion-col size-xs="12" class="form-admin--group_field">
-                  <ion-label>{{
+                  <ion-label text-wrap="true">{{
                     $t(
                       "pages.admin.organisations.view.locations.devices.description"
                     )
@@ -202,7 +202,7 @@
                   ></ion-textarea>
                   <div class="photos-container">
                     <ion-item lines="none" class="ion-no-padding">
-                      <ion-label>{{
+                      <ion-label text-wrap="true">{{
                         $t(
                           "pages.admin.organisations.view.locations.devices.photos"
                         )

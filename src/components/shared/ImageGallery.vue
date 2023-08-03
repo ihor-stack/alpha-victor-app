@@ -16,7 +16,7 @@
             :src="image.path"
           />
         </ion-thumbnail>
-        <ion-label>
+        <ion-label text-wrap="true">
           {{ image.name }}
         </ion-label>
         <ion-button

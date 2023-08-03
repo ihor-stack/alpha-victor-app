@@ -45,7 +45,7 @@
       </ion-row>
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.locations.spaces.name")
           }}</ion-label>
           <ion-input
@@ -58,7 +58,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.locations.spaces.shortcode")
           }}</ion-label>
           <ion-input
@@ -71,7 +71,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.locations.spaces.roomType")
           }}</ion-label>
           <AdminSelect
@@ -81,12 +81,12 @@
             idPrefix="room-type-select"
             :handleChange="() => confirmToLeaveService.setEditing(true)"
           />
-          <ion-label class="empty-state" v-else>{{
+          <ion-label text-wrap="true" class="empty-state" v-else>{{
             $t("pages.admin.organisations.view.locations.spaces.notifyRoomType")
           }}</ion-label>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.locations.spaces.capacity")
           }}</ion-label>
           <ion-input
@@ -99,7 +99,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.locations.spaces.typeform")
           }}</ion-label>
           <ion-input
@@ -112,7 +112,7 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.locations.spaces.decision")
           }}</ion-label>
           <AdminSelect
@@ -122,7 +122,7 @@
             idPrefix="decision-tree-select"
             :handleChange="() => confirmToLeaveService.setEditing(true)"
           />
-          <ion-label class="empty-state" v-else>{{
+          <ion-label text-wrap="true" class="empty-state" v-else>{{
             $t(
               "pages.admin.organisations.view.locations.spaces.notifyDecisionTree"
             )
@@ -134,7 +134,7 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <div class="photos-container">
             <ion-item lines="none" class="ion-no-padding">
-              <ion-label>{{
+              <ion-label text-wrap="true">{{
                 $t("pages.admin.organisations.view.locations.spaces.photos")
               }}</ion-label>
               <PhotoModal
@@ -156,7 +156,7 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <div class="photos-container">
             <ion-item lines="none" class="ion-no-padding">
-              <ion-label>{{
+              <ion-label text-wrap="true">{{
                 $t("pages.admin.organisations.view.locations.spaces.documents")
               }}</ion-label>
               <DocumentModal :organisationId="organisationId" />
@@ -176,7 +176,7 @@
                   class="form-admin--group_field-item rev-margin"
                   lines="none"
                 >
-                  <ion-label>
+                  <ion-label text-wrap="true">
                     {{ trimFileExtension(document.name) }}
                   </ion-label>
                   <ion-button

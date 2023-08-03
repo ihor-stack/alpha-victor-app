@@ -17,7 +17,7 @@
           class="location-item"
           @click="router.push(getLocationRoute(location.locationId))"
         >
-          <ion-label>{{ location.locationName }}</ion-label>
+          <ion-label text-wrap="true">{{ location.locationName }}</ion-label>
         </ion-item>
         <div slot="content">
           <ion-accordion-group
@@ -37,7 +37,7 @@
                 lines="none"
                 @click="router.push(getFloorRoute(floor.floorId))"
               >
-                <ion-label>{{ floor.floorName }}</ion-label>
+                <ion-label text-wrap="true">{{ floor.floorName }}</ion-label>
               </ion-item>
               <div slot="content">
                 <ul class="space-wrapper" v-if="floor.spaces.length">

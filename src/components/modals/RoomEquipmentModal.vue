@@ -5,7 +5,7 @@
       </div>
       <ion-header class="ion-no-border">
         <ion-item class="modal-panel__header ion-no-padding ion-no-margin" lines="none">
-          <ion-label>
+          <ion-label text-wrap="true">
             <h2 class="font-bold font-size-lg">
               {{ deviceDetails.name }}
             </h2>
@@ -16,30 +16,30 @@
           </div>
         </ion-item>
       </ion-header>
-      <ion-content :scroll-y="false">
+      <ion-content>
         <ion-list>
           <ion-list-header class="ion-no-padding font-bold">
-            <ion-label>{{$t('components.modals.roomEquipmentModal.technicalLabel')}}</ion-label>
+            <ion-label text-wrap="true">{{$t('components.modals.roomEquipmentModal.technicalLabel')}}</ion-label>
           </ion-list-header>
           <ion-item
             v-for="(item, key) in technicalItems"
             :key="key"
             class="font-size-xs"
           >
-            <ion-label>{{ item.label }}</ion-label>
+            <ion-label text-wrap="true">{{ item.label }}</ion-label>
             <span class="value">{{ item.value }}</span>
           </ion-item>
         </ion-list>
         <ion-list>
           <ion-list-header class="ion-no-padding font-bold">
-            <ion-label>{{$t('components.modals.roomEquipmentModal.installationLabel')}}</ion-label>
+            <ion-label text-wrap="true">{{$t('components.modals.roomEquipmentModal.installationLabel')}}</ion-label>
           </ion-list-header>
           <ion-item
             v-for="(item, key) in installations"
             :key="key"
             class="font-size-xs"
           >
-            <ion-label>{{ item.label }}</ion-label>
+            <ion-label text-wrap="true">{{ item.label }}</ion-label>
             <span class="value">{{ item.value }}</span>
           </ion-item>
         </ion-list>
@@ -50,7 +50,7 @@
             button
             :detail="true"
           >
-            <ion-label>
+            <ion-label text-wrap="true">
               <h3 class="font-bold font-size-xs">{{$t('components.modals.roomEquipmentModal.documentsHeader')}}</h3>
             </ion-label>
           </ion-item>
@@ -173,7 +173,7 @@ ion-item::part(detail-icon) {
 }
 
 .modal-panel__image {
-  max-width: 150px;
+  max-width: 120px;
 }
 
 .equipment-panel__icon {

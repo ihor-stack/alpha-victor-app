@@ -4,7 +4,7 @@
       <div class="settings-panel-container">
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
-            <ion-label>
+            <ion-label text-wrap="true">
               <h2 class="font-size-md font-bold">{{ $t('pages.accountSettings.notifications.label') }}</h2>
               <p class="font-size-xs">{{ $t('pages.accountSettings.notifications.description') }}</p>
             </ion-label>

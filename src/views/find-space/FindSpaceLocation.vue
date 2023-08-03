@@ -2,7 +2,7 @@
   <ion-content>
     <ion-list lines="inset" :inset="true">
       <ion-list-header>
-        <ion-label class="font-bold font-size-title">{{
+        <ion-label text-wrap="true" class="font-bold font-size-title">{{
           $t("pages.findSpace.location.title")
         }}</ion-label>
       </ion-list-header>
@@ -12,7 +12,7 @@
         :href="`/find-space/location/${location.id}/floor`"
         :detail="true"
       >
-        <ion-label>
+        <ion-label text-wrap="true">
           <h3 class="font-bold">{{ location.name }}</h3>
           <p class="font-mono font-size-xxs">
             {{ location.city }}

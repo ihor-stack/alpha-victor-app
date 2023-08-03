@@ -8,7 +8,7 @@
       <template v-if="state.isAddingArticle">
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
-            <ion-label>{{ $t('components.modals.decisionTreeNodeModal.selectArticle.articleTitleLabel') }}</ion-label>
+            <ion-label text-wrap="true">{{ $t('components.modals.decisionTreeNodeModal.selectArticle.articleTitleLabel') }}</ion-label>
             <ion-input
               :placeholder="$t('components.modals.decisionTreeNodeModal.selectArticle.articleTitleInputPlaceholder')"
               v-model="state.newArticleTitle.value"

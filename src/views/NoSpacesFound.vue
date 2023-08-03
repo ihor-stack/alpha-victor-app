@@ -21,7 +21,7 @@
       <ion-item
         lines="none"
       >
-        <ion-label>
+        <ion-label text-wrap="true">
           <h1 class="color-white">{{ $t("pages.dashboard.noSpacesFound") }}</h1>
           <p>{{ $t("pages.dashboard.shortCodeTip") }}</p>
         </ion-label>

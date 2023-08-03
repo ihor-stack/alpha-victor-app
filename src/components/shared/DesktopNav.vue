@@ -42,7 +42,7 @@
             button
             @click="handleNavigate('/dashboard')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.dashboard") }}
             </ion-label>
           </ion-item>
@@ -55,7 +55,7 @@
             button
             @click="handleNavigate('/favourites')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.favourites") }}
             </ion-label>
           </ion-item>
@@ -67,7 +67,7 @@
             button
             @click="handleNavigate('/find-space/location')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.findSpace") }}
             </ion-label>
           </ion-item>
@@ -79,7 +79,7 @@
             button
             @click="handleNavigate('/recently-viewed')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.recentlyViewed") }}
             </ion-label>
           </ion-item>
@@ -91,7 +91,7 @@
             button
             @click="handleNavigate('/settings')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.accountSettings") }}
             </ion-label>
           </ion-item>
@@ -103,7 +103,7 @@
             button
             @click="handleNavigate('/about')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.about") }}
             </ion-label>
           </ion-item>
@@ -115,7 +115,7 @@
             button
             @click="handleNavigate('/terms-and-conditions')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.tos") }}
             </ion-label>
           </ion-item>
@@ -123,7 +123,7 @@
         <div class="spacer-line"></div>
         <li class="nav-menu-link">
           <ion-item lines="none">
-            <ion-label class="ion-no-margin font-size-xxs">
+            <ion-label text-wrap="true" class="ion-no-margin font-size-xxs">
               {{ $t("components.shared.desktopNav.administration") }}
             </ion-label>
           </ion-item>
@@ -136,7 +136,7 @@
             button
             @click="handleNavigate('/admin/organisations')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.organisations") }}
             </ion-label>
           </ion-item>
@@ -148,7 +148,7 @@
             button
             @click="handleNavigate('/admin/equipment')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.equipment") }}
             </ion-label>
           </ion-item>
@@ -160,7 +160,7 @@
             button
             @click="handleNavigate('/admin/documents')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.documentTypes") }}
             </ion-label>
           </ion-item>
@@ -172,7 +172,7 @@
             button
             @click="handleNavigate('/admin/users')"
           >
-            <ion-label class="ion-no-margin">
+            <ion-label text-wrap="true" class="ion-no-margin">
               {{ $t("components.shared.desktopNav.users") }}
             </ion-label>
           </ion-item>

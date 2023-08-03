@@ -14,7 +14,7 @@
           }"
           router-direction="root"
         >
-          <div class="organisations-list-menu--logo">
+          <div v-if="org.logo" class="organisations-list-menu--logo">
             <img v-if="org.logo" :src="org.logo" :alt="org.name" />
           </div>
           <span class="link-text">{{ org.name }}</span>

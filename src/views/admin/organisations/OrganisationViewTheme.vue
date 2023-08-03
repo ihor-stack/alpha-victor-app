@@ -6,7 +6,7 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.theme.logo")
           }}</ion-label>
           <CustomIonUploadInput
@@ -18,7 +18,7 @@
           />
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.theme.bg")
           }}</ion-label>
           <CustomIonUploadInput
@@ -32,11 +32,11 @@
       </ion-row>
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.theme.dark")
           }}</ion-label>
           <ion-item justify="space-between" lines="full">
-            <ion-label>{{
+            <ion-label text-wrap="true">{{
               $t("pages.admin.organisations.view.theme.enableDark")
             }}</ion-label>
             <ion-toggle
@@ -50,7 +50,7 @@
 
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label>{{
+          <ion-label text-wrap="true">{{
             $t("pages.admin.organisations.view.theme.primary")
           }}</ion-label>
           <ion-row>
