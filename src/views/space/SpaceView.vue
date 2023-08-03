@@ -121,6 +121,7 @@
             color="dark"
             expand="block"
             @click="state.reportIssueModalOpen = true"
+            v-if="!isGuestUser"
           >
             {{ $t("pages.space.space.reportIssue") }}
           </ion-button>

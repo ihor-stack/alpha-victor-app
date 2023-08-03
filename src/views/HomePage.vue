@@ -1,6 +1,6 @@
 <template>
   <ion-page id="dashboard" class="outer-container">
-    <app-header :no-background="true">
+    <app-header v-if="isMobileView" :no-background="true">
       <template #start>
         <ion-menu-button fill="solid"> </ion-menu-button>
       </template>
