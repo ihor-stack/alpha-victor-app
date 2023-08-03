@@ -441,6 +441,19 @@ export const Spaces = defineStore("Spaces", {
         })
         .finally(() => loadingService.close(loadId));
     },
+    async updatePhoto(
+      photoId: string,
+      body: { name?: string; caption?: string; featured?: boolean }
+    ) {
+      const loadId = loadingService.show("Loading...");
+
+      return adminAPI
+        .patch(`/Photo/${photoId}`, body)
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => loadingService.close(loadId));
+    },
 
     async addSpacesDocument(newDocument: NewDocument, spaceId: string) {
       return adminAPI

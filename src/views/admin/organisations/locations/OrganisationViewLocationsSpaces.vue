@@ -146,6 +146,7 @@
             <ImageGallery
               v-if="space.photos && space.photos.length"
               :images="space.photos"
+              :toggleImageFeatured="toggleImageFeatured"
               @image-reordered="handleImageReordered"
               @image-removed="handleImageRemoved"
             />
@@ -295,6 +296,16 @@ const handleImageRemoved = (photoId: string) => {
 
 const handleImageReordered = (photos: Photo[]) => {
   Space.reorderPhotos(photos).then(() => {
+    Space.getSpaceDetails(spaceId);
+  });
+};
+
+const toggleImageFeatured = (photo: Photo) => {
+  Space.updatePhoto(String(photo.id), {
+    featured: true,
+    name: photo.name,
+    caption: photo.caption || "",
+  }).then(() => {
     Space.getSpaceDetails(spaceId);
   });
 };

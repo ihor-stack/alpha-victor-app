@@ -31,6 +31,16 @@
         <ion-reorder slot="end" v-if="images.length > 1">
           <ion-icon :icon="menuOutline"></ion-icon>
         </ion-reorder>
+        <ion-radio-group
+          :value="image.id"
+          v-if="toggleImageFeatured"
+          slot="end"
+        >
+          <ion-radio
+            :value="image.featured ? image.id : 'not-selected'"
+            @click="handleImageToggleFeature(image)"
+          />
+        </ion-radio-group>
       </ion-item>
     </ion-reorder-group>
   </ion-row>
@@ -41,7 +51,7 @@ import { ref } from "vue";
 import { menuOutline } from "ionicons/icons";
 import { Photo } from "@/types";
 
-const props = defineProps(["images"]);
+const props = defineProps(["images", "toggleImageFeatured"]);
 const emit = defineEmits<{
   (e: "image-removed", id: string): void;
   (e: "image-reordered", id: Photo[]): void;
@@ -49,6 +59,10 @@ const emit = defineEmits<{
 
 const removeImage = (id: string) => {
   emit("image-removed", id);
+};
+
+const handleImageToggleFeature = (photo: Photo) => {
+  props.toggleImageFeatured(photo);
 };
 
 const orderedImages = ref(props.images);
