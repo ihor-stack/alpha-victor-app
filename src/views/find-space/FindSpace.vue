@@ -36,7 +36,7 @@ import {
   IonMenuButton,
   IonInput,
 } from "@ionic/vue";
-import { reactive, watch, onBeforeMount } from "vue";
+import { reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import AppHeader from "@/components/shared/AppHeader.vue";
@@ -91,15 +91,11 @@ const searchSpace = (term: string) => {
       loadingService.close(loadId);
     });
 };
-
-onBeforeMount(() => {
-  organisationStore.getSearchNavigationTree(currentOrganisationId.value);
-});
 </script>
 
 <style scoped>
 .search-container {
-  padding: 0 30px 30px;
+  padding: 0 20px 30px;
 }
 
 .space-search {

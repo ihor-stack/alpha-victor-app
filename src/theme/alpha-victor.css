@@ -879,6 +879,8 @@ ion-item {
 
 ion-list {
   background: transparent !important;
+  margin-inline-start: 20px !important;
+  margin-inline-end: 20px !important;
 }
 
 ion-menu-button {

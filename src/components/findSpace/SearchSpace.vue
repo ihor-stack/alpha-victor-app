@@ -1,8 +1,8 @@
 <template>
   <div v-for="group in spacesGroup" :key="group.floor">
     <ion-list :inset="true" lines="none">
-      <ion-list-header v-if="group.floor">
-        <ion-label text-wrap="true" class="font-size-title font-bold">{{ group.floor }}</ion-label>
+      <ion-list-header class="ion-no-padding" v-if="group.floor">
+        {{ group.floor }}
       </ion-list-header>
       <ion-item
         v-for="space in group.spaces"
@@ -46,5 +46,13 @@ ion-item::part(native) {
 }
 ion-item {
   --inner-padding-end: 0;
+}
+
+ion-list-header {
+  margin-bottom: 20px;
+}
+
+ion-label p {
+  margin-left: 10px;
 }
 </style>

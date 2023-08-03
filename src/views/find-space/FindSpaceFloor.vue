@@ -2,21 +2,22 @@
   <ion-page>
     <ion-content>
       <ion-list lines="inset" :inset="true">
-        <ion-list-header>
-          <ion-label text-wrap="true" class="font-bold font-size-lg">{{
+        <ion-list-header class="ion-no-padding">
+          {{
             location?.name
-          }}</ion-label>
+          }}
         </ion-list-header>
         <ion-item
           v-for="(floor, index) in location?.floors || []"
           :key="index"
           :href="`/find-space/floor/${floor.id}/room`"
           :detail="true"
+          class="ion-no-padding"
         >
           <ion-label text-wrap="true">
             <h3 class="font-bold">{{ floor.name }}</h3>
             <p class="font-mono font-size-xxs">
-              {{ `${floor.spaces?.length || 0}.spaces` }}
+              {{ `${floor.spaceCount}.spaces` }}
             </p>
           </ion-label>
         </ion-item>
@@ -52,5 +53,13 @@ const location = computed(() =>
 <style scoped>
 ion-item::part(detail-icon) {
   opacity: 1;
+}
+
+ion-list-header {
+  margin-bottom: 20px;
+}
+
+ion-label p {
+  margin-left: 10px;
 }
 </style>
