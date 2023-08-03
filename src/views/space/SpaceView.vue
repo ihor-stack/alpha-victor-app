@@ -18,6 +18,7 @@
           fill="clear"
           size="small"
           class="favourite color-light-gray"
+          v-if="isGuestUser"
           @click="setFavoriteSpace"
         >
           <ion-icon
@@ -120,6 +121,7 @@
             color="dark"
             expand="block"
             @click="state.reportIssueModalOpen = true"
+            v-if="!isGuestUser"
           >
             {{ $t("pages.space.space.reportIssue") }}
           </ion-button>

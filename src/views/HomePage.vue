@@ -1,6 +1,6 @@
 <template>
   <ion-page id="dashboard" class="outer-container">
-    <app-header :no-background="true">
+    <app-header v-if="isMobileView" :no-background="true">
       <template #start>
         <ion-menu-button fill="solid"> </ion-menu-button>
       </template>
@@ -30,13 +30,11 @@ import { storeToRefs } from "pinia";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import DashboardSearchPublic from "@/components/dashboard/DashboardSearchPublic.vue";
 
-import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
 const router = useRouter();
-const authService = new Auth();
 const authStore = useAuthStore();
 const { isAuthenticated } = storeToRefs(authStore);
 const organisationStore = useOrganisationStore();
