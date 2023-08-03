@@ -114,20 +114,26 @@ const searchByShortcode = () => {
   });
   const loadId = loadingService.show("Loading...");
   publicAPI
-    .get(`Space/FindShortcode?request=${state.shortcode}`)
+    .get(`Space/FindShortcode?request=${state.shortcode}`, {
+      headers: {
+        'X-AV-ErrorHandler': 'shortcode'
+      }
+    })
     .then((response) => {
       console.log(response);
       if (response?.data?.id) {
         router.push(`/space/${response.data.id}`);
       }
     })
-    .catch(() => {
-      toastService.show(
-        "Error",
-        "We couldn't find any spaces by that shortcode",
-        "error",
-        "bottom"
-      );
+    .catch((error) => {
+      if (error.response?.status === 404) {
+        toastService.show(
+          "Error",
+          "We couldn't find any spaces by that shortcode",
+          "error",
+          "bottom"
+        );
+      }
     })
     .finally(() => {
       loadingService.close(loadId);
