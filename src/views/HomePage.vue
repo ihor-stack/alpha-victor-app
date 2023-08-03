@@ -33,9 +33,11 @@ import DashboardSearchPublic from "@/components/dashboard/DashboardSearchPublic.
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import Auth from "@/auth";
 
 const router = useRouter();
 const authStore = useAuthStore();
+const authService = new Auth();
 const { isAuthenticated } = storeToRefs(authStore);
 const organisationStore = useOrganisationStore();
 const accountStore = useAccountStore();
