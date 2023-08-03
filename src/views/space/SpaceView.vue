@@ -18,6 +18,7 @@
           fill="clear"
           size="small"
           class="favourite color-light-gray"
+          v-if="isGuestUser"
           @click="setFavoriteSpace"
         >
           <ion-icon

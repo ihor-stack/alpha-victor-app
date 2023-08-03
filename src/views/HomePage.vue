@@ -30,11 +30,9 @@ import { storeToRefs } from "pinia";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import DashboardSearchPublic from "@/components/dashboard/DashboardSearchPublic.vue";
 
-import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
 
 const router = useRouter();
-const authService = new Auth();
 const authStore = useAuthStore();
 const { isAuthenticated } = storeToRefs(authStore);
 

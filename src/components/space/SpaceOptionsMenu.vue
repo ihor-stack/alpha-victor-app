@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ul class="space-options-menu">
-      <li class="space-options-menu-item" v-if="showDevices">
+      <li class="space-options-menu-item" v-if="showDevices && !isGuestUser">
         <ion-item
           :router-link="{
             name: 'Equipment',
@@ -29,7 +29,7 @@
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
-      <li class="space-options-menu-item" v-if="!isGuestUser"> 
+      <li class="space-options-menu-item"> 
         <ion-item
           :router-link="{
             name: 'KnownIssues',
@@ -48,7 +48,7 @@
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
-      <li class="space-options-menu-item">
+      <li class="space-options-menu-item" v-if="!isGuestUser">
         <ion-item
           :router-link="{
             name: 'Documents',
