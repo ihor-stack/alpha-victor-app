@@ -5,7 +5,9 @@
       :outline="true"
       @click="modalOpen = true"
     >
-      <ion-label text-wrap="true">{{ $t('components.admin.spaces.documentModal.addNewDocumentLabel') }}</ion-label>
+      <ion-label text-wrap="true">{{
+        $t("components.admin.spaces.documentModal.addNewDocumentLabel")
+      }}</ion-label>
     </ion-chip>
     <ion-modal
       :is-open="modalOpen"
@@ -26,7 +28,11 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                {{ $t('components.admin.spaces.documentModal.addNewDocumentHeader') }}
+                  {{
+                    $t(
+                      "components.admin.spaces.documentModal.addNewDocumentHeader"
+                    )
+                  }}
                 </h1>
               </div>
             </ion-header>
@@ -51,7 +57,11 @@
                 :disabled="!uploadedDocs.length || !selectedDocType?.title"
                 @click="saveNewDocumentType()"
               >
-                {{ $t('components.admin.spaces.documentModal.uploadDocumentButton') }}
+                {{
+                  $t(
+                    "components.admin.spaces.documentModal.uploadDocumentButton"
+                  )
+                }}
               </ion-button>
             </ion-footer>
           </div>
@@ -114,6 +124,11 @@ const uploadedDocs = ref<File[]>([]);
 const uploadFiles = (file: File) => {
   uploadedDocs.value = [file];
 };
+
+const trimFileExtension = (fileName: string) => {
+  return fileName.substring(0, fileName.lastIndexOf(".")) || fileName;
+};
+
 const saveNewDocumentType = () => {
   const readOneFile = (fileItem: any) => {
     const reader = new FileReader();
@@ -127,7 +142,7 @@ const saveNewDocumentType = () => {
 
         const data = {
           base64Payload: encodedFile,
-          fileName: 'Brand New File #1.txt',
+          fileName: trimFileExtension(fileName),
           documentTypeId: selectedDocType.value.additionalInfo,
           contentType: fileMimeType,
         };

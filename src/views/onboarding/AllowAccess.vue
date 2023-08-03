@@ -177,6 +177,7 @@ const requestPermission = async (language?: number) => {
       publicAccount.updateAccount().then(() => {
         accountDetails.value.activeLanguage = language;
         locale.value = locales[language];
+        localStorage.setItem("last-locale", locales[language]);
       });
     }
     state.currentPermission < 3

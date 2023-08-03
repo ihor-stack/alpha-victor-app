@@ -5,7 +5,9 @@
     @click="modalOpen = true"
     v-if="!disableUpload"
   >
-    <ion-label text-wrap="true">{{$t('components.admin.spaces.photoModal.addNewPhotoLabel')}}</ion-label>
+    <ion-label text-wrap="true">{{
+      $t("components.admin.spaces.photoModal.addNewPhotoLabel")
+    }}</ion-label>
   </ion-chip>
 
   <ion-modal
@@ -27,28 +29,40 @@
               <h1
                 class="modal-panel__title color-light-gray font-bold font-size-lg"
               >
-              {{$t('components.admin.spaces.photoModal.addNewPhotoHeader')}}
+                {{ $t("components.admin.spaces.photoModal.addNewPhotoHeader") }}
               </h1>
             </div>
           </ion-header>
+
           <div class="form-admin--group_field">
             <CustomIonUploadInput
               :buttonText="'Select file'"
               @file-selected="onFileSelected"
             />
-
+            <div class="ion-margin-top ion-margin-bottom" v-if="hasCaption">
+              <ion-label>{{
+                $t("components.admin.spaces.photoModal.caption")
+              }}</ion-label>
+              <ion-input
+                v-model="state.photo.caption"
+                class="font-size-sm"
+              ></ion-input>
+            </div>
             <ion-input
               class="form-toggle"
               :disabled="true"
               v-if="!hiddenFeatureImageToggle"
             >
-              <ion-label text-wrap="true">{{$t('components.admin.spaces.photoModal.featuredPhotoLabel')}}</ion-label>
+              <ion-label text-wrap="true">{{
+                $t("components.admin.spaces.photoModal.featuredPhotoLabel")
+              }}</ion-label>
               <ion-toggle color="primary" v-model="state.featuredPhoto" />
             </ion-input>
           </div>
+
           <ion-footer>
             <ion-button class="font-size-sm" expand="block" @click="save()">
-              {{$t('components.admin.spaces.photoModal.saveButton')}}
+              {{ $t("components.admin.spaces.photoModal.saveButton") }}
             </ion-button>
           </ion-footer>
         </div>
@@ -80,10 +94,11 @@ const Space = Spaces();
 const modalOpen = ref(false);
 const props = defineProps([
   "isFirstPhoto",
+  "hasCaption",
   "queryParams",
   "callback",
   "hiddenFeatureImageToggle",
-  "disableUpload"
+  "disableUpload",
 ]);
 const state = reactive({
   photo: {
@@ -92,6 +107,7 @@ const state = reactive({
     base64Payload: "",
     order: 0,
     featuredPhoto: props.isFirstPhoto,
+    caption: "",
   },
   featuredPhoto: props.isFirstPhoto,
 });

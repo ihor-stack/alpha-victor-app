@@ -418,6 +418,7 @@ export const Spaces = defineStore("Spaces", {
         fileName: photo.fileName,
         order: photo.order,
         featuredPhoto: photo.featuredPhoto,
+        caption: photo.caption || "",
       };
 
       return adminAPI
@@ -449,6 +450,17 @@ export const Spaces = defineStore("Spaces", {
 
       return adminAPI
         .patch(`/Photo/${photoId}`, body)
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => loadingService.close(loadId));
+    },
+
+    async updateDocumentName(documentId: string, name: string) {
+      const loadId = loadingService.show("Loading...");
+      return adminAPI
+        .patch(`/Document/${documentId}`, { name })
+        .then(() => "success")
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
         })

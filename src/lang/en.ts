@@ -588,6 +588,7 @@ export default {
           addNewPhotoHeader: "Add New Photo",
           featuredPhotoLabel: "Featured Photo",
           saveButton: "Save",
+          caption: "Caption",
         },
       },
       documentFieldOLD: {

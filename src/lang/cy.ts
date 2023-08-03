@@ -108,7 +108,7 @@ export default {
         label: "Language",
         description:
           "You can switch between languages via the drop down below.",
-        placeholder: "Choose your language",
+        placeholder: "Select Language",
         english: "English",
         welsh: "Welsh",
         french: "French",
@@ -448,11 +448,6 @@ export default {
         enable: "Enable",
         text1: "Please allow ",
         text2: " when prompted on the next screen for a better app experience",
-        language: "Language",
-        selection: "selection",
-        languageText2:
-          "Please select your preferred language to use when using the application.",
-        confirm: "Confirm",
       },
     },
     home: {
@@ -588,6 +583,7 @@ export default {
           addNewPhotoHeader: "Add New Photo",
           featuredPhotoLabel: "Featured Photo",
           saveButton: "Save",
+          caption: "Caption",
         },
       },
       documentFieldOLD: {

@@ -37,6 +37,7 @@
           slot="end"
         >
           <ion-radio
+            color="primary"
             :value="image.featured ? image.id : 'not-selected'"
             @click="handleImageToggleFeature(image)"
           />

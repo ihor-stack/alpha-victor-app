@@ -416,6 +416,8 @@ export interface NewPhoto {
   contentType: string;
   order: number;
   featuredPhoto: boolean;
+  caption?: string;
+  [key: string]: any;
 }
 
 export interface Panorama {
