@@ -6,6 +6,7 @@
     <ion-input
       :placeholder="props.placeholder"
       :value="currentField"
+      :class="`font-size-${props.fontSize}`"
       @ion-input="currentField = $event.target.value"
       @ion-focus="onInputFocus"
       @keydown.esc="cancelEdit"
@@ -44,6 +45,7 @@ interface Props {
   placeholder: string;
   data: any;
   hideRemove?: boolean;
+  fontSize?: string;
 }
 
 const props = defineProps<Props>();

@@ -587,6 +587,7 @@ export default {
           addNewPhotoLabel: "Add New Photo  >>",
           addNewPhotoHeader: "Add New Photo",
           featuredPhotoLabel: "Featured Photo",
+          featuredPhotoSubtitle: "This image will be featured for the space",
           saveButton: "Save",
           caption: "Caption",
         },

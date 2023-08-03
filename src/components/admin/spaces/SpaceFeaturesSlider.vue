@@ -18,7 +18,7 @@
           <ion-icon
             :icon="close"
             :size="10"
-            color="light"
+            color="dark"
             class="close"
             v-if="feature.selected"
             @click="updateFeatureValue($event, feature)"

@@ -131,7 +131,7 @@
       </ion-row>
 
       <ion-row class="form-admin--group">
-        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+        <ion-col size-xs="12" class="form-admin--group_field">
           <div class="photos-container">
             <ion-item lines="none" class="ion-no-padding">
               <ion-label text-wrap="true">{{
@@ -154,7 +154,7 @@
           </div>
         </ion-col>
 
-        <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+        <ion-col size-xs="12" class="form-admin--group_field">
           <div class="photos-container">
             <ion-item lines="none" class="ion-no-padding">
               <ion-label text-wrap="true">{{
@@ -168,6 +168,7 @@
                 :data="doc"
                 icon=""
                 :id="doc.id"
+                fontSize="xs"
                 :hideRemove="false"
                 @update:modelValue="
                 (value: string) => updateDocumentName({ ...doc, name: value })

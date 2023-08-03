@@ -1,74 +1,81 @@
 <template>
-  <ion-chip
-    class="font-size-xs font-mono"
-    :outline="true"
-    @click="modalOpen = true"
-    v-if="!disableUpload"
-  >
-    <ion-label text-wrap="true">{{
-      $t("components.admin.spaces.photoModal.addNewPhotoLabel")
-    }}</ion-label>
-  </ion-chip>
+  <div>
+    <ion-chip
+      class="font-size-xs font-mono"
+      :outline="true"
+      @click="modalOpen = true"
+      v-if="!disableUpload"
+    >
+      <ion-label text-wrap="true">{{
+        $t("components.admin.spaces.photoModal.addNewPhotoLabel")
+      }}</ion-label>
+    </ion-chip>
 
-  <ion-modal
-    :is-open="modalOpen"
-    @willDismiss="handleDismiss"
-    class="auto-height"
-  >
-    <ion-page>
-      <div class="modal-panel">
-        <div class="modal-panel-container">
-          <ion-header>
-            <ion-icon
-              :icon="close"
-              size="small"
-              class="close-button"
-              @click="modalOpen = false"
-            />
-            <div class="modal-panel__header">
-              <h1
-                class="modal-panel__title color-light-gray font-bold font-size-lg"
-              >
-                {{ $t("components.admin.spaces.photoModal.addNewPhotoHeader") }}
-              </h1>
-            </div>
-          </ion-header>
+    <ion-modal
+      :is-open="modalOpen"
+      @willDismiss="handleDismiss"
+      class="auto-height"
+    >
+      <ion-page>
+        <div class="modal-panel">
+          <div class="modal-panel-container">
+            <ion-header>
+              <ion-icon
+                :icon="close"
+                size="small"
+                class="close-button"
+                @click="modalOpen = false"
+              />
+              <div class="modal-panel__header">
+                <h1
+                  class="modal-panel__title color-light-gray font-bold font-size-lg"
+                >
+                  {{ $t("components.admin.spaces.photoModal.addNewPhotoHeader") }}
+                </h1>
+              </div>
+            </ion-header>
 
-          <div class="form-admin--group_field">
-            <CustomIonUploadInput
-              :buttonText="'Select file'"
-              @file-selected="onFileSelected"
-            />
-            <div class="ion-margin-top ion-margin-bottom" v-if="hasCaption">
-              <ion-label>{{
-                $t("components.admin.spaces.photoModal.caption")
-              }}</ion-label>
-              <ion-input
-                v-model="state.photo.caption"
-                class="font-size-sm"
-              ></ion-input>
+            <div class="form-admin--group_field">
+              <CustomIonUploadInput
+                :buttonText="'Select file'"
+                @file-selected="onFileSelected"
+              />
+
+              <div class="ion-margin-top ion-margin-bottom" v-if="hasCaption">
+                <ion-label>{{
+                  $t("components.admin.spaces.photoModal.caption")
+                }}</ion-label>
+                <ion-input
+                  v-model="state.photo.caption"
+                  class="font-size-sm"
+                ></ion-input>
+              </div>
+
+              <div class="setting" v-if="!hiddenFeatureImageToggle">
+                <div class="setting__label">
+                  <p class="label font-size-xs font-bold">
+                    {{
+                      $t("components.admin.spaces.photoModal.featuredPhotoLabel")
+                    }}
+                  </p>
+                  <span class="sublabel font-mono font-size-xxs color-dark-gray">{{
+                    $t("components.admin.spaces.photoModal.featuredPhotoSubtitle")
+                  }}</span>
+                </div>
+                <ion-toggle color="primary" v-model="state.featuredPhoto" />
+              </div>
             </div>
-            <ion-input
-              class="form-toggle"
-              :disabled="true"
-              v-if="!hiddenFeatureImageToggle"
-            >
-              <ion-label text-wrap="true">{{
-                $t("components.admin.spaces.photoModal.featuredPhotoLabel")
-              }}</ion-label>
-              <ion-toggle color="primary" v-model="state.featuredPhoto" />
-            </ion-input>
+      
+            <ion-footer>
+              <ion-button class="font-size-sm" expand="block" @click="save()">
+                {{ $t("components.admin.spaces.photoModal.saveButton") }}
+              </ion-button>
+            </ion-footer>
           </div>
-
-          <ion-footer>
-            <ion-button class="font-size-sm" expand="block" @click="save()">
-              {{ $t("components.admin.spaces.photoModal.saveButton") }}
-            </ion-button>
-          </ion-footer>
         </div>
-      </div>
-    </ion-page>
-  </ion-modal>
+      </ion-page>
+    </ion-modal>
+  </div>
 </template>
 
 <script setup lang="ts">
