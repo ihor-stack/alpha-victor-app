@@ -17,9 +17,10 @@
       slot="end"
       fill="clear"
       size="small"
+      :disabled="!currentField"
       v-if="editMode"
     >
-    {{$t('components.admin.itemField.saveButton')}}
+      {{ $t("components.admin.itemField.saveButton") }}
     </ion-button>
     <ion-button
       @click="removeField"
@@ -29,7 +30,7 @@
       size="small"
       v-if="!hideRemove && !editMode"
     >
-    {{$t('components.admin.itemField.removeButton')}}
+      {{ $t("components.admin.itemField.removeButton") }}
     </ion-button>
   </ion-item>
 </template>

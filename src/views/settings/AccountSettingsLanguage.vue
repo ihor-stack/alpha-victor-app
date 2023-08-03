@@ -65,6 +65,7 @@ function confirm() {
   accountDetails.value.activeLanguage = state.language;
   publicAccount.updateAccount().then(() => {
     locale.value = locales[state.language];
+    localStorage.setItem("last-locale", locales[state.language]);
     modalController.dismiss();
   });
 }

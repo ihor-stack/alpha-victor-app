@@ -162,40 +162,19 @@
               }}</ion-label>
               <DocumentModal :organisationId="organisationId" />
             </ion-item>
-
-            <ion-row
-              class="form-admin--group_field component_container"
-              v-if="space.documents && space.documents.length"
-            >
-              <ion-col
-                size-xs="12"
-                v-for="document in space.documents"
-                :key="document.id"
-              >
-                <ion-item
-                  button
-                  class="form-admin--group_field-item rev-margin"
-                  lines="none"
-                >
-                  <ion-label>
-                    {{ trimFileExtension(document.name) }}
-                  </ion-label>
-                  <ion-button
-                    class="button-red text-lowercase"
-                    slot="end"
-                    fill="clear"
-                    size="small"
-                    @click="removeSpacesDocument(document.id)"
-                  >
-                    {{
-                      $t(
-                        "pages.admin.organisations.view.locations.spaces.remove"
-                      )
-                    }}
-                  </ion-button>
-                </ion-item>
-              </ion-col>
-            </ion-row>
+            <div v-for="doc in space.documents" :key="doc.id">
+              <ItemField
+                :modelValue="doc.name"
+                :data="doc"
+                icon=""
+                :id="doc.id"
+                :hideRemove="false"
+                @update:modelValue="
+                (value: string) => updateDocumentName({ ...doc, name: value })
+              "
+                @remove="removeSpacesDocument"
+              />
+            </div>
           </div>
         </ion-col>
       </ion-row>
@@ -243,12 +222,7 @@ import {
   IonIcon,
   IonButton,
 } from "@ionic/vue";
-import {
-  locationOutline,
-  peopleOutline,
-  qrCodeOutline,
-  scanOutline,
-} from "ionicons/icons";
+import { locationOutline, peopleOutline } from "ionicons/icons";
 import SpaceFeaturesSlider from "@/components/admin/spaces/SpaceFeaturesSlider.vue";
 import { storeToRefs } from "pinia";
 import { Spaces } from "@/stores/adminSpaces";
@@ -259,8 +233,9 @@ import { Organisations } from "@/stores/adminOrganisations";
 import DocumentModal from "@/components/admin/spaces/DocumentModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
 import ImageGallery from "@/components/shared/ImageGallery.vue";
+import ItemField from "@/components/admin/ItemField.vue";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
-import { Photo } from "@/types";
+import { Photo, SpaceDetailsDocs } from "@/types";
 
 const route = useRoute();
 
@@ -311,12 +286,14 @@ const toggleImageFeatured = (photo: Photo) => {
   });
 };
 
-const removeSpacesDocument = (documentId: string) => {
-  Space.deleteSpacesDocument(documentId, spaceId);
+const removeSpacesDocument = (doc: SpaceDetailsDocs) => {
+  Space.deleteSpacesDocument(doc.id, spaceId);
 };
 
-const trimFileExtension = (fileName: string) => {
-  return fileName.substring(0, fileName.lastIndexOf(".")) || fileName;
+const updateDocumentName = (updatedDoc: SpaceDetailsDocs) => {
+  Space.updateDocumentName(updatedDoc.id, updatedDoc.name).then(() => {
+    Space.getSpaceDetails(spaceId);
+  });
 };
 
 const spaceRoutes = [

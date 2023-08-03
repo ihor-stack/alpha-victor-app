@@ -38,7 +38,7 @@ import "./registerServiceWorker";
 const pinia = createPinia();
 
 const i18n = createI18n({
-  locale: "en",
+  locale: localStorage.getItem("last-locale") || "en",
   legacy: false,
   messages: {
     en,
