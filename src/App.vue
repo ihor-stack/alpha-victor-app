@@ -90,8 +90,10 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
     const authRes = await authService.authenticate(true, strLoginToken);
 
     if (authRes) {
+      authStore.setAuthStatus(true);
       return router.replace({ name: "Dashboard" });
     } else {
+      authStore.setAuthStatus(false);
       return router.replace({ name: "Home" });
     }
   } else if (slug == "/reset-password") {
@@ -242,8 +244,12 @@ onBeforeMount(async () => {
   const i18n = inject("i18n");
   updateThemeFromStorage();
   const currentOrgId = localStorage.getItem("currentOrganisationId");
-  const accessToken = await authService.fetchCurrentAccessToken();
-  if (accessToken) {
+  let hasFreshLogin = await authService.isTokenFresh();
+  if (!hasFreshLogin) {
+    hasFreshLogin = await authService.refresh();
+  }
+
+  if (hasFreshLogin) {
     authStore.setAuthStatus(true);
     if (currentOrgId) {
       organisationStore.setOrganisationId(currentOrgId);

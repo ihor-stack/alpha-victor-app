@@ -32,11 +32,15 @@ import DashboardSearchPublic from "@/components/dashboard/DashboardSearchPublic.
 
 import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
+import { Account as useAccountStore } from "@/stores/publicAccount";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
 const router = useRouter();
 const authService = new Auth();
 const authStore = useAuthStore();
 const { isAuthenticated } = storeToRefs(authStore);
+const organisationStore = useOrganisationStore();
+const accountStore = useAccountStore();
 
 const isMobileView = ref(false);
 
@@ -48,7 +52,26 @@ const goToLogIn = () => {
   router.push({ name: "LogIn" });
 }
 
-onBeforeMount(() => {
+onMounted(async () => {
+
+  const currentOrgId = localStorage.getItem("currentOrganisationId");
+  let hasFreshLogin = await authService.isTokenFresh();
+  if (!hasFreshLogin) {
+    hasFreshLogin = await authService.refresh();
+  }
+
+  if (hasFreshLogin) {
+    authStore.setAuthStatus(true);
+    if (currentOrgId) {
+      organisationStore.setOrganisationId(currentOrgId);
+    }
+    accountStore.getPermissions();
+    organisationStore.getOrganisations();
+  } else {
+    authStore.setAuthStatus(false);
+    organisationStore.setOrgTheme();
+  }
+
   if(isAuthenticated.value) {
     router.push({ name: "Dashboard" });
   }

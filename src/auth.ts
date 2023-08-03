@@ -78,12 +78,13 @@ export default class Auth {
     if (accessToken) return;
 
     const issuedAt = Auth.getCurrentTimeInSeconds().toString();
-    const expiresAt = (Auth.getCurrentTimeInSeconds() + 900).toString();
+    const expiresAt = (Auth.getCurrentTimeInSeconds() + 3600).toString();
 
     localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, guestToken);
     localStorage.removeItem(SECURE_STORE_REFRESH_TOKEN);
     localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
     localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
+    localStorage.setItem(SECURE_STORE_AUTH_TYPE, 'Public');
   }
 
   async isTokenFresh(secondsMargin: number = 60 * 2 * -1): Promise<boolean> {
@@ -140,6 +141,8 @@ export default class Auth {
 
     if (!refreshToken || refreshToken === "undefined") return false;
     if (!authType || authType === "undefined") return false;
+
+    if (authType == "Public") return false;
 
     try {
       const oidcRefreshOptions = Auth.getOidcRefreshOptions(refreshToken);
