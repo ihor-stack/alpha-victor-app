@@ -26,6 +26,7 @@ import { publicAPI } from "@/axios";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 import mixpanel from "mixpanel-browser";
 import Auth from "@/auth";
 
@@ -36,6 +37,8 @@ const router = useRouter();
 const state = reactive({
   shortcode: "",
 });
+
+const accountStore = useAccountStore();
 
 const isScanning = inject("isScanning") as ReturnType<typeof ref>;
 const searchByQrCode = async () => {
@@ -84,7 +87,9 @@ const searchByQrCode = async () => {
       .then((response) => {
         if (response?.data?.spaceId) {
           authService.storeGuestAccessToken(response?.data?.guestAccessToken);
-          router.push(`/space/${response.data.spaceId}?from=byQR`);
+          accountStore.getPermissions().then(() => {
+            router.push(`/space/${response.data.spaceId}?from=byQR`);
+          });
         }
       })
       .catch(() => {
@@ -124,7 +129,9 @@ const searchByShortcode = () => {
     .then((response) => {
       if (response?.data?.spaceId) {
         authService.storeGuestAccessToken(response?.data?.guestAccessToken);
-        router.push(`/space/${response.data.spaceId}`);
+        accountStore.getPermissions().then(() => {
+          router.push(`/space/${response.data.spaceId}`);
+        });
       }
     })
     .catch((error) => {

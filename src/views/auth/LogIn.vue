@@ -75,6 +75,7 @@ const signIn = async () => {
         mixpanel.track("User AuthenLcated", { email: res.email });
       }
     });
+    await accountStore.getPermissions();
     const currentOrgId = localStorage.getItem("currentOrganisationId");
     if (currentOrgId) {
       organisationStore.setOrganisationId(currentOrgId);
@@ -95,9 +96,10 @@ const resetPassword = async () => {
 };
 
 onBeforeMount(async () => {
-  const accessToken = await authService.fetchCurrentAccessToken();
-  console.log(accessToken);
-  if (accessToken) {
+
+  const dashboardNav = authStore.isAuthenticated && !accountStore.userPermission.isGuest
+
+  if (dashboardNav) {
     return router.replace({ name: "Dashboard" });
   } else {
     authStore.setAuthStatus(false);

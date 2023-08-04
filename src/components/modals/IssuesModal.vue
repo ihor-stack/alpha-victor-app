@@ -15,7 +15,7 @@
           </ion-item>
         </ion-header>
         <ion-content :scroll-y="false">
-          <ion-row class="form-admin--group">
+          <ion-row class="form-admin--group" v-if="!isGuestUser">
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label text-wrap="true" class="font-size-xs font-bold">
                 {{$t('components.modals.issuesModal.addCommentLabel')}}
@@ -127,7 +127,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onBeforeMount } from "vue";
+import { reactive, onBeforeMount, computed } from "vue";
 import moment from "moment";
 import {
   IonPage,
@@ -145,6 +145,7 @@ import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import { publicAPI } from "@/axios";
 import { Issue } from "@/types";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
 interface State {
   issue: Issue;
@@ -156,6 +157,10 @@ const state: State = reactive({
   issue: {} as Issue,
   comment: "",
 });
+
+const accountStore = useAccountStore();
+
+const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 
 const getAgoTime = (date: string) => {
   return moment(date).fromNow();
