@@ -383,10 +383,4 @@ ion-footer {
   height: 100%;
   display: flex;
 }
-
-@media only screen and (min-width: 1023px) {
-  ion-menu {
-    display: none;
-  }
-}
 </style>

@@ -7,8 +7,8 @@
           <desktop-nav />
         </ion-col>
         <ion-col>
-          <ion-content class="ion-no-padding">
-            <router-view id="content" v-if="initComplete" />
+          <ion-content id="content" class="ion-no-padding">
+            <router-view v-if="initComplete" />
           </ion-content>
         </ion-col>
       </ion-row>
