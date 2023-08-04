@@ -72,6 +72,7 @@ import {
   IonFooter,
   IonPage,
   IonButton,
+  IonMenuButton,
   IonModal,
 } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";

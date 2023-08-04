@@ -364,7 +364,7 @@ ion-item::part(detail-icon) {
 }
 
 .logo {
-  height: 50px;
+  max-height: 50px;
 }
 
 .logout-button {

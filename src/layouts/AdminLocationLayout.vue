@@ -125,6 +125,10 @@ ion-button {
   top: 0;
 }
 
+.av-sidebar-toggle {
+  display: none;
+}
+
 @media only screen and (max-width: 1023px) {
   .av-sidebar.active {
     left: 0;
@@ -154,6 +158,7 @@ ion-button {
     display: flex;
     justify-content: space-between;
     padding: 8px;
+    display: block;
   }
   .av-sidebar-toggle--active {
     opacity: 0.6;

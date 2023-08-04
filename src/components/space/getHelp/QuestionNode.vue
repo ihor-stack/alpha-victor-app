@@ -133,6 +133,7 @@ ion-item::part(detail-icon) {
   background: #f7fbff !important;
   border-radius: 20px;
   padding: 15px 12px;
+  margin-left: 0 !important;
 }
 .answers-list--text {
   font-size: 14px;

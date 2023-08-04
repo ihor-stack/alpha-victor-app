@@ -118,7 +118,7 @@ const searchByShortcode = () => {
       }
     })
     .then((response) => {
-      if (response?.data?.id) {
+      if (response?.data) {
         router.push(`/space/${response.data.id}`);
       }
     })

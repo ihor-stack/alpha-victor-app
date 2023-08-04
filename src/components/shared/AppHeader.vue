@@ -91,7 +91,7 @@ ion-buttons {
   background: none;
 }
 .logo {
-  height: 50px;
+  max-height: 50px;
 }
 
 .app-header {

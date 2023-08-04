@@ -34,6 +34,13 @@
 
 <script setup lang="ts">
 import { onBeforeMount, ref } from "vue";
+import {
+  IonPage,
+  IonContent,
+  IonFooter,
+  IonButton,
+  IonMenuButton,
+} from "@ionic/vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import AppHeader from "@/components/shared/AppHeader.vue";
