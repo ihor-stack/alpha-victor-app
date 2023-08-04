@@ -75,6 +75,7 @@ const signIn = async () => {
         mixpanel.track("User AuthenLcated", { email: res.email });
       }
     });
+    await accountStore.getPermissions();
     const currentOrgId = localStorage.getItem("currentOrganisationId");
     if (currentOrgId) {
       organisationStore.setOrganisationId(currentOrgId);
