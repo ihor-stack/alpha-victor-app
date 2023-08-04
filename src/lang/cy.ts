@@ -108,7 +108,7 @@ export default {
         label: "Language",
         description:
           "You can switch between languages via the drop down below.",
-        placeholder: "Select Language",
+        placeholder: "Choose your language",
         english: "English",
         welsh: "Welsh",
         french: "French",
@@ -427,7 +427,7 @@ export default {
     },
     allowAccess: {
       headline1: "We need some",
-      headline2: "acess.",
+      headline2: "access.",
       location: {
         title: "Location",
         description: "To allow us to see which room you’re in",
@@ -448,12 +448,19 @@ export default {
         enable: "Enable",
         text1: "Please allow ",
         text2: " when prompted on the next screen for a better app experience",
+        language: "Language",
+        selection: "selection",
+        languageText2:
+          "Please select your preferred language to use when using the application.",
+        confirm: "Confirm",
       },
     },
     home: {
       headline: "a better experience",
       signin: "Log in",
       signup: "Sign up",
+      signinsignup: "Login or register",
+      anonymousMessage: "Save favourite spaces and devices for quick access, browse available resources and more with a free Alpha Victor account.",
       emailSignin: "Prefer to login via email?",
       link: "Send me a login link",
       resetPassword: "I've forgot my password",
@@ -582,6 +589,7 @@ export default {
           addNewPhotoLabel: "Add New Photo  >>",
           addNewPhotoHeader: "Add New Photo",
           featuredPhotoLabel: "Featured Photo",
+          featuredPhotoSubtitle: "This image will be featured for the space",
           saveButton: "Save",
           caption: "Caption",
         },

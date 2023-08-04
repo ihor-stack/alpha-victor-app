@@ -24,6 +24,12 @@ const isScanning = inject('isScanning') as ReturnType<typeof ref>;
 
 const closeScanner = () => {
   BarcodeScanner.stopScan();
+  const body = document.querySelector("body");
+
+  if (body) {
+    body.classList.remove("scanner-active");
+  }
+
   isScanning.value = false;
 };
 </script>
