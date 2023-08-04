@@ -42,7 +42,7 @@
                       class="font-size-sm"
                       :placeholder="$t('components.modals.newLocationModal.headquartersInputPlaceholder')"
                       :value="newLocationDetails.name"
-                      @input="onNameChange"
+                      v-model="newLocationDetails.name"
                     ></ion-input>
                   </ion-col>
  
@@ -57,7 +57,7 @@
                       :placeholder="$t('components.modals.newLocationModal.newLocationInputPlaceholder')"
                       :value="organisationDetails.prefix"
                       @ion-input="
-                        organisationDetails.prefix = String($event.target.value)
+                        newLocationDetails.prefix = String($event.target.value)
                       "
                     ></ion-input>
                   </ion-col>
@@ -109,16 +109,6 @@ const { organisationDetails } = storeToRefs(organisation);
 const { newLocationDetails } = storeToRefs(Location);
 
 const modalOpen = ref(false);
-
-const onNameChange = (event: Event) => {
-  const input = event.target as HTMLInputElement;
-  const name = input.value;
-  newLocationDetails.value.name = name;
-
-  if (name.length > 2) {
-    newLocationDetails.value.prefix = (name.slice(0, 2) + name.slice(-2, -1)).toUpperCase();
-  }
-};
 
 const handleDismiss = () => {
   modalOpen.value = false;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-header :no-background="true">
+    <app-header :no-background="true" v-if="isBackButtonVisible">
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">{{ $t('pages.favourites.back') }}</span>
@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, computed } from "vue";
 import {
   IonButton,
   IonMenuButton
@@ -25,6 +25,8 @@ import {
 import AppHeader from "@/components/shared/AppHeader.vue";
 import { useRouter, useRoute } from "vue-router";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
+
+const isBackButtonVisible = computed(() => route.path !== '/admin/organisations');
 
 const router = useRouter();
 const route = useRoute();

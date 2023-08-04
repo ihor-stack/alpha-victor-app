@@ -105,6 +105,13 @@ onBeforeMount(async () => {
 </script>
 
 <style scoped>
+ion-content {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
 ion-footer {
   padding: 25px;
   position: fixed;
@@ -120,6 +127,10 @@ ion-footer p {
 ion-title, .title-admin {
   width: 100%;
   text-align: center;
+}
+
+ion-content {
+
 }
 
 .sos-container {

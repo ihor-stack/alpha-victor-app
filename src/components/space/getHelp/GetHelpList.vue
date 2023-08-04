@@ -1,15 +1,18 @@
 <template>
   <div class="decision-list-container">
-    <QuestionNode
-      v-if="decisionTree.root"
-      :nodeData="decisionTree.root"
-      :isAvailable="state.currentDecitionTreeNodes.length === 0"
-      :selectAnswerHandler="handleClickNode"
-    ></QuestionNode>
+    <div class="decision-list-step">
+      <QuestionNode
+        v-if="decisionTree.root"
+        :nodeData="decisionTree.root"
+        :isAvailable="state.currentDecitionTreeNodes.length === 0"
+        :selectAnswerHandler="handleClickNode"
+      ></QuestionNode>
+    </div>
 
     <div
       v-for="(treeNode, index) in state.currentDecitionTreeNodes"
       :key="treeNode.id"
+      class="decision-list-step"
     >
       <AnswerNode
         v-if="treeNode.type === DecisionTreeNodeType.Answer"
@@ -158,11 +161,12 @@ onBeforeMount(async () => {
 
 <style scoped>
 .decision-list-container {
-  padding: 0 10px 20px;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  padding-top: 50px;
+  flex-grow: 1;
+  padding: 50px 10px 20px;
+}
+.decision-list-step {
+  margin-bottom: 40px;
 }
 </style>

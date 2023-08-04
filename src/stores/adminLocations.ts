@@ -55,17 +55,30 @@ export const Locations = defineStore("Locations", {
           );
         })
         .catch((error) => {
+          loadingService.close(loadId);
           toastService.show("Error", error, "error", "bottom");
         });
     },
 
     async removeLocation(organisationId: string, locationId: string) {
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .delete(`/Location/${locationId}`)
         .then(() => {
-          this.getLocations(organisationId);
+          loadingService.close(loadId);
+          toastService.show(
+            "Success",
+            "Location deleted successfully",
+            "success",
+            "bottom"
+          );
+          this.getNavigationTree(organisationId);
+          router.push(
+            `/admin/organisation/${organisationId}`
+          );
         })
         .catch((error) => {
+          loadingService.close(loadId);
           toastService.show("Error", error, "error", "bottom");
         });
     },
