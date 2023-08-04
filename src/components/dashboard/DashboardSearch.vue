@@ -118,8 +118,8 @@ const searchByShortcode = () => {
       }
     })
     .then((response) => {
-      if (response?.data?.id) {
-        router.push(`/space/${response.data.id}`);
+      if (response?.data?.spaceId) {
+        router.push(`/space/${response.data.spaceId}`);
       }
     })
     .catch((error) => {
