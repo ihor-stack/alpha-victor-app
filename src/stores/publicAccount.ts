@@ -153,6 +153,7 @@ export const Account = defineStore("Account", {
       this.userPermission = {
         isGlobalAdmin: false,
         isGuest: false,
+        isOrganisationAdmin: false,
         organisationGroups: []
       };
       
