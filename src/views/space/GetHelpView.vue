@@ -13,14 +13,20 @@
       <div class="title">
         <ion-item class="ion-no-padding" lines="none">
           <h1 class="title-admin font-bold font-size-lg">
-            {{ $t('pages.space.getHelp.title') }}
+            {{ $t("pages.space.getHelp.title") }}
           </h1>
         </ion-item>
       </div>
       <GetHelpList></GetHelpList>
     </ion-content>
     <ion-footer v-if="currentSpace.sosNumberPublic">
-      <div class="sos-container" ref="container" @touchstart="onTouchStart" @touchmove="onTouchMove" @touchend="onTouchEnd">
+      <div
+        class="sos-container"
+        ref="container"
+        @touchstart="onTouchStart"
+        @touchmove="onTouchMove"
+        @touchend="onTouchEnd"
+      >
         <span class="label">Emergency Call</span>
         <button class="sos-button" :style="{ width: `${swipeDist}px` }">
           <span>SOS</span>
@@ -47,7 +53,7 @@ import GetHelpList from "@/components/space/getHelp/GetHelpList.vue";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { useRoute } from "vue-router";
 
-import { Capacitor, Plugins } from '@capacitor/core';
+import { Capacitor, Plugins } from "@capacitor/core";
 
 const route = useRoute();
 
@@ -88,13 +94,13 @@ const onTouchEnd = (e) => {
     callPhoneNumber();
   }
   swipeDist.value = 60;
-}
+};
 
 async function callPhoneNumber() {
-  if (Capacitor.platform === 'ios' || Capacitor.platform === 'android') {
-    await Browser.open({ url: 'tel:18001010101' });
+  if (Capacitor.platform === "ios" || Capacitor.platform === "android") {
+    await Browser.open({ url: "tel:18001010101" });
   } else {
-    window.open('tel:18001010101', '_blank');
+    window.open("tel:18001010101", "_blank");
   }
 }
 
@@ -105,7 +111,6 @@ onBeforeMount(async () => {
 
 <style scoped>
 ion-content {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
@@ -124,7 +129,8 @@ ion-footer p {
   margin-top: 10px;
 }
 
-ion-title, .title-admin {
+ion-title,
+.title-admin {
   width: 100%;
   text-align: center;
 }
@@ -134,7 +140,7 @@ ion-title, .title-admin {
   height: 80px;
   border: 1px solid var(--av-red);
   border-radius: 10px;
-  background: rgba(0,0,0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   color: var(--av-red);
   padding: 10px;
   overflow: hidden;
@@ -146,7 +152,7 @@ ion-title, .title-admin {
   margin: auto;
   width: 100%;
   text-align: center;
-  transform:translateY(-50%);
+  transform: translateY(-50%);
   color: var(--av-red);
 }
 
