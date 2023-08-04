@@ -54,7 +54,9 @@ const goToLogIn = () => {
 
 onMounted(async () => {
 
-  if(isAuthenticated.value && !accountStore.userPermission.isGuest) {
+  const tokenFresh = await authService.isTokenFresh();
+
+  if(isAuthenticated.value && accountStore.userPermission.isGuest === false && tokenFresh) {
     router.push({ name: "Dashboard" });
   }
   

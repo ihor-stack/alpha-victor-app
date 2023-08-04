@@ -97,7 +97,8 @@ const resetPassword = async () => {
 
 onBeforeMount(async () => {
 
-  const dashboardNav = authStore.isAuthenticated && !accountStore.userPermission.isGuest
+  const tokenFresh = await authService.isTokenFresh();
+  const dashboardNav = authStore.isAuthenticated && tokenFresh && accountStore.userPermission.isGuest === false;
 
   if (dashboardNav) {
     return router.replace({ name: "Dashboard" });
