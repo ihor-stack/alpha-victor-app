@@ -193,6 +193,11 @@ onBeforeUnmount(() => {
   padding: 20px 20px 32px;
   background: 0;
 }
+@media only screen and (min-width: 1023px) {
+  .dashboard-search-container {
+    padding: 40px 20px 32px;
+  }
+}
 .dashboard-sliders {
   flex: 1;
   margin-bottom: 32px;
