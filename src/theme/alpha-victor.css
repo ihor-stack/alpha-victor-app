@@ -903,6 +903,10 @@ body.scanner-active {
   --ion-background-color: transparent;
 }
 
+body.scanner-active #app ion-grid {
+  visibility: hidden !important;
+}
+
 ion-content.transparent::part(scroll) {
   background: none;
 }

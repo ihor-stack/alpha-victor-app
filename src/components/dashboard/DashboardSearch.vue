@@ -85,6 +85,7 @@ const searchByQrCode = async () => {
         toastService.show("Error", "The QR code is not valid.", "error", "bottom");
       })
       .finally(() => {
+        closeScanner();
         loadingService.close(loadId);
       });
   }
