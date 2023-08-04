@@ -36,7 +36,7 @@
       />
     </ion-content>
     <ion-footer>
-      <div class="known-issues__report-issue">
+      <div class="known-issues__report-issue" v-if="!isGuestUser">
         <ion-button expand="block" @click="handleReportIssueClick">{{
           $t("pages.space.knownIssues.footer")
         }}</ion-button>
@@ -65,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, reactive } from "vue";
+import { onBeforeMount, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
   IonContent,
@@ -85,12 +85,16 @@ import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import { publicAPI } from "@/axios";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
 const router = useRouter();
 const route = useRoute();
 
 const spaceId: string = route.params.spaceId as string;
 const spacesStore = useSpacesStore();
+const accountStore = useAccountStore();
+
+const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 
 interface Props {
   reportIssueModalOpen: boolean;

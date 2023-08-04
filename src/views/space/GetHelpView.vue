@@ -9,8 +9,7 @@
         </ion-button>
       </template>
     </app-header>
-
-    <ion-content>
+    <ion-header>
       <div class="title">
         <ion-item class="ion-no-padding" lines="none">
           <h1 class="title-admin font-bold font-size-lg">
@@ -18,6 +17,8 @@
           </h1>
         </ion-item>
       </div>
+    </ion-header>
+    <ion-content :fullscreen="true">
       <GetHelpList></GetHelpList>
     </ion-content>
     <ion-footer v-if="currentSpace.sosNumberPublic">
@@ -109,7 +110,8 @@ ion-content {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: hidden;
+  flex-grow: 1;
 }
 
 ion-footer {
@@ -127,10 +129,6 @@ ion-footer p {
 ion-title, .title-admin {
   width: 100%;
   text-align: center;
-}
-
-ion-content {
-
 }
 
 .sos-container {
