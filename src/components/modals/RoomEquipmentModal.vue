@@ -56,8 +56,8 @@
           </ion-item>
         </ion-list>
       </ion-content>
-      <ion-footer>
-        <div class="equipment-panel__footer">
+      <ion-footer> 
+        <div class="equipment-panel__footer button-pair">
           <ion-button
             expand="block"
             :href="`/equipment/${spaceId}/documents/${deviceDetails.id}?documentType=User Guide`"
@@ -65,7 +65,7 @@
           >
           <ion-button
             v-if="!isGuestUser"
-            expand="block"
+            fill="outline"
             @click="handleClickReportIssue"
             >{{ $t('components.modals.roomEquipmentModal.reportIssueButton') }}</ion-button
           >
@@ -160,7 +160,10 @@ ion-item::part(native) {
 ion-item::part(detail-icon) {
   opacity: 1;
 }
-
+ion-list {
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+}
 .modal-panel {
   height: 100%;
 }
@@ -214,7 +217,7 @@ ion-item::part(detail-icon) {
 }
 
 ion-button {
-  flex-basis: 47%;
+  width: 100%;
 }
 
 .equipment-panel__info-section {
