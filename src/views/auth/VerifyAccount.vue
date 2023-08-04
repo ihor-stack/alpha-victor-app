@@ -20,12 +20,16 @@ import { reactive, watch, onBeforeMount } from "vue";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { useRoute, useRouter } from 'vue-router';
 import Auth from '@/auth';
+import { auth as useAuthStore } from "@/stores/authStore";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import toastService from '@/services/toastService';
 
 const router = useRouter();
 const route = useRoute();
 const authService = new Auth();
+const authStore = useAuthStore();
 const accountStore = useAccountStore();
+const organisationStore = useOrganisationStore();
 
 onBeforeMount(async () => {
 
@@ -43,39 +47,27 @@ onBeforeMount(async () => {
 });
 
 const confirmVerificationToken = async (token: string) => {
+  try {
+    const emailVerificationResponse = await accountStore.confirmEmailVerification(token);
 
-  accountStore
-      .confirmEmailVerification(token)
-      .then((res) => {
+    const loginToken = emailVerificationResponse.data.loginToken;
 
-        const loginToken = res.data.loginToken;
+    if (!loginToken) throw "Your account could not be verified.";
 
-        if (!loginToken) throw "Your account could not be verified.";
+    await authService.authenticate(true, loginToken);
+    toastService.show("Success", "Your account has been verified.", "success", "bottom");
+    
+    authStore.setAuthStatus(true);
+    await accountStore.getAccount();
+    await organisationStore.getOrganisations();
+    
+    await accountStore.getPermissions();
 
-        return authService.authenticate(true, loginToken);
-
-      })
-      .then((res) => {
-        
-        toastService.show(
-          "Success",
-          "Your account has been verified.",
-          "success",
-          "bottom"
-        );
-
-        router.replace({ name: "AllowAccess" });
-      })
-      .catch((error) => {
-        toastService.show(
-        "Error",
-        error,
-        "error",
-        "bottom"
-      );
-    });
-
-}
+    router.replace({ name: "AllowAccess" });
+  } catch (error) {
+    toastService.show("Error", error, "error", "bottom");
+  }
+};
 
 </script>
 
@@ -84,6 +76,8 @@ const confirmVerificationToken = async (token: string) => {
   flex: 0 0 72%;
   display: flex;
   flex-direction: column;
+  text-align: center;
+  width: 100%;
 }
 
 .blue-text-container {

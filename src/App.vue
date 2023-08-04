@@ -251,7 +251,6 @@ const checkPermission = () => {
 };
 
 onBeforeMount(async () => {
-  const i18n = inject("i18n");
   updateThemeFromStorage();
 
   const currentOrgId = localStorage.getItem("currentOrganisationId");

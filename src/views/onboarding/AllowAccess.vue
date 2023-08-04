@@ -167,12 +167,29 @@ const handleDismiss = () => {
 
 const requestPermission = async (language?: number) => {
   try {
+    // Check for location permission
     if (state.currentPermission === 0) {
-      await Diagnostic.requestLocationAuthorization();
-    } else if (state.currentPermission === 1) {
-      await Diagnostic.requestBluetoothAuthorization();
-    } else if (state.currentPermission === 2) {
-      await Diagnostic.requestRemoteNotificationsAuthorization();
+      Diagnostic.isLocationAuthorized().then((authorized) => {
+        if (!authorized) {
+          Diagnostic.requestLocationAuthorization();
+        }
+      });
+    }
+    // Check for Bluetooth permission
+    else if (state.currentPermission === 1) {
+      Diagnostic.isBluetoothAvailable().then((available) => {
+        if (!available) {
+          Diagnostic.requestBluetoothAuthorization();
+        }
+      });
+    }
+    // Check for remote notifications permission
+    else if (state.currentPermission === 2) {
+      Diagnostic.isRemoteNotificationsEnabled().then((enabled) => {
+        if (!enabled) {
+          Diagnostic.requestRemoteNotificationsAuthorization();
+        }
+      });
     } else if (state.currentPermission === 3 && language !== undefined) {
       publicAccount.updateAccount()
         .then(() => {
