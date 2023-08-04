@@ -37,7 +37,7 @@
     </div>
     <div class="panorama-content">
       <div id="pano"></div>
-      <ion-row>
+      <ion-row v-if="currentPanorama?.path">
         <ion-col>
           <ion-chip class="font-size-xs font-mono" @click="setInitialView">
             <ion-icon :icon="locate" color="secondaryContrast" />
@@ -63,7 +63,7 @@
         <ion-button
           @click="deletePanorama"
           color="danger"
-          :disabled="!currentPanorama?.path"
+          v-if="currentPanorama?.path"
           >{{ $t("pages.admin.organisations.view.locations.panorama.deleteBtn") }}</ion-button
         >
       </ion-row>

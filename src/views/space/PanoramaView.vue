@@ -20,6 +20,7 @@
       <ion-chip
         class="font-size-xs font-mono startingViewButton"
         @click="setInitialView"
+        v-if="currentPanorama?.path"
       >
         <ion-icon :icon="locate" color="secondaryContrast" />
         <ion-label text-wrap="true">{{
