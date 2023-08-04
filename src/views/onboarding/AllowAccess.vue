@@ -174,10 +174,13 @@ const requestPermission = async (language?: number) => {
     } else if (state.currentPermission === 2) {
       await Diagnostic.requestRemoteNotificationsAuthorization();
     } else if (state.currentPermission === 3 && language !== undefined) {
-      publicAccount.updateAccount().then(() => {
+      publicAccount.updateAccount()
+        .then(() => {
         accountDetails.value.activeLanguage = language;
         locale.value = locales[language];
         localStorage.setItem("last-locale", locales[language]);
+        handleDismiss();
+        return router.replace({ name: "Dashboard" });
       });
     }
     state.currentPermission < 3

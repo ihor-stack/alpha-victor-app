@@ -427,7 +427,7 @@ export default {
     },
     allowAccess: {
       headline1: "We need some",
-      headline2: "acess.",
+      headline2: "access.",
       location: {
         title: "Location",
         description: "To allow us to see which room you’re in",

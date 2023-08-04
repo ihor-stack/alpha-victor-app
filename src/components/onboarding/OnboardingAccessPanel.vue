@@ -78,7 +78,6 @@ const skipPermissions = async () => {
 
 <style scoped>
 .access-panel {
-  height: 100%;
   border-radius: 40px 40px 0px 0px;
   overflow: hidden;
   display: flex;
@@ -88,12 +87,12 @@ const skipPermissions = async () => {
 }
 
 .access-panel-container {
-  height: 75%;
+  height: 100%;
   background-color: #181818;
   border-radius: 40px 40px 0px 0px;
   display: flex;
   flex-direction: column;
-  padding: 42px 22px;
+  padding: 40px 20px;
 }
 
 .image {

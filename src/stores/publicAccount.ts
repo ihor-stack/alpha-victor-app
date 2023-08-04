@@ -29,14 +29,6 @@ export const Account = defineStore("Account", {
     async updateAccount() {
       return publicAPI
         .patch("/Account/PersonalDetails", this.accountDetails)
-        .then(() => {
-          toastService.show(
-            "Success",
-            "Profile details updated",
-            "success",
-            "bottom"
-          );
-        })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
         });
