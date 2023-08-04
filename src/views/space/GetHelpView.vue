@@ -9,7 +9,7 @@
         </ion-button>
       </template>
     </app-header>
-    <ion-header>
+    <ion-content :fullscreen="true">
       <div class="title">
         <ion-item class="ion-no-padding" lines="none">
           <h1 class="title-admin font-bold font-size-lg">
@@ -17,8 +17,6 @@
           </h1>
         </ion-item>
       </div>
-    </ion-header>
-    <ion-content :fullscreen="true">
       <GetHelpList></GetHelpList>
     </ion-content>
     <ion-footer v-if="currentSpace.sosNumberPublic">
