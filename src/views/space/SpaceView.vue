@@ -422,10 +422,4 @@ onBeforeMount(() => {
 ion-content {
   --offset-bottom: 0px !important;
 }
-
-@media only screen and (min-width: 1023px) {
-  .back {
-    display: none;
-  }
-}
 </style>
