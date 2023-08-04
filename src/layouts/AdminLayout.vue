@@ -1,8 +1,8 @@
 <template>
   <div>
-    <app-header :no-background="true" v-if="isBackButtonVisible">
+    <app-header :no-background="true" v-if="isBackButtonVisible || isMobileView">
       <template #start>
-        <ion-button fill="clear" @click="() => router.back()" class="back">
+        <ion-button fill="clear" @click="() => router.back()" class="back" v-if="isBackButtonVisible">
           <span class="font-mono font-size-xs">{{ $t('pages.favourites.back') }}</span>
         </ion-button>
       </template>
