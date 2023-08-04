@@ -64,14 +64,12 @@ const searchByQrCode = async () => {
   // if the result has content
   if (result.hasContent) {
     // Remove our base URL and prefix from content.
-    const prefix = `${process.env.VUE_APP_BASE_URL}/qr/`;
-    const url = result.content.replace(prefix, "");
-    const urlParts = url.split("/");
+    const qrUrl = new URL(result.content);
 
-    const orgPrefix = urlParts[0];
-    const locPrefix = urlParts[1];
-    const floorName = urlParts[2];
-    const spaceShort = urlParts[3];
+    const orgPrefix = qrUrl.searchParams.get('o') as string;
+    const locPrefix = qrUrl.searchParams.get('l') as string;
+    const floorName = qrUrl.searchParams.get('f') as string;
+    const spaceShort = qrUrl.searchParams.get('s') as string;
 
     const loadId = loadingService.show("Loading...");
     publicAPI
