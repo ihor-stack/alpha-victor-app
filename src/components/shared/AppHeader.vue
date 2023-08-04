@@ -1,7 +1,7 @@
 <template>
   <ion-header :class="['app-header ion-no-border', noBackground ? 'no-background' : '']">
     <ion-toolbar>
-      <ion-buttons slot="start" mode="md" class="app-header--left" v-if="!isGuestUser">
+      <ion-buttons slot="start" mode="md" class="app-header--left">
         <slot name="start"></slot>
       </ion-buttons>
 

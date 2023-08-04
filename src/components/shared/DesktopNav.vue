@@ -49,7 +49,7 @@
           </ion-item>
         </li>
 
-        <li class="nav-menu-link">
+        <li class="nav-menu-link" v-if="!isAuthenticated || userPermission.isGuest">
           <ion-item
             lines="none"
             :detail="true"
