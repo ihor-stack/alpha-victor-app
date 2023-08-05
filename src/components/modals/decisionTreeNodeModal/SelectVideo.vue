@@ -70,7 +70,7 @@
       <ion-button
         class="ion-text-capitalize"
         expand="block"
-        @click="handleClickConfirm({ video: state.selectedVideo.value })"
+        @click="handleClickConfirm({ video: state.selectedVideo })"
       >
         {{
           $t(

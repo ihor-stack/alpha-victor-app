@@ -3,7 +3,9 @@
     <app-header>
       <template #start>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">{{ $t('pages.space.video.back')}}</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.space.video.back")
+          }}</span>
         </ion-button>
       </template>
     </app-header>
@@ -22,36 +24,43 @@
             button
             @click="chapterClicked(index)"
           >
-            <div
-              class="play-icon-wrapper"
-              :style="{
-                background:
-                  index + 1 === state.currentChapter
-                    ? 'var(--ion-color-primary, #3880ff)'
-                    : '#fff',
-              }"
-            >
-              <ion-icon
-                :icon="
-                  state.playing && index + 1 === state.currentChapter
-                    ? pauseOutline
-                    : caretForward
-                "
-                :color="
-                  index + 1 === state.currentChapter ? '#ffffff' : 'primary'
-                "
-                slot="start"
-              />
+            <div class="chapter-title-wrapper">
+              <div
+                class="play-icon-wrapper"
+                :style="{
+                  background:
+                    index + 1 === state.currentChapter
+                      ? 'var(--ion-color-primary, #3880ff)'
+                      : '#fff',
+                }"
+              >
+                <ion-icon
+                  :icon="
+                    state.playing && index + 1 === state.currentChapter
+                      ? pauseOutline
+                      : caretForward
+                  "
+                  :color="
+                    index + 1 === state.currentChapter ? '#ffffff' : 'primary'
+                  "
+                  slot="start"
+                />
+              </div>
+              {{ chapter.title }}
+              <ion-badge class="chapter-duration-badge">{{
+                getChapterLength(index)
+              }}</ion-badge>
             </div>
-            {{ chapter.title }}
-            <ion-badge class="chapter-duration-badge">{{
-              getChapterLength(index)
-            }}</ion-badge>
+            <div class="chapter-subTitle" v-if="chapter.subTitle">
+              {{ chapter.subTitle }}
+            </div>
           </ion-item>
         </ion-list>
         <ion-list lines="none" class="autoplay-wrapper">
           <ion-item class="autoplay-toggle">
-            <ion-label text-wrap="true">{{ $t('pages.space.video.label')}}</ion-label>
+            <ion-label text-wrap="true">{{
+              $t("pages.space.video.label")
+            }}</ion-label>
             <ion-toggle v-model="state.autoplay"></ion-toggle>
           </ion-item>
         </ion-list>
@@ -90,8 +99,9 @@ const playerRef = ref();
 
 interface Chapter {
   title: string;
-  startTime: number;
+  timeCode: number;
   index: number;
+  subTitle: string;
 }
 
 interface State {
@@ -147,8 +157,9 @@ const getVideo = () => {
       });
 
       state.duration = await player.getDuration();
-      state.chapters = await player.getChapters();
+      state.chapters = response.data.chapters;
       state.videoData = response.data;
+      console.log(state.chapters);
     })
     .catch((error) => {
       state.videoData = null;
@@ -169,7 +180,7 @@ const chapterClicked = async (chapter: number) => {
       state.playing = true;
     }
   } else {
-    await player.setCurrentTime(state.chapters[chapter].startTime);
+    await player.setCurrentTime(state.chapters[chapter].timeCode);
     player.play();
     state.playing = true;
   }
@@ -178,12 +189,16 @@ const chapterClicked = async (chapter: number) => {
 const getChapterLength = (index: number) => {
   let seconds = 0;
   if (index === state.chapters.length - 1) {
-    seconds = state.duration - state.chapters[index].startTime;
+    seconds = state.duration - state.chapters[index].timeCode;
   } else {
     seconds =
-      state.chapters[index + 1].startTime - state.chapters[index].startTime;
+      state.chapters[index + 1].timeCode - state.chapters[index].timeCode;
   }
-  return seconds;
+  const mins = Math.floor(seconds / 60);
+  const remainSeconds = seconds - mins * 60;
+  return `${mins.toString().padStart(2, "0")}:${remainSeconds
+    .toString()
+    .padStart(2, "0")}`;
 };
 
 onBeforeMount(() => getVideo());
@@ -234,5 +249,23 @@ ion-badge.chapter-duration-badge {
 
 .autoplay-toggle ion-label {
   --color: #9ca0a6;
+}
+
+ion-item.chapter-item::part(native) {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 14px 8px;
+  min-height: fit-content;
+}
+
+.chapter-title-wrapper {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.chapter-subTitle {
+  padding: 24px 0 10px 0;
+  font-size: 12px;
 }
 </style>

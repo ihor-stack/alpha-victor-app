@@ -47,10 +47,12 @@
               :value="chapter.id"
             >
               <ion-item slot="header">
-                <ion-label class="text-title">{{ chapter.title }}</ion-label>
-                <ion-badge class="chapter-duration-badge">{{
-                  getChapterLength(index)
-                }}</ion-badge>
+                <div class="accordion-header">
+                  <ion-label class="text-title">{{ chapter.title }}</ion-label>
+                  <ion-badge class="chapter-duration-badge">{{
+                    getChapterLength(index)
+                  }}</ion-badge>
+                </div>
               </ion-item>
               <ion-row slot="content">
                 <ion-col size="12" class="form-admin--group_field">
@@ -219,7 +221,10 @@ onMounted(() => {
       state.title = res;
     });
     player.getChapters().then((res) => {
-      state.chapters = res;
+      state.chapters = res.map((chapter) => ({
+        ...chapter,
+        timeCode: chapter.startTime,
+      }));
     });
   }
 });
@@ -231,6 +236,11 @@ onMounted(() => {
 }
 .form-admin--group_field {
   padding-right: 0;
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
 }
 
 ion-item::part(native) {
