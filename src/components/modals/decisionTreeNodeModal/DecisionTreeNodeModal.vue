@@ -28,13 +28,26 @@
         :handleClickConfirm="handleClickConfirm"
         :handleClickBack="handleClickBack"
       />
-      <SelectVideo
-        v-else-if="editTreeNode?.type === 1"
-        :editTreeNode="editTreeNode"
-        :handleDismiss="() => handleDismiss()"
-        :handleClickConfirm="handleClickConfirm"
-        :handleClickBack="handleClickBack"
-      />
+      <v-container v-else-if="editTreeNode?.type === 1">
+        <SelectVideo
+          v-if="state.step === 1"
+          :editTreeNode="editTreeNode"
+          :handleDismiss="() => handleDismiss()"
+          :handleClickConfirm="handleClickConfirm"
+          :handleClickBack="handleClickBack"
+          :handleFetch="handleVideoFetch"
+          :handleEditVideo="handleEditVideo"
+        />
+        <FetchVideo
+          v-else
+          :editTreeNode="editTreeNode"
+          :vimeoUrl="state.vimeoUrl"
+          :selectedId="state.videoId"
+          :handleDismiss="() => handleDismiss()"
+          :handleClickConfirm="handleClickConfirm"
+          :handleClickBack="handleClickBack"
+        />
+      </v-container>
       <AddEmail
         v-else-if="editTreeNode?.type === 4"
         :editTreeNode="editTreeNode"
@@ -71,6 +84,7 @@ import EditAnswer from "./EditAnswer.vue";
 import AddEmail from "./AddEmail.vue";
 import AddPhone from "./AddPhone.vue";
 import SelectDocument from "./SelectDocument.vue";
+import FetchVideo from "./FetchVideo.vue";
 
 interface IQuestion {
   text: string;
@@ -97,6 +111,8 @@ const props = defineProps([
 
 const state = reactive({
   step: 0,
+  vimeoUrl: "",
+  videoId: "",
 });
 
 const handleClickNext = (questionData: IQuestion) => {
@@ -113,6 +129,19 @@ const handleClickConfirm = (treeNodeData: ITreeNodeData) => {
 };
 
 const handleClickBack = () => {
-  state.step = 0;
+  state.step = state.step - 1;
+  state.vimeoUrl = "";
+  state.videoId = "";
+};
+
+const handleVideoFetch = (vimeoUrl: string) => {
+  state.vimeoUrl = vimeoUrl;
+  state.step = 2;
+};
+
+const handleEditVideo = (video: Video) => {
+  state.videoId = video.id;
+  state.vimeoUrl = video.url;
+  state.step = 2;
 };
 </script>

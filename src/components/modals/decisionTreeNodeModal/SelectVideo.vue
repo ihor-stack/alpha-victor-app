@@ -1,16 +1,26 @@
 <template>
   <common-modal
-    :title="$t('components.modals.decisionTreeNodeModal.selectVideo.selectVideoTitle')"
-    :description="$t('components.modals.decisionTreeNodeModal.selectVideo.selectVideoDescription')"
+    :title="
+      $t('components.modals.decisionTreeNodeModal.selectVideo.selectVideoTitle')
+    "
+    :description="
+      $t(
+        'components.modals.decisionTreeNodeModal.selectVideo.selectVideoDescription'
+      )
+    "
     :handleDismiss="() => handleDismiss()"
   >
     <ion-content>
       <ion-row>
-        <ion-col size="12" class="ion-no-padding"> 
+        <ion-col size="12" class="ion-no-padding">
           <input-with-icon
             iconPosition="start"
             type="search"
-            :placeholder="$t('components.modals.decisionTreeNodeModal.selectVideo.searchForVideoPlaceholder')"
+            :placeholder="
+              $t(
+                'components.modals.decisionTreeNodeModal.selectVideo.searchForVideoPlaceholder'
+              )
+            "
             v-model="state.searchTerm"
             :icon="search"
           ></input-with-icon>
@@ -20,32 +30,39 @@
         :listData="filteredVideos"
         :selectedItem="state.selectedVideo"
         :handleSelectItem="(item) => (state.selectedVideo = item)"
+        :handleEditItem="handleEditItem"
       ></CustomList>
       <div class="divider">
         <div></div>
-        <span>{{$t('components.modals.decisionTreeNodeModal.selectVideo.dividerSpan')}}</span>
+        <span>{{
+          $t("components.modals.decisionTreeNodeModal.selectVideo.dividerSpan")
+        }}</span>
       </div>
       <ion-row>
         <ion-col size="12" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoLabel')}}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t(
+              "components.modals.decisionTreeNodeModal.selectVideo.addVideoLabel"
+            )
+          }}</ion-label>
           <ion-row>
             <ion-input
-              :placeholder="$t('components.modals.decisionTreeNodeModal.selectVideo.videoURLInputPlaceholder')"
+              :placeholder="
+                $t(
+                  'components.modals.decisionTreeNodeModal.selectVideo.videoURLInputPlaceholder'
+                )
+              "
               v-model="state.newVideoUrl.value"
             ></ion-input>
-            <ion-button class="addVideoButton" @click="onAddVideo"
-              >{{$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoButton')}}</ion-button
+            <ion-button
+              class="addVideoButton"
+              @click="onFetchVideo"
+              :disabled="!state.newVideoUrl.value"
+              >{{
+                $t("components.modals.decisionTreeNodeModal.selectVideo.fetch")
+              }}</ion-button
             >
           </ion-row>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoTitleLabel')}}</ion-label>
-          <ion-input
-            :placeholder="$t('components.modals.decisionTreeNodeModal.selectVideo.addVideoTitlePlaceholder')"
-            v-model="state.newVideoTitle.value"
-          ></ion-input>
         </ion-col>
       </ion-row>
     </ion-content>
@@ -53,9 +70,13 @@
       <ion-button
         class="ion-text-capitalize"
         expand="block"
-        @click="handleClickConfirm({ video: state.selectedVideo })"
+        @click="handleClickConfirm({ video: state.selectedVideo.value })"
       >
-        {{$t('components.modals.decisionTreeNodeModal.selectDocument.confirmSelectionButton')}}
+        {{
+          $t(
+            "components.modals.decisionTreeNodeModal.selectDocument.confirmSelectionButton"
+          )
+        }}
       </ion-button>
       <ion-button
         class="ion-text-capitalize"
@@ -63,7 +84,11 @@
         expand="block"
         @click="handleClickBack"
       >
-        {{$t('components.modals.decisionTreeNodeModal.selectDocument.backToDestinationButton')}}
+        {{
+          $t(
+            "components.modals.decisionTreeNodeModal.selectDocument.backToDestinationButton"
+          )
+        }}
       </ion-button>
     </ion-footer>
   </common-modal>
@@ -79,6 +104,7 @@ import {
   IonLabel,
   IonInput,
 } from "@ionic/vue";
+
 import CommonModal from "@/components/modals/CommonModal.vue";
 import InputWithIcon from "@/components/shared/InputWithIcon.vue";
 import { search } from "ionicons/icons";
@@ -91,15 +117,13 @@ const props = defineProps([
   "handleClickConfirm",
   "handleDismiss",
   "handleClickBack",
+  "handleFetch",
+  "handleEditVideo",
 ]);
 
 const state = reactive({
   searchTerm: "",
   selectedVideo: props.editTreeNode?.video,
-  newVideoTitle: {
-    error: false,
-    value: "",
-  },
   newVideoUrl: {
     error: false,
     value: "",
@@ -115,19 +139,12 @@ const filteredVideos = computed(() => {
   );
 });
 
-const onAddVideo = () => {
-  const organisationsStore = useOrganisationsStore();
-  organisationsStore.createVideo(
-    {
-      title: state.newVideoTitle.value,
-      url: state.newVideoUrl.value,
-    },
-    (res) => {
-      state.newVideoTitle.value = "";
-      state.newVideoUrl.value = "";
-      state.selectedVideo = res;
-    }
-  );
+const onFetchVideo = () => {
+  props.handleFetch(state.newVideoUrl.value);
+};
+
+const handleEditItem = (item) => {
+  props.handleEditVideo(item);
 };
 </script>
 

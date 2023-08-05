@@ -460,7 +460,8 @@ export default {
       signin: "Log in",
       signup: "Sign up",
       signinsignup: "Login or register",
-      anonymousMessage: "Save favourite spaces and devices for quick access, browse available resources and more with a free Alpha Victor account.",
+      anonymousMessage:
+        "Save favourite spaces and devices for quick access, browse available resources and more with a free Alpha Victor account.",
       emailSignin: "Prefer to login via email?",
       link: "Send me a login link",
       resetPassword: "I've forgot my password",
@@ -697,9 +698,13 @@ export default {
           dividerSpan: "or",
           addVideoLabel: "Add new video",
           videoURLInputPlaceholder: "Enter Video or YouTube URL",
-          addVideoButton: "Add +",
-          addVideoTitleLabel: "Add video title",
-          addVideoTitlePlaceholder: "New video added",
+          fetch: "Fetch",
+        },
+        fetchVideo: {
+          videoDetails: "Video details",
+          videoTitleLabel: "Video title",
+          chapterTitleLabel: "Chapter title",
+          chapterDescription: "Sub title / description",
         },
       },
       contactUsModal: {

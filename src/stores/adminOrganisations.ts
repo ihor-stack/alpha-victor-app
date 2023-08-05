@@ -335,10 +335,43 @@ export const Organisations = defineStore("Organisations", {
         });
     },
 
+    async getVideo(videoId: string, callback?: (res: Video) => void) {
+      const loadId = loadingService.show("Loading...");
+      adminAPI
+        .get(`/Video/${videoId}`)
+        .then(async (res) => {
+          callback ? callback(res.data) : null;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+
     async createVideo(video: Video, callback?: (res: Video) => void) {
       const loadId = loadingService.show("Loading...");
       adminAPI
         .post(`/video?organisationId=${this.currentOrg}`, video)
+        .then((res) => {
+          this.getOrgDetails(this.currentOrg);
+          callback ? callback(res.data) : null;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+
+    async updateVideo(video: Video, callback?: (res: Video) => void) {
+      const loadId = loadingService.show("Loading...");
+      const request: any = { ...video };
+      delete request.id;
+      adminAPI
+        .patch(`/video/${video.id}`, request)
         .then((res) => {
           this.getOrgDetails(this.currentOrg);
           callback ? callback(res.data) : null;

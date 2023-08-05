@@ -20,14 +20,18 @@ export interface Article {
   richText: string;
 }
 
+export interface Chapter {
+  id: string;
+  title: string;
+  subTitle: string;
+  timeCode: number;
+  order: number;
+}
 export interface Video {
   id: string;
   title: string;
   url: string;
-  vimeoData: {
-    total: number;
-    data: [];
-  };
+  chapters: Chapter[];
 }
 
 export interface Photo {
