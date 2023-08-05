@@ -1,5 +1,5 @@
 <template>
-  <ion-page class="ion-bg" id="admin">
+  <ion-page class="ion-bg" id="decision-tree-view">
     <div id="pageContainer">
       <div id="container" ref="container">
         <div class="button-container left bg-white">
@@ -1006,6 +1006,9 @@ export default {
 </script>
 
 <style scoped>
+#decision-tree-view {
+  z-index: 20;
+}
 .button-action {
   background-color: white;
   border-radius: 8px;
