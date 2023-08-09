@@ -82,7 +82,7 @@ const handleClickNode = (node: IDecisionTreeNode, question?: string) => {
       ...node.children,
     ];
     if (question) {
-      mixpanel.track("QuesLon Answered", {
+      mixpanel.track("Question Answered", {
         ...state.baseMixPanelProperties,
         question,
         answer: node.text,

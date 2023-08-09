@@ -12,13 +12,13 @@
     <ion-content :fullscreen="true">
       <div class="container">
         <known-issues-list
-          v-if="state.issues.length"
+          v-if="state.isLoaded && state.issues.length"
           :open-issues="state.issues"
           :closed-issues="[]"
           :click-handler="handleIssueClick"
         />
 
-        <ion-item v-else lines="none">
+        <ion-item v-else-if="state.isLoaded && !state.issues.length" lines="none">
           <ion-label text-wrap="true">
             <h2 class="color-dark-gray">
               {{ $t("pages.space.knownIssues.itemLabel") }}
@@ -113,6 +113,7 @@ interface State {
   reportIssueModalOpen: boolean;
   selectedIssue: IssueListItem | null;
   toastData: ToastData;
+  isLoaded: boolean;
   issues: IssueListItem[];
 }
 
@@ -121,6 +122,7 @@ const state: State = reactive({
   issueModalOpen: false,
   reportIssueModalOpen: props.reportIssueModalOpen,
   selectedIssue: null,
+  isLoaded: false,
   toastData: {
     toastOpen: false,
     toastHeader: "",
@@ -172,6 +174,7 @@ const getIssues = () => {
       toastService.show("Error", error, "error", "bottom");
     })
     .finally(() => {
+      state.isLoaded = true;
       loadingService.close(loadId);
     });
 };

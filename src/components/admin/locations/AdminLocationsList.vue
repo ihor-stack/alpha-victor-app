@@ -19,6 +19,8 @@
         <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsList.shortNameLabel") }}</ion-label>
         <ion-input
           class="font-size-sm"
+          @ionBlur="transformToUpper"
+          @keyup.enter="transformToUpper"
           :value="floor.shortName"
           @ion-input="
             floor.shortName = String($event.target.value);
@@ -92,6 +94,10 @@ const floorId = route.params.floorId as string;
 
 const Floor = Floors();
 const { floor } = storeToRefs(Floor);
+
+const transformToUpper = () => {
+  floor.value.shortName = floor.value.shortName.toUpperCase();
+};
 
 const redirect = (id: string) => {
   return {

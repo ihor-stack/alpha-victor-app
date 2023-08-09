@@ -24,7 +24,7 @@
       >
         <ion-icon :icon="locate" color="secondaryContrast" />
         <ion-label text-wrap="true">{{
-          $t("pages.admin.organisations.view.locations.panorama.label")
+          $t("pages.space.panorama.startingView")
         }}</ion-label>
       </ion-chip>
     </ion-content>

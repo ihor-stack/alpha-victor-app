@@ -60,6 +60,7 @@
               </div>
               <div class="space-header__info__right">
                 <ion-button
+                  v-if="currentSpace.panoramaId"
                   size="small"
                   fill="clear"
                   class="icon-360"

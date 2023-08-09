@@ -181,6 +181,7 @@ export default {
       },
       panorama: {
         back: "<< back",
+        startingView: "Reset view"
       },
       space: {
         back: "<< back",
@@ -699,8 +700,12 @@ export default {
           addVideoLabel: "Add new video",
           videoURLInputPlaceholder: "Enter Video or YouTube URL",
           fetch: "Fetch",
-          addVideoTitleLabel: "Add video title",
-          addVideoTitlePlaceholder: "New video added",
+        },
+        fetchVideo: {
+          videoDetails: "Video details",
+          videoTitleLabel: "Video title",
+          chapterTitleLabel: "Chapter title",
+          chapterDescription: "Sub title / description",
         },
       },
       contactUsModal: {

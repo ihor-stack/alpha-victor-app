@@ -68,6 +68,8 @@
               space.shortcode = String($event.target.value);
               confirmToLeaveService.setEditing(true);
             "
+            @ionBlur="transformToUpper"
+            @keyup.enter="transformToUpper"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -263,6 +265,10 @@ const redirect = (route: string) => {
       spaceId,
     },
   };
+};
+
+const transformToUpper = () => {
+  space.value.shortcode = space.value.shortcode.toUpperCase();
 };
 
 const handleImageRemoved = (photoId: string) => {

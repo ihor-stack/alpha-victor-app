@@ -72,7 +72,7 @@ const signIn = async () => {
     authStore.setAuthStatus(true);
     accountStore.getAccount().then((res) => {
       if (res?.email) {
-        mixpanel.track("User AuthenLcated", { email: res.email });
+        mixpanel.track("User Authenicated", { email: res.email });
       }
     });
     await accountStore.getPermissions();

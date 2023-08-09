@@ -48,12 +48,16 @@ const doWifiConnect = async () => {
 <style scoped>
 .container {
   display: flex;
-  justify-content: space-between;
   background: var(--ion-color-light);
-
   border: 0.75px solid #313131;
   border-radius: 4px;
   padding: 12px 0;
+}
+
+@media only screen and (max-width: 1023px) {
+.container {
+  justify-content: space-between;
+}
 }
 
 .wifi-network,

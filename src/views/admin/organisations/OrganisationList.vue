@@ -17,6 +17,9 @@
           <div v-if="org.logo" class="organisations-list-menu--logo">
             <img v-if="org.logo" :src="org.logo" :alt="org.name" />
           </div>
+          <div v-else>
+            <div class="organisations-list-menu--spacer"></div>
+          </div>
           <span class="link-text">{{ org.name }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
@@ -66,6 +69,13 @@ onBeforeMount(() => {
   object-fit: cover;
   background-blend-mode: difference;
 }
+
+.organisations-list-menu--spacer::after {
+  content: " ";
+  display: block;
+  width: 70px;
+}
+
 
 .organisations-list-menu-item ion-item {
   --background: none;

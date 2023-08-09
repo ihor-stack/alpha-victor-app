@@ -148,7 +148,8 @@ ion-input label:hover {
 .preview-image img {
   position: relative;
   height: 100%;
-  object-fit: cover
+  width: 100%;
+  object-fit: cover;
 }
 
 .preview-image .remove {

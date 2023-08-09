@@ -181,6 +181,7 @@ export default {
       },
       panorama: {
         back: "<< back",
+        startingView: "Reset view"
       },
       space: {
         back: "<< back",

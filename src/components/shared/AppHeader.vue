@@ -74,10 +74,11 @@ ion-title {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 12px 24px;
+  padding: 0 12px;
+  margin: 0;
 }
 .title .title-admin {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .title ion-item {
   --background: transparent;
@@ -117,6 +118,7 @@ ion-buttons {
   }
   .title {
     margin-top: 30px;
+    padding: 0 12px 24px;
   }
 }
 </style>

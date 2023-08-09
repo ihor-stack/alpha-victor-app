@@ -339,6 +339,7 @@ export interface DetailedSpace {
   capacity: string;
   typeformId: string;
   decisionTreeId: string;
+  panoramaId: string;
   floorName: string;
   qrCode: string;
   roomTypes: SpaceDetailsRooms[];

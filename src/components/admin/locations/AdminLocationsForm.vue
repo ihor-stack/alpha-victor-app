@@ -20,6 +20,8 @@
           <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.locationPrefixLabel") }}</ion-label>
           <ion-input
             class="font-size-sm"
+            @ionBlur="transformToUpper"
+            @keyup.enter="transformToUpper"
             :value="location.prefix"
             @ion-input="
               location.prefix = String($event.target.value);
@@ -254,6 +256,10 @@ const { organisationDetails } = storeToRefs(Organisation);
 const Floor = Floors();
 const { floors } = storeToRefs(Floor);
 const canvas = ref();
+
+const transformToUpper = () => {
+  location.value.prefix = location.value.prefix.toUpperCase();
+};
 
 const saveChanges = (id: string) => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

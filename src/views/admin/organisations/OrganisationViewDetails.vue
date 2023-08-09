@@ -37,6 +37,8 @@
               organisationDetails.prefix = String($event.target.value);
               confirmToLeaveService.setEditing(true);
             "
+            @ionBlur="transformToUpper"
+            @keyup.enter="transformToUpper"
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -303,6 +305,10 @@ const removeDomain = (index: number) => {
     organisationDetails.value.website.splice(index, 1);
     confirmToLeaveService.setEditing(true);
   }
+};
+
+const transformToUpper = () => {
+  organisationDetails.value.prefix = organisationDetails.value.prefix.toUpperCase();
 };
 
 const saveChanges = () => {

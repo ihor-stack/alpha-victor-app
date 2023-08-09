@@ -54,11 +54,10 @@
                     <ion-label text-wrap="true">{{ $t('components.modals.newLocationModal.locationPrefixLabel') }}</ion-label>
                     <ion-input
                       class="font-size-sm"
+                      @ionBlur="transformToUpper"
+                      @keyup.enter="transformToUpper"
                       :placeholder="$t('components.modals.newLocationModal.newLocationInputPlaceholder')"
-                      :value="organisationDetails.prefix"
-                      @ion-input="
-                        newLocationDetails.prefix = String($event.target.value)
-                      "
+                      v-model="localPrefix"
                     ></ion-input>
                   </ion-col>
                 </ion-row>
@@ -81,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount } from "vue";
+import { ref, watch, onBeforeMount } from "vue";
 import {
   IonPage,
   IonContent,
@@ -99,6 +98,8 @@ import { Organisations } from "@/stores/adminOrganisations";
 import { useRoute } from "vue-router";
 import toastService from "@/services/toastService";
 
+const localPrefix = ref(""); // Create a local state for shortname
+
 const route = useRoute();
 
 const organisationId = route.params.id as string;
@@ -112,6 +113,11 @@ const modalOpen = ref(false);
 
 const handleDismiss = () => {
   modalOpen.value = false;
+};
+
+const transformToUpper = () => {
+  localPrefix.value = localPrefix.value.toUpperCase();
+  newLocationDetails.value.prefix = localPrefix.value;
 };
 
 const saveNewLocation = () => {
@@ -135,6 +141,22 @@ const saveNewLocation = () => {
 
 onBeforeMount(() => {
   organisation.getOrgDetails(organisationId);
+});
+
+watch(() => modalOpen.value, (isOpen) => {
+  if (isOpen) {
+    localPrefix.value = organisationDetails.value.prefix;
+    newLocationDetails.value.prefix = organisationDetails.value.prefix;
+  }
+});
+
+watch(() => organisationDetails.value.prefix, (newPrefix) => {
+  localPrefix.value = newPrefix;
+});
+
+// Watch the global state for changes and update the local state
+watch(() => newLocationDetails.value.prefix, (newVal) => {
+  localPrefix.value = newVal;
 });
 </script>
 
