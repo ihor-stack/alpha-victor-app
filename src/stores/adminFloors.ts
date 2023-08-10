@@ -103,6 +103,27 @@ export const Floors = defineStore("Floors", {
           loadingService.close(loadId);
         });
     },
+
+    async updateFloorOrder(floors: { id: string; order: number }[]) {
+      const loadId = loadingService.show("Loading...");
+      adminAPI
+        .patch("/Floor/Order", floors)
+        .then(() => {
+          toastService.show(
+            "Success",
+            "Floor order updated successfully",
+            "success",
+            "bottom"
+          );
+          confirmToLeaveService.setEditing(false);
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
   },
   getters: {
     Floors: (state) => state.floors,
