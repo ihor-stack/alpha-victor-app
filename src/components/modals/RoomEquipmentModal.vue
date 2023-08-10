@@ -1,25 +1,39 @@
 <template>
   <div class="modal-panel">
     <div class="modal-panel-container">
-      <div class="equipment-panel__icon" v-if="deviceDetails.category">
-      </div>
+      <div class="equipment-panel__icon" v-if="deviceDetails.category"></div>
       <ion-header class="ion-no-border">
-        <ion-item class="modal-panel__header ion-no-padding ion-no-margin" lines="none">
+        <ion-item
+          class="modal-panel__header ion-no-padding ion-no-margin"
+          lines="none"
+        >
           <ion-label text-wrap="true">
             <h2 class="font-bold font-size-lg">
               {{ deviceDetails.name }}
             </h2>
-            <p class="font-size-xxs font-mono">{{$t('components.modals.roomEquipmentModal.deviceInformationParagraph')}}</p>
+            <p class="font-size-xxs font-mono">
+              {{
+                $t(
+                  "components.modals.roomEquipmentModal.deviceInformationParagraph"
+                )
+              }}
+            </p>
           </ion-label>
           <div class="modal-panel__image" v-if="deviceDetails.photos.length">
-            <img :src="deviceDetails.photos[0].path" :alt="deviceDetails.name" class="modal-panel__image" />
+            <img
+              :src="deviceDetails.photos[0].path"
+              :alt="deviceDetails.name"
+              class="modal-panel__image"
+            />
           </div>
         </ion-item>
       </ion-header>
       <ion-content>
         <ion-list>
           <ion-list-header class="ion-no-padding font-bold">
-            <ion-label text-wrap="true">{{$t('components.modals.roomEquipmentModal.technicalLabel')}}</ion-label>
+            <ion-label text-wrap="true">{{
+              $t("components.modals.roomEquipmentModal.technicalLabel")
+            }}</ion-label>
           </ion-list-header>
           <ion-item
             v-for="(item, key) in technicalItems"
@@ -32,7 +46,9 @@
         </ion-list>
         <ion-list>
           <ion-list-header class="ion-no-padding font-bold">
-            <ion-label text-wrap="true">{{$t('components.modals.roomEquipmentModal.installationLabel')}}</ion-label>
+            <ion-label text-wrap="true">{{
+              $t("components.modals.roomEquipmentModal.installationLabel")
+            }}</ion-label>
           </ion-list-header>
           <ion-item
             v-for="(item, key) in installations"
@@ -51,23 +67,29 @@
             :detail="true"
           >
             <ion-label text-wrap="true">
-              <h3 class="font-bold font-size-xs">{{$t('components.modals.roomEquipmentModal.documentsHeader')}}</h3>
+              <h3 class="font-bold font-size-xs">
+                {{ $t("components.modals.roomEquipmentModal.documentsHeader") }}
+              </h3>
             </ion-label>
           </ion-item>
         </ion-list>
       </ion-content>
-      <ion-footer> 
+      <ion-footer>
         <div class="equipment-panel__footer button-pair">
           <ion-button
             expand="block"
-            :href="`/equipment/${spaceId}/documents/${deviceDetails.id}?documentType=User Guide`"
-            >{{$t('components.modals.roomEquipmentModal.userGuideButton')}}</ion-button
+            :href="`/space/${currentSpace?.id}/get-help/${currentSpace?.decisionTreeId}`"
+            >{{
+              $t("components.modals.roomEquipmentModal.userGuideButton")
+            }}</ion-button
           >
           <ion-button
             v-if="!isGuestUser"
             fill="outline"
             @click="handleClickReportIssue"
-            >{{ $t('components.modals.roomEquipmentModal.reportIssueButton') }}</ion-button
+            >{{
+              $t("components.modals.roomEquipmentModal.reportIssueButton")
+            }}</ion-button
           >
         </div>
       </ion-footer>
@@ -88,10 +110,14 @@ import {
   IonListHeader,
 } from "@ionic/vue";
 import { Account as useAccountStore } from "@/stores/publicAccount";
+import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import { storeToRefs } from "pinia";
 
 const accountStore = useAccountStore();
+const spacesStore = useSpacesStore();
 
 const isGuestUser = computed(() => accountStore.userPermission.isGuest);
+const { currentSpace } = storeToRefs(spacesStore);
 
 const props = defineProps([
   "deviceDetails",
