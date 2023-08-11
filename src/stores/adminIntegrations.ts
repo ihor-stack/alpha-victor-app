@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { adminAPI } from "@/axios";
-import { Integration } from "@/types/index";
+import { Integration, Ubiqisense } from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
@@ -10,6 +10,7 @@ export const Integrations = defineStore("Integrations", {
     return {
       integrations: [] as Integration[],
       integration: {} as Integration,
+      ubiqisenses: [] as Ubiqisense[],
     };
   },
   actions: {
@@ -56,6 +57,18 @@ export const Integrations = defineStore("Integrations", {
         })
         .finally(() => {
           loadingService.close(loadId);
+        });
+    },
+    async getUbiqisenses(organisationId: string) {
+      adminAPI
+        .get<Ubiqisense[]>(
+          `/Integration/Ubiqisense/Organisations?organisationId=${organisationId}`
+        )
+        .then((response) => {
+          this.ubiqisenses = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
         });
     },
   },

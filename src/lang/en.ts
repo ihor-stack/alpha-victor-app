@@ -181,7 +181,7 @@ export default {
       },
       panorama: {
         back: "<< back",
-        startingView: "Reset view"
+        startingView: "Reset view",
       },
       space: {
         back: "<< back",
@@ -388,6 +388,9 @@ export default {
         deleted: "Deleted",
         inactive: "Inactive",
         placeholder: "Select role",
+      },
+      integrations: {
+        selectOrganisation: "Select organisation",
       },
     },
     static: {

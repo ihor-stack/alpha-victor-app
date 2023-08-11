@@ -61,7 +61,11 @@ import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { Locations } from "@/stores/adminLocations";
 import { SelectItem } from "@/types/index";
 import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
+
+const organisationId = route.params.id as string;
 const Location = Locations();
 const { locations } = storeToRefs(Location);
 
@@ -73,7 +77,7 @@ const saveChanges = () => {
 };
 
 onBeforeMount(() => {
-  Location.getLocations();
+  Location.getLocations(organisationId);
 });
 </script>
 

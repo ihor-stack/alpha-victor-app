@@ -38,6 +38,16 @@
         >
         </ion-input>
       </ion-col>
+      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
+        <ion-label text-wrap="true">{{
+          $t("pages.admin.integrations.selectOrganisation")
+        }}</ion-label>
+        <AdminSelect
+          v-model="integration.integration.value.ubiqisenseOrganisationId"
+          :options="ubiqisenseOptions"
+          valueKey="ubiqisenseOrganisationId"
+        />
+      </ion-col>
     </ion-row>
   </ion-grid>
   <ion-button class="button-wide" @click="SaveEdit">
@@ -55,10 +65,11 @@ import {
   IonInput,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
-import { onBeforeMount } from "vue";
+import { onBeforeMount, computed } from "vue";
 import { useRoute } from "vue-router";
 import { Integrations } from "@/stores/adminIntegrations";
 import { Organisations } from "@/stores/adminOrganisations";
+import AdminSelect from "@/components/admin/AdminSelect.vue";
 
 import { Integration } from "@/types";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
@@ -77,12 +88,23 @@ const SaveEdit = () => {
     clientId: integration.integration.value.clientId,
     clientSecret: integration.integration.value.clientSecret,
     selectedOrgnisation: orgId,
+    ubiqisenseOrganisationId:
+      integration.integration.value.ubiqisenseOrganisationId,
   };
   store.editIntegration(integrationId, newEdit);
 };
 
+const ubiqisenseOptions = computed(() => {
+  return integration.ubiqisenses.value?.map((option, index) => ({
+    id: index,
+    title: option.name,
+    ubiqisenseOrganisationId: option.id,
+  }));
+});
+
 onBeforeMount(() => {
   store.getSingleIntegration(orgId, integrationId);
+  store.getUbiqisenses(orgId);
   orgStore.getOrgsSelectItem();
 });
 </script>

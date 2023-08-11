@@ -204,6 +204,14 @@ export interface Integration {
   clientId: string;
   clientSecret: string;
   selectedOrgnisation: string;
+  ubiqisenseOrganisationId: string;
+}
+export interface Ubiqisense {
+  id: string;
+  name: string;
+  spaceId?: string;
+  integrationId?: string;
+  ubiqisenseSpaceId?: number;
 }
 export interface NavSpace {
   spaceId: string;

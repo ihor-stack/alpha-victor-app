@@ -75,6 +75,7 @@ interface Props {
   isSearchable?: boolean;
   placeholder?: string;
   isMultiple?: boolean;
+  valueKey?: string;
   handleChange?: () => void;
 }
 
@@ -92,6 +93,13 @@ const displayValue = computed(() => {
   if (Array.isArray(props.modelValue)) {
     return props.modelValue.map((val) => val.title).join(", ");
   } else {
+    if (props.valueKey) {
+      return (
+        props.options.find(
+          (option) => option[props.valueKey] === props.modelValue
+        )?.title || ""
+      );
+    }
     return props.modelValue?.title || "";
   }
 });
@@ -128,7 +136,7 @@ function onOptionClick(option: SelectItem) {
     emit("update:modelValue", newValue);
   } else {
     state.popoverOpen = false;
-    emit("update:modelValue", option);
+    emit("update:modelValue", props.valueKey ? option[props.valueKey] : option);
   }
   props.handleChange && props.handleChange();
 }
