@@ -456,17 +456,6 @@ export const Spaces = defineStore("Spaces", {
         .finally(() => loadingService.close(loadId));
     },
 
-    async updateDocumentName(documentId: string, name: string) {
-      const loadId = loadingService.show("Loading...");
-      return adminAPI
-        .patch(`/Document/${documentId}`, { name })
-        .then(() => "success")
-        .catch((error) => {
-          toastService.show("Error", error, "error", "bottom");
-        })
-        .finally(() => loadingService.close(loadId));
-    },
-
     async addSpacesDocument(newDocument: NewDocument, spaceId: string) {
       return adminAPI
         .post(`/Document/${spaceId}/Document`, newDocument)

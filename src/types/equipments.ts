@@ -1,4 +1,4 @@
-import { Document } from ".";
+import { Document, Photo } from ".";
 export interface EquipmentList {
   manufacturers: {
     manufacturerId: string;
@@ -34,4 +34,5 @@ export interface EquipmentDetails {
   serialNumber: string;
   manufacturerId: string;
   documents: Document[];
+  photo: Photo;
 }

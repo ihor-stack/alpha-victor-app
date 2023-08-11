@@ -1,13 +1,14 @@
 <template>
   <div>
-    <ion-button
-      class="button-wide button-outline"
-      fill="outline"
-      color="--av-light-gray"
+    <ion-chip
+      class="font-size-xs font-mono"
+      :outline="true"
       @click="state.modalOpen = true"
     >
-      {{ $t("components.admin.equipment.documentModal.addDocumentButton") }} 
-    </ion-button>
+      <ion-label text-wrap="true">{{
+        $t("components.admin.spaces.documentModal.addNewDocumentLabel")
+      }}</ion-label>
+    </ion-chip>
     <ion-modal
       :is-open="state.modalOpen"
       @willDismiss="handleDismiss"
@@ -27,16 +28,28 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                {{ $t("components.admin.equipment.documentModal.addDocumentHeader") }}
+                  {{
+                    $t(
+                      "components.admin.equipment.documentModal.addDocumentHeader"
+                    )
+                  }}
                 </h1>
                 <p class="modal-panel__comment color-light-gray font-size-sm">
-                  {{ $t("components.admin.equipment.documentModal.uploadDocumentTypeParagraph") }}
+                  {{
+                    $t(
+                      "components.admin.equipment.documentModal.uploadDocumentTypeParagraph"
+                    )
+                  }}
                 </p>
               </div>
             </ion-header>
             <div class="form-admin--group_field">
               <p class="modal-panel__comment color-light-gray font-size-sm">
-                {{ $t("components.admin.equipment.documentModal.uploadDocumentParagraph") }}
+                {{
+                  $t(
+                    "components.admin.equipment.documentModal.uploadDocumentParagraph"
+                  )
+                }}
               </p>
               <div
                 class="modal-panel__section modal-panel__select-equipment upload-icons"
@@ -58,7 +71,7 @@
                 <span
                   class="modal-panel__comment color-light-gray font-size-sm"
                 >
-                {{ $t("components.admin.equipment.documentModal.clickSpan") }}
+                  {{ $t("components.admin.equipment.documentModal.clickSpan") }}
                 </span>
               </div>
               <div class="modal-panel__select-equipment form-admin">
@@ -79,7 +92,11 @@
                 "
                 @click="saveNewDocument"
               >
-                {{ $t("components.admin.equipment.documentModal.addNewAssetbutton") }}
+                {{
+                  $t(
+                    "components.admin.equipment.documentModal.addNewAssetbutton"
+                  )
+                }}
               </ion-button>
             </ion-footer>
           </div>
@@ -172,6 +189,9 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
+ion-chip {
+  float: right;
+}
 ion-popover {
   --background: var(--av-light-gray);
   --backdrop-opacity: 0.6;

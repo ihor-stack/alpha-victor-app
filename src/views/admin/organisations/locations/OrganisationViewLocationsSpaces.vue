@@ -233,6 +233,7 @@ import { onBeforeMount, watch, computed } from "vue";
 import { useRoute } from "vue-router";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { Organisations } from "@/stores/adminOrganisations";
+import { adminDocuments } from "@/stores/adminDocumentTypes";
 import DocumentModal from "@/components/admin/spaces/DocumentModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
 import ImageGallery from "@/components/shared/ImageGallery.vue";
@@ -246,6 +247,7 @@ const organisationId = route.params.id as string;
 const locationId = route.params.locationId as string;
 const floorId = route.params.floorId as string;
 const spaceId = route.params.spaceId as string;
+const DocTypes = adminDocuments();
 
 const Space = Spaces();
 const organisation = Organisations();
@@ -298,7 +300,7 @@ const removeSpacesDocument = (doc: SpaceDetailsDocs) => {
 };
 
 const updateDocumentName = (updatedDoc: SpaceDetailsDocs) => {
-  Space.updateDocumentName(updatedDoc.id, updatedDoc.name).then(() => {
+  DocTypes.updateDocumentName(updatedDoc.id, updatedDoc.name).then(() => {
     Space.getSpaceDetails(spaceId);
   });
 };

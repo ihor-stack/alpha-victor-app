@@ -37,7 +37,12 @@ export const adminDocuments = defineStore("adminDocuments", {
           name: documentName,
         })
         .then(() => {
-          toastService.show("Success", "Document type added", "success", "bottom");
+          toastService.show(
+            "Success",
+            "Document type added",
+            "success",
+            "bottom"
+          );
           this.getDocumentTypes();
         })
         .catch((error) => {
@@ -67,6 +72,17 @@ export const adminDocuments = defineStore("adminDocuments", {
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
         });
+    },
+
+    async updateDocumentName(documentId: string, name: string) {
+      const loadId = loadingService.show("Loading...");
+      return adminAPI
+        .patch(`/Document/${documentId}`, { name })
+        .then(() => "success")
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => loadingService.close(loadId));
     },
   },
   getters: {

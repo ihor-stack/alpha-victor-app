@@ -13,13 +13,18 @@
         />
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label text-wrap="true">{{ $t('pages.admin.equipment.details.model')}}</ion-label>
-        <ion-input v-model="state.name" :label="$t('pages.admin.equipment.details.model')"></ion-input>
+        <ion-label text-wrap="true">{{
+          $t("pages.admin.equipment.details.model")
+        }}</ion-label>
+        <ion-input
+          v-model="state.name"
+          :label="$t('pages.admin.equipment.details.model')"
+        ></ion-input>
       </ion-col>
-    </ion-row>
-    <ion-row class="form-admin--group">
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label text-wrap="true">{{ $t('pages.admin.equipment.details.sn')}}</ion-label>
+        <ion-label text-wrap="true">{{
+          $t("pages.admin.equipment.details.sn")
+        }}</ion-label>
         <ion-input
           v-model="state.serialNumber"
           :label="$t('pages.admin.equipment.details.sn')"
@@ -33,40 +38,52 @@
           idPrefix="asset-type-select"
         />
       </ion-col>
-    </ion-row>
-    <ion-row class="form-admin--group_field component_container">
-      <ion-col
-        size-xs="12"
-        size-md="6"
-        class="form-admin--group_field"
-        v-for="document in currentEquipment.documents"
-        :key="document.id"
-      >
-        <ion-item
-          button
-          class="form-admin--group_field-item rev-margin"
-          lines="none"
-          v-if="document.id"
-        >
-          <ion-label text-wrap="true">
-            {{ document.name }}
-          </ion-label>
-          <ion-button
-            class="button-red text-lowercase"
-            slot="end"
-            fill="clear"
-            size="small"
-            @click="removeSpacesDocument(document.id)"
-          >
-            {{ $t('pages.admin.equipment.details.remove')}}
-          </ion-button>
-        </ion-item>
+      <ion-col size-xs="12" class="form-admin--group_field">
+        <div class="photos-container">
+          <ion-item lines="none" class="ion-no-padding">
+            <ion-label text-wrap="true">{{
+              $t("pages.admin.organisations.view.locations.spaces.photos")
+            }}</ion-label>
+            <PhotoModal
+              :queryParams="`equipmentId=${equipmentId}`"
+              :hiddenFeatureImageToggle="true"
+              :disableUpload="currentEquipment.photo"
+              :callback="() => EquipmentStore.getEquipmentDetails(equipmentId)"
+            />
+          </ion-item>
+          <ImageGallery
+            v-if="currentEquipment.photo"
+            :images="[currentEquipment.photo]"
+            @image-removed="handleImageRemoved"
+          />
+        </div>
+      </ion-col>
+      <ion-col size-xs="12" class="form-admin--group_field">
+        <div class="photos-container">
+          <ion-item lines="none" class="ion-no-padding">
+            <ion-label text-wrap="true">{{
+              $t("pages.admin.organisations.view.locations.spaces.documents")
+            }}</ion-label>
+            <EquipmentDocumentModal />
+          </ion-item>
+          <div v-for="doc in currentEquipment.documents" :key="doc.id">
+            <ItemField
+              :modelValue="doc.name"
+              :data="doc"
+              icon=""
+              :id="doc.id"
+              fontSize="xs"
+              :hideRemove="false"
+              @update:modelValue="
+                (value: string) => updateDocumentName({ ...doc, name: value })
+              "
+              @remove="removeSpacesDocument"
+            />
+          </div>
+        </div>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size-xs="12" class="form-admin--group_field">
-        <EquipmentDocumentModal />
-      </ion-col>
       <ion-col size-xs="12">
         <ion-button
           class="button-wide"
@@ -78,7 +95,7 @@
           "
           @click="save"
         >
-          {{ $t('pages.admin.equipment.details.saveBtn')}}
+          {{ $t("pages.admin.equipment.details.saveBtn") }}
         </ion-button>
       </ion-col>
     </ion-row>
@@ -100,9 +117,16 @@ import { useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import EquipmentDocumentModal from "@/components/admin/equipment/EquipmentDocumentModal.vue";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
+import ItemField from "@/components/admin/ItemField.vue";
+import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";
+import ImageGallery from "@/components/shared/ImageGallery.vue";
 import { Equipment as useEquipment } from "@/stores/adminEquipment";
+import { adminDocuments } from "@/stores/adminDocumentTypes";
+import { Spaces } from "@/stores/adminSpaces";
 
 const EquipmentStore = useEquipment();
+const DocTypes = adminDocuments();
+const Space = Spaces();
 const route = useRoute();
 
 const equipmentId = route.params.equipmentId as string;
@@ -158,6 +182,16 @@ watch(manufacturerSelected, (newValue) => {
 watch(assetTypeSelected, (newValue) => {
   state.assetTypeId = newValue.additionalInfo;
 });
+
+const updateDocumentName = (updatedDoc: any) => {
+  DocTypes.updateDocumentName(updatedDoc.id, updatedDoc.name);
+};
+
+const handleImageRemoved = (photoId: string) => {
+  Space.deletePhoto(photoId).then(() => {
+    EquipmentStore.getEquipmentDetails(equipmentId);
+  });
+};
 
 onBeforeMount(() => {
   if (!equipmentList.value?.equipments?.length) {
