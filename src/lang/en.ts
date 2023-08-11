@@ -192,6 +192,12 @@ export default {
         back: "<< back",
         label: "Autoplay",
       },
+      photos: {
+        title: "Photos",
+        tapToDismiss: "Tap to dismiss",
+        prev: "<< prev",
+        next: "next >>",
+      },
     },
     about: {
       back: "<< back",
@@ -900,6 +906,7 @@ export default {
         stepByStepGuides: "Step By Step Guides",
         knownIssuesParagraph: "Known Issues",
         documentsSpan: "Documents",
+        photosSpan: "Photos",
       },
       spaceWifiInfo: {
         wifiNetworkParagraph: "Wifi.network",

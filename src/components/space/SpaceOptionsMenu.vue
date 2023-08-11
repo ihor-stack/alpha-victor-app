@@ -9,9 +9,11 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">{{ $t('components.space.spaceOptionsMenu.roomEquipmentSpan') }}</span>
+          <span class="link-text">{{
+            $t("components.space.spaceOptionsMenu.roomEquipmentSpan")
+          }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
-        </ion-item> 
+        </ion-item>
       </li>
       <li class="space-options-menu-item">
         <ion-item
@@ -25,11 +27,13 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">{{$t('components.space.spaceOptionsMenu.stepByStepGuides')}}</span>
+          <span class="link-text">{{
+            $t("components.space.spaceOptionsMenu.stepByStepGuides")
+          }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
-      <li class="space-options-menu-item"> 
+      <li class="space-options-menu-item">
         <ion-item
           :router-link="{
             name: 'KnownIssues',
@@ -38,7 +42,9 @@
           router-direction="root"
         >
           <div class="with-counter">
-            <p class="label font-bold font-size-sm">{{$t('components.space.spaceOptionsMenu.knownIssuesParagraph')}}</p>
+            <p class="label font-bold font-size-sm">
+              {{ $t("components.space.spaceOptionsMenu.knownIssuesParagraph") }}
+            </p>
             <div v-if="currentSpace?.issueCount" class="counter">
               <div>
                 <span>{{ currentSpace.issueCount }}</span>
@@ -56,7 +62,23 @@
           }"
           router-direction="root"
         >
-          <span class="link-text">{{$t('components.space.spaceOptionsMenu.documentsSpan')}}</span>
+          <span class="link-text">{{
+            $t("components.space.spaceOptionsMenu.documentsSpan")
+          }}</span>
+          <ion-icon slot="end" :icon="chevronForwardOutline" />
+        </ion-item>
+      </li>
+      <li class="space-options-menu-item" v-if="!isGuestUser">
+        <ion-item
+          :router-link="{
+            name: 'Photos',
+            params: { spaceId: currentSpace?.id },
+          }"
+          router-direction="root"
+        >
+          <span class="link-text">{{
+            $t("components.space.spaceOptionsMenu.photosSpan")
+          }}</span>
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
