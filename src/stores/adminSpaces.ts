@@ -16,6 +16,7 @@ import {
   SpaceBeaconAvailableResponse,
   UpdatePanoramaRequest,
   Photo,
+  Ubiqisense,
 } from "@/types/index";
 
 import loadingService from "@/services/loadingService";
@@ -43,6 +44,8 @@ export const Spaces = defineStore("Spaces", {
       wifi: {} as SpaceWifi,
       securityTypeSelected: {} as SelectItem,
       currentPanorama: {} as Panorama,
+      integration: {} as Ubiqisense,
+      integrations: [] as Ubiqisense[],
     };
   },
   actions: {
@@ -602,6 +605,77 @@ export const Spaces = defineStore("Spaces", {
       adminAPI
         .patch(`/Space/SpaceFeature?${queryParams}`)
         .then(() => this.getSpaceDetails(spaceId))
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => loadingService.close(loadId));
+    },
+    async getIntegrations(spaceId: string) {
+      adminAPI
+        .get<Ubiqisense[]>(`/Integration/${spaceId}/Integrations/`)
+        .then((response) => {
+          this.integrations = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        });
+    },
+    async getIntegration(spaceId: string, spaceIntegrationId: string) {
+      const loadId = loadingService.show("Loading...");
+      return adminAPI
+        .get<Ubiqisense>(
+          `/Integration/${spaceId}/Integrations/${spaceIntegrationId}`
+        )
+        .then((response) => {
+          this.integration = response.data;
+          return response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => loadingService.close(loadId));
+    },
+    async addIntegration(spaceId: string, integrationId: string) {
+      const loadId = loadingService.show("Loading...");
+      adminAPI
+        .post<Ubiqisense>(
+          `/Integration/${spaceId}/Space?integrationId=${integrationId}`
+        )
+        .then((response) => {
+          this.integration = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => loadingService.close(loadId));
+    },
+    async updateIntegration(
+      spaceId: string,
+      spaceIntegrationId: string,
+      requestBody: { ubiqisenseLocationId: string }
+    ) {
+      const loadId = loadingService.show("Loading...");
+      adminAPI
+        .patch<Ubiqisense>(
+          `/Integration/${spaceId}/Space/${spaceIntegrationId}`,
+          requestBody
+        )
+        .then((response) => {
+          this.integration = response.data;
+          this.getIntegrations(spaceId);
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => loadingService.close(loadId));
+    },
+    async deleteIntegration(spaceId: string, spaceIntegrationId: string) {
+      const loadId = loadingService.show("Loading...");
+      adminAPI
+        .delete(`/Integration/${spaceId}/Space/${spaceIntegrationId}`)
+        .then(() => {
+          this.getIntegrations(spaceId);
+        })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
         })

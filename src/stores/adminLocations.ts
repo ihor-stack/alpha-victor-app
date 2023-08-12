@@ -5,6 +5,7 @@ import {
   NewLocDetails,
   Navigation,
   SingleLocation,
+  Ubiqisense,
 } from "@/types/index";
 import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
@@ -17,7 +18,8 @@ export const Locations = defineStore("Locations", {
       locations: [] as NavLocation[],
       navigationTree: [{}] as Navigation[],
       newLocationDetails: {} as NewLocDetails,
-      location: {} as SingleLocation
+      location: {} as SingleLocation,
+      ubiqisenses: [] as Ubiqisense[],
     };
   },
   actions: {
@@ -73,9 +75,7 @@ export const Locations = defineStore("Locations", {
             "bottom"
           );
           this.getNavigationTree(organisationId);
-          router.push(
-            `/admin/organisation/${organisationId}`
-          );
+          router.push(`/admin/organisation/${organisationId}`);
         })
         .catch((error) => {
           loadingService.close(loadId);
@@ -138,6 +138,18 @@ export const Locations = defineStore("Locations", {
         })
         .finally(() => {
           loadingService.close(loadId);
+        });
+    },
+    async getUbiqisenses(organisationId: string) {
+      adminAPI
+        .get<Ubiqisense[]>(
+          `/Integration/Ubiqisense/Locations?organisationId=${organisationId}`
+        )
+        .then((response) => {
+          this.ubiqisenses = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
         });
     },
   },

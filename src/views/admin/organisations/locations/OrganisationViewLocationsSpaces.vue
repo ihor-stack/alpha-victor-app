@@ -252,8 +252,13 @@ const DocTypes = adminDocuments();
 const Space = Spaces();
 const organisation = Organisations();
 
-const { space, formattedSelect, roomTypeSelected, decisionTreeSelected } =
-  storeToRefs(Space);
+const {
+  space,
+  formattedSelect,
+  roomTypeSelected,
+  decisionTreeSelected,
+  integrations,
+} = storeToRefs(Space);
 const { decisionTreeList } = storeToRefs(organisation);
 
 const isFirstPhoto = computed(() => !space.value.photos?.length);
@@ -305,20 +310,33 @@ const updateDocumentName = (updatedDoc: SpaceDetailsDocs) => {
   });
 };
 
-const spaceRoutes = [
-  { title: "Panorama", route: "OrganisationViewLocationsPanorama" },
-  { title: "Devices", route: "OrganisationViewLocationsDevices" },
-  { title: "Announcement", route: "OrganisationViewLocationsAnnouncement" },
-  { title: "Beacon", route: "OrganisationViewLocationsBeacon" },
-  { title: "Integrations", route: "OrganisationViewLocationsIntegrations" },
-  { title: "Wifi Password", route: "OrganisationViewLocationsWifi" },
-];
+const spaceRoutes = computed(() => {
+  const routes = [
+    { title: "Panorama", route: "OrganisationViewLocationsPanorama" },
+    { title: "Devices", route: "OrganisationViewLocationsDevices" },
+    { title: "Announcement", route: "OrganisationViewLocationsAnnouncement" },
+    { title: "Beacon", route: "OrganisationViewLocationsBeacon" },
+    { title: "Wifi Password", route: "OrganisationViewLocationsWifi" },
+  ];
+  if (integrations.value?.length > 0) {
+    routes.push({
+      title: `Integrations?spaceIntegrationId=${spaceIntegrationId?.value}`,
+      route: "OrganisationViewLocationsIntegrations",
+    });
+  }
+  return routes;
+});
+
+const spaceIntegrationId = computed(
+  () => integrations.value?.[0]?.integrationId
+);
 
 watch(
   () => route.params?.spaceId,
   (newValue) => {
     if (newValue) {
       Space.getSpaceDetails(newValue as string);
+      Space.getIntegrations(newValue as string);
     }
   }
 );
@@ -326,6 +344,7 @@ watch(
 onBeforeMount(async () => {
   await organisation.getDecisionTrees();
   Space.getSpaceDetails(spaceId);
+  Space.getIntegrations(spaceId);
 });
 </script>
 

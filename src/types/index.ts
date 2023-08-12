@@ -211,7 +211,7 @@ export interface Ubiqisense {
   name: string;
   spaceId?: string;
   integrationId?: string;
-  ubiqisenseSpaceId?: number;
+  ubiqisenseSpaceId?: string;
 }
 export interface NavSpace {
   spaceId: string;
