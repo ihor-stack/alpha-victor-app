@@ -28,7 +28,11 @@
         </ion-button>
       </template>
     </app-header>
-    <ion-content v-if="!state.isLoadingSpaceDetails" :fullscreen="true" class="fade-in">
+    <ion-content
+      v-if="!state.isLoadingSpaceDetails"
+      :fullscreen="true"
+      class="fade-in"
+    >
       <div class="outer-container">
         <div class="space-header">
           <div class="space-header__background">
@@ -68,7 +72,10 @@
                 >
                   <img src="@/theme/icons/360.svg" />
                 </ion-button>
-                <occupied-status :occupied="currentSpace.occupied" />
+                <occupied-status
+                  :occupied="currentSpace.occupied"
+                  :currentOccupancy="currentSpace.currentOccupancy"
+                />
               </div>
             </div>
           </div>
@@ -185,7 +192,7 @@ const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 
 const state = reactive({
   reportIssueModalOpen: false,
-  isLoadingSpaceDetails: false
+  isLoadingSpaceDetails: false,
 });
 
 const { currentSpace } = storeToRefs(spacesStore);
@@ -204,13 +211,17 @@ const goToFeedback = () => {
 };
 
 const checkSpaceAccess = () => {
-  if (currentSpace.value && currentSpace.value.organisationAnonymousAccess === false && isGuestUser.value) {
+  if (
+    currentSpace.value &&
+    currentSpace.value.organisationAnonymousAccess === false &&
+    isGuestUser.value
+  ) {
     console.log(currentSpace.value);
     console.log(isGuestUser.value);
-    currentSpace.value
+    currentSpace.value;
     router.push({ name: "NoSpacesFound" });
   }
-}
+};
 
 watch(currentSpace, () => {
   checkSpaceAccess();
@@ -404,7 +415,7 @@ onBeforeMount(() => {
 .announcement p {
   font-size: 12px;
   line-height: 16px;
-  color: rgba(255,255,255,.75);
+  color: rgba(255, 255, 255, 0.75);
 }
 
 .ctas {

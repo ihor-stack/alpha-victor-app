@@ -1,21 +1,23 @@
 <template>
-  <p class="occupied-status font-mono font-size-xxs text-spaced" :class="occupied ? 'color-red' : 'color-green'">
+  <p
+    class="occupied-status font-mono font-size-xxs text-spaced"
+    :class="occupied ? 'color-red' : 'color-green'"
+  >
     <span class="dot" :class="occupied ? 'occupied' : 'vacant'"></span>
-    space.{{ occupied ? 'occupied' : 'vacant' }}
+    space.{{ occupied ? `occupied(${currentOccupancy})` : "vacant" }}
   </p>
 </template>
 
 <script setup lang="ts">
-  import { defineProps } from "vue";
-  interface Props {
-    occupied: boolean
-  }
+interface Props {
+  occupied: boolean;
+  currentOccupancy: number;
+}
 
-  defineProps<Props>();
+defineProps<Props>();
 </script>
 
 <style scoped>
-
 .occupied-status {
   display: flex;
   align-items: center;
@@ -31,7 +33,7 @@
 }
 
 .occupied-status .dot::after {
-  content: '';
+  content: "";
   display: inline-block;
   width: 6px;
   height: 6px;
@@ -46,7 +48,7 @@
 }
 
 .dot.occupied::after {
-  background: #FF3737;
+  background: #ff3737;
 }
 
 .dot.vacant {
@@ -54,6 +56,6 @@
 }
 
 .dot.vacant::after {
-  background: #37B14C;
+  background: #37b14c;
 }
 </style>

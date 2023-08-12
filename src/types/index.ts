@@ -370,6 +370,7 @@ export interface DetailedSpace {
   wifiSecurityType?: number;
   organisationName?: string;
   locationName?: string;
+  currentOccupancy: number;
 }
 export interface SpaceDetailsRooms {
   name: string;
