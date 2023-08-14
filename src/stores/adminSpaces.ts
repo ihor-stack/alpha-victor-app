@@ -165,6 +165,30 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
+    async deleteSpace(spaceId: string, orgId: string, locationId: string, floorId: string) {
+      const loadId = loadingService.show("Loading...");
+
+      return adminAPI
+        .delete(`/Space/${spaceId}`)
+        .then(() => {
+          confirmToLeaveService.setEditing(false);
+          toastService.show(
+            "Success",
+            "Space deleted",
+            "success",
+            "bottom"
+          );
+
+          router.push({name: "OrganisationViewLocationsFloors", params: { id: orgId, locationId: locationId, floorId: floorId }});
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+
     async getSpaceDetailsDevices(spaceId: string) {
       adminAPI
         .get<Device[]>(`/Space/${spaceId}/Device`)

@@ -207,7 +207,7 @@
       <ion-button class="button-wide" @click="Space.updateSpace(spaceId)">
         {{ $t("pages.admin.organisations.view.locations.spaces.saveBtn") }}
       </ion-button>
-      <ion-button class="button-wide button-red button-outline" color="red">
+      <ion-button class="button-wide button-red button-outline" color="red" @click="deleteSpace">
         {{ $t("pages.admin.organisations.view.locations.spaces.deleteBtn") }}
       </ion-button>
     </div>
@@ -240,6 +240,7 @@ import ImageGallery from "@/components/shared/ImageGallery.vue";
 import ItemField from "@/components/admin/ItemField.vue";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
 import { Photo, SpaceDetailsDocs } from "@/types";
+import { Locations } from "@/stores/adminLocations";
 
 const route = useRoute();
 
@@ -250,6 +251,7 @@ const spaceId = route.params.spaceId as string;
 const DocTypes = adminDocuments();
 
 const Space = Spaces();
+const Location = Locations();
 const organisation = Organisations();
 
 const {
@@ -309,6 +311,13 @@ const updateDocumentName = (updatedDoc: SpaceDetailsDocs) => {
     Space.getSpaceDetails(spaceId);
   });
 };
+
+const deleteSpace = async () => {
+
+  await Space.deleteSpace(spaceId, organisationId, locationId, floorId);
+  await Location.getNavigationTree(organisationId);
+
+}
 
 const spaceRoutes = computed(() => {
   const routes = [
