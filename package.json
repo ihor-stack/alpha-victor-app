@@ -5,6 +5,7 @@
   "description": "Enhancing User Experience In The Workspace",
   "scripts": {
     "serve": "vue-cli-service serve --hot",
+    "serve:https": "vue-cli-service serve --hot --https true",
     "ionic:serve": "vue-cli-service serve --hot",
     "serve:ios": "ionic capacitor run ios --livereload",
     "serve:android": "ionic capacitor run android --livereload",

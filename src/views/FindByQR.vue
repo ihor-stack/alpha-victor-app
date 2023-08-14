@@ -28,17 +28,14 @@ const spacesStore = useSpacesStore();
 
 onBeforeMount(async () => {
 
-  const orgPrefix = route.query.o;
-  const locPrefix = route.query.l;
-  const floorShortName = route.query.f;
-  const spaceShortCode = route.query.s;
+  const spaceShortCode = route.params.spaceShortcode;
 
-  if (!orgPrefix || !locPrefix || !floorShortName || !spaceShortCode) {
+  if (!spaceShortCode) {
     // Redirect to login.
     return router.replace({ name: "Home" });
   }
 
-  const spaceResp = await spacesStore.getSpaceByQr(orgPrefix as string, locPrefix  as string, floorShortName  as string, spaceShortCode  as string);
+  const spaceResp = await spacesStore.getSpaceByQr(spaceShortCode  as string);
 
   if (!spaceResp) return;
 

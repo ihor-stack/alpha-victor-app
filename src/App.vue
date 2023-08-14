@@ -130,25 +130,7 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
       query: { token: strVerifyToken },
     });
   } else if (slug.indexOf("/qr") > -1) {
-    const orgPrefix = url.searchParams.get("o");
-    const locPrefix = url.searchParams.get("l");
-    const floorShortName = url.searchParams.get("f");
-    const spaceShortCode = url.searchParams.get("s");
-
-    if (!orgPrefix || !locPrefix || !floorShortName || !spaceShortCode) {
-      // Redirect to login.
-      return router.replace({ name: "Home" });
-    }
-
-    return router.replace({
-      name: "QR",
-      query: {
-        o: orgPrefix as string,
-        l: locPrefix as string,
-        f: floorShortName as string,
-        s: spaceShortCode as string,
-      },
-    });
+    router.replace(slug);
   }
 });
 

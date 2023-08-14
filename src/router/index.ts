@@ -8,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/HomePage.vue"),
   },
   {
-    path: "/qr",
+    path: "/qr/:spaceShortcode",
     name: "QR",
     component: () => import("@/views/FindByQR.vue"),
   },

@@ -66,15 +66,21 @@ const searchByQrCode = async () => {
     // Remove our base URL and prefix from content.
     const qrUrl = new URL(result.content);
 
-    const orgPrefix = qrUrl.searchParams.get('o') as string;
-    const locPrefix = qrUrl.searchParams.get('l') as string;
-    const floorName = qrUrl.searchParams.get('f') as string;
-    const spaceShort = qrUrl.searchParams.get('s') as string;
+    // Path name should be in the format <base>/qr/<shortcode>. Split on /qr/
+    const pathName = qrUrl.pathname;
+
+    if (pathName.indexOf("/qr/") == -1) {
+      isScanning.value = false;
+      toastService.show("Error", "The QR code is not valid.", "error", "bottom");
+      return;    
+    }
+
+    const spaceShort = pathName.replace("/qr/", "");
 
     const loadId = loadingService.show("Loading...");
     publicAPI
       .get(
-        `Space/SpaceByQR/${orgPrefix}/${locPrefix}/${floorName}/${spaceShort}`
+        `Space/SpaceByQR/${spaceShort}`
       )
       .then((response) => {
         if (response?.data?.spaceId) {

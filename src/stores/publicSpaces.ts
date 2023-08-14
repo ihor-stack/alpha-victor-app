@@ -143,15 +143,12 @@ export const Spaces = defineStore("PublicSpaces", {
     },
 
     async getSpaceByQr(
-      orgPrefix: string,
-      locPrefix: string,
-      floorShortName: string,
       spaceShortCode: string
     ) {
       const loadId = loadingService.show("Loading...");
       return publicAPI
         .get<SpaceQRCodeResponse>(
-          `/Space/SpaceByQR/${orgPrefix}/${locPrefix}/${floorShortName}/${spaceShortCode}`
+          `/Space/SpaceByQR/${spaceShortCode}`
         )
         .then((response) => {
           return response.data;
