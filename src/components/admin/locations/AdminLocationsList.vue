@@ -36,7 +36,7 @@
         >
         {{ $t("components.admin.locations.adminLocationsList.saveFloorButton") }}
         </ion-button>
-        <DeleteFloorModal :floorId="floor.id" />
+        <DeleteFloorModal :organisation-id="organisationId" :location-id="locationId" :floorId="floor.id" />
       </ion-col>
 
       <hr class="form-admin--divider" />

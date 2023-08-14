@@ -90,8 +90,9 @@ const handleDismiss = () => {
   modalOpen.value = false;
 };
 
-const confirmDeleteLocation = () => {
-  location.removeLocation(props.organisationId, props.locationId);
+const confirmDeleteLocation = async () => {
+  await location.removeLocation(props.organisationId, props.locationId);
+  await location.getNavigationTree(props.organisationId);
   modalOpen.value = false;
 };
 </script>

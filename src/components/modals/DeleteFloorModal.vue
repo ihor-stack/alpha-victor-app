@@ -79,22 +79,27 @@ import {
 } from "@ionic/vue";
 import { close } from "ionicons/icons";
 import { Floors } from "@/stores/adminFloors";
+import { Locations } from "@/stores/adminLocations";
 
 interface Props {
+  organisationId: string;
+  locationId: string;
   floorId: string;
 }
 
 const props = defineProps<Props>();
 
 const Floor = Floors();
+const Location = Locations();
 const modalOpen = ref(false);
 
 const handleDismiss = () => {
   modalOpen.value = false;
 };
 
-const confirmDeleteFloor = (id) => {
-  Floor.deleteFloor(id);
+const confirmDeleteFloor = async (id : string) => {
+  await Floor.deleteFloor(id, props.organisationId, props.locationId);
+  await Location.getNavigationTree(props.organisationId);
   modalOpen.value = false;
 };
 </script>

@@ -143,7 +143,7 @@ export const Organisations = defineStore("Organisations", {
     },
 
     async deleteOrganisation(organisationId: string) {
-      adminAPI
+      await adminAPI
         .delete(`/Organisation/${organisationId}`)
         .then(() => {
           toastService.show(

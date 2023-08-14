@@ -64,7 +64,7 @@ export const Locations = defineStore("Locations", {
 
     async removeLocation(organisationId: string, locationId: string) {
       const loadId = loadingService.show("Loading...");
-      adminAPI
+      return adminAPI
         .delete(`/Location/${locationId}`)
         .then(() => {
           loadingService.close(loadId);

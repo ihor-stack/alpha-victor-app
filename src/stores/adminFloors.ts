@@ -71,8 +71,8 @@ export const Floors = defineStore("Floors", {
         });
     },
 
-    async deleteFloor(id: string) {
-      adminAPI
+    async deleteFloor(id: string, orgId: string, locationId: string) {
+      return adminAPI
         .delete("/floor/?floorId=" + id)
         .then(() => {
           confirmToLeaveService.setEditing(false);
@@ -82,7 +82,7 @@ export const Floors = defineStore("Floors", {
             "success",
             "bottom"
           );
-          router.push("/admin/organisations");
+          router.push({name: 'OrganisationViewLocations', params: {id: orgId, locationId: locationId}});
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");

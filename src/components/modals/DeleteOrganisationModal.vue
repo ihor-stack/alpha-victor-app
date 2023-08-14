@@ -90,8 +90,9 @@ const handleDismiss = () => {
   modalOpen.value = false;
 };
 
-const confirmDeleteOrganisation = () => {
-  organisation.deleteOrganisation(props.organisationId);
+const confirmDeleteOrganisation = async () => {
+  await organisation.deleteOrganisation(props.organisationId);
+  await organisation.getOrganisations();
   modalOpen.value = false;
 };
 </script>
