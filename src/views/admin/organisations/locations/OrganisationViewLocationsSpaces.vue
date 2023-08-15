@@ -189,7 +189,7 @@
           class="list-item"
         >
           <router-link
-            :to="redirect(space.route)"
+            :to="redirect(space)"
             router-direction="root"
             class="list-item__info"
           >
@@ -207,7 +207,11 @@
       <ion-button class="button-wide" @click="Space.updateSpace(spaceId)">
         {{ $t("pages.admin.organisations.view.locations.spaces.saveBtn") }}
       </ion-button>
-      <ion-button class="button-wide button-red button-outline" color="red" @click="deleteSpace">
+      <ion-button
+        class="button-wide button-red button-outline"
+        color="red"
+        @click="deleteSpace"
+      >
         {{ $t("pages.admin.organisations.view.locations.spaces.deleteBtn") }}
       </ion-button>
     </div>
@@ -264,15 +268,16 @@ const {
 const { decisionTreeList } = storeToRefs(organisation);
 
 const isFirstPhoto = computed(() => !space.value.photos?.length);
-const redirect = (route: string) => {
+const redirect = (routeItem) => {
   return {
-    name: route,
+    name: routeItem.route,
     params: {
       id: organisationId,
       locationId,
       floorId,
       spaceId,
     },
+    query: routeItem.query,
   };
 };
 
@@ -313,14 +318,12 @@ const updateDocumentName = (updatedDoc: SpaceDetailsDocs) => {
 };
 
 const deleteSpace = async () => {
-
   await Space.deleteSpace(spaceId, organisationId, locationId, floorId);
   await Location.getNavigationTree(organisationId);
-
-}
+};
 
 const spaceRoutes = computed(() => {
-  const routes = [
+  const routes: any[] = [
     { title: "Panorama", route: "OrganisationViewLocationsPanorama" },
     { title: "Devices", route: "OrganisationViewLocationsDevices" },
     { title: "Announcement", route: "OrganisationViewLocationsAnnouncement" },
@@ -329,16 +332,17 @@ const spaceRoutes = computed(() => {
   ];
   if (integrations.value?.length > 0) {
     routes.push({
-      title: `Integrations?spaceIntegrationId=${spaceIntegrationId?.value}`,
       route: "OrganisationViewLocationsIntegrations",
+      title: "Integrations",
+      query: {
+        spaceIntegrationId: spaceIntegrationId?.value,
+      },
     });
   }
   return routes;
 });
 
-const spaceIntegrationId = computed(
-  () => integrations.value?.[0]?.integrationId
-);
+const spaceIntegrationId = computed(() => integrations.value?.[0]?.id);
 
 watch(
   () => route.params?.spaceId,
