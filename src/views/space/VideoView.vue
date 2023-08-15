@@ -210,10 +210,6 @@ onBeforeMount(() => getVideo());
   flex-direction: column;
   height: 100%;
 }
-ion-list {
-  padding-left: 30px;
-  padding-right: 30px;
-}
 
 ion-badge.chapter-duration-badge {
   --background: rgba(255, 255, 255, 0.1);
@@ -262,6 +258,7 @@ ion-item.chapter-item::part(native) {
   display: flex;
   align-items: center;
   font-weight: bold;
+  font-size: 14px;
 }
 
 .chapter-subTitle {

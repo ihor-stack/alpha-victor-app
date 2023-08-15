@@ -1,7 +1,6 @@
 <template>
   <ion-col size="6" @click="state.modalOpen = true">
     <img :src="path" />
-
     <ion-modal
       :is-open="state.modalOpen"
       @willDismiss="handleDismiss"
@@ -117,6 +116,7 @@ ion-modal::part(backdrop) {
 
 .modal-panel-container {
   padding: 0;
+  height: auto;
   /* background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 100%); */
 }
 </style>

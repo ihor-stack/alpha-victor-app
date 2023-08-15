@@ -181,7 +181,7 @@ export default {
       },
       panorama: {
         back: "<< back",
-        startingView: "Reset view"
+        startingView: "Reset view",
       },
       space: {
         back: "<< back",
@@ -191,6 +191,12 @@ export default {
       video: {
         back: "<< back",
         label: "Autoplay",
+      },
+      photos: {
+        title: "Photos",
+        tapToDismiss: "Tap to dismiss",
+        prev: "<< prev",
+        next: "next >>",
       },
     },
     about: {
@@ -388,6 +394,9 @@ export default {
         deleted: "Deleted",
         inactive: "Inactive",
         placeholder: "Select role",
+      },
+      integrations: {
+        selectOrganisation: "Select organisation",
       },
     },
     static: {
@@ -897,12 +906,16 @@ export default {
         stepByStepGuides: "Step By Step Guides",
         knownIssuesParagraph: "Known Issues",
         documentsSpan: "Documents",
+        photosSpan: "Photos",
       },
       spaceWifiInfo: {
         wifiNetworkParagraph: "Wifi.network",
         wifiPasswordParagraph: "Wifi.password",
         connectButton: "Connect",
       },
+      photos: {
+        title: "Photos"
+      }
     },
   },
 };

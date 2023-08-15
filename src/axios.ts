@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import Auth from "@/auth";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
+import * as Sentry from "@sentry/capacitor";
 import router from "./router";
 
 const adminAPI = axios.create({
@@ -94,6 +95,7 @@ const handleError = (error: any) => {
         break;
     }
     toastService.show("Error", message, "error", "bottom");
+    Sentry.captureException(error);
   }
 
   loadingService.closeAll();

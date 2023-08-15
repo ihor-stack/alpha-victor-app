@@ -69,6 +69,7 @@
     <ion-footer>
       <ion-button
         class="ion-text-capitalize"
+        :disabled="!state.selectedVideo"
         expand="block"
         @click="handleClickConfirm({ video: state.selectedVideo })"
       >

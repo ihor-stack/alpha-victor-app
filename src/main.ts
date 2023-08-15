@@ -34,6 +34,9 @@ import "./theme/custom-tinymce-editor.css";
 /* ServiceWorker */
 import "./registerServiceWorker";
 
+import * as Sentry from "@sentry/capacitor";
+import * as SentryVue from "@sentry/vue";
+
 /* Pinia */
 const pinia = createPinia();
 
@@ -57,6 +60,33 @@ const app = createApp(App)
   .use(pinia)
   .use(i18n)
   .provide("i18n", i18n);
+
+Sentry.init({
+  app,
+  dsn: "https://4bafaa403a5f07161efda4198ae67cea@o1113233.ingest.sentry.io/4505686976495616",
+  integrations: [
+    new SentryVue.BrowserTracing({
+      routingInstrumentation: SentryVue.vueRouterInstrumentation(router),
+    }),
+    new SentryVue.Replay(),
+  ],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+
+  // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
+  tracePropagationTargets: [
+    "localhost",
+    new RegExp(`^https://${process.env.VUE_APP_API_PUBLIC_URL}/`),
+  ],
+
+  // Capture Replay for 10% of all sessions,
+  // plus for 100% of sessions with an error
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+});
 
 router.isReady().then(() => {
   app.mount("#app");

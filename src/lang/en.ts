@@ -913,6 +913,9 @@ export default {
         wifiPasswordParagraph: "Wifi.password",
         connectButton: "Connect",
       },
+      photos: {
+        title: "Photos"
+      }
     },
   },
 };
