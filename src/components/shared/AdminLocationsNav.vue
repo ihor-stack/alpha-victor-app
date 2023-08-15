@@ -27,44 +27,35 @@
             class="floors-tree-wrapper"
             v-if="location.floors.length"
           >
-            <ion-reorder-group
-              :disabled="false"
-              @ionItemReorder="handleReorder($event, location.floors)"
+            <ion-accordion
+              v-for="(floor, floorIndex) in location.floors"
+              :key="floorIndex"
+              :value="`floor-${floor.floorId}`"
             >
-              <ion-accordion
-                v-for="(floor, floorIndex) in location.floors"
-                :key="floorIndex"
-                :value="`floor-${floor.floorId}`"
+              <ion-item
+                slot="header"
+                class="floor-header"
+                :class="{ active: floorId === floor.floorId }"
+                lines="none"
+                @click="router.push(getFloorRoute(floor.floorId))"
               >
-                <ion-item
-                  slot="header"
-                  class="floor-header"
-                  :class="{ active: floorId === floor.floorId }"
-                  lines="none"
-                  @click="router.push(getFloorRoute(floor.floorId))"
-                >
-                  <ion-reorder>
-                    <ion-label text-wrap="true">{{
-                      floor.floorName
-                    }}</ion-label>
-                  </ion-reorder>
-                </ion-item>
-                <div slot="content">
-                  <ul class="space-wrapper" v-if="floor.spaces.length">
-                    <li
-                      v-for="(space, spaceIndex) in floor.spaces"
-                      :key="spaceIndex"
+                <ion-label text-wrap="true">{{ floor.floorName }}</ion-label>
+              </ion-item>
+              <div slot="content">
+                <ul class="space-wrapper" v-if="floor.spaces.length">
+                  <li
+                    v-for="(space, spaceIndex) in floor.spaces"
+                    :key="spaceIndex"
+                  >
+                    <router-link
+                      :to="getSpaceRoute(floor.floorId, space.spaceId)"
+                      :class="{ active: spaceId === space.spaceId }"
+                      >{{ space.spaceName }}</router-link
                     >
-                      <router-link
-                        :to="getSpaceRoute(floor.floorId, space.spaceId)"
-                        :class="{ active: spaceId === space.spaceId }"
-                        >{{ space.spaceName }}</router-link
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </ion-accordion>
-            </ion-reorder-group>
+                  </li>
+                </ul>
+              </div>
+            </ion-accordion>
           </ion-accordion-group>
         </div>
       </ion-accordion>
@@ -80,7 +71,6 @@ import { Locations } from "@/stores/adminLocations";
 import { Floors } from "@/stores/adminFloors";
 import { storeToRefs } from "pinia";
 import NewLocationModal from "@/components/modals/NewLocationModal.vue";
-import { NavFloor } from "@/types";
 
 const router = useRouter();
 const route = useRoute();
@@ -115,37 +105,6 @@ const getSpaceRoute = (floorId: string, spaceId: string) => {
     name: "OrganisationViewLocationsSpaces",
     params: { id: organisationId, locationId, floorId, spaceId },
   };
-};
-
-const handleReorder = (event: CustomEvent, floors: NavFloor[]) => {
-  const { from, to }: { from: number; to: number } = event.detail;
-  event.detail.complete();
-  const requestBody = [
-    {
-      id: floors[from].floorId,
-      order: to,
-    },
-  ];
-  if (to < from) {
-    for (let index = to; index < from; index++) {
-      requestBody.push({
-        id: floors[to].floorId,
-        order: index + 1,
-      });
-    }
-  } else {
-    for (let index = from + 1; index <= to; index++) {
-      requestBody.push({
-        id: floors[to].floorId,
-        order: index - 1,
-      });
-    }
-  }
-  Floor.updateFloorOrder(requestBody);
-  // [orderedImages.value[from], orderedImages.value[to]] = [
-  //   orderedImages.value[to],
-  //   orderedImages.value[from],
-  // ];
 };
 
 onBeforeMount(() => {

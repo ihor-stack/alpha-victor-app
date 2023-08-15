@@ -175,16 +175,17 @@ const handleConfirm = () => {
       chapters: state.chapters,
     };
     organisationsStore.updateVideo(updatedVideo, () => {
-      props.handleClickConfirm({ video: state.id });
+      props.handleClickConfirm({ video: updatedVideo });
     });
   } else {
     organisationsStore.createVideo(
       {
         title: state.title,
         url: props.vimeoUrl,
+        chapters: state.chapters,
       },
       (res) => {
-        props.handleClickConfirm({ video: res.id });
+        props.handleClickConfirm({ video: res });
       }
     );
   }

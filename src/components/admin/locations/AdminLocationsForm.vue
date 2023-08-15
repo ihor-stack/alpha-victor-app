@@ -6,7 +6,11 @@
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.locationNameLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t(
+              "components.admin.locations.adminLocationsForm.locationNameLabel"
+            )
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.name"
@@ -17,7 +21,11 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.locationPrefixLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t(
+              "components.admin.locations.adminLocationsForm.locationPrefixLabel"
+            )
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             @ionBlur="transformToUpper"
@@ -35,7 +43,9 @@
 
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.contactNameLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t("components.admin.locations.adminLocationsForm.contactNameLabel")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.mainContactName"
@@ -46,7 +56,11 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.emailAddressLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t(
+              "components.admin.locations.adminLocationsForm.emailAddressLabel"
+            )
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.email"
@@ -57,7 +71,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.phoneNumberLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t("components.admin.locations.adminLocationsForm.phoneNumberLabel")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.phone"
@@ -68,7 +84,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.sosNumberLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t("components.admin.locations.adminLocationsForm.sosNumberLabel")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.sosNumber"
@@ -79,9 +97,13 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.sosVIPLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t("components.admin.locations.adminLocationsForm.sosVIPLabel")
+          }}</ion-label>
           <ion-input class="form-toggle" :disabled="true">
-            <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.sosVIPText") }}</ion-label>
+            <ion-label text-wrap="true">{{
+              $t("components.admin.locations.adminLocationsForm.sosVIPText")
+            }}</ion-label>
             <ion-toggle
               color="primary"
               :checked="location.sosNumberPublic"
@@ -98,7 +120,9 @@
 
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.publicWifiLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t("components.admin.locations.adminLocationsForm.publicWifiLabel")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.wifiSsid"
@@ -109,7 +133,11 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.wifiPasswordLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t(
+              "components.admin.locations.adminLocationsForm.wifiPasswordLabel"
+            )
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.wifiPassword"
@@ -125,7 +153,11 @@
 
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.addressLine1Label") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t(
+              "components.admin.locations.adminLocationsForm.addressLine1Label"
+            )
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.addressLine0"
@@ -136,7 +168,11 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.addressLine2Label") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t(
+              "components.admin.locations.adminLocationsForm.addressLine2Label"
+            )
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.addressLine1"
@@ -147,7 +183,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.cityLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t("components.admin.locations.adminLocationsForm.cityLabel")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.city"
@@ -158,7 +196,9 @@
           ></ion-input>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-          <ion-label text-wrap="true">{{ $t("components.admin.locations.adminLocationsForm.postcodeLabel") }}</ion-label>
+          <ion-label text-wrap="true">{{
+            $t("components.admin.locations.adminLocationsForm.postcodeLabel")
+          }}</ion-label>
           <ion-input
             class="font-size-sm"
             :value="location.postcode"
@@ -170,7 +210,11 @@
         </ion-col>
         <ion-col size-xs="12" class="button-pair">
           <ion-button class="button-wide" @click="saveChanges(location.id)">
-            {{ $t("components.admin.locations.adminLocationsForm.saveChangesButton") }}
+            {{
+              $t(
+                "components.admin.locations.adminLocationsForm.saveChangesButton"
+              )
+            }}
           </ion-button>
           <ion-button
             class="button-wide button-outline"
@@ -178,7 +222,11 @@
             color="--av-light-gray"
             @click="exportQrCodes()"
           >
-          {{ $t("components.admin.locations.adminLocationsForm.exportQRCodesButton") }}
+            {{
+              $t(
+                "components.admin.locations.adminLocationsForm.exportQRCodesButton"
+              )
+            }}
           </ion-button>
           <DeleteLocationModal
             :organisationId="organisationId"
@@ -194,20 +242,34 @@
       </h1>
 
       <ul class="list" v-if="floors.length > 0">
-        <li
-          class="list-item"
-          slot="header"
-          color="--av-darkest-gray"
-          v-for="floor in floors"
-          v-bind:key="floor.id"
+        <ion-reorder-group
+          :disabled="false"
+          @ionItemReorder="handleReorder($event)"
         >
-          <router-link :to="getFloorRoute(floor.id)">
-            <span class="primaryText font-bold font-size-sm color-light-gray">{{
-              floor.name
-            }}</span>
-            <span class="arrow-right"></span>
-          </router-link>
-        </li>
+          <li
+            class="list-item"
+            slot="header"
+            color="--av-darkest-gray"
+            v-for="floor in floors"
+            v-bind:key="floor.id"
+          >
+            <router-link :to="getFloorRoute(floor.id)">
+              <div class="floor-name-wrapper">
+                <ion-reorder v-if="floors.length > 1">
+                  <ion-icon
+                    :icon="reorderThree"
+                    class="color-light-gray"
+                  ></ion-icon>
+                </ion-reorder>
+                <span
+                  class="primaryText font-bold font-size-sm color-light-gray"
+                  >{{ floor.name }}</span
+                >
+              </div>
+              <span class="arrow-right"></span>
+            </router-link>
+          </li>
+        </ion-reorder-group>
       </ul>
 
       <canvas ref="canvas" width="100" height="100" hidden></canvas>
@@ -243,6 +305,7 @@ import { Organisations } from "@/stores/adminOrganisations";
 import DeleteLocationModal from "@/components/modals/DeleteLocationModal.vue";
 import toastService from "@/services/toastService";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
+import { reorderThree } from "ionicons/icons";
 
 const route = useRoute();
 
@@ -252,7 +315,6 @@ const locationId = route.params.locationId as string;
 const Location = Locations();
 const Organisation = Organisations();
 const { location } = storeToRefs(Location);
-const { organisationDetails } = storeToRefs(Organisation);
 const Floor = Floors();
 const { floors } = storeToRefs(Floor);
 const canvas = ref();
@@ -363,6 +425,33 @@ watch(
   }
 );
 
+const handleReorder = (event: CustomEvent) => {
+  const { from, to }: { from: number; to: number } = event.detail;
+  event.detail.complete();
+  const requestBody = [
+    {
+      id: floors.value[from].id,
+      order: to,
+    },
+  ];
+  if (to < from) {
+    for (let index = to; index < from; index++) {
+      requestBody.push({
+        id: floors.value[to].id,
+        order: index + 1,
+      });
+    }
+  } else {
+    for (let index = from + 1; index <= to; index++) {
+      requestBody.push({
+        id: floors.value[to].id,
+        order: index - 1,
+      });
+    }
+  }
+  Floor.updateFloorOrder(requestBody);
+};
+
 onBeforeMount(() => {
   Organisation.getOrgDetails(organisationId);
   Floor.getFloors(locationId);
@@ -376,5 +465,11 @@ ion-content {
 }
 .list {
   margin-bottom: 30px;
+}
+
+.floor-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 </style>
