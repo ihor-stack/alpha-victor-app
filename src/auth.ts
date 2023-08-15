@@ -16,8 +16,8 @@ const SECURE_STORE_AUTH_TYPE = "SECURE_STORE_AUTH_TYPE";
 export default class Auth {
   // Helper Methods
 
-  static getCurrentTimeInSeconds(): number {
-    return Math.floor(Date.now() / 1000);
+  static getCurrentTimeInMs(): number {
+    return Math.floor(Date.now());
   }
 
   static getOidcOptions(
@@ -77,17 +77,17 @@ export default class Auth {
     // Don't overwrite an actual access token.
     if (accessToken) return;
 
-    const issuedAt = Auth.getCurrentTimeInSeconds().toString();
-    const expiresAt = (Auth.getCurrentTimeInSeconds() + 3600).toString();
+    const issuedAtMs = Auth.getCurrentTimeInMs().toString();
+    const expiresAtMs = (Auth.getCurrentTimeInMs() + (3600*1000)).toString();
 
     localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, guestToken);
     localStorage.removeItem(SECURE_STORE_REFRESH_TOKEN);
-    localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
-    localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
+    localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAtMs);
+    localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAtMs);
     localStorage.setItem(SECURE_STORE_AUTH_TYPE, 'Public');
   }
 
-  async isTokenFresh(secondsMargin: number = 60 * 2 * -1): Promise<boolean> {
+  async isTokenFresh(secondsMargin: number = 60 * 2): Promise<boolean> {
     const accessToken = localStorage.getItem(SECURE_STORE_ACCESS_TOKEN);
     const expiresAt = localStorage.getItem(SECURE_STORE_EXPIRES_AT);
 
@@ -98,8 +98,10 @@ export default class Auth {
     const expiresAtVal = Number.parseInt(expiresAt);
 
     if (expiresAt) {
-      const now = Auth.getCurrentTimeInSeconds();
-      return now < expiresAtVal + secondsMargin;
+      const now = Auth.getCurrentTimeInMs();
+      const expire = (expiresAtVal - (secondsMargin * 1000));
+
+      return now < expire;
     }
 
     // if there is no expiration time but we have an access token, it is assumed to never expire
@@ -122,7 +124,7 @@ export default class Auth {
         expiresAt = resp["access_token_response"]["expires_on"];
       }
 
-      const issuedAt = Auth.getCurrentTimeInSeconds().toString();
+      const issuedAt = Auth.getCurrentTimeInMs().toString();
       localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
       localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken);
       localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
@@ -174,7 +176,7 @@ export default class Auth {
         const accessToken = resp["access_token"];
         refreshToken = resp["refresh_token"];
         const expiresAt = resp["expires_on"];
-        const issuedAt = Auth.getCurrentTimeInSeconds().toString();
+        const issuedAt = Auth.getCurrentTimeInMs().toString();
 
         localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
         localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken as string);
@@ -186,13 +188,13 @@ export default class Auth {
 
         const resp = await OAuth2Client.refreshToken(oidcRefreshOptions);
 
-        const accessToken = resp["access_token_response"]["access_token"];
-        refreshToken = resp["access_token_response"]["refresh_token"];
-        let expiresAt = resp["access_token_response"]["expires_at"];
-        const issuedAt = Auth.getCurrentTimeInSeconds().toString();
+        const accessToken = resp["access_token"];
+        refreshToken = resp["refresh_token"];
+        let expiresAt = resp["expires_at"];
+        const issuedAt = Auth.getCurrentTimeInMs().toString();
 
         if (!expiresAt) {
-          expiresAt = resp["access_token_response"]["expires_on"];
+          expiresAt = resp["expires_on"];
         }
 
         localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
@@ -203,6 +205,7 @@ export default class Auth {
 
       return true;
     } catch (e) {
+      console.log("Refresh error: " + e);
       return false;
     }
   }
@@ -212,7 +215,12 @@ export default class Auth {
 
     // If it is not valid, refresh first. If we're not logged in at all, this will fall through to a false.
     if (!isTokenValid) {
+
+      console.log("Refreshing");
+
       const couldRefresh = await this.refresh();
+
+      console.log(`Refresh status: ${couldRefresh}`);
 
       if (!couldRefresh) return null;
     }
