@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: spa
-          path: dist/apps/alphavictor-staging-web
+          path: dist/apps/alpha-victor-app
 
   deploy_spa:
     runs-on: ubuntu-latest
