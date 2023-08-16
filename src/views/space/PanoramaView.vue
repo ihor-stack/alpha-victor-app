@@ -37,6 +37,7 @@
   >
     <room-equipment-modal
       :deviceDetails="state.selectedEquipment"
+      :deviceImage="state.selectedEquipmentImage"
       :spaceId="spaceId"
       :handleDismiss="() => handleDismiss()"
       :handleClickReportIssue="handleClickReportIssue"
@@ -89,6 +90,7 @@ const state = reactive({
   modalOpen: false,
   reportIssueModalOpen: false,
   selectedEquipment: null as any,
+  selectedEquipmentImage: null as any,
 });
 
 let viewer: any;
@@ -111,6 +113,7 @@ const hotspotClicked = (event: MouseEvent, args: { id: string }) => {
     state.selectedEquipment = devices.value?.find(
       (device: Device) => device.id === selectedHotspot.deviceId
     );
+    state.selectedEquipmentImage = selectedHotspot.deviceImage;
     viewer.setPitch(selectedHotspot?.pitch);
     viewer.setYaw(selectedHotspot?.yaw);
     state.modalOpen = true;

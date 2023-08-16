@@ -86,7 +86,7 @@
 
 <script setup lang="ts">
 import { reactive, onMounted } from "vue";
-import { IonIcon } from "@ionic/vue";
+import { IonIcon, isPlatform } from "@ionic/vue";
 import { eye, eyeOff } from "ionicons/icons";
 
 import {
@@ -109,6 +109,8 @@ import toastService from "@/services/toastService";
 const router = useRouter();
 const authService = new Auth();
 const accountStore = useAccountStore();
+
+const showResizeMode = isPlatform("ios") || isPlatform("android");
 
 const state = reactive({
   firstName: "",
@@ -188,33 +190,35 @@ const signIn = async () => {
 };
 
 onMounted(() => {
-  Keyboard.setResizeMode({ mode: "ionic" });
-  // StatusBar.setStyle({ style: "Light" });
-  Keyboard.addListener('keyboardWillShow', (info: any) => {
-    const keyboardHeight = info.keyboardHeight;
-    let activeElem = document.activeElement as HTMLElement;
-    if (activeElem === null) activeElem = document.createElement('input');
-    const activeRect = activeElem.getBoundingClientRect();
-    let keyboard = document.getElementById('keyboard-area')
-    if (keyboard === null) keyboard = document.createElement('div')
-    let offset = 0;
-    if (keyboard.style.display === 'block') offset = window.innerHeight - activeRect.y - activeRect.height - keyboardHeight;
-    else offset = window.innerHeight - activeRect.y - activeRect.height;
-    if (offset < keyboardHeight) {
-      keyboard.style.height = keyboardHeight + 'px';
-      keyboard.style.display = 'block';
-    } else {
+  if(showResizeMode) {
+    Keyboard.setResizeMode({ mode: "ionic" });
+    // StatusBar.setStyle({ style: "Light" });
+    Keyboard.addListener('keyboardWillShow', (info: any) => {
+      const keyboardHeight = info.keyboardHeight;
+      let activeElem = document.activeElement as HTMLElement;
+      if (activeElem === null) activeElem = document.createElement('input');
+      const activeRect = activeElem.getBoundingClientRect();
+      let keyboard = document.getElementById('keyboard-area')
+      if (keyboard === null) keyboard = document.createElement('div')
+      let offset = 0;
+      if (keyboard.style.display === 'block') offset = window.innerHeight - activeRect.y - activeRect.height - keyboardHeight;
+      else offset = window.innerHeight - activeRect.y - activeRect.height;
+      if (offset < keyboardHeight) {
+        keyboard.style.height = keyboardHeight + 'px';
+        keyboard.style.display = 'block';
+      } else {
+        keyboard.style.height = '0px';
+        keyboard.style.display = 'none';
+      }
+    });
+
+    Keyboard.addListener('keyboardWillHide', () => {
+      let keyboard = document.getElementById('keyboard-area')
+      if (keyboard === null) keyboard = document.createElement('div')
       keyboard.style.height = '0px';
       keyboard.style.display = 'none';
-    }
-  });
-
-  Keyboard.addListener('keyboardWillHide', () => {
-    let keyboard = document.getElementById('keyboard-area')
-    if (keyboard === null) keyboard = document.createElement('div')
-    keyboard.style.height = '0px';
-    keyboard.style.display = 'none';
-  });
+    });
+  }
 })
 </script>
 

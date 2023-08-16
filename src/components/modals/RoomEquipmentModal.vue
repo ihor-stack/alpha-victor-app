@@ -26,6 +26,13 @@
               class="modal-panel__image"
             />
           </div>
+          <div class="modal-panel__image" v-else-if="deviceImage">
+            <img
+              :src="deviceImage"
+              :alt="deviceDetails.name"
+              class="modal-panel__image"
+            />
+          </div>
         </ion-item>
       </ion-header>
       <ion-content>
@@ -63,6 +70,7 @@
           <ion-item
             :href="`/equipment/${spaceId}/documents/${deviceDetails.id}`"
             @click="handleDismiss"
+            class="ion-no-padding ion-no-margin"
             button
             :detail="true"
           >
@@ -98,7 +106,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onBeforeMount } from "vue";
 import {
   IonContent,
   IonHeader,
@@ -121,6 +129,7 @@ const { currentSpace } = storeToRefs(spacesStore);
 
 const props = defineProps([
   "deviceDetails",
+  "deviceImage",
   "spaceId",
   "handleDismiss",
   "handleClickReportIssue",
@@ -177,6 +186,10 @@ const installations = computed(() => {
   }
   return items;
 });
+
+onBeforeMount(() => {
+  console.log(props.deviceDetails);
+})
 </script>
 
 <style scoped>
@@ -202,7 +215,13 @@ ion-list {
 }
 
 .modal-panel__image {
-  max-width: 120px;
+    max-width: 200px;
+  }
+
+@media only screen and (max-width: 1023px) {
+  .modal-panel__image {
+    max-width: 120px;
+  }
 }
 
 .equipment-panel__icon {
