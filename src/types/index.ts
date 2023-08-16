@@ -451,6 +451,7 @@ export interface Hotspot {
   type?: string;
   deviceId?: string;
   deviceName?: string;
+  deviceImage?: string;
 }
 
 export interface NewPanorama {
