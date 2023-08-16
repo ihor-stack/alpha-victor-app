@@ -223,7 +223,9 @@ const logout = async () => {
     });
     authStore.setAuthStatus(false);
     accountStore.logoutPermission();
-    organisationStore.setOrgTheme(defaultTheme);
+    accountStore.clearAccountDetails();
+    organisationStore.clearOrg();
+    await organisationStore.setOrgTheme(defaultTheme);
     return router.replace({ name: "Home" });
   }
 };

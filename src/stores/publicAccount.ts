@@ -141,6 +141,9 @@ export const Account = defineStore("Account", {
           return response;
         });
     },
+    clearAccountDetails() {
+      this.accountDetails = {} as PublicAccount;
+    },
     logoutPermission() {
       this.userPermission = {
         isGlobalAdmin: false,

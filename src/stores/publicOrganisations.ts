@@ -92,6 +92,13 @@ export const Organisations = defineStore("PublicOrganisations", {
     async setOrgTheme(theme = defaultTheme) {
       this.theme = theme;
     },
+    clearOrg() {
+      this.currentOrganisation = {} as OrgDetails;
+      this.currentOrganisationId = "";
+      localStorage.removeItem("currentOrganisationId");
+      this.organisationList = [];
+      this.searchNavigationTree = [];
+    }
   },
   getters: {
     getList: (state) => state.organisationList,

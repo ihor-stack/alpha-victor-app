@@ -20,6 +20,16 @@ export default class Auth {
     return Math.floor(Date.now());
   }
 
+  static getMsTimestamp(timestamp : number) {
+
+    if (Math.abs(Date.now() - timestamp) < Math.abs(Date.now() - timestamp * 1000)) {
+       return timestamp;
+    } else {
+       return timestamp * 1000;
+    }
+
+  }
+
   static getOidcOptions(
     emailLinkLogin: boolean,
     idTokenHint: string | null
@@ -95,11 +105,12 @@ export default class Auth {
       return false;
     }
 
-    const expiresAtVal = Number.parseInt(expiresAt);
-
     if (expiresAt) {
+      // Make sure we're comparing time in the same units - JWT resposne is in Seconds, Web works better with Milliseconds, Android library does conversions.
+      const expiresAtVal = Number.parseInt(expiresAt);
+      const expiresAtValMs = Auth.getMsTimestamp(expiresAtVal);
       const now = Auth.getCurrentTimeInMs();
-      const expire = (expiresAtVal - (secondsMargin * 1000));
+      const expire = (expiresAtValMs - (secondsMargin * 1000));
 
       return now < expire;
     }
@@ -241,11 +252,11 @@ export default class Auth {
       localStorage.getItem(SECURE_STORE_ACCESS_TOKEN) || undefined;
     try {
       await OAuth2Client.logout(oidcOptions, accessToken);
-      localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, "");
-      localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, "");
-      localStorage.setItem(SECURE_STORE_EXPIRES_AT, "");
-      localStorage.setItem(SECURE_STORE_ISSUED_AT, "");
-      localStorage.setItem(SECURE_STORE_AUTH_TYPE, "");
+      localStorage.removeItem(SECURE_STORE_ACCESS_TOKEN);
+      localStorage.removeItem(SECURE_STORE_REFRESH_TOKEN);
+      localStorage.removeItem(SECURE_STORE_EXPIRES_AT);
+      localStorage.removeItem(SECURE_STORE_ISSUED_AT);
+      localStorage.removeItem(SECURE_STORE_AUTH_TYPE);
       return true;
     } catch (error) {
       console.log(error);
