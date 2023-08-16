@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v2.5.2
 
       - name: Node Package Install
-        run: npm ci
+        run: npm i
 
       - name: Build
         run: npm run build
