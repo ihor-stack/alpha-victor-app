@@ -28,9 +28,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.5.2
+      - run: git config --global url."https://${{ secrets.PAT }}@github.com/".insteadOf ssh://git@github.com/
 
       - name: Node Package Install
         run: npm i
