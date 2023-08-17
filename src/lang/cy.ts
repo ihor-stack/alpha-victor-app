@@ -428,7 +428,7 @@ export default {
           p1: "This privacy notice for Uncoded Limited (doing business as Alpha Victor) ('Alpha Victor', 'we', 'us', or 'our',), describes how and why we might collect, store, use, and/or share ('process') your information when you use our services ('Services'), such as when you:",
           p2: "Visit our website at http://www.alphavictor.com, or any website of ours that links to this privacy notice Download and use our mobile application (OnlineInside), or any other application of ours that links to this privacy notice",
           p3: "Engage with us in other related ways, including any sales, marketing, or events",
-          p4: "Questions or concerns? Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at hello@uncoded.com.",
+          p4: "Questions or concerns? Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at",
         },
         content2: {
           header: "Summary of key points",
