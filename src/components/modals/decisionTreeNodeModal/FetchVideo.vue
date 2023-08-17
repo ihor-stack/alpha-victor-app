@@ -182,7 +182,10 @@ const handleConfirm = () => {
       {
         title: state.title,
         url: props.vimeoUrl,
-        chapters: state.chapters,
+        chapters: state.chapters.map((chapter) => ({
+          ...chapter,
+          order: chapter.index,
+        })),
       },
       (res) => {
         props.handleClickConfirm({ video: res });

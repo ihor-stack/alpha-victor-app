@@ -4,6 +4,9 @@ import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import * as Sentry from "@sentry/capacitor";
 import router from "./router";
+import { auth as useAuthStore } from "@/stores/authStore";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
 const adminAPI = axios.create({
   baseURL: process.env.VUE_APP_API_ADMIN_URL,
@@ -49,13 +52,18 @@ publicAPI.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
-    handleError(error);
+  async (error) => {
+    await handleError(error);
     return Promise.reject(error);
   }
 );
 
-const handleError = (error: any) => {
+const handleError = async (error: any) => {
+
+  const authStore = useAuthStore();
+  const accountStore = useAccountStore();
+  const orgStore = useOrganisationStore();
+
   const status = error.response?.status;
   let message = error;
   if (error.config.headers['X-AV-ErrorHandler'] === 'shortcode') {
@@ -69,7 +77,12 @@ const handleError = (error: any) => {
     switch (status) {
       case 401:
         message = "Your login session has expired, please login again";
-        router.push("/");
+        authStore.setAuthStatus(false);
+        accountStore.clearAccountDetails();
+        accountStore.logoutPermission();
+        orgStore.clearOrg();
+        await orgStore.setOrgTheme();
+        router.push("/login");
         break;
       case 403:
         message = "You don't have permission to access this resource";
