@@ -41,7 +41,7 @@
           ></ion-textarea>
         </ion-col>
       </ion-row>
-      
+
       <ion-row class="form-admin--group form-admin--group-full">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label text-wrap="true">{{
@@ -54,20 +54,18 @@
             <ion-datetime-button datetime="from"></ion-datetime-button>
           </div>
           <ion-modal :keep-contents-mounted="true">
-          <ion-datetime
+            <ion-datetime
               id="from"
               display-format="DD/MM/YYYY HH:mm:ss"
               picker-format="DD MMM YYYY HH:mm:ss"
-              :value="announcement.from"
+              :value="announcement.from || ''"
               @ionChange="setFromDate"
             ></ion-datetime>
           </ion-modal>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-label text-wrap="true">{{
-            $t(
-              "pages.admin.organisations.view.locations.announcement.labelEnd"
-            )
+            $t("pages.admin.organisations.view.locations.announcement.labelEnd")
           }}</ion-label>
 
           <div class="custom-input date-wrapper">
@@ -75,13 +73,13 @@
           </div>
           <ion-modal :keep-contents-mounted="true">
             <ion-datetime
-                id="to"
-                display-format="DD/MM/YYYY HH:mm:ss"
-                picker-format="DD MMM YYYY HH:mm:ss"
-                :value="announcement.to"
-                @ionChange="setToDate"
-              ></ion-datetime>
-            </ion-modal>
+              id="to"
+              display-format="DD/MM/YYYY HH:mm:ss"
+              picker-format="DD MMM YYYY HH:mm:ss"
+              :value="announcement.to || ''"
+              @ionChange="setToDate"
+            ></ion-datetime>
+          </ion-modal>
         </ion-col>
       </ion-row>
       <ion-row class="form-admin--group">

@@ -165,21 +165,24 @@ export const Spaces = defineStore("Spaces", {
         });
     },
 
-    async deleteSpace(spaceId: string, orgId: string, locationId: string, floorId: string) {
+    async deleteSpace(
+      spaceId: string,
+      orgId: string,
+      locationId: string,
+      floorId: string
+    ) {
       const loadId = loadingService.show("Loading...");
 
       return adminAPI
         .delete(`/Space/${spaceId}`)
         .then(() => {
           confirmToLeaveService.setEditing(false);
-          toastService.show(
-            "Success",
-            "Space deleted",
-            "success",
-            "bottom"
-          );
+          toastService.show("Success", "Space deleted", "success", "bottom");
 
-          router.push({name: "OrganisationViewLocationsFloors", params: { id: orgId, locationId: locationId, floorId: floorId }});
+          router.push({
+            name: "OrganisationViewLocationsFloors",
+            params: { id: orgId, locationId: locationId, floorId: floorId },
+          });
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
@@ -274,16 +277,11 @@ export const Spaces = defineStore("Spaces", {
       const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(
-          "/Space/" +
-            spaceId +
-            "/Announcement?Title=" +
-            this.announcement.title +
-            "&Text=" +
-            this.announcement.text +
-            "&From=" +
-            this.announcement.from +
-            "&To=" +
-            this.announcement.to
+          `/Space/${spaceId}/Announcement?Title=${
+            this.announcement.title
+          }&Text=${this.announcement.text}&From=${
+            this.announcement.from || new Date().toISOString()
+          }&To=${this.announcement.to || new Date().toISOString()}`
         )
         .then(() => {
           confirmToLeaveService.setEditing(false);
