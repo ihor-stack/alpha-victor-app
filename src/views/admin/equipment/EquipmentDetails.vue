@@ -97,6 +97,13 @@
         >
           {{ $t("pages.admin.equipment.details.saveBtn") }}
         </ion-button>
+        <ion-button
+          class="delete-button button-wide"
+          color="red"
+          @click="handleDelete"
+        >
+          {{ $t("pages.admin.equipment.details.deleteBtn") }}
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -113,7 +120,7 @@ import {
   IonGrid,
   IonItem,
 } from "@ionic/vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import EquipmentDocumentModal from "@/components/admin/equipment/EquipmentDocumentModal.vue";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
@@ -128,6 +135,7 @@ const EquipmentStore = useEquipment();
 const DocTypes = adminDocuments();
 const Space = Spaces();
 const route = useRoute();
+const router = useRouter();
 
 const equipmentId = route.params.equipmentId as string;
 const {
@@ -166,6 +174,14 @@ const removeSpacesDocument = (documentId: string) => {
 
 const save = () => {
   EquipmentStore.updateEquipment(equipmentId, state);
+};
+
+const handleDelete = () => {
+  EquipmentStore.deleteEquipment(equipmentId).then(() => {
+    router.push({
+      name: "EquipmentView",
+    });
+  });
 };
 
 watch(currentEquipment, (newValue) => {
@@ -214,5 +230,10 @@ onBeforeMount(() => {
 }
 ion-select {
   background: #181818;
+}
+
+.delete-button {
+  background-color: var(--av-red);
+  border-radius: 4px;
 }
 </style>

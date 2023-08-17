@@ -57,28 +57,34 @@ export const Equipment = defineStore("Equipment", {
           this.currentEquipment = response.data;
 
           if (response.data.assetTypeId) {
-            const assetTypeSelected = this.equipmentList.assetTypes.find(assetType => {
-              return assetType.assetId === response.data.assetTypeId
-            })
+            const assetTypeSelected = this.equipmentList.assetTypes.find(
+              (assetType) => {
+                return assetType.assetId === response.data.assetTypeId;
+              }
+            );
             if (assetTypeSelected) {
               this.assetTypeSelected = {
                 id: 0,
                 title: assetTypeSelected.name,
                 additionalInfo: assetTypeSelected.assetId,
-              }
+              };
             }
           }
 
           if (response.data.manufacturerId) {
-            const manufacturerSelected = this.equipmentList.manufacturers.find(manufacturer => {
-              return manufacturer.manufacturerId === response.data.manufacturerId
-            })
+            const manufacturerSelected = this.equipmentList.manufacturers.find(
+              (manufacturer) => {
+                return (
+                  manufacturer.manufacturerId === response.data.manufacturerId
+                );
+              }
+            );
             if (manufacturerSelected) {
               this.manufacturerSelected = {
                 id: 0,
                 title: manufacturerSelected.name,
-                additionalInfo: manufacturerSelected.manufacturerId
-              }
+                additionalInfo: manufacturerSelected.manufacturerId,
+              };
             }
           }
         })
@@ -114,6 +120,21 @@ export const Equipment = defineStore("Equipment", {
         })
         .then(() => {
           this.getEquipments();
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+    async deleteEquipment(id: string) {
+      const loadId = loadingService.show("Loading...");
+      return adminAPI
+        .delete(`/Equipment/${id}`)
+        .then(() => {
+          this.getEquipments();
+          return "success";
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");

@@ -1,9 +1,19 @@
 <template>
   <div>
-    <app-header :no-background="true" v-if="isBackButtonVisible || isMobileView">
+    <app-header
+      :no-background="true"
+      v-if="isBackButtonVisible || isMobileView"
+    >
       <template #start>
-        <ion-button fill="clear" @click="() => router.back()" class="back" v-if="isBackButtonVisible">
-          <span class="font-mono font-size-xs">{{ $t('pages.favourites.back') }}</span>
+        <ion-button
+          fill="clear"
+          @click="onClickBack"
+          class="back"
+          v-if="isBackButtonVisible"
+        >
+          <span class="font-mono font-size-xs">{{
+            $t("pages.favourites.back")
+          }}</span>
         </ion-button>
       </template>
       <template #end>
@@ -18,15 +28,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, computed } from "vue";
-import {
-  IonButton,
-  IonMenuButton
-} from "@ionic/vue";
+import { IonButton, IonMenuButton } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import { useRouter, useRoute } from "vue-router";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
 
-const isBackButtonVisible = computed(() => route.path !== '/admin/organisations');
+const isBackButtonVisible = computed(
+  () => route.path !== "/admin/organisations"
+);
 
 const router = useRouter();
 const route = useRoute();

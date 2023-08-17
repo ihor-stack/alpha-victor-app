@@ -225,6 +225,7 @@ export default {
           sn: "Serial Number",
           remove: ">> remove",
           saveBtn: "Save Changes",
+          deleteBtn: "Delete Equipment",
         },
         view: {
           title: "Equipment",
@@ -914,8 +915,8 @@ export default {
         connectButton: "Connect",
       },
       photos: {
-        title: "Photos"
-      }
+        title: "Photos",
+      },
     },
   },
 };
