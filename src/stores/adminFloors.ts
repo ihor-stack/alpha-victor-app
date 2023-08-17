@@ -82,7 +82,10 @@ export const Floors = defineStore("Floors", {
             "success",
             "bottom"
           );
-          router.push({name: 'OrganisationViewLocations', params: {id: orgId, locationId: locationId}});
+          router.push({
+            name: "OrganisationViewLocations",
+            params: { id: orgId, locationId: locationId },
+          });
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
@@ -104,7 +107,10 @@ export const Floors = defineStore("Floors", {
         });
     },
 
-    async updateFloorOrder(floors: { id: string; order: number }[]) {
+    async updateFloorOrder(
+      floors: { id: string; order: number }[],
+      locationId: string
+    ) {
       const loadId = loadingService.show("Loading...");
       adminAPI
         .patch("/Floor/Order", floors)
@@ -116,6 +122,7 @@ export const Floors = defineStore("Floors", {
             "bottom"
           );
           confirmToLeaveService.setEditing(false);
+          this.getFloors(locationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");

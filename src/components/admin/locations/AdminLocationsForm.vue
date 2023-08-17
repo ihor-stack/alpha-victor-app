@@ -428,28 +428,13 @@ watch(
 const handleReorder = (event: CustomEvent) => {
   const { from, to }: { from: number; to: number } = event.detail;
   event.detail.complete();
-  const requestBody = [
-    {
-      id: floors.value[from].id,
-      order: to,
-    },
-  ];
-  if (to < from) {
-    for (let index = to; index < from; index++) {
-      requestBody.push({
-        id: floors.value[to].id,
-        order: index + 1,
-      });
-    }
-  } else {
-    for (let index = from + 1; index <= to; index++) {
-      requestBody.push({
-        id: floors.value[to].id,
-        order: index - 1,
-      });
-    }
-  }
-  Floor.updateFloorOrder(requestBody);
+  const orderedFloors = [...floors.value];
+  orderedFloors.splice(from, 1);
+  orderedFloors.splice(to, 0, floors.value[from]);
+  Floor.updateFloorOrder(
+    orderedFloors.map((floor, order) => ({ id: floor.id, order })),
+    locationId
+  );
 };
 
 onBeforeMount(() => {
