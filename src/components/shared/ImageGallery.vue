@@ -67,19 +67,16 @@ const handleImageToggleFeature = (photo: Photo) => {
   props.toggleImageFeatured(photo);
 };
 
-const orderedImages = ref(props.images);
-
 const handleReorder = (event: CustomEvent) => {
   const { from, to }: { from: number; to: number } = event.detail;
-
   event.detail.complete();
-
-  [orderedImages.value[from], orderedImages.value[to]] = [
-    orderedImages.value[to],
-    orderedImages.value[from],
-  ];
-
-  emit("image-reordered", orderedImages.value);
+  const orderedImages = [...props.images];
+  orderedImages.splice(from, 1);
+  orderedImages.splice(to, 0, props.images[from]);
+  emit(
+    "image-reordered",
+    orderedImages.map((image, order) => ({ ...image, order }))
+  );
 };
 </script>
 
