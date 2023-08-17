@@ -235,5 +235,6 @@ ion-select {
 .delete-button {
   background-color: var(--av-red);
   border-radius: 4px;
+  margin-left: 8px;
 }
 </style>
