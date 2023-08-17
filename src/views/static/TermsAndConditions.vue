@@ -17,7 +17,7 @@
         <p>{{ $t("pages.static.tos.content1.p1") }}</p>
         <p>{{ $t("pages.static.tos.content1.p2") }}</p>
         <p>{{ $t("pages.static.tos.content1.p3") }}</p>
-        <p>{{ $t("pages.static.tos.content1.p") }}</p>
+        <p>{{ $t("pages.static.tos.content1.p4") }}</p>
       </div>
       <div class="text-content">
         <h2>{{ $t("pages.static.tos.content2.header") }}</h2>
