@@ -204,7 +204,7 @@ export interface Integration {
   clientId: string;
   clientSecret: string;
   selectedOrgnisation: string;
-  ubiquisenseOrganisationId: string;
+  ubiqisenseOrganisationId: string;
 }
 export interface Ubiqisense {
   id: string;

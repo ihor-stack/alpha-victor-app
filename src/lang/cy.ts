@@ -305,7 +305,7 @@ export default {
           },
           integrations: {
             title: "Integrations",
-            header: "Ubiquisense",
+            header: "Ubiqisense",
             clientId: "Client ID",
             clientSecret: "Client Secret",
             saveBtn: "Save changes",
