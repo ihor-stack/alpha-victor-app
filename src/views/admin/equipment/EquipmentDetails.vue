@@ -77,7 +77,7 @@
               @update:modelValue="
                 (value: string) => updateDocumentName({ ...doc, name: value })
               "
-              @remove="removeSpacesDocument"
+              @remove="removeDocument"
             />
           </div>
         </div>
@@ -130,6 +130,7 @@ import ImageGallery from "@/components/shared/ImageGallery.vue";
 import { Equipment as useEquipment } from "@/stores/adminEquipment";
 import { adminDocuments } from "@/stores/adminDocumentTypes";
 import { Spaces } from "@/stores/adminSpaces";
+import { Document } from "@/types";
 
 const EquipmentStore = useEquipment();
 const DocTypes = adminDocuments();
@@ -168,8 +169,8 @@ const state = reactive({
   assetTypeId: assetTypeSelected.value?.additionalInfo,
 });
 
-const removeSpacesDocument = (documentId: string) => {
-  EquipmentStore.deleteEquipmentDocument(documentId, equipmentId);
+const removeDocument = (document: Document) => {
+  EquipmentStore.deleteEquipmentDocument(document.id as string, equipmentId);
 };
 
 const save = () => {

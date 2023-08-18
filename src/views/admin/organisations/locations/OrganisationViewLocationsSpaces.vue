@@ -249,9 +249,9 @@ import { Locations } from "@/stores/adminLocations";
 const route = useRoute();
 
 const organisationId = route.params.id as string;
-const locationId = route.params.locationId as string;
-const floorId = route.params.floorId as string;
-const spaceId = route.params.spaceId as string;
+const locationId = computed(() => route.params.locationId as string);
+const floorId = computed(() => route.params.floorId as string);
+const spaceId = computed(() => route.params.spaceId as string);
 const DocTypes = adminDocuments();
 
 const Space = Spaces();
@@ -273,9 +273,9 @@ const redirect = (routeItem) => {
     name: routeItem.route,
     params: {
       id: organisationId,
-      locationId,
-      floorId,
-      spaceId,
+      locationId: locationId.value,
+      floorId: floorId.value,
+      spaceId: spaceId.value,
     },
     query: routeItem.query,
   };
@@ -287,13 +287,13 @@ const transformToUpper = () => {
 
 const handleImageRemoved = (photoId: string) => {
   Space.deletePhoto(photoId).then(() => {
-    Space.getSpaceDetails(spaceId);
+    Space.getSpaceDetails(spaceId.value);
   });
 };
 
 const handleImageReordered = (photos: Photo[]) => {
   Space.reorderPhotos(photos).then(() => {
-    Space.getSpaceDetails(spaceId);
+    Space.getSpaceDetails(spaceId.value);
   });
 };
 
@@ -303,22 +303,27 @@ const toggleImageFeatured = (photo: Photo) => {
     name: photo.name,
     caption: photo.caption || "",
   }).then(() => {
-    Space.getSpaceDetails(spaceId);
+    Space.getSpaceDetails(spaceId.value);
   });
 };
 
 const removeSpacesDocument = (doc: SpaceDetailsDocs) => {
-  Space.deleteSpacesDocument(doc.id, spaceId);
+  Space.deleteSpacesDocument(doc.id, spaceId.value);
 };
 
 const updateDocumentName = (updatedDoc: SpaceDetailsDocs) => {
   DocTypes.updateDocumentName(updatedDoc.id, updatedDoc.name).then(() => {
-    Space.getSpaceDetails(spaceId);
+    Space.getSpaceDetails(spaceId.value);
   });
 };
 
 const deleteSpace = async () => {
-  await Space.deleteSpace(spaceId, organisationId, locationId, floorId);
+  await Space.deleteSpace(
+    spaceId.value,
+    organisationId,
+    locationId.value,
+    floorId.value
+  );
   await Location.getNavigationTree(organisationId);
 };
 
@@ -356,8 +361,8 @@ watch(
 
 onBeforeMount(async () => {
   await organisation.getDecisionTrees();
-  Space.getSpaceDetails(spaceId);
-  Space.getIntegrations(spaceId);
+  Space.getSpaceDetails(spaceId.value);
+  Space.getIntegrations(spaceId.value);
 });
 </script>
 

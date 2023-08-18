@@ -6,7 +6,7 @@
       @click="state.modalOpen = true"
     >
       <ion-label text-wrap="true">{{
-        $t("components.admin.spaces.documentModal.addNewDocumentLabel")
+        $t("components.admin.equipment.documentModal.addDocumentHeader")
       }}</ion-label>
     </ion-chip>
     <ion-modal
@@ -94,7 +94,7 @@
               >
                 {{
                   $t(
-                    "components.admin.equipment.documentModal.addNewAssetbutton"
+                    "components.admin.equipment.documentModal.addDocumentButton"
                   )
                 }}
               </ion-button>
