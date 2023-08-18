@@ -4,22 +4,24 @@
       <template #start>
         <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">{{ $t('pages.static.tos.back')}}</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.static.tos.back")
+          }}</span>
         </ion-button>
       </template>
     </app-header>
     <ion-content>
       <div class="text-content">
-        <h2>{{ $t('pages.static.tos.content1.header')}}</h2>
-        <p>{{ $t('pages.static.tos.content1.subtitle')}}</p>
-        <p>{{ $t('pages.static.tos.content1.p1')}}</p>
-        <p>{{ $t('pages.static.tos.content1.p2')}}</p>
-        <p>{{ $t('pages.static.tos.content1.p3')}}</p>
-        <p>{{ $t('pages.static.tos.content1.p4')}}</p>
+        <h2>{{ $t("pages.static.tos.content1.header") }}</h2>
+        <p>{{ $t("pages.static.tos.content1.subtitle") }}</p>
+        <p>{{ $t("pages.static.tos.content1.p1") }}</p>
+        <p>{{ $t("pages.static.tos.content1.p2") }}</p>
+        <p>{{ $t("pages.static.tos.content1.p3") }}</p>
+        <p>{{ $t("pages.static.tos.content1.p4") }}</p>
       </div>
       <div class="text-content">
-        <h2>{{ $t('pages.static.tos.content2.header')}}</h2>
-        <p>{{ $t('pages.static.tos.content2.p')}}</p>
+        <h2>{{ $t("pages.static.tos.content2.header") }}</h2>
+        <p>{{ $t("pages.static.tos.content2.p") }}</p>
       </div>
     </ion-content>
   </ion-page>

@@ -1,4 +1,8 @@
 {
+    "navigationFallback": {
+        "rewrite": "/index.html",
+        "exclude": ["/assets/*.{png,jpg,gif,svg,css,js,woff2,woff}"]
+    },
     "mimeTypes": {
         "apple-app-site-association": "application/json"
     }
