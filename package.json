@@ -11,7 +11,7 @@
     "serve:android": "ionic capacitor run android --livereload",
     "build": "vue-cli-service build",
     "build:ios": "ionic build --prod && ionic capacitor build ios --release --prod",
-    "build:android": "ionic build --prod && ionic capacitor build android --release --prod",
+    "build:android": "ionic build --prod && ionic capacitor build android --release --prod --warning-mode=all",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"

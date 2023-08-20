@@ -97,7 +97,6 @@ import { useRoute } from "vue-router";
 import { close } from "ionicons/icons";
 import { storeToRefs } from "pinia";
 import { Floors } from "@/stores/adminFloors";
-import toastService from "@/services/toastService";
 
 const localShortName = ref(""); // Create a local state for shortname
 

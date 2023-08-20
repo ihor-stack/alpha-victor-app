@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-content>
+    <ion-content v-if="searchNavigationTree">
       <ion-list lines="inset" :inset="true">
         <ion-list-header class="ion-no-padding">
           {{
@@ -37,8 +37,8 @@ import {
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { storeToRefs } from "pinia";
 const organisationStore = useOrganisationStore();
-defineProps(["searchTerm"]);
 const { searchNavigationTree } = storeToRefs(organisationStore);
+defineProps(["searchTerm"]);
 </script>
 
 <style scoped>

@@ -10,7 +10,7 @@
           <h6 class="category color-light-gray">
             {{ props.space.roomType }}
           </h6>
-          <occupied-status :occupied="space.occupied" />
+          <occupied-status v-if="props.space.occupied" :occupied="props.space.currentOccupancy !== 0" />
         </div>
         <div class="space__info__bottom">
           <h5 class="name font-bold color-light-gray">

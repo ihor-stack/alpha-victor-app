@@ -43,9 +43,9 @@
           $t("pages.admin.integrations.selectOrganisation")
         }}</ion-label>
         <AdminSelect
-          v-model="integration.integration.value.ubiquisenseOrganisationId"
+          v-model="integration.integration.value.ubiqisenseOrganisationId"
           :options="ubiqisenseOptions"
-          valueKey="ubiquisenseOrganisationId"
+          valueKey="ubiqisenseOrganisationId"
         />
       </ion-col>
     </ion-row>
@@ -88,8 +88,8 @@ const SaveEdit = () => {
     clientId: integration.integration.value.clientId,
     clientSecret: integration.integration.value.clientSecret,
     selectedOrgnisation: orgId,
-    ubiquisenseOrganisationId:
-      integration.integration.value.ubiquisenseOrganisationId,
+    ubiqisenseOrganisationId:
+      integration.integration.value.ubiqisenseOrganisationId,
   };
   store.editIntegration(integrationId, newEdit);
 };
@@ -98,7 +98,7 @@ const ubiqisenseOptions = computed(() => {
   return integration.ubiqisenses.value?.map((option, index) => ({
     id: index,
     title: option.name,
-    ubiquisenseOrganisationId: option.id,
+    ubiqisenseOrganisationId: option.id,
   }));
 });
 

@@ -108,6 +108,7 @@ const isMobileView = ref(false);
 
 const updateView = () => {
   isMobileView.value = window.matchMedia("(max-width: 1063px)").matches;
+  state.initialFetch = true;
 };
 
 const handleDismiss = () => {

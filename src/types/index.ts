@@ -204,7 +204,7 @@ export interface Integration {
   clientId: string;
   clientSecret: string;
   selectedOrgnisation: string;
-  ubiquisenseOrganisationId: string;
+  ubiqisenseOrganisationId: string;
 }
 export interface Ubiqisense {
   id: string;
@@ -320,6 +320,7 @@ export interface Space {
   qrCode?: string;
   spaceType: string;
   occupied: boolean;
+  currentOccupancy: number;
   organisationAnonymousAccess: boolean;
   capacity: number;
   imagePath: string;

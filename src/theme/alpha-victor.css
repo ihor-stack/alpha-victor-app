@@ -18,13 +18,13 @@
   --av-font-bold: "Akkurat-Bold";
   --av-font-bold-italic: "Akkurat-Bold-Italic";
   --av-font-mono: "Akkurat-Mono";
-  --av-font-xxs: 0.65rem;
+  --av-font-xxs: 0.7rem;
   --av-font-xs: 0.85rem;
-  --av-font-sm: 0.9rem;
-  --av-font-md: 0.95rem;
-  --av-font-reg: 1rem;
-  --av-font-title: 1.25rem;
-  --av-font-lg: 1.65rem;
+  --av-font-sm: 0.95rem;
+  --av-font-md: 1rem;
+  --av-font-reg: 1.25rem;
+  --av-font-title: 1.5rem;
+  --av-font-lg: 1.75rem;
   --av-font-xl: 2.375rem;
 
   --ion-color-primary: var(--av-primary);
@@ -523,9 +523,24 @@ ion-button.button-red {
   right: 0;
   bottom: 0;
   top: 0;
-  background-image: var(--theme-image);
   background-size: 100%;
 }
+
+.outer-container:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background-image: var(--theme-image);
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+}
+
 
 
 @media only screen and (min-width: 1023px) {

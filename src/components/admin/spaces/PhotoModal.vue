@@ -38,6 +38,7 @@
             <div class="form-admin--group_field">
               <CustomIonUploadInput
                 :buttonText="'Select file'"
+                :accept="'image/png, image/gif, image/jpeg'"
                 @file-selected="onFileSelected"
               />
 
