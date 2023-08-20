@@ -36,6 +36,16 @@
             <ion-icon :icon="heart" />
           </ion-button>
         </ion-item>
+        <ion-item
+          v-if="!spaces.length"
+          lines="none"
+          class="empty-state"
+        >
+          <ion-label class="ion-no-margin" text-wrap="true">
+            <h1 class="color-white">{{ $t("pages.favourites.noSpacesFound") }}</h1>
+            <p>{{ $t("pages.favourites.shortCodeTip") }}</p>
+          </ion-label>
+        </ion-item>
       </ion-list>
     </ion-content>
     <ion-footer class="ion-no-border">
@@ -96,6 +106,10 @@ ion-item::part(native) {
   padding-left: 0;
   gap: 12px;
   margin-bottom: 20px;
+}
+ion-item.empty-state::part(native) {
+  border: none !important;
+  text-align: center;
 }
 ion-thumbnail {
   width: 80px;

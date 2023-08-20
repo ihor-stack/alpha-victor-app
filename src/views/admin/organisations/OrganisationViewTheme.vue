@@ -13,6 +13,7 @@
             :buttonText="$t('pages.admin.organisations.view.theme.buttonText')"
             :disabled="theme.logo ? true : false"
             :selectedImage="theme.logo"
+            :accept="'image/png, image/gif, image/jpeg'"
             @file-selected="onLogoSelected"
             @remove="onLogoRemoved"
           />
@@ -25,6 +26,7 @@
             :buttonText="$t('pages.admin.organisations.view.theme.buttonText')"
             :disabled="theme.backgroundImage ? true : false"
             :selectedImage="theme.backgroundImage"
+            :accept="'image/png, image/gif, image/jpeg'"
             @file-selected="onBackgroundSelected"
             @remove="onBackgroundRemoved"
           />

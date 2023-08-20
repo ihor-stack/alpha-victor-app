@@ -56,13 +56,13 @@ export const Floors = defineStore("Floors", {
           shortName: this.floor.shortName,
         })
         .then(() => {
+          const locationsStore = Locations();
           toastService.show(
             "Success",
             "Floor updated successfully",
             "success",
             "bottom"
           );
-          const locationsStore = Locations();
           confirmToLeaveService.setEditing(false);
           locationsStore.getNavigationTree(organisationId);
         })
@@ -109,7 +109,8 @@ export const Floors = defineStore("Floors", {
 
     async updateFloorOrder(
       floors: { id: string; order: number }[],
-      locationId: string
+      locationId: string,
+      organisationId: string
     ) {
       const loadId = loadingService.show("Loading...");
       adminAPI
@@ -122,7 +123,9 @@ export const Floors = defineStore("Floors", {
             "bottom"
           );
           confirmToLeaveService.setEditing(false);
+          const locationsStore = Locations();
           this.getFloors(locationId);
+          locationsStore.getNavigationTree(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");

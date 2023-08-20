@@ -433,7 +433,8 @@ const handleReorder = (event: CustomEvent) => {
   orderedFloors.splice(to, 0, floors.value[from]);
   Floor.updateFloorOrder(
     orderedFloors.map((floor, order) => ({ id: floor.id, order })),
-    locationId
+    locationId,
+    organisationId
   );
 };
 

@@ -19,7 +19,7 @@
       </div>
       <GetHelpList></GetHelpList>
     </ion-content>
-    <ion-footer v-if="currentSpace.sosNumberPublic">
+    <ion-footer v-if="!currentSpace.sosNumberPublic">
       <div
         class="sos-container"
         ref="container"

@@ -29,7 +29,7 @@
         <ion-item
           :detail="true"
           button
-          v-for="(option, index) in options"
+          v-for="(option, index) in filteredOptions"
           :key="index"
           @click="handleUrlChange(option.path)"
         >
@@ -66,13 +66,16 @@ import {
   IonLabel,
   IonList,
 } from "@ionic/vue";
-import { ref, reactive, onBeforeMount, watch } from "vue";
+import { ref, reactive, onBeforeMount, watch, computed } from "vue";
+import { Capacitor } from "@capacitor/core";
 import { Account } from "@/stores/publicAccount";
 import { storeToRefs } from "pinia";
 
 import AppHeader from "@/components/shared/AppHeader.vue";
 import { useRouter } from "vue-router";
 import { useDotify } from "@/composables/utilities";
+
+const isMobile = Capacitor.getPlatform() !== "web";
 
 const publicAccount = Account();
 const { accountDetails } = storeToRefs(publicAccount);
@@ -101,29 +104,41 @@ const handleDismiss = () => {
 const options = [
   {
     key: "notifications",
+    device: "mobile",
     path: "/settings/notifications",
   },
   {
     key: "bluetooth",
+    device: "mobile",
     path: "/settings/bluetooth",
   },
   {
-    key: "location", 
+    key: "location",
+    device: "mobile",
     path: "/settings/location",
   },
   {
     key: "password",
+    device: "all",
     path: "/settings/password",
   },
   {
     key: "language",
+    device: "all",
     path: "/settings/language",
   },
   {
     key: "deleteAccount",
+    device: "all",
     path: "/settings/delete-account",
   },
 ];
+
+const filteredOptions = computed(() => {
+  return options.filter((option) => {
+    return option.device === "all" || (isMobile && option.device === "mobile");
+  });
+});
 
 watch(
   () => state.modalOpen,

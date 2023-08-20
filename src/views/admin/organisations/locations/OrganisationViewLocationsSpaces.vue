@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!state.isLoadingSpaceDetails">
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group">
         <ion-col
@@ -233,8 +233,8 @@ import { locationOutline, peopleOutline } from "ionicons/icons";
 import SpaceFeaturesSlider from "@/components/admin/spaces/SpaceFeaturesSlider.vue";
 import { storeToRefs } from "pinia";
 import { Spaces } from "@/stores/adminSpaces";
-import { onBeforeMount, watch, computed } from "vue";
-import { useRoute } from "vue-router";
+import { onBeforeMount, watch, computed, reactive } from "vue";
+import { onBeforeRouteLeave, useRoute } from "vue-router";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { Organisations } from "@/stores/adminOrganisations";
 import { adminDocuments } from "@/stores/adminDocumentTypes";
@@ -265,7 +265,12 @@ const {
   decisionTreeSelected,
   integrations,
 } = storeToRefs(Space);
+
 const { decisionTreeList } = storeToRefs(organisation);
+
+const state = reactive({
+  isLoadingSpaceDetails: true,
+});
 
 const isFirstPhoto = computed(() => !space.value.photos?.length);
 const redirect = (routeItem) => {
@@ -360,9 +365,17 @@ watch(
 );
 
 onBeforeMount(async () => {
-  await organisation.getDecisionTrees();
-  Space.getSpaceDetails(spaceId.value);
-  Space.getIntegrations(spaceId.value);
+  try {
+    await Promise.all([
+      Space.getSpaceDetails(spaceId.value),
+      Space.getIntegrations(spaceId.value),
+    ]);
+  } finally {
+    // TO DO - Refactor later to more elegant solution
+    setTimeout(() => {
+      state.isLoadingSpaceDetails = false;
+    }, 1000); // 1 seconds
+  }
 });
 </script>
 

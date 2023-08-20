@@ -22,6 +22,8 @@ export default {
       header: "Favourites",
       back: "<< back",
       exploreBtn: "Explore Spaces",
+      noSpacesFound: "no.favourites.found",
+      shortCodeTip: "Explore spaces and add to your favourites.",
     },
     findSpace: {
       header: "Find a space",
@@ -61,6 +63,8 @@ export default {
     recentlyViewed: {
       header: "Recently viewed",
       back: "<< back",
+      noSpacesFound: "no.spaces.found",
+      shortCodeTip: "Explore spaces and they will appear here for later.",
     },
     accountSettings: {
       header: "Account Settings",
@@ -489,8 +493,8 @@ export default {
           chooseIconLabel: "Choose an icon",
         },
         documentModal: {
-          addDocumentButton: "Add new document +",
-          addDocumentHeader: "Add new document +",
+          addDocumentButton: "Add new document",
+          addDocumentHeader: "Add new document",
           uploadDocumentTypeParagraph:
             "You can upload a document and document type using the form below.",
           uploadDocumentParagraph: "Upload document",
@@ -577,7 +581,7 @@ export default {
           uploadDocumentButton: "Upload document",
         },
         newDeviceModal: {
-          addNewDeviceButton: "Add New device +",
+          addNewDeviceButton: "Add New Device +",
           addNewDeviceHeader: "Add New device",
           nameLabel: "Name",
           serialNumberLabel: "Serial number",
@@ -820,7 +824,7 @@ export default {
         dividerSpan: "or",
         addOrganisationLabel: "Add to organisation",
         selectOrganisationPlaceholder: "Select organization",
-        saveAndCloseButton: "Save and close",
+        saveAndCloseButton: "Add to organisation",
       },
       userOrgPermissionModal: {
         selectRolePlaceholder: "Select role",
