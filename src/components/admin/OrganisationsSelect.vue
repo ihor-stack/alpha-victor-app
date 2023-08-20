@@ -124,7 +124,6 @@ const handleCta = () => {
 .swiper-slide {
   width: 260px;
   height: 160px;
-  border-radius: 8px;
   position: relative;
   overflow: hidden;
 }

@@ -47,7 +47,7 @@ const props = defineProps<Props>();
   height: 200px;
   width: 100%;
   margin-bottom: 32px;
-  border-radius: 4px;
+  border-radius: 8px;
   overflow: hidden;
 }
 .space__image {

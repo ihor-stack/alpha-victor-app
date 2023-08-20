@@ -11,7 +11,7 @@
           </ion-label>
         </ion-item>
       </ion-header>
-      <ion-content :scroll-y="false">
+      <ion-content>
         <div class="modal-panel__section modal-panel__select-equipment">
           <h2 class="font-size-xs font-bold modal-panel__heading">
             {{ $t('components.modals.organisationSelectModal.selectOrganisationHeader') }}
@@ -98,7 +98,7 @@ const handleConfirm = () => {
   border-radius: 8px;
   width: 100%;
   padding: 12px;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 16px;
 }
 

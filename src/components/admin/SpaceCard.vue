@@ -49,7 +49,7 @@ const props = defineProps<Props>();
   position: relative;
   height: 200px;
   margin-bottom: 32px;
-  border-radius: 4px;
+  border-radius: 8px;
   overflow: hidden;
 }
 .space__image {

@@ -93,6 +93,10 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
+ion-button {
+  width: 40px;
+  height: 40px;
+}
 .favourites-list {
   list-style-type: none;
   margin: 0;

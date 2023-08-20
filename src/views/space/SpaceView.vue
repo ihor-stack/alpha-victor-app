@@ -105,6 +105,7 @@
           <space-options-menu
             :currentSpace="currentSpace"
             :showDevices="devices.length ? true : false"
+            :showPhotos="currentSpace.photos && currentSpace.photos.length > 1 ? true : false"
           />
         </div>
       </div>
