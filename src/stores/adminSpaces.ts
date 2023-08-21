@@ -693,10 +693,11 @@ export const Spaces = defineStore("Spaces", {
     },
     async deleteIntegration(spaceId: string, spaceIntegrationId: string) {
       const loadId = loadingService.show("Loading...");
-      adminAPI
+      return adminAPI
         .delete(`/Integration/${spaceId}/Space/${spaceIntegrationId}`)
         .then(() => {
           this.getIntegrations(spaceId);
+          return "success";
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");

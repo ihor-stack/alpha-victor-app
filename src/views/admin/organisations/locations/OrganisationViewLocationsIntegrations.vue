@@ -23,7 +23,7 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-button
             class="font-size-sm"
-            :disabled="!selectedLocation || !route.query.spaceIntegrationId"
+            :disabled="!selectedLocation"
             @click="saveChanges()"
           >
             {{
@@ -37,7 +37,7 @@
           <ion-button
             class="font-size-sm text-lowercase delete-button"
             fill="clear"
-            :disabled="!route.query.spaceIntegrationId"
+            :disabled="!selectedLocation"
             @click="handleDelete"
           >
             {{
@@ -59,12 +59,14 @@ import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { Locations } from "@/stores/adminLocations";
 import { Spaces as useSpaceStore } from "@/stores/adminSpaces";
 import { storeToRefs } from "pinia";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
 
 const organisationId = route.params.id as string;
 const spaceId = route.params.spaceId as string;
+const spaceIntegrationId = route.query.spaceIntegrationId as string;
 const Location = Locations();
 const spaceStore = useSpaceStore();
 const { ubiqisenses } = storeToRefs(Location);
@@ -80,7 +82,7 @@ const ubiqisenseOptions = computed(() => {
 });
 
 const saveChanges = () => {
-  if (route.query.spaceIntegrationId) {
+  if (spaceIntegrationId) {
     spaceStore.updateIntegration(
       spaceId,
       route.query.spaceIntegrationId as string,
@@ -88,23 +90,33 @@ const saveChanges = () => {
         ubiqisenseLocationId: selectedLocation.value,
       }
     );
+  } else {
+    spaceStore.addIntegration(spaceId, selectedLocation.value);
   }
 };
 
 const handleDelete = () => {
-  spaceStore.deleteIntegration(
-    spaceId,
-    route.query.spaceIntegrationId as string
-  );
+  spaceStore.deleteIntegration(spaceId, spaceIntegrationId).then(() => {
+    selectedLocation.value = "";
+    router.push({
+      name: "OrganisationViewLocationsSpaces",
+      params: {
+        id: organisationId,
+        locationId: route.params.locationId,
+        floorId: route.params.floorId,
+        spaceId,
+      },
+    });
+  });
 };
 
 onBeforeMount(() => {
   Location.getUbiqisenses(organisationId);
-  spaceStore
-    .getIntegration(spaceId, route.query.spaceIntegrationId as string)
-    .then((res) => {
+  if (spaceIntegrationId) {
+    spaceStore.getIntegration(spaceId, spaceIntegrationId).then((res) => {
       selectedLocation.value = res?.ubiqisenseSpaceId || "";
     });
+  }
 });
 </script>
 
