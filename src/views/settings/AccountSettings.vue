@@ -1,10 +1,12 @@
 <template>
-  <ion-page>
+  <ion-page class="outer-container">
     <app-header :title="$t('pages.accountSettings.header')">
       <template #start>
         <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">{{ $t('pages.accountSettings.back')}}</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.accountSettings.back")
+          }}</span>
         </ion-button>
       </template>
     </app-header>
@@ -14,15 +16,22 @@
         <ion-item
           :detail="true"
           button
-         
           @click="handleUrlChange('/settings/profile')"
         >
           <ion-label text-wrap="true">
             <h2 class="name font-bold font-size-sm">
-              {{ accountDetails.name ? accountDetails.name : $t('pages.accountSettings.noNameSet') }}
+              {{
+                accountDetails.name
+                  ? accountDetails.name
+                  : $t("pages.accountSettings.noNameSet")
+              }}
             </h2>
             <p class="email font-mono font-size-xxs text-lowercase">
-              {{ accountDetails.email ? accountDetails.email : $t('pages.accountSettings.noEmailSet') }}
+              {{
+                accountDetails.email
+                  ? accountDetails.email
+                  : $t("pages.accountSettings.noEmailSet")
+              }}
             </p>
           </ion-label>
         </ion-item>
@@ -155,6 +164,10 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
+ion-content {
+  --background: none;
+}
+
 ion-modal {
   --max-height: 85vh;
 }

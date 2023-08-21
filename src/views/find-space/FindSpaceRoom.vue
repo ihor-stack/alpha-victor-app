@@ -48,4 +48,8 @@ onBeforeMount(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+ion-content {
+  --background: none;
+}
+</style>

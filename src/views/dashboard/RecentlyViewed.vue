@@ -1,10 +1,12 @@
 <template>
-  <ion-page id="recently-viewed">
+  <ion-page id="recently-viewed" class="outer-container">
     <app-header :title="$t('pages.recentlyViewed.header')">
       <template #start>
         <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">{{ $t('pages.recentlyViewed.back')}}</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.recentlyViewed.back")
+          }}</span>
         </ion-button>
       </template>
     </app-header>
@@ -27,7 +29,9 @@
           class="empty-state"
         >
           <ion-label class="ion-no-margin" text-wrap="true">
-            <h1 class="color-white">{{ $t("pages.recentlyViewed.noSpacesFound") }}</h1>
+            <h1 class="color-white">
+              {{ $t("pages.recentlyViewed.noSpacesFound") }}
+            </h1>
             <p>{{ $t("pages.recentlyViewed.shortCodeTip") }}</p>
           </ion-label>
         </ion-item>
@@ -35,7 +39,9 @@
     </ion-content>
     <ion-footer class="ion-no-border">
       <router-link to="/find-space/location">
-        <ion-button expand="block">{{ $t('pages.favourites.exploreBtn') }}</ion-button>
+        <ion-button expand="block">{{
+          $t("pages.favourites.exploreBtn")
+        }}</ion-button>
       </router-link>
     </ion-footer>
   </ion-page>
@@ -68,6 +74,10 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
+ion-content {
+  --background: none;
+}
+
 ion-item::part(native) {
   padding-left: 0px;
 }

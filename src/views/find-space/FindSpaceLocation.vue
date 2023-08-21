@@ -3,9 +3,7 @@
     <ion-content v-if="searchNavigationTree">
       <ion-list lines="inset" :inset="true">
         <ion-list-header class="ion-no-padding">
-          {{
-            $t("pages.findSpace.location.title")
-          }}
+          {{ $t("pages.findSpace.location.title") }}
         </ion-list-header>
         <ion-item
           v-for="(location, index) in searchNavigationTree"
@@ -42,6 +40,10 @@ defineProps(["searchTerm"]);
 </script>
 
 <style scoped>
+ion-content {
+  --background: none;
+}
+
 ion-item::part(detail-icon) {
   opacity: 1;
 }

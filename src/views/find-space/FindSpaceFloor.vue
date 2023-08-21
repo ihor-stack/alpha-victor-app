@@ -3,9 +3,7 @@
     <ion-content>
       <ion-list lines="inset" :inset="true">
         <ion-list-header class="ion-no-padding">
-          {{
-            location?.name
-          }}
+          {{ location?.name }}
         </ion-list-header>
         <ion-item
           v-for="(floor, index) in location?.floors || []"
@@ -51,6 +49,10 @@ const location = computed(() =>
 </script>
 
 <style scoped>
+ion-content {
+  --background: none;
+}
+
 ion-item::part(detail-icon) {
   opacity: 1;
 }

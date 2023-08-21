@@ -1,10 +1,12 @@
 <template>
-  <ion-page>
+  <ion-page class="outer-container">
     <app-header :title="$t('pages.findSpace.header')">
       <template #start>
         <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">{{ $t('pages.findSpace.back') }}</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.findSpace.back")
+          }}</span>
         </ion-button>
       </template>
     </app-header>
@@ -98,6 +100,9 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
+ion-content {
+  --background: none;
+}
 .search-container {
   padding: 0 20px 30px;
 }

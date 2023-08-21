@@ -1,10 +1,12 @@
 <template>
-  <ion-page id="favourites">
+  <ion-page id="favourites" class="outer-container">
     <app-header :title="$t('pages.favourites.header')">
       <template #start>
         <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
-          <span class="font-mono font-size-xs">{{ $t('pages.favourites.back') }}</span>
+          <span class="font-mono font-size-xs">{{
+            $t("pages.favourites.back")
+          }}</span>
         </ion-button>
       </template>
     </app-header>
@@ -29,20 +31,17 @@
             fill="solid"
             size="small"
             slot="end"
-           
             shape="round"
             @click="setFavoriteSpace(favourite.id)"
           >
             <ion-icon :icon="heart" />
           </ion-button>
         </ion-item>
-        <ion-item
-          v-if="!spaces.length"
-          lines="none"
-          class="empty-state"
-        >
+        <ion-item v-if="!spaces.length" lines="none" class="empty-state">
           <ion-label class="ion-no-margin" text-wrap="true">
-            <h1 class="color-white">{{ $t("pages.favourites.noSpacesFound") }}</h1>
+            <h1 class="color-white">
+              {{ $t("pages.favourites.noSpacesFound") }}
+            </h1>
             <p>{{ $t("pages.favourites.shortCodeTip") }}</p>
           </ion-label>
         </ion-item>
@@ -50,7 +49,9 @@
     </ion-content>
     <ion-footer class="ion-no-border">
       <router-link to="/find-space/location">
-        <ion-button expand="block">{{ $t('pages.favourites.exploreBtn') }}</ion-button>
+        <ion-button expand="block">{{
+          $t("pages.favourites.exploreBtn")
+        }}</ion-button>
       </router-link>
     </ion-footer>
   </ion-page>
@@ -93,6 +94,10 @@ onBeforeMount(() => {
 </script>
 
 <style scoped>
+ion-content {
+  --background: none;
+}
+
 ion-button {
   width: 40px;
   height: 40px;
