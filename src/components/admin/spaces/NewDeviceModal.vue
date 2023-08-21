@@ -222,7 +222,6 @@
 import { ref, onBeforeMount, computed, watch } from "vue";
 import {
   IonPage,
-  IonContent,
   IonHeader,
   IonRow,
   IonButton,

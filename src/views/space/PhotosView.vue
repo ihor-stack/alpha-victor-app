@@ -26,14 +26,13 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, reactive } from "vue";
+import { onBeforeMount } from "vue";
 import {
   IonContent,
   IonPage,
   IonButton,
   IonGrid,
   IonRow,
-  IonCol,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import AppHeader from "@/components/shared/AppHeader.vue";

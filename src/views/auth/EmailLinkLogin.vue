@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonSpinner, IonPage, onIonViewDidEnter } from "@ionic/vue";
+import { IonContent, IonSpinner, IonPage } from "@ionic/vue";
 import { useRouter, useRoute  } from "vue-router";
 import Auth from "@/auth";
 import { onBeforeMount } from "vue";

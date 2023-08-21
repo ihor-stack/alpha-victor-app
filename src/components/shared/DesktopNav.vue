@@ -235,7 +235,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onBeforeMount } from "vue";
+import { reactive } from "vue";
 import {
   IonTitle,
   IonContent,
@@ -248,7 +248,6 @@ import { useRouter } from "vue-router";
 
 import { logOutOutline } from "ionicons/icons";
 import { storeToRefs } from "pinia";
-import mixpanel from "mixpanel-browser";
 
 import DesktopHeader from "@/components/shared/DesktopHeader.vue";
 import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal.vue";
@@ -257,7 +256,6 @@ import Auth from "@/auth";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
 import {
-  defaultTheme,
   Organisations as useOrganisationStore,
 } from "@/stores/publicOrganisations";
 import confirmToLeaveService from "@/services/confirmToLeaveService";

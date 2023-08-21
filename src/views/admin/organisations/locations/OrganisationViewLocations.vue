@@ -4,7 +4,6 @@
 
 <script setup lang="ts"> 
 import AdminLocationsForm from '@/components/admin/locations/AdminLocationsForm.vue'
-import { onBeforeMount, ref } from "vue"
 
 const component = AdminLocationsForm
 </script>

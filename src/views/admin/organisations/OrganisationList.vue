@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { IonItem, IonIcon } from "@ionic/vue";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
 import { Account as useAccountStore } from "@/stores/publicAccount";

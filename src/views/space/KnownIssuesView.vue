@@ -79,7 +79,6 @@ import {
   IonFooter,
   IonPage,
   IonButton,
-  IonMenuButton,
   IonModal,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";

@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { IonList, IonItem, IonListHeader, IonLabel } from "@ionic/vue";
+import { IonList, IonItem, IonListHeader } from "@ionic/vue";
 import SpaceCard from "@/components/dashboard/SpaceCard.vue";
 
 import { Space } from "@/types/index";

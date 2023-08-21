@@ -61,7 +61,6 @@ import {
   IonFooter,
   IonContent,
   IonButton,
-  modalController,
   IonItem,
   IonLabel,
 } from "@ionic/vue";

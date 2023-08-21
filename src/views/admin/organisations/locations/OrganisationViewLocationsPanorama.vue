@@ -100,7 +100,7 @@ import "pannellum";
 import "pannellum/build/pannellum.css";
 import { storeToRefs } from "pinia";
 import { Spaces } from "@/stores/adminSpaces";
-import { onBeforeMount, watch, reactive, ref } from "vue";
+import { onBeforeMount, watch, reactive } from "vue";
 import { useRoute } from "vue-router";
 import { Hotspot } from "@/types";
 import PanoramaModal from "@/components/admin/spaces/PanoramaModal.vue";

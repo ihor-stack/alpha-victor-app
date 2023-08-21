@@ -74,8 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonList, IonItem, IonListHeader, IonIcon } from "@ionic/vue";
-import { chevronForwardOutline } from "ionicons/icons";
+import { IonList, IonItem, IonListHeader } from "@ionic/vue";
 import { IDecisionTreeNode, DecisionTreeNodeType } from "@/types/decisionTree";
 import { storeToRefs } from "pinia";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";

@@ -35,7 +35,6 @@
 <script setup>
 import { reactive } from "vue";
 import {
-  IonContent,
   IonButton,
   IonRow,
   IonCol,

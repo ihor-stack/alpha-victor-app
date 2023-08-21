@@ -44,7 +44,6 @@ import {
   IonContent,
   IonFooter,
   IonButton,
-  IonMenuButton,
 } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";

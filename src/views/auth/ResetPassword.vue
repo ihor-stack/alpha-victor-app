@@ -50,7 +50,6 @@ import DotText from "@/components/shared/DotText.vue";
 import PasswordInput from '@/components/shared/PasswordInput.vue';
 import { useRoute, useRouter } from 'vue-router';
 import Auth from '@/auth';
-import toastService from '@/services/toastService';
 
 const router = useRouter();
 const route = useRoute();

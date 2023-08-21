@@ -278,7 +278,6 @@ import { storeToRefs } from "pinia";
 import { onBeforeMount, ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { SelectItem } from "@/types";
-import { chevronForwardOutline } from "ionicons/icons";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import NewDeviceModal from "@/components/admin/spaces/NewDeviceModal.vue";
 import PhotoModal from "@/components/admin/spaces/PhotoModal.vue";

@@ -82,13 +82,11 @@ import {
   IonButton,
   IonLabel,
   IonToggle,
-  IonItem,
-  IonIcon,
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import { Spaces } from "@/stores/adminSpaces";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount } from "vue";
 import { useRoute } from "vue-router";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
 

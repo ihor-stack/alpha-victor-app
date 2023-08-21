@@ -49,7 +49,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { reorderThree } from "ionicons/icons";
 import { Photo } from "@/types";
 

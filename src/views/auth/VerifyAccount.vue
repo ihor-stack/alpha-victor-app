@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonContent, IonFooter, IonButton } from '@ionic/vue';
-import { reactive, watch, onBeforeMount } from "vue";
+import { IonPage, IonContent } from '@ionic/vue';
+import { onBeforeMount } from "vue";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { useRoute, useRouter } from 'vue-router';
 import Auth from '@/auth';
