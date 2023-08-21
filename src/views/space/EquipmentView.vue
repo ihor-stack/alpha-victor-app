@@ -20,8 +20,7 @@
             :detail="true"
             @click="handleClick(item)"
           >
-            <div class="space-equipment-menu__item__icon">
-            </div>
+            <div class="space-equipment-menu__item__icon"></div>
             <ion-label text-wrap="true">
               <h3 class="label font-bold font-size-sm">
                 {{ item.name }}
@@ -58,6 +57,7 @@
     >
       <report-issue-modal
         :spaceId="spaceId"
+        :deviceId="state.selectedEquipment?.id"
         :handleReportIssue="() => (state.reportIssueModalOpen = false)"
       />
     </ion-modal>

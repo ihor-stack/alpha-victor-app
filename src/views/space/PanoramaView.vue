@@ -51,6 +51,7 @@
   >
     <report-issue-modal
       :spaceId="spaceId"
+      :deviceId="state.selectedEquipment?.id"
       :handleReportIssue="() => (state.reportIssueModalOpen = false)"
     />
   </ion-modal>
