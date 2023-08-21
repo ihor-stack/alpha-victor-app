@@ -8,7 +8,7 @@
         </ion-button>
       </template>
     </app-header>
-    <ion-content>
+    <ion-content :fullscreen="true">
       <ion-list :inset="true">
         <ion-item
           v-for="space in recentlyViewedSpaces"
@@ -20,8 +20,24 @@
         >
           <space-card :space="space" />
         </ion-item>
+
+        <ion-item
+          v-if="!recentlyViewedSpaces.length"
+          lines="none"
+          class="empty-state"
+        >
+          <ion-label class="ion-no-margin" text-wrap="true">
+            <h1 class="color-white">{{ $t("pages.recentlyViewed.noSpacesFound") }}</h1>
+            <p>{{ $t("pages.recentlyViewed.shortCodeTip") }}</p>
+          </ion-label>
+        </ion-item>
       </ion-list>
     </ion-content>
+    <ion-footer class="ion-no-border">
+      <router-link to="/find-space/location">
+        <ion-button expand="block">{{ $t('pages.favourites.exploreBtn') }}</ion-button>
+      </router-link>
+    </ion-footer>
   </ion-page>
 </template>
 
@@ -58,13 +74,20 @@ ion-item::part(native) {
 ion-item {
   --inner-padding-end: 0;
 }
+ion-item.empty-state::part(native) {
+  border: none !important;
+  text-align: center;
+}
+ion-footer {
+  padding: 20px 22px 40px;
+}
 
 .space {
   position: relative;
   height: 200px;
   width: 100%;
   margin-bottom: 32px;
-  border-radius: 4px;
+  border-radius: 8px;
   overflow: hidden;
 }
 .space__image {

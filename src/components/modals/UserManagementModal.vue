@@ -4,7 +4,7 @@
       <div>
         <ion-row>
           <ion-col size="12">
-            <ion-label text-wrap="true" class="font-size-sm">{{ $t('components.modals.userManagementModal.assignedOrganisationLabel') }}</ion-label>
+            <ion-label text-wrap="true">{{ $t('components.modals.userManagementModal.assignedOrganisationLabel') }}</ion-label>
             <ion-item
               class="orgItemWrapper"
               v-for="org in assignedOrganisations"
@@ -37,7 +37,7 @@
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
             <AdminSelect
-              label="Add to organisation"
+              label="Add to an organisation"
               v-model="selectedOrganisation"
               :options="organisationOptions"
               :isSearchable="true"
@@ -111,6 +111,19 @@ const selectedOrganisation = computed({
     }
   },
 })
+
+// Reset the selected organisation and organisationId
+const resetSelectedOrganisation = () => {
+  state.organisationId = "";
+  selectedOrganisation.value = null;
+};
+
+const handleClickSave = (organisationId: string) => {
+  props.handleClickSave(organisationId);
+
+  // Reset the selected organisation
+  resetSelectedOrganisation();
+};
 </script>
 
 <style scoped>

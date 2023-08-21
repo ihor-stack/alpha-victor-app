@@ -11,7 +11,7 @@
           size="small"
           color="dark"
           @click="handleCta"
-          ><span class="font-mono font-size-xs text-spaced"
+          ><span class="font-mono font-size-xxs text-spaced"
             >{{ $t('components.dashboard.dashboardSlider.viewAllSpan') }}</span
           ></ion-button
         >
@@ -98,7 +98,6 @@ const handleCta = () => {
 
 .swiper-slide {
   width: 260px;
-  border-radius: 8px;
   position: relative;
   overflow: hidden;
 }

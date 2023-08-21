@@ -1,125 +1,127 @@
 <template>
-  <h1 class="title-admin font-bold font-size-lg color-light-gray">
-    {{ $t("pages.admin.users.title") }}
-  </h1>
-  <ion-grid>
-    <ion-row class="header-row">
-      <ion-col :size="isGlobalAdmin ? '4' : '3'">
-        <div class="flex ion-align-items-center">
-          <ion-icon :icon="search" size="small" />
-          <ion-text class="ml-2">{{
-            $t("pages.admin.users.account")
-          }}</ion-text>
-        </div>
-      </ion-col>
-      <ion-col :size="isGlobalAdmin ? '3' : '2'">
-        <ion-text>{{ $t("pages.admin.users.status") }}</ion-text>
-      </ion-col>
-      <ion-col :size="isGlobalAdmin ? '5' : '4'">
-        <ion-text>{{ $t("pages.admin.users.email") }}</ion-text>
-      </ion-col>
-      <ion-col size="3" v-if="!isGlobalAdmin">
-        <ion-text>{{ $t("pages.admin.users.role") }}</ion-text>
-      </ion-col>
-    </ion-row>
-    <ion-row v-for="row in users" :key="row.id">
-      <ion-col
-        :size="isGlobalAdmin ? '4' : '3'"
-        class="ion-justify-content-between"
-      >
-        <div class="flex ion-justify-content-between ion-align-items-center">
-          <ion-icon :icon="personOutline" size="small" />
-          <div class="ml-2">
-            <p>{{ row.name }}</p>
-            <ion-text class="font-size-xxs color-mid-gray">
-              {{ getOrganisationText(row.organisations) }}
-            </ion-text>
+  <div>
+    <h1 class="title-admin font-bold font-size-lg color-light-gray">
+      {{ $t("pages.admin.users.title") }}
+    </h1>
+    <ion-grid>
+      <ion-row class="header-row">
+        <ion-col :size="isGlobalAdmin ? '4' : '3'">
+          <div class="flex ion-align-items-center">
+            <ion-icon :icon="search" size="small" />
+            <ion-text class="ml-2">{{
+              $t("pages.admin.users.account")
+            }}</ion-text>
           </div>
-        </div>
-        <ion-button
-          fill="clear"
-          color="dark"
-          class="ion-no-padding"
-          v-if="isGlobalAdmin"
-          @click="onClickAction(row)"
+        </ion-col>
+        <ion-col :size="isGlobalAdmin ? '3' : '2'">
+          <ion-text>{{ $t("pages.admin.users.status") }}</ion-text>
+        </ion-col>
+        <ion-col :size="isGlobalAdmin ? '5' : '4'">
+          <ion-text>{{ $t("pages.admin.users.email") }}</ion-text>
+        </ion-col>
+        <ion-col size="3" v-if="!isGlobalAdmin">
+          <ion-text>{{ $t("pages.admin.users.role") }}</ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row v-for="row in users" :key="row.id">
+        <ion-col
+          :size="isGlobalAdmin ? '4' : '3'"
+          class="ion-justify-content-between"
         >
-          <ion-icon :icon="ellipsisVertical" size="small" />
-        </ion-button>
-      </ion-col>
-      <ion-col :size="isGlobalAdmin ? '3' : '2'">
-        <ion-icon
-          :icon="checkmarkCircle"
-          size="small"
-          color="success"
-          v-if="row.userState === 1"
-        />
-        <ion-icon :icon="closeCircle" size="small" color="danger" v-else />
-        <ion-text class="ml-2">
-          {{
-            row.userState === 1
-              ? $t("pages.admin.users.active")
-              : row.userState === 2
-              ? $t("pages.admin.users.deleted")
-              : $t("pages.admin.users.inactive")
-          }}
-        </ion-text>
-      </ion-col>
-      <ion-col :size="isGlobalAdmin ? '5' : '4'">
-        <ion-text> {{ row.email }} </ion-text>
-      </ion-col>
-      <ion-col size="3" v-if="!isGlobalAdmin">
-        <ion-select
-          interface="action-sheet"
-          class="modal-panel__select-organisation__select"
-          :placeholder="$t('pages.admin.users.placeholder')"
-          :value="row.userGroups[0]?.id"
-          @ion-change="
-            handleChangeRole(
-              row.id,
-              row.organisations[0].id || '',
-              $event.detail.value
-            )
-          "
-        >
-          <ion-select-option
-            v-for="role in userGroupOptions"
-            :key="role.id"
-            :value="role.id"
+          <div class="flex ion-justify-content-between ion-align-items-center">
+            <ion-icon :icon="personOutline" size="small" />
+            <div class="ml-2">
+              <p>{{ row.name }}</p>
+              <ion-text class="font-size-xxs color-mid-gray">
+                {{ getOrganisationText(row.organisations) }}
+              </ion-text>
+            </div>
+          </div>
+          <ion-button
+            fill="clear"
+            color="dark"
+            class="ion-no-padding"
+            v-if="isGlobalAdmin"
+            @click="onClickAction(row)"
           >
-            {{ role.name }}
-          </ion-select-option>
-        </ion-select>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <UserManagementModal
-    :name="state.currentUser.name"
-    :isOpen="state.openEditModal"
-    :assignedOrganisations="state.assignedOrganisations"
-    :organisations="organisationList"
-    :handleDismiss="
-      () => {
-        state.openEditModal = false;
-      }
-    "
-    :handleClickSave="handleClickSave"
-    :removeUserFromOrg="removeUserFromOrg"
-    :handleClickAssignedOrg="onClickAssignedOrg"
-  />
-  <UserOrgPermissionModal
-    v-if="state.openPermissionModal"
-    :name="state.currentUser.name"
-    :isOpen="state.openPermissionModal"
-    :currentUserGroup="state.selectedOrg.groupId"
-    :userGroups="userGroups"
-    :organisation="state.selectedOrg.organisation"
-    :handleDismiss="
-      () => {
-        state.openPermissionModal = false;
-      }
-    "
-    :handleClickSave="handleSavePermission"
-  />
+            <ion-icon :icon="ellipsisVertical" size="small" />
+          </ion-button>
+        </ion-col>
+        <ion-col :size="isGlobalAdmin ? '3' : '2'">
+          <ion-icon
+            :icon="checkmarkCircle"
+            size="small"
+            color="success"
+            v-if="row.userState === 1"
+          />
+          <ion-icon :icon="closeCircle" size="small" color="danger" v-else />
+          <ion-text class="ml-2">
+            {{
+              row.userState === 1
+                ? $t("pages.admin.users.active")
+                : row.userState === 2
+                ? $t("pages.admin.users.deleted")
+                : $t("pages.admin.users.inactive")
+            }}
+          </ion-text>
+        </ion-col>
+        <ion-col :size="isGlobalAdmin ? '5' : '4'">
+          <ion-text> {{ row.email }} </ion-text>
+        </ion-col>
+        <ion-col size="3" v-if="!isGlobalAdmin">
+          <ion-select
+            interface="action-sheet"
+            class="modal-panel__select-organisation__select"
+            :placeholder="$t('pages.admin.users.placeholder')"
+            :value="row.userGroups[0]?.id"
+            @ion-change="
+              handleChangeRole(
+                row.id,
+                row.organisations[0].id || '',
+                $event.detail.value
+              )
+            "
+          >
+            <ion-select-option
+              v-for="role in userGroupOptions"
+              :key="role.id"
+              :value="role.id"
+            >
+              {{ role.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <UserManagementModal
+      :name="state.currentUser.name"
+      :isOpen="state.openEditModal"
+      :assignedOrganisations="state.assignedOrganisations"
+      :organisations="organisationList"
+      :handleDismiss="
+        () => {
+          state.openEditModal = false;
+        }
+      "
+      :handleClickSave="handleClickSave"
+      :removeUserFromOrg="removeUserFromOrg"
+      :handleClickAssignedOrg="onClickAssignedOrg"
+    />
+    <UserOrgPermissionModal
+      v-if="state.openPermissionModal"
+      :name="state.currentUser.name"
+      :isOpen="state.openPermissionModal"
+      :currentUserGroup="state.selectedOrg.groupId"
+      :userGroups="userGroups"
+      :organisation="state.selectedOrg.organisation"
+      :handleDismiss="
+        () => {
+          state.openPermissionModal = false;
+        }
+      "
+      :handleClickSave="handleSavePermission"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -147,6 +149,7 @@ import { Organisations as useOrganisationsStore } from "@/stores/publicOrganisat
 import UserManagementModal from "@/components/modals/UserManagementModal.vue";
 import UserOrgPermissionModal from "@/components/modals/UserOrgPermissionModal.vue";
 import { UserGroupResponse, UserResponse, AdminOrganisation } from "@/types";
+import toastService from "@/services/toastService";
 
 const usersStore = useUsersStore();
 const { users, userGroups } = storeToRefs(usersStore);
@@ -200,6 +203,12 @@ const onClickAction = (row: UserResponse) => {
 const removeUserFromOrg = (event: any, orgId: string) => {
   event.stopPropagation();
   usersStore.removeFromOrg(state.currentUser.id, orgId);
+  toastService.show(
+    "Success",
+    "User removed from organisation successfully",
+    "success",
+    "bottom"
+  );
   state.openEditModal = false;
 };
 
@@ -207,6 +216,12 @@ const handleClickSave = (orgId: string) => {
   if (userGroupId?.value) {
     handleChangeRole(state.currentUser.id, orgId, userGroupId.value);
   }
+  toastService.show(
+      "Success",
+      "Users role updated successfully",
+      "success",
+      "bottom"
+    );
   state.openEditModal = false;
 };
 
@@ -216,6 +231,12 @@ const handleSavePermission = (groupId: string) => {
     state.selectedOrg.organisation.organisationId,
     groupId
   );
+  toastService.show(
+      "Success",
+      "Users permissions updated successfully",
+      "success",
+      "bottom"
+    );
   state.openPermissionModal = false;
 };
 

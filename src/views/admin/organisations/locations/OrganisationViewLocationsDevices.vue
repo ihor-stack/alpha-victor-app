@@ -300,7 +300,7 @@ const equipmentList = computed(() =>
     const selectItem: SelectItem = {
       id: index,
       additionalInfo: item.id,
-      title: item.name,
+      title: item.manufactureName + " " + item.name + " " + item.assetType,
     };
     return selectItem;
   })

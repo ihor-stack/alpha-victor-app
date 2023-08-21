@@ -42,7 +42,7 @@
           router-direction="root"
         >
           <div class="with-counter">
-            <p class="label font-bold font-size-sm">
+            <p class="link-text">
               {{ $t("components.space.spaceOptionsMenu.knownIssuesParagraph") }}
             </p>
             <div v-if="currentSpace?.issueCount" class="counter">
@@ -68,7 +68,7 @@
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
-      <li class="space-options-menu-item" v-if="!isGuestUser">
+      <li class="space-options-menu-item" v-if="showPhotos && !isGuestUser">
         <ion-item
           :router-link="{
             name: 'Photos',
@@ -100,6 +100,7 @@ const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 interface Props {
   currentSpace: DetailedSpace;
   showDevices: boolean;
+  showPhotos: boolean;
 }
 
 defineProps<Props>();

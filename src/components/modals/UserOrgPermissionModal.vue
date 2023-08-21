@@ -5,7 +5,7 @@
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
             <AdminSelect
-              :label="organisationName"
+              :label="organisation.name"
               v-model="selectedUserGroup"
               :options="userGroupOptions"
               :isSearchable="true"
@@ -44,7 +44,7 @@ import AdminSelect from "@/components/admin/AdminSelect.vue";
 const props = defineProps([
   "isOpen",
   "name",
-  "organisationName",
+  "organisation",
   "currentUserGroup",
   "userGroups",
   "handleClickSave",

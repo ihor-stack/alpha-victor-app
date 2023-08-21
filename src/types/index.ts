@@ -320,6 +320,7 @@ export interface Space {
   qrCode?: string;
   spaceType: string;
   occupied: boolean;
+  currentOccupancy: number;
   organisationAnonymousAccess: boolean;
   capacity: number;
   imagePath: string;

@@ -9,6 +9,7 @@
         <input
           :id="uniqueId"
           type="file"
+          :accept="accept"
           @change="handleFileUpload"
         />
       </div>
@@ -42,6 +43,9 @@ export default defineComponent({
   props: {
     disabled: {
       type: Boolean
+    },
+    accept: {
+      type: String
     },
     selectedImage: {
       type: String

@@ -300,6 +300,18 @@ const saveNewDevice = () => {
         : new Date().toISOString(),
     equipmentId: selectedEquipment.value.additionalInfo,
   });
+  modalOpen.value = false
+  newDevice.value = {
+    id: '',
+    name: '',
+    manufacturer: '',
+    serialNumber: '',
+    installer: '',
+    installDate: '',
+    warrantyExpiryDate: '',
+    description: ''
+  }
+  selectedEquipment.value.additionalInfo = null
 };
 
 watch(selectedEquipment, (newVal) => {

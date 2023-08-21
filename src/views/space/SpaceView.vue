@@ -73,7 +73,8 @@
                   <img src="@/theme/icons/360.svg" />
                 </ion-button>
                 <occupied-status
-                  :occupied="currentSpace.occupied"
+                  v-if="currentSpace.occupied"
+                  :occupied="currentSpace.currentOccupancy !== 0"
                   :currentOccupancy="currentSpace.currentOccupancy"
                 />
               </div>
@@ -104,6 +105,7 @@
           <space-options-menu
             :currentSpace="currentSpace"
             :showDevices="devices.length ? true : false"
+            :showPhotos="currentSpace.photos && currentSpace.photos.length > 1 ? true : false"
           />
         </div>
       </div>
@@ -159,7 +161,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, watchEffect, watch, computed, reactive } from "vue";
+import { onBeforeMount, watch, computed, reactive } from "vue";
 import {
   IonPage,
   IonContent,
@@ -207,7 +209,7 @@ const setFavoriteSpace = () => {
 };
 
 const goToFeedback = () => {
-  router.push({ name: "Feedback" }); // replace 'RouteName' with the name of your route
+  router.push({ name: "Feedback" });
 };
 
 const checkSpaceAccess = () => {
