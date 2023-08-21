@@ -23,19 +23,19 @@
             </div>
           </ion-header>
           <div class="form-admin--group_field">
-            <ion-row>
+            <ion-row v-if="deviceOptions.length">
               <ion-col size="12" class="form-admin--group_field">
                 <AdminSelect
-                  label="Select device"
+                  label="Add a device"
                   v-model="selectedDevice"
                   :options="deviceOptions"
                   :isSearchable="true"
                   idPrefix="device-select"
-                  placeholder="Select"
+                  placeholder="Select a device to add"
                 />
               </ion-col>
             </ion-row>
-            <ion-row>
+            <ion-row v-if="deviceOptions.length">
               <ion-col class="position-relative">
                 <hr class="form-admin--divider" />
                 <div class="or-text">{{$t('components.admin.spaces.panoramaModal.orDiv')}}</div>
@@ -119,7 +119,7 @@ const deviceOptions = computed(() => {
   return props.devices.map((device: Device, index: number) => {
     return {
       id: index,
-      title: device.name,
+      title: device.name + " " + device.equipmentName,
       additionalInfo: device.id
     }
   })

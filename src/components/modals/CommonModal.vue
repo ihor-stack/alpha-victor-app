@@ -14,7 +14,7 @@
           >
             {{ title }}
           </h1>
-          <p class="modal-panel__comment color-light-gray font-size-normal">
+          <p class="modal-panel__comment color-light-gray font-size-sm">
             {{ description }}
           </p>
         </div>
@@ -44,11 +44,12 @@ ion-popover::part(backdrop) {
 }
 
 .close-button {
-  width: 20px;
+  width: 26px;
+  height: 26px;
   cursor: pointer;
   position: absolute;
-  top: -24px;
-  right: -16px;
+  top: -10px;
+  right: -10px;
 }
 
 .modal-panel {

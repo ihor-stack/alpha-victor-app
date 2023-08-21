@@ -827,7 +827,7 @@ ion-toast.customToast::part(message) {
 .form-admin--group_field ion-textarea {
   margin-top: 5px;
   border-radius: 5px;
-  line-height: 25px;
+  line-height: 30px;
   border: 1px solid #313131;
   color: var(--ion-color-primary-contrast, #fff);
 }
