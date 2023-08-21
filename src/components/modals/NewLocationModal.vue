@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="text-button font-mono font-size-xs" @click="modalOpen = true"
+    <span class="text-button font-mono font-size-xxs" @click="modalOpen = true"
       >{{$t('components.modals.newLocationModal.addNewLocationSpan')}}</span
     >
     <ion-modal

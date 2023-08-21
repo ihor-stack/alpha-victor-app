@@ -18,7 +18,7 @@
                 class="close-button"
                 @click="modalOpen = false"
               />
-              <ion-item class="modal-panel__header" lines="none">
+              <ion-item class="ion-no-padding modal-panel__header" lines="none">
                 <ion-label text-wrap="true">
                   <h2 class="font-bold font-size-lg">{{ $t('components.admin.spaceMetadata.spaceTypeModal.addNewSpaceTypeHeader') }}</h2>
                   <p class="font-size-sm">
@@ -27,7 +27,7 @@
                 </ion-label>
               </ion-item>
             </ion-header>
-            <ion-item class="form-admin--group_field" lines="none">
+            <ion-item class="ion-no-padding ion-no-margin form-admin--group_field" lines="none">
               <div class="modal-panel__section modal-panel__select-equipment">
                 <ion-input
                   :placeholder="$t('components.admin.spaceMetadata.spaceTypeModal.meetingRoomInputPlaceholder')"
@@ -100,15 +100,19 @@ const saveNewType = () => {
   justify-content: flex-start;
 }
 
-.modal-panel__header {
-  margin-bottom: 20px;
-}
-
 .modal-panel__title {
   margin-bottom: 12px;
 }
 
 .modal-panel__section {
   margin-bottom: 20px;
+}
+
+.form-admin--group_field {
+  margin-right: 0;
+}
+
+ion-input {
+  padding: 4px 10px !important;
 }
 </style>

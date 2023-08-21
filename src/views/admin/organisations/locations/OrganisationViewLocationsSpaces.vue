@@ -133,7 +133,7 @@
       </ion-row>
 
       <ion-row class="form-admin--group">
-        <ion-col size-xs="12" class="form-admin--group_field">
+        <ion-col size-xs="12" class="form-admin--group_field ion-no-padding">
           <div class="photos-container">
             <ion-item lines="none" class="ion-no-padding">
               <ion-label text-wrap="true">{{
@@ -156,7 +156,7 @@
           </div>
         </ion-col>
 
-        <ion-col size-xs="12" class="form-admin--group_field">
+        <ion-col size-xs="12" class="form-admin--group_field ion-no-padding">
           <div class="photos-container">
             <ion-item lines="none" class="ion-no-padding">
               <ion-label text-wrap="true">{{
@@ -419,6 +419,15 @@ onBeforeMount(async () => {
   height: 50px;
   border-right: 1px solid var(--av-dark-grey);
   margin: 0 25px;
+}
+
+.photos-container {
+  margin: 0 !important;
+}
+
+.form-admin--group_field.ion-no-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 ion-item {

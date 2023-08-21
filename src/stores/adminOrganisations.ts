@@ -92,6 +92,18 @@ export const Organisations = defineStore("Organisations", {
         });
     },
 
+    async setOrgId(id: string) {
+      const loadId = loadingService.show("Loading...");
+      publicAPI
+        .post<OrgDetails>(`/Organisation/${id}`)
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+
     async getOrgDetails(id: string) {
       const loadId = loadingService.show("Loading...");
       adminAPI

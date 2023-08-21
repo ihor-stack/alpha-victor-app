@@ -65,7 +65,9 @@ const cancelEdit = () => {
 };
 
 const saveField = () => {
-  emit("update:modelValue", currentField.value);
+  if(props.modelValue !== currentField.value) {
+    emit("update:modelValue", currentField.value);
+  }
   editMode.value = false;
 };
 

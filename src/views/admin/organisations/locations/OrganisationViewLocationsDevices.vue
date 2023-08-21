@@ -20,7 +20,7 @@
                     <ion-icon :src="`/img/icons/${device.icon}.svg`" />
                     <div>
                       <h2>
-                        {{ device.manufacturer }}
+                        {{ device.manufacturer }} {{ device.equipmentName }} {{ device.assetTypeName }}
                       </h2>
                       <span class="equipment-list--type">{{
                         device.name

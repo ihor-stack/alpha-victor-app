@@ -156,4 +156,8 @@ const saveNewFeature = () => {
 .modal-panel__section {
   margin-bottom: 20px;
 }
+
+ion-input {
+  padding: 4px 10px !important;
+}
 </style>
