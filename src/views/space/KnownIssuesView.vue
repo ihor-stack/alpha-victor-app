@@ -208,7 +208,9 @@ onBeforeMount(() => {
 
 <style scoped>
 ion-modal {
-  --max-height: 80vh;
+  @media only screen and (min-width: 600px) {
+    --max-height: 80vh;
+  }
 }
 
 .known-issues__container {
