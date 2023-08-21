@@ -81,6 +81,8 @@ export interface Device {
   icon?: string;
   macAddress?: string;
   equipmentId?: string;
+  equipmentName?: string;
+  assetTypeName?: string;
   documents?: Document[];
 }
 

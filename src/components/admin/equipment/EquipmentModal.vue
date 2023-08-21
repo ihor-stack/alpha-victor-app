@@ -74,18 +74,6 @@
                     :placeholder="$t('components.admin.equipment.equipmentModal.inputModelPlaceholder')"
                   ></ion-input>
                 </ion-col>
-                <ion-col
-                  size-xs="12"
-                  size-sm="6"
-                  class="form-admin--group_field"
-                >
-                  <ion-label text-wrap="true">{{ $t('components.admin.equipment.equipmentModal.serialNumberLabel') }}</ion-label>
-                  <ion-input
-                    v-model="state.serialNumber"
-                    :label="$t('components.admin.equipment.equipmentModal.inputModelLabel')"
-                    :placeholder="$t('components.admin.equipment.equipmentModal.inputSerialNumberPlaceholder')"
-                  ></ion-input>
-                </ion-col>
               </ion-row>
             </ion-grid>
           </div>
@@ -96,7 +84,6 @@
               :disabled="
                 !state.name ||
                 !state.manufacturerId ||
-                !state.serialNumber ||
                 !state.assetTypeId
               "
               @click="handleAddEquipment"

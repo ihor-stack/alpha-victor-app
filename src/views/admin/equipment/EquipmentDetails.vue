@@ -22,15 +22,6 @@
         ></ion-input>
       </ion-col>
       <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
-        <ion-label text-wrap="true">{{
-          $t("pages.admin.equipment.details.sn")
-        }}</ion-label>
-        <ion-input
-          v-model="state.serialNumber"
-          :label="$t('pages.admin.equipment.details.sn')"
-        ></ion-input>
-      </ion-col>
-      <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
         <AdminSelect
           label="Asset Type"
           v-model="assetTypeSelected"
@@ -38,7 +29,10 @@
           idPrefix="asset-type-select"
         />
       </ion-col>
-      <ion-col size-xs="12" class="form-admin--group_field">
+    </ion-row>
+
+    <ion-row class="form-admin--group">
+      <ion-col size-xs="12" class="form-admin--group_field ion-no-padding">
         <div class="photos-container">
           <ion-item lines="none" class="ion-no-padding">
             <ion-label text-wrap="true">{{
@@ -58,7 +52,7 @@
           />
         </div>
       </ion-col>
-      <ion-col size-xs="12" class="form-admin--group_field">
+      <ion-col size-xs="12" class="form-admin--group_field ion-no-padding">
         <div class="photos-container">
           <ion-item lines="none" class="ion-no-padding">
             <ion-label text-wrap="true">{{
@@ -237,5 +231,14 @@ ion-select {
   background-color: var(--av-red);
   border-radius: 4px;
   margin-left: 8px;
+}
+
+.photos-container {
+  margin: 0 !important;
+}
+
+.form-admin--group_field.ion-no-padding {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 </style>
