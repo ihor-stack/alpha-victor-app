@@ -1,0 +1,119 @@
+PODS:
+  - ByteowlsCapacitorOauth2 (4.0.2):
+    - Capacitor
+    - OAuthSwift (= 2.2.0)
+  - Capacitor (4.8.0):
+    - CapacitorCordova
+  - CapacitorActionSheet (4.1.0):
+    - Capacitor
+  - CapacitorApp (4.1.1):
+    - Capacitor
+  - CapacitorCommunityBarcodeScanner (4.0.1):
+    - Capacitor
+  - CapacitorCommunityBluetoothLe (2.2.3):
+    - Capacitor
+  - CapacitorCordova (4.8.0)
+  - CapacitorHaptics (4.1.0):
+    - Capacitor
+  - CapacitorKeyboard (4.1.1):
+    - Capacitor
+  - CapacitorSecureStoragePlugin (0.8.1):
+    - Capacitor
+    - SwiftKeychainWrapper
+  - CapacitorSplashScreen (5.0.6):
+    - Capacitor
+  - CapacitorStatusBar (4.1.1):
+    - Capacitor
+  - CordovaPlugins (5.2.3):
+    - CapacitorCordova
+  - OAuthSwift (2.2.0)
+  - Sentry/HybridSDK (8.8.0):
+    - SentryPrivate (= 8.8.0)
+  - SentryCapacitor (0.12.2):
+    - Capacitor
+    - Sentry/HybridSDK (= 8.8.0)
+  - SentryPrivate (8.8.0)
+  - SwiftKeychainWrapper (4.0.1)
+  - UncodedLimitedConnect (0.0.23):
+    - Capacitor
+
+DEPENDENCIES:
+  - "ByteowlsCapacitorOauth2 (from `../../node_modules/@byteowls/capacitor-oauth2`)"
+  - "Capacitor (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorActionSheet (from `../../node_modules/@capacitor/action-sheet`)"
+  - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
+  - "CapacitorCommunityBarcodeScanner (from `../../node_modules/@capacitor-community/barcode-scanner`)"
+  - "CapacitorCommunityBluetoothLe (from `../../node_modules/@capacitor-community/bluetooth-le`)"
+  - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
+  - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
+  - CapacitorSecureStoragePlugin (from `../../node_modules/capacitor-secure-storage-plugin`)
+  - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
+  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
+  - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
+  - "SentryCapacitor (from `../../node_modules/@sentry/capacitor`)"
+  - "UncodedLimitedConnect (from `../../../../../node_modules/@uncoded-limited/connect`)"
+
+SPEC REPOS:
+  trunk:
+    - OAuthSwift
+    - Sentry
+    - SentryPrivate
+    - SwiftKeychainWrapper
+
+EXTERNAL SOURCES:
+  ByteowlsCapacitorOauth2:
+    :path: "../../node_modules/@byteowls/capacitor-oauth2"
+  Capacitor:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorActionSheet:
+    :path: "../../node_modules/@capacitor/action-sheet"
+  CapacitorApp:
+    :path: "../../node_modules/@capacitor/app"
+  CapacitorCommunityBarcodeScanner:
+    :path: "../../node_modules/@capacitor-community/barcode-scanner"
+  CapacitorCommunityBluetoothLe:
+    :path: "../../node_modules/@capacitor-community/bluetooth-le"
+  CapacitorCordova:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorHaptics:
+    :path: "../../node_modules/@capacitor/haptics"
+  CapacitorKeyboard:
+    :path: "../../node_modules/@capacitor/keyboard"
+  CapacitorSecureStoragePlugin:
+    :path: "../../node_modules/capacitor-secure-storage-plugin"
+  CapacitorSplashScreen:
+    :path: "../../node_modules/@capacitor/splash-screen"
+  CapacitorStatusBar:
+    :path: "../../node_modules/@capacitor/status-bar"
+  CordovaPlugins:
+    :path: "../capacitor-cordova-ios-plugins"
+  SentryCapacitor:
+    :path: "../../node_modules/@sentry/capacitor"
+  UncodedLimitedConnect:
+    :path: "../../../../../node_modules/@uncoded-limited/connect"
+
+SPEC CHECKSUMS:
+  ByteowlsCapacitorOauth2: 10dca5edbe3a57a3b5fcd6191915de887f992e19
+  Capacitor: 6002aadd64492438e5242325025045235dcb7e84
+  CapacitorActionSheet: 71954963acb1cc11391b879a0612284ac587ed28
+  CapacitorApp: d9ad682d7afb46cff7f6b80dc47ecaecb470b979
+  CapacitorCommunityBarcodeScanner: a43bb14cec343f4defaf26cac281d799b25b90f0
+  CapacitorCommunityBluetoothLe: d39692146a51f453eeb45af5a8313866d6073578
+  CapacitorCordova: c6249dcb2cf04dd835c0e99df1df4b9c8ad997e2
+  CapacitorHaptics: 532b8cfe3112519073039ae1d027970e81746038
+  CapacitorKeyboard: ea7b8ca944513580e482f3cb3a25a0d1c8497f85
+  CapacitorSecureStoragePlugin: 8c4ab52316e0312a22af4b8ca9ea4e2dbb6eb53a
+  CapacitorSplashScreen: f3c7de5468a52893e90f49d033772984270241b4
+  CapacitorStatusBar: 7a635e984da8ddc4e8f68d2887ccc7b46f28ccbf
+  CordovaPlugins: ca7f2575c55072a64cfaa5db060a0b17d8c311c1
+  OAuthSwift: 75efbb5bd9a4b2b71a37bd7e986bf3f55ddd54c6
+  Sentry: 927dfb29d18a14d924229a59cc2ad149f43349f2
+  SentryCapacitor: 2b46a9da2d7d7072075842fe3621704572b11753
+  SentryPrivate: 4350d865f898224ab9fa02b37d6ee7fbb623f47e
+  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
+  UncodedLimitedConnect: 2cb8d28d286141c7999fa52edef0a1bc8c40f578
+
+PODFILE CHECKSUM: 55eb7d4550fb24d8b1b63ffcd6c8e4a3811513aa
+
+COCOAPODS: 1.11.3
