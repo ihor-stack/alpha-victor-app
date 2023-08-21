@@ -9,7 +9,7 @@
           <ion-accordion
             v-for="(device, index) in devices"
             v-bind:key="index"
-            :value="String(index)"
+            :value="device.id"
             class="list"
             @click="currentIndex = index"
           >
@@ -311,7 +311,7 @@ const selectedEquipment = computed({
     return equipmentList.value.find(
       (equipment) =>
         equipment.additionalInfo ===
-        devices.value[currentIndex.value].equipmentId
+        devices.value[currentIndex.value]?.equipmentId
     );
   },
   set(newValue) {

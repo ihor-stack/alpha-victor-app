@@ -1,7 +1,7 @@
 <template>
   <div>
     <ion-button class="button-wide" @click="modalOpen = true">
-      {{$t('components.admin.spaces.newDeviceModal.addNewDeviceButton')}}
+      {{ $t("components.admin.spaces.newDeviceModal.addNewDeviceButton") }}
     </ion-button>
     <ion-modal
       :is-open="modalOpen"
@@ -22,7 +22,11 @@
                 <h1
                   class="modal-panel__title color-light-gray font-bold font-size-lg"
                 >
-                {{$t('components.admin.spaces.newDeviceModal.addNewDeviceHeader')}}
+                  {{
+                    $t(
+                      "components.admin.spaces.newDeviceModal.addNewDeviceHeader"
+                    )
+                  }}
                 </h1>
               </div>
             </ion-header>
@@ -39,16 +43,30 @@
                 </ion-col>
               </ion-row>
               <ion-row class="form-admin--group">
-                <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
-                  <ion-label text-wrap="true">{{$t('components.admin.spaces.newDeviceModal.nameLabel')}}</ion-label>
+                <ion-col
+                  size-xs="12"
+                  size-md="6"
+                  class="form-admin--group_field"
+                >
+                  <ion-label text-wrap="true">{{
+                    $t("components.admin.spaces.newDeviceModal.nameLabel")
+                  }}</ion-label>
                   <ion-input
                     class="font-size-sm"
                     :value="newDevice.name"
                     @ion-input="newDevice.name = String($event.target.value)"
                   ></ion-input>
                 </ion-col>
-                <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
-                  <ion-label text-wrap="true">{{$t('components.admin.spaces.newDeviceModal.serialNumberLabel')}}</ion-label>
+                <ion-col
+                  size-xs="12"
+                  size-md="6"
+                  class="form-admin--group_field"
+                >
+                  <ion-label text-wrap="true">{{
+                    $t(
+                      "components.admin.spaces.newDeviceModal.serialNumberLabel"
+                    )
+                  }}</ion-label>
                   <ion-input
                     class="font-size-sm"
                     :value="newDevice.serialNumber"
@@ -60,8 +78,14 @@
               </ion-row>
 
               <ion-row class="form-admin--group">
-                <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
-                  <ion-label text-wrap="true">{{$t('components.admin.spaces.newDeviceModal.macAddressLabel')}}</ion-label>
+                <ion-col
+                  size-xs="12"
+                  size-md="6"
+                  class="form-admin--group_field"
+                >
+                  <ion-label text-wrap="true">{{
+                    $t("components.admin.spaces.newDeviceModal.macAddressLabel")
+                  }}</ion-label>
                   <ion-input
                     class="font-size-sm"
                     :value="newDevice.macAddress"
@@ -70,8 +94,14 @@
                     "
                   ></ion-input>
                 </ion-col>
-                <ion-col size-xs="12" size-md="6" class="form-admin--group_field">
-                  <ion-label text-wrap="true">{{$t('components.admin.spaces.newDeviceModal.installerLabel')}}</ion-label>
+                <ion-col
+                  size-xs="12"
+                  size-md="6"
+                  class="form-admin--group_field"
+                >
+                  <ion-label text-wrap="true">{{
+                    $t("components.admin.spaces.newDeviceModal.installerLabel")
+                  }}</ion-label>
                   <ion-input
                     class="font-size-sm"
                     :value="newDevice.installer"
@@ -88,7 +118,11 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label text-wrap="true">{{$t('components.admin.spaces.newDeviceModal.installDateLabel')}}</ion-label>
+                  <ion-label text-wrap="true">{{
+                    $t(
+                      "components.admin.spaces.newDeviceModal.installDateLabel"
+                    )
+                  }}</ion-label>
                   <div class="custom-input date-wrapper">
                     <ion-datetime-button
                       datetime="newDocInstallDate"
@@ -115,7 +149,11 @@
                   size-sm="6"
                   class="form-admin--group_field"
                 >
-                  <ion-label text-wrap="true">{{$t('components.admin.spaces.newDeviceModal.warrantyExpiryDateLabel')}}</ion-label>
+                  <ion-label text-wrap="true">{{
+                    $t(
+                      "components.admin.spaces.newDeviceModal.warrantyExpiryDateLabel"
+                    )
+                  }}</ion-label>
                   <div class="custom-input date-wrapper">
                     <ion-datetime-button
                       datetime="newDocWarrantyDate"
@@ -142,7 +180,11 @@
 
               <ion-row class="form-admin--group">
                 <ion-col size-xs="12" class="form-admin--group_field">
-                  <ion-label text-wrap="true">{{$t('components.admin.spaces.newDeviceModal.descriptionLabel')}}</ion-label>
+                  <ion-label text-wrap="true">{{
+                    $t(
+                      "components.admin.spaces.newDeviceModal.descriptionLabel"
+                    )
+                  }}</ion-label>
                   <ion-textarea
                     class="font-size-sm"
                     fill="solid"
@@ -160,7 +202,11 @@
                     "
                     @click="saveNewDevice()"
                   >
-                    {{$t('components.admin.spaces.newDeviceModal.addNewDeviceButton')}}
+                    {{
+                      $t(
+                        "components.admin.spaces.newDeviceModal.addNewDeviceButton"
+                      )
+                    }}
                   </ion-button>
                 </ion-col>
               </ion-row>
