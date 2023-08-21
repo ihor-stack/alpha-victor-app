@@ -217,11 +217,11 @@ const handleClickSave = (orgId: string) => {
     handleChangeRole(state.currentUser.id, orgId, userGroupId.value);
   }
   toastService.show(
-      "Success",
-      "Users role updated successfully",
-      "success",
-      "bottom"
-    );
+    "Success",
+    "Users role updated successfully",
+    "success",
+    "bottom"
+  );
   state.openEditModal = false;
 };
 
@@ -232,21 +232,22 @@ const handleSavePermission = (groupId: string) => {
     groupId
   );
   toastService.show(
-      "Success",
-      "Users permissions updated successfully",
-      "success",
-      "bottom"
-    );
+    "Success",
+    "Users permissions updated successfully",
+    "success",
+    "bottom"
+  );
   state.openPermissionModal = false;
 };
 
 const onClickAssignedOrg = (assignedOrg: any) => {
   state.openEditModal = false;
   state.openPermissionModal = true;
+
   state.selectedOrg = {
-    groupId: assignedOrg.id,
+    groupId: assignedOrg.permission?.id,
     organisation: organisationList.value.find(
-      (org) => org.id === assignedOrg.organisationId
+      (org) => org.organisationId === assignedOrg.id
     ) as AdminOrganisation,
   };
 };

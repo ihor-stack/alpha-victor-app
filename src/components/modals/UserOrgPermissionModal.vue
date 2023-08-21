@@ -22,7 +22,9 @@
           :disabled="!state.groupId"
           @click="handleClickSave(state.groupId)"
         >
-          {{$t('components.modals.userOrgPermissionModal.saveAndCloseButton')}}
+          {{
+            $t("components.modals.userOrgPermissionModal.saveAndCloseButton")
+          }}
         </ion-button>
       </ion-footer>
     </common-modal>
@@ -60,10 +62,10 @@ const userGroupOptions = computed(() => {
     return {
       id: index,
       title: userGroup.name,
-      additionalInfo: userGroup.id
-    }
-  })
-})
+      additionalInfo: userGroup.id,
+    };
+  });
+});
 
 const selectedUserGroup = computed({
   get() {
@@ -73,10 +75,10 @@ const selectedUserGroup = computed({
   },
   set(newValue) {
     if (newValue) {
-      state.groupId = newValue.additionalInfo
+      state.groupId = newValue.additionalInfo;
     }
   },
-})
+});
 </script>
 
 <style scoped>
