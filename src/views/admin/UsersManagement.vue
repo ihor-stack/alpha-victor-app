@@ -23,7 +23,7 @@
           <ion-text>{{ $t("pages.admin.users.role") }}</ion-text>
         </ion-col>
       </ion-row>
-      <ion-row v-for="row in users" :key="row.id">
+      <ion-row v-for="row in usersData.users" :key="row.id">
         <ion-col
           :size="isGlobalAdmin ? '4' : '3'"
           class="ion-justify-content-between"
@@ -107,7 +107,7 @@
         fill="outline"
         :icon="chevronForwardOutline"
         size="small"
-        :disabled="users?.length < state.pageCount"
+        :disabled="isLastPage"
         @click="handlePage('next')"
       >
         <ion-icon :icon="chevronForwardOutline" />
@@ -170,11 +170,15 @@ import { Account as useAccountStore } from "@/stores/publicAccount";
 import { Organisations as useOrganisationsStore } from "@/stores/publicOrganisations";
 import UserManagementModal from "@/components/modals/UserManagementModal.vue";
 import UserOrgPermissionModal from "@/components/modals/UserOrgPermissionModal.vue";
-import { UserGroupResponse, UserResponse, AdminOrganisation } from "@/types";
+import {
+  UserGroupResponse,
+  SingleUserResponse,
+  AdminOrganisation,
+} from "@/types";
 import toastService from "@/services/toastService";
 
 const usersStore = useUsersStore();
-const { users, userGroups } = storeToRefs(usersStore);
+const { usersData, userGroups } = storeToRefs(usersStore);
 const accountStore = useAccountStore();
 const { userPermission } = storeToRefs(accountStore);
 const organisationStore = useOrganisationsStore();
@@ -186,13 +190,17 @@ const state = reactive({
   openEditModal: false,
   openPermissionModal: false,
   assignedOrganisations: [] as any[],
-  currentUser: {} as UserResponse,
+  currentUser: {} as SingleUserResponse,
   selectedOrg: {} as {
     groupId: string;
     organisation: AdminOrganisation;
   },
 });
 
+const isLastPage = computed(
+  () =>
+    Math.ceil(usersData.value.totalCount / state.pageCount) <= state.currentPage
+);
 const userGroupOptions = computed(() => userGroups.value);
 const isGlobalAdmin = computed(() => userPermission.value.isGlobalAdmin);
 const userGroupId = computed(
@@ -215,7 +223,7 @@ const handleChangeRole = (userId: string, orgId: string, groupId: string) => {
   usersStore.assignRole(orgId, userId, groupId);
 };
 
-const onClickAction = (row: UserResponse) => {
+const onClickAction = (row: SingleUserResponse) => {
   state.currentUser = row;
   state.assignedOrganisations = row.organisations.map((org) => ({
     ...org,

@@ -492,7 +492,7 @@ export interface IUserData {
   password: string;
 }
 
-export interface UserResponse {
+export interface SingleUserResponse {
   id: string;
   userId: string;
   email: string;
@@ -505,6 +505,11 @@ export interface UserResponse {
   dob: string;
   gender: number;
   userGroups: UserGroupResponse[];
+}
+
+export interface UserResponse {
+  users: SingleUserResponse[];
+  totalCount: number;
 }
 
 export interface UserGroupResponse {
