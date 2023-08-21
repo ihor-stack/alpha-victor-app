@@ -36,7 +36,9 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("components.shared.appMenu.dashboard") }}</span>
+              <span class="link-text">{{
+                $t("components.shared.appMenu.dashboard")
+              }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -48,7 +50,9 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("components.shared.appMenu.dashboard") }}</span>
+              <span class="link-text">{{
+                $t("components.shared.appMenu.dashboard")
+              }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -60,7 +64,9 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("components.shared.appMenu.favourites") }}</span>
+              <span class="link-text">{{
+                $t("components.shared.appMenu.favourites")
+              }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -72,7 +78,9 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("components.shared.appMenu.findSpace") }}</span>
+              <span class="link-text">{{
+                $t("components.shared.appMenu.findSpace")
+              }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -84,7 +92,9 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("components.shared.appMenu.recentlyViewed") }}</span>
+              <span class="link-text">{{
+                $t("components.shared.appMenu.recentlyViewed")
+              }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -96,7 +106,9 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("components.shared.appMenu.accountSettings") }}</span>
+              <span class="link-text">{{
+                $t("components.shared.appMenu.accountSettings")
+              }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -108,7 +120,9 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("components.shared.appMenu.about") }}</span>
+              <span class="link-text">{{
+                $t("components.shared.appMenu.about")
+              }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -120,7 +134,9 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("components.shared.appMenu.tos") }}</span>
+              <span class="link-text">{{
+                $t("components.shared.appMenu.tos")
+              }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -133,7 +149,9 @@
               router-direction="root"
               :detail="true"
             >
-              <span class="link-text">{{ $t("components.shared.appMenu.admin") }}</span>
+              <span class="link-text">{{
+                $t("components.shared.appMenu.admin")
+              }}</span>
             </ion-item>
           </ion-menu-toggle>
         </li>
@@ -142,12 +160,16 @@
     <ion-footer>
       <div class="footer">
         <div class="footer-contact">
-          <p class="contact font-mono">{{ $t("components.shared.appMenu.contact") }}</p>
+          <p class="contact font-mono">
+            {{ $t("components.shared.appMenu.contact") }}
+          </p>
         </div>
         <div class="footer-hello">
           <a href="mailto: hello@alphavictor.com">hello@alphavictor.com</a>
           <div class="footer-details">
-            <p class="font-mono">{{ $t("components.shared.appMenu.footer") }}</p>
+            <p class="font-mono">
+              {{ $t("components.shared.appMenu.footer") }}
+            </p>
             <ul class="footer-links">
               <li>
                 <a href="">
@@ -197,7 +219,10 @@ import Auth from "@/auth";
 import AppHeader from "./AppHeader.vue";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
-import { defaultTheme, Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import {
+  defaultTheme,
+  Organisations as useOrganisationStore,
+} from "@/stores/publicOrganisations";
 
 const router = useRouter();
 const authService = new Auth();
@@ -216,18 +241,7 @@ const canAccessAdmin = computed(
 const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 
 const logout = async () => {
-  const authRes = await authService.logout();
-  if (authRes) {
-    mixpanel.track("User Logged Out", {
-      email: accountStore.accountDetails.email,
-    });
-    authStore.setAuthStatus(false);
-    accountStore.logoutPermission();
-    accountStore.clearAccountDetails();
-    organisationStore.clearOrg();
-    await organisationStore.setOrgTheme(defaultTheme);
-    return router.replace({ name: "Home" });
-  }
+  accountStore.logout();
 };
 </script>
 

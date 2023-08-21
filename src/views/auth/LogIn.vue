@@ -10,7 +10,7 @@
               </div>
               <div class="headline-container">
                 <h1 class="headline font-bold font-size-xl color-light-gray">
-                  {{ $t('pages.home.headline')}}
+                  {{ $t("pages.home.headline") }}
                 </h1>
               </div>
               <div class="cta-container">
@@ -18,24 +18,27 @@
                   <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
                 </div>
                 <div class="button-container">
-                  <ion-button expand="block" class="button-gray" @click="signIn"
-                    >{{ $t('pages.home.signin')}}</ion-button
+                  <ion-button
+                    expand="block"
+                    class="button-gray"
+                    @click="signIn"
+                    >{{ $t("pages.home.signin") }}</ion-button
                   >
-                  <ion-button expand="block" color="light" @click="signup"
-                    >{{ $t('pages.home.signup')}}</ion-button
-                  >
+                  <ion-button expand="block" color="light" @click="signup">{{
+                    $t("pages.home.signup")
+                  }}</ion-button>
                 </div>
               </div>
               <div class="link-container text-center">
                 <p class="color-mid-gray font-sm">
-                  {{ $t('pages.home.emailSignin')}}
-                  <span @click="signInEmail" class="color-light-gray link"
-                    >{{ $t('pages.home.link')}}</span
-                  >
+                  {{ $t("pages.home.emailSignin") }}
+                  <span @click="signInEmail" class="color-light-gray link">{{
+                    $t("pages.home.link")
+                  }}</span>
                   <br /><br />
-                  <span @click="resetPassword" class="color-light-gray link"
-                    >{{ $t('pages.home.resetPassword')}}</span
-                  >
+                  <span @click="resetPassword" class="color-light-gray link">{{
+                    $t("pages.home.resetPassword")
+                  }}</span>
                 </p>
               </div>
             </div>
@@ -57,6 +60,7 @@ import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { Account as useAccountStore } from "@/stores/publicAccount";
+import loadingService from "@/services/loadingService";
 
 const router = useRouter();
 const authService = new Auth();
@@ -66,6 +70,7 @@ const accountStore = useAccountStore();
 
 const signIn = async () => {
   // Sign in logic here
+  const loadId = loadingService.show("Loading...");
   const authRes = await authService.authenticate(false);
 
   if (authRes) {
@@ -80,9 +85,11 @@ const signIn = async () => {
     if (currentOrgId) {
       organisationStore.setOrganisationId(currentOrgId);
     }
+    loadingService.close(loadId);
     return router.replace({ name: "Dashboard" });
   } else {
     authStore.setAuthStatus(false);
+    loadingService.close(loadId);
     return router.replace({ name: "Home" });
   }
 };
@@ -96,9 +103,11 @@ const resetPassword = async () => {
 };
 
 onBeforeMount(async () => {
-
   const tokenFresh = await authService.isTokenFresh();
-  const dashboardNav = authStore.isAuthenticated && tokenFresh && accountStore.userPermission.isGuest === false;
+  const dashboardNav =
+    authStore.isAuthenticated &&
+    tokenFresh &&
+    accountStore.userPermission.isGuest === false;
 
   if (dashboardNav) {
     return router.replace({ name: "Dashboard" });

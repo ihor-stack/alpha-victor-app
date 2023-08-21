@@ -6,6 +6,12 @@ import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import router from "@/router";
 import axios from "axios";
+import Auth from "@/auth";
+import { auth as useAuthStore } from "@/stores/authStore";
+import {
+  defaultTheme,
+  Organisations as useOrganisationStore,
+} from "@/stores/publicOrganisations";
 
 export const Account = defineStore("Account", {
   state: () => {
@@ -34,12 +40,12 @@ export const Account = defineStore("Account", {
         });
     },
     async getPermissions() {
-
       try {
-        const response = await publicAPI.get<UserPermission>("/Identity/GetUserPermissions");
+        const response = await publicAPI.get<UserPermission>(
+          "/Identity/GetUserPermissions"
+        );
         this.userPermission = response.data;
-      }
-      catch (e) {
+      } catch (e) {
         if (axios.isAxiosError(e)) {
           console.log(e);
           toastService.show("Error", "", "error", "bottom");
@@ -149,9 +155,39 @@ export const Account = defineStore("Account", {
         isGlobalAdmin: false,
         isGuest: false,
         isOrganisationAdmin: false,
-        organisationGroups: []
+        organisationGroups: [],
       };
-      
-    }
+    },
+    async deleteAccount() {
+      const loadId = loadingService.show("Loading...");
+      publicAPI
+        .delete<PublicAccount>("/Account/DeleteAccount")
+        .then(() => {
+          this.logout();
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+    async logout() {
+      const authService = new Auth();
+      const authStore = useAuthStore();
+      const organisationStore = useOrganisationStore();
+      const authRes = await authService.logout();
+      if (authRes) {
+        mixpanel.track("User Logged Out", {
+          email: this.accountDetails.email,
+        });
+        authStore.setAuthStatus(false);
+        this.logoutPermission();
+        this.clearAccountDetails();
+        organisationStore.clearOrg();
+        await organisationStore.setOrgTheme(defaultTheme);
+        return router.replace({ name: "Home" });
+      }
+    },
   },
 });

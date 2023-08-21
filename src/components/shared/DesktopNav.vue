@@ -5,7 +5,7 @@
         <div class="header-spacing">
           <ion-button
             class="switch-organisation"
-            v-if="isAuthenticated && !userPermission.isGuest" 
+            v-if="isAuthenticated && !userPermission.isGuest"
             shape="round"
             @click="state.modalOpen = true"
           >
@@ -25,7 +25,12 @@
               />
             </div>
           </ion-title>
-          <ion-button v-if="isAuthenticated && !userPermission.isGuest" fill="clear" @click="logout" class="logout-button">
+          <ion-button
+            v-if="isAuthenticated && !userPermission.isGuest"
+            fill="clear"
+            @click="logout"
+            class="logout-button"
+          >
             <ion-icon :icon="logOutOutline" class="logout"></ion-icon>
             <span class="font-bold font-size-xs low-caps">{{
               $t("components.shared.desktopNav.logout")
@@ -36,7 +41,10 @@
     </desktop-header>
     <ion-content class="ion-padding no-tp">
       <ul class="nav-menu">
-        <li class="nav-menu-link" v-if="isAuthenticated && !userPermission.isGuest">
+        <li
+          class="nav-menu-link"
+          v-if="isAuthenticated && !userPermission.isGuest"
+        >
           <ion-item
             lines="none"
             :detail="true"
@@ -49,7 +57,10 @@
           </ion-item>
         </li>
 
-        <li class="nav-menu-link" v-if="!isAuthenticated || userPermission.isGuest">
+        <li
+          class="nav-menu-link"
+          v-if="!isAuthenticated || userPermission.isGuest"
+        >
           <ion-item
             lines="none"
             :detail="true"
@@ -62,7 +73,10 @@
           </ion-item>
         </li>
 
-        <li class="nav-menu-link" v-if="isAuthenticated && !userPermission.isGuest">
+        <li
+          class="nav-menu-link"
+          v-if="isAuthenticated && !userPermission.isGuest"
+        >
           <ion-item
             lines="none"
             :detail="true"
@@ -74,7 +88,10 @@
             </ion-label>
           </ion-item>
         </li>
-        <li class="nav-menu-link" v-if="isAuthenticated && !userPermission.isGuest">
+        <li
+          class="nav-menu-link"
+          v-if="isAuthenticated && !userPermission.isGuest"
+        >
           <ion-item
             lines="none"
             :detail="true"
@@ -86,7 +103,10 @@
             </ion-label>
           </ion-item>
         </li>
-        <li class="nav-menu-link" v-if="isAuthenticated && !userPermission.isGuest">
+        <li
+          class="nav-menu-link"
+          v-if="isAuthenticated && !userPermission.isGuest"
+        >
           <ion-item
             lines="none"
             :detail="true"
@@ -98,7 +118,10 @@
             </ion-label>
           </ion-item>
         </li>
-        <li class="nav-menu-link" v-if="isAuthenticated && !userPermission.isGuest">
+        <li
+          class="nav-menu-link"
+          v-if="isAuthenticated && !userPermission.isGuest"
+        >
           <ion-item
             lines="none"
             :detail="true"
@@ -134,7 +157,11 @@
             </ion-label>
           </ion-item>
         </li>
-        <div v-if="userPermission.isGlobalAdmin || userPermission.isOrganisationAdmin">
+        <div
+          v-if="
+            userPermission.isGlobalAdmin || userPermission.isOrganisationAdmin
+          "
+        >
           <div class="spacer-line"></div>
           <li class="nav-menu-link">
             <ion-item lines="none">
@@ -229,7 +256,10 @@ import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal
 import Auth from "@/auth";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
-import { defaultTheme, Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import {
+  defaultTheme,
+  Organisations as useOrganisationStore,
+} from "@/stores/publicOrganisations";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const router = useRouter();
@@ -254,18 +284,7 @@ const handleDismiss = () => {
 };
 
 const logout = async () => {
-  const authRes = await authService.logout();
-  if (authRes) {
-    mixpanel.track("User Logged Out", {
-      email: accountStore.accountDetails.email,
-    });
-    authStore.setAuthStatus(false);
-    accountStore.logoutPermission();
-    accountStore.clearAccountDetails();
-    organisationStore.clearOrg();
-    await organisationStore.setOrgTheme(defaultTheme);
-    return router.replace({ name: "Home" });
-  }
+  accountStore.logout();
 };
 
 const handleNavigate = (route: string) => {

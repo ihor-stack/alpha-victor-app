@@ -66,6 +66,9 @@ import {
   IonLabel,
 } from "@ionic/vue";
 import { reactive } from "vue";
+import { Account as useAccountStore } from "@/stores/publicAccount";
+
+const accountStore = useAccountStore();
 
 interface State {
   password: string;
@@ -78,7 +81,7 @@ const state: State = reactive({
 });
 
 function confirm() {
-  return modalController.dismiss();
+  accountStore.deleteAccount();
 }
 </script>
 
