@@ -16,7 +16,7 @@ export const adminUsers = defineStore("adminUsers", {
     };
   },
   actions: {
-    async getUsers(page = 1, pageSize = 1000) {
+    async getUsers(page = 1, pageSize = 10) {
       const loadId = loadingService.show("Loading...");
       adminAPI
         .get<UserResponse[]>(`/User?page=${page}&pageSize=${pageSize}`)

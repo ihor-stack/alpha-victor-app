@@ -93,6 +93,26 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    <div class="pagination-wrapper">
+      <ion-button
+        fill="outline"
+        size="small"
+        :disabled="state.currentPage < 2"
+        @click="handlePage('prev')"
+      >
+        <ion-icon :icon="chevronBackOutline" />
+      </ion-button>
+      <div>{{ state.currentPage }}</div>
+      <ion-button
+        fill="outline"
+        :icon="chevronForwardOutline"
+        size="small"
+        :disabled="users?.length < state.pageCount"
+        @click="handlePage('next')"
+      >
+        <ion-icon :icon="chevronForwardOutline" />
+      </ion-button>
+    </div>
     <UserManagementModal
       :name="state.currentUser.name"
       :isOpen="state.openEditModal"
@@ -139,6 +159,8 @@ import {
   closeCircle,
   ellipsisVertical,
   personOutline,
+  chevronBackOutline,
+  chevronForwardOutline,
 } from "ionicons/icons";
 import { onBeforeMount, computed, reactive } from "vue";
 import { storeToRefs } from "pinia";
@@ -159,6 +181,8 @@ const organisationStore = useOrganisationsStore();
 const { organisationList } = storeToRefs(organisationStore);
 
 const state = reactive({
+  currentPage: 1,
+  pageCount: 10,
   openEditModal: false,
   openPermissionModal: false,
   assignedOrganisations: [] as any[],
@@ -252,8 +276,18 @@ const onClickAssignedOrg = (assignedOrg: any) => {
   };
 };
 
+const handlePage = (type: string) => {
+  if (type === "prev") {
+    state.currentPage--;
+  }
+  if (type === "next") {
+    state.currentPage++;
+  }
+  usersStore.getUsers(state.currentPage, state.pageCount);
+};
+
 onBeforeMount(() => {
-  usersStore.getUsers();
+  usersStore.getUsers(state.currentPage, state.pageCount);
   usersStore.getUserGroups();
 });
 </script>
@@ -295,5 +329,20 @@ ion-row:last-child ion-col {
   font-size: 12px;
   line-height: 16px;
   width: 100%;
+}
+
+.pagination-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 12px;
+}
+
+.pagination-wrapper ion-button {
+  --border-color: #313131;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
 }
 </style>
