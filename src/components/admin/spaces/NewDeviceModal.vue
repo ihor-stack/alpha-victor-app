@@ -284,6 +284,7 @@ const handleDismiss = () => {
     serialNumber: "",
     warrantyExpiryDate: "",
   } as Device;
+  selectedEquipment.value = {} as SelectItem;
 };
 
 const saveNewDevice = () => {
@@ -300,23 +301,25 @@ const saveNewDevice = () => {
         : new Date().toISOString(),
     equipmentId: selectedEquipment.value.additionalInfo,
   });
-  modalOpen.value = false
+  modalOpen.value = false;
   newDevice.value = {
-    id: '',
-    name: '',
-    manufacturer: '',
-    serialNumber: '',
-    installer: '',
-    installDate: '',
-    warrantyExpiryDate: '',
-    description: ''
-  }
-  selectedEquipment.value.additionalInfo = null
+    id: "",
+    name: "",
+    manufacturer: "",
+    serialNumber: "",
+    installer: "",
+    installDate: "",
+    warrantyExpiryDate: "",
+    description: "",
+  };
+  selectedEquipment.value = {} as SelectItem;
 };
 
 watch(selectedEquipment, (newVal) => {
-  const parts = newVal.title.split(" ");
-  newDevice.value.name = parts[0] + " " + parts[2];
+  if (newVal.title) {
+    const parts = newVal.title.split(" ");
+    newDevice.value.name = parts[0] + " " + parts[2];
+  }
 });
 
 onBeforeMount(() => {
