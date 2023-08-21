@@ -11,7 +11,7 @@ import toastService from "@/services/toastService";
 export const adminUsers = defineStore("adminUsers", {
   state: () => {
     return {
-      users: [] as UserResponse[],
+      usersData: { totalCount: 0, users: [] } as UserResponse,
       userGroups: [] as UserGroupResponse[],
     };
   },
@@ -19,10 +19,10 @@ export const adminUsers = defineStore("adminUsers", {
     async getUsers(page = 1, pageSize = 10) {
       const loadId = loadingService.show("Loading...");
       adminAPI
-        .get<UserResponse[]>(`/User?page=${page}&pageSize=${pageSize}`)
+        .get<UserResponse>(`/User?page=${page}&pageSize=${pageSize}`)
         .then((response) => {
           if (response.data) {
-            this.users = response.data;
+            this.usersData = response.data;
           }
         })
         .catch((error) => {
