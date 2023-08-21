@@ -527,7 +527,7 @@ ion-button.button-red {
 }
 
 .outer-container:before {
-  content: ' ';
+  content: " ";
   display: block;
   position: absolute;
   left: 0;
@@ -541,14 +541,11 @@ ion-button.button-red {
   background-size: cover;
 }
 
-
-
 @media only screen and (min-width: 1023px) {
   .outer-container {
     background-position: center;
   }
 }
-
 
 .outer-container.onboarding {
   background-image: url("@/theme/backgrounds/onboarding.svg");
@@ -817,7 +814,6 @@ ion-toast.customToast::part(message) {
   padding-left: 0;
   padding-right: 0;
 }
-
 
 @media only screen and (min-width: 1023px) {
   .form-admin--group_field:nth-child(2n) {

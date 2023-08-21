@@ -42,7 +42,7 @@
                   name="phone"
                   placeholder="Phone number"
                   v-model="state.phoneNumber"
-                /> 
+                />
                 <div class="password-container">
                   <ion-input
                     class="custom-input"
@@ -50,8 +50,8 @@
                     placeholder="Password"
                     v-model="state.password"
                   />
-                  <ion-icon 
-                    :icon="state.isPasswordVisible ? eyeOff : eye" 
+                  <ion-icon
+                    :icon="state.isPasswordVisible ? eyeOff : eye"
                     size="small"
                     color="dark"
                     @click="state.isPasswordVisible = !state.isPasswordVisible"
@@ -69,9 +69,14 @@
 
                 <div class="link-container text-center">
                   <p class="color-mid-gray font-sm">
-                    Already have an account? <span @click="signInEmail" class="color-light-gray link">Send me a login link</span>
-                    <br/><br/>
-                    <span @click="signIn" class="color-light-gray link">Login with email</span>
+                    Already have an account?
+                    <span @click="signInEmail" class="color-light-gray link"
+                      >Send me a login link</span
+                    >
+                    <br /><br />
+                    <span @click="signIn" class="color-light-gray link"
+                      >Login with email</span
+                    >
                   </p>
                 </div>
               </ion-footer>
@@ -176,7 +181,7 @@ const signup = () => {
 
 const signInEmail = async () => {
   return router.replace({ name: "SendEmailLoginLink" });
-}
+};
 
 const signIn = async () => {
   // Sign in logic here
@@ -190,36 +195,41 @@ const signIn = async () => {
 };
 
 onMounted(() => {
-  if(showResizeMode) {
+  if (showResizeMode && Keyboard) {
     Keyboard.setResizeMode({ mode: "ionic" });
     // StatusBar.setStyle({ style: "Light" });
-    Keyboard.addListener('keyboardWillShow', (info: any) => {
+    Keyboard.addListener("keyboardWillShow", (info: any) => {
       const keyboardHeight = info.keyboardHeight;
       let activeElem = document.activeElement as HTMLElement;
-      if (activeElem === null) activeElem = document.createElement('input');
+      if (activeElem === null) activeElem = document.createElement("input");
       const activeRect = activeElem.getBoundingClientRect();
-      let keyboard = document.getElementById('keyboard-area')
-      if (keyboard === null) keyboard = document.createElement('div')
+      let keyboard = document.getElementById("keyboard-area");
+      if (keyboard === null) keyboard = document.createElement("div");
       let offset = 0;
-      if (keyboard.style.display === 'block') offset = window.innerHeight - activeRect.y - activeRect.height - keyboardHeight;
+      if (keyboard.style.display === "block")
+        offset =
+          window.innerHeight -
+          activeRect.y -
+          activeRect.height -
+          keyboardHeight;
       else offset = window.innerHeight - activeRect.y - activeRect.height;
       if (offset < keyboardHeight) {
-        keyboard.style.height = keyboardHeight + 'px';
-        keyboard.style.display = 'block';
+        keyboard.style.height = keyboardHeight + "px";
+        keyboard.style.display = "block";
       } else {
-        keyboard.style.height = '0px';
-        keyboard.style.display = 'none';
+        keyboard.style.height = "0px";
+        keyboard.style.display = "none";
       }
     });
 
-    Keyboard.addListener('keyboardWillHide', () => {
-      let keyboard = document.getElementById('keyboard-area')
-      if (keyboard === null) keyboard = document.createElement('div')
-      keyboard.style.height = '0px';
-      keyboard.style.display = 'none';
+    Keyboard.addListener("keyboardWillHide", () => {
+      let keyboard = document.getElementById("keyboard-area");
+      if (keyboard === null) keyboard = document.createElement("div");
+      keyboard.style.height = "0px";
+      keyboard.style.display = "none";
     });
   }
-})
+});
 </script>
 
 <style scoped>
@@ -228,6 +238,12 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
 }
+
+.inner-container {
+  height: unset;
+  min-height: 100%;
+}
+
 .blue-text-container {
   margin-bottom: 5px;
   text-align: center;
@@ -259,8 +275,6 @@ ion-footer ion-button {
   margin-bottom: 20px;
 }
 
-
-
 .link-container {
   flex: 0 0 10%;
   display: flex;
@@ -275,7 +289,7 @@ ion-footer ion-button {
 }
 
 .link:hover {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .password-container {
