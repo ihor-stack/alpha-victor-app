@@ -18,11 +18,13 @@
           <ion-row class="form-admin--group" v-if="!isGuestUser">
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label text-wrap="true" class="font-size-xs font-bold">
-                {{$t('components.modals.issuesModal.addCommentLabel')}}
-              </ion-label> 
+                {{ $t("components.modals.issuesModal.addCommentLabel") }}
+              </ion-label>
               <ion-textarea
                 class="font-size-xs"
-                :placeholder="$t('components.modals.issuesModal.addCommentPlaceholder')"
+                :placeholder="
+                  $t('components.modals.issuesModal.addCommentPlaceholder')
+                "
                 v-model="state.comment"
               ></ion-textarea>
             </ion-col>
@@ -31,17 +33,19 @@
                 expand="block"
                 :disabled="state.comment?.length < 1"
                 @click="handleAddComment"
-                >{{$t('components.modals.issuesModal.addCommentLabel')}}</ion-button
+                >{{
+                  $t("components.modals.issuesModal.addCommentLabel")
+                }}</ion-button
               >
             </ion-col>
           </ion-row>
 
           <div
             class="modal-panel__section modal-panel__set-status"
-            v-if="false"
+            v-if="isAdmin"
           >
             <h2 class="font-size-xs font-bold modal-panel__heading">
-              {{ $t('components.modals.issuesModal.selectStatusHeader') }}
+              {{ $t("components.modals.issuesModal.selectStatusHeader") }}
             </h2>
             <div class="modal-panel__status">
               <div class="modal-panel__status__radio">
@@ -58,7 +62,7 @@
                   class="modal-panel__status__radio__label"
                 >
                   <span class="dot dot--low-impact"></span>
-                  {{$t('components.modals.issuesModal.lowImpactLabel')}}
+                  {{ $t("components.modals.issuesModal.lowImpactLabel") }}
                 </label>
               </div>
               <div class="modal-panel__status__radio">
@@ -75,7 +79,7 @@
                   class="modal-panel__status__radio__label"
                 >
                   <span class="dot dot--high-impact"></span>
-                  {{$t('components.modals.issuesModal.highImpactLabel')}}
+                  {{ $t("components.modals.issuesModal.highImpactLabel") }}
                 </label>
               </div>
               <div class="modal-panel__status__radio">
@@ -89,7 +93,7 @@
                 />
                 <label for="resolved" class="modal-panel__status__radio__label">
                   <span class="dot dot--resolved"></span>
-                  {{ $t('components.modals.issuesModal.statusHeader') }}
+                  {{ $t("components.modals.issuesModal.statusHeader") }}
                 </label>
               </div>
             </div>
@@ -97,7 +101,7 @@
 
           <div class="modal-panel__log">
             <h3 class="modal-panel__log__heading font-mono font-size-xxs">
-              {{ $t('components.modals.issuesModal.statusHeader') }}
+              {{ $t("components.modals.issuesModal.statusHeader") }}
             </h3>
 
             <ul class="modal-panel__log__list">
@@ -152,7 +156,7 @@ interface State {
   comment: string;
 }
 
-const props = defineProps(["issueId", "spaceId"]);
+const props = defineProps(["issueId", "spaceId", "isAdmin"]);
 const state: State = reactive({
   issue: {} as Issue,
   comment: "",

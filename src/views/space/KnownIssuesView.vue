@@ -18,7 +18,10 @@
           :click-handler="handleIssueClick"
         />
 
-        <ion-item v-else-if="state.isLoaded && !state.issues.length" lines="none">
+        <ion-item
+          v-else-if="state.isLoaded && !state.issues.length"
+          lines="none"
+        >
           <ion-label text-wrap="true">
             <h2 class="color-dark-gray">
               {{ $t("pages.space.knownIssues.itemLabel") }}
@@ -48,7 +51,11 @@
       :breakpoints="[0, 1]"
       @willDismiss="handleDismissIssueModal"
     >
-      <issues-modal :spaceId="spaceId" :issueId="state.selectedIssue?.id" />
+      <issues-modal
+        :spaceId="spaceId"
+        :issueId="state.selectedIssue?.id"
+        :isAdmin="isAdmin"
+      />
     </ion-modal>
     <ion-modal
       :is-open="state.reportIssueModalOpen"
@@ -75,6 +82,8 @@ import {
   IonMenuButton,
   IonModal,
 } from "@ionic/vue";
+import { storeToRefs } from "pinia";
+
 import AppHeader from "@/components/shared/AppHeader.vue";
 import IssuesModal from "@/components/modals/IssuesModal.vue";
 import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
@@ -86,6 +95,7 @@ import loadingService from "@/services/loadingService";
 import { publicAPI } from "@/axios";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { Account as useAccountStore } from "@/stores/publicAccount";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
 const router = useRouter();
 const route = useRoute();
@@ -93,8 +103,18 @@ const route = useRoute();
 const spaceId: string = route.params.spaceId as string;
 const spacesStore = useSpacesStore();
 const accountStore = useAccountStore();
+const organisationStore = useOrganisationStore();
 
 const isGuestUser = computed(() => accountStore.userPermission.isGuest);
+const { currentOrganisationId } = storeToRefs(organisationStore);
+
+const isAdmin = computed(() => {
+  if (accountStore.userPermission.isGlobalAdmin) return true;
+  if (!accountStore.userPermission.isOrganisationAdmin) return false;
+  return accountStore.userPermission.organisationGroups.some(
+    (group) => group.organisationId === currentOrganisationId.value
+  );
+});
 
 interface Props {
   reportIssueModalOpen: boolean;
