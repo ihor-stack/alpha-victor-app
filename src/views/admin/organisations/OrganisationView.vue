@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      {{ organisationDetails?.name }}
+      {{ state.name }}
     </h1>
     <ul class="organisation-options-menu">
       <li class="organisation-options-menu-item">
@@ -103,7 +103,7 @@
 
 <script setup lang="ts">
 import { IonItem, IonIcon } from "@ionic/vue";
-import { onBeforeMount } from "vue";
+import { onBeforeMount, reactive } from "vue";
 import { chevronForwardOutline } from "ionicons/icons";
 import { Organisations } from "@/stores/adminOrganisations";
 import { Locations } from "@/stores/adminLocations";
@@ -117,14 +117,20 @@ const route = useRoute();
 const organisation = Organisations();
 const location = Locations();
 
+const state = reactive({
+  name: "",
+});
+
 const { organisationDetails } = storeToRefs(organisation);
 const { locations } = storeToRefs(location);
 const organisationId = route.params.id as string;
- 
+
 onBeforeMount(() => {
   organisation.setId(organisationId);
   organisation.setOrgId(organisationId);
-  organisation.getOrgDetails(organisationId);
+  organisation.getOrgDetails(organisationId).then(() => {
+    state.name = organisation.currentOrganisationDetails.name;
+  });
   location.getLocations(organisationId);
 });
 </script>

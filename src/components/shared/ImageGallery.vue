@@ -5,7 +5,6 @@
       @ionItemReorder="handleReorder($event)"
     >
       <ion-item
-        button
         class="form-admin--group_field-item rev-margin ion-no-padding"
         v-for="image in images"
         v-bind:key="image.id"
@@ -32,11 +31,11 @@
           />
         </ion-radio-group>
         <ion-button
-          class="button-red text-lowercase"
+          class="button-red text-lowercase delete-button"
           slot="end"
           fill="clear"
           size="small"
-          @click="removeImage($event, image.id)"
+          @click="removeImage(image.id)"
         >
           {{ $t("components.shared.imageGallery.removeButton") }}
         </ion-button>
@@ -59,8 +58,7 @@ const emit = defineEmits<{
   (e: "image-reordered", id: Photo[]): void;
 }>();
 
-const removeImage = (event: CustomEvent, id: string) => {
-  event.stopPropagation();
+const removeImage = (id: string) => {
   emit("image-removed", id);
 };
 
@@ -109,5 +107,10 @@ ion-reorder {
 ion-reorder ion-icon {
   font-size: 1.5rem;
   opacity: 0.15;
+}
+
+.delete-button {
+  position: relative;
+  z-index: 10;
 }
 </style>
