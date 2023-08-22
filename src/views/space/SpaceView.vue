@@ -105,7 +105,12 @@
           <space-options-menu
             :currentSpace="currentSpace"
             :showDevices="devices.length ? true : false"
-            :showPhotos="currentSpace.photos && currentSpace.photos.length > 1 ? true : false"
+            :showPhotos="
+              currentSpace.photos && currentSpace.photos.length > 1
+                ? true
+                : false
+            "
+            :showDocuments="documents.length ? true : false"
           />
         </div>
       </div>
@@ -197,7 +202,7 @@ const state = reactive({
   isLoadingSpaceDetails: false,
 });
 
-const { currentSpace } = storeToRefs(spacesStore);
+const { currentSpace, documents } = storeToRefs(spacesStore);
 const { devices } = storeToRefs(spacesStore);
 
 const isFavourite = computed(() =>
@@ -218,8 +223,6 @@ const checkSpaceAccess = () => {
     currentSpace.value.organisationAnonymousAccess === false &&
     isGuestUser.value
   ) {
-    console.log(currentSpace.value);
-    console.log(isGuestUser.value);
     currentSpace.value;
     router.push({ name: "NoSpacesFound" });
   }
@@ -247,6 +250,7 @@ onBeforeMount(() => {
       state.isLoadingSpaceDetails = false; // Set to false once fetch is complete
     });
     spacesStore.getSpaceDevices(spaceId);
+    spacesStore.getSpaceDocuments(spaceId);
   } else {
     checkSpaceAccess();
     state.isLoadingSpaceDetails = false; // Set to false if no fetch needed

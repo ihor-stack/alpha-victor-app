@@ -54,7 +54,7 @@
           <ion-icon slot="end" :icon="chevronForwardOutline" />
         </ion-item>
       </li>
-      <li class="space-options-menu-item" v-if="!isGuestUser">
+      <li class="space-options-menu-item" v-if="showDocuments && !isGuestUser">
         <ion-item
           :router-link="{
             name: 'Documents',
@@ -101,6 +101,7 @@ interface Props {
   currentSpace: DetailedSpace;
   showDevices: boolean;
   showPhotos: boolean;
+  showDocuments: boolean;
 }
 
 defineProps<Props>();

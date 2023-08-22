@@ -23,6 +23,7 @@ export const Spaces = defineStore("PublicSpaces", {
       nearbySpaces: [] as Space[],
       devices: [] as Device[],
       currentPanorama: {} as Panorama,
+      documents: [] as Document[],
     };
   },
   actions: {
@@ -142,14 +143,10 @@ export const Spaces = defineStore("PublicSpaces", {
         });
     },
 
-    async getSpaceByQr(
-      spaceShortCode: string
-    ) {
+    async getSpaceByQr(spaceShortCode: string) {
       const loadId = loadingService.show("Loading...");
       return publicAPI
-        .get<SpaceQRCodeResponse>(
-          `/Space/SpaceByQR/${spaceShortCode}`
-        )
+        .get<SpaceQRCodeResponse>(`/Space/SpaceByQR/${spaceShortCode}`)
         .then((response) => {
           return response.data;
         })
@@ -187,6 +184,21 @@ export const Spaces = defineStore("PublicSpaces", {
           } else {
             toastService.show("Error", error, "error", "bottom");
           }
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+
+    async getSpaceDocuments(spaceId: string) {
+      const loadId = loadingService.show("Loading...");
+      publicAPI
+        .get(`/Space/${spaceId}/Documents`)
+        .then((response) => {
+          this.documents = response.data;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
           loadingService.close(loadId);
