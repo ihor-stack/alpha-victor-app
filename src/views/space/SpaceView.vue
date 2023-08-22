@@ -440,4 +440,8 @@ onBeforeMount(() => {
 ion-content {
   --offset-bottom: 0px !important;
 }
+
+.outer-container:before {
+  background-image: none;
+}
 </style>
