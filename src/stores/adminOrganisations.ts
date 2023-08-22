@@ -331,6 +331,21 @@ export const Organisations = defineStore("Organisations", {
         });
     },
 
+    async deleteDecisionTree(decisionTreeId: string, organisationId: string) {
+      const loadId = loadingService.show("Loading...");
+      adminAPI
+        .delete(`/DecisionTree/${decisionTreeId}`)
+        .then(() => {
+          this.getOrgDetails(organisationId);
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+
     async createAarticle(article: Article, callback?: (res: Video) => void) {
       const loadId = loadingService.show("Loading...");
       adminAPI

@@ -7,7 +7,9 @@
       <ion-row class="form-admin--group">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <ion-input
-            :placeholder=" $t('pages.admin.organisations.view.decisionTrees.placeholder')"
+            :placeholder="
+              $t('pages.admin.organisations.view.decisionTrees.placeholder')
+            "
             v-model="state.newDecisionTreeName"
             @ion-input="confirmToLeaveService.setEditing(true)"
           >
@@ -18,7 +20,7 @@
             @click="addNewDecisionTree"
             :disabled="!state.newDecisionTreeName"
           >
-            {{ $t("pages.admin.organisations.view.decisionTrees.addNew")}}
+            {{ $t("pages.admin.organisations.view.decisionTrees.addNew") }}
           </ion-button>
         </ion-col>
       </ion-row>
@@ -52,11 +54,21 @@
             <ion-label text-wrap="true">
               {{ decisionTree.name }}
             </ion-label>
-            <ion-label text-wrap="true"
+            <ion-label
+              text-wrap="true"
               slot="end"
               class="decision-view-icon font-size-xs font-mono"
               >{{
                 $t("pages.admin.organisations.view.decisionTrees.view")
+              }}</ion-label
+            >
+            <ion-label
+              text-wrap="true"
+              slot="end"
+              class="decision-view-icon font-size-xs font-mono remove-button"
+              @click="deleteDecisionTree($event, decisionTree.id)"
+              >{{
+                $t("pages.admin.organisations.view.decisionTrees.remove")
               }}</ion-label
             >
           </ion-item>
@@ -84,9 +96,9 @@ import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const route = useRoute();
 const organisationsStore = useOrganisationsStore();
+const organisationId = route.params.id as string;
 
 onBeforeMount(() => {
-  const organisationId = route.params.id as string;
   if (organisationsStore.organisationDetails?.id !== organisationId) {
     organisationsStore.setId(organisationId);
     organisationsStore.getOrgDetails(organisationId);
@@ -115,6 +127,13 @@ const addNewDecisionTree = () => {
   organisationsStore.createDecisionTree(newDecisionTree);
   state.newDecisionTreeName = "";
 };
+
+const deleteDecisionTree = (event: CustomEvent, id?: string) => {
+  event.stopPropagation();
+  if (id) {
+    organisationsStore.deleteDecisionTree(id, organisationId);
+  }
+};
 </script>
 
 <style scoped>
@@ -133,5 +152,9 @@ const addNewDecisionTree = () => {
 }
 .bold-text {
   font-weight: 700;
+}
+
+.remove-button {
+  color: var(--av-red) !important;
 }
 </style>

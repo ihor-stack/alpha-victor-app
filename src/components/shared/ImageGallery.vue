@@ -36,7 +36,7 @@
           slot="end"
           fill="clear"
           size="small"
-          @click="removeImage(image.id)"
+          @click="removeImage($event, image.id)"
         >
           {{ $t("components.shared.imageGallery.removeButton") }}
         </ion-button>
@@ -59,7 +59,8 @@ const emit = defineEmits<{
   (e: "image-reordered", id: Photo[]): void;
 }>();
 
-const removeImage = (id: string) => {
+const removeImage = (event: CustomEvent, id: string) => {
+  event.stopPropagation();
   emit("image-removed", id);
 };
 
