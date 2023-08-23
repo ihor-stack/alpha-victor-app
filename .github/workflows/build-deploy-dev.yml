@@ -37,7 +37,7 @@ jobs:
       - run: git config --global url."https://${{ secrets.PAT }}@github.com/".insteadOf https://git@github.com/
 
       - name: Node Package Install
-        run: npm i --legacy-peer-deps
+        run: npm i --force
 
       - name: Build
         run: npm run build
