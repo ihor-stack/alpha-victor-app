@@ -35,7 +35,7 @@ jobs:
         uses: actions/setup-node@v2.5.2
 
       - name: Node Package Install
-        run: npm i --force
+        run: npm i --legacy-peer-deps
 
       - name: Build
         run: npm run build
