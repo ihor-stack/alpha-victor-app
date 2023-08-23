@@ -36,7 +36,7 @@ jobs:
       - run: git config --global url."https://${{ secrets.PAT }}@github.com/".insteadOf ssh://git@github.com/
 
       - name: Node Package Install
-        run: npm i
+        run: npm i -force
 
       - name: Build
         run: npm run build
