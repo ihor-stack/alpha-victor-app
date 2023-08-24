@@ -2,27 +2,27 @@ PODS:
   - ByteowlsCapacitorOauth2 (4.0.2):
     - Capacitor
     - OAuthSwift (= 2.2.0)
-  - Capacitor (4.8.0):
+  - Capacitor (5.2.3):
     - CapacitorCordova
-  - CapacitorActionSheet (4.1.0):
+  - CapacitorActionSheet (5.0.6):
     - Capacitor
-  - CapacitorApp (4.1.1):
+  - CapacitorApp (5.0.6):
     - Capacitor
   - CapacitorCommunityBarcodeScanner (4.0.1):
     - Capacitor
   - CapacitorCommunityBluetoothLe (2.2.3):
     - Capacitor
-  - CapacitorCordova (4.8.0)
-  - CapacitorHaptics (4.1.0):
+  - CapacitorCordova (5.2.3)
+  - CapacitorHaptics (5.0.6):
     - Capacitor
-  - CapacitorKeyboard (4.1.1):
+  - CapacitorKeyboard (5.0.6):
     - Capacitor
   - CapacitorSecureStoragePlugin (0.8.1):
     - Capacitor
     - SwiftKeychainWrapper
   - CapacitorSplashScreen (5.0.6):
     - Capacitor
-  - CapacitorStatusBar (4.1.1):
+  - CapacitorStatusBar (5.0.6):
     - Capacitor
   - CordovaPlugins (5.2.3):
     - CapacitorCordova
@@ -34,7 +34,7 @@ PODS:
     - Sentry/HybridSDK (= 8.8.0)
   - SentryPrivate (8.8.0)
   - SwiftKeychainWrapper (4.0.1)
-  - UncodedLimitedConnect (0.0.23):
+  - UncodedLimitedConnect (0.0.21):
     - Capacitor
 
 DEPENDENCIES:
@@ -52,7 +52,7 @@ DEPENDENCIES:
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
   - "SentryCapacitor (from `../../node_modules/@sentry/capacitor`)"
-  - "UncodedLimitedConnect (from `../../../../../node_modules/@uncoded-limited/connect`)"
+  - "UncodedLimitedConnect (from `../../node_modules/@uncoded-limited/connect`)"
 
 SPEC REPOS:
   trunk:
@@ -91,29 +91,29 @@ EXTERNAL SOURCES:
   SentryCapacitor:
     :path: "../../node_modules/@sentry/capacitor"
   UncodedLimitedConnect:
-    :path: "../../../../../node_modules/@uncoded-limited/connect"
+    :path: "../../node_modules/@uncoded-limited/connect"
 
 SPEC CHECKSUMS:
-  ByteowlsCapacitorOauth2: 10dca5edbe3a57a3b5fcd6191915de887f992e19
-  Capacitor: 6002aadd64492438e5242325025045235dcb7e84
-  CapacitorActionSheet: 71954963acb1cc11391b879a0612284ac587ed28
-  CapacitorApp: d9ad682d7afb46cff7f6b80dc47ecaecb470b979
-  CapacitorCommunityBarcodeScanner: a43bb14cec343f4defaf26cac281d799b25b90f0
-  CapacitorCommunityBluetoothLe: d39692146a51f453eeb45af5a8313866d6073578
-  CapacitorCordova: c6249dcb2cf04dd835c0e99df1df4b9c8ad997e2
-  CapacitorHaptics: 532b8cfe3112519073039ae1d027970e81746038
-  CapacitorKeyboard: ea7b8ca944513580e482f3cb3a25a0d1c8497f85
-  CapacitorSecureStoragePlugin: 8c4ab52316e0312a22af4b8ca9ea4e2dbb6eb53a
-  CapacitorSplashScreen: f3c7de5468a52893e90f49d033772984270241b4
-  CapacitorStatusBar: 7a635e984da8ddc4e8f68d2887ccc7b46f28ccbf
-  CordovaPlugins: ca7f2575c55072a64cfaa5db060a0b17d8c311c1
+  ByteowlsCapacitorOauth2: 86f9a61aa413119226b12aabc5d03f185e9e1d28
+  Capacitor: 6f44cbc33839b8a4202b8eac97041fe584083417
+  CapacitorActionSheet: ffcdc28d01d731661745efd5cb75f9117e18530e
+  CapacitorApp: 024e1b1bea5f883d79f6330d309bc441c88ad04a
+  CapacitorCommunityBarcodeScanner: 7feb206489c8555a8ca0c74c57ddf49ead774eb8
+  CapacitorCommunityBluetoothLe: 7de4f21022a05b15195abfb002872884d00715fc
+  CapacitorCordova: 35def3ebfdef491f0a7b652816eb873ff4b20bbf
+  CapacitorHaptics: 1fffc1217c7e64a472d7845be50fb0c2f7d4204c
+  CapacitorKeyboard: b978154b024a5f65e044908e37d15b7de58b9d12
+  CapacitorSecureStoragePlugin: e616d090177dfbf9754dd1bdb515a8f23855bf4e
+  CapacitorSplashScreen: 5fa2ab5e46cf5cc530cf16a51c80c7a986579ccd
+  CapacitorStatusBar: 565c0a1ebd79bb40d797606a8992b4a105885309
+  CordovaPlugins: 736364b7351394f95ce30afeedcd2b0ed4b6366d
   OAuthSwift: 75efbb5bd9a4b2b71a37bd7e986bf3f55ddd54c6
   Sentry: 927dfb29d18a14d924229a59cc2ad149f43349f2
-  SentryCapacitor: 2b46a9da2d7d7072075842fe3621704572b11753
+  SentryCapacitor: dfb6be40c56dc29689eb3d587b8f134b15c26ef6
   SentryPrivate: 4350d865f898224ab9fa02b37d6ee7fbb623f47e
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
-  UncodedLimitedConnect: 2cb8d28d286141c7999fa52edef0a1bc8c40f578
+  UncodedLimitedConnect: 7240533342441407e604112575d8a0a8ddab4895
 
-PODFILE CHECKSUM: 55eb7d4550fb24d8b1b63ffcd6c8e4a3811513aa
+PODFILE CHECKSUM: e18efb5103611133e5a2b8d77098d04f3fc3f84e
 
 COCOAPODS: 1.11.3
