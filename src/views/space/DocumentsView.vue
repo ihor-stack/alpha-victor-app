@@ -16,15 +16,12 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, reactive, computed } from "vue";
+import { onBeforeMount, computed } from "vue";
 import { IonContent, IonPage, IonButton } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import DocumentsList from "@/components/space/DocumentsList.vue";
 import { useRoute, useRouter } from "vue-router";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
-import toastService from "@/services/toastService";
-import loadingService from "@/services/loadingService";
-import { publicAPI } from "@/axios";
 const router = useRouter();
 const route = useRoute();
 const spacesStore = useSpacesStore();
