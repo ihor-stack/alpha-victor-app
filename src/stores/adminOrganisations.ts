@@ -106,13 +106,15 @@ export const Organisations = defineStore("Organisations", {
 
     async getOrgDetails(id: string) {
       const loadId = loadingService.show("Loading...");
-      adminAPI
+      return adminAPI
         .get<OrgDetails>(`/Organisation/${id}/Details`)
         .then((response) => {
           this.organisationDetails = response.data;
+          return response.data;
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
+          return "failed";
         })
         .finally(() => {
           loadingService.close(loadId);
@@ -322,6 +324,21 @@ export const Organisations = defineStore("Organisations", {
               res.data.value,
             ];
           }
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+
+    async deleteDecisionTree(decisionTreeId: string, organisationId: string) {
+      const loadId = loadingService.show("Loading...");
+      adminAPI
+        .delete(`/DecisionTree/${decisionTreeId}`)
+        .then(() => {
+          this.getOrgDetails(organisationId);
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");

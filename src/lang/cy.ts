@@ -302,6 +302,7 @@ export default {
             addNew: "Add new +",
             current: "Current Decision Trees",
             view: ">> view",
+            remove: ">> remove",
             details: {
               back: "<< back",
               saveBtn: "Save decision tree",

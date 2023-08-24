@@ -44,44 +44,26 @@
               </div>
             </ion-header>
             <div class="form-admin--group_field">
-              <p class="modal-panel__comment color-light-gray font-size-sm">
+              <p class="modal-panel__comment color-light-gray">
                 {{
                   $t(
                     "components.admin.equipment.documentModal.uploadDocumentParagraph"
                   )
                 }}
               </p>
-              <div
-                class="modal-panel__section modal-panel__select-equipment upload-icons"
-                onclick="document.getElementById('fileInput').click()"
-              >
-                <input
-                  class="file-input"
-                  type="file"
-                  accept="*/"
-                  style="display: none"
-                  id="fileInput"
-                  v-on:change="uploadFile"
-                />
-                <ion-icon
-                  :icon="cloudDownloadOutline"
-                  size="small"
-                  class="align-icon"
-                />
-                <span
-                  class="modal-panel__comment color-light-gray font-size-sm"
-                >
-                  {{ $t("components.admin.equipment.documentModal.clickSpan") }}
-                </span>
-              </div>
-              <div class="modal-panel__select-equipment form-admin">
-                <AdminSelect
-                  label="Document Type"
-                  idPrefix="documentTypeToEquipment"
-                  v-model="state.selectedDocType"
-                  :options="documentTypeOptions"
-                />
-              </div>
+              <CustomIonUploadInput
+                :buttonText="'Select file'"
+                accept="*/"
+                @file-selected="uploadFile"
+              />
+            </div>
+            <div class="form-admin--group_field">
+              <AdminSelect
+                label="Document Type"
+                idPrefix="documentTypeToEquipment"
+                v-model="state.selectedDocType"
+                :options="documentTypeOptions"
+              />
             </div>
             <ion-footer>
               <ion-button
@@ -116,7 +98,7 @@ import {
   IonModal,
   IonIcon,
 } from "@ionic/vue";
-import { close, cloudDownloadOutline } from "ionicons/icons";
+import { close } from "ionicons/icons";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 
@@ -124,6 +106,7 @@ import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { adminDocuments } from "@/stores/adminDocumentTypes";
 import { SelectItem } from "@/types";
 import { Equipment as useEquipment } from "@/stores/adminEquipment";
+import CustomIonUploadInput from "@/components/shared/CustomIonUploadInput.vue";
 
 const EquipmentStore = useEquipment();
 
@@ -153,8 +136,8 @@ const documentTypeOptions = computed(() => {
 const handleDismiss = () => {
   state.modalOpen = false;
 };
-const uploadFile = (event: any) => {
-  state.uploadedDoc = event.target.files[0];
+const uploadFile = (file: File) => {
+  state.uploadedDoc = file;
 };
 
 const saveNewDocument = () => {

@@ -33,14 +33,10 @@ const spaceId: string = route.params.spaceId as string;
 const equipmentId: string = route.params.equipmentId as string;
 const documentType = route.query.documentType;
 
-const state = reactive({
-  documents: [],
-});
-
 const documents = computed(() => {
   const documents: any = equipmentId
     ? spacesStore.devices.find((device) => device.id === equipmentId)?.documents
-    : state.documents;
+    : spacesStore.documents;
   if (documentType) {
     return (
       documents?.filter(
@@ -51,26 +47,12 @@ const documents = computed(() => {
   return documents || [];
 });
 
-const getDocuments = () => {
-  const loadId = loadingService.show("Loading...");
-  publicAPI
-    .get(`/Space/${spaceId}/Documents`)
-    .then((response) => {
-      state.documents = response.data;
-    })
-    .catch((error) => {
-      state.documents = [];
-      toastService.show("Error", error, "error", "bottom");
-    })
-    .finally(() => {
-      loadingService.close(loadId);
-    });
-};
-
 onBeforeMount(() => {
-  getDocuments();
-  if (spaceId !== spacesStore.currentSpace?.id && equipmentId) {
-    spacesStore.getSpaceDevices(spaceId);
+  if (spaceId !== spacesStore.currentSpace?.id) {
+    spacesStore.getSpaceDocuments(spaceId);
+    if (equipmentId) {
+      spacesStore.getSpaceDevices(spaceId);
+    }
   }
 });
 </script>

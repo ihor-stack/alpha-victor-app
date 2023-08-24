@@ -55,6 +55,7 @@ export const MetaData = defineStore("MetaData", {
             "success",
             "bottom"
           );
+          this.metaData = {} as AdminMetaData;
           this.getMetaData(organisationId);
         })
         .catch((error) => {

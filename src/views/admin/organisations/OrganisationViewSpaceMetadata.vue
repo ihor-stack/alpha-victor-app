@@ -8,9 +8,14 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <SpaceTypeModal :organisationId="organisationId" />
           <hr class="form-admin--divider" />
-          <ion-label text-wrap="true" class="font-bold" v-if="metaData.spaceTypes">{{
-            $t("pages.admin.organisations.view.spaceMetadata.spaceTypes")
-          }}</ion-label>
+          <ion-label
+            text-wrap="true"
+            class="font-bold"
+            v-if="metaData.spaceTypes"
+            >{{
+              $t("pages.admin.organisations.view.spaceMetadata.spaceTypes")
+            }}</ion-label
+          >
           <div v-for="(data, index) in metaData.spaceTypes" :key="index">
             <ItemField
               :modelValue="data.name"
@@ -28,9 +33,14 @@
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
           <SpaceFeatureModal :organisationId="organisationId" />
           <hr class="form-admin--divider" />
-          <ion-label text-wrap="true" class="font-bold" v-if="metaData.spaceFeatures">{{
-            $t("pages.admin.organisations.view.spaceMetadata.spaceFeatures")
-          }}</ion-label>
+          <ion-label
+            text-wrap="true"
+            class="font-bold"
+            v-if="metaData.spaceFeatures"
+            >{{
+              $t("pages.admin.organisations.view.spaceMetadata.spaceFeatures")
+            }}</ion-label
+          >
           <div v-for="(data, index) in metaData.spaceFeatures" :key="index">
             <ItemField
               :modelValue="data.name"
