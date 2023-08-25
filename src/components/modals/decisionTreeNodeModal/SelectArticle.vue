@@ -105,7 +105,6 @@
 <script setup>
 import { reactive, computed } from "vue";
 import {
-  IonContent,
   IonButton,
   IonFooter,
   IonRow,

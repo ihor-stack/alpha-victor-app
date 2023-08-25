@@ -211,7 +211,6 @@ import {
   IonIcon,
 } from "@ionic/vue";
 import { closeOutline, logOutOutline } from "ionicons/icons";
-import mixpanel from "mixpanel-browser";
 import { storeToRefs } from "pinia";
 
 import { useRouter } from "vue-router";
@@ -220,7 +219,6 @@ import AppHeader from "./AppHeader.vue";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
 import {
-  defaultTheme,
   Organisations as useOrganisationStore,
 } from "@/stores/publicOrganisations";
 

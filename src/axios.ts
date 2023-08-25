@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 import Auth from "@/auth";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";

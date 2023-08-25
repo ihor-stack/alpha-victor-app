@@ -83,7 +83,6 @@
 import { ref, reactive } from "vue";
 import {
   IonPage,
-  IonContent,
   IonHeader,
   IonFooter,
   IonButton,

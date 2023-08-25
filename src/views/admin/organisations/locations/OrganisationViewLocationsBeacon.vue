@@ -63,12 +63,10 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonInput,
   IonSelect,
   IonSelectOption,
   IonButton,
   IonLabel,
-  IonItem,
 } from "@ionic/vue";
 import { SpaceBeaconAvailableResponse } from "@/types/index";
 import { storeToRefs } from "pinia";
@@ -77,7 +75,6 @@ import { onBeforeMount, onBeforeUnmount, reactive, ref } from "vue";
 import { Beacon, IBeacon } from "@ionic-native/ibeacon";
 import { Capacitor } from "@capacitor/core";
 import { useRoute } from "vue-router";
-import toastService from "@/services/toastService";
 
 const route = useRoute();
 const spaceId = route.params.spaceId as string;

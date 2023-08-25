@@ -33,10 +33,11 @@ jobs:
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.5.2
-      - run: git config --global url."https://${{ secrets.PAT }}@github.com/".insteadOf ssh://git@github.com/
+
+      - run: git config --global url."https://${{ secrets.PAT }}@github.com/".insteadOf https://git@github.com/
 
       - name: Node Package Install
-        run: npm i -force
+        run: npm i --force
 
       - name: Build
         run: npm run build

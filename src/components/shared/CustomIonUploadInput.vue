@@ -29,9 +29,8 @@
 </template>
 
 <script lang="ts">
-import { IonInput, IonIcon } from "@ionic/vue"
-import { defineComponent, ref, PropType } from "vue"
-import { close } from 'ionicons/icons'
+import { IonInput } from "@ionic/vue"
+import { defineComponent, ref } from "vue"
 
 let idCounter = 0;
 

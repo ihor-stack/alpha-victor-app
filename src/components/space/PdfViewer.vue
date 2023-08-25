@@ -77,7 +77,6 @@ import {
   addOutline,
   removeOutline,
   downloadOutline,
-  ellipsisVertical,
   reloadOutline,
 } from "ionicons/icons";
 import { ref, onMounted } from "vue";

@@ -1,10 +1,11 @@
 <template>
   <ion-page id="dashboard" class="outer-container">
-    <app-header :no-background="true">
+    <app-header :no-background="true"> 
       <template #start>
         <ion-button
           class="switch-organisation"
           shape="round"
+          v-if="!isGuestUser"
           @click="state.modalOpen = true"
         >
           <img
@@ -18,12 +19,16 @@
       </template>
     </app-header>
     <ion-content :scroll-y="false">
+      <div class="dashboard-search-container">
+        <dashboard-search />
+      </div>
+
       <ion-item
         lines="none"
       >
         <ion-label text-wrap="true">
           <h1 class="color-white">{{ $t("pages.dashboard.noSpacesFound") }}</h1>
-          <p>{{ $t("pages.dashboard.shortCodeTip") }}</p>
+          <p>{{ $t("pages.dashboard.noSpacesMessage") }}</p>
         </ion-label>
       </ion-item>
     </ion-content>
@@ -31,6 +36,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import {
   IonPage,
   IonContent,
@@ -38,6 +44,11 @@ import {
   IonLabel,
 } from "@ionic/vue";
 import AppHeader from "@/components/shared/AppHeader.vue";
+import DashboardSearch from "@/components/dashboard/DashboardSearch.vue";
+import { Account as useAccountStore } from "@/stores/publicAccount";
+
+const accountStore = useAccountStore();
+const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 </script>
 
 <style scoped>

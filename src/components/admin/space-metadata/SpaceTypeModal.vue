@@ -56,7 +56,6 @@
 import { ref } from "vue";
 import {
   IonPage,
-  IonContent,
   IonHeader,
   IonFooter,
   IonButton,

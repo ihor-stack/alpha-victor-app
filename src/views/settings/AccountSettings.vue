@@ -75,7 +75,7 @@ import {
   IonLabel,
   IonList,
 } from "@ionic/vue";
-import { ref, reactive, onBeforeMount, watch, computed } from "vue";
+import { reactive, onBeforeMount, watch, computed } from "vue";
 import { Capacitor } from "@capacitor/core";
 import { Account } from "@/stores/publicAccount";
 import { storeToRefs } from "pinia";

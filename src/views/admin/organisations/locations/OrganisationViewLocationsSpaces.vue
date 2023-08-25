@@ -234,7 +234,7 @@ import SpaceFeaturesSlider from "@/components/admin/spaces/SpaceFeaturesSlider.v
 import { storeToRefs } from "pinia";
 import { Spaces } from "@/stores/adminSpaces";
 import { onBeforeMount, watch, computed, reactive } from "vue";
-import { onBeforeRouteLeave, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 import AdminSelect from "@/components/admin/AdminSelect.vue";
 import { Organisations } from "@/stores/adminOrganisations";
 import { adminDocuments } from "@/stores/adminDocumentTypes";

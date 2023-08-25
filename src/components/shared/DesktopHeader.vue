@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { defineProps } from "vue";
-import { IonHeader, IonToolbar, IonTitle, IonButtons } from "@ionic/vue";
+import { IonHeader, IonToolbar, IonButtons } from "@ionic/vue";
 
 const props = defineProps({
   title: {

@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, watch, computed, inject, ref, provide } from "vue";
+import { onBeforeMount, watch, computed, ref, provide } from "vue";
 import { IonApp } from "@ionic/vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";

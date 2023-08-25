@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { IonPage, IonHeader, IonIcon } from "@ionic/vue";
+import { IonHeader, IonIcon } from "@ionic/vue";
 import { close } from "ionicons/icons";
 
 const props = defineProps(["title", "description", "handleDismiss"]);

@@ -57,7 +57,7 @@ import { watch, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { closeCircle, informationCircle, create, search } from "ionicons/icons";
-import { isPlatform, onIonViewDidEnter, IonPage, IonButton } from "@ionic/vue";
+import { onIonViewDidEnter, IonPage, IonButton } from "@ionic/vue";
 
 import DecisionTreeNodeModal from "@/components/modals/decisionTreeNodeModal/DecisionTreeNodeModal.vue";
 import { DecisionTreeNode } from "@/types/decisionTree";

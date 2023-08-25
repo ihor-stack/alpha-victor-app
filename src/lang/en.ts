@@ -11,6 +11,7 @@ export default {
       placeholder: "Enter shortcode",
       noSpacesFound: "no.spaces.found",
       shortCodeTip: "Please enter a short code or explore spaces.",
+      noSpacesMessage: "Please enter a different short code.",
       exploreBtn: "Explore Spaces",
       alt: "Switch organisation",
       slider: {

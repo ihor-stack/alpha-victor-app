@@ -71,11 +71,9 @@
 import { ref } from "vue";
 import {
   IonPage,
-  IonContent,
   IonHeader,
   IonFooter,
   IonButton,
-  IonInput,
   IonModal,
   IonIcon,
 } from "@ionic/vue";
