@@ -49,6 +49,7 @@ export default class Auth {
       web: {
         redirectUrl: `${process.env.VUE_APP_BASE_URL}/auth`,
         windowOptions: "height=600,left=0,top=0",
+        windowTarget: "authWindow"
       },
       android: {
         redirectUrl:

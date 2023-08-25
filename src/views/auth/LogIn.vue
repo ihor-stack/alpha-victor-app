@@ -60,7 +60,7 @@ import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { Account as useAccountStore } from "@/stores/publicAccount";
-import loadingService from "@/services/loadingService";
+//import loadingService from "@/services/loadingService";
 
 const router = useRouter();
 const authService = new Auth();
@@ -70,7 +70,10 @@ const accountStore = useAccountStore();
 
 const signIn = async () => {
   // Sign in logic here
-  const loadId = loadingService.show("Loading...");
+  //const loadId = loadingService.show("Loading...");
+
+  const winHandle = window.open("", "authWindow");
+
   const authRes = await authService.authenticate(false);
 
   if (authRes) {
@@ -85,11 +88,11 @@ const signIn = async () => {
     if (currentOrgId) {
       organisationStore.setOrganisationId(currentOrgId);
     }
-    loadingService.close(loadId);
+    //loadingService.close(loadId);
     return router.replace({ name: "Dashboard" });
   } else {
     authStore.setAuthStatus(false);
-    loadingService.close(loadId);
+    //loadingService.close(loadId);
     return router.replace({ name: "Home" });
   }
 };
