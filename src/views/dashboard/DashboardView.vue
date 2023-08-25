@@ -8,6 +8,7 @@
         <ion-button
           class="switch-organisation"
           shape="round"
+          v-if="!isGuestUser"
           @click="state.modalOpen = true"
         >
           <img
@@ -88,10 +89,15 @@ import { storeToRefs } from "pinia";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { IBeacon, Beacon } from "@ionic-native/ibeacon";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
+const accountStore = useAccountStore();
 const spacesStore = useSpacesStore();
 const organisationStore = useOrganisationStore();
 const { currentOrganisationId } = storeToRefs(organisationStore);
+
+const isGuestUser = computed(() => accountStore.userPermission.isGuest);
+
 interface State {
   modalOpen: boolean;
   observedBeacons: Beacon[];
