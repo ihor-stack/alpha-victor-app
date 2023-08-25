@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@awesome-cordova-plugins/core": "^6.3.0",
-    "@awesome-cordova-plugins/diagnostic": "^6.3.0",
+    "@awesome-cordova-plugins/diagnostic": "^6.4.0",
     "@byteowls/capacitor-oauth2": "^4.0.2",
     "@capacitor-community/barcode-scanner": "^4.0.1",
     "@capacitor-community/bluetooth-le": "^2.1.0",
@@ -56,7 +56,7 @@
     "capacitor-secure-storage-plugin": "^0.8.1",
     "com.unarin.cordova.beacon": "https://mythdev1@github.com/myth-digital/uncoded-ibeacon#v3.0.0",
     "cordova-plugin-device": "^2.1.0",
-    "cordova.plugins.diagnostic": "^7.1.0",
+    "cordova.plugins.diagnostic": "^7.1.2",
     "core-js": "^3.6.5",
     "file-saver": "^2.0.5",
     "floyd-steinberg": "^1.0.6",

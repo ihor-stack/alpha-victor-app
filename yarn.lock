@@ -40,7 +40,7 @@
   dependencies:
     "@types/cordova" latest
 
-"@awesome-cordova-plugins/diagnostic@^6.3.0":
+"@awesome-cordova-plugins/diagnostic@^6.4.0":
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/diagnostic/-/diagnostic-6.4.0.tgz#a67eb3166e4a123e836abcb46836b9e92f00419a"
   integrity sha512-XvYYviet10nRLeNDLcYkO9EdWxxTKWKt4XFHscmhP1Nyg7QFi2vJS8FwZj6u4y/u3JBlCe+/4s3xXC/6jpQTbg==
@@ -5551,7 +5551,7 @@ cordova-plugin-device@^2.1.0:
   resolved "https://registry.yarnpkg.com/cordova-plugin-device/-/cordova-plugin-device-2.1.0.tgz#ef2292c2f0a34d01b5aca6c39cf204e48a460fb2"
   integrity sha512-FU0Lw1jZpuKOgG4v80LrfMAOIMCGfAVPumn7AwaX9S1iU/X3OPZUyoKUgP09q4bxL35IeNPkqNWVKYduAXZ1sg==
 
-cordova.plugins.diagnostic@^7.1.0:
+cordova.plugins.diagnostic@^7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/cordova.plugins.diagnostic/-/cordova.plugins.diagnostic-7.1.2.tgz#34a182259a0f1dadeeb1e08d4ca4e1263d785f27"
   integrity sha512-Rirkthi6dcVFIDVdV2Sznw29zk8AwAPhWfSVZm45m6wqsj58ZNk0/4rV7woqJdTf9oKNqxkii9FFTTVTowvQvQ==

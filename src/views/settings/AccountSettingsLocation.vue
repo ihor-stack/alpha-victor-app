@@ -5,22 +5,29 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label text-wrap="true">
-              <h2 class="font-size-md font-bold">{{ $t('pages.accountSettings.location.label') }}</h2>
-              <p class="font-size-xs">{{ $t('pages.accountSettings.location.description') }}</p>
+              <h2 class="font-size-md font-bold">
+                {{ $t("pages.accountSettings.location.label") }}
+              </h2>
+              <p class="font-size-xs">
+                {{ $t("pages.accountSettings.location.description") }}
+              </p>
             </ion-label>
           </ion-item>
         </ion-header>
         <ion-content :scroll-y="false">
           <div class="setting">
             <div class="setting__label">
-              <p class="label font-size-xs font-bold">{{ $t('pages.accountSettings.location.allowLocation') }}</p>
+              <p class="label font-size-xs font-bold">
+                {{ $t("pages.accountSettings.location.allowLocation") }}
+              </p>
               <span class="sublabel font-mono font-size-xxs color-dark-gray">{{
-                useDotify($t('pages.accountSettings.location.accurateLocation'))
+                useDotify($t("pages.accountSettings.location.accurateLocation"))
               }}</span>
             </div>
             <ion-toggle
+              v-if="state.isInitiated"
               v-model="state.allowLocation"
-              @ionChange="requestPermission"
+              @ionChange="retryPermission"
             />
           </div>
         </ion-content>
@@ -41,32 +48,43 @@ import {
   IonItem,
 } from "@ionic/vue";
 import { reactive, onBeforeMount } from "vue";
+import { isPlatform } from "@ionic/vue";
 
 interface State {
   allowLocation: boolean;
+  isInitiated: boolean;
 }
 
 const state: State = reactive({
   allowLocation: false,
+  isInitiated: false,
 });
 
-const requestPermission = async () => {
-  const status = await Diagnostic.requestLocationAuthorization();
-  if (status === Diagnostic.permissionStatus.GRANTED) {
-    state.allowLocation = true;
-  } else {
-    state.allowLocation = false;
+const retryPermission = async () => {
+  if (isPlatform("android")) {
+    Diagnostic.switchToLocationSettings();
+  }
+  if (isPlatform("ios")) {
+    Diagnostic.switchToSettings();
   }
 };
 
-onBeforeMount(() => {
-  Diagnostic.registerLocationStateChangeHandler((status: string) => {
-    if (status === Diagnostic.permissionStatus.GRANTED) {
-      state.allowLocation = true;
-    } else {
-      state.allowLocation = false;
-    }
-  });
+const requestPermission = async () => {
+  const status = await Diagnostic.requestLocationAuthorization();
+  state.allowLocation =
+    status === Diagnostic.permissionStatus.GRANTED ||
+    status === Diagnostic.permissionStatus.GRANTED_WHEN_IN_USE;
+};
+
+onBeforeMount(async () => {
+  const status = await Diagnostic.getLocationAuthorizationStatus();
+  state.allowLocation =
+    status === Diagnostic.permissionStatus.GRANTED ||
+    status === Diagnostic.permissionStatus.GRANTED_WHEN_IN_USE;
+  state.isInitiated = true;
+  if (status === Diagnostic.permissionStatus.NOT_REQUESTED) {
+    requestPermission();
+  }
 });
 </script>
 
