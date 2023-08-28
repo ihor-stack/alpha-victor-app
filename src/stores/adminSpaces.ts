@@ -669,6 +669,7 @@ export const Spaces = defineStore("Spaces", {
         )
         .then((response) => {
           this.integration = response.data;
+          toastService.show("Success", "Integration linked successfully", "success", "bottom");
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
@@ -689,6 +690,7 @@ export const Spaces = defineStore("Spaces", {
         .then((response) => {
           this.integration = response.data;
           this.getIntegrations(spaceId);
+          toastService.show("Success", "Integration updated successfully", "success", "bottom");
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
