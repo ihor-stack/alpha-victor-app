@@ -4,9 +4,19 @@
       <ion-header class="ion-no-border">
         <ion-item class="modal-panel__header" lines="none">
           <ion-label text-wrap="true">
-            <h2 class="font-bold">{{$t('components.modals.organisationSelectModal.selectOrganisationHeader')}}</h2>
+            <h2 class="font-bold">
+              {{
+                $t(
+                  "components.modals.organisationSelectModal.selectOrganisationHeader"
+                )
+              }}
+            </h2>
             <p class="font-size-sm">
-              {{$t('components.modals.organisationSelectModal.selectOrganisationParagraph')}}
+              {{
+                $t(
+                  "components.modals.organisationSelectModal.selectOrganisationParagraph"
+                )
+              }}
             </p>
           </ion-label>
         </ion-item>
@@ -14,13 +24,21 @@
       <ion-content>
         <div class="modal-panel__section modal-panel__select-equipment">
           <h2 class="font-size-xs font-bold modal-panel__heading">
-            {{ $t('components.modals.organisationSelectModal.selectOrganisationHeader') }}
+            {{
+              $t(
+                "components.modals.organisationSelectModal.selectOrganisationHeader"
+              )
+            }}
           </h2>
 
           <ion-select
             interface="action-sheet"
             class="modal-panel__select-organisation__select"
-            :placeholder="$t('components.modals.organisationSelectModal.selectOrganisationPlaceholder')"
+            :placeholder="
+              $t(
+                'components.modals.organisationSelectModal.selectOrganisationPlaceholder'
+              )
+            "
             :value="state.organisation"
             @ion-change="handleChange"
           >
@@ -36,7 +54,7 @@
       </ion-content>
       <ion-footer>
         <ion-button expand="block" @click="handleConfirm">
-          {{$t('components.modals.organisationSelectModal.confirmButton')}}
+          {{ $t("components.modals.organisationSelectModal.confirmButton") }}
           {{ state.organisation ? organisationName : "organisation" }}
         </ion-button>
       </ion-footer>
@@ -84,7 +102,9 @@ const handleConfirm = () => {
 
 <style scoped>
 .modal-panel {
-  height: 40%;
+  @media only screen and (max-width: 1063px) {
+    height: 40%;
+  }
 }
 
 .modal-panel__heading {

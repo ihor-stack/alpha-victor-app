@@ -25,7 +25,10 @@
 
       <div class="dashboard-sliders" v-if="nearbySpaces?.length">
         <div class="dashboard-slider-container">
-          <dashboard-slider :title="$t('pages.dashboard.slider.title1')" :slides="nearbySpaces" />
+          <dashboard-slider
+            :title="$t('pages.dashboard.slider.title1')"
+            :slides="nearbySpaces"
+          />
         </div>
       </div>
 
@@ -40,7 +43,11 @@
       </div>
 
       <ion-item
-        v-if="state.initialFetch && !nearbySpaces.length && !recentlyViewedSpaces.length"
+        v-if="
+          state.initialFetch &&
+          !nearbySpaces.length &&
+          !recentlyViewedSpaces.length
+        "
         lines="none"
       >
         <ion-label text-wrap="true">
@@ -68,7 +75,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onBeforeMount, onBeforeUnmount, computed, watch, onMounted } from "vue";
+import {
+  ref,
+  reactive,
+  onBeforeMount,
+  onBeforeUnmount,
+  computed,
+  watch,
+  onMounted,
+} from "vue";
 import {
   IonPage,
   IonContent,
@@ -107,7 +122,7 @@ interface State {
 const state: State = reactive({
   modalOpen: false,
   observedBeacons: [],
-  initialFetch: false
+  initialFetch: false,
 });
 
 const isMobileView = ref(false);
@@ -167,7 +182,7 @@ watch(currentOrganisationId, (newValue) => {
 onMounted(() => {
   window.addEventListener("resize", updateView);
   updateView(); // call once on mounted to set the initial state
-})
+});
 
 onBeforeMount(() => {
   spacesStore.getFavouriteSpaces();
