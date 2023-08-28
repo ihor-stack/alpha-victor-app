@@ -14,7 +14,7 @@
             </ion-label>
           </ion-item>
         </ion-header>
-        <ion-content :scroll-y="false">
+        <ion-content>
           <ion-row class="form-admin--group" v-if="!isGuestUser">
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label text-wrap="true" class="font-size-xs font-bold">
@@ -167,7 +167,7 @@ const accountStore = useAccountStore();
 const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 
 const getAgoTime = (date: string) => {
-  return moment(date).fromNow();
+  return moment.utc(date).fromNow();
 };
 
 const handleAddComment = () => {
@@ -210,7 +210,14 @@ const getIssueDetails = () => {
   publicAPI
     .get(`/Issue/${props.spaceId}/Issue/${props.issueId}`)
     .then((res) => {
-      state.issue = res.data;
+      state.issue = {
+        ...res.data,
+        actionHistory: res.data.actionHistory.sort((a: any, b: any) => {
+          if (a.updated > b.updated) return -1;
+          if (a.updated < b.updated) return 1;
+          return 0;
+        }),
+      };
     })
     .catch((error) => {
       toastService.show("Error", error, "error", "bottom");
