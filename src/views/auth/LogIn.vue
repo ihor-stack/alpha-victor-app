@@ -16,7 +16,7 @@
               <div class="cta-container">
                 <div class="blurb-container">
                   <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
-                </div>
+                </div> 
                 <div class="button-container">
                   <ion-button
                     expand="block"
@@ -38,6 +38,10 @@
                   <br /><br />
                   <span @click="resetPassword" class="color-light-gray link">{{
                     $t("pages.home.resetPassword")
+                  }}</span>
+                  <br /><br />
+                  <span @click="viewAnonymously" class="color-light-gray link">{{
+                    $t("pages.home.anonymousLink")
                   }}</span>
                 </p>
               </div>
@@ -102,6 +106,10 @@ const signInEmail = async () => {
 
 const resetPassword = async () => {
   return router.replace({ name: "ForgotPassword" });
+};
+
+const viewAnonymously = async () => {
+  return router.replace({ name: "Home" });
 };
 
 onBeforeMount(async () => {

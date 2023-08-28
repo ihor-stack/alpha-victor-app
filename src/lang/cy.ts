@@ -482,6 +482,7 @@ export default {
       emailSignin: "Prefer to login via email?",
       link: "Send me a login link",
       resetPassword: "I've forgot my password",
+      anonymousLink: "<< Back",
     },
   },
   components: {

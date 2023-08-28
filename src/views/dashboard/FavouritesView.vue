@@ -1,7 +1,7 @@
 <template>
   <ion-page id="favourites" class="outer-container">
     <app-header :title="$t('pages.favourites.header')">
-      <template #start>
+      <template #start> 
         <ion-menu-button fill="clear"> </ion-menu-button>
         <ion-button fill="clear" @click="() => router.back()" class="back">
           <span class="font-mono font-size-xs">{{
@@ -98,7 +98,7 @@ ion-content {
   --background: none;
 }
 
-ion-button {
+ion-list ion-button {
   width: 40px;
   height: 40px;
 }
