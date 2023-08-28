@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from "vue";
+import { reactive, computed, watch } from "vue";
 import {
   IonContent,
   IonHeader,
@@ -74,13 +74,21 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/vue";
+import { storeToRefs } from "pinia";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 const organisationStore = useOrganisationStore();
 
 const props = defineProps(["handleDismiss"]);
+const { currentOrganisationId } = storeToRefs(organisationStore);
 
 const state = reactive({
-  organisation: organisationStore.getId,
+  organisation: currentOrganisationId,
+});
+
+watch(currentOrganisationId, (newValue) => {
+  if (newValue?.length > 0) {
+    state.organisation = newValue;
+  }
 });
 
 const organisationName = computed(
