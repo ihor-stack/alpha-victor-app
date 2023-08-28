@@ -4,7 +4,11 @@
       <div>
         <ion-row>
           <ion-col size="12">
-            <ion-label text-wrap="true">{{ $t('components.modals.userManagementModal.assignedOrganisationLabel') }}</ion-label>
+            <ion-label text-wrap="true">{{
+              $t(
+                "components.modals.userManagementModal.assignedOrganisationLabel"
+              )
+            }}</ion-label>
             <ion-item
               class="orgItemWrapper"
               v-for="org in assignedOrganisations"
@@ -15,7 +19,9 @@
               <ion-label text-wrap="true">
                 {{ org.name }}
                 <span class="color-dark-gray">{{
-                  ` / ${org.permission?.name}`
+                  ` / ${org.permissions
+                    .map((permission) => permission.name)
+                    .join(", ")}`
                 }}</span>
               </ion-label>
               <ion-button
@@ -25,14 +31,16 @@
                 fill="clear"
                 size="small"
               >
-                {{ $t('components.modals.userManagementModal.removeButton')}}
+                {{ $t("components.modals.userManagementModal.removeButton") }}
               </ion-button>
             </ion-item>
           </ion-col>
         </ion-row>
         <div class="divider">
           <div></div>
-          <span>{{ $t('components.modals.userManagementModal.dividerSpan')}}</span>
+          <span>{{
+            $t("components.modals.userManagementModal.dividerSpan")
+          }}</span>
         </div>
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
@@ -54,7 +62,7 @@
           :disabled="!state.organisationId"
           @click="handleClickSave(state.organisationId)"
         >
-          {{ $t('components.modals.userManagementModal.saveAndCloseButton')}}
+          {{ $t("components.modals.userManagementModal.saveAndCloseButton") }}
         </ion-button>
       </ion-footer>
     </common-modal>
@@ -90,27 +98,30 @@ const state = reactive({
 });
 
 const organisationOptions = computed(() => {
-  return props.organisations.map((organisation: AdminOrganisation, index: number) => {
-    return {
-      id: index,
-      title: organisation.name,
-      additionalInfo: organisation.organisationId
+  return props.organisations.map(
+    (organisation: AdminOrganisation, index: number) => {
+      return {
+        id: index,
+        title: organisation.name,
+        additionalInfo: organisation.organisationId,
+      };
     }
-  })
-})
+  );
+});
 
 const selectedOrganisation = computed({
   get() {
     return organisationOptions.value.find(
-      (organisation: any) => state.organisationId === organisation.additionalInfo
+      (organisation: any) =>
+        state.organisationId === organisation.additionalInfo
     );
   },
   set(newValue) {
     if (newValue) {
-      state.organisationId = newValue.additionalInfo
+      state.organisationId = newValue.additionalInfo;
     }
   },
-})
+});
 
 // Reset the selected organisation and organisationId
 const resetSelectedOrganisation = () => {

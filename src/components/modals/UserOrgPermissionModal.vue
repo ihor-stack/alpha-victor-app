@@ -9,6 +9,7 @@
               v-model="selectedUserGroup"
               :options="userGroupOptions"
               :isSearchable="true"
+              :isMultiple="true"
               idPrefix="user-group-select"
               placeholder="Select role"
             />
@@ -19,8 +20,8 @@
         <ion-button
           class="ion-text-capitalize"
           expand="block"
-          :disabled="!state.groupId"
-          @click="handleClickSave(state.groupId)"
+          :disabled="state.groupIds.length < 1"
+          @click="handleClickSave(state.groupIds)"
         >
           {{
             $t("components.modals.userOrgPermissionModal.saveAndCloseButton")
@@ -47,14 +48,14 @@ const props = defineProps([
   "isOpen",
   "name",
   "organisation",
-  "currentUserGroup",
+  "currentUserGroups",
   "userGroups",
   "handleClickSave",
   "handleDismiss",
 ]);
 
 const state = reactive({
-  groupId: props.currentUserGroup,
+  groupIds: props.currentUserGroups,
 });
 
 const userGroupOptions = computed(() => {
@@ -69,13 +70,14 @@ const userGroupOptions = computed(() => {
 
 const selectedUserGroup = computed({
   get() {
-    return userGroupOptions.value.find(
-      (userGroup: any) => state.groupId === userGroup.additionalInfo
+    return userGroupOptions.value.filter((userGroup: any) =>
+      state.groupIds.includes(userGroup.additionalInfo)
     );
   },
   set(newValue) {
+    console.log(newValue);
     if (newValue) {
-      state.groupId = newValue.additionalInfo;
+      state.groupIds = newValue.map((item: any) => item.additionalInfo);
     }
   },
 });
@@ -87,7 +89,7 @@ const selectedUserGroup = computed({
 }
 ion-modal {
   --width: 490px;
-  --height: 300px;
+  --height: 350px;
 }
 
 ion-modal::part(content) {

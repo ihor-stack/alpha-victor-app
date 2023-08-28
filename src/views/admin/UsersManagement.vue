@@ -131,7 +131,7 @@
       v-if="state.openPermissionModal"
       :name="state.currentUser.name"
       :isOpen="state.openPermissionModal"
-      :currentUserGroup="state.selectedOrg.groupId"
+      :currentUserGroups="state.selectedOrg.groupIds"
       :userGroups="userGroups"
       :organisation="state.selectedOrg.organisation"
       :handleDismiss="
@@ -190,9 +190,9 @@ const state = reactive({
   openEditModal: false,
   openPermissionModal: false,
   assignedOrganisations: [] as any[],
-  currentUser: {} as SingleUserResponse,
+  currentUser: {} as any,
   selectedOrg: {} as {
-    groupId: string;
+    groupIds: string[];
     organisation: AdminOrganisation;
   },
 });
@@ -227,7 +227,9 @@ const onClickAction = (row: SingleUserResponse) => {
   state.currentUser = row;
   state.assignedOrganisations = row.organisations.map((org) => ({
     ...org,
-    permission: row.userGroups.find((group) => group.organisationId === org.id),
+    permissions: row.userGroups.filter(
+      (group) => group.organisationId === org.id
+    ),
   }));
   state.openEditModal = true;
 };
@@ -257,12 +259,19 @@ const handleClickSave = (orgId: string) => {
   state.openEditModal = false;
 };
 
-const handleSavePermission = (groupId: string) => {
-  handleChangeRole(
-    state.currentUser.id,
-    state.selectedOrg.organisation.organisationId,
-    groupId
-  );
+const handleSavePermission = (groupIds: string[]) => {
+  const requestBody = {
+    userGroups: state.currentUser.organisations.map((org: any) => ({
+      organisationId: org.id,
+      groupIds:
+        org.id === state.selectedOrg.organisation.organisationId
+          ? groupIds
+          : state.currentUser.userGroups
+              .filter((group: any) => group.organisationId === org.id)
+              .map((group: any) => group.id),
+    })),
+  };
+  usersStore.updateUserRole(state.currentUser.id, requestBody);
   toastService.show(
     "Success",
     "Users permissions updated successfully",
@@ -275,13 +284,14 @@ const handleSavePermission = (groupId: string) => {
 const onClickAssignedOrg = (assignedOrg: any) => {
   state.openEditModal = false;
   state.openPermissionModal = true;
-
   state.selectedOrg = {
-    groupId: assignedOrg.permission?.id,
+    groupIds:
+      assignedOrg.permissions?.map((permission: any) => permission.id) || [],
     organisation: organisationList.value.find(
       (org) => org.organisationId === assignedOrg.id
     ) as AdminOrganisation,
   };
+  console.log(state.selectedOrg);
 };
 
 const handlePage = (type: string) => {
