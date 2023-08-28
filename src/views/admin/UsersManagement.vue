@@ -134,11 +134,7 @@
       :currentUserGroups="state.selectedOrg.groupIds"
       :userGroups="userGroups"
       :organisation="state.selectedOrg.organisation"
-      :handleDismiss="
-        () => {
-          state.openPermissionModal = false;
-        }
-      "
+      :handleDismiss="handleClosePermissionModal"
       :handleClickSave="handleSavePermission"
     />
   </div>
@@ -281,6 +277,12 @@ const handleSavePermission = (groupIds: string[]) => {
   state.openPermissionModal = false;
 };
 
+const handleClosePermissionModal = () => {
+  setTimeout(() => {
+    state.openPermissionModal = false;
+  }, 100);
+};
+
 const onClickAssignedOrg = (assignedOrg: any) => {
   state.openEditModal = false;
   state.openPermissionModal = true;
@@ -291,7 +293,6 @@ const onClickAssignedOrg = (assignedOrg: any) => {
       (org) => org.organisationId === assignedOrg.id
     ) as AdminOrganisation,
   };
-  console.log(state.selectedOrg);
 };
 
 const handlePage = (type: string) => {
