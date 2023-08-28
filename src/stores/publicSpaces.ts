@@ -97,7 +97,7 @@ export const Spaces = defineStore("PublicSpaces", {
       const organisationId = organisationStore.currentOrganisationId;
       if (!organisationId) return;
       const loadId = loadingService.show("Loading...");
-      publicAPI
+      return publicAPI
         .get<Space[]>(`/Dashboard/RecentlyViewed/${organisationId}`)
         .then((response) => {
           this.recentlyViewedSpaces = response.data;

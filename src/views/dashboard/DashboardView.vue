@@ -128,7 +128,6 @@ const isMobileView = ref(false);
 
 const updateView = () => {
   isMobileView.value = window.matchMedia("(max-width: 1063px)").matches;
-  state.initialFetch = true;
 };
 
 const handleDismiss = () => {
@@ -183,7 +182,9 @@ onBeforeMount(() => {
     startRangingBeacons();
   }
   if (currentOrganisationId.value) {
-    spacesStore.getRecentlyViewedSpaces();
+    spacesStore.getRecentlyViewedSpaces().then(() => {
+      state.initialFetch = true;
+    });
   }
 });
 

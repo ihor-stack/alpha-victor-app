@@ -25,7 +25,7 @@
     </div>
     <ion-content>
       <SearchSpace v-if="state.searchTerm" :spaces="state.spaces" />
-      <router-view v-else></router-view>
+      <router-view v-else-if="state.isLoaded"></router-view>
     </ion-content>
   </ion-page>
 </template>
@@ -56,11 +56,13 @@ const { currentOrganisationId } = storeToRefs(organisationStore);
 interface State {
   searchTerm: string;
   spaces: Space[];
+  isLoaded: boolean;
 }
 
 const state: State = reactive({
   searchTerm: "",
   spaces: [],
+  isLoaded: false,
 });
 
 watch(
@@ -91,7 +93,11 @@ const searchSpace = (term: string) => {
 };
 
 onBeforeMount(() => {
-  organisationStore.getSearchNavigationTree(currentOrganisationId.value);
+  organisationStore
+    .getSearchNavigationTree(currentOrganisationId.value)
+    .then(() => {
+      state.isLoaded = true;
+    });
 });
 </script>
 

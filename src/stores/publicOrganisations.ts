@@ -63,7 +63,7 @@ export const Organisations = defineStore("PublicOrganisations", {
     async getSearchNavigationTree(id: string) {
       const loadId = loadingService.show("Loading...");
       if (id) {
-        publicAPI
+        return publicAPI
           .get<Location[]>(`/Organisation/${id}/SearchNavigationTree`)
           .then((response) => {
             this.searchNavigationTree = response.data;
