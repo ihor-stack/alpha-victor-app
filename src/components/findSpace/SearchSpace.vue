@@ -10,7 +10,7 @@
         class="space"
         button
         :detail="false"
-        :href="`/space/${space.id}`"
+        @click="router.push(`/space/${space.id}`)"
       >
         <space-card :space="space" />
       </ion-item>
@@ -21,9 +21,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { IonList, IonItem, IonListHeader } from "@ionic/vue";
+import { useRouter } from "vue-router";
 import SpaceCard from "@/components/dashboard/SpaceCard.vue";
 
 import { Space } from "@/types/index";
+const router = useRouter();
 
 interface Props {
   spaces: Space[];

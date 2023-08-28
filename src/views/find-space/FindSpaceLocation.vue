@@ -8,9 +8,10 @@
         <ion-item
           v-for="(location, index) in searchNavigationTree"
           :key="index"
-          :href="`/find-space/location/${location.id}/floor`"
           :detail="true"
+          button
           class="ion-no-padding"
+          @click="router.push(`/find-space/location/${location.id}/floor`)"
         >
           <ion-label text-wrap="true">
             <h3 class="font-bold">{{ location.name }}</h3>
@@ -34,6 +35,9 @@ import {
 } from "@ionic/vue";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 const organisationStore = useOrganisationStore();
 const { searchNavigationTree } = storeToRefs(organisationStore);
 defineProps(["searchTerm"]);

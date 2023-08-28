@@ -81,7 +81,6 @@ import {
   onBeforeMount,
   onBeforeUnmount,
   computed,
-  watch,
   onMounted,
 } from "vue";
 import {
@@ -172,12 +171,6 @@ const startRangingBeacons = async () => {
 
   await IBeacon.startRangingBeaconsInRegion(beaconRegion);
 };
-
-watch(currentOrganisationId, (newValue) => {
-  if (newValue?.length > 0) {
-    spacesStore.getRecentlyViewedSpaces();
-  }
-});
 
 onMounted(() => {
   window.addEventListener("resize", updateView);

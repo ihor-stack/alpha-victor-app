@@ -74,10 +74,6 @@ watch(
   }
 );
 
-watch(currentOrganisationId, (newValue) => {
-  organisationStore.getSearchNavigationTree(newValue);
-});
-
 const searchSpace = (term: string) => {
   const loadId = loadingService.show("Loading...");
   publicAPI

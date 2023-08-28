@@ -76,7 +76,10 @@ import {
 } from "@ionic/vue";
 import { storeToRefs } from "pinia";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+
 const organisationStore = useOrganisationStore();
+const spacesStore = useSpacesStore();
 
 const props = defineProps(["handleDismiss"]);
 const { currentOrganisationId } = storeToRefs(organisationStore);
@@ -105,6 +108,8 @@ const handleChange = (event: CustomEvent) => {
 const handleConfirm = () => {
   organisationStore.setOrganisationId(state.organisation);
   organisationStore.getOrgTheme(state.organisation);
+  spacesStore.getRecentlyViewedSpaces();
+  organisationStore.getSearchNavigationTree(state.organisation);
   props.handleDismiss();
 };
 </script>

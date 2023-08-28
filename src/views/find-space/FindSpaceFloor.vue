@@ -8,9 +8,10 @@
         <ion-item
           v-for="(floor, index) in location?.floors || []"
           :key="index"
-          :href="`/find-space/floor/${floor.id}/room`"
           :detail="true"
           class="ion-no-padding"
+          button
+          @click="router.push(`/find-space/floor/${floor.id}/room`)"
         >
           <ion-label text-wrap="true">
             <h3 class="font-bold">{{ floor.name }}</h3>
@@ -34,12 +35,13 @@ import {
   IonLabel,
 } from "@ionic/vue";
 import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
 const organisationStore = useOrganisationStore();
 const route = useRoute();
+const router = useRouter();
 const locationId: string = route.params.locationId as string;
 const { searchNavigationTree } = storeToRefs(organisationStore);
 

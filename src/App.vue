@@ -190,10 +190,6 @@ watch(path, (newValue, oldValue) => {
   } else if (oldValue.includes("/admin") && !newValue.includes("/admin")) {
     updateThemeFromStorage();
   }
-  if (oldValue === "/" && newValue === "/dashboard") {
-    accountStore.getPermissions();
-    confirmToLeaveService.setEditing(false);
-  }
 });
 
 watch(userPermission, () => {

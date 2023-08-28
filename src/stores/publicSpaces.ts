@@ -11,8 +11,6 @@ import loadingService from "@/services/loadingService";
 import toastService from "@/services/toastService";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
-const organisationStore = useOrganisationStore();
-
 export const Spaces = defineStore("PublicSpaces", {
   state: () => {
     return {
@@ -95,6 +93,7 @@ export const Spaces = defineStore("PublicSpaces", {
     },
 
     async getRecentlyViewedSpaces() {
+      const organisationStore = useOrganisationStore();
       const organisationId = organisationStore.currentOrganisationId;
       if (!organisationId) return;
       const loadId = loadingService.show("Loading...");
