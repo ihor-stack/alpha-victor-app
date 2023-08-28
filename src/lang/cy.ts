@@ -33,6 +33,10 @@ export default {
       location: {
         title: "Locations",
       },
+      noSpacesFound: "no.spaces.found",
+      noLocationsFound: "no.locations.found",
+      noFloorsFound: "no.floors.found",
+      noRoomsFound: "no.rooms.found",
       placeholder: "Search space or location",
       options: {
         notifications: {
@@ -689,6 +693,7 @@ export default {
           articleTitleInputPlaceholder: "Enter title",
           searchInputPlaceholder: "Search for an article",
           addArticleButton: "Add article +",
+          editArticleButton: "Edit article",
           cancelButton: "Cancel",
           addNewArticleButton: "Add new article +",
           confirmSelectionButton: "Confirm Selection",

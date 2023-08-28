@@ -5,21 +5,24 @@
         <ion-list-header class="ion-no-padding">
           {{ location?.name }}
         </ion-list-header>
-        <ion-item
-          v-for="(floor, index) in location?.floors || []"
-          :key="index"
-          :detail="true"
-          class="ion-no-padding"
-          button
-          @click="router.push(`/find-space/floor/${floor.id}/room`)"
-        >
-          <ion-label text-wrap="true">
-            <h3 class="font-bold">{{ floor.name }}</h3>
-            <p class="font-mono font-size-xxs">
-              {{ `${floor.spaceCount}.spaces` }}
-            </p>
-          </ion-label>
-        </ion-item>
+        <template v-if="location?.floors?.length">
+          <ion-item
+            v-for="(floor, index) in location?.floors || []"
+            :key="index"
+            :detail="true"
+            class="ion-no-padding"
+            button
+            @click="router.push(`/find-space/floor/${floor.id}/room`)"
+          >
+            <ion-label text-wrap="true">
+              <h3 class="font-bold">{{ floor.name }}</h3>
+              <p class="font-mono font-size-xxs">
+                {{ `${floor.spaceCount}.spaces` }}
+              </p>
+            </ion-label>
+          </ion-item>
+        </template>
+        <div v-else>{{ $t("pages.findSpace.noFloorsFound") }}</div>
       </ion-list>
     </ion-content>
   </ion-page>

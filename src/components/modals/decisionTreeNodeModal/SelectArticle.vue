@@ -1,16 +1,32 @@
 <template>
   <common-modal
-    :title="$t('components.modals.decisionTreeNodeModal.selectArticle.selectArticleTitle')"
-    :description="$t('components.modals.decisionTreeNodeModal.selectArticle.selectArticleDescription')"
+    :title="
+      $t(
+        'components.modals.decisionTreeNodeModal.selectArticle.selectArticleTitle'
+      )
+    "
+    :description="
+      $t(
+        'components.modals.decisionTreeNodeModal.selectArticle.selectArticleDescription'
+      )
+    "
     :handleDismiss="() => handleDismiss()"
   >
     <div>
-      <template v-if="state.isAddingArticle">
+      <template v-if="state.isAddingArticle || state.isEditingArticle">
         <ion-row>
           <ion-col size="12" class="form-admin--group_field">
-            <ion-label text-wrap="true">{{ $t('components.modals.decisionTreeNodeModal.selectArticle.articleTitleLabel') }}</ion-label>
+            <ion-label text-wrap="true">{{
+              $t(
+                "components.modals.decisionTreeNodeModal.selectArticle.articleTitleLabel"
+              )
+            }}</ion-label>
             <ion-input
-              :placeholder="$t('components.modals.decisionTreeNodeModal.selectArticle.articleTitleInputPlaceholder')"
+              :placeholder="
+                $t(
+                  'components.modals.decisionTreeNodeModal.selectArticle.articleTitleInputPlaceholder'
+                )
+              "
               v-model="state.newArticleTitle.value"
             ></ion-input>
           </ion-col>
@@ -43,7 +59,11 @@
             <input-with-icon
               iconPosition="start"
               type="search"
-              :placeholder="$t('components.modals.decisionTreeNodeModal.selectArticle.searchInputPlaceholder')"
+              :placeholder="
+                $t(
+                  'components.modals.decisionTreeNodeModal.selectArticle.searchInputPlaceholder'
+                )
+              "
               v-model="state.searchTerm"
               :icon="search"
             ></input-with-icon>
@@ -53,25 +73,38 @@
           :listData="filteredArticles"
           :selectedItem="state.selectedArticle"
           :handleSelectItem="(item) => (state.selectedArticle = item)"
+          :handleEditItem="(item) => handleEditItem(item)"
         ></CustomList>
       </template>
     </div>
     <ion-footer>
-      <template v-if="state.isAddingArticle">
+      <template v-if="state.isAddingArticle || state.isEditingArticle">
         <ion-button
           class="ion-text-capitalize"
           expand="block"
           @click="onAddArticle"
         >
-          {{ $t('components.modals.decisionTreeNodeModal.selectArticle.addArticleButton') }}
+          {{
+            state.isAddingArticle
+              ? $t(
+                  "components.modals.decisionTreeNodeModal.selectArticle.addArticleButton"
+                )
+              : $t(
+                  "components.modals.decisionTreeNodeModal.selectArticle.editArticleButton"
+                )
+          }}
         </ion-button>
         <ion-button
           class="ion-text-capitalize ion-margin-top"
           fill="outline"
           expand="block"
-          @click="state.isAddingArticle = false"
+          @click="handleCancel"
         >
-        {{$t('components.modals.decisionTreeNodeModal.selectArticle.cancelButton')}}
+          {{
+            $t(
+              "components.modals.decisionTreeNodeModal.selectArticle.cancelButton"
+            )
+          }}
         </ion-button>
       </template>
       <template v-else>
@@ -81,14 +114,22 @@
           expand="block"
           @click="state.isAddingArticle = true"
         >
-          {{$t('components.modals.decisionTreeNodeModal.selectArticle.addNewArticleButton')}}</ion-button
+          {{
+            $t(
+              "components.modals.decisionTreeNodeModal.selectArticle.addNewArticleButton"
+            )
+          }}</ion-button
         >
         <ion-button
           class="ion-text-capitalize ion-margin-top"
           expand="block"
           @click="handleClickConfirm({ article: state.selectedArticle })"
         >
-        {{$t('components.modals.decisionTreeNodeModal.selectArticle.confirmSelectionButton')}}</ion-button
+          {{
+            $t(
+              "components.modals.decisionTreeNodeModal.selectArticle.confirmSelectionButton"
+            )
+          }}</ion-button
         >
       </template>
       <ion-button
@@ -97,7 +138,11 @@
         expand="block"
         @click="handleClickBack"
       >
-        {{$t('components.modals.decisionTreeNodeModal.selectArticle.backToDestinationButton')}}
+        {{
+          $t(
+            "components.modals.decisionTreeNodeModal.selectArticle.backToDestinationButton"
+          )
+        }}
       </ion-button>
     </ion-footer>
   </common-modal>
@@ -132,6 +177,7 @@ const state = reactive({
   searchTerm: "",
   selectedArticle: props.editTreeNode?.article,
   isAddingArticle: false,
+  isEditingArticle: false,
   newArticleTitle: {
     error: false,
     value: "",
@@ -150,19 +196,61 @@ const filteredArticles = computed(() => {
   );
 });
 
+const handleEditItem = (item) => {
+  state.selectedArticle = item;
+  state.isEditingArticle = true;
+  state.newArticleTitle = {
+    error: false,
+    value: item.title,
+  };
+  state.newArticleRichText = {
+    error: false,
+    value: item.richText,
+  };
+};
+
+const handleCancel = () => {
+  state.isEditingArticle = false;
+  state.isAddingArticle = false;
+  state.newArticleTitle = {
+    error: false,
+    value: "",
+  };
+  state.newArticleRichText = {
+    error: false,
+    value: "",
+  };
+};
+
 const onAddArticle = () => {
-  organisationsStore.createAarticle(
-    {
-      title: state.newArticleTitle.value,
-      richText: state.newArticleRichText.value,
-    },
-    (res) => {
-      state.newArticleTitle.value = "";
-      state.newArticleRichText.value = "";
-      state.selectedArticle = res;
-      state.isAddingArticle = false;
-    }
-  );
+  if (state.isAddingArticle) {
+    organisationsStore.createAarticle(
+      {
+        title: state.newArticleTitle.value,
+        richText: state.newArticleRichText.value,
+      },
+      (res) => {
+        state.newArticleTitle.value = "";
+        state.newArticleRichText.value = "";
+        state.selectedArticle = res;
+        state.isAddingArticle = false;
+      }
+    );
+  } else if (state.isEditingArticle) {
+    organisationsStore.updateAarticle(
+      state.selectedArticle.id,
+      {
+        title: state.newArticleTitle.value,
+        richText: state.newArticleRichText.value,
+      },
+      (res) => {
+        state.newArticleTitle.value = "";
+        state.newArticleRichText.value = "";
+        state.selectedArticle = res;
+        state.isEditingArticle = false;
+      }
+    );
+  }
 };
 </script>
 

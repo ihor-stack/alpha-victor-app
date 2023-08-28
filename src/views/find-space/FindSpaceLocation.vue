@@ -5,21 +5,24 @@
         <ion-list-header class="ion-no-padding">
           {{ $t("pages.findSpace.location.title") }}
         </ion-list-header>
-        <ion-item
-          v-for="(location, index) in searchNavigationTree"
-          :key="index"
-          :detail="true"
-          button
-          class="ion-no-padding"
-          @click="router.push(`/find-space/location/${location.id}/floor`)"
-        >
-          <ion-label text-wrap="true">
-            <h3 class="font-bold">{{ location.name }}</h3>
-            <p class="font-mono font-size-xxs">
-              {{ location.city }}
-            </p>
-          </ion-label>
-        </ion-item>
+        <template v-if="searchNavigationTree.length">
+          <ion-item
+            v-for="(location, index) in searchNavigationTree"
+            :key="index"
+            :detail="true"
+            button
+            class="ion-no-padding"
+            @click="router.push(`/find-space/location/${location.id}/floor`)"
+          >
+            <ion-label text-wrap="true">
+              <h3 class="font-bold">{{ location.name }}</h3>
+              <p class="font-mono font-size-xxs">
+                {{ location.city }}
+              </p>
+            </ion-label>
+          </ion-item>
+        </template>
+        <div v-else>{{ $t("pages.findSpace.noLocationsFound") }}</div>
       </ion-list>
     </ion-content>
   </ion-page>

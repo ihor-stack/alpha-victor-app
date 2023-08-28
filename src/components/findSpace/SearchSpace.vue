@@ -1,20 +1,25 @@
 <template>
-  <div v-for="group in spacesGroup" :key="group.floor">
-    <ion-list :inset="true" lines="none">
-      <ion-list-header class="ion-no-padding" v-if="group.floor">
-        {{ group.floor }}
-      </ion-list-header>
-      <ion-item
-        v-for="space in group.spaces"
-        :key="space.id"
-        class="space"
-        button
-        :detail="false"
-        @click="router.push(`/space/${space.id}`)"
-      >
-        <space-card :space="space" />
-      </ion-item>
-    </ion-list>
+  <template v-if="spacesGroup.length">
+    <div v-for="group in spacesGroup" :key="group.floor">
+      <ion-list :inset="true" lines="none">
+        <ion-list-header class="ion-no-padding" v-if="group.floor">
+          {{ group.floor }}
+        </ion-list-header>
+        <ion-item
+          v-for="space in group.spaces"
+          :key="space.id"
+          class="space"
+          button
+          :detail="false"
+          @click="router.push(`/space/${space.id}`)"
+        >
+          <space-card :space="space" />
+        </ion-item>
+      </ion-list>
+    </div>
+  </template>
+  <div v-else style="padding: 0 20px">
+    {{ $t("pages.findSpace.noSpacesFound") }}
   </div>
 </template>
 

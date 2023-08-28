@@ -1,31 +1,33 @@
 <template>
-  <div class="modal-panel">
-    <div class="modal-panel-container">
-      <ion-header>
-        <ion-icon
-          :icon="close"
-          size="small"
-          class="close-button"
-          @click="handleDismiss"
-        />
-        <div class="modal-panel__header">
-          <h1
-            class="modal-panel__title color-light-gray font-bold font-size-lg"
-          >
-            {{ title }}
-          </h1>
-          <p class="modal-panel__comment color-light-gray font-size-sm">
-            {{ description }}
-          </p>
-        </div>
-      </ion-header>
-      <slot></slot>
+  <ion-page>
+    <div class="modal-panel">
+      <div class="modal-panel-container">
+        <ion-header>
+          <ion-icon
+            :icon="close"
+            size="small"
+            class="close-button"
+            @click="handleDismiss"
+          />
+          <div class="modal-panel__header">
+            <h1
+              class="modal-panel__title color-light-gray font-bold font-size-lg"
+            >
+              {{ title }}
+            </h1>
+            <p class="modal-panel__comment color-light-gray font-size-sm">
+              {{ description }}
+            </p>
+          </div>
+        </ion-header>
+        <slot></slot>
+      </div>
     </div>
-  </div>
+  </ion-page>
 </template>
 
 <script setup>
-import { IonHeader, IonIcon } from "@ionic/vue";
+import { IonPage, IonHeader, IonIcon } from "@ionic/vue";
 import { close } from "ionicons/icons";
 
 const props = defineProps(["title", "description", "handleDismiss"]);
@@ -56,7 +58,7 @@ ion-popover::part(backdrop) {
   height: 100%;
   width: 100%;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

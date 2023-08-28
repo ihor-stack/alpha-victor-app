@@ -57,16 +57,20 @@ export const Spaces = defineStore("Spaces", {
           this.space = response.data;
           this.currentSpace = response.data.spaceName;
           confirmToLeaveService.setEditing(false);
-          const { decisionTreeList } = Organisations();
+          const { organisationDetails } = Organisations();
 
           if (response.data.decisionTreeId) {
-            const foundDecisionTree = decisionTreeList.find(
-              (decisionTree) =>
-                decisionTree.additionalInfo === response.data.decisionTreeId
+            const index = organisationDetails.decisionTrees.findIndex(
+              (decisionTree) => decisionTree.id === response.data.decisionTreeId
             );
+            const foundDecisionTree = organisationDetails.decisionTrees[index];
 
             if (foundDecisionTree) {
-              this.decisionTreeSelected = foundDecisionTree;
+              this.decisionTreeSelected = {
+                id: index,
+                title: foundDecisionTree.name,
+                additionalInfo: foundDecisionTree.id,
+              };
             }
           }
 

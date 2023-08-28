@@ -364,6 +364,26 @@ export const Organisations = defineStore("Organisations", {
         });
     },
 
+    async updateAarticle(
+      id: string,
+      article: Article,
+      callback?: (res: Video) => void
+    ) {
+      const loadId = loadingService.show("Loading...");
+      adminAPI
+        .patch(`/article/${id}?organisationId=${this.currentOrg}`, article)
+        .then((res) => {
+          this.getOrgDetails(this.currentOrg);
+          callback ? callback(res.data) : null;
+        })
+        .catch((error) => {
+          toastService.show("Error", error, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
+        });
+    },
+
     async getVideo(videoId: string, callback?: (res: Video) => void) {
       const loadId = loadingService.show("Loading...");
       adminAPI

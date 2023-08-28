@@ -266,8 +266,15 @@ const {
   integrations,
 } = storeToRefs(Space);
 
-const { decisionTreeList } = storeToRefs(organisation);
-
+const { organisationDetails } = storeToRefs(organisation);
+const decisionTreeList = computed(
+  () =>
+    organisationDetails.value.decisionTrees?.map((tree, index) => ({
+      id: index,
+      title: tree.name,
+      additionalInfo: tree.id,
+    })) || []
+);
 const state = reactive({
   isLoadingSpaceDetails: true,
 });
