@@ -16,7 +16,7 @@
               <div class="cta-container">
                 <div class="blurb-container">
                   <img src="@/theme/img/homepage-blurb.svg" class="blurb" />
-                </div> 
+                </div>
                 <div class="button-container">
                   <ion-button
                     expand="block"
@@ -40,9 +40,11 @@
                     $t("pages.home.resetPassword")
                   }}</span>
                   <br /><br />
-                  <span @click="viewAnonymously" class="color-light-gray link">{{
-                    $t("pages.home.anonymousLink")
-                  }}</span>
+                  <span
+                    @click="viewAnonymously"
+                    class="color-light-gray link"
+                    >{{ $t("pages.home.anonymousLink") }}</span
+                  >
                 </p>
               </div>
             </div>
@@ -64,7 +66,7 @@ import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { Account as useAccountStore } from "@/stores/publicAccount";
-//import loadingService from "@/services/loadingService";
+import loadingService from "@/services/loadingService";
 
 const router = useRouter();
 const authService = new Auth();
@@ -74,7 +76,7 @@ const accountStore = useAccountStore();
 
 const signIn = async () => {
   // Sign in logic here
-  //const loadId = loadingService.show("Loading...");
+  const loadId = loadingService.show("Loading...");
 
   const winHandle = window.open("", "authWindow");
 
@@ -92,10 +94,10 @@ const signIn = async () => {
       await organisationStore.getOrgTheme(res[0].organisationId);
       return router.replace({ name: "Dashboard" });
     });
-    //loadingService.close(loadId);
+    loadingService.close(loadId);
   } else {
     authStore.setAuthStatus(false);
-    //loadingService.close(loadId);
+    loadingService.close(loadId);
     return router.replace({ name: "Home" });
   }
 };
