@@ -98,7 +98,6 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
       authStore.setAuthStatus(false);
       return router.replace({ name: "Home" });
     }
-    
   } else if (slug == "/reset-password") {
     // TODO: Put this here because onIonViewDidEnter isn't firing when redirecting to EmailLinkLogin.
 
@@ -179,12 +178,6 @@ const updateThemeFromStorage = () => {
   }
 };
 
-watch(currentOrganisationId, (newValue) => {
-  if (newValue?.length > 0) {
-    organisationStore.getOrgTheme(newValue);
-  }
-});
-
 watch(theme, (newValue) => {
   localStorage.setItem("theme", JSON.stringify(newValue));
   updateTheme(newValue);
@@ -209,11 +202,11 @@ watch(userPermission, () => {
 
 // TOOD: Put this into Rotue metadata.
 const guestAllowedRoutes = [
-  '/',
-  '/about',
-  '/terms-and-conditions',
-  '/space/',
-  '/legal-notices'
+  "/",
+  "/about",
+  "/terms-and-conditions",
+  "/space/",
+  "/legal-notices",
 ];
 
 const checkPermission = () => {
@@ -226,7 +219,8 @@ const checkPermission = () => {
   ) {
     router.replace({ name: "Dashboard" });
   } else if (
-    userPermission.value.isGuest && guestAllowedRoutes.find(ar => path.value.startsWith(ar)) === undefined
+    userPermission.value.isGuest &&
+    guestAllowedRoutes.find((ar) => path.value.startsWith(ar)) === undefined
   ) {
     router.replace({ name: "Home" });
   }
@@ -242,7 +236,6 @@ onBeforeMount(async () => {
   }
 
   if (hasFreshLogin) {
-
     await accountStore.getPermissions();
     await organisationStore.getOrganisations();
     authStore.setAuthStatus(true);
@@ -250,7 +243,6 @@ onBeforeMount(async () => {
     if (currentOrgId) {
       organisationStore.setOrganisationId(currentOrgId);
     }
-
   } else {
     authStore.setAuthStatus(false);
     organisationStore.setOrgTheme();

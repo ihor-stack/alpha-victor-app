@@ -186,6 +186,13 @@ export const Account = defineStore("Account", {
         this.clearAccountDetails();
         organisationStore.clearOrg();
         await organisationStore.setOrgTheme(defaultTheme);
+
+        const root = document.querySelector(":root") as HTMLElement;
+        root.style.setProperty(
+          "--theme-image",
+          `url('/img/lines-no-logo.svg')`
+        );
+        root.style.setProperty("--ion-color-primary", "#041aff");
         return router.replace({ name: "Home" });
       }
     },

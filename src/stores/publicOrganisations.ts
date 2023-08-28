@@ -34,6 +34,7 @@ export const Organisations = defineStore("PublicOrganisations", {
           if (!this.currentOrganisationId && response.data.length > 0) {
             this.setOrganisationId(response.data[0].organisationId);
           }
+          return response.data;
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
@@ -77,7 +78,7 @@ export const Organisations = defineStore("PublicOrganisations", {
     },
     async getOrgTheme(id: string) {
       const loadId = loadingService.show("Loading...");
-      publicAPI
+      return publicAPI
         .get<Theme>(`/Organisation/${id || this.currentOrganisationId}/Theme`)
         .then((response) => {
           this.theme = response.data;
@@ -98,7 +99,7 @@ export const Organisations = defineStore("PublicOrganisations", {
       localStorage.removeItem("currentOrganisationId");
       this.organisationList = [];
       this.searchNavigationTree = [];
-    }
+    },
   },
   getters: {
     getList: (state) => state.organisationList,

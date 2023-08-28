@@ -186,11 +186,10 @@ onMounted(() => {
 
 onBeforeMount(() => {
   spacesStore.getFavouriteSpaces();
-  organisationStore.getOrganisations();
   if (Capacitor.getPlatform() !== "web") {
     startRangingBeacons();
   }
-  if (currentOrganisationId) {
+  if (currentOrganisationId.value) {
     spacesStore.getRecentlyViewedSpaces();
   }
 });

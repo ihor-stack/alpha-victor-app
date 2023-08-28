@@ -104,6 +104,7 @@ const handleChange = (event: CustomEvent) => {
 
 const handleConfirm = () => {
   organisationStore.setOrganisationId(state.organisation);
+  organisationStore.getOrgTheme(state.organisation);
   props.handleDismiss();
 };
 </script>

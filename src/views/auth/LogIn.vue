@@ -84,12 +84,11 @@ const signIn = async () => {
       }
     });
     await accountStore.getPermissions();
-    const currentOrgId = localStorage.getItem("currentOrganisationId");
-    if (currentOrgId) {
-      organisationStore.setOrganisationId(currentOrgId);
-    }
+    organisationStore.getOrganisations().then(async (res: any) => {
+      await organisationStore.getOrgTheme(res[0].organisationId);
+      return router.replace({ name: "Dashboard" });
+    });
     //loadingService.close(loadId);
-    return router.replace({ name: "Dashboard" });
   } else {
     authStore.setAuthStatus(false);
     //loadingService.close(loadId);
