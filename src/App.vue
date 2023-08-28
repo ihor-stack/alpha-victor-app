@@ -232,6 +232,7 @@ onBeforeMount(async () => {
   }
 
   if (hasFreshLogin) {
+    if (currentOrgId) organisationStore.getOrgTheme(currentOrgId);
     await accountStore.getPermissions();
     await organisationStore.getOrganisations();
     authStore.setAuthStatus(true);

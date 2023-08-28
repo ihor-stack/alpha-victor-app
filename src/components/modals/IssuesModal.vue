@@ -313,8 +313,14 @@ ion-item::part(native) {
 }
 
 .modal-panel__status__radio input:checked ~ label {
+  border: 2px solid #000000;
+  color: #000000;
+}
+
+body.dark .modal-panel__status__radio input:checked ~ label {
   border: 0.75px solid #ffffff;
   color: #ffffff;
+  font-weight: bold;
 }
 
 .modal-panel__log {

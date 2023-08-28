@@ -95,6 +95,7 @@
             v-if="!isGuestUser"
             fill="outline"
             @click="handleClickReportIssue"
+            class="report-issue-button"
             >{{
               $t("components.modals.roomEquipmentModal.reportIssueButton")
             }}</ion-button
@@ -189,7 +190,7 @@ const installations = computed(() => {
 
 onBeforeMount(() => {
   console.log(props.deviceDetails);
-})
+});
 </script>
 
 <style scoped>
@@ -215,8 +216,8 @@ ion-list {
 }
 
 .modal-panel__image {
-    max-width: 200px;
-  }
+  max-width: 200px;
+}
 
 @media only screen and (max-width: 1023px) {
   .modal-panel__image {
@@ -346,5 +347,9 @@ ion-button {
   font-weight: 700;
   font-size: 11px;
   line-height: 11px;
+}
+
+.report-issue-button {
+  color: var(--ion-color-dark) !important;
 }
 </style>
