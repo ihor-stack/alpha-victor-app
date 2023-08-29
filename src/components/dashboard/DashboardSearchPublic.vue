@@ -59,9 +59,8 @@ const searchByQrCode = async () => {
     const timeoutPromise = new Promise(() => {
       setTimeout(() => {
         closeScanner();
-      }, 10000); // 10 seconds
+      }, 20000); // 10 seconds
     });
-
     return Promise.race([scanPromise, timeoutPromise]);
   };
 
@@ -78,24 +77,35 @@ const searchByQrCode = async () => {
 
     if (pathName.indexOf("/qr/") == -1) {
       isScanning.value = false;
-      toastService.show("Error", "The QR code is not valid.", "error", "bottom");
-      return;    
+      toastService.show(
+        "Error",
+        "The QR code is not valid.",
+        "error",
+        "bottom"
+      );
+      return;
     }
 
     const spaceShort = pathName.replace("/qr/", "");
 
     const loadId = loadingService.show("Loading...");
     publicAPI
-      .get(
-        `Space/SpaceByQR/${spaceShort}`
-      )
+      .get(`Space/SpaceByQR/${spaceShort}`)
       .then((response) => {
         if (response?.data?.spaceId) {
-          router.push(`/space/${response.data.spaceId}?from=byQR`);
+          authService.storeGuestAccessToken(response?.data?.guestAccessToken);
+          accountStore.getPermissions().then(() => {
+            router.push(`/space/${response.data.spaceId}?from=byQR`);
+          });
         }
       })
       .catch(() => {
-        toastService.show("Error", "The QR code is not valid.", "error", "bottom");
+        toastService.show(
+          "Error",
+          "The QR code is not valid.",
+          "error",
+          "bottom"
+        );
       })
       .finally(() => {
         closeScanner();
@@ -126,8 +136,8 @@ const searchByShortcode = () => {
   publicAPI
     .get(`Space/FindShortcode?request=${state.shortcode}`, {
       headers: {
-        'X-AV-ErrorHandler': 'shortcode'
-      }
+        "X-AV-ErrorHandler": "shortcode",
+      },
     })
     .then((response) => {
       if (response?.data?.spaceId) {

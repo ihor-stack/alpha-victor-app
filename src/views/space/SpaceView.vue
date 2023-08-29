@@ -247,6 +247,7 @@ onBeforeMount(() => {
           space: res.name,
         });
       }
+      checkSpaceAccess();
       state.isLoadingSpaceDetails = false; // Set to false once fetch is complete
     });
     spacesStore.getSpaceDevices(spaceId);
