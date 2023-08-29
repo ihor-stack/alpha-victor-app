@@ -19,7 +19,9 @@
       </div>
       <GetHelpList></GetHelpList>
     </ion-content>
-    <ion-footer v-if="!currentSpace.sosNumberPublic">
+    <ion-footer
+      v-if="!currentSpace.sosNumberPublic || userPermission.isVipUser"
+    >
       <div
         class="sos-container"
         ref="container"
@@ -39,27 +41,24 @@
 
 <script setup lang="ts">
 import { onBeforeMount, ref } from "vue";
-import {
-  IonPage,
-  IonContent,
-  IonFooter,
-  IonButton,
-} from "@ionic/vue";
+import { IonPage, IonContent, IonFooter, IonButton } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
+import { Capacitor, Plugins } from "@capacitor/core";
 import AppHeader from "@/components/shared/AppHeader.vue";
 import GetHelpList from "@/components/space/getHelp/GetHelpList.vue";
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { useRoute } from "vue-router";
-
-import { Capacitor, Plugins } from "@capacitor/core";
+import { Account as useAccountStore } from "@/stores/publicAccount";
 
 const route = useRoute();
 
 const spacesStore = useSpacesStore();
+const accountStore = useAccountStore();
 const spaceId: string = route.params.spaceId as string;
 
 const { currentSpace } = storeToRefs(spacesStore);
+const { userPermission } = storeToRefs(accountStore);
 
 const { Browser } = Plugins;
 

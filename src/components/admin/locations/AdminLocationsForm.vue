@@ -106,9 +106,9 @@
             }}</ion-label>
             <ion-toggle
               color="primary"
-              :checked="location.sosNumberPublic"
+              :checked="!location.sosNumberPublic"
               @ionChange="
-                location.sosNumberPublic = $event.detail.checked;
+                location.sosNumberPublic = !$event.detail.checked;
                 confirmToLeaveService.setEditing(true);
               "
             />

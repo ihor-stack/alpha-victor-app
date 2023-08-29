@@ -480,6 +480,7 @@ export interface UserPermission {
   isGuest: boolean;
   isOrganisationAdmin: boolean;
   organisationGroups: OrgPermission[];
+  isVipUser?: boolean;
 }
 export interface OrgPermission {
   organisationId: string;
