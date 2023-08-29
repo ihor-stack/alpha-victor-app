@@ -11,20 +11,17 @@
       </div>
     </ion-content>
     <ion-footer class="ion-no-border">
-      <p>{{ $t('pages.home.anonymousMessage') }}</p>
-      <ion-button expand="block" color="primary" @click="goToLogIn">{{ $t('pages.home.signinsignup')}}</ion-button>
+      <p>{{ $t("pages.home.anonymousMessage") }}</p>
+      <ion-button expand="block" color="primary" @click="goToLogIn">{{
+        $t("pages.home.signinsignup")
+      }}</ion-button>
     </ion-footer>
   </ion-page>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import {
-  IonPage,
-  IonContent,
-  IonButton,
-  IonMenuButton,
-} from "@ionic/vue";
+import { IonPage, IonContent, IonButton, IonMenuButton } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import AppHeader from "@/components/shared/AppHeader.vue";
@@ -50,22 +47,24 @@ const updateView = () => {
 
 const goToLogIn = () => {
   router.push({ name: "LogIn" });
-}
+};
 
 onMounted(async () => {
-
   const tokenFresh = await authService.isTokenFresh();
 
-  if(isAuthenticated.value && accountStore.userPermission.isGuest === false && tokenFresh) {
+  if (
+    isAuthenticated.value &&
+    accountStore.userPermission.isGuest === false &&
+    tokenFresh
+  ) {
     router.push({ name: "Dashboard" });
   }
-  
-})
+});
 
 onMounted(() => {
   window.addEventListener("resize", updateView);
   updateView(); // call once on mounted to set the initial state
-})
+});
 </script>
 
 <style scoped>

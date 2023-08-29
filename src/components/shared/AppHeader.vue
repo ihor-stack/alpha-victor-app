@@ -1,23 +1,30 @@
 <template>
-  <ion-header :class="['app-header ion-no-border', noBackground ? 'no-background' : '']">
+  <ion-header
+    :class="['app-header ion-no-border', noBackground ? 'no-background' : '']"
+  >
     <ion-toolbar>
       <ion-buttons slot="start" mode="md" class="app-header--left">
         <slot name="start"></slot>
       </ion-buttons>
 
       <ion-title>
-        <router-link to="/dashboard">
+        <router-link to="/">
           <img v-if="theme.logo" :src="theme?.logo" class="logo" />
           <img
             v-else
             src="@/theme/img/logo/logo-without-name.svg"
             class="logo"
-            :alt='$t("components.shared.shared.appHeader.alphaVictorAlt")'
+            :alt="$t('components.shared.shared.appHeader.alphaVictorAlt')"
           />
         </router-link>
       </ion-title>
 
-      <ion-buttons slot="end" mode="md" class="app-header--right" v-if="!isGuestUser">
+      <ion-buttons
+        slot="end"
+        mode="md"
+        class="app-header--right"
+        v-if="!isGuestUser"
+      >
         <slot name="end"></slot>
       </ion-buttons>
     </ion-toolbar>
@@ -64,7 +71,7 @@ const props = defineProps({
   },
 });
 </script>
- 
+
 <style scoped>
 ion-title {
   text-align: center;
@@ -96,11 +103,16 @@ ion-buttons {
 }
 
 .app-header {
-  background: rgb(0,0,0);
-  background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,0) 100%);
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
-.app-header--right, .app-header--left {
+.app-header--right,
+.app-header--left {
   min-width: 100px;
 }
 
