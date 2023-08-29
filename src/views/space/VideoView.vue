@@ -56,14 +56,14 @@
             </div>
           </ion-item>
         </ion-list>
-        <ion-list lines="none" class="autoplay-wrapper">
+        <!-- <ion-list lines="none" class="autoplay-wrapper">
           <ion-item class="autoplay-toggle">
             <ion-label text-wrap="true">{{
               $t("pages.space.video.label")
             }}</ion-label>
             <ion-toggle v-model="state.autoplay"></ion-toggle>
           </ion-item>
-        </ion-list>
+        </ion-list> -->
       </div>
     </ion-content>
   </ion-page>
@@ -78,10 +78,8 @@ import {
   IonButton,
   IonList,
   IonItem,
-  IonToggle,
   IonBadge,
   IonIcon,
-  IonLabel,
 } from "@ionic/vue";
 import { caretForward, pauseOutline } from "ionicons/icons";
 import Player from "@vimeo/player";
