@@ -22,7 +22,7 @@
           >
             <div class="space-equipment-menu__item__icon"></div>
             <ion-label text-wrap="true">
-              <h3 class="label font-bold font-size-sm">
+              <h3 class="label font-bold font-size-normal">
                 {{ item.name }}
               </h3>
               <p
@@ -128,7 +128,11 @@ onBeforeMount(() => {
 
 <style scoped>
 .space-equipment-container {
-  padding: 0px 10px 20px;
+  padding: 0px 5px 20px;
+}
+ion-item {
+  --padding-start: 0 !important;
+  --padding-end: 0 !important;
 }
 ion-item::part(detail-icon) {
   opacity: 1;

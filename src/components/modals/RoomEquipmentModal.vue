@@ -85,7 +85,7 @@
       <ion-footer>
         <div class="equipment-panel__footer button-pair">
           <ion-button
-            expand="block"
+            fill="outline"
             :href="`/space/${currentSpace?.id}/get-help/${currentSpace?.decisionTreeId}`"
             >{{
               $t("components.modals.roomEquipmentModal.userGuideButton")
@@ -93,9 +93,8 @@
           >
           <ion-button
             v-if="!isGuestUser"
-            fill="outline"
+            expand="block"
             @click="handleClickReportIssue"
-            class="report-issue-button"
             >{{
               $t("components.modals.roomEquipmentModal.reportIssueButton")
             }}</ion-button
@@ -347,9 +346,5 @@ ion-button {
   font-weight: 700;
   font-size: 11px;
   line-height: 11px;
-}
-
-.report-issue-button {
-  color: var(--ion-color-dark) !important;
 }
 </style>
