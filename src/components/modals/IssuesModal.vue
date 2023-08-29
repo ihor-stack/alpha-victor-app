@@ -191,9 +191,7 @@ const handleAddComment = () => {
 const handleChangeStatus = (status: number) => {
   const loadId = loadingService.show("Loading...");
   publicAPI
-    .post(`/Issue/ChangeIssueStatus/${props.issueId}`, {
-      status,
-    })
+    .post(`/Issue/ChangeIssueStatus/${props.issueId}?status=${status}`)
     .then(() => {
       getIssueDetails();
     })
