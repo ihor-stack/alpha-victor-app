@@ -116,8 +116,9 @@ const handleConfirm = () => {
 
 <style scoped>
 .modal-panel {
-  @media only screen and (max-width: 1063px) {
-    height: 40%;
+  height: 40%;
+  @media only screen and (min-width: 1064px) {
+    height: 70%;
   }
 }
 

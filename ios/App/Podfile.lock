@@ -106,7 +106,7 @@ SPEC CHECKSUMS:
   CapacitorSecureStoragePlugin: e616d090177dfbf9754dd1bdb515a8f23855bf4e
   CapacitorSplashScreen: 5fa2ab5e46cf5cc530cf16a51c80c7a986579ccd
   CapacitorStatusBar: 565c0a1ebd79bb40d797606a8992b4a105885309
-  CordovaPlugins: 736364b7351394f95ce30afeedcd2b0ed4b6366d
+  CordovaPlugins: 4d283ed074457e548ed1f121c06fcd80d3e533e2
   OAuthSwift: 75efbb5bd9a4b2b71a37bd7e986bf3f55ddd54c6
   Sentry: 927dfb29d18a14d924229a59cc2ad149f43349f2
   SentryCapacitor: dfb6be40c56dc29689eb3d587b8f134b15c26ef6
@@ -116,4 +116,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: e18efb5103611133e5a2b8d77098d04f3fc3f84e
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0
