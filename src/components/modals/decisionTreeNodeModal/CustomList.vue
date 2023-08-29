@@ -11,6 +11,7 @@
           {{ item.title || item.name }}
         </div>
         <ion-icon
+          v-if="isEditable"
           :icon="createOutline"
           size="small"
           class="color-light-gray"
@@ -49,6 +50,7 @@ const props = defineProps([
   "selectedItem",
   "handleSelectItem",
   "handleEditItem",
+  "isEditable",
 ]);
 
 const handleCllickEdit = (event, item) => {

@@ -31,6 +31,7 @@
         :selectedItem="state.selectedVideo"
         :handleSelectItem="(item) => (state.selectedVideo = item)"
         :handleEditItem="handleEditItem"
+        :isEditable="true"
       ></CustomList>
       <div class="divider">
         <div></div>
