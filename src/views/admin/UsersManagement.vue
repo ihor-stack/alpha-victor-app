@@ -84,10 +84,10 @@
           >
             <ion-select-option
               v-for="role in userGroupOptions"
-              :key="role.id"
-              :value="role.id"
+              :key="role.additionalInfo"
+              :value="role.additionalInfo"
             >
-              {{ role.name }}
+              {{ role.title }}
             </ion-select-option>
           </ion-select>
         </ion-col>
@@ -132,7 +132,7 @@
       :name="state.currentUser.name"
       :isOpen="state.openPermissionModal"
       :currentUserGroups="state.selectedOrg.groupIds"
-      :userGroups="userGroups"
+      :userGroupOptions="userGroupOptions"
       :organisation="state.selectedOrg.organisation"
       :handleDismiss="handleClosePermissionModal"
       :handleClickSave="handleSavePermission"
@@ -197,7 +197,15 @@ const isLastPage = computed(
   () =>
     Math.ceil(usersData.value.totalCount / state.pageCount) <= state.currentPage
 );
-const userGroupOptions = computed(() => userGroups.value);
+const userGroupOptions = computed(() =>
+  userGroups.value.map((userGroup: any, index: number) => {
+    return {
+      id: index,
+      title: userGroup.name,
+      additionalInfo: userGroup.id,
+    };
+  })
+);
 const isGlobalAdmin = computed(() => userPermission.value.isGlobalAdmin);
 const userGroupId = computed(
   () =>

@@ -49,7 +49,7 @@ const props = defineProps([
   "name",
   "organisation",
   "currentUserGroups",
-  "userGroups",
+  "userGroupOptions",
   "handleClickSave",
   "handleDismiss",
 ]);
@@ -58,19 +58,9 @@ const state = reactive({
   groupIds: props.currentUserGroups,
 });
 
-const userGroupOptions = computed(() => {
-  return props.userGroups.map((userGroup: any, index: number) => {
-    return {
-      id: index,
-      title: userGroup.name,
-      additionalInfo: userGroup.id,
-    };
-  });
-});
-
 const selectedUserGroup = computed({
   get() {
-    return userGroupOptions.value.filter((userGroup: any) =>
+    return props.userGroupOptions.filter((userGroup: any) =>
       state.groupIds.includes(userGroup.additionalInfo)
     );
   },
