@@ -15,7 +15,7 @@
             />
           </ion-button>
           <ion-title class="no-lp">
-            <div class="logo-wraper" @click="handleNavigate('/dashboard')">
+            <div class="logo-wraper" @click="handleNavigate('/')">
               <img v-if="theme.logo" :src="theme?.logo" class="logo" />
               <img
                 v-else
@@ -255,9 +255,7 @@ import OrganisationSelectModal from "@/components/modals/OrganisationSelectModal
 import Auth from "@/auth";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
-import {
-  Organisations as useOrganisationStore,
-} from "@/stores/publicOrganisations";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import confirmToLeaveService from "@/services/confirmToLeaveService";
 
 const router = useRouter();

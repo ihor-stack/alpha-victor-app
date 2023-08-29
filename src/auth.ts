@@ -20,14 +20,14 @@ export default class Auth {
     return Math.floor(Date.now());
   }
 
-  static getMsTimestamp(timestamp : number) {
-
-    if (Math.abs(Date.now() - timestamp) < Math.abs(Date.now() - timestamp * 1000)) {
-       return timestamp;
+  static getMsTimestamp(timestamp: number) {
+    if (
+      Math.abs(Date.now() - timestamp) < Math.abs(Date.now() - timestamp * 1000)
+    ) {
+      return timestamp;
     } else {
-       return timestamp * 1000;
+      return timestamp * 1000;
     }
-
   }
 
   static getOidcOptions(
@@ -49,7 +49,7 @@ export default class Auth {
       web: {
         redirectUrl: `${process.env.VUE_APP_BASE_URL}/auth`,
         windowOptions: "height=600,left=0,top=0",
-        windowTarget: "authWindow"
+        windowTarget: "authWindow",
       },
       android: {
         redirectUrl:
@@ -89,13 +89,13 @@ export default class Auth {
     if (accessToken) return;
 
     const issuedAtMs = Auth.getCurrentTimeInMs().toString();
-    const expiresAtMs = (Auth.getCurrentTimeInMs() + (3600*1000)).toString();
+    const expiresAtMs = (Auth.getCurrentTimeInMs() + 3600 * 1000).toString();
 
     localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, guestToken);
     localStorage.removeItem(SECURE_STORE_REFRESH_TOKEN);
     localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAtMs);
     localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAtMs);
-    localStorage.setItem(SECURE_STORE_AUTH_TYPE, 'Public');
+    localStorage.setItem(SECURE_STORE_AUTH_TYPE, "Public");
   }
 
   async isTokenFresh(secondsMargin: number = 60 * 2): Promise<boolean> {
@@ -111,7 +111,7 @@ export default class Auth {
       const expiresAtVal = Number.parseInt(expiresAt);
       const expiresAtValMs = Auth.getMsTimestamp(expiresAtVal);
       const now = Auth.getCurrentTimeInMs();
-      const expire = (expiresAtValMs - (secondsMargin * 1000));
+      const expire = expiresAtValMs - secondsMargin * 1000;
 
       return now < expire;
     }
@@ -141,7 +141,10 @@ export default class Auth {
       localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken);
       localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
       localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
-      localStorage.setItem(SECURE_STORE_AUTH_TYPE, emailLinkLogin ? 'EmailLinkLogin' : 'UsernamePassword');
+      localStorage.setItem(
+        SECURE_STORE_AUTH_TYPE,
+        emailLinkLogin ? "EmailLinkLogin" : "UsernamePassword"
+      );
 
       return true;
     } catch {
@@ -160,9 +163,12 @@ export default class Auth {
 
     try {
       const oidcRefreshOptions = Auth.getOidcRefreshOptions(refreshToken);
-      const oidcAuthOptions = Auth.getOidcOptions(authType === 'EmailLinkLogin', null);
+      const oidcAuthOptions = Auth.getOidcOptions(
+        authType === "EmailLinkLogin",
+        null
+      );
 
-      if (!isPlatform('ios') && !isPlatform('android')) {
+      if (!isPlatform("ios") && !isPlatform("android")) {
         // We need to do the refresh call ourselves.
 
         const endpoint = oidcAuthOptions.accessTokenEndpoint;
@@ -170,17 +176,17 @@ export default class Auth {
         if (!endpoint) return false;
 
         const rawResponse = await fetch(endpoint, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            'grant_type': 'refresh_token',
-            'client_id': oidcRefreshOptions.appId,
-            'refresh_token': oidcRefreshOptions.refreshToken,
-            'redirect_uri': oidcAuthOptions.redirectUrl ?? ""
-          })
+            grant_type: "refresh_token",
+            client_id: oidcRefreshOptions.appId,
+            refresh_token: oidcRefreshOptions.refreshToken,
+            redirect_uri: oidcAuthOptions.redirectUrl ?? "",
+          }),
         });
 
         const resp = await rawResponse.json();
@@ -191,13 +197,13 @@ export default class Auth {
         const issuedAt = Auth.getCurrentTimeInMs().toString();
 
         localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
-        localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken as string);
+        localStorage.setItem(
+          SECURE_STORE_REFRESH_TOKEN,
+          refreshToken as string
+        );
         localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
         localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
-
-      }
-      else {
-
+      } else {
         const resp = await OAuth2Client.refreshToken(oidcRefreshOptions);
 
         const accessToken = resp["access_token"];
@@ -210,7 +216,10 @@ export default class Auth {
         }
 
         localStorage.setItem(SECURE_STORE_ACCESS_TOKEN, accessToken);
-        localStorage.setItem(SECURE_STORE_REFRESH_TOKEN, refreshToken as string);
+        localStorage.setItem(
+          SECURE_STORE_REFRESH_TOKEN,
+          refreshToken as string
+        );
         localStorage.setItem(SECURE_STORE_EXPIRES_AT, expiresAt);
         localStorage.setItem(SECURE_STORE_ISSUED_AT, issuedAt);
       }
@@ -227,7 +236,6 @@ export default class Auth {
 
     // If it is not valid, refresh first. If we're not logged in at all, this will fall through to a false.
     if (!isTokenValid) {
-
       console.log("Refreshing");
 
       const couldRefresh = await this.refresh();

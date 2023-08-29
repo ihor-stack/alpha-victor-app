@@ -226,12 +226,18 @@ onBeforeMount(async () => {
   updateThemeFromStorage();
 
   const currentOrgId = localStorage.getItem("currentOrganisationId");
+  const SECURE_STORE_AUTH_TYPE = localStorage.getItem("SECURE_STORE_AUTH_TYPE");
+
   let hasFreshLogin = await authService.isTokenFresh();
   if (!hasFreshLogin) {
     hasFreshLogin = await authService.refresh();
   }
 
-  if (hasFreshLogin) {
+  if (
+    hasFreshLogin &&
+    (SECURE_STORE_AUTH_TYPE === "EmailLinkLogin" ||
+      SECURE_STORE_AUTH_TYPE === "UsernamePassword")
+  ) {
     if (currentOrgId) organisationStore.getOrgTheme(currentOrgId);
     await accountStore.getPermissions();
     await organisationStore.getOrganisations();
