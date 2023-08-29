@@ -5,7 +5,7 @@
         <ion-header class="ion-no-border">
           <ion-item class="modal-panel__header" lines="none">
             <ion-label text-wrap="true">
-              <h2 class="font-size-md font-bold">
+              <h2 class="font-size-lg font-bold">
                 {{ $t("components.modals.ReportIssueModal.reportIssueHeader") }}
               </h2>
               <p class="font-size-xs">
@@ -50,7 +50,6 @@
                 $t("components.modals.ReportIssueModal.addTitleLabel")
               }}</ion-label>
               <ion-input
-                class="font-size-xs"
                 :placeholder="
                   $t('components.modals.ReportIssueModal.issueTitlePlaceholder')
                 "
@@ -60,7 +59,7 @@
           </ion-row>
           <ion-row class="form-admin--group">
             <ion-col size-xs="12" class="form-admin--group_field">
-              <ion-label text-wrap="true" class="font-size-xs font-bold">
+              <ion-label text-wrap="true" class="font-bold">
                 {{ $t("components.modals.ReportIssueModal.addCommentLabel") }}
               </ion-label>
               <ion-textarea
@@ -166,6 +165,11 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+
+ion-label h2, ion-label p {
+ margin-top: 20px;
+}
+
 ion-item::part(native) {
   padding-left: 0px;
 }
@@ -199,7 +203,6 @@ ion-item::part(native) {
   padding: 12px;
   min-height: 100px;
   color: var(--av-light-gray);
-  font-size: 12px;
   line-height: 16px;
 }
 
@@ -211,7 +214,6 @@ ion-item::part(native) {
   width: 100%;
   padding: 12px;
   color: var(--av-light-gray);
-  font-size: 12px;
   line-height: 16px;
 }
 
@@ -272,9 +274,5 @@ ion-item::part(native) {
 .form-admin--group_field {
   padding-right: 0;
   margin-bottom: 10px;
-}
-
-ion-textarea {
-  font-size: 14px;
 }
 </style>

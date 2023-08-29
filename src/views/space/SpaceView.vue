@@ -133,7 +133,6 @@
 
         <div class="ctas">
           <ion-button
-            color="dark"
             expand="block"
             @click="state.reportIssueModalOpen = true"
             v-if="!isGuestUser"
@@ -144,6 +143,7 @@
           <ion-button
             v-if="currentSpace.typeformId"
             expand="block"
+            color="dark"
             @click="goToFeedback"
           >
             {{ $t("pages.space.space.giveFeedback") }}
@@ -398,6 +398,10 @@ onBeforeMount(() => {
   padding: 15px;
 }
 
+ion-footer {
+  padding: 8px 15px;
+}
+
 .announcement {
   background: var(--av-red);
   border-radius: 4px;
@@ -430,7 +434,6 @@ onBeforeMount(() => {
 
 .ctas ion-button {
   flex: 1;
-  font-size: 15px;
 }
 
 .ctas ion-button:not(:last-of-type) {
