@@ -208,14 +208,7 @@ const getIssueDetails = () => {
   publicAPI
     .get(`/Issue/${props.spaceId}/Issue/${props.issueId}`)
     .then((res) => {
-      state.issue = {
-        ...res.data,
-        actionHistory: res.data.actionHistory.sort((a: any, b: any) => {
-          if (a.updated > b.updated) return -1;
-          if (a.updated < b.updated) return 1;
-          return 0;
-        }),
-      };
+      state.issue = res.data;
     })
     .catch((error) => {
       toastService.show("Error", error, "error", "bottom");
