@@ -42,6 +42,20 @@
             </ion-item>
           </ion-menu-toggle>
         </li>
+        <li class="nav-menu-link" v-if="isGuestUser">
+          <ion-menu-toggle>
+            <ion-item
+              router-link="/"
+              lines="none"
+              router-direction="root"
+              :detail="true"
+            >
+              <span class="link-text">{{
+                $t("components.shared.appMenu.dashboard")
+              }}</span>
+            </ion-item>
+          </ion-menu-toggle>
+        </li>
         <li class="nav-menu-link" v-if="!isAuthenticated">
           <ion-menu-toggle>
             <ion-item

@@ -53,6 +53,12 @@ onBeforeMount(async () => {
   flex: 0 0 72%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-container ion-spinner {
+  margin: auto;
 }
 
 /* Desktop styling */

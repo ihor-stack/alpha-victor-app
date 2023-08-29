@@ -1,11 +1,13 @@
 <template>
   <ion-page id="dashboard" class="outer-container">
-    <app-header :no-background="true"> 
+    <app-header :no-background="true">
       <template #start>
+        <ion-menu-button fill="solid"> </ion-menu-button>
+      </template>
+      <template v-if="!isGuestUser" #end>
         <ion-button
           class="switch-organisation"
           shape="round"
-          v-if="!isGuestUser"
           @click="state.modalOpen = true"
         >
           <img
@@ -14,10 +16,8 @@
           />
         </ion-button>
       </template>
-      <template #end>
-        <ion-menu-button fill="solid"> </ion-menu-button>
-      </template>
     </app-header>
+    
     <ion-content :scroll-y="false">
       <div class="dashboard-search-container">
         <dashboard-search />
@@ -36,10 +36,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import {
   IonPage,
   IonContent,
+  IonButton,
+  IonMenuButton,
   IonItem,
   IonLabel,
 } from "@ionic/vue";
@@ -49,9 +51,30 @@ import { Account as useAccountStore } from "@/stores/publicAccount";
 
 const accountStore = useAccountStore();
 const isGuestUser = computed(() => accountStore.userPermission.isGuest);
+
+const isMobileView = ref(false);
+
+const updateView = () => {
+  isMobileView.value = window.matchMedia("(max-width: 1063px)").matches;
+};
 </script>
 
 <style scoped>
+
+.outer-container {
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-search-container {
+  padding: 20px 20px 32px;
+  background: 0;
+}
+
+@media only screen and (min-width: 1023px) {
+  .dashboard-search-container {
+    padding: 40px 20px 32px;
+  }
+}
 ion-content {
   --background: none;
   display: flex;
