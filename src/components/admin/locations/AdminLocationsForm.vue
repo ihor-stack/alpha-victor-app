@@ -1,8 +1,27 @@
 <template>
   <div>
-    <h1 class="title-admin font-bold font-size-lg color-light-gray">
-      {{ location.name }}
-    </h1>
+    <ion-row>
+      <ion-col size-xs="12" size-sm="6">
+        <h1 class="title-admin font-bold font-size-lg color-light-gray">
+          {{ location.name }}
+        </h1>
+      </ion-col>
+      <ion-col size-xs="12" size-sm="6">
+        <ion-button
+            class="button-small button-outline"
+            fill="outline"
+            color="--av-light-gray"
+            @click="exportQrCodes()"
+          >
+            {{
+              $t(
+                "components.admin.locations.adminLocationsForm.exportQRCodesButton"
+              )
+            }}
+          </ion-button>
+      </ion-col>
+    </ion-row>
+    
     <ion-grid class="form-admin">
       <ion-row class="form-admin--group_field">
         <ion-col size-xs="12" size-sm="6" class="form-admin--group_field">
@@ -213,18 +232,6 @@
             {{
               $t(
                 "components.admin.locations.adminLocationsForm.saveChangesButton"
-              )
-            }}
-          </ion-button>
-          <ion-button
-            class="button-wide button-outline"
-            fill="outline"
-            color="--av-light-gray"
-            @click="exportQrCodes()"
-          >
-            {{
-              $t(
-                "components.admin.locations.adminLocationsForm.exportQRCodesButton"
               )
             }}
           </ion-button>
@@ -456,5 +463,15 @@ ion-content {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.button-small {
+  float: right;
+}
+
+@media only screen and (max-width: 1023px) {
+.button-small {
+  display: none;
+}
 }
 </style>

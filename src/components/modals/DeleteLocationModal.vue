@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="button-margin">
     <ion-button
       class="button-wide button-red button-outline"
       color="red"
@@ -96,6 +96,10 @@ const confirmDeleteLocation = async () => {
 </script>
 
 <style scoped>
+
+.button-margin {
+  margin: 5px;
+}
 .close-button {
   width: 20px;
   margin-left: 95%;

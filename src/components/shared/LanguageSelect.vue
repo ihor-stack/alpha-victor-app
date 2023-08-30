@@ -31,23 +31,7 @@ const languagesList = [
   {
     value: 1,
     label: "pages.accountSettings.language.welsh",
-  },
-  {
-    value: 2,
-    label: "pages.accountSettings.language.french",
-  },
-  {
-    value: 3,
-    label: "pages.accountSettings.language.spanish",
-  },
-  {
-    value: 4,
-    label: "pages.accountSettings.language.german",
-  },
-  {
-    value: 5,
-    label: "pages.accountSettings.language.polish",
-  },
+  }
 ];
 
 const organisationStore = useOrganisationStore();
