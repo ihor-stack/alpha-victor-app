@@ -31,7 +31,7 @@ const organisationStore = useOrganisationStore();
 const accountStore = useAccountStore();
 const authService = new Auth();
 
-onBeforeMount(async () => {
+onBeforeMount(() => {
 
   const loginToken = route.query.token;
 
@@ -44,28 +44,32 @@ onBeforeMount(async () => {
 
   const winHandle = window.open("", "authWindow");
 
-  const authRes = await authService.authenticate(true, strLoginToken);
+  const loginAct = new Promise(async (resolve, reject) => {
 
-  if (authRes) {
-    authStore.setAuthStatus(true);
-    const accountRes = await accountStore.getAccount();
-    
-    if (accountRes?.email) {
-      mixpanel.track("User Authenicated", { email: accountRes.email });
+    const authRes = await authService.authenticate(true, strLoginToken);
+
+    if (authRes) {
+      authStore.setAuthStatus(true);
+      const accountRes = await accountStore.getAccount();
+      
+      if (accountRes?.email) {
+        mixpanel.track("User Authenicated", { email: accountRes.email });
+      }
+
+      await accountStore.getPermissions();
+      const orgsRes = await organisationStore.getOrganisations();
+      if (orgsRes && orgsRes.length > 0) {
+        await organisationStore.getOrgTheme(orgsRes[0].organisationId);
+      }      
+      
+      return router.replace({ name: "Dashboard" });
+
+    } else {
+      authStore.setAuthStatus(false);
+      return router.replace({ name: "Home" });
     }
 
-    await accountStore.getPermissions();
-    const orgsRes = await organisationStore.getOrganisations();
-    if (orgsRes && orgsRes.length > 0) {
-      await organisationStore.getOrgTheme(orgsRes[0].organisationId);
-    }      
-    
-    return router.replace({ name: "Dashboard" });
-
-  } else {
-    authStore.setAuthStatus(false);
-    return router.replace({ name: "Home" });
-  }
+  });
 
 })
 
