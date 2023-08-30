@@ -8,7 +8,7 @@
         <ion-button
           class="switch-organisation"
           shape="round"
-          v-if="!isGuestUser"
+          v-if="!isGuestUser && organisationList.length > 1"
           @click="state.modalOpen = true"
         >
           <img
@@ -108,7 +108,8 @@ import { Account as useAccountStore } from "@/stores/publicAccount";
 const accountStore = useAccountStore();
 const spacesStore = useSpacesStore();
 const organisationStore = useOrganisationStore();
-const { currentOrganisationId } = storeToRefs(organisationStore);
+const { currentOrganisationId, organisationList } =
+  storeToRefs(organisationStore);
 
 const isGuestUser = computed(() => accountStore.userPermission.isGuest);
 

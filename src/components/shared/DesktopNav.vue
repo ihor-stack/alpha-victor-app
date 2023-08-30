@@ -5,7 +5,11 @@
         <div class="header-spacing">
           <ion-button
             class="switch-organisation"
-            v-if="isAuthenticated && !userPermission.isGuest"
+            v-if="
+              isAuthenticated &&
+              !userPermission.isGuest &&
+              organisationList.length > 1
+            "
             shape="round"
             @click="state.modalOpen = true"
           >
@@ -265,7 +269,7 @@ const authStore = useAuthStore();
 const { userPermission } = storeToRefs(accountStore);
 const { isAuthenticated } = storeToRefs(authStore);
 const organisationStore = useOrganisationStore();
-const { theme } = storeToRefs(organisationStore);
+const { theme, organisationList } = storeToRefs(organisationStore);
 
 interface State {
   modalOpen: boolean;
