@@ -82,11 +82,11 @@ export default class Auth {
 
   // Methods
 
-  storeGuestAccessToken(guestToken: string) {
+  storeGuestAccessToken(guestToken: string, isAuthenticated: boolean) {
     const accessToken = localStorage.getItem(SECURE_STORE_ACCESS_TOKEN);
 
     // Don't overwrite an actual access token.
-    if (accessToken) return;
+    if (accessToken && isAuthenticated) return;
 
     const issuedAtMs = Auth.getCurrentTimeInMs().toString();
     const expiresAtMs = (Auth.getCurrentTimeInMs() + 3600 * 1000).toString();

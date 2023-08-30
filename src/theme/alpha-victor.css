@@ -929,7 +929,7 @@ body.dark ion-menu-button {
 }
 
 body.scanner-active {
-  background: none;
+  background: transparent;
   background-color: transparent;
   --background: transparent;
   --ion-background-color: transparent;

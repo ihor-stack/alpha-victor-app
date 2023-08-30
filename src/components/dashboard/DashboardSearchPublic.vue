@@ -29,8 +29,10 @@ import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import mixpanel from "mixpanel-browser";
 import Auth from "@/auth";
+import { auth as useAuthStore } from "@/stores/authStore";
 
 const authService = new Auth();
+const authStore = useAuthStore();
 
 const router = useRouter();
 
@@ -43,19 +45,14 @@ const accountStore = useAccountStore();
 const isScanning = inject("isScanning") as ReturnType<typeof ref>;
 const searchByQrCode = async () => {
   const body = document.querySelector("body");
-
   await BarcodeScanner.checkPermission({ force: true });
   BarcodeScanner.hideBackground();
-
   if (body) {
     body.classList.add("scanner-active");
   }
-
   isScanning.value = true;
-
   const startScanning = async () => {
     const scanPromise = BarcodeScanner.startScan();
-
     const timeoutPromise = new Promise(() => {
       setTimeout(() => {
         closeScanner();
@@ -66,7 +63,6 @@ const searchByQrCode = async () => {
 
   const result = await startScanning();
 
-  // if the result has content
   // if the result has content
   if (result.hasContent) {
     // Remove our base URL and prefix from content.
@@ -85,18 +81,19 @@ const searchByQrCode = async () => {
       );
       return;
     }
-
     const spaceShort = pathName.replace("/qr/", "");
-
     const loadId = loadingService.show("Loading...");
+    closeScanner();
     globalAPI
       .get(`Space/SpaceByQR/${spaceShort}`)
       .then((response) => {
         if (response?.data?.spaceId) {
-          authService.storeGuestAccessToken(response?.data?.guestAccessToken);
+          authService.storeGuestAccessToken(
+            response?.data?.guestAccessToken,
+            authStore.isAuthenticated
+          );
           accountStore.getPermissions().then(() => {
             router.push(`/space/${response.data.spaceId}?from=byQR`);
-            closeScanner();
           });
         }
       })
@@ -139,7 +136,10 @@ const searchByShortcode = () => {
     })
     .then((response) => {
       if (response?.data?.spaceId) {
-        authService.storeGuestAccessToken(response?.data?.guestAccessToken);
+        authService.storeGuestAccessToken(
+          response?.data?.guestAccessToken,
+          authStore.isAuthenticated
+        );
         accountStore.getPermissions().then(() => {
           router.push(`/space/${response.data.spaceId}`);
         });
