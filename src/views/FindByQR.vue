@@ -48,7 +48,7 @@ onBeforeMount(async () => {
           authStore.isAuthenticated
         );
         accountStore.getPermissions().then(() => {
-          // router.push(`/space/${response.data.spaceId}`);
+          router.push(`/space/${response.data.spaceId}`);
         });
       }
     })
