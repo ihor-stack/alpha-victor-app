@@ -22,7 +22,7 @@
 import { reactive, inject, ref } from "vue";
 import { IonButton } from "@ionic/vue";
 import { useRouter } from "vue-router";
-import { publicAPI } from "@/axios";
+import { globalAPI } from "@/axios";
 import toastService from "@/services/toastService";
 import loadingService from "@/services/loadingService";
 import { BarcodeScanner } from "@capacitor-community/barcode-scanner";
@@ -89,7 +89,7 @@ const searchByQrCode = async () => {
     const spaceShort = pathName.replace("/qr/", "");
 
     const loadId = loadingService.show("Loading...");
-    publicAPI
+    globalAPI
       .get(`Space/SpaceByQR/${spaceShort}`)
       .then((response) => {
         if (response?.data?.spaceId) {
@@ -131,7 +131,7 @@ const searchByShortcode = () => {
     shortcode: state.shortcode,
   });
   const loadId = loadingService.show("Loading...");
-  publicAPI
+  globalAPI
     .get(`Space/FindShortcode?request=${state.shortcode}`, {
       headers: {
         "X-AV-ErrorHandler": "shortcode",

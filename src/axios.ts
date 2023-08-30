@@ -16,6 +16,10 @@ const publicAPI = axios.create({
   baseURL: process.env.VUE_APP_API_PUBLIC_URL,
 });
 
+const globalAPI = axios.create({
+  baseURL: process.env.VUE_APP_API_PUBLIC_URL,
+});
+
 const authService = new Auth();
 
 adminAPI.interceptors.request.use(async (c) => {
@@ -58,15 +62,23 @@ publicAPI.interceptors.response.use(
   }
 );
 
+globalAPI.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    await handleError(error);
+    return Promise.reject(error);
+  }
+);
 const handleError = async (error: any) => {
-
   const authStore = useAuthStore();
   const accountStore = useAccountStore();
   const orgStore = useOrganisationStore();
 
   const status = error.response?.status;
   let message = error;
-  if (error.config.headers['X-AV-ErrorHandler'] === 'shortcode') {
+  if (error.config.headers["X-AV-ErrorHandler"] === "shortcode") {
     toastService.show(
       "No Spaces Found",
       "We couldn't find any spaces by that shortcode",
@@ -114,4 +126,4 @@ const handleError = async (error: any) => {
   loadingService.closeAll();
 };
 
-export { adminAPI, publicAPI };
+export { adminAPI, publicAPI, globalAPI };
