@@ -5,8 +5,8 @@
         <div class="gradient-container">
           <div class="inner-container">
             <div class="content-container">
-              <iframe name="authWindow"></iframe>
               <ion-spinner></ion-spinner>
+              <iframe name="authWindow"></iframe>
             </div>
           </div>
         </div>
@@ -91,5 +91,9 @@ onMounted(async () => {
     width: 500px;
     margin: auto;
   }
+}
+
+iframe {
+  visibility: hidden;
 }
 </style>
