@@ -15,7 +15,7 @@
           </ion-item>
         </ion-header>
         <ion-content>
-          <ion-row class="form-admin--group" v-if="!isGuestUser">
+          <ion-row class="form-admin--group" v-if="!isGuestUser && state.issue.status != 2">
             <ion-col size-xs="12" class="form-admin--group_field">
               <ion-label text-wrap="true" class="font-size-xs font-bold">
                 {{ $t("components.modals.issuesModal.addCommentLabel") }}
@@ -42,7 +42,7 @@
 
           <div
             class="modal-panel__section modal-panel__set-status"
-            v-if="isAdmin"
+            v-if="isAdmin && state.issue.status != 2"
           >
             <h2 class="font-size-xs font-bold modal-panel__heading">
               {{ $t("components.modals.issuesModal.selectStatusHeader") }}
@@ -93,7 +93,7 @@
                 />
                 <label for="resolved" class="modal-panel__status__radio__label">
                   <span class="dot dot--resolved"></span>
-                  {{ $t("components.modals.issuesModal.statusHeader") }}
+                  {{ $t("components.modals.issuesModal.resolveLabel") }}
                 </label>
               </div>
             </div>
@@ -296,14 +296,14 @@ ion-item::part(native) {
   align-items: center;
   width: 100px;
   height: 26px;
-  border: 0.75px solid #313131;
+  border: 0.75px solid var(--av-dark-gray);
   border-radius: 100px;
   padding: 4px;
   font-family: "Akkurat-Mono";
   font-size: 10px;
   line-height: 10px;
   letter-spacing: 0.015em;
-  color: #313131;
+  color: var(--av-dark-gray);
 }
 
 .modal-panel__status__radio label .dot {
