@@ -130,7 +130,7 @@ export const MetaData = defineStore("MetaData", {
           `/Organisation/${organisationId}/SpaceFeature/${edit.spaceFeatureId}`,
           {
             name: edit.name,
-            icon: "string",
+            icon: null,
           }
         )
         .then(() => {
