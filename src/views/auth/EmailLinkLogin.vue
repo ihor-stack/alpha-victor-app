@@ -5,6 +5,7 @@
         <div class="gradient-container">
           <div class="inner-container">
             <div class="content-container">
+              <iframe name="authWindow"></iframe>
               <ion-spinner></ion-spinner>
             </div>
           </div>
@@ -21,7 +22,7 @@ import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import { Account as useAccountStore } from "@/stores/publicAccount";
-import { onBeforeMount } from "vue";
+import { onMounted } from "vue";
 import mixpanel from "mixpanel-browser";
 
 const router = useRouter();
@@ -56,7 +57,7 @@ const doLogin = async (strLoginToken : string) => {
   }
 }
 
-onBeforeMount(() => {
+onMounted(async () => {
 
   const loginToken = route.query.token;
 
@@ -67,9 +68,11 @@ onBeforeMount(() => {
 
   const strLoginToken = loginToken as string;
 
-  const winHandle = window.open("", "authWindow");
+  // setTimeout(() => {
+  //   const winHandle = window.open("", "authWindow");
+  // });
 
-  doLogin(strLoginToken);
+  await doLogin(strLoginToken);
 
 })
 
