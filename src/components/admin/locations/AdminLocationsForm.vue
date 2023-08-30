@@ -8,7 +8,7 @@
       </ion-col>
       <ion-col size-xs="12" size-sm="6">
         <ion-button
-            class="button-small button-outline"
+            class="button-sm button-outline"
             fill="outline"
             color="--av-light-gray"
             @click="exportQrCodes()"
@@ -465,12 +465,12 @@ ion-content {
   gap: 8px;
 }
 
-.button-small {
+.button-sm {
   float: right;
 }
 
 @media only screen and (max-width: 1023px) {
-.button-small {
+.button-sm {
   display: none;
 }
 }

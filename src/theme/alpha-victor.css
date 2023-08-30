@@ -415,7 +415,7 @@ ion-button.button-wide {
   min-width: 250px;
 }
 
-ion-button.button-small {
+ion-button.button-sm {
   height: 20px;
   line-height: 20px;
 }
