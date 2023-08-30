@@ -59,7 +59,7 @@ const searchByQrCode = async () => {
     const timeoutPromise = new Promise(() => {
       setTimeout(() => {
         closeScanner();
-      }, 20000); // 10 seconds
+      }, 20000); // 20 seconds
     });
     return Promise.race([scanPromise, timeoutPromise]);
   };
@@ -96,6 +96,7 @@ const searchByQrCode = async () => {
           authService.storeGuestAccessToken(response?.data?.guestAccessToken);
           accountStore.getPermissions().then(() => {
             router.push(`/space/${response.data.spaceId}?from=byQR`);
+            closeScanner();
           });
         }
       })
@@ -106,9 +107,6 @@ const searchByQrCode = async () => {
           "error",
           "bottom"
         );
-      })
-      .finally(() => {
-        closeScanner();
         loadingService.close(loadId);
       });
   }
@@ -155,10 +153,8 @@ const searchByShortcode = () => {
           "error",
           "bottom"
         );
+        loadingService.close(loadId);
       }
-    })
-    .finally(() => {
-      loadingService.close(loadId);
     });
 };
 </script>

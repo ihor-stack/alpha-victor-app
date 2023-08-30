@@ -185,6 +185,7 @@ import SpaceOptionsMenu from "@/components/space/SpaceOptionsMenu.vue";
 import ReportIssueModal from "@/components/modals/ReportIssueModal.vue";
 import { storeToRefs } from "pinia";
 import mixpanel from "mixpanel-browser";
+import loadingService from "@/services/loadingService";
 
 import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
 import { Account as useAccountStore } from "@/stores/publicAccount";
@@ -238,7 +239,7 @@ onBeforeMount(() => {
 
   state.isLoadingSpaceDetails = true; // Set to loading when starting fetch
   if (spacesStore.currentSpace?.id !== spaceId) {
-    spacesStore.getSpaceDetails(spaceId).then((res) => {
+    spacesStore.getSpaceDetails(spaceId, from !== "byQR").then((res) => {
       if (res?.name) {
         mixpanel.track(trackKey, {
           organisaLon: res.organisationName,
@@ -249,9 +250,10 @@ onBeforeMount(() => {
       }
       checkSpaceAccess();
       state.isLoadingSpaceDetails = false; // Set to false once fetch is complete
+      loadingService.closeAll();
     });
-    spacesStore.getSpaceDevices(spaceId);
-    spacesStore.getSpaceDocuments(spaceId);
+    spacesStore.getSpaceDevices(spaceId, false);
+    spacesStore.getSpaceDocuments(spaceId, false);
   } else {
     checkSpaceAccess();
     state.isLoadingSpaceDetails = false; // Set to false if no fetch needed
@@ -262,6 +264,7 @@ onBeforeMount(() => {
       ﬂoor: spacesStore.currentSpace.floorName,
       space: spacesStore.currentSpace.name,
     });
+    loadingService.closeAll();
   }
 
   if (!isGuestUser.value) {

@@ -29,8 +29,9 @@ export const Spaces = defineStore("PublicSpaces", {
       this.currentId = newId;
       return true;
     },
-    async getSpaceDetails(id: string) {
-      const loadId = loadingService.show("Loading...");
+    async getSpaceDetails(id: string, showLoading = true) {
+      let loadId: string;
+      if (showLoading) loadId = loadingService.show("Loading...");
       return publicAPI
         .get<DetailedSpace>(`/Space/${id || this.currentId}/Details`)
         .then((response) => {
@@ -43,7 +44,7 @@ export const Spaces = defineStore("PublicSpaces", {
           toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
-          loadingService.close(loadId);
+          if (loadId) loadingService.close(loadId);
         });
     },
 
@@ -127,8 +128,9 @@ export const Spaces = defineStore("PublicSpaces", {
         });
     },
 
-    async getSpaceDevices(spaceId: string) {
-      const loadId = loadingService.show("Loading...");
+    async getSpaceDevices(spaceId: string, showLoading = true) {
+      let loadId: string;
+      if (showLoading) loadId = loadingService.show("Loading...");
       publicAPI
         .get<Device[]>(`/Space/${spaceId || this.currentId}/Devices`)
         .then((response) => {
@@ -138,7 +140,7 @@ export const Spaces = defineStore("PublicSpaces", {
           toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
-          loadingService.close(loadId);
+          if (loadId) loadingService.close(loadId);
         });
     },
 
@@ -189,8 +191,9 @@ export const Spaces = defineStore("PublicSpaces", {
         });
     },
 
-    async getSpaceDocuments(spaceId: string) {
-      const loadId = loadingService.show("Loading...");
+    async getSpaceDocuments(spaceId: string, showLoading = true) {
+      let loadId: string;
+      if (showLoading) loadId = loadingService.show("Loading...");
       publicAPI
         .get(`/Space/${spaceId}/Documents`)
         .then((response) => {
@@ -200,7 +203,7 @@ export const Spaces = defineStore("PublicSpaces", {
           toastService.show("Error", error, "error", "bottom");
         })
         .finally(() => {
-          loadingService.close(loadId);
+          if (loadId) loadingService.close(loadId);
         });
     },
   },
