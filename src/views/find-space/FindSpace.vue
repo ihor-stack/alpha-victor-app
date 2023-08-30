@@ -134,6 +134,7 @@ ion-content {
   color: #000;
   background: #fff;
   border-radius: 8px;
+  border: 1px solid;
 }
 
 .space-search-input::placeholder {

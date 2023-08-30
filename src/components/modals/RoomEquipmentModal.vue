@@ -265,6 +265,10 @@ ion-button {
   width: 100%;
 }
 
+ion-button.button-outline {
+  color: var(--ion-color-dark) !important;
+}
+
 .equipment-panel__info-section {
   margin-bottom: 30px;
 }

@@ -67,7 +67,7 @@ const props = defineProps({
   noBackground: {
     type: Boolean,
     required: false,
-    default: false,
+    default: true,
   },
 });
 </script>
@@ -96,14 +96,21 @@ ion-buttons {
 }
 
 .no-background {
-  background: none;
+  background: none !important;
 }
 .logo {
   max-height: 50px;
 }
 
 .app-header {
-  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.app-header.has-gradient {
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.5) 0%,

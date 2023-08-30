@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <app-header :no-background="true">
+    <app-header :no-background="false">
       <template #start>
         <ion-button
           fill="clear"
