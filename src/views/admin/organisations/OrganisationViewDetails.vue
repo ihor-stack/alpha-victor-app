@@ -270,11 +270,7 @@ const { organisationDetails } = storeToRefs(organisation);
 const organisationId = route.params.id as string;
 const languageOptions = [
   { id: 0, title: t("pages.accountSettings.language.english") },
-  { id: 1, title: t("pages.accountSettings.language.welsh") },
-  { id: 2, title: t("pages.accountSettings.language.french") },
-  { id: 3, title: t("pages.accountSettings.language.spanish") },
-  { id: 4, title: t("pages.accountSettings.language.german") },
-  { id: 5, title: t("pages.accountSettings.language.polish") },
+  { id: 1, title: t("pages.accountSettings.language.welsh") }
 ];
 const newDomain = ref("");
 

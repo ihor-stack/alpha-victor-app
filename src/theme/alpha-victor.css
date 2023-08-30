@@ -415,6 +415,11 @@ ion-button.button-wide {
   min-width: 250px;
 }
 
+ion-button.button-small {
+  height: 20px;
+  line-height: 20px;
+}
+
 ion-button.button-outline {
   color: var(--av-light-gray) !important;
 }
