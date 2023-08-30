@@ -6,6 +6,7 @@
           <div class="inner-container">
             <div class="content-container">
               <ion-spinner></ion-spinner>
+              <iframe name="authWindow"></iframe>
             </div>
           </div>
         </div>
@@ -16,7 +17,7 @@
 
 <script setup lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
-import { onBeforeMount } from "vue";
+import { onMounted } from "vue";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { useRoute, useRouter } from 'vue-router';
 import Auth from '@/auth';
@@ -32,7 +33,7 @@ const authStore = useAuthStore();
 const accountStore = useAccountStore();
 const organisationStore = useOrganisationStore();
 
-onBeforeMount(async () => {
+onMounted(async () => {
 
   const token = route.query.token;
 
@@ -43,7 +44,7 @@ onBeforeMount(async () => {
 
   const strVerificationToken = token as string;  
 
-  confirmVerificationToken(strVerificationToken);
+  await confirmVerificationToken(strVerificationToken);
 
 });
 
@@ -144,4 +145,9 @@ ion-button:first-of-type {
     margin: auto;
   }
 }
+
+iframe {
+  visibility: hidden;
+}
+
 </style>

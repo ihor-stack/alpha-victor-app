@@ -68,10 +68,6 @@ onMounted(async () => {
 
   const strLoginToken = loginToken as string;
 
-  // setTimeout(() => {
-  //   const winHandle = window.open("", "authWindow");
-  // });
-
   await doLogin(strLoginToken);
 
 })
