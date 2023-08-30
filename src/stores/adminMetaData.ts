@@ -64,6 +64,7 @@ export const MetaData = defineStore("MetaData", {
     },
 
     async editSpaceType(organisationId: string, edit: spaceType) {
+      const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(
           `/Organisation/${organisationId}/SpaceType/${edit.spaceTypeId}`,
@@ -73,11 +74,19 @@ export const MetaData = defineStore("MetaData", {
           }
         )
         .then(() => {
-          this.metaData = {} as AdminMetaData;
-          this.getMetaData(organisationId);
+          this.metaData = {
+            ...this.metaData,
+            spaceTypes: this.metaData.spaceTypes.map((type) => ({
+              ...type,
+              ...edit,
+            })),
+          };
         })
         .catch((error) => {
           toastService.show("Error", error.response.data, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
 
@@ -115,6 +124,7 @@ export const MetaData = defineStore("MetaData", {
     },
 
     async editSpaceFeature(organisationId: string, edit: spaceFeature) {
+      const loadId = loadingService.show("Loading...");
       return adminAPI
         .patch(
           `/Organisation/${organisationId}/SpaceFeature/${edit.spaceFeatureId}`,
@@ -124,11 +134,19 @@ export const MetaData = defineStore("MetaData", {
           }
         )
         .then(() => {
-          this.metaData = {} as AdminMetaData;
-          this.getMetaData(organisationId);
+          this.metaData = {
+            ...this.metaData,
+            spaceFeatures: this.metaData.spaceFeatures.map((feature) => ({
+              ...feature,
+              ...edit,
+            })),
+          };
         })
         .catch((error) => {
           toastService.show("Error", error.response.data, "error", "bottom");
+        })
+        .finally(() => {
+          loadingService.close(loadId);
         });
     },
     async removeSpaceFeature(organisationId: string, edit: spaceFeature) {

@@ -49,13 +49,16 @@ export const Spaces = defineStore("Spaces", {
     };
   },
   actions: {
+    setSpace(space: DetailedSpace) {
+      this.space = space;
+      this.currentSpace = space.spaceName;
+    },
     async getSpaceDetails(spaceId: string) {
       const loadId = loadingService.show("Loading...");
       adminAPI
         .get<DetailedSpace>(`/Space/${spaceId}/Details`)
         .then((response) => {
-          this.space = response.data;
-          this.currentSpace = response.data.spaceName;
+          this.setSpace(response.data);
           confirmToLeaveService.setEditing(false);
           const { organisationDetails } = Organisations();
 
@@ -669,7 +672,12 @@ export const Spaces = defineStore("Spaces", {
         )
         .then((response) => {
           this.integration = response.data;
-          toastService.show("Success", "Integration linked successfully", "success", "bottom");
+          toastService.show(
+            "Success",
+            "Integration linked successfully",
+            "success",
+            "bottom"
+          );
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
@@ -690,7 +698,12 @@ export const Spaces = defineStore("Spaces", {
         .then((response) => {
           this.integration = response.data;
           this.getIntegrations(spaceId);
-          toastService.show("Success", "Integration updated successfully", "success", "bottom");
+          toastService.show(
+            "Success",
+            "Integration updated successfully",
+            "success",
+            "bottom"
+          );
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
