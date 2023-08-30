@@ -24,7 +24,10 @@
       </div>
     </div>
     <ion-content>
-      <SearchSpace v-if="state.searchTerm" :spaces="state.spaces" />
+      <SearchSpace
+        v-if="state.searchTerm && !state.isSearching"
+        :spaces="state.spaces"
+      />
       <router-view v-else-if="state.isLoaded"></router-view>
     </ion-content>
   </ion-page>
@@ -57,12 +60,14 @@ interface State {
   searchTerm: string;
   spaces: Space[];
   isLoaded: boolean;
+  isSearching: boolean;
 }
 
 const state: State = reactive({
   searchTerm: "",
   spaces: [],
   isLoaded: false,
+  isSearching: false,
 });
 
 watch(
@@ -78,6 +83,7 @@ watch(
 
 const searchSpace = (term: string) => {
   const loadId = loadingService.show("Loading...");
+  state.isSearching = true;
   publicAPI
     .get(`/Dashboard/Find?request=${term}`)
     .then((response) => {
@@ -89,6 +95,7 @@ const searchSpace = (term: string) => {
     })
     .finally(() => {
       loadingService.close(loadId);
+      state.isSearching = false;
     });
 };
 
