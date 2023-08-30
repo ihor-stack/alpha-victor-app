@@ -6,6 +6,7 @@
           <div class="inner-container">
             <div class="content-container">
               <ion-spinner></ion-spinner>
+              <iframe name="authWindow"></iframe>
             </div>
           </div>
         </div>
@@ -18,13 +19,45 @@
 import { IonContent, IonSpinner, IonPage } from "@ionic/vue";
 import { useRouter, useRoute  } from "vue-router";
 import Auth from "@/auth";
-import { onBeforeMount } from "vue";
+import { auth as useAuthStore } from "@/stores/authStore";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+import { Account as useAccountStore } from "@/stores/publicAccount";
+import { onMounted } from "vue";
+import mixpanel from "mixpanel-browser";
 
 const router = useRouter();
 const route = useRoute();
+const authStore = useAuthStore();
+const organisationStore = useOrganisationStore();
+const accountStore = useAccountStore();
 const authService = new Auth();
 
-onBeforeMount(async () => {
+const doLogin = async (strLoginToken : string) => {
+  const authRes = await authService.authenticate(true, strLoginToken);
+
+  if (authRes) {
+    authStore.setAuthStatus(true);
+    const accountRes = await accountStore.getAccount();
+    
+    if (accountRes?.email) {
+      mixpanel.track("User Authenicated", { email: accountRes.email });
+    }
+
+    await accountStore.getPermissions();
+    const orgsRes = await organisationStore.getOrganisations();
+    if (orgsRes && orgsRes.length > 0) {
+      await organisationStore.getOrgTheme(orgsRes[0].organisationId);
+    }      
+    
+    return router.replace({ name: "Dashboard" });
+
+  } else {
+    authStore.setAuthStatus(false);
+    return router.replace({ name: "Home" });
+  }
+}
+
+onMounted(async () => {
 
   const loginToken = route.query.token;
 
@@ -33,15 +66,10 @@ onBeforeMount(async () => {
     return router.replace({ name: "Home" });
   }
 
-  const strLoginToken = loginToken as string;  
+  const strLoginToken = loginToken as string;
 
-  const authRes = await authService.authenticate(true, strLoginToken);
+  await doLogin(strLoginToken);
 
-  if (authRes) {
-    return router.replace({ name: "Dashboard" });
-  } else {
-    return router.replace({ name: "Home" });
-  }
 })
 
 </script>
@@ -59,5 +87,9 @@ onBeforeMount(async () => {
     width: 500px;
     margin: auto;
   }
+}
+
+iframe {
+  visibility: hidden;
 }
 </style>

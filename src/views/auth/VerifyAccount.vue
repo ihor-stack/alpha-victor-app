@@ -6,6 +6,7 @@
           <div class="inner-container">
             <div class="content-container">
               <ion-spinner></ion-spinner>
+              <iframe name="authWindow"></iframe>
             </div>
           </div>
         </div>
@@ -16,13 +17,14 @@
 
 <script setup lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
-import { onBeforeMount } from "vue";
+import { onMounted } from "vue";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { useRoute, useRouter } from 'vue-router';
 import Auth from '@/auth';
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import toastService from '@/services/toastService';
+import mixpanel from "mixpanel-browser";
 
 const router = useRouter();
 const route = useRoute();
@@ -31,7 +33,7 @@ const authStore = useAuthStore();
 const accountStore = useAccountStore();
 const organisationStore = useOrganisationStore();
 
-onBeforeMount(async () => {
+onMounted(async () => {
 
   const token = route.query.token;
 
@@ -42,7 +44,7 @@ onBeforeMount(async () => {
 
   const strVerificationToken = token as string;  
 
-  confirmVerificationToken(strVerificationToken);
+  await confirmVerificationToken(strVerificationToken);
 
 });
 
@@ -58,10 +60,17 @@ const confirmVerificationToken = async (token: string) => {
     toastService.show("Success", "Your account has been verified.", "success", "bottom");
     
     authStore.setAuthStatus(true);
-    await accountStore.getAccount();
-    await organisationStore.getOrganisations();
+    const accountRes = await accountStore.getAccount();
     
+    if (accountRes?.email) {
+      mixpanel.track("User Authenicated", { email: accountRes.email });
+    }
+
     await accountStore.getPermissions();
+    const orgsRes = await organisationStore.getOrganisations();
+    if (orgsRes && orgsRes.length > 0) {
+      await organisationStore.getOrgTheme(orgsRes[0].organisationId);
+    }   
 
     router.replace({ name: "AllowAccess" });
   } catch (error) {
@@ -136,4 +145,9 @@ ion-button:first-of-type {
     margin: auto;
   }
 }
+
+iframe {
+  visibility: hidden;
+}
+
 </style>
