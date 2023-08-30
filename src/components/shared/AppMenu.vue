@@ -218,9 +218,7 @@ import Auth from "@/auth";
 import AppHeader from "./AppHeader.vue";
 import { Account as useAccountStore } from "@/stores/publicAccount";
 import { auth as useAuthStore } from "@/stores/authStore";
-import {
-  Organisations as useOrganisationStore,
-} from "@/stores/publicOrganisations";
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 
 const router = useRouter();
 const authService = new Auth();
@@ -289,6 +287,7 @@ ion-item::part(detail-icon) {
   --padding-start: 0;
   --padding-end: 0;
   --inner-padding-end: 0;
+  --color: #ffffff;
 }
 
 .nav-menu-link ion-item ion-icon {
