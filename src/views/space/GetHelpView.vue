@@ -20,7 +20,7 @@
       <GetHelpList></GetHelpList>
     </ion-content>
     <ion-footer
-      v-if="!currentSpace.sosNumberPublic || userPermission.isVipUser"
+      v-if="currentSpace.sosNumberPublic || userPermission.isVipUser"
     >
       <div
         class="sos-container"

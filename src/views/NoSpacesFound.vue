@@ -1,20 +1,8 @@
 <template>
   <ion-page id="dashboard" class="outer-container">
-    <app-header :no-background="true">
+    <app-header v-if="isMobileView" :no-background="true">
       <template #start>
         <ion-menu-button fill="solid"> </ion-menu-button>
-      </template>
-      <template v-if="!isGuestUser" #end>
-        <ion-button
-          class="switch-organisation"
-          shape="round"
-          @click="state.modalOpen = true"
-        >
-          <img
-            src="@/theme/icons/switch-location.svg"
-            :alt="$t('pages.dashboard.alt')"
-          />
-        </ion-button>
       </template>
     </app-header>
     
@@ -36,11 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, onMounted, onBeforeUnmount } from "vue";
 import {
   IonPage,
   IonContent,
-  IonButton,
   IonMenuButton,
   IonItem,
   IonLabel,
@@ -57,6 +44,15 @@ const isMobileView = ref(false);
 const updateView = () => {
   isMobileView.value = window.matchMedia("(max-width: 1063px)").matches;
 };
+
+onMounted(() => {
+  window.addEventListener("resize", updateView);
+  updateView(); // call once on mounted to set the initial state
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", updateView);
+});
 </script>
 
 <style scoped>

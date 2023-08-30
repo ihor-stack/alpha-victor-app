@@ -760,7 +760,7 @@ export default {
         selectStatusHeader: "Select Status",
         lowImpactLabel: "low.impact",
         highImpactLabel: "high.impact",
-        resolveLabel: "Resolve",
+        resolveLabel: "resolved",
         statusHeader: "status",
       },
       newFloorModal: {
