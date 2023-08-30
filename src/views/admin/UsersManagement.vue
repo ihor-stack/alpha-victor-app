@@ -73,9 +73,10 @@
             interface="action-sheet"
             class="modal-panel__select-organisation__select"
             :placeholder="$t('pages.admin.users.placeholder')"
-            :value="row.userGroups[0]?.id"
-            @ion-change="
-              handleChangeRole(
+            :value="row.userGroups.map((item) => item.id)"
+            :multiple="true"
+            @ionChange="
+              handleChangeOrganisationRole(
                 row.id,
                 row.organisations[0].id || '',
                 $event.detail.value
@@ -227,6 +228,22 @@ const handleChangeRole = (userId: string, orgId: string, groupId: string) => {
   usersStore.assignRole(orgId, userId, groupId);
 };
 
+const handleChangeOrganisationRole = (
+  userId: string,
+  orgId: string,
+  groupIds: string[]
+) => {
+  const requestBody = {
+    userGroups: [
+      {
+        organisationId: orgId,
+        groupIds,
+      },
+    ],
+  };
+  usersStore.updateUserRole(userId, requestBody, false);
+};
+
 const onClickAction = (row: SingleUserResponse) => {
   state.currentUser = row;
   state.assignedOrganisations = row.organisations.map((org) => ({
@@ -254,12 +271,6 @@ const handleClickSave = (orgId: string) => {
   if (userGroupId?.value) {
     handleChangeRole(state.currentUser.id, orgId, userGroupId.value);
   }
-  toastService.show(
-    "Success",
-    "Users role updated successfully",
-    "success",
-    "bottom"
-  );
   state.openEditModal = false;
 };
 
@@ -276,12 +287,6 @@ const handleSavePermission = (groupIds: string[]) => {
     })),
   };
   usersStore.updateUserRole(state.currentUser.id, requestBody);
-  toastService.show(
-    "Success",
-    "Users permissions updated successfully",
-    "success",
-    "bottom"
-  );
   state.openPermissionModal = false;
 };
 

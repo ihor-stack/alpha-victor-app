@@ -48,12 +48,24 @@ export const adminUsers = defineStore("adminUsers", {
           loadingService.close(loadId);
         });
     },
-    async updateUserRole(id: string, requestBody: UserGroupRequest) {
+    async updateUserRole(
+      id: string,
+      requestBody: UserGroupRequest,
+      shouldRefresh = true
+    ) {
       const loadId = loadingService.show("Loading...");
       adminAPI
         .patch(`/User/${id}`, requestBody)
         .then(() => {
-          this.getUsers();
+          if (shouldRefresh) {
+            this.getUsers();
+          }
+          toastService.show(
+            "Success",
+            "Users permissions updated successfully",
+            "success",
+            "bottom"
+          );
         })
         .catch((error) => {
           toastService.show("Error", error, "error", "bottom");
@@ -85,6 +97,12 @@ export const adminUsers = defineStore("adminUsers", {
           `/User/AssignRole?organisationId=${organisationId}&userId=${userId}&groupId=${groupId}`
         )
         .then(() => {
+          toastService.show(
+            "Success",
+            "Users role updated successfully",
+            "success",
+            "bottom"
+          );
           this.getUsers();
         })
         .catch((error) => {
