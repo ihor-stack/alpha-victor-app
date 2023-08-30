@@ -4,9 +4,7 @@
       <div class="outer-container onboarding">
         <div class="gradient-container">
           <div class="inner-container">
-            <div class="content-container">
-              <ion-spinner></ion-spinner>
-            </div>
+            <div class="content-container"></div>
           </div>
         </div>
       </div>
@@ -15,37 +13,55 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonSpinner, IonPage } from "@ionic/vue";
-import { useRouter, useRoute  } from "vue-router";
+import { IonContent, IonPage } from "@ionic/vue";
+import { useRouter, useRoute } from "vue-router";
 import Auth from "@/auth";
 import { onBeforeMount } from "vue";
-import { Spaces as useSpacesStore } from "@/stores/publicSpaces";
+import { auth as useAuthStore } from "@/stores/authStore";
+import { Account as useAccountStore } from "@/stores/publicAccount";
+import { globalAPI } from "@/axios";
+import toastService from "@/services/toastService";
+import loadingService from "@/services/loadingService";
 
 const router = useRouter();
 const route = useRoute();
 const authService = new Auth();
-const spacesStore = useSpacesStore();
 
 onBeforeMount(async () => {
-
   const spaceShortCode = route.params.spaceShortcode;
+  const authStore = useAuthStore();
+  const accountStore = useAccountStore();
 
   if (!spaceShortCode) {
     // Redirect to login.
     return router.replace({ name: "Home" });
   }
 
-  const spaceResp = await spacesStore.getSpaceByQr(spaceShortCode  as string);
+  const loadId = loadingService.show("Loading...");
 
-  if (!spaceResp) return;
-
-  // Store the Guest token.
-  authService.storeGuestAccessToken(spaceResp.guestAccessToken);
-
-  router.push(`/space/${spaceResp.spaceId}`);
-
-})
-
+  globalAPI
+    .get(`Space/SpaceByQR/${spaceShortCode as string}`)
+    .then((response) => {
+      if (response?.data?.spaceId) {
+        authService.storeGuestAccessToken(
+          response?.data?.guestAccessToken,
+          authStore.isAuthenticated
+        );
+        accountStore.getPermissions().then(() => {
+          // router.push(`/space/${response.data.spaceId}`);
+        });
+      }
+    })
+    .catch(() => {
+      toastService.show(
+        "Error",
+        "The QR code is not valid.",
+        "error",
+        "bottom"
+      );
+      loadingService.close(loadId);
+    });
+});
 </script>
 
 <style scoped>
