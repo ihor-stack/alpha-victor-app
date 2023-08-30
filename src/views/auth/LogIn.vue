@@ -83,18 +83,23 @@ const signIn = async () => {
   const authRes = await authService.authenticate(false);
 
   if (authRes) {
+
     authStore.setAuthStatus(true);
-    accountStore.getAccount().then((res) => {
-      if (res?.email) {
-        mixpanel.track("User Authenicated", { email: res.email });
-      }
-    });
+    const accountRes = await accountStore.getAccount();
+    
+    if (accountRes?.email) {
+      mixpanel.track("User Authenicated", { email: accountRes.email });
+    }
+
     await accountStore.getPermissions();
-    organisationStore.getOrganisations().then(async (res: any) => {
-      await organisationStore.getOrgTheme(res[0].organisationId);
-      return router.replace({ name: "Dashboard" });
-    });
+    const orgsRes = await organisationStore.getOrganisations();
+    if (orgsRes && orgsRes.length > 0) {
+      await organisationStore.getOrgTheme(orgsRes[0].organisationId);
+    }      
+    
     loadingService.close(loadId);
+    return router.replace({ name: "Dashboard" });
+    
   } else {
     authStore.setAuthStatus(false);
     loadingService.close(loadId);

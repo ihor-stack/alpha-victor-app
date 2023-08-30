@@ -42,6 +42,7 @@ import { onBeforeMount, watch, computed, ref, provide } from "vue";
 import { IonApp } from "@ionic/vue";
 import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
+import mixpanel from "mixpanel-browser";
 import AppMenu from "./components/shared/AppMenu.vue";
 import CustomToast from "@/components/shared/CustomToast.vue";
 import LoadingIndicator from "@/components/shared/LoadingIndicator.vue";
@@ -59,6 +60,7 @@ import loadingService from "./services/loadingService";
 import confirmToLeaveService from "./services/confirmToLeaveService";
 import Auth from "@/auth";
 
+
 const route = useRoute();
 const router = useRouter();
 const authService = new Auth();
@@ -67,6 +69,17 @@ const isScanning = ref(false);
 provide("isScanning", isScanning);
 
 const initComplete = ref(false);
+
+import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
+const accountStore = useAccountStore();
+const authStore = useAuthStore();
+
+const organisationStore = useOrganisationStore();
+const { currentOrganisationId, theme } = storeToRefs(organisationStore);
+const { userPermission } = storeToRefs(accountStore);
+const { isAuthenticated } = storeToRefs(authStore);
+
+const path = computed(() => route.path);
 
 App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
   if (!event.url) return;
@@ -92,8 +105,20 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
     const authRes = await authService.authenticate(true, strLoginToken);
 
     if (authRes) {
+
       authStore.setAuthStatus(true);
-      return router.replace({ name: "Dashboard" });
+      const accountRes = await accountStore.getAccount();
+    
+      if (accountRes?.email) {
+        mixpanel.track("User Authenicated", { email: accountRes.email });
+      }
+
+      await accountStore.getPermissions();
+      const orgsRes = await organisationStore.getOrganisations();
+      if (orgsRes && orgsRes.length > 0) {
+        await organisationStore.getOrgTheme(orgsRes[0].organisationId);
+      }   
+      
     } else {
       authStore.setAuthStatus(false);
       return router.replace({ name: "Home" });
@@ -132,17 +157,6 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
     router.replace(slug);
   }
 });
-
-import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
-const accountStore = useAccountStore();
-const authStore = useAuthStore();
-
-const organisationStore = useOrganisationStore();
-const { currentOrganisationId, theme } = storeToRefs(organisationStore);
-const { userPermission } = storeToRefs(accountStore);
-const { isAuthenticated } = storeToRefs(authStore);
-
-const path = computed(() => route.path);
 
 const updateTheme = (theme: Theme) => {
   document.body.classList.toggle(

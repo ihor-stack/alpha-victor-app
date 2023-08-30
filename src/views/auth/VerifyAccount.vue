@@ -23,6 +23,7 @@ import Auth from '@/auth';
 import { auth as useAuthStore } from "@/stores/authStore";
 import { Organisations as useOrganisationStore } from "@/stores/publicOrganisations";
 import toastService from '@/services/toastService';
+import mixpanel from "mixpanel-browser";
 
 const router = useRouter();
 const route = useRoute();
@@ -58,10 +59,17 @@ const confirmVerificationToken = async (token: string) => {
     toastService.show("Success", "Your account has been verified.", "success", "bottom");
     
     authStore.setAuthStatus(true);
-    await accountStore.getAccount();
-    await organisationStore.getOrganisations();
+    const accountRes = await accountStore.getAccount();
     
+    if (accountRes?.email) {
+      mixpanel.track("User Authenicated", { email: accountRes.email });
+    }
+
     await accountStore.getPermissions();
+    const orgsRes = await organisationStore.getOrganisations();
+    if (orgsRes && orgsRes.length > 0) {
+      await organisationStore.getOrgTheme(orgsRes[0].organisationId);
+    }   
 
     router.replace({ name: "AllowAccess" });
   } catch (error) {
