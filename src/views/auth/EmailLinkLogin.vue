@@ -5,7 +5,6 @@
         <div class="gradient-container">
           <div class="inner-container">
             <div class="content-container">
-              <ion-spinner></ion-spinner>
               <iframe name="authWindow"></iframe>
             </div>
           </div>
@@ -16,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonSpinner, IonPage } from "@ionic/vue";
+import { IonContent, IonPage } from "@ionic/vue";
 import { useRouter, useRoute  } from "vue-router";
 import Auth from "@/auth";
 import { auth as useAuthStore } from "@/stores/authStore";
