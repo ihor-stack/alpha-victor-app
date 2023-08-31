@@ -118,6 +118,8 @@ App.addListener("appUrlOpen", async (event: URLOpenListenerEvent) => {
       if (orgsRes && orgsRes.length > 0) {
         await organisationStore.getOrgTheme(orgsRes[0].organisationId);
       }   
+
+      return router.replace({ name: "Dashboard" });
       
     } else {
       authStore.setAuthStatus(false);
