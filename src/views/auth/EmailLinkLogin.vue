@@ -52,7 +52,7 @@ const doLogin = async (strLoginToken : string) => {
 
   } else {
     authStore.setAuthStatus(false);
-    return router.replace({ name: "Home" });
+    return router.replace({ name: "Dashboard" });
   }
 }
 
